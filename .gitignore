@@ -1,0 +1,15 @@
+# Local clutter and regenerated scratch work
+.DS_Store
+Thumbs.db
+desktop.ini
+__pycache__/
+*.pyc
+node_modules/
+.venv/
+venv/
+work/
+.env
+.env.*
+!.env.example
+# Complete-project distribution ZIP, kept outside tracked source content
+/Charon_Shared_Project.zip

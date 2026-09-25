@@ -1,0 +1,863 @@
+{
+  "title": "The Ferryman digital paper trial",
+  "format": "ferryman-play-log-1",
+  "rulesVersion": "0.2",
+  "exportedAt": "2026-09-18T06:48:29.037Z",
+  "startedAt": "2026-09-17T19:08:53.194Z",
+  "timingNote": "Planning wall time includes pauses, closed tabs and time reading results. This is not active decision time.",
+  "decisions": [
+    {
+      "selection": {
+        "routeId": "AS01",
+        "soulIds": [
+          "S01",
+          "S02",
+          "S05"
+        ],
+        "memoryKey": null,
+        "targetId": null
+      },
+      "at": "2026-09-18T06:45:49.518Z",
+      "planningWallSeconds": 41816
+    },
+    {
+      "selection": {
+        "routeId": "TA01",
+        "soulIds": [
+          "S03",
+          "S04",
+          "S06"
+        ],
+        "memoryKey": "memory-S01",
+        "targetId": "S08"
+      },
+      "at": "2026-09-18T06:46:34.662Z",
+      "planningWallSeconds": 45
+    },
+    {
+      "selection": {
+        "routeId": "TA01",
+        "soulIds": [
+          "S07",
+          "S08",
+          "S09"
+        ],
+        "memoryKey": "memory-S03",
+        "targetId": null
+      },
+      "at": "2026-09-18T06:47:03.443Z",
+      "planningWallSeconds": 29
+    },
+    {
+      "selection": {
+        "routeId": "TA01",
+        "soulIds": [
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "memoryKey": "memory-S04",
+        "targetId": null
+      },
+      "at": "2026-09-18T06:47:32.131Z",
+      "planningWallSeconds": 29
+    },
+    {
+      "selection": {
+        "routeId": "AS01",
+        "soulIds": [],
+        "memoryKey": null,
+        "targetId": null
+      },
+      "at": "2026-09-18T06:47:44.068Z",
+      "planningWallSeconds": 12
+    },
+    {
+      "selection": {
+        "routeId": "AS01",
+        "soulIds": [],
+        "memoryKey": "memory-S09",
+        "targetId": null
+      },
+      "at": "2026-09-18T06:48:14.912Z",
+      "planningWallSeconds": 31
+    }
+  ],
+  "notes": "Agent browser test: all 12 souls delivered by crossing 4; crossings 5 and 6 had empty shores. Linked memory protected Mason on crossing 2. This is a guided functional/design review, not a human playtest.",
+  "currentSelection": {
+    "routeId": "AS01",
+    "soulIds": [],
+    "memoryKey": null,
+    "targetId": null
+  },
+  "finalState": {
+    "version": "0.2",
+    "crossing": 6,
+    "status": "won",
+    "lossReason": null,
+    "obols": 5,
+    "standing": 2,
+    "shore": [],
+    "supply": [],
+    "wraiths": [],
+    "queue": [
+      {
+        "key": "memory-S11",
+        "sourceId": "S11",
+        "type": "R05"
+      },
+      {
+        "key": "memory-S12",
+        "sourceId": "S12",
+        "type": "R05"
+      }
+    ],
+    "hand": [],
+    "discard": [
+      {
+        "key": "memory-S01",
+        "sourceId": "S01",
+        "type": "R05"
+      },
+      {
+        "key": "memory-S02",
+        "sourceId": "S02",
+        "type": "R05"
+      },
+      {
+        "key": "memory-S03",
+        "sourceId": "S03",
+        "type": "R02"
+      },
+      {
+        "key": "memory-S05",
+        "sourceId": "S05",
+        "type": "R03"
+      },
+      {
+        "key": "memory-S04",
+        "sourceId": "S04",
+        "type": "R04"
+      },
+      {
+        "key": "memory-S06",
+        "sourceId": "S06",
+        "type": "R04"
+      },
+      {
+        "key": "memory-S07",
+        "sourceId": "S07",
+        "type": "R03"
+      },
+      {
+        "key": "memory-S08",
+        "sourceId": "S08",
+        "type": "R02"
+      },
+      {
+        "key": "memory-S09",
+        "sourceId": "S09",
+        "type": "R01"
+      },
+      {
+        "key": "memory-S10",
+        "sourceId": "S10",
+        "type": "R01"
+      }
+    ],
+    "history": [
+      {
+        "crossing": 1,
+        "routeId": "AS01",
+        "soulId": "S01",
+        "residueType": "R05"
+      },
+      {
+        "crossing": 1,
+        "routeId": "AS01",
+        "soulId": "S02",
+        "residueType": "R05"
+      },
+      {
+        "crossing": 1,
+        "routeId": "AS01",
+        "soulId": "S05",
+        "residueType": "R03"
+      },
+      {
+        "crossing": 2,
+        "routeId": "TA01",
+        "soulId": "S03",
+        "residueType": "R02"
+      },
+      {
+        "crossing": 2,
+        "routeId": "TA01",
+        "soulId": "S04",
+        "residueType": "R04"
+      },
+      {
+        "crossing": 2,
+        "routeId": "TA01",
+        "soulId": "S06",
+        "residueType": "R04"
+      },
+      {
+        "crossing": 3,
+        "routeId": "TA01",
+        "soulId": "S07",
+        "residueType": "R03"
+      },
+      {
+        "crossing": 3,
+        "routeId": "TA01",
+        "soulId": "S08",
+        "residueType": "R02"
+      },
+      {
+        "crossing": 3,
+        "routeId": "TA01",
+        "soulId": "S09",
+        "residueType": "R01"
+      },
+      {
+        "crossing": 4,
+        "routeId": "TA01",
+        "soulId": "S10",
+        "residueType": "R01"
+      },
+      {
+        "crossing": 4,
+        "routeId": "TA01",
+        "soulId": "S11",
+        "residueType": "R05"
+      },
+      {
+        "crossing": 4,
+        "routeId": "TA01",
+        "soulId": "S12",
+        "residueType": "R05"
+      }
+    ],
+    "log": [
+      {
+        "valid": true,
+        "errors": [],
+        "seats": 4,
+        "toll": 0,
+        "memoryCost": 0,
+        "routePressure": 1,
+        "wraithPressure": 0,
+        "conflictPressure": 0,
+        "protection": 1,
+        "protectionSources": [
+          {
+            "label": "Poet",
+            "value": 1
+          }
+        ],
+        "pressure": 0,
+        "standingAfterLoad": 3,
+        "standingAfterCross": 3,
+        "obolsAfterLoad": 2,
+        "fares": 0,
+        "standingYield": 3,
+        "service": 0,
+        "quotaDue": 0,
+        "projectedObols": 2,
+        "projectedStanding": 6,
+        "wouldFail": null,
+        "waiting": [
+          {
+            "id": "S03",
+            "before": 0,
+            "normal": 1,
+            "separation": 0,
+            "after": 1,
+            "becomesWraith": false,
+            "prevented": false
+          },
+          {
+            "id": "S04",
+            "before": 0,
+            "normal": 1,
+            "separation": 0,
+            "after": 1,
+            "becomesWraith": false,
+            "prevented": false
+          }
+        ],
+        "newMemories": [
+          {
+            "key": "memory-S01",
+            "sourceId": "S01",
+            "type": "R05"
+          },
+          {
+            "key": "memory-S02",
+            "sourceId": "S02",
+            "type": "R05"
+          },
+          {
+            "key": "memory-S05",
+            "sourceId": "S05",
+            "type": "R03"
+          }
+        ],
+        "passengerIds": [
+          "S01",
+          "S02",
+          "S05"
+        ],
+        "mayTarget": false,
+        "crossing": 1,
+        "routeId": "AS01",
+        "memory": null,
+        "targetId": null,
+        "before": {
+          "obols": 2,
+          "standing": 3
+        },
+        "after": {
+          "obols": 2,
+          "standing": 6
+        },
+        "outcome": "playing",
+        "steps": [
+          {
+            "phase": "Load",
+            "text": "Depart for Asphodel with 3 souls using 4/4 seats. Pay 0 obols and 0 Standing."
+          },
+          {
+            "phase": "Cross",
+            "text": "Pressure 0 is paid from Standing. 3 Standing remains."
+          },
+          {
+            "phase": "Arrive",
+            "text": "3 souls arrive. Gain 0 fare obols, 0 service obols, 3 Standing, and 3 memories."
+          },
+          {
+            "phase": "Quota",
+            "text": "No quota is due on this crossing."
+          },
+          {
+            "phase": "Decay",
+            "text": "S03: 0 to 1 refusals; S04: 0 to 1 refusals."
+          },
+          {
+            "phase": "Cleanup",
+            "text": "Discard unplayed hand cards in order."
+          },
+          {
+            "phase": "Shore",
+            "text": "Crossing 2: add S06, S07, S08 from supply. 5 souls are on shore."
+          },
+          {
+            "phase": "Recall",
+            "text": "Draw 2 memories from the ordered queue, recycling oldest discard first only when the queue is empty."
+          }
+        ]
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "seats": 4,
+        "toll": 0,
+        "memoryCost": 1,
+        "routePressure": 2,
+        "wraithPressure": 0,
+        "conflictPressure": 1,
+        "protection": 2,
+        "protectionSources": [
+          {
+            "label": "Joined Memory",
+            "value": 2
+          }
+        ],
+        "pressure": 1,
+        "standingAfterLoad": 5,
+        "standingAfterCross": 4,
+        "obolsAfterLoad": 2,
+        "fares": 3,
+        "standingYield": 0,
+        "service": 1,
+        "quotaDue": 0,
+        "projectedObols": 6,
+        "projectedStanding": 4,
+        "wouldFail": null,
+        "waiting": [
+          {
+            "id": "S07",
+            "before": 0,
+            "normal": 1,
+            "separation": 0,
+            "after": 1,
+            "becomesWraith": false,
+            "prevented": false
+          },
+          {
+            "id": "S08",
+            "before": 0,
+            "normal": 0,
+            "separation": 0,
+            "after": 0,
+            "becomesWraith": false,
+            "prevented": true
+          }
+        ],
+        "newMemories": [
+          {
+            "key": "memory-S03",
+            "sourceId": "S03",
+            "type": "R02"
+          },
+          {
+            "key": "memory-S04",
+            "sourceId": "S04",
+            "type": "R04"
+          },
+          {
+            "key": "memory-S06",
+            "sourceId": "S06",
+            "type": "R04"
+          }
+        ],
+        "passengerIds": [
+          "S03",
+          "S04",
+          "S06"
+        ],
+        "mayTarget": true,
+        "crossing": 2,
+        "routeId": "TA01",
+        "memory": {
+          "key": "memory-S01",
+          "sourceId": "S01",
+          "type": "R05"
+        },
+        "targetId": "S08",
+        "before": {
+          "obols": 2,
+          "standing": 6
+        },
+        "after": {
+          "obols": 6,
+          "standing": 4
+        },
+        "outcome": "playing",
+        "steps": [
+          {
+            "phase": "Load",
+            "text": "Depart for Tartarus with 3 souls using 4/4 seats. Pay 0 obols and 1 Standing."
+          },
+          {
+            "phase": "Cross",
+            "text": "Pressure 1 is paid from Standing. 4 Standing remains."
+          },
+          {
+            "phase": "Arrive",
+            "text": "3 souls arrive. Gain 3 fare obols, 1 service obols, 0 Standing, and 3 memories."
+          },
+          {
+            "phase": "Quota",
+            "text": "No quota is due on this crossing."
+          },
+          {
+            "phase": "Decay",
+            "text": "S07: 0 to 1 refusals; S08: 0 to 0 refusals (normal refusal prevented)."
+          },
+          {
+            "phase": "Cleanup",
+            "text": "Discard the played memory first, then unplayed hand cards in order."
+          },
+          {
+            "phase": "Shore",
+            "text": "Crossing 3: add S09, S10, S11 from supply. 5 souls are on shore."
+          },
+          {
+            "phase": "Recall",
+            "text": "Draw 2 memories from the ordered queue, recycling oldest discard first only when the queue is empty."
+          }
+        ]
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "seats": 4,
+        "toll": 0,
+        "memoryCost": 1,
+        "routePressure": 2,
+        "wraithPressure": 0,
+        "conflictPressure": 0,
+        "protection": 3,
+        "protectionSources": [
+          {
+            "label": "Vigil",
+            "value": 3
+          }
+        ],
+        "pressure": 0,
+        "standingAfterLoad": 3,
+        "standingAfterCross": 3,
+        "obolsAfterLoad": 6,
+        "fares": 2,
+        "standingYield": 1,
+        "service": 1,
+        "quotaDue": 3,
+        "projectedObols": 6,
+        "projectedStanding": 4,
+        "wouldFail": null,
+        "waiting": [
+          {
+            "id": "S10",
+            "before": 0,
+            "normal": 1,
+            "separation": 0,
+            "after": 1,
+            "becomesWraith": false,
+            "prevented": false
+          },
+          {
+            "id": "S11",
+            "before": 0,
+            "normal": 1,
+            "separation": 0,
+            "after": 1,
+            "becomesWraith": false,
+            "prevented": false
+          }
+        ],
+        "newMemories": [
+          {
+            "key": "memory-S07",
+            "sourceId": "S07",
+            "type": "R03"
+          },
+          {
+            "key": "memory-S08",
+            "sourceId": "S08",
+            "type": "R02"
+          },
+          {
+            "key": "memory-S09",
+            "sourceId": "S09",
+            "type": "R01"
+          }
+        ],
+        "passengerIds": [
+          "S07",
+          "S08",
+          "S09"
+        ],
+        "mayTarget": false,
+        "crossing": 3,
+        "routeId": "TA01",
+        "memory": {
+          "key": "memory-S03",
+          "sourceId": "S03",
+          "type": "R02"
+        },
+        "targetId": null,
+        "before": {
+          "obols": 6,
+          "standing": 4
+        },
+        "after": {
+          "obols": 6,
+          "standing": 4
+        },
+        "outcome": "playing",
+        "steps": [
+          {
+            "phase": "Load",
+            "text": "Depart for Tartarus with 3 souls using 4/4 seats. Pay 0 obols and 1 Standing."
+          },
+          {
+            "phase": "Cross",
+            "text": "Pressure 0 is paid from Standing. 3 Standing remains."
+          },
+          {
+            "phase": "Arrive",
+            "text": "3 souls arrive. Gain 2 fare obols, 1 service obols, 1 Standing, and 3 memories."
+          },
+          {
+            "phase": "Quota",
+            "text": "Pay the 3-obol quota. 6 obols remain."
+          },
+          {
+            "phase": "Decay",
+            "text": "S10: 0 to 1 refusals; S11: 0 to 1 refusals."
+          },
+          {
+            "phase": "Cleanup",
+            "text": "Discard the played memory first, then unplayed hand cards in order."
+          },
+          {
+            "phase": "Shore",
+            "text": "Crossing 4: add S12 from supply. 3 souls are on shore."
+          },
+          {
+            "phase": "Recall",
+            "text": "Draw 2 memories from the ordered queue, recycling oldest discard first only when the queue is empty."
+          }
+        ]
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "seats": 4,
+        "toll": 0,
+        "memoryCost": 1,
+        "routePressure": 2,
+        "wraithPressure": 0,
+        "conflictPressure": 0,
+        "protection": 1,
+        "protectionSources": [
+          {
+            "label": "Accord",
+            "value": 1
+          }
+        ],
+        "pressure": 1,
+        "standingAfterLoad": 3,
+        "standingAfterCross": 2,
+        "obolsAfterLoad": 6,
+        "fares": 1,
+        "standingYield": 2,
+        "service": 1,
+        "quotaDue": 0,
+        "projectedObols": 8,
+        "projectedStanding": 4,
+        "wouldFail": null,
+        "waiting": [],
+        "newMemories": [
+          {
+            "key": "memory-S10",
+            "sourceId": "S10",
+            "type": "R01"
+          },
+          {
+            "key": "memory-S11",
+            "sourceId": "S11",
+            "type": "R05"
+          },
+          {
+            "key": "memory-S12",
+            "sourceId": "S12",
+            "type": "R05"
+          }
+        ],
+        "passengerIds": [
+          "S10",
+          "S11",
+          "S12"
+        ],
+        "mayTarget": false,
+        "crossing": 4,
+        "routeId": "TA01",
+        "memory": {
+          "key": "memory-S04",
+          "sourceId": "S04",
+          "type": "R04"
+        },
+        "targetId": null,
+        "before": {
+          "obols": 6,
+          "standing": 4
+        },
+        "after": {
+          "obols": 8,
+          "standing": 4
+        },
+        "outcome": "playing",
+        "steps": [
+          {
+            "phase": "Load",
+            "text": "Depart for Tartarus with 3 souls using 4/4 seats. Pay 0 obols and 1 Standing."
+          },
+          {
+            "phase": "Cross",
+            "text": "Pressure 1 is paid from Standing. 2 Standing remains."
+          },
+          {
+            "phase": "Arrive",
+            "text": "3 souls arrive. Gain 1 fare obols, 1 service obols, 2 Standing, and 3 memories."
+          },
+          {
+            "phase": "Quota",
+            "text": "No quota is due on this crossing."
+          },
+          {
+            "phase": "Decay",
+            "text": "No souls remain waiting."
+          },
+          {
+            "phase": "Cleanup",
+            "text": "Discard the played memory first, then unplayed hand cards in order."
+          },
+          {
+            "phase": "Shore",
+            "text": "Crossing 5: no new souls available. 0 souls are on shore."
+          },
+          {
+            "phase": "Recall",
+            "text": "Draw 2 memories from the ordered queue, recycling oldest discard first only when the queue is empty."
+          }
+        ]
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "seats": 0,
+        "toll": 0,
+        "memoryCost": 0,
+        "routePressure": 1,
+        "wraithPressure": 0,
+        "conflictPressure": 0,
+        "protection": 0,
+        "protectionSources": [],
+        "pressure": 1,
+        "standingAfterLoad": 4,
+        "standingAfterCross": 3,
+        "obolsAfterLoad": 8,
+        "fares": 0,
+        "standingYield": 0,
+        "service": 0,
+        "quotaDue": 0,
+        "projectedObols": 8,
+        "projectedStanding": 3,
+        "wouldFail": null,
+        "waiting": [],
+        "newMemories": [],
+        "passengerIds": [],
+        "mayTarget": false,
+        "crossing": 5,
+        "routeId": "AS01",
+        "memory": null,
+        "targetId": null,
+        "before": {
+          "obols": 8,
+          "standing": 4
+        },
+        "after": {
+          "obols": 8,
+          "standing": 3
+        },
+        "outcome": "playing",
+        "steps": [
+          {
+            "phase": "Load",
+            "text": "Depart for Asphodel with 0 souls using 0/4 seats. Pay 0 obols and 0 Standing."
+          },
+          {
+            "phase": "Cross",
+            "text": "Pressure 1 is paid from Standing. 3 Standing remains."
+          },
+          {
+            "phase": "Arrive",
+            "text": "0 souls arrive. Gain 0 fare obols, 0 service obols, 0 Standing, and 0 memories."
+          },
+          {
+            "phase": "Quota",
+            "text": "No quota is due on this crossing."
+          },
+          {
+            "phase": "Decay",
+            "text": "No souls remain waiting."
+          },
+          {
+            "phase": "Cleanup",
+            "text": "Discard unplayed hand cards in order."
+          },
+          {
+            "phase": "Shore",
+            "text": "Crossing 6: no new souls available. 0 souls are on shore."
+          },
+          {
+            "phase": "Recall",
+            "text": "Draw 2 memories from the ordered queue, recycling oldest discard first only when the queue is empty."
+          }
+        ]
+      },
+      {
+        "valid": true,
+        "errors": [],
+        "seats": 0,
+        "toll": 0,
+        "memoryCost": 1,
+        "routePressure": 1,
+        "wraithPressure": 0,
+        "conflictPressure": 0,
+        "protection": 2,
+        "protectionSources": [
+          {
+            "label": "Steadiness",
+            "value": 2
+          }
+        ],
+        "pressure": 0,
+        "standingAfterLoad": 2,
+        "standingAfterCross": 2,
+        "obolsAfterLoad": 8,
+        "fares": 0,
+        "standingYield": 0,
+        "service": 0,
+        "quotaDue": 3,
+        "projectedObols": 5,
+        "projectedStanding": 2,
+        "wouldFail": null,
+        "waiting": [],
+        "newMemories": [],
+        "passengerIds": [],
+        "mayTarget": false,
+        "crossing": 6,
+        "routeId": "AS01",
+        "memory": {
+          "key": "memory-S09",
+          "sourceId": "S09",
+          "type": "R01"
+        },
+        "targetId": null,
+        "before": {
+          "obols": 8,
+          "standing": 3
+        },
+        "after": {
+          "obols": 5,
+          "standing": 2
+        },
+        "outcome": "won",
+        "steps": [
+          {
+            "phase": "Load",
+            "text": "Depart for Asphodel with 0 souls using 0/4 seats. Pay 0 obols and 1 Standing."
+          },
+          {
+            "phase": "Cross",
+            "text": "Pressure 0 is paid from Standing. 2 Standing remains."
+          },
+          {
+            "phase": "Arrive",
+            "text": "0 souls arrive. Gain 0 fare obols, 0 service obols, 0 Standing, and 0 memories."
+          },
+          {
+            "phase": "Quota",
+            "text": "Pay the 3-obol quota. 5 obols remain."
+          },
+          {
+            "phase": "Decay",
+            "text": "No souls remain waiting."
+          },
+          {
+            "phase": "Cleanup",
+            "text": "Discard the played memory first, then unplayed hand cards in order."
+          },
+          {
+            "phase": "End",
+            "text": "Six crossings completed and both quotas paid. The trial is complete."
+          }
+        ]
+      }
+    ]
+  }
+}

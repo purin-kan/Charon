@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="85mm" height="165mm" viewBox="0 0 850 1650" role="img" aria-labelledby="title desc">
+  <title id="title">The Ferryman: editable destination route panel</title>
+  <desc id="desc">An actual-size 85 by 165 millimetre destination panel with an illustration placeholder and editable toll, pressure, and arrival fields.</desc>
+  <style>
+    .ink{fill:#142A30}.label{font-family:Arial,sans-serif;font-size:26px;font-weight:700;letter-spacing:1.5px;fill:#142A30}.body{font-family:Arial,sans-serif;font-size:29px;fill:#142A30}.small{font-family:Arial,sans-serif;font-size:23px;fill:#142A30}.rule{stroke:#B58A49;stroke-width:2;fill:none}.write{stroke:#667C67;stroke-width:1.5;fill:none;stroke-dasharray:3 5}
+  </style>
+  <g id="panel-frame">
+    <rect width="850" height="1650" rx="24" fill="#F4EBD7"/>
+    <rect x="10" y="10" width="830" height="1630" rx="19" fill="none" stroke="#142A30" stroke-width="3"/>
+    <path d="M44 88H75V57H106M744 57H775V88H806M44 1562H75V1593H106M744 1593H775V1562H806" fill="none" stroke="#B58A49" stroke-width="4"/>
+  </g>
+  <g id="route-title">
+    <text x="425" y="86" text-anchor="middle" class="label">DESTINATION</text>
+    <text x="425" y="158" text-anchor="middle" font-family="Georgia,serif" font-size="49" class="ink">ROUTE NAME</text>
+    <text x="425" y="202" text-anchor="middle" class="small">[One-line place description]</text>
+  </g>
+  <g id="illustration-placeholder">
+    <path d="M60 662V447A365 208 0 0 1 790 447V662Z" fill="#E5DECD" stroke="#B58A49" stroke-width="3"/>
+    <path d="M60 610Q170 545 310 594T570 594T790 593" fill="none" stroke="#667C67" stroke-width="2"/>
+    <path d="M90 630Q240 602 425 627T760 627" fill="none" stroke="#667C67" stroke-width="2"/>
+    <circle cx="425" cy="392" r="55" fill="none" stroke="#B58A49" stroke-width="3"/>
+    <text x="425" y="500" text-anchor="middle" class="label">ILLUSTRATION AREA</text>
+    <text x="425" y="541" text-anchor="middle" class="small">Replace this group with destination art</text>
+  </g>
+  <g id="route-toll">
+    <text x="60" y="728" class="label">TOLL / ACCESS</text>
+    <text x="60" y="774" class="body">[Cost and when it is paid]</text>
+    <text x="60" y="815" class="body">[Entry requirement or none]</text>
+    <path d="M60 840H790" class="write"/>
+    <path d="M60 867H790" class="rule"/>
+  </g>
+  <g id="route-pressure">
+    <text x="60" y="927" class="label">PRESSURE / RESTRICTION</text>
+    <text x="60" y="973" class="body">[What makes this route demanding?]</text>
+    <text x="60" y="1014" class="body">[Quota, timing, or condition]</text>
+    <path d="M60 1039H790" class="write"/>
+    <path d="M60 1066H790" class="rule"/>
+  </g>
+  <g id="route-arrival">
+    <text x="60" y="1126" class="label">ARRIVAL / CONSEQUENCE</text>
+    <text x="60" y="1172" class="body">[Resolve after reaching the destination]</text>
+    <text x="60" y="1213" class="body">[Reward, Standing, or event]</text>
+    <path d="M60 1244H790M60 1285H790" class="write"/>
+  </g>
+  <g id="team-notes">
+    <rect x="60" y="1340" width="730" height="146" rx="8" fill="#E5DECD"/>
+    <text x="80" y="1383" class="label">PROTOTYPE NOTE</text>
+    <text x="80" y="1425" class="small">[Open choice or current test assumption]</text>
+    <path d="M80 1456H770" class="write"/>
+    <text x="425" y="1552" text-anchor="middle" font-family="Georgia,serif" font-size="27" class="ink">THE FERRYMAN</text>
+    <text x="425" y="1590" text-anchor="middle" class="small">Paper prototype • Team-editable design</text>
+  </g>
+</svg>

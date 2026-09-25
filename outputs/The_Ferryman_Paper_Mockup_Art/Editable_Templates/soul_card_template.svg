@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63mm" height="88mm" viewBox="0 0 630 880" role="img" aria-labelledby="title desc">
+  <title id="title">The Ferryman: editable soul card template</title>
+  <desc id="desc">An actual-size 63 by 88 millimetre card with editable identity, stats, effect, residue, and refusal fields.</desc>
+  <style>
+    .ink{fill:#142A30}.gold{fill:#B58A49}.body{font-family:Arial,sans-serif;fill:#142A30;font-size:25px}.label{font-family:Arial,sans-serif;font-size:23px;font-weight:700;letter-spacing:1.3px;fill:#142A30}.small{font-family:Arial,sans-serif;font-size:23px;fill:#142A30}.rule{stroke:#B58A49;stroke-width:2;fill:none}.write{stroke:#667C67;stroke-width:1.4;fill:none;stroke-dasharray:3 5}
+  </style>
+  <g id="card-frame">
+    <rect width="630" height="880" rx="25" fill="#F4EBD7"/>
+    <rect x="9" y="9" width="612" height="862" rx="20" fill="none" stroke="#142A30" stroke-width="3"/>
+    <path d="M35 114H595M35 295H595M35 777H595" class="rule"/>
+    <path d="M34 45H48V31H64M566 31H582V45H596M34 835H48V849H64M566 849H582V835H596" fill="none" stroke="#B58A49" stroke-width="3"/>
+  </g>
+  <g id="identity">
+    <text x="35" y="80" class="label">SOUL</text>
+    <text x="595" y="80" text-anchor="end" class="body">S__</text>
+    <text x="315" y="171" text-anchor="middle" font-family="Georgia,serif" font-size="39" class="ink">SOUL NAME</text>
+    <text x="315" y="206" text-anchor="middle" class="small">[Short identity or role]</text>
+    <g transform="translate(277 225)" fill="none" stroke="#667C67" stroke-width="3">
+      <path d="M0 43Q38 3 76 43M14 43Q38 23 62 43M25 43Q38 33 51 43"/>
+      <path d="M-28 43H-8M84 43H104"/>
+    </g>
+  </g>
+  <g id="stats">
+    <rect x="35" y="312" width="560" height="105" rx="7" fill="#142A30"/>
+    <path d="M222 328V401M409 328V401" stroke="#B58A49" stroke-width="2"/>
+    <g font-family="Arial,sans-serif" fill="#F4EBD7" text-anchor="middle">
+      <g font-size="22" font-weight="700" letter-spacing="1.1"><text x="129" y="344">SEATS</text><text x="315" y="344">FARE</text><text x="502" y="344">STANDING</text></g>
+      <g font-size="37"><text x="129" y="390">__</text><text x="315" y="390">__</text><text x="502" y="390">__</text></g>
+    </g>
+  </g>
+  <g id="linked-soul">
+    <text x="35" y="456" class="label">LINK / PAIR</text>
+    <text x="218" y="456" class="body">[None or soul ID]</text>
+    <path d="M35 472H595" class="rule"/>
+  </g>
+  <g id="soul-effect">
+    <text x="35" y="512" class="label">EFFECT / CONDITION</text>
+    <text x="35" y="546" class="body">[When does the effect trigger?]</text>
+    <text x="35" y="580" class="body">[What changes?]</text>
+    <path d="M35 591H595" class="write"/>
+    <path d="M35 608H595" class="rule"/>
+  </g>
+  <g id="residue">
+    <text x="35" y="649" class="label">RESIDUE ON DELIVERY</text>
+    <text x="35" y="683" class="body">[Residue ID / name]</text>
+    <text x="35" y="716" class="body">[Variant or condition]</text>
+    <path d="M35 734H595" class="write"/>
+  </g>
+  <g id="refusal-track">
+    <text x="35" y="816" class="label">REFUSALS</text>
+    <g font-family="Arial,sans-serif" font-size="23" text-anchor="middle" fill="#142A30" stroke="#142A30" stroke-width="2">
+      <circle cx="264" cy="810" r="22" fill="#F4EBD7"/><circle cx="349" cy="810" r="22" fill="#F4EBD7"/><circle cx="434" cy="810" r="22" fill="#F4EBD7"/><circle cx="519" cy="810" r="22" fill="#F4EBD7"/>
+      <g stroke="none"><text x="264" y="818">0</text><text x="349" y="818">1</text><text x="434" y="818">2</text><text x="519" y="818">3</text></g>
+    </g>
+  </g>
+</svg>

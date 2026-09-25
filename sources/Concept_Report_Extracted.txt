@@ -1,0 +1,270 @@
+=== PAGE 1 ===
+The	Ferryman
+A	single-player	mythological	deckbuilder	built	on	a	deliberately	broken	optimization	problem
+Course:
+	CSS481	Game	Development
+	
+Group:
+	F2P
+	
+Document:
+	Concept	and	mechanical	design	rationale
+1.	Concept
+You	are	Charon,	ferryman	of	the	dead.	Souls	crowd	the	shore.	Your	boat	has	limited	space.
+You	choose	who	crosses,	and	who	waits.
+The	player	occupies	a	role	normally	filled	by	the	system	rather	than	the	protagonist.	Charon	is	not	a	hero,	does	not
+fight,	does	not	grow	stronger	in	any	conventional	sense,	and	cannot	complete	his	task,	since	the	dead	never	stop
+arriving.	The	game	is	therefore	not	about	victory	but	about	the	character	of	the	choices	made	under	a	permanent
+constraint.
+The	myth	supplies	the	constraint	for	free.	In	the	common	tradition,	the	dead	pay	an	obol	for	passage,	and	those	who
+cannot	pay	are	left	to	wander	the	near	shore.	That	single	detail	gives	the	game	its	central	tension	without	any	invented
+fiction:	mercy	has	a	price,	and	someone	always	pays	it.
+Why	this	myth
+Perspective	inversion.
+	The	player	is	a	non-human	functionary	of	the	underworld,	not	an	adventurer.	This	satisfies
+the	design	goal	of	twisting	genre	convention	rather	than	reskinning	it.
+Episodic	structure.
+	One	crossing	is	one	self-contained	round.	Content	can	be	added	incrementally	across	the
+semester	without	redesigning	the	core,	which	is	a	significant	scope	advantage.
+Immediate	legibility.
+	A	playtester	with	no	explanation	understands	"pick	who	gets	on	the	boat"	within	seconds.
+This	matters	for	the	workshop	format,	where	visiting	teams	play	cold	and	briefly.
+Low	component	count.
+	The	paper	prototype	requires	only	cards,	tokens,	and	a	drawn	boat.
+2.	Core	loop
+One	crossing	consists	of	five	steps.	The	Game	Master	(a	team	member)	handles	all	draws,	resolution,	and	opponent
+logic.
+Step
+Action
+Notes
+1.	Shore
+GM	deals	a	row	of	soul	cards	face	up.
+Suggested	five	per	crossing	during	prototyping;	tune	after
+testing.
+2.	Load
+Player	selects	souls	to	board,	within	boat	capacity.
+This	is	the	only	real	decision	point,	and	it	carries	the	whole
+game.
+3.	Cross
+GM	draws	one	river	event	and	resolves	it	against
+the	boat's	contents.
+The	event	interacts	with	the	specific	composition	of	the	cargo.
+4.	Arrive
+Fares	collected.	Delivered	souls	enter	the	player's
+deck.
+The	deck	is	a	record	of	who	was	carried,	not	a	power	upgrade
+path.
+5.	Shore
+decays
+Unchosen	souls	rotate	one	step	toward	becoming
+wraiths.
+A	soul	refused	three	times	flips	and	becomes	a	hostile	presence.
+The	role	of	the	deck
+Delivered	souls	leave	behind	a	card	that	enters	the	player's	deck	for	use	in	later	crossings.	These	are	not	abilities	in	the
+usual	sense	but	residue:	what	the	poet	left,	what	the	soldier	left,	what	the	grieving	mother	left.	Consequently	the	deck
+becomes	an	accumulated	history	of	the	player's	choices,	and	a	player	who	ferried	only	the	paying	dead	will	hold	a	deck
+materially	different	from	one	who	carried	the	destitute.	The	intent	is	that	neither	deck	is	strictly	superior,	only
+differently	capable.
+
+=== PAGE 2 ===
+3.	The	design	problem
+The	loop	as	stated	is,	structurally,	the	
+0/1	knapsack	problem
+:	a	fixed	capacity,	a	set	of	items	each	carrying	a	weight
+and	a	value,	and	the	task	of	selecting	the	subset	that	maximizes	value	without	exceeding	capacity.
+This	is	simultaneously	the	concept's	greatest	strength	and	its	most	serious	threat.
+Why	the	structure	helps
+Players	intuit	it	without	instruction,	which	is	essential	for	a	short	playtest	slot.
+It	produces	a	decision	on	the	very	first	turn,	with	no	ramp-up	or	tutorial.
+It	is	trivially	implementable	in	both	paper	and	digital	form.
+Why	the	structure	threatens	the	game
+A	knapsack	instance	with	full	information,	independent	items,	a	single	value	axis,	and	no	cross-turn	consequences	is
+solvable
+.	Players	converge	on	a	greedy	heuristic	(approximately,	value	per	unit	of	capacity),	after	which	every	turn
+becomes	arithmetic	rather	than	judgment.	The	game	stops	being	played	and	starts	being	computed.
+Design	thesis.
+	The	objective	is	not	to	avoid	the	knapsack.	It	is	to	retain	the	knapsack's	legibility	while	systematically
+violating	the	assumptions	that	make	it	solvable.	Each	violation	is	referred	to	below	as	a	
+lever
+.
+This	framing	is	also	worth	stating	explicitly	in	the	final	report.	Demonstrating	an	understanding	of	
+why
+	the	naive
+version	fails,	and	then	addressing	it	deliberately,	is	a	stronger	showing	than	arriving	at	a	playable	game	by	trial	and
+error.
+4.	The	levers
+Six	levers	were	identified.	Each	attacks	a	different	assumption	of	the	classical	knapsack	formulation.
+Lever	1:	Hidden	or	uncertain	value	
+DEFER
+Assumption	broken:	values	are	known	at	selection	time.
+Each	soul	shows	a	visible	face	(appearance,	capacity	cost,	whether	it	carries	an	obol)	and	conceals	a	truth	(the	card	it
+yields),	revealed	only	on	arrival.	A	well-dressed	man	paying	his	fare	may	prove	to	be	a	tyrant	whose	residue	is
+worthless;	a	silent	beggar	may	prove	to	be	Orpheus.
+Effect:
+	converts	optimization	into	inference	under	uncertainty.	Some	partial	signalling	is	required,	otherwise	selection
+degrades	into	pure	chance.
+Lever	2:	Non-additive	value	
+ADOPT
+Assumption	broken:	item	values	are	independent	and	additive.
+Souls	interact.	A	mother	and	child	carried	together	yield	strong	residue;	separated,	both	are	diminished	and	the	one	left
+behind	sours	faster.	Two	soldiers	from	opposing	sides	provoke	a	conflict	during	the	crossing.	A	poet	raises	the	value	of
+every	other	passenger	by	restoring	their	story	to	them.
+Effect:
+	souls	can	no	longer	be	evaluated	individually.	The	boat	becomes	a	composition	problem	rather	than	a	summation,
+which	is	the	single	highest-leverage	change	available	and	costs	nothing	beyond	additional	card	text.
+Lever	3:	Incommensurable	currencies	
+ADOPT
+Assumption	broken:	value	is	a	single	scalar.
+Two	resources	are	tracked	separately	and	cannot	be	exchanged	for	one	another:
+Obols.
+	Material	payment.	Buys	capacity,	supplies,	and	safety.
+Standing.
+	What	the	carried	dead	leave	behind.	Determines	the	strength	of	the	deck	and	the	ability	to	survive	rough
+water.
+A	third	axis	may	be	layered	on	top:	a	periodic	
+quota
+	demanded	by	Hades,	denominated	specifically	in	obols,	which	must
+be	satisfied	regardless	of	the	player's	preferred	approach.
+Effect:
+	multi-objective	problems	have	no	single	optimum	by	definition,	only	a	chosen	stance.	This	is	also	where	the	moral
+weight	becomes	mechanical	rather	than	decorative,	since	refusing	a	paying	soul	in	favour	of	a	penniless	one	is	a	genuine
+sacrifice	rather	than	a	clever	play.
+Lever	4:	Temporal	coupling	
+ADOPT
+Assumption	broken:	each	instance	is	independent.
+
+=== PAGE 3 ===
+Crossings	are	not	isolated	problems.	Delivered	souls	enter	the	deck	and	become	the	tools	available	next	crossing.
+Refused	souls	remain	on	the	shore,	worsening	over	time,	so	a	refusal	defers	a	cost	rather	than	avoiding	it.	Certain	souls
+return	in	later	crossings,	changed	by	the	wait.
+Effect:
+	the	local	optimum	and	the	global	optimum	diverge,	which	is	the	condition	under	which	interesting	play	emerges.	A
+player	who	maximizes	every	individual	crossing	will	accumulate	a	shore	full	of	wraiths.
+Lever	5:	Stochastic	resolution	
+DEFER
+Assumption	broken:	outcomes	are	deterministic.
+The	river	is	an	active	participant.	After	loading,	an	event	is	drawn	that	interacts	with	the	specific	cargo:	a	storm
+endangering	the	heaviest	passengers,	a	siren	song	that	the	regretful	resist,	still	water	that	rewards	carrying	someone	at
+peace,	or	the	attention	of	Cerberus,	drawn	to	overloaded	boats.
+Effect:
+	the	optimal	load	depends	on	a	distribution	the	player	can	only	estimate,	rewarding	attention	to	the	composition	of	the
+event	deck	over	repeated	plays	rather	than	rewarding	calculation.
+Lever	6:	Shifting	capacity	
+DEFER
+Assumption	broken:	capacity	is	a	fixed	constant.
+Capacity	varies	with	river	conditions,	or	with	the	accumulated	weight	of	the	player's	own	deck,	on	the	reasoning	that	a
+ferryman	burdened	by	memory	rides	lower	in	the	water.
+Effect:
+	removes	the	stable	planning	target	that	players	would	otherwise	optimize	against.	Powerful,	but	risks	obscuring	the
+constraint	that	makes	the	game	legible	in	the	first	place.
+5.	Proposed	levers	for	the	paper	prototype
+Levers	2,	3,	and	4	are	adopted	for	the	paper	prototype.	Levers	1,	5,	and	6	are	deferred	to	the	digital	build.
+Rationale	for	the	selection
+Criterion
+Assessment
+Implementation	cost
+All	three	adopted	levers	are	expressible	as	card	text	and	two	tracked	resources.	No	new	physical
+components	are	required	beyond	what	the	base	loop	already	needs.
+Coverage
+They	attack	solvability	from	three	independent	directions:	item	interdependence,	objective	multiplicity,	and
+cross-round	consequence.	A	player	cannot	defeat	all	three	with	one	heuristic.
+Thematic	load
+Each	adopted	lever	carries	meaning.	Lever	2	makes	relationships	matter,	Lever	3	makes	mercy	costly,
+Lever	4	makes	refusal	consequential.	The	deferred	levers	mainly	add	texture.
+Testability
+Deferred	levers	introduce	randomness	and	variable	constraints,	both	of	which	make	it	harder	to	isolate
+whether	the	core	decision	is	working	during	early	playtests.
+Concrete	rule	set	for	the	prototype
+Each	soul	card	carries	a	
+capacity	cost
+	(1	or	2	seats)	and	an	
+obol
+	marker	(present	or	absent).
+Selected	soul	cards	name	a	
+linked	soul
+;	carrying	or	separating	the	pair	alters	the	residue	both	produce.
+Selected	soul	cards	carry	an	
+aboard	effect
+	that	modifies	other	passengers	in	the	same	crossing.
+Delivered	souls	yield	a	
+residue	card
+	that	enters	the	player's	deck.
+Refused	souls	rotate	one	step	per	crossing;	on	the	third	refusal	they	flip	to	the	
+wraith
+	face	and	act	against	the
+player.
+Two	separate,	non-convertible	tracks	are	maintained:	
+obols
+	and	
+standing
+.
+Every	few	crossings,	Hades	issues	a	
+quota
+	payable	only	in	obols.
+Estimated	additional	rules	text	beyond	the	base	loop:	roughly	four	to	six	lines.	This	is	deliberate,	since	the
+prototype	must	remain	teachable	to	a	visiting	team	in	well	under	a	minute.
+6.	Prototype	component	list
+Component
+Quantity
+Contents
+Soul	cards
+~20
+Name,	seats,	obol	marker,	linked	soul,	aboard	effect,	residue	yielded.
+Reverse	side	carries	the	wraith	face.
+
+=== PAGE 4 ===
+River	event	cards
+~8
+Conditions	resolved	against	the	boat's	composition	during	the	crossing.
+Boat	board
+1
+Drawn	on	A4	with	four	visible	seat	slots.
+Shore	area
+1
+Drawn	zone	holding	refused	souls,	marked	with	the	three	rotation	steps.
+Resource	tracks
+1	sheet
+Separate	obol	and	standing	tracks,	visibly	non-convertible.
+Tokens
+as	needed
+Obols	and	track	markers.
+All	quantities	above	are	starting	estimates	for	the	first	playtest	and	should	be	expected	to	change.	Card	counts	in
+particular	are	usually	wrong	on	a	first	pass	and	are	best	corrected	by	testing	rather	than	by	discussion.
+7.	Open	questions
+1.	
+Is	the	first	crossing	genuinely	interesting?
+	If	the	opening	decision	is	obvious,	the	shore	row	is	either	too	small	or
+the	souls	are	insufficiently	differentiated.
+2.	
+Does	the	deck	stay	meaningful,	or	does	it	become	clutter?
+	Deckbuilders	normally	include	a	culling	mechanism.
+Whether	Charon	should	be	able	to	forget	the	dead	he	has	carried	is	both	a	mechanical	and	a	thematic	question,	and
+the	answer	is	not	obvious.
+3.	
+How	punishing	should	wraiths	be?
+	Too	weak	and	refusal	is	free;	too	strong	and	the	game	becomes	a	maintenance
+chore.
+4.	
+Should	the	quota	escalate?
+	An	escalating	quota	produces	an	arc	and	an	eventual	failure	state,	which	may	or	may
+not	suit	a	game	about	a	task	that	never	ends.
+5.	
+Is	there	a	win	condition	at	all?
+	Options	include	surviving	a	fixed	number	of	crossings,	a	score	based	on	final
+standing,	or	an	explicitly	unwinnable	structure	judged	on	the	character	of	the	run.	This	should	be	settled	before	the
+workshop,	since	testers	need	to	know	what	they	are	aiming	at.
+8.	Next	steps
+1.	
+Draft	the	full	soul	card	list,	including	linked	pairs	and	aboard	effects.
+2.	
+Write	the	Game	Master	procedure	as	an	explicit	decision	sequence,	so	that	it	can	later	be	ported	directly	into	code.
+3.	
+Build	and	internally	playtest	before	the	workshop,	prioritizing	playtime	measurement	and	first-turn	clarity.
+4.	
+Scan	all	components	and	submit	as	
+GroupNo._GA1.zip
+	via	Google	Classroom	by	the	deadline.
+Note	on	sources.
+	Greek	myth	survives	in	multiple	conflicting	versions	across	Homer,	Hesiod,	Ovid,	Apollodorus,	and	later	retellings.	Details	of	Charon's
+practice,	including	the	obol	and	the	fate	of	the	unpaid	dead,	vary	between	accounts	and	should	be	verified	against	a	specific	source	before	being
+presented	as	authoritative	in	the	final	report.	The	mechanical	design	does	not	depend	on	which	version	is	adopted.

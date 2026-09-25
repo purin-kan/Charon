@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63mm" height="88mm" viewBox="0 0 630 880" role="img" aria-labelledby="title desc">
+  <title id="title">The Ferryman: editable residue card template</title>
+  <desc id="desc">An actual-size 63 by 88 millimetre card with source identity, variant, one Standing cost, target, effect, and timing fields.</desc>
+  <style>
+    .ink{fill:#142A30}.label{font-family:Arial,sans-serif;font-size:23px;font-weight:700;letter-spacing:1.3px;fill:#142A30}.body{font-family:Arial,sans-serif;font-size:25px;fill:#142A30}.small{font-family:Arial,sans-serif;font-size:23px;fill:#142A30}.rule{stroke:#667C67;stroke-width:2;fill:none}.write{stroke:#667C67;stroke-width:1.4;fill:none;stroke-dasharray:3 5}
+  </style>
+  <g id="card-frame">
+    <rect width="630" height="880" rx="25" fill="#F4EBD7"/>
+    <rect x="9" y="9" width="612" height="862" rx="20" fill="none" stroke="#142A30" stroke-width="3"/>
+    <rect x="21" y="21" width="588" height="9" rx="3" fill="#667C67"/>
+    <path d="M35 114H595M35 298H595M35 774H595" class="rule"/>
+  </g>
+  <g id="identity">
+    <text x="35" y="80" class="label">RESIDUE</text>
+    <text x="595" y="80" text-anchor="end" class="body">R__</text>
+    <text x="315" y="171" text-anchor="middle" font-family="Georgia,serif" font-size="38" class="ink">RESIDUE NAME</text>
+    <text x="315" y="207" text-anchor="middle" class="small">[Short memory or trace]</text>
+    <g id="memory-motif" fill="none" stroke="#667C67" stroke-width="3" transform="translate(279 228)">
+      <path d="M36 0L72 24L36 48L0 24Z"/><path d="M16 24L36 11L56 24L36 37Z"/><path d="M-20 24H-7M79 24H92"/>
+    </g>
+  </g>
+  <g id="provenance">
+    <text x="35" y="338" class="label">SOURCE SOUL ID</text>
+    <text x="325" y="338" class="body">S__</text>
+    <text x="35" y="382" class="label">VARIANT</text>
+    <text x="201" y="382" class="body">[Base / joint / solo]</text>
+    <path d="M35 403H595" class="rule"/>
+  </g>
+  <g id="cost">
+    <rect x="35" y="424" width="560" height="63" rx="7" fill="#667C67"/>
+    <text x="56" y="464" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="1.2" fill="#FFFFFF">PLAY COST</text>
+    <text x="573" y="465" text-anchor="end" font-family="Arial,sans-serif" font-size="28" fill="#FFFFFF">1 STANDING</text>
+  </g>
+  <g id="target">
+    <text x="35" y="530" class="label">TARGET</text>
+    <text x="169" y="530" class="body">[Eligible target]</text>
+    <path d="M35 549H595" class="rule"/>
+  </g>
+  <g id="effect">
+    <text x="35" y="591" class="label">EFFECT</text>
+    <text x="35" y="626" class="body">[What changes when played?]</text>
+    <text x="35" y="661" class="body">[Value, duration, or exception]</text>
+    <path d="M35 679H595M35 714H595" class="write"/>
+  </g>
+  <g id="timing">
+    <text x="35" y="813" class="label">TIMING</text>
+    <text x="162" y="813" class="body">[Play window]</text>
+    <text x="35" y="847" class="small">[After use: destination / discard rule]</text>
+  </g>
+</svg>

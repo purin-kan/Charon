@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="210mm" height="297mm" viewBox="0 0 2100 2970" role="img" aria-labelledby="title desc">
+  <title id="title">The Ferryman: monochrome prototype icon library</title>
+  <desc id="desc">Ten original editable vector symbols with labels: oar, coin, Standing lantern, seat, memory, linked pair, wraith, Elysium, Asphodel, and Tartarus. A4 portrait sheet.</desc>
+  <style>
+    .label{font-family:Arial,sans-serif;font-size:37px;font-weight:700;letter-spacing:2px;fill:#142A30}.body{font-family:Arial,sans-serif;font-size:27px;fill:#142A30}.caption{font-family:Arial,sans-serif;font-size:25px;fill:#142A30}.frame{fill:none;stroke:#142A30;stroke-width:2}.symbol{fill:none;stroke:#142A30;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+  <defs>
+    <symbol id="icon-oar" viewBox="0 0 120 120"><g class="symbol"><path d="M22 22L71 71M28 16L77 65M17 17L27 7L35 15L25 25Z"/><path d="M70 63L98 79Q116 95 101 108Q90 116 78 101L62 74Z"/><path d="M82 84L101 102"/></g></symbol>
+    <symbol id="icon-coin" viewBox="0 0 120 120"><g class="symbol"><circle cx="60" cy="60" r="44"/><circle cx="60" cy="60" r="33"/><path d="M60 36V84M73 43H54Q43 43 43 51Q43 60 58 60H62Q77 60 77 69Q77 77 65 77H46"/></g></symbol>
+    <symbol id="icon-standing" viewBox="0 0 120 120"><g class="symbol"><path d="M47 28V21Q47 8 60 8Q73 8 73 21V28M37 35L28 44H92L83 35ZM34 44V94L25 104H95L86 94V44M44 94H76M47 60Q60 48 73 60L73 78Q60 92 47 78Z"/><path d="M10 66H17M103 66H110M21 30L27 36M99 30L93 36"/></g></symbol>
+    <symbol id="icon-seat" viewBox="0 0 120 120"><g class="symbol"><path d="M28 15H92V61H28ZM22 63H98V78H22ZM31 78V107M89 78V107M44 78V99M76 78V99M39 25V50M60 25V50M81 25V50"/></g></symbol>
+    <symbol id="icon-memory" viewBox="0 0 120 120"><g class="symbol"><path d="M60 10L109 59L60 110L11 59ZM60 31L88 59L60 89L32 59Z"/><circle cx="60" cy="59" r="7"/></g></symbol>
+    <symbol id="icon-linked" viewBox="0 0 120 120"><g class="symbol"><circle cx="31" cy="28" r="13"/><circle cx="89" cy="28" r="13"/><path d="M12 99V63Q31 41 50 63V99M70 99V63Q89 41 108 63V99M41 68L53 76Q60 81 67 76L79 68M24 66V97M96 66V97"/></g></symbol>
+    <symbol id="icon-wraith" viewBox="0 0 120 120"><g class="symbol"><path d="M21 106L27 46Q30 12 60 9Q90 12 93 46L99 106L78 92L61 108L42 92ZM39 52Q40 31 60 23Q80 31 81 52L72 68H48Z"/><path d="M47 50L53 52M67 52L73 50M52 68V81M68 68V81"/></g></symbol>
+    <symbol id="icon-elysium" viewBox="0 0 120 120"><g class="symbol"><circle cx="60" cy="41" r="18"/><path d="M60 8V14M60 68V74M27 41H33M87 41H93M37 18L42 23M78 59L83 64M37 64L42 59M78 23L83 18M60 108Q14 88 19 49M60 108Q106 88 101 49"/><path d="M20 60L10 51M23 75L10 68M30 88L18 86M42 99L29 99M100 60L110 51M97 75L110 68M90 88L102 86M78 99L91 99"/></g></symbol>
+    <symbol id="icon-asphodel" viewBox="0 0 120 120"><g class="symbol"><path d="M60 108V57M60 92Q33 88 27 66Q51 70 60 92M60 78Q84 77 95 58Q71 59 60 78"/><path d="M60 17Q45 1 39 15Q34 26 48 36Q25 33 25 46Q27 61 48 50Q41 73 55 75Q68 76 67 53Q81 69 91 58Q102 46 78 39Q101 26 89 15Q77 7 68 30Q71 9 60 17Z"/><circle cx="60" cy="41" r="8"/></g></symbol>
+    <symbol id="icon-tartarus" viewBox="0 0 120 120"><g class="symbol"><path d="M17 108V32L32 14H88L103 32V108M28 108V41L39 27H81L92 41V108M43 43V105M60 43V105M77 43V105M28 65H92M14 108H106"/><path d="M9 11L18 15M111 11L102 15M9 48H17M103 48H111"/></g></symbol>
+  </defs>
+  <rect width="2100" height="2970" fill="#FFFFFF"/>
+  <g id="sheet-heading">
+    <text x="120" y="170" font-family="Georgia,serif" font-size="74" fill="#142A30">THE FERRYMAN</text>
+    <text x="122" y="234" class="label">PAPER PROTOTYPE ICON LIBRARY</text>
+    <path d="M120 280H1980" class="frame"/>
+    <text x="120" y="325" class="caption">Original vector symbols • Pair every symbol with a word label</text>
+  </g>
+  <g id="oar-tile"><rect x="120" y="380" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-oar" x="175" y="478" width="195" height="195"/><text x="430" y="555" class="label">OAR</text><text x="430" y="606" class="body">Crossing / boat action</text></g>
+  <g id="coin-tile"><rect x="1080" y="380" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-coin" x="1135" y="478" width="195" height="195"/><text x="1390" y="555" class="label">COIN</text><text x="1390" y="606" class="body">Obols / fare / toll</text></g>
+  <g id="standing-tile"><rect x="120" y="835" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-standing" x="175" y="933" width="195" height="195"/><text x="430" y="1010" class="label">STANDING</text><text x="430" y="1061" class="body">Lantern resource symbol</text></g>
+  <g id="seat-tile"><rect x="1080" y="835" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-seat" x="1135" y="933" width="195" height="195"/><text x="1390" y="1010" class="label">SEAT</text><text x="1390" y="1061" class="body">Boat capacity</text></g>
+  <g id="memory-tile"><rect x="120" y="1290" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-memory" x="175" y="1388" width="195" height="195"/><text x="430" y="1465" class="label">MEMORY</text><text x="430" y="1516" class="body">Residue / remembered trace</text></g>
+  <g id="linked-tile"><rect x="1080" y="1290" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-linked" x="1135" y="1388" width="195" height="195"/><text x="1390" y="1465" class="label">LINKED PAIR</text><text x="1390" y="1516" class="body">Related soul cards</text></g>
+  <g id="wraith-tile"><rect x="120" y="1745" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-wraith" x="175" y="1843" width="195" height="195"/><text x="430" y="1920" class="label">WRAITH</text><text x="430" y="1971" class="body">Hooded soul state</text></g>
+  <g id="elysium-tile"><rect x="1080" y="1745" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-elysium" x="1135" y="1843" width="195" height="195"/><text x="1390" y="1920" class="label">ELYSIUM</text><text x="1390" y="1971" class="body">Sun and laurel</text></g>
+  <g id="asphodel-tile"><rect x="120" y="2200" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-asphodel" x="175" y="2298" width="195" height="195"/><text x="430" y="2375" class="label">ASPHODEL</text><text x="430" y="2426" class="body">Flower and stem</text></g>
+  <g id="tartarus-tile"><rect x="1080" y="2200" width="900" height="405" rx="18" class="frame"/><use xlink:href="#icon-tartarus" x="1135" y="2298" width="195" height="195"/><text x="1390" y="2375" class="label">TARTARUS</text><text x="1390" y="2426" class="body">Deep barred gate</text></g>
+  <g id="sheet-footer">
+    <path d="M120 2690H1980" class="frame"/>
+    <text x="120" y="2750" class="caption">One ink colour. Distinct silhouettes. Copy each named symbol from the SVG definitions.</text>
+    <text x="120" y="2798" class="caption">Prototype visual choices only. The team can rename, redraw, or replace any symbol.</text>
+    <text x="120" y="2870" class="caption">A4 • 210 × 297 mm • Print at 100%</text>
+    <text x="1980" y="2870" text-anchor="end" class="caption">EDITABLE VECTOR TEMPLATE</text>
+  </g>
+</svg>

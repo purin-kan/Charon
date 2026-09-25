@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142a30">
+  <title>The Ferryman | Play the paper prototype</title>
+  <link rel="stylesheet" href="styles.css?v=0.2.1">
+  <script src="engine.js" defer></script>
+  <script src="app.js?v=0.2.1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#shore">Skip to the waiting souls</a>
+  <header class="masthead">
+    <a class="brand" href="#top" aria-label="The Ferryman home"><span class="brand-mark" aria-hidden="true">ϟ</span><span>THE FERRYMAN<small>A PAPER PROTOTYPE, ON SCREEN</small></span></a>
+    <nav aria-label="Demo tools"><button id="help-btn" class="quiet">How to play</button><button id="export-btn" class="quiet">Export play log</button><button id="reset-btn" class="quiet">New run</button></nav>
+  </header>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow">DESIGN TRIAL · WORKBOOK v0.2</p><h1 id="hero-title">Every crossing<br>leaves something behind.</h1><p>Choose who travels, where they go,<br>and which memories carry you forward.</p></div>
+      <span class="hero-note">Concept artwork / proposed direction</span>
+    </section>
+    <div id="storage-note" class="notice" hidden></div>
+    <section id="status-bar" class="status-bar" aria-label="Current run"></section>
+    <section id="terminal" hidden></section>
+    <div class="game-layout">
+      <div class="play-area">
+        <section id="shore" class="section" aria-labelledby="shore-title">
+          <div class="section-heading"><div><p class="eyebrow">01 / CHOOSE YOUR PASSENGERS</p><h2 id="shore-title">The waiting shore</h2></div><span id="shore-count" class="subtle"></span></div>
+          <p class="section-intro">Select souls to board. You have <strong>four seats</strong>; some souls need two.</p>
+          <div id="soul-cards" class="soul-grid"></div>
+          <div id="wraiths"></div>
+          <details class="ledger-details" id="catalogue-details">
+            <summary>All 12 souls and 6 memory rules / reference</summary>
+            <p>Every card is known from the start. Open any entry to inspect its rules before it reaches the shore. These reference entries do not board passengers.</p>
+            <div id="soul-reference"></div>
+            <details class="journal-item">
+              <summary>All memory effects</summary>
+              <p>Every memory costs 1 Standing during Load. Play at most one per crossing. R03 and R05 must target a waiting soul when one exists; with none waiting, the card is still playable. Protection adds before pressure is clamped to zero.</p>
+              <div id="residue-reference"></div>
+            </details>
+          </details>
+        </section>
+        <section class="section memories" aria-labelledby="memory-title">
+          <div class="section-heading"><div><p class="eyebrow">02 / RECALL A MEMORY, IF YOU CHOOSE</p><h2 id="memory-title">What remains</h2></div><span class="pill">At most 1 · costs 1 Standing</span></div>
+          <div id="memory-cards" class="memory-grid"></div>
+          <div id="target-control"></div>
+          <details class="ledger-details"><summary id="memory-summary">Memory order</summary><div id="memory-order" class="order-columns"></div></details>
+        </section>
+        <section class="section" aria-labelledby="route-title">
+          <div class="section-heading"><div><p class="eyebrow">03 / CHOOSE A DESTINATION</p><h2 id="route-title">Three shores beyond</h2></div></div>
+          <p class="section-intro">Every soul may travel to any route. Pay the toll before departure.</p>
+          <div id="route-cards" class="route-grid"></div>
+        </section>
+      </div>
+      <aside class="voyage-panel" aria-labelledby="voyage-title">
+        <div class="voyage-heading"><p class="eyebrow">BEFORE YOU LET GO OF THE ROPE</p><h2 id="voyage-title">This crossing</h2></div>
+        <div id="preview"></div>
+      </aside>
+    </div>
+    <section class="section journal" aria-labelledby="journal-title">
+      <div class="section-heading"><div><p class="eyebrow">FOR THE TEAM</p><h2 id="journal-title">Crossing journal</h2></div><span class="subtle">Choices, consequences, questions</span></div>
+      <div class="journal-grid"><div id="journal"></div><div class="notes-panel"><label for="notes">Playtest notes</label><p>What made the choice difficult? What was unclear? Keep observations separate from proposed changes.</p><textarea id="notes" rows="7" placeholder="Participant / date&#10;A choice worth discussing...&#10;A rule that needed explanation...&#10;One change to test next..."></textarea><small id="save-status">Notes are included in the exported play log.</small></div></div>
+      <details class="ledger-details"><summary>Delivery history and remaining supply</summary><div id="history" class="history-content"></div></details>
+    </section>
+    <footer><span>THE FERRYMAN / DIGITAL PAPER TRIAL</span><p>Six crossings. Visible rules. No random events. Final story, art, and game direction remain team decisions.</p><a href="README.md" target="_blank" rel="noopener">Setup and testing notes</a></footer>
+  </main>
+  <dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-head"><p class="eyebrow">A SHORT ORIENTATION</p><button class="icon-button" data-close="help-dialog" aria-label="Close instructions">×</button></div><h2 id="help-title">Keep the ferry running.</h2><p>Complete six crossings and pay <strong>3 obols after crossings 3 and 6</strong>. Start with 2 obols and 3 Standing.</p><ol class="help-list"><li><strong>Choose passengers.</strong> Their seat costs must total 4 or less. An empty boat is legal.</li><li><strong>Choose a memory, optionally.</strong> Recall up to two, play at most one for 1 Standing. Some protect a waiting soul from its normal refusal.</li><li><strong>Choose a route.</strong> Elysium costs 1 obol with 0 base pressure. Asphodel is free with 1 pressure. Tartarus is free with 2 pressure and pays 1 service obol on a nonempty arrival.</li><li><strong>Read the preview and depart.</strong> Pay costs, absorb pressure, collect arrival rewards, pay any quota, then advance refusals.</li></ol><div class="help-callout"><strong>Standing must cover the river's pressure.</strong> If it cannot, the run ends before rewards. Exactly enough Standing is sufficient. Fares earned later cannot fund departure costs.</div><p>Souls left ashore gain 1 refusal. If both partners were available and only one boards, the waiting partner gains 1 extra refusal. At 3 refusals, a soul becomes a persistent wraith: +1 pressure starting next crossing.</p><p>New memories retain their source soul. The queue and discard are never shuffled. Acquired memories enter the queue by soul ID; cleanup discards the played card first, then the rest of the hand left-to-right.</p><p class="subtle">This follows the base paper trial in workbook v0.2. Optional events, upgrades and destination wishes are off. The journal is a record of this run, not evidence of balance.</p><button class="primary" data-close="help-dialog">Ready to choose</button></dialog>
+  <dialog id="result-dialog" aria-labelledby="result-title"><div class="dialog-head"><p class="eyebrow">THE CROSSING, RESOLVED</p><button class="icon-button" data-close="result-dialog" aria-label="Close crossing result">×</button></div><div id="result-content"></div><button id="result-continue" class="primary" data-close="result-dialog">Continue</button></dialog>
+  <dialog id="reset-dialog" aria-labelledby="reset-title"><div class="dialog-head"><p class="eyebrow">RETURN TO THE FIRST SHORE</p><button class="icon-button" data-close="reset-dialog" aria-label="Cancel new run">×</button></div><h2 id="reset-title">Start a new run?</h2><p>This resets the current game and its notes. Export the play log first if you want to keep them.</p><div class="dialog-actions"><button id="export-reset" class="secondary">Export current run</button><button id="confirm-reset" class="primary">Start new run</button></div></dialog>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>
