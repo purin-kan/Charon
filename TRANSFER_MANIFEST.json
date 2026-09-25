@@ -16,14 +16,29 @@
       "sha256": "945ddd3210f2011c9e336cf395d56d3de8fd1e07561c3659493173f78a0fc394"
     },
     {
-      "path": "AGENT_CONTEXT.md",
-      "bytes": 9386,
-      "sha256": "412c5b36fe61a8b7890dfe3c8164154a8c8b0afa72796b32ff3baf4ff21f5a5e"
-    },
-    {
       "path": "AGENTS.md",
       "bytes": 2187,
       "sha256": "ea682098b4ac7d229bfc6017c930e0eda9c17de0b3a25a0477432db6291899fa"
+    },
+    {
+      "path": "AGENT_CONTEXT.md",
+      "bytes": 10025,
+      "sha256": "0e077419ec480e1ae25aab4f32030aa5414e5137d1e9dac1928b94d5b0580b69"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 6555,
+      "sha256": "8c9f96e44e5abc85bc9e4ceb6232c3a6ddf2e8cde2b86ffd08c138bcd2e2cab0"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4576,
+      "sha256": "451caea88820fde05a87028a2d5f300e30c43b1645916add3b79b1b5b6f30fdc"
+    },
+    {
+      "path": "START_HERE.html",
+      "bytes": 3161,
+      "sha256": "e971098f81c22bc11064918549d37bc1c99131a6cf509050ff4bebd64dec8487"
     },
     {
       "path": "archive/Production_Work.zip",
@@ -44,6 +59,26 @@
       "path": "outputs/The_Ferryman_Design_Workbook.pdf",
       "bytes": 159939,
       "sha256": "01ea6e84f753969a346efcb9335ff1964f453d05efbeafb0c83fb92fb58f2640"
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo.zip",
+      "bytes": 13148386,
+      "sha256": "0562397859eb84cbfbc7972eada2e9850fd88cbc0d0a75f6006336550be7ba65"
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md",
+      "bytes": 10471,
+      "sha256": "c08e8b6cf28d2dd8ddb73b94bf313c1ff3cb6b22b2ce5e306a93218691b0660b"
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo/README.md",
+      "bytes": 5751,
+      "sha256": "105568386f3c8889e981620bca7ed99f2e82f715637aca2ccd6a66dc08e0c091"
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo/VALIDATION.md",
+      "bytes": 5510,
+      "sha256": "52b443866588d8936d72678ca6de3e43a91b4d9ece6fa562ff6d5c276c93e3f5"
     },
     {
       "path": "outputs/The_Ferryman_Digital_Demo/app.js",
@@ -81,24 +116,14 @@
       "sha256": "63cc33f0747f8590167c4ac6ebfbde99b113f3b8a42668570aea7b82456890c1"
     },
     {
-      "path": "outputs/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md",
-      "bytes": 10471,
-      "sha256": "c08e8b6cf28d2dd8ddb73b94bf313c1ff3cb6b22b2ce5e306a93218691b0660b"
-    },
-    {
-      "path": "outputs/The_Ferryman_Digital_Demo/README.md",
-      "bytes": 5751,
-      "sha256": "105568386f3c8889e981620bca7ed99f2e82f715637aca2ccd6a66dc08e0c091"
-    },
-    {
       "path": "outputs/The_Ferryman_Digital_Demo/styles.css",
       "bytes": 16634,
       "sha256": "0f4d6fab9c7b8b84923d3a3563280a0d555ca013369c6fd004a388d4096e065c"
     },
     {
-      "path": "outputs/The_Ferryman_Digital_Demo/VALIDATION.md",
-      "bytes": 5510,
-      "sha256": "52b443866588d8936d72678ca6de3e43a91b4d9ece6fa562ff6d5c276c93e3f5"
+      "path": "outputs/The_Ferryman_Digital_Demo/verification/README.md",
+      "bytes": 1694,
+      "sha256": "0a6e0507be036f858413e7e8c5d2af9e66e8021c0d147205518fe7c31c9f463c"
     },
     {
       "path": "outputs/The_Ferryman_Digital_Demo/verification/browser/all-souls-run.json",
@@ -136,19 +161,14 @@
       "sha256": "95ab8ab3035371af5e3df9f889380c8ab7cf8961107f0edb6c3ebfad7fb04898"
     },
     {
-      "path": "outputs/The_Ferryman_Digital_Demo/verification/README.md",
-      "bytes": 1694,
-      "sha256": "0a6e0507be036f858413e7e8c5d2af9e66e8021c0d147205518fe7c31c9f463c"
-    },
-    {
-      "path": "outputs/The_Ferryman_Digital_Demo.zip",
-      "bytes": 13148386,
-      "sha256": "0562397859eb84cbfbc7972eada2e9850fd88cbc0d0a75f6006336550be7ba65"
-    },
-    {
       "path": "outputs/The_Ferryman_Easy_Playguide.pdf",
       "bytes": 83891,
       "sha256": "9d9e691e22cf23f489d5e0cd2fcd001f91d94662a6d7b00b802295817a8d79cf"
+    },
+    {
+      "path": "outputs/The_Ferryman_Open_Decisions_and_3_Day_Plan.md",
+      "bytes": 11326,
+      "sha256": "db2029506f4b6d4f99885c1f5f62fbc1b8b70a04a63b02f0e8554e7d36544074"
     },
     {
       "path": "outputs/The_Ferryman_Paper_Mockup_Art/Artwork/01_Charon_Cover.png",
@@ -176,14 +196,14 @@
       "sha256": "e4277fbf60e5115ee95a5c76717d63e96334fd670e9d64794963f5bfb6c7f753"
     },
     {
-      "path": "outputs/The_Ferryman_Paper_Mockup_Art/Editable_Templates/icon_sheet.svg",
-      "bytes": 7244,
-      "sha256": "aeb6ad00ade887e2817aa6964ec470d736ed4a9a4a85af2235d21f4eca0102bd"
-    },
-    {
       "path": "outputs/The_Ferryman_Paper_Mockup_Art/Editable_Templates/README.md",
       "bytes": 3188,
       "sha256": "1ec4a90d61bba4ee28c3f7f707f34e7770c71396c66123fb1df14172474e22b4"
+    },
+    {
+      "path": "outputs/The_Ferryman_Paper_Mockup_Art/Editable_Templates/icon_sheet.svg",
+      "bytes": 7244,
+      "sha256": "aeb6ad00ade887e2817aa6964ec470d736ed4a9a4a85af2235d21f4eca0102bd"
     },
     {
       "path": "outputs/The_Ferryman_Paper_Mockup_Art/Editable_Templates/residue_card_template.svg",
@@ -226,9 +246,14 @@
       "sha256": "0502f2858dcbb157c7090d065b4331bb3c4ac6bef22d7fa8309c0ded891e830e"
     },
     {
-      "path": "README.md",
-      "bytes": 4410,
-      "sha256": "20dcf82a92200d4a94a6e37645409322f518dee0ca8d43f1fde71a9e6b2725ae"
+      "path": "sources/Concept_Report_Extracted.txt",
+      "bytes": 12841,
+      "sha256": "23a750efc0f60dec80c2c5dd8fce6eb5df4c090323ba71972152c73ebd092e79"
+    },
+    {
+      "path": "sources/README.md",
+      "bytes": 539,
+      "sha256": "67fc0a9b6539e0c296ce23fb64fdf495ea7c59823534fce04a756e03981be3ea"
     },
     {
       "path": "sources/concept_pages/page-1.png",
@@ -249,21 +274,6 @@
       "path": "sources/concept_pages/page-4.png",
       "bytes": 190766,
       "sha256": "517224ee4655b9f6247f4885b5e17efc7f6e53576198c9459a62971432ad3beb"
-    },
-    {
-      "path": "sources/Concept_Report_Extracted.txt",
-      "bytes": 12841,
-      "sha256": "23a750efc0f60dec80c2c5dd8fce6eb5df4c090323ba71972152c73ebd092e79"
-    },
-    {
-      "path": "sources/README.md",
-      "bytes": 539,
-      "sha256": "67fc0a9b6539e0c296ce23fb64fdf495ea7c59823534fce04a756e03981be3ea"
-    },
-    {
-      "path": "START_HERE.html",
-      "bytes": 3055,
-      "sha256": "423b2ed2d88ce50ea70a4f79a87d1f8f636aedcc1ddbfe3346145777cf80b18b"
     }
   ],
   "originalDeliverables": [
@@ -456,6 +466,14 @@
       "path": "outputs/The_Ferryman_Project_Handoff_Prompt.md",
       "modified": "2026-09-25T21:06:28.688007",
       "sha256": "0502f2858dcbb157c7090d065b4331bb3c4ac6bef22d7fa8309c0ded891e830e"
+    }
+  ],
+  "updated": "2026-09-25",
+  "currentDeliverableCount": 39,
+  "updates": [
+    {
+      "date": "2026-09-25",
+      "description": "Added the requested open decisions and five team lists; linked from README/start page/context; included existing CLAUDE.md in distribution. No game rules or playtest evidence changed."
     }
   ]
 }

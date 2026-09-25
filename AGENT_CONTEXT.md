@@ -1,10 +1,10 @@
 # The Ferryman / Charon: agent context
 
-Updated September 25, 2026 for transfer to E:\Charon. All paths below are relative to the repository root and remain valid when the folder is shared.
+Updated September 25, 2026 after adding the open-decisions and three-day team plan in E:\Charon. All paths below are relative to the repository root and remain valid when the folder is shared.
 
 ## Immediate context
 
-The user requested that the complete game project and relevant generated files be gathered in E:\Charon for sharing with friends, with agent context included. The target was an existing empty Git repository on branch main, with no commits. Preserve its .git directory. Do not push or publish.
+The user requested that the complete game project and relevant generated files be gathered in E:\Charon for sharing with friends, with agent context included. At transfer, the target was an existing empty Git repository on branch main. The user has since committed the imported files and added CLAUDE.md; inspect current Git history rather than assuming it is still empty. Preserve its .git directory. Do not push or publish.
 
 The user has a seven-member group. Deadline supplied: Monday September 28, 2026, midnight, Asia/Bangkok context. Exact portal timestamp, assessed submission contents, presentation duration, member names and confirmed role assignments remain unknown. Recalculate time remaining when resuming. Prior 'coming week' fields are stale.
 
@@ -17,6 +17,7 @@ The immediate outcome is a paper prototype that showcases the concept. The brows
 3. outputs/The_Ferryman_Digital_Demo/engine.js: executable base rules. app.js contains interaction and save/export; index.html and styles.css provide the interface.
 4. outputs/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md and VALIDATION.md: observed evidence, interpretation, coverage and limitations.
 5. outputs/The_Ferryman_Easy_Playguide.pdf: later four-page accessible guide, generated September 25.
+6. outputs/The_Ferryman_Open_Decisions_and_3_Day_Plan.md: all twelve decision IDs and the five requested lists: decisions today, tweaks/tests, temporary settings, seven responsibilities, and dated schedule. Includes owner fields and readiness checkboxes. Recommendations are not team approvals.
 
 The longer outputs/The_Ferryman_Project_Handoff_Prompt.md is preserved as a historical detailed handoff. Its old C: workspace and Downloads paths describe the original environment. This file supersedes those location and repository statements. All finished files now exist under this repository's outputs/. Original files were copied without modifying their historical content.
 
@@ -75,4 +76,4 @@ archive/Production_Work.zip preserves the 335 pre-transfer files from work/, inc
 
 ## Next action
 
-The transfer completes the requested organization task. Await the team's next instruction or new playtest evidence. Do not automatically add features, revise the game's balance, commit, push or publish. Use TRANSFER_MANIFEST.json to verify the delivered snapshot; record future approved changes in the workbook and this context.
+The transfer and requested team-plan addition are complete. The team plan is linked from README.md and START_HERE.html and included in the refreshed complete-project ZIP. No game rules or recorded playtest results changed. Await the team's next instruction or new playtest evidence. Do not automatically add features, revise the game's balance, commit, push or publish. Use TRANSFER_MANIFEST.json to verify the delivered snapshot; record future approved changes in the workbook and this context.

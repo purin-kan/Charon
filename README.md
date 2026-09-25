@@ -12,6 +12,7 @@ Open **START_HERE.html** for a clickable project home page. It works with relati
 - **Present:** use [the art boards](outputs/The_Ferryman_Paper_Mockup_Art/Presentation_Art_Boards.pdf).
 - **Design:** edit [the workbook](outputs/The_Ferryman_Design_Workbook.md); the [PDF](outputs/The_Ferryman_Design_Workbook.pdf) is its reading copy.
 - **Discuss:** read [the short opinion](outputs/The_Ferryman_Playtest_Opinion.md) or [full playtest report](outputs/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md).
+- **Plan the next three days:** use [open decisions and the five team lists](outputs/The_Ferryman_Open_Decisions_and_3_Day_Plan.md).
 - **Continue with an agent:** start with [AGENT_CONTEXT.md](AGENT_CONTEXT.md). AGENTS.md contains project working rules.
 
 If your browser restricts saving when opening a local HTML file, export your play log before closing. Direct file opening was not browser-automated; the recorded interface tests used a local HTTP preview. See the demo's VALIDATION.md for exact coverage.
@@ -20,7 +21,7 @@ If your browser restricts saving when opening a local HTML file, export your pla
 
 | Location | Contents |
 | --- | --- |
-| outputs/ | All 38 finished files present at transfer, including the workbook, easy guide, print kit, artwork, editable SVGs, playable source, test evidence, opinion, demo ZIP and longer handoff prompt |
+| outputs/ | The original 37 finished files (38 minus the removed demo ZIP) plus the open-decisions/team-plan document, including the workbook, easy guide, print kit, artwork, editable SVGs, playable source, test evidence, opinion and longer handoff prompt |
 | sources/ | Cached original-concept text and four page previews; original PDF was unavailable at its former location |
 | archive/Production_Work.zip | All 335 pre-transfer production files, preserving work/ paths: builders, source caches, review renders, checks and older drafts |
 | AGENT_CONTEXT.md | Current state, deadline, decisions, rules references, evidence and next steps |
