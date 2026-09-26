@@ -13,3 +13,4 @@ work/
 !.env.example
 # Complete-project distribution ZIP, kept outside tracked source content
 /Charon_Shared_Project.zip
+/temp
