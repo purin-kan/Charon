@@ -1,6 +1,6 @@
 # The Ferryman / Charon: agent context
 
-Updated September 25, 2026 after adding the open-decisions and three-day team plan in E:\Charon. All paths below are relative to the repository root and remain valid when the folder is shared.
+Updated September 27, 2026 after repository organization. Current rules and game/art paths are unchanged; handoffs live at root v0.3_handoffs/, and decision history lives in notes/Decisions_and_Team_Plan.md.
 
 ## Immediate context
 
@@ -8,24 +8,26 @@ The user requested that the complete game project and relevant generated files b
 
 The user has a seven-member group. Deadline supplied: Monday September 28, 2026, midnight, Asia/Bangkok context. Exact portal timestamp, assessed submission contents, presentation duration, member names and confirmed role assignments remain unknown. Recalculate time remaining when resuming. Prior 'coming week' fields are stale.
 
-The immediate outcome is a paper prototype that showcases the concept. The browser demo lets the team test before printing. Final experience, morality, destination eligibility, ending, progression, engine, platform and art direction remain team decisions.
+The user confirmed endless play and authorized ChatGPT to decide the remaining mechanics. The selected v0.3 browser prototype uses an apprentice carrier/guide, branching multi-destination cycles and cycle-end anger. See outputs/The_Ferryman_v0.3_Decided_Rules.md; it supersedes conflicting older rules and open-question records.
 
 ## Read these first
+
+0. outputs/The_Ferryman_v0.3_Decided_Rules.md: authoritative next-version rules. User requirements are separate from Decided by ChatGPT choices. It settles the discussed gameplay gaps; all chosen numerical defaults are untested.
 
 1. README.md and START_HERE.html: shareable entry points.
 2. outputs/The_Ferryman_Design_Workbook.md: editable design baseline, v0.2. Quick summary line 11; decisions line 130; trial rules sections 5-10; showcase checkpoint section 17A/C01; playtesting section 18; optional modules section 19; myth sources/adaptations section 20.
 3. outputs/The_Ferryman_Digital_Demo/engine.js: executable base rules. app.js contains interaction and save/export; index.html and styles.css provide the interface.
 4. outputs/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md and VALIDATION.md: observed evidence, interpretation, coverage and limitations.
 5. outputs/The_Ferryman_Easy_Playguide.pdf: later four-page accessible guide, generated September 25.
-6. outputs/The_Ferryman_Open_Decisions_and_3_Day_Plan.md: all twelve decision IDs and the five requested lists: decisions today, tweaks/tests, temporary settings, seven responsibilities, and dated schedule. Includes owner fields and readiness checkboxes. Recommendations are not team approvals.
+6. notes/Decisions_and_Team_Plan.md: all twelve decision IDs and the five requested lists. Includes the September 26 user decisions, owner fields and readiness checkboxes. Other recommendations are not approvals.
 
-The longer outputs/The_Ferryman_Project_Handoff_Prompt.md is preserved as a historical detailed handoff. Its old C: workspace and Downloads paths describe the original environment. This file supersedes those location and repository statements. All finished files now exist under this repository's outputs/. Original files were copied without modifying their historical content.
+The longer outputs/The_Ferryman_Project_Handoff_Prompt.md is preserved as a historical detailed handoff. Its old C: workspace and Downloads paths describe the original environment. This file supersedes those location and repository statements. Existing game and print deliverables remain in outputs/; coordination lives in v0.3_handoffs/ and notes/. Original files were copied without modifying their historical content.
 
 ## Completed artifacts
 
 - Workbook v0.2: editable Markdown and previously verified 53-page PDF, quick summary page 2, paper showcase pages 36-39. No final workbook DOCX exists.
 - Paper kit: 13-page Print_and_Play_Kit.pdf; 5-page Presentation_Art_Boards.pdf; four PNG illustrations; four editable SVG assets plus instructions and artwork prompts. Location: outputs/The_Ferryman_Paper_Mockup_Art/.
-- Browser demo build 0.2.1 implementing the base trial, with local artwork, preview, journal, notes, browser save/reload and JSON export. No install, framework or account needed to play. Source is under outputs/The_Ferryman_Digital_Demo/; a packaged demo ZIP is also preserved.
+- Browser demo build 0.2.1 implementing the base trial, with local artwork, preview, journal, notes, browser save/reload and JSON export. No install, framework or account needed to play. Source is under outputs/The_Ferryman_Digital_Demo/; a packaged demo ZIP is not currently present in outputs/.
 - Full agent playtest report, standalone opinion, optional repeatable rule tests and policy experiments, saved browser logs.
 - Easy playguide and complete earlier handoff prompt.
 - No actual human group playtest, final team approval or completed course submission is known.
@@ -35,7 +37,7 @@ The longer outputs/The_Ferryman_Project_Handoff_Prompt.md is preserved as a hist
 Use the workbook and engine for precise implementation. The following is a summary, not permission to change them.
 
 - Six crossings, four seats, start with two obols and three Standing. Fixed supply S01-S12; refill the shore to five. All information visible, no random events.
-- Each boat uses one destination. Elysium: toll one obol, base pressure zero. Asphodel: no toll, pressure one. Tartarus: no toll, pressure two, plus one service obol only after a nonempty arrival. All souls are eligible for all routes in this trial.
+- Legacy implemented trial only: each boat uses one destination. This restriction is explicitly rejected for the selected new design. Legacy route values: Elysium toll one obol, base pressure zero; Asphodel no toll, pressure one; Tartarus no toll, pressure two, plus one service obol after a nonempty arrival. All souls are eligible for all routes in this old trial.
 - Departure costs must be affordable before arrival. Standing pays memory cost and pressure; exactly enough Standing survives. Arrival rewards cannot rescue a pressure failure.
 - Quotas of three obols follow arrivals on crossings three and six. Pressure failure occurs before arrival; quota failure retains arrival rewards and stops before decay.
 - Waiting souls receive one normal refusal; separating an available linked pair adds one extra refusal to the waiting partner. Three refusals create a persistent wraith, adding pressure from the next crossing. No appeasement in the base trial.
@@ -60,7 +62,25 @@ Direct file URL navigation was blocked by the prior browser automation policy. L
 
 ## Open decisions and recommended priorities
 
-The group has not approved final answers to workbook D01-D12: primary experience; Charon's authority; routing/access; meaning of Standing; memory structure; ending/quotas; wraith recovery; shore arrivals; river information; destination wishes; progression/forgetting; production scope.
+Current implementation target: outputs/The_Ferryman_v0.3_Decided_Rules.md. The user explicitly said the run is endless and delegated remaining decisions to ChatGPT. All delegated resolutions are labeled Decided by ChatGPT. Earlier proposals are now selected only as specified in this authoritative document.
+
+- D01: responsibility, strategy, survival, in that order (user).
+- D02: apprentice Charon (user); carrier/guide, not judge (ChatGPT).
+- D03: multi-destination branching travel (user); crossing = edge, cycle = return to start, origin-only boarding, small directed stop graph (ChatGPT).
+- D04: lantern starts at 2 (user), cap 6, fog damage greater than light fails; exact zero survives (ChatGPT).
+- D05: soul-linked free memories, one per crossing (user); draw to three once per stop, retain hand, shuffle discard when needed, no permanent removal; exact card table in spec (ChatGPT).
+- D06: endless and three failure categories (user); hull starts/max 3, sink at 0, dismissal at 3 reprimands; quota 2 obols every third completed cycle, insufficient coins add 1 reprimand without debt (ChatGPT, resolving conflicting quota statements in favor of latest quota request). One light recovered after surviving each return; haven also restores one.
+- D07: voluntary release for 2 light (user); repeatable at stops if affordable, immediate removal and 1 fewer reprimand (ChatGPT).
+- D08: anger ONLY on completed return to starting shore (user). Normal +1, separation +1 at return, transform at 3 and add reprimand; snapshot waiting souls at departure, no anger for new refill; undelivered passengers add broken-promise reprimands and return to shore; overflow retained (ChatGPT).
+- Supply: refill origin toward five after return, not mid-cycle; continuous fixed sequence of fresh 12-template cohorts, distinct IDs and within-cohort links. Delivered souls never return; templates describe different people (ChatGPT).
+- Calming: 1 obol protects one waiting soul's normal anger at imminent return, not separation; once before starting-shore departure, expires after return (ChatGPT resolution of user action/cap).
+- D09: hidden conditional stop events then reveal (user); four starter events, no surprise lethal damage, optional persistent public knowledge reference, trigger flags reset per run (ChatGPT). This reference is explicit exception to literal no persistent data; no mechanical unlock or carried resources.
+- D10: advisory preferences, no mismatch penalty (user); +1 light per matched delivered soul, exact template preferences in spec (ChatGPT).
+- D11: no upgrades, memory culling/forgetting or between-run resources/content unlocks (user); within-run memories grow, discard recycling is not removal (ChatGPT clarification).
+- Escalation: rocky route alternatives from cycle 3; +1 non-return fog from cycle 5; rotating favored destination bypasses modifier from cycle 6. Capped numerical escalation; no promised forced eventual loss (ChatGPT).
+- D12: next prototype is local turn-based plain HTML/CSS/JS with existing temporary art, click/tap controls, node map, exact upcoming-crossing fog previews and explicit hull hazard icons (ChatGPT). Final commercial engine/art decisions remain deferred and do not block this prototype.
+
+All rules above are decisions, not implementation or validated balance. The old demo, paper kit, PDFs and ZIP still contain v0.2. Before updating them, implement v0.3 separately, test the specified phase order and boundary cases, then synchronize requested artifacts. Do not carry old tests/results forward as v0.3 evidence. No code was changed or game played in the decision-recording task.
 
 Most urgent observations are ending pace (two empty late turns in the guided win), late-earned memories never reaching the hand, and Faint Memory's cost cancelling its protection in one recorded comparison. Route resource tradeoffs work in the tested examples; narrative identity remains a team question. Full rescue is possible under several fixed policies; this does not prove ease for new players.
 
@@ -74,6 +94,12 @@ sources/Concept_Report_Extracted.txt and sources/concept_pages/ preserve the cac
 
 archive/Production_Work.zip preserves the 335 pre-transfer files from work/, including build scripts, the template resource, source caches, research, render evidence and superseded drafts. Read archive/README.md. Older resume notes and incomplete drafts in that archive are historical and can contradict the final files. Never treat them as the current instructions or approved rules.
 
+## Repository organization checkpoint
+
+September 27, 2026: root README.md and START_HERE.html now distinguish the decided v0.3 design from the existing playable v0.2 build. outputs/README.md and notes/README.md map deliverables and history. The decision log moved from the root to notes/Decisions_and_Team_Plan.md; its relative links were repaired. The user's prior move of v0.3_handoffs/ to the root was retained, and worker prompt references now match. The missing collectiveThoughts.md source is labeled absent, not reconstructed. Game, artwork, PDF, evidence, archive and tool-state paths remain unchanged. Staging was not intentionally modified. temp/ remains ignored local scratch; new temporary work belongs in work/.
+
 ## Next action
 
-The transfer and requested team-plan addition are complete. The team plan is linked from README.md and START_HERE.html and included in the refreshed complete-project ZIP. No game rules or recorded playtest results changed. Await the team's next instruction or new playtest evidence. Do not automatically add features, revise the game's balance, commit, push or publish. Record future approved changes in the workbook and this context.
+September 27, 2026: prepared v0.3_handoffs/ with four copy/paste handoff prompts, a coordination README and a shared API/content/asset contract. User allocation: two ChatGPT Astra conversations for art and content; two Claude conversations for engine/tests and UI/integration/browser QA. Worker D owns final assembly; file ownership is non-overlapping. Distribute the exact same v0.3 rules and contract to every worker. This task only wrote handoff materials; no workers were launched and no game/assets were generated. Next-generation code target is a separate outputs/The_Ferryman_Digital_Demo_v0.3/ folder, preserving v0.2. Chat-only environments receive attachments and return complete files; actual tool access and executed checks must be disclosed, not assumed from subscriptions.
+
+The requested decision recording is complete. The next authorized scope must be read from the user's current request; this task did not implement a new game. The v0.3 rules are ready to use for implementation, followed by automated/browser checks and human playtesting. Preserve the old prototype as a comparison. Do not push or publish. Update this context when implementation or validation occurs.

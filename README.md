@@ -1,53 +1,71 @@
 # The Ferryman / Charon
 
-A paper game design prototype about ferrying souls, and a digital version for testing it together.
+An apprentice ferryman game about responsibility, strategy and survival.
+
+**Current design: v0.3 endless prototype. Existing playable build: v0.2.** The new rules are decided; the new game has not been generated in this checkout.
 
 ## Start here
 
-Open **START_HERE.html** for a clickable project home page. It works with relative links, so the folder can be moved or sent to a teammate.
+Open [START_HERE.html](START_HERE.html) for a clickable project home.
 
-- **Play:** open [the game](outputs/The_Ferryman_Digital_Demo/index.html) in a browser. Keep the folder together. The game needs no installation or account.
-- **Learn:** read [the easy playguide](outputs/The_Ferryman_Easy_Playguide.pdf).
-- **Print:** use [the print-and-play kit](outputs/The_Ferryman_Paper_Mockup_Art/Print_and_Play_Kit.pdf) and [assembly instructions](outputs/The_Ferryman_Paper_Mockup_Art/START_HERE.md).
-- **Present:** use [the art boards](outputs/The_Ferryman_Paper_Mockup_Art/Presentation_Art_Boards.pdf).
-- **Design:** edit [the workbook](outputs/The_Ferryman_Design_Workbook.md); the [PDF](outputs/The_Ferryman_Design_Workbook.pdf) is its reading copy.
-- **Discuss:** read [the short opinion](outputs/The_Ferryman_Playtest_Opinion.md) or [full playtest report](outputs/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md).
-- **Plan the next three days:** use [open decisions and the five team lists](outputs/The_Ferryman_Open_Decisions_and_3_Day_Plan.md).
-- **Continue with an agent:** start with [AGENT_CONTEXT.md](AGENT_CONTEXT.md). AGENTS.md contains project working rules.
+| Task | Start with |
+|---|---|
+| Build the next version | [v0.3 decided rules](outputs/The_Ferryman_v0.3_Decided_Rules.md) |
+| Assign the four AI workers | [Handoff pack](v0.3_handoffs/README.md) and [shared contract](v0.3_handoffs/SHARED_CONTRACT.md) |
+| Review decisions and their authors | [Decision log](notes/Decisions_and_Team_Plan.md) |
+| Review the team's ideas | [Categorized ideas](notes/categorized%20team%20ideas.md) |
+| Play the existing version | [v0.2 browser demo](outputs/The_Ferryman_Digital_Demo/index.html) |
+| Find printable material | [Deliverables guide](outputs/README.md) |
+| Continue with an agent | [AGENT_CONTEXT.md](AGENT_CONTEXT.md), then [AGENTS.md](AGENTS.md) |
 
-If your browser restricts saving when opening a local HTML file, export your play log before closing. Direct file opening was not browser-automated; the recorded interface tests used a local HTTP preview. See the demo's VALIDATION.md for exact coverage.
+The v0.3 rules supersede conflicting historical proposals. Existing PDFs, the old demo and its recorded results are not updated merely because the Markdown decisions changed.
 
-## What is included
+## Repository map
 
-| Location | Contents |
-| --- | --- |
-| outputs/ | The original 37 finished files (38 minus the removed demo ZIP) plus the open-decisions/team-plan document, including the workbook, easy guide, print kit, artwork, editable SVGs, playable source, test evidence, opinion and longer handoff prompt |
-| sources/ | Cached original-concept text and four page previews; original PDF was unavailable at its former location |
-| archive/Production_Work.zip | All 335 pre-transfer production files, preserving work/ paths: builders, source caches, review renders, checks and older drafts |
-| AGENT_CONTEXT.md | Current state, deadline, decisions, rules references, evidence and next steps |
-| AGENTS.md | Instructions for agents working in this repository |
+```text
+Charon/
+  README.md, START_HERE.html       Project entry points
+  AGENT_CONTEXT.md                 Current state and handoff
+  AGENTS.md, CLAUDE.md             Agent working guidance
+  v0.3_handoffs/                   Four prompts and the shared interface contract
+  notes/                          Decision log and categorized team ideas
+  outputs/                        Rules, game deliverables, print material and evidence
+    The_Ferryman_v0.3_Decided_Rules.md
+    The_Ferryman_Digital_Demo/     Existing v0.2 source, assets and verification
+    The_Ferryman_Paper_Mockup_Art/ Existing printable kit and artwork
+  sources/                        Preserved original-concept extracts and page images
+  archive/                        Historical production archive
+  temp/                           Ignored scratch notes, when present
+  work/                           Ignored scratch/build work, created when needed
+```
 
-The original concept PDF itself is not included. Its cached extraction and page previews are identified as derived copies, not the original PDF. The original Codex workspace remains intact.
+The next game belongs in `outputs/The_Ferryman_Digital_Demo_v0.3/` when implementation begins. Keep the old demo for comparison. Do not move game files or rename worker-owned paths without updating the handoff contract.
 
-## Group checkpoint
+Local `.claude/`, `.remember/` and `.git/` directories are tool/repository state, not game deliverables. They are not reorganized as project content.
 
-There are seven members. The user-provided deadline is Monday, September 28, 2026, midnight, in the Asia/Bangkok context. Confirm the exact course-portal timestamp and assessed contents. Member names, assignments, presentation length and actual human playtest results have not been supplied.
+## Working in parallel
 
-Suggested responsibilities: coordinator/submission, rules, playtesting, balance/demo checks, physical kit, narrative/visuals, presentation/rehearsal. These are suggestions, not assigned people.
+Use the four prompts in [v0.3_handoffs/](v0.3_handoffs/README.md). Each defines its file ownership and includes the shared-repository warning. Separate worktrees or copies are preferable; shared-checkout workers must preserve each other's changes. Worker D integrates the final files. Do not push or publish from an agent task.
 
-Before submission: agree the temporary scope, play the unchanged baseline, choose at most one mechanical experiment, synchronize materials, then rehearse the full paper run and reset. The workbook's section 17A/C01 is the readiness checklist. Its old 'coming week' date fields are superseded by the deadline above.
+Regular web conversations need the actual attachments. A path on one teammate's computer does not grant another chat access to that file.
 
-## Sharing and development
+## Playing and checking the existing demo
 
-Share the complete project ZIP supplied with the transfer, or share this repository's contents. Extract the ZIP first and open START_HERE.html. No localhost address is needed for a teammate's copy. Browser saves are local to that teammate; use Export play log to share results.
+The v0.2 game is local HTML/CSS/JavaScript with no required installation or account. Keep its folder intact. If local-file saving is restricted by the browser, export the play log before closing. Recorded automated browser checks used local HTTP; direct-file and real-device coverage must not be assumed. See [VALIDATION.md](outputs/The_Ferryman_Digital_Demo/VALIDATION.md).
 
-The existing Git repository is preserved. No commit or remote push was made during transfer. No license has been invented for your team. Before any public release, the team should choose its own license and distribution terms.
-
-To rerun rule checks, install Node.js separately if needed, then run from this repository:
+Optional verification with an already available Node.js runtime:
 
 ```text
 node outputs/The_Ferryman_Digital_Demo/verification/demo-tests.cjs
 node outputs/The_Ferryman_Digital_Demo/verification/demo_design_experiments.cjs
 ```
 
-Node is optional for verification and is not required to play. Each runner replaces its associated JSON result. Record design changes before rerunning comparisons. The PDF builders are archived; see archive/README.md before using them.
+These commands overwrite their corresponding result JSON files. Do not run them as an organization check or label their old-rule results as v0.3 evidence.
+
+## Team and source context
+
+The supplied submission deadline is September 28, 2026, midnight, Asia/Bangkok. The exact portal cutoff, assessed contents and named responsibilities still need the team's confirmation; see the dated plan in [notes](notes/Decisions_and_Team_Plan.md).
+
+[Sources](sources/README.md) identifies derived concept material and the missing original PDF. [Archive guidance](archive/README.md) explains the historical production ZIP. Older absolute paths, timing plans and rule proposals are historical context, not current instructions.
+
+The organization pass changed navigation and documentation locations, not game mechanics, artwork or recorded playtest results.

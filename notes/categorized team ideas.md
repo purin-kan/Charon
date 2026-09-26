@@ -1,10 +1,12 @@
 # Charon: categorized team ideas
 
-Organized from [collectiveThoughts.md](../collectiveThoughts.md) on September 26, 2026. This is a discussion inventory, not an approved design or implementation plan. Overlapping ideas are grouped; alternatives, examples, questions and implementation suggestions are retained.
+Organized from `collectiveThoughts.md` (original source currently absent from this checkout) on September 26, 2026. This is a discussion inventory, not an approved design or implementation plan. Overlapping ideas are grouped; alternatives, examples, questions and implementation suggestions are retained.
 
 ## Source note
 
-Source: [collectiveThoughts.md](../collectiveThoughts.md), modified September 26, 2026 at 21:56:30 local time. It is untracked and has no Git commit date. The latest commit affecting the demo verification directory is September 25, 2026 at 21:20:08 +07:00. Modification time is not a playtest date. **POSSIBLY STALE:** rule descriptions, workbook references and experiment claims have not been checked against current code or result files.
+September 27 organization note: the original-source links have been replaced with an explicit missing-source notice. This inventory is historical; use [v0.3 decided rules](../outputs/The_Ferryman_v0.3_Decided_Rules.md) for current implementation decisions.
+
+Source: `collectiveThoughts.md` (original source currently absent from this checkout), modified September 26, 2026 at 21:56:30 local time. It is untracked and has no Git commit date. The latest commit affecting the demo verification directory is September 25, 2026 at 21:20:08 +07:00. Modification time is not a playtest date. **POSSIBLY STALE:** rule descriptions, workbook references and experiment claims have not been checked against current code or result files.
 
 Ideas are grouped by topic without member attribution. Line references point to the original notes. Repeated suggestions are combined and distinct alternatives remain visible.
 

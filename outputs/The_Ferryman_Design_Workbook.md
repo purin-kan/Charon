@@ -127,28 +127,30 @@ These are proposed criteria, not results. A team may prefer strategic mastery, n
 
 **Owner / decision date / next evidence:** [name / date / test].
 
-## 4 Major decisions reserved for the team
+## 4 Current decisions and version authority
 
-Choose a temporary answer where a test needs one. Keep the final decision marked open until the team has enough evidence. Suggested options below are alternatives, not a requirement to choose from a fixed menu.
+The user confirmed endless play and authorized ChatGPT to make the remaining decisions. [The Ferryman v0.3 decided rules](The_Ferryman_v0.3_Decided_Rules.md) is authoritative for the next prototype. It distinguishes user requirements from **Decided by ChatGPT** resolutions and contains complete phase order, numerical defaults and starter content.
 
-| ID and decision | Options and tradeoffs | Trial assumption | Decide by |
-| --- | --- | --- | --- |
-| D01 Primary experience | Responsibility emphasizes consequence; mastery emphasizes planning; survival emphasizes pressure | Responsibility with visible costs | First test |
-| D02 Charon's authority | Carrier follows judgments; guide negotiates requests; judge assigns destinations | Route access unrestricted for mechanical testing | Before narrative approval |
-| D03 Routing structure | One stop is compact; multiple stops add itinerary planning; conditional access creates windows | One destination per boat | First route test |
-| D04 Standing | Spendable resolve is explicit; persistent reputation changes thresholds; deck-derived Standing reduces a separate track | Spendable crossing resilience and residue cost | First complete loop |
-| D05 Residue | Drawn hand supports deck identity; tableau exposes history; active set plus archive limits clutter | Deterministic queue, hand of two, one play | First complete loop |
-| D06 Ending and failure | Fixed run gives closure; endless duty needs a stopping ritual; scoring makes comparison easy but may narrow values | Six crossings; pressure or quota can end early | First run test |
-| D07 Wraiths and recovery | Persistent pressure creates urgency; one-time harm is simpler; appeasement offers repair | Persistent pressure, no removal | First run test |
-| D08 Shore arrivals | Refill to a target is compact; fixed arrivals create a crowd; capped queue needs overflow rules | Refill to five from fixed supply | First complete loop |
-| D09 River information | Fixed visible conditions isolate rules; previewed draws add variability; hidden draws add surprise | No random events | Before event test |
-| D10 Soul wishes | Requests may be binding, advisory, or negotiable; mismatch may alter story or rules | Flavor only; no mismatch penalty | Before route narrative test |
-| D11 Progression and forgetting | Lateral memories preserve constraint; upgrades offer growth; forgetting can be permanent or archival | No upgrades, culling, or metaprogression | Before expanded run |
-| D12 Production scope | Platform, engine, controls, art, audio, and available effort determine feasible breadth | Paper first; all digital choices open | Before digital build |
+This workbook's older trial rules, examples, quick summary and implementation notes describe v0.2. They are preserved for comparison and must not override v0.3. Updating this decision register does not rebuild the workbook PDF, game, paper kit or ZIP.
 
-**Also assign:** Quota amount and escalation belong to D06; prices and event access belong to D03; treatment of souls and mythology belong to D02 and D10. These choices can be split into separate records when discussion needs more detail.
+| ID | Selected next-version rule | Authorship |
+|---|---|---|
+| D01 | Responsibility first, strategy second, survival third | User |
+| D02 | Apprentice Charon; carrier/guide rather than moral judge | Identity: user; authority: ChatGPT |
+| D03 | Branching multi-destination cycles; each edge is a crossing; cycle ends on return to start; origin-only boarding | Direction: user; map/phase details: ChatGPT |
+| D04 | Lantern starts at 2, caps at 6; zero survives, fog greater than available light fails | Meaning/start: user; cap/zero rule: ChatGPT |
+| D05 | Soul-linked memories, free, one per crossing; draw to three once per stop; retain hand and recycle discard | Source/cost/limit: user; circulation/effects: ChatGPT |
+| D06 | Endless; light failure, sinking or dismissal; 2-obol quota every third completed cycle; missed quota adds reprimand | Endless/failure categories: user; exact rules: ChatGPT |
+| D07 | Pay 2 light voluntarily to release wraith; immediate pressure removal, reduce reprimands by 1 | Cost/choice: user; timing/repair: ChatGPT |
+| D08 | Anger only on return; +1 normal, +1 separation, transform at 3; refill to five from endless distinct cohorts of 12 templates | Cycle-only timing: user; values/supply reconciliation: ChatGPT |
+| D09 | Hidden conditional arrival events, revealed after trigger; public knowledge reference may persist without gameplay benefits | Concept: user; event set/persistence exception: ChatGPT |
+| D10 | Advisory wish; +1 light on matching delivery; no mismatch punishment | Advisory/no penalty: user; bonus: ChatGPT |
+| D11 | No boat upgrades, memory removal/forgetting or mechanical carryover; memories develop within the run | Restrictions: user; circulation/reference details: ChatGPT |
+| D12 | Local turn-based HTML/CSS/JS prototype; temporary existing art; final commercial engine/art deferred | Prototype scope: ChatGPT |
 
-**Decision record template:** ID [ ] · Question [ ] · Owner [ ] · Options [ ] · Tradeoff [ ] · Temporary test answer [ ] · Evidence needed [ ] · Final answer [open] · Review trigger [ ].
+**Other decisions by ChatGPT:** calming costs 1 obol and prevents one waiting soul's normal anger at next return, once before starting-shore departure. Hull starts/maxes at 3; repairs cost 1 obol per point at haven/start. Dismissal occurs at 3 reprimands. Escalation introduces rocky routes at cycle 3, caps added non-return fog at +1 from cycle 5, and rotates a favorable destination from cycle 6. The authoritative specification defines targets, costs, event conditions, return ordering and exact failure timing.
+
+These defaults are decided for implementation, not validated balance. The previously unresolved gameplay questions are closed for this prototype. New failures found during implementation or human testing may justify revisions; do not represent old evidence as verification of these rules.
 
 ## 5 Explore the underworld destinations
 
@@ -162,7 +164,7 @@ The destination idea can change the core question from only who boards to who tr
 | Multiple stops | An itinerary using a shared travel budget | Route order, disembarking, and mixed passengers | More time, states, and exceptions; capacity may matter less |
 | Conditional passage | Whether to use a paid or temporary opening | Anticipation and memorable opportunities | Requires clear signals; inaccessible routes can frustrate |
 
-**TRIAL choice:** Start with one destination per crossing. Test a timed opening later while keeping the same boarding rules. This makes the effect of each addition easier to observe.
+**Legacy trial choice, superseded by D03 on September 26, 2026:** The implemented prototype uses one destination per crossing. The selected design instead supports branching journeys with multiple destination stops. The old trial is retained as implementation history, not a recommendation for the new design.
 
 ### Destination concepts to develop
 
@@ -1090,7 +1092,7 @@ Use ancient stories to generate constraints, requests, and exceptions. Each entr
 
 ### Completed decision record
 
-**TRIAL record D03:** Does choosing a destination improve the crossing? Compare the three always-open routes with a single Asphodel-only version. Keep supply, resources, and all other rules the same. Capture choice explanations, decision times, and quota outcomes. A temporary one-stop model makes the comparison possible. The final route model remains open.
+**Historical TRIAL record D03, superseded September 26, 2026:** The earlier proposed comparison used three always-open routes versus Asphodel only, with a temporary one-stop model. The user has since explicitly rejected one destination per boat/journey and selected branching multi-destination travel. This earlier experiment is not the current route-design plan.
 
 **Owner:** [assign] · **Test date:** [assign] · **Evidence:** [not yet collected] · **Decision:** [open]
 
