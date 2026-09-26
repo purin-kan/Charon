@@ -41,7 +41,6 @@ When changing game rules, the source of truth is `outputs/The_Ferryman_Design_Wo
 - `outputs/` — the finished, current deliverables (workbook, playguide, print-and-play kit, presentation boards, the digital demo, playtest report). This is what's authoritative and shareable.
 - `sources/` — cached original-concept text and page previews; the original concept PDF itself is not present (see `AGENT_CONTEXT.md` for why).
 - `archive/Production_Work.zip` — pre-transfer `work/` history (Python PDF builders using `reportlab`, source caches, drafts). Historical only; see `archive/README.md` before touching it. Not authoritative, and requires Python/reportlab plus Windows fonts to rebuild PDFs from it — the finished PDFs in `outputs/` don't need any of that to read.
-- `TRANSFER_MANIFEST.json` — file hashes/sizes for verifying the outputs/ snapshot against what was originally produced.
 - `.remember/` — session memory buffer/history for this agent's own use across sessions; not game content.
 
 ## Working rules that matter for code changes

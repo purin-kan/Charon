@@ -76,4 +76,4 @@ archive/Production_Work.zip preserves the 335 pre-transfer files from work/, inc
 
 ## Next action
 
-The transfer and requested team-plan addition are complete. The team plan is linked from README.md and START_HERE.html and included in the refreshed complete-project ZIP. No game rules or recorded playtest results changed. Await the team's next instruction or new playtest evidence. Do not automatically add features, revise the game's balance, commit, push or publish. Use TRANSFER_MANIFEST.json to verify the delivered snapshot; record future approved changes in the workbook and this context.
+The transfer and requested team-plan addition are complete. The team plan is linked from README.md and START_HERE.html and included in the refreshed complete-project ZIP. No game rules or recorded playtest results changed. Await the team's next instruction or new playtest evidence. Do not automatically add features, revise the game's balance, commit, push or publish. Record future approved changes in the workbook and this context.

@@ -26,7 +26,6 @@ If your browser restricts saving when opening a local HTML file, export your pla
 | archive/Production_Work.zip | All 335 pre-transfer production files, preserving work/ paths: builders, source caches, review renders, checks and older drafts |
 | AGENT_CONTEXT.md | Current state, deadline, decisions, rules references, evidence and next steps |
 | AGENTS.md | Instructions for agents working in this repository |
-| TRANSFER_MANIFEST.json | File hashes, sizes and original deliverable dates for checking the transfer |
 
 The original concept PDF itself is not included. Its cached extraction and page previews are identified as derived copies, not the original PDF. The original Codex workspace remains intact.
 
