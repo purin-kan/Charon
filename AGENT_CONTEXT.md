@@ -1,20 +1,32 @@
 # The Ferryman / Charon: agent context
 
-Updated September 29, 2026 after the repository freshness audit and documentation refresh. Current status below supersedes the dated delivery history at the end of this file.
+Updated September 29, 2026 after completing the resumed v0.4 handoff. Current status below supersedes the paused draft and dated delivery history.
 
-## v0.4 work in progress, September 29, 2026
+## Current completed browser version: v0.4
 
 The user authorized generating v0.4 and asked for design clarification. Confirmed: remove hull, reprimands, obols and quotas; retain lantern light and memories; use guided passenger/route/memory/result steps with a small persistent light/boat summary; retain multiple destinations per trip; deliver a browser demo, updated rules and quick start first. A v0.4 physical kit is deferred until the user tries the new flow. Preserve v0.3 as a playable comparison.
 
 The user answered all remaining questions: retain existing soul abilities and all six memory effects, including soldier conflict, special passenger powers and separation anger; every delivery grants a memory and only a matched destination wish restores 1 light; require delivery of all passengers before returning to the shore. No questionnaire answers remain pending.
 
-The user then stopped the build because of session limits and requested a root-level handoff. Resume from [V0.4_HANDOFF.md](V0.4_HANDOFF.md). The new folder contains index.html/styles.css, unchanged reused art copies with hashes, and a first engine.js draft. It is NOT yet playable: app.js, rules, quick start and validation remain unfinished. The engine passed a JavaScript syntax check only; no behavioral or browser tests have run. The handoff records confirmed choices, untested implementation interpretations, current files and remaining work. Current launch links still point to completed v0.3. No agents were delegated and nothing was pushed. Do not continue the build until the user resumes it.
+The user paused for session limits, then explicitly resumed with “do V0.4_HANDOFF.md”. The browser-first handoff is now complete. [Play v0.4](outputs/The_Ferryman_Digital_Demo_v0.4/index.html), [launch/save instructions](outputs/The_Ferryman_Digital_Demo_v0.4/README.md), [rules](outputs/The_Ferryman_Digital_Demo_v0.4/RULES.md), [quick start](outputs/The_Ferryman_Digital_Demo_v0.4/QUICK_START.md) and [validation](outputs/The_Ferryman_Digital_Demo_v0.4/VALIDATION.md). Root navigation points to v0.4 and retains v0.3 as a comparison.
 
-The user subsequently requested paper-play considerations in the handoff. V0.4_HANDOFF.md now covers physical guided steps, visible decision information, component-based tracking, retained-ability arithmetic, endless-cohort/memory handling, and separate human/print validation. These are considerations, not additional approved rule changes. Physical-kit generation remains deferred and the build remains paused.
+Implemented the guided interface, persistent summary, tactical information, exact fog previews, provisional memory choice/Back, final-destination warning, result/delivery steps, wraith release, help, local resume, confirmed New Run and JSON export/import. Fixed draft planning forecasts, numeric cohort ordering after C99 and save invariants. All 20 reused art copies match their recorded hashes and original v0.3 sources. No artwork was regenerated.
 
-## Current completed version: v0.3
+Recorded evidence: [engine-results.json](outputs/The_Ferryman_Digital_Demo_v0.4/verification/engine-results.json) has 35 passing records and zero failures, including 100 seeds / 16,585 randomized legal transitions. [browser-results.json](outputs/The_Ferryman_Digital_Demo_v0.4/verification/browser-results.json) has 40 passes, zero failures and zero JavaScript runtime errors. [file-smoke.json](outputs/The_Ferryman_Digital_Demo_v0.4/verification/file-smoke.json) records direct-file launch, boarding, reload/resume and loaded images. [Static results](outputs/The_Ferryman_Digital_Demo_v0.4/verification/static-results.json) record links, provenance, screenshots and hashes. Browser scope is Chrome 154 on macOS at 1280 × 900 and 390 × 844 CSS pixels, not Windows, other browsers, actual phones or a full accessibility audit. Seven screenshots received agent visual review. These checks do not establish human enjoyment, balance or paper usability.
 
-The v0.3 browser game is integrated and the physical workshop kit is generated. The source, artwork and recorded evidence are present locally. The user authorized this documentation refresh after the audit; no mechanics, game code, artwork, PDFs or test evidence were changed.
+The browser runner uses an isolated context to preserve existing user saves. Automatic approval review rejected its initial storage-clearing proposal; that rejected script did not run. The accepted isolated runner completed without the risky action. Local HTTP required approved sandbox escalation; no dependencies or account access were used. After the isolated direct-file smoke had run, the dedicated navigator rejected a file URL as blocked. No alternate route was attempted after that restriction was reported. Use local HTTP for future agent browser QA; preserve the smoke as executed evidence, not permission to bypass a restriction.
+
+Implementation interpretations remain labeled, not silently promoted to separately approved mechanics: retire the three events tied to removed resources; retain Shared Farewell; require full delivery at the final destination to prevent stranding; persist result phases and reject v0.3 saves. Save imports are limited to 5 MB and browser storage has practical limits for very long runs. No distribution ZIP was requested or generated. Runtime files are standalone in the v0.4 folder.
+
+Remaining: user/team trial of the guided flow, review of interpretations and art, then an explicitly authorized physical-kit task. [V0.4_HANDOFF.md](V0.4_HANDOFF.md) retains paper considerations for guided steps, visible tactical facts, component tracking, arithmetic, endless cohorts/memories and separate human/print checks. They are considerations, not new mechanics. Do not generate v0.4 print materials yet. Existing v0.3 paper files and older workbook/PDF examples are preserved and version-labeled.
+
+Freshness: this resumed checkout is `/Users/supa/projects/SIIT/charon` on macOS, beginning clean at `ce12a40` (September 29 handoff commit), after `63f3088`. The handoff's Windows path, uncommitted-work statements and “not playable” status are historical. At the implementation handoff all work remained local, with no delegation, commit, push or publishing. Submission completion remains unknown.
+
+September 29 git delivery authorization: the user subsequently said “push it”, explicitly authorizing committing and pushing the completed v0.4 work, superseding the earlier no-push restriction for this delivery. The current branch is `main`, tracking `origin/main` at `https://github.com/purin-kan/charon.git`. A fresh fetch found both at `ce12a40`, with no divergence. The engine, browser and static records still report zero failures and their stored source hashes match. This checkpoint accompanies the v0.4 commit for a normal fast-forward push. No force-push, remote deletion, deployment, new physical kit or submission is authorized by this request.
+
+## Preserved comparison and physical kit: v0.3
+
+The v0.3 browser game is integrated and the physical workshop kit is generated. Its source, artwork and recorded evidence remain unchanged by the v0.4 continuation. The earlier documentation-only freshness audit is preserved below as history.
 
 - Play: [v0.3 index.html](outputs/The_Ferryman_Digital_Demo_v0.3/index.html). Keep the whole game folder together. [Launch instructions](outputs/The_Ferryman_Digital_Demo_v0.3/README.md) describe direct opening and local HTTP. No installation or account is needed to play.
 - Print: [workshop PDF](outputs/The_Ferryman_Workshop_Kit_v0.3/Print_and_Play_Workshop_v0.3.pdf), [assembly guide](outputs/The_Ferryman_Workshop_Kit_v0.3/README.md) and [workshop ZIP](outputs/The_Ferryman_Workshop_Kit_v0.3.zip).
@@ -23,7 +35,7 @@ The v0.3 browser game is integrated and the physical workshop kit is generated. 
 - Local history includes browser integration commit 0e06ce2 and workshop merge 63f3088. The earlier PR authorization notes below are completed history, not fresh authorization to push or merge.
 - Human playtesting, final team art approval and course submission completion are not recorded.
 
-## Read these first
+## v0.3 reference files
 
 1. [README.md](README.md), [START_HERE.html](START_HERE.html) and [outputs/README.md](outputs/README.md): current navigation and version labels.
 2. [Decided rules](outputs/The_Ferryman_v0.3_Decided_Rules.md), then current game source under `outputs/The_Ferryman_Digital_Demo_v0.3/`. See [ENGINE_API.md](outputs/The_Ferryman_Digital_Demo_v0.3/docs/ENGINE_API.md) for the implemented API.

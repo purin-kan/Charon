@@ -6,7 +6,11 @@ Prepared September 25, 2026 for the seven-member group.
 
 **Status updated September 29, 2026:** The [v0.3 browser demo](../outputs/The_Ferryman_Digital_Demo_v0.3/index.html) and [physical workshop kit](../outputs/The_Ferryman_Workshop_Kit_v0.3/README.md) are delivered. Digital checks are recorded in the [integration handoff](../outputs/The_Ferryman_Digital_Demo_v0.3/handoff/integration.md). Physical printer checks and human rehearsal remain NOT_RUN in the [kit validation](../outputs/The_Ferryman_Workshop_Kit_v0.3/VALIDATION.md). The supplied deadline has passed; submission outcome is not recorded. Earlier implementation-status statements and scheduling checkboxes below describe their dated discussions, not the current backlog.
 
-## Current authority: v0.3 endless prototype
+## Current authority: v0.4 guided prototype
+
+September 29: the user resumed the v0.4 handoff. The [v0.4 rules](../outputs/The_Ferryman_Digital_Demo_v0.4/RULES.md) now describe the playable browser build. Explicit choices remove hull, reprimands, obols and quotas; retain light, memories, multiple destinations and all soul/memory abilities; grant a memory for every delivery and 1 light only for a matched wish; require an empty boat before return. The UI presents one decision at a time. The rules label retained defaults and draft implementation interpretations separately. The [validation](../outputs/The_Ferryman_Digital_Demo_v0.4/VALIDATION.md) records automation only. The v0.4 physical kit remains deferred until the user tries the flow. Final art approval and human testing remain pending.
+
+## Prior authority: v0.3 endless prototype
 
 **User decision:** the run is endless. **Delegation:** the user explicitly asked ChatGPT to make the remaining decisions and record their authorship.
 

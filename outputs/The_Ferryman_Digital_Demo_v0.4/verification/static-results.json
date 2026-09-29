@@ -1,0 +1,99 @@
+{
+  "kind": "Static artifact checks, not gameplay or human testing",
+  "recordedAt": "2026-09-29T14:22:47.176Z",
+  "counts": {
+    "passed": 5,
+    "failed": 0
+  },
+  "hashes": {
+    "engine.js": "b34f0df84d0cdbf0c934ec30a8524d2beb42acf85434582009654fea3a742d5d",
+    "app.js": "6afc3a815a9be957186b4e1b3c8464535804e154a75328d3400e1e3d22744bbc",
+    "index.html": "e0503aa21d18925c50c96d865a6df6a64f7265e874a9fe5480e58da83ef3df30",
+    "styles.css": "248c807a14d67e968f19263d2912cd5200d3ab0fc60470649702ffd11ffa65b5",
+    "RULES.md": "26b751c07a4564735ddf818855fccf3756b90c9626634e02938db5bd7d2a4fae",
+    "QUICK_START.md": "5d119b0e3114ed246cb8c4fea57a2d8ed5e840e6350d3c450ec2a990eb545728",
+    "README.md": "fe9153df4c56f478da0a1328fe86439052d0c42fcd5bc1263a8ee9c216b42e79",
+    "tests/engine-check.cjs": "6e709382e6526f8ae0003a7b52e916a4d11c78331b0566d82ed891e49d05a7a5",
+    "tests/browser-check.js": "508fa8fcfc29f826067415beb53652575d6bc23bc06217b373a371e79fe97889",
+    "tests/browser-fixtures.cjs": "9314f8374aacbe2f87ed6a2cccc675c816c1f3aca7f33e7e1a60c30922697ec3"
+  },
+  "results": [
+    {
+      "name": "Current documentation local links resolve",
+      "status": "PASS",
+      "detail": {
+        "documents": 9,
+        "links": 137
+      }
+    },
+    {
+      "name": "HTML runtime and launcher links resolve; demo stays inside its folder",
+      "status": "PASS",
+      "detail": {
+        "links": 40
+      }
+    },
+    {
+      "name": "All 20 reused art copies match recorded hash and original source",
+      "status": "PASS",
+      "detail": {
+        "assets": 20
+      }
+    },
+    {
+      "name": "Expected screenshots exist with desktop and narrow CSS widths",
+      "status": "PASS",
+      "detail": [
+        {
+          "name": "boarding-desktop",
+          "width": 1280,
+          "height": 1440
+        },
+        {
+          "name": "review-desktop",
+          "width": 1280,
+          "height": 1165
+        },
+        {
+          "name": "failure-desktop",
+          "width": 1280,
+          "height": 900
+        },
+        {
+          "name": "boarding-mobile",
+          "width": 390,
+          "height": 2499
+        },
+        {
+          "name": "route-mobile",
+          "width": 390,
+          "height": 2214
+        },
+        {
+          "name": "memory-mobile",
+          "width": 390,
+          "height": 2439
+        },
+        {
+          "name": "review-mobile",
+          "width": 390,
+          "height": 1370
+        }
+      ]
+    },
+    {
+      "name": "Engine and browser evidence report zero failures",
+      "status": "PASS",
+      "detail": {
+        "engine": {
+          "passed": 35,
+          "failed": 0
+        },
+        "browser": {
+          "passed": 40,
+          "failed": 0
+        }
+      }
+    }
+  ]
+}

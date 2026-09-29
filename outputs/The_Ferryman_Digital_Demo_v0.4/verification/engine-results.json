@@ -1,0 +1,160 @@
+{
+  "kind": "automated pure-engine checks; not human playtesting",
+  "recordedAt": "2026-09-29T14:16:07.500Z",
+  "runtime": "v25.9.0",
+  "platform": "darwin",
+  "hashes": {
+    "engine.js": "b34f0df84d0cdbf0c934ec30a8524d2beb42acf85434582009654fea3a742d5d",
+    "app.js": "6afc3a815a9be957186b4e1b3c8464535804e154a75328d3400e1e3d22744bbc",
+    "index.html": "e0503aa21d18925c50c96d865a6df6a64f7265e874a9fe5480e58da83ef3df30",
+    "styles.css": "248c807a14d67e968f19263d2912cd5200d3ab0fc60470649702ffd11ffa65b5"
+  },
+  "counts": {
+    "passed": 35,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "Setup retains only light and memories, fixed shore and four seats",
+      "status": "PASS"
+    },
+    {
+      "name": "Boarding is reversible, pure and capacity limited; empty departure legal",
+      "status": "PASS"
+    },
+    {
+      "name": "Matched delivery grants one memory and one light; mismatch only memory",
+      "status": "PASS"
+    },
+    {
+      "name": "Delivery and Shared Farewell cannot exceed light cap",
+      "status": "PASS"
+    },
+    {
+      "name": "Matching partners in one action each grant a distinct Joined memory",
+      "status": "PASS"
+    },
+    {
+      "name": "Separate deliveries grant Faint, with no retroactive upgrade",
+      "status": "PASS"
+    },
+    {
+      "name": "Linked identities and Joined rewards are cohort scoped",
+      "status": "PASS"
+    },
+    {
+      "name": "Musician and Listener retain matching linked ability",
+      "status": "PASS"
+    },
+    {
+      "name": "Shared Farewell triggers once per run and resets in a fresh run",
+      "status": "PASS"
+    },
+    {
+      "name": "Same-cohort soldiers add one fog; different cohorts do not",
+      "status": "PASS"
+    },
+    {
+      "name": "Accord cancels conflict and supplies one protection",
+      "status": "PASS"
+    },
+    {
+      "name": "Poet needs two other souls; Keeper must travel alone",
+      "status": "PASS"
+    },
+    {
+      "name": "All six memory effects and two-seat Vigil threshold",
+      "status": "PASS"
+    },
+    {
+      "name": "Departure forecast responds to tentative boarding and Back",
+      "status": "PASS"
+    },
+    {
+      "name": "Normal and separation anger happen only on return; new souls exempt",
+      "status": "PASS"
+    },
+    {
+      "name": "Remote guard prevents normal anger, not separation; expires after return",
+      "status": "PASS"
+    },
+    {
+      "name": "Memory target must be eligible; selected protection is provisional",
+      "status": "PASS"
+    },
+    {
+      "name": "Wraith transformation at return affects next crossing only",
+      "status": "PASS"
+    },
+    {
+      "name": "Wraith release costs exactly two, permits zero and is not repeated",
+      "status": "PASS"
+    },
+    {
+      "name": "Return remains disabled until all passengers delivered; no revisits",
+      "status": "PASS"
+    },
+    {
+      "name": "Final destination forces full delivery and leaves a legal route home",
+      "status": "PASS"
+    },
+    {
+      "name": "Haven cannot strand passengers after all destinations are visited",
+      "status": "PASS"
+    },
+    {
+      "name": "Haven restores one light, cannot be revisited or used for delivery",
+      "status": "PASS"
+    },
+    {
+      "name": "Exact-zero crossing survives; lethal crossing requires explicit consent",
+      "status": "PASS"
+    },
+    {
+      "name": "Back does not spend cards; crossing spends once; no same-stop redraw",
+      "status": "PASS"
+    },
+    {
+      "name": "Result Continue and delivery cannot duplicate rewards or recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Cycle fog starts at five; favorable rotation at six; return unaffected",
+      "status": "PASS"
+    },
+    {
+      "name": "Seeded discard recycle is repeatable and hand never exceeds three",
+      "status": "PASS"
+    },
+    {
+      "name": "Endless refill creates new cohort identities, including after cohort 99",
+      "status": "PASS"
+    },
+    {
+      "name": "Memory insertion orders cohort 99 before 100 numerically",
+      "status": "PASS"
+    },
+    {
+      "name": "Save round trips every guided phase, failure result and ended",
+      "status": "PASS"
+    },
+    {
+      "name": "Malformed and incompatible saves reject without modifying input",
+      "status": "PASS"
+    },
+    {
+      "name": "Result cannot forge an ended continuation; memory phase has no committed choice",
+      "status": "PASS"
+    },
+    {
+      "name": "Randomized transition coverage",
+      "status": "PASS",
+      "seeds": 100,
+      "transitions": 16585
+    },
+    {
+      "name": "Randomized legal transitions preserve save invariants across 100 seeds",
+      "status": "PASS"
+    }
+  ]
+}

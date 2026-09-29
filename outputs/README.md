@@ -1,8 +1,19 @@
 # Deliverables and version guide
 
-Status checked September 29, 2026. The v0.3 browser demo and physical kit are delivered; the older artifacts below remain historical.
+Status checked September 29, 2026. The current browser prototype is v0.4. The physical workshop kit remains v0.3 and uses different rules.
 
-## Current v0.3 deliverables
+## Current v0.4 browser deliverables
+
+| Material | Location | Status |
+|---|---|---|
+| Browser demo | [Play v0.4](The_Ferryman_Digital_Demo_v0.4/index.html), [launch and save instructions](The_Ferryman_Digital_Demo_v0.4/README.md) | Playable guided flow; light and memories retained |
+| Rules and guide | [Rules](The_Ferryman_Digital_Demo_v0.4/RULES.md), [quick start](The_Ferryman_Digital_Demo_v0.4/QUICK_START.md) | Confirmed choices, retained baseline and implementation interpretations distinguished |
+| Verification | [Validation](The_Ferryman_Digital_Demo_v0.4/VALIDATION.md) | Automated engine/browser checks and direct-file smoke; not human playtesting |
+| Physical kit | Deferred | Wait until the user tries the browser flow; v0.3 pieces are not v0.4 pieces |
+
+Keep the v0.4 folder intact. No v0.4 demo ZIP has been generated. Its 20 art copies are unchanged from the prior prototype; team art approval remains pending.
+
+## Retained v0.3 comparison and workshop kit
 
 | Material | Location | Status |
 |---|---|---|

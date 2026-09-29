@@ -1,0 +1,184 @@
+{
+  "kind": "Automated browser interactions in isolated context; fixtures are constructed; not human playtesting",
+  "recordedAt": "2026-09-29T14:22:14.040Z",
+  "url": "http://localhost:8044/outputs/The_Ferryman_Digital_Demo_v0.4/",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "counts": {
+    "passed": 40,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "Intro explains objective",
+      "status": "PASS"
+    },
+    {
+      "name": "Keyboard enters current decision",
+      "status": "PASS"
+    },
+    {
+      "name": "Keyboard boarding retains focused soul control",
+      "status": "PASS"
+    },
+    {
+      "name": "Four-seat capacity disables extra boarding",
+      "status": "PASS"
+    },
+    {
+      "name": "Linked delivery preview has two Joined rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Shared Farewell reveals only after delivery",
+      "status": "PASS"
+    },
+    {
+      "name": "Event discovery retained separately",
+      "status": "PASS"
+    },
+    {
+      "name": "Return disabled with Merchant aboard",
+      "status": "PASS"
+    },
+    {
+      "name": "Back leaves memory and protection uncommitted",
+      "status": "PASS"
+    },
+    {
+      "name": "Review shows exact fog and guarded forecast",
+      "status": "PASS"
+    },
+    {
+      "name": "Cleared discovery stays cleared on later actions",
+      "status": "PASS"
+    },
+    {
+      "name": "Complete multi-destination trip and refill",
+      "status": "PASS"
+    },
+    {
+      "name": "Reload/resume retains exact run",
+      "status": "PASS"
+    },
+    {
+      "name": "JSON export download has versioned filename",
+      "status": "PASS"
+    },
+    {
+      "name": "Incompatible import retains current run",
+      "status": "PASS"
+    },
+    {
+      "name": "Exported file reimports without changing state",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape closes guide and restores focus",
+      "status": "PASS"
+    },
+    {
+      "name": "Soldier conflict visible before memory",
+      "status": "PASS"
+    },
+    {
+      "name": "Accord review cancels conflict and costs one light",
+      "status": "PASS"
+    },
+    {
+      "name": "Vigil recognizes two-seat passenger",
+      "status": "PASS"
+    },
+    {
+      "name": "Keeper solo protection in review",
+      "status": "PASS"
+    },
+    {
+      "name": "Poet with two others protects crossing",
+      "status": "PASS"
+    },
+    {
+      "name": "Wraith release to zero is legal and immediate",
+      "status": "PASS"
+    },
+    {
+      "name": "Final destination warning before route choice",
+      "status": "PASS"
+    },
+    {
+      "name": "Final delivery cannot leave passenger aboard",
+      "status": "PASS"
+    },
+    {
+      "name": "Final delivery opens legal return",
+      "status": "PASS"
+    },
+    {
+      "name": "Lethal crossing explicitly labeled",
+      "status": "PASS"
+    },
+    {
+      "name": "Failure result before arrival or rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Run summary reached",
+      "status": "PASS"
+    },
+    {
+      "name": "Narrow route viewport has no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "Narrow memory viewport has no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "Narrow review has no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "Reload resumes review without spending memory",
+      "status": "PASS"
+    },
+    {
+      "name": "Light and boat summary stays visible while scrolling",
+      "status": "PASS"
+    },
+    {
+      "name": "Cancel new run preserves progress",
+      "status": "PASS"
+    },
+    {
+      "name": "Confirmed new run clears game resources and flags",
+      "status": "PASS"
+    },
+    {
+      "name": "Narrow boarding viewport has no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "All rendered images loaded",
+      "status": "PASS"
+    },
+    {
+      "name": "Imported result strings render as inert text",
+      "status": "PASS"
+    },
+    {
+      "name": "No JavaScript runtime errors",
+      "status": "PASS",
+      "detail": []
+    }
+  ],
+  "errors": []
+}

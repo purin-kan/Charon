@@ -1,0 +1,34 @@
+{
+  "kind": "Direct-file smoke check, isolated browser context; not a human playtest",
+  "recordedAt": "2026-09-29T14:17:10.761Z",
+  "status": "PASS",
+  "url": "file:///Users/supa/projects/SIIT/charon/outputs/The_Ferryman_Digital_Demo_v0.4/index.html",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "checks": {
+    "launched": true,
+    "boarded": true,
+    "reloadedAndResumed": true,
+    "images": [
+      {
+        "src": "assets/S01.png",
+        "loaded": true
+      },
+      {
+        "src": "assets/S02.png",
+        "loaded": true
+      },
+      {
+        "src": "assets/S03.png",
+        "loaded": true
+      },
+      {
+        "src": "assets/S04.png",
+        "loaded": true
+      },
+      {
+        "src": "assets/S05.png",
+        "loaded": true
+      }
+    ]
+  }
+}

@@ -4,6 +4,8 @@ Editable examples and templates for the whole game
 
 Version 0.2 | 17 September 2026 | Team F2P
 
+**Version notice, September 29, 2026:** this workbook preserves v0.2 examples and the later v0.3 decision register. The current browser prototype uses [v0.4 rules](The_Ferryman_Digital_Demo_v0.4/RULES.md) and its matching [quick start](The_Ferryman_Digital_Demo_v0.4/QUICK_START.md). v0.4 removes obols, hull, reprimands and quotas and changes delivery rewards. Do not use the old workbook examples, PDFs or v0.3 paper pieces as v0.4 instructions. A v0.4 physical kit is deferred until the user tries the browser flow.
+
 The next task is to test a complete crossing, then a short run, and use what happens to decide the larger game. This workbook covers the concept, destinations, rules, content, presentation, digital systems, and playtesting. Completed examples provide something concrete to try. Blank templates let the team replace those examples and extend the design.
 
 **Decision authority:** The team owns the final experience, destination rules, morality, progression, ending, platform, engine, art direction, and production scope. Using an example in a test does not approve it for the final game.

@@ -2,13 +2,25 @@
 
 ## Current project
 
-The Ferryman is a paper game design project with a completed v0.3 browser prototype and printable workshop kit. Read [AGENT_CONTEXT.md](AGENT_CONTEXT.md) first, then [AGENTS.md](AGENTS.md). Status refreshed September 29, 2026.
+The Ferryman now has a completed v0.4 guided browser prototype. The physical kit remains v0.3 and uses different rules. Read [AGENT_CONTEXT.md](AGENT_CONTEXT.md) first, then [AGENTS.md](AGENTS.md). Status refreshed September 29, 2026 after completing the resumed v0.4 handoff.
 
-The authoritative rules are [The_Ferryman_v0.3_Decided_Rules.md](outputs/The_Ferryman_v0.3_Decided_Rules.md). The [shared contract](v0.3_handoffs/SHARED_CONTRACT.md) describes the worker interfaces. Earlier worker prompts and handoffs are dated production history, not instructions to regenerate completed work.
+Current authority is [v0.4 RULES.md](outputs/The_Ferryman_Digital_Demo_v0.4/RULES.md), which separates explicit user choices, retained v0.3 defaults and implementation interpretations. The [v0.4 handoff](V0.4_HANDOFF.md) is completed history with paper considerations for a later task. Earlier worker prompts are not instructions to regenerate completed work.
 
 ## Launch and verification
 
-Open `outputs/The_Ferryman_Digital_Demo_v0.3/index.html` or use [START_HERE.html](START_HERE.html). Playing needs no installation, account or build step. Direct-file browser evidence is from headless Chrome on macOS, not Windows or real phones. See the [launch instructions](outputs/The_Ferryman_Digital_Demo_v0.3/README.md).
+Open `outputs/The_Ferryman_Digital_Demo_v0.4/index.html` or use [START_HERE.html](START_HERE.html). Playing needs no installation, account or build step. See [launch instructions](outputs/The_Ferryman_Digital_Demo_v0.4/README.md) and [validation](outputs/The_Ferryman_Digital_Demo_v0.4/VALIDATION.md). The evidence has 35 passing engine records, 40 browser checks and direct-file smoke, with no failures. Browser scope is Chrome 154/macOS at desktop and narrow emulated widths; no human, Windows or real-phone coverage is claimed.
+
+From the v0.4 folder, `node tests/engine-check.cjs` writes engine evidence, `node tests/static-check.cjs` checks links/provenance, and `node tests/browser-fixtures.cjs` generates constructed boundary fixtures in `work/v04/`. `tests/browser-check.js` runs through the browser tool in an isolated context via local HTTP. Adjust its explicit repository/URL constants for another machine. `tests/file-smoke.js` preserves an executed isolated smoke script; a later dedicated navigation attempt reported file URLs blocked. Use HTTP for future agent QA, without bypassing that restriction. Preserve existing browser saves and older versions' evidence.
+
+## Current v0.4 architecture
+
+All runtime files are under `outputs/The_Ferryman_Digital_Demo_v0.4/`. `engine.js` exposes `Ferryman` and CommonJS exports: createGame, dispatch, preview, routes, soul, partner, seats, forecast, deliveryPreview, validate, serialize and deserialize. Dispatch returns `{ok,state,error}` without mutating the input. Phases: boarding, route, memory, review, result, delivery, ended. Result Continue advances only; it must never reapply committed effects.
+
+`app.js` owns safe text rendering, local storage, import/export and focus; game calculations stay in the engine. `index.html`, `styles.css` and 20 unchanged PNGs in `assets/` form the standalone runtime. Saves use `ferryman-v0.4-run`; discoveries use `ferryman-v0.4-discoveries`. v0.3 imports reject without replacing the current run. Input limit is 5 MB.
+
+Keep the draft interpretations labeled in RULES.md: retire events requiring removed resources, require delivery at the final destination, persist results and reject old saves. No replacement rewards or new mechanics are authorized. A user trial comes before a v0.4 physical kit; do not generate it yet. No v0.4 ZIP exists.
+
+## Preserved v0.3 checks
 
 With an existing Node.js runtime, run from `outputs/The_Ferryman_Digital_Demo_v0.3/`:
 
@@ -20,7 +32,7 @@ node tests/integration/browser-flows.cjs
 
 The integration runner overwrites `tests/integration/results.json`. The browser runner requires local Chrome and writes results, screenshots and exports under `verification/browser/runs/`; it accepts `--chrome` with a browser executable path. `verification/engine/run-verification.cjs` and `policy-experiments.cjs` also write evidence. Preserve recorded evidence unless the requested work calls for a new verification run. Consult [release notes](outputs/The_Ferryman_Digital_Demo_v0.3/RELEASE_NOTES.md) for recorded results and limits.
 
-## Current architecture
+## Preserved v0.3 architecture
 
 All paths in this section are under `outputs/The_Ferryman_Digital_Demo_v0.3/`.
 

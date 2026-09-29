@@ -33,6 +33,7 @@ const MEMORIES={
 Object.values(MEMORIES).forEach(Object.freeze);Object.freeze(MEMORIES);Object.freeze(TEMPLATES);Object.freeze(NODES);
 const copy=x=>JSON.parse(JSON.stringify(x));
 const has=(a,x)=>a.includes(x);
+const soulOrder=(s,a,b)=>s.souls[a].cohort-s.souls[b].cohort||s.souls[a].template.localeCompare(s.souls[b].template);
 const requireRule=(condition,message)=>{if(!condition)throw new Error(message);};
 function template(s,id){return TEMPLATES.find(t=>t.id===s.souls[id].template);}
 function soul(s,id){const q=s.souls[id];return {...q,...template(s,id),id:q.id};}
@@ -58,7 +59,8 @@ function routes(s){
  });
 }
 function forecast(s){
- return s.waiting.filter(id=>has(s.shore,id)).map(id=>{const normal=has(s.guarded,id)?0:1,extra=has(s.separated,id)?1:0;return{id,name:template(s,id).name,before:s.souls[id].anger,after:s.souls[id].anger+normal+extra,normal,extra};});
+ const atShore=s.node==='shore'&&s.waiting.length===0&&!s.ended;
+ return (atShore?s.shore:s.waiting).filter(id=>has(s.shore,id)).map(id=>{const protectedNow=has(s.guarded,id)||(s.pending&&s.pending.target===id),normal=protectedNow?0:1,extra=(atShore?has(s.boat,partner(s,id)):has(s.separated,id))?1:0;return{id,name:template(s,id).name,before:s.souls[id].anger,after:s.souls[id].anger+normal+extra,normal,extra};});
 }
 function preview(s,to,memoryId=null){
  requireRule(Object.hasOwn(NODES,to),'Unknown destination.');
@@ -93,7 +95,7 @@ function act(s,a){
   s.shore=s.shore.filter(x=>x!==a.id);s.boat.push(a.id);break;
  case 'UNBOARD':
   requireRule(phase==='boarding'&&has(s.boat,a.id),'Choose an aboard soul.');
-  s.boat=s.boat.filter(x=>x!==a.id);s.shore.push(a.id);s.shore.sort();break;
+  s.boat=s.boat.filter(x=>x!==a.id);s.shore.push(a.id);s.shore.sort((a,b)=>soulOrder(s,a,b));break;
  case 'READY':
   requireRule(phase==='boarding','Finish choosing passengers first.');s.phase='route';break;
  case 'ROUTE':
@@ -150,7 +152,7 @@ function act(s,a){
   requireRule(phase==='delivery','Choose who disembarks after arriving.');
   requireRule(Array.isArray(a.ids)&&new Set(a.ids).size===a.ids.length&&a.ids.every(id=>has(s.boat,id)),'Choose passengers currently aboard.');
   requireRule(!DEST.every(n=>has(s.visited,n))||a.ids.length===s.boat.length,'This is the last destination this trip. Deliver everyone before leaving.');
-  const selected=a.ids.slice().sort(),items=deliveryPreview(s,selected),lines=[];
+  const selected=a.ids.slice().sort((a,b)=>soulOrder(s,a,b)),items=deliveryPreview(s,selected),lines=[];
   for(const d of items){
    s.boat=s.boat.filter(id=>id!==d.id);s.delivered.push({id:d.id,to:s.node,match:d.match});
    const mid='M'+(++s.memorySeq);s.memories[mid]={id:mid,type:d.memory,source:d.id,destination:s.node};s.deck.push(mid);
@@ -175,6 +177,7 @@ function dispatch(state,action){
 }
 function validate(s){
  const int=(x,min,max=Number.MAX_SAFE_INTEGER)=>Number.isSafeInteger(x)&&x>=min&&x<=max;
+ const fields=(o,keys)=>o&&typeof o==='object'&&!Array.isArray(o)&&Object.keys(o).sort().join('|')===keys.split(' ').sort().join('|');
  requireRule(s&&typeof s==='object'&&!Array.isArray(s)&&s.version===VERSION,'This save is not a v0.4 run.');
  const expected=Object.keys(createGame()).sort().join('|');
  requireRule(Object.keys(s).sort().join('|')===expected,'Save fields do not match v0.4.');
@@ -185,36 +188,46 @@ function validate(s){
  for(const k of ['shore','boat','wraiths','visited','waiting','separated','guarded','hand','deck','discard','events','delivered'])requireRule(Array.isArray(s[k]),'Missing '+k+'.');
  const soulIds=Object.keys(s.souls);
  requireRule(soulIds.length===s.supply,'Soul supply does not match.');
- for(let i=0;i<s.supply;i++){const cohort=Math.floor(i/12)+1,t=TEMPLATES[i%12],id='C'+String(cohort).padStart(2,'0')+'-'+t.id,q=s.souls[id];requireRule(q&&q.id===id&&q.template===t.id&&q.cohort===cohort&&int(q.anger,0,4),'Invalid soul identity or anger.');}
+ for(let i=0;i<s.supply;i++){const cohort=Math.floor(i/12)+1,t=TEMPLATES[i%12],id='C'+String(cohort).padStart(2,'0')+'-'+t.id,q=s.souls[id];requireRule(fields(q,'id template cohort anger')&&q.id===id&&q.template===t.id&&q.cohort===cohort&&int(q.anger,0,4),'Invalid soul identity or anger.');}
  for(const k of ['shore','boat','wraiths','waiting','separated','guarded'])requireRule(new Set(s[k]).size===s[k].length&&s[k].every(id=>Object.hasOwn(s.souls,id)),'Invalid '+k+'.');
- requireRule(s.delivered.every(d=>d&&Object.hasOwn(s.souls,d.id)&&DEST.includes(d.to)&&typeof d.match==='boolean'&&d.match===(template(s,d.id).wish===d.to)),'Invalid delivery record.');
+ requireRule(s.delivered.every(d=>fields(d,'id to match')&&Object.hasOwn(s.souls,d.id)&&DEST.includes(d.to)&&typeof d.match==='boolean'&&d.match===(template(s,d.id).wish===d.to)),'Invalid delivery record.');
  const active=[...s.shore,...s.boat,...s.wraiths,...s.delivered.map(d=>d.id)];
  requireRule(new Set(active).size===active.length&&seats(s)<=4,'A soul is duplicated or the boat is over capacity.');
  requireRule(s.shore.every(id=>s.souls[id].anger<3)&&s.boat.every(id=>s.souls[id].anger<3)&&s.wraiths.every(id=>s.souls[id].anger>=3),'Invalid anger status.');
  requireRule(s.separated.every(id=>has(s.waiting,id))&&s.guarded.every(id=>has(s.shore,id)),'Invalid protection or separation marker.');
  requireRule(s.formed===s.wraiths.length+s.released&&active.length+s.released===s.supply,'Invalid wraith totals.');
+ requireRule(s.shore.length+s.boat.length<=5&&soulIds.filter(id=>!has(active,id)).every(id=>s.souls[id].anger>=3),'Invalid shore or released souls.');
+ requireRule(s.waiting.every(id=>has(s.shore,id)),'Invalid waiting snapshot.');
+ if(s.node!=='shore')requireRule(s.waiting.length===s.shore.length,'Incomplete waiting snapshot.');
+ if(s.node==='shore'&&!s.ended)requireRule(!s.waiting.length&&!s.separated.length&&!s.guarded.length,'Unexpected shore markers.');
  requireRule(s.visited.every(x=>DEST.includes(x)||x==='haven')&&new Set(s.visited).size===s.visited.length,'Invalid visited stops.');
  requireRule(s.node==='shore'?s.visited.length===0:has(s.visited,s.node),'Location does not match visited stops.');
  requireRule(s.events.length<=1&&s.events.every(e=>e==='farewell'),'Unknown event.');
  requireRule(s.memorySeq===s.delivered.length&&Object.keys(s.memories).length===s.memorySeq,'Invalid memory count.');
  const piles=[...s.hand,...s.deck,...s.discard];
  requireRule(s.hand.length<=3&&piles.length===s.memorySeq&&new Set(piles).size===piles.length,'Invalid memory piles.');
- for(const id of piles){const m=s.memories[id];requireRule(m&&m.id===id&&Object.hasOwn(MEMORIES,m.type)&&s.delivered.some(d=>d.id===m.source&&d.to===m.destination),'Invalid memory source.');}
+ const sources=new Set();
+ for(let i=1;i<=s.memorySeq;i++)requireRule(has(piles,'M'+i),'Missing memory identity.');
+ for(const id of piles){const m=s.memories[id];requireRule(fields(m,'id type source destination')&&m.id===id&&Object.hasOwn(MEMORIES,m.type)&&s.delivered.some(d=>d.id===m.source&&d.to===m.destination)&&!sources.has(m.source),'Invalid memory source.');sources.add(m.source);
+  const t=template(s,m.source);requireRule(t.memory==='joint'?['R05','R06'].includes(m.type):m.type===t.memory,'Memory does not match its source.');
+  if(m.type==='R05')requireRule(s.delivered.some(d=>d.id===partner(s,m.source)&&d.to===m.destination),'Joined memory has no delivered partner.');
+ }
  if(s.phase==='boarding')requireRule(s.node==='shore'&&!s.ended,'Boarding is shore-only.');
  if(s.phase==='delivery')requireRule(DEST.includes(s.node)&&!s.ended,'Invalid delivery phase.');
  requireRule(s.ended?(s.phase==='ended'||(s.phase==='result'&&s.result&&s.result.next==='ended')):s.phase!=='ended','Invalid ending.');
  if(s.phase==='memory'||s.phase==='review'){
-  const p=s.pending;requireRule(p&&routes(s).some(r=>r.to===p.to&&!r.disabled),'Invalid planned route.');
+  const p=s.pending;requireRule(fields(p,'to memory target')&&routes(s).some(r=>r.to===p.to&&!r.disabled),'Invalid planned route.');
   requireRule(p.memory===null||has(s.hand,p.memory),'Invalid planned memory.');
   requireRule(p.target===null||(p.memory&&MEMORIES[s.memories[p.memory].type].target&&has(s.shore,p.target)&&!has(s.guarded,p.target)),'Invalid memory target.');
+  if(s.phase==='memory')requireRule(p.memory===null&&p.target===null,'Unconfirmed memory at selection step.');
  }else requireRule(s.pending===null,'Unexpected planned route.');
- if(s.phase==='result'){const r=s.result;requireRule(r&&typeof r.title==='string'&&r.title.length<200&&Array.isArray(r.lines)&&r.lines.every(l=>typeof l==='string'&&l.length<1000)&&['boarding','route','delivery','ended'].includes(r.next)&&(Object.hasOwn(NODES,r.image)||r.image==='wraith'),'Invalid result screen.');
+ if(s.phase==='result'){const r=s.result;requireRule(fields(r,'title lines next image')&&typeof r.title==='string'&&r.title.length<200&&Array.isArray(r.lines)&&r.lines.length<=30&&r.lines.every(l=>typeof l==='string'&&l.length<1000)&&['boarding','route','delivery','ended'].includes(r.next)&&(Object.hasOwn(NODES,r.image)||r.image==='wraith'),'Invalid result screen.');
+  requireRule((r.next==='ended')===s.ended,'Invalid ending result.');
   requireRule(r.next!=='boarding'||s.node==='shore','Invalid next boarding step.');
   requireRule(r.next!=='delivery'||DEST.includes(s.node),'Invalid next delivery step.');
  }else requireRule(s.result===null,'Unexpected result.');
  return true;
 }
-function deserialize(text){try{const s=JSON.parse(text);validate(s);return{ok:true,state:s,error:null};}catch(e){return{ok:false,state:null,error:e.message};}}
+function deserialize(text){try{requireRule(typeof text==='string'&&text.length<=5000000,'Save must be JSON text under 5 MB.');const s=JSON.parse(text);validate(s);return{ok:true,state:s,error:null};}catch(e){return{ok:false,state:null,error:e.message};}}
 return Object.freeze({version:VERSION,NODES,TEMPLATES,MEMORIES,createGame,dispatch,preview,routes,soul,partner,seats,forecast,deliveryPreview,validate,serialize:s=>JSON.stringify(s),deserialize});
 });
-
