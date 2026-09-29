@@ -2,6 +2,8 @@
 
 Date: 2026-09-27. Status: **integrated and browser-checked by automation. Not human-tested.**
 
+Repository availability note, September 29, 2026: the game folder and recorded evidence are present. The ZIP described in this historical delivery record is absent from this checkout. Packaging checks below describe the worker's original package, not a currently available download. Rebuild and verify a new ZIP before sharing one. This documentation update did not rerun the game or its tests.
+
 ## Package
 
 - Folder: `outputs/The_Ferryman_Digital_Demo_v0.3/`

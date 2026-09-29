@@ -1,6 +1,6 @@
 # Release notes: The Ferryman v0.3 browser prototype
 
-Build date: 2026-09-27. Package: `outputs/The_Ferryman_Digital_Demo_v0.3.zip`.
+Build date: 2026-09-27. Availability checked 2026-09-29: the playable folder is present, but the originally reported `outputs/The_Ferryman_Digital_Demo_v0.3.zip` is absent from this checkout. Use [index.html](index.html) with the folder intact. A distributable ZIP would need to be rebuilt and verified from the current folder. Evidence below describes the original build, not a new test run.
 
 ## Versions
 
@@ -33,4 +33,4 @@ Build date: 2026-09-27. Package: `outputs/The_Ferryman_Digital_Demo_v0.3.zip`.
 - No human playtest, balance, enjoyment, real-phone or multi-browser evidence.
 - Engine worker's scripted "courier" policy survived 60 cycles with no wraiths (`verification/engine/policy-experiment-results.json`). The default numbers may be easy for a player who delivers every cycle. This is a team question; nothing was rebalanced.
 - Art is about 67 MB of full-size PNGs; first load from disk is slower than it needs to be.
-- The ZIP leaves out Worker A's two archival art-pack ZIPs (`assets/art/*.zip`, 121 MB). They are not used by the game and remain in the repository folder.
+- The originally reported ZIP excluded Worker A's two archival art-pack ZIPs (`assets/art/*.zip`, 121 MB). They are not used by the game and remain in the repository folder.

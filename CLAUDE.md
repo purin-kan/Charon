@@ -1,60 +1,54 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Current project
 
-## What this repository is
+The Ferryman is a paper game design project with a completed v0.3 browser prototype and printable workshop kit. Read [AGENT_CONTEXT.md](AGENT_CONTEXT.md) first, then [AGENTS.md](AGENTS.md). Status refreshed September 29, 2026.
 
-A paper game design project ("The Ferryman") for a seven-person team assignment, plus a vanilla-JS browser demo that implements the paper rules for digital playtesting. There is no build system, package manager, or framework: the demo is plain HTML/CSS/JS read directly by a browser, and the only tooling is two Node scripts used for rule verification.
+The authoritative rules are [The_Ferryman_v0.3_Decided_Rules.md](outputs/The_Ferryman_v0.3_Decided_Rules.md). The [shared contract](v0.3_handoffs/SHARED_CONTRACT.md) describes the worker interfaces. Earlier worker prompts and handoffs are dated production history, not instructions to regenerate completed work.
 
-For the next version, read `outputs/The_Ferryman_v0.3_Decided_Rules.md` as the authoritative rules and `v0.3_handoffs/SHARED_CONTRACT.md` as the worker interface contract. The v0.3 game is not yet built. The architecture and verification commands below describe the preserved v0.2 demo only.
+## Launch and verification
 
-Read `AGENT_CONTEXT.md` first for current state, open decisions, and the deadline. Read `AGENTS.md` for working rules: it governs how you should operate here and takes precedence over generic defaults (e.g. it forbids silently changing game balance/mechanics, spawning subagents without being asked, and pushing/publishing).
+Open `outputs/The_Ferryman_Digital_Demo_v0.3/index.html` or use [START_HERE.html](START_HERE.html). Playing needs no installation, account or build step. Direct-file browser evidence is from headless Chrome on macOS, not Windows or real phones. See the [launch instructions](outputs/The_Ferryman_Digital_Demo_v0.3/README.md).
 
-## Commands
+With an existing Node.js runtime, run from `outputs/The_Ferryman_Digital_Demo_v0.3/`:
 
-Run from the repository root or from `outputs/The_Ferryman_Digital_Demo/`; no install step, no `package.json`, no dependencies: the verification scripts use only Node's built-in modules.
-
+```text
+node --test "tests/engine/*.test.js"
+node tests/integration/integration-check.cjs
+node tests/integration/browser-flows.cjs
 ```
-node outputs/The_Ferryman_Digital_Demo/verification/demo-tests.cjs
-node outputs/The_Ferryman_Digital_Demo/verification/demo_design_experiments.cjs
-```
 
-- `demo-tests.cjs`: 32 deterministic rule checks against `engine.js` (worked examples, memory effects, linked souls, quotas, failure states). Non-zero exit code on any failure. Overwrites `demo-test-results.json`.
-- `demo_design_experiments.cjs`: seven scripted policies plus two comparison probes exercised against the engine. Not statistical balance evidence, just recorded deterministic runs. Overwrites `demo_design_experiments.json`.
+The integration runner overwrites `tests/integration/results.json`. The browser runner requires local Chrome and writes results, screenshots and exports under `verification/browser/runs/`; it accepts `--chrome` with a browser executable path. `verification/engine/run-verification.cjs` and `policy-experiments.cjs` also write evidence. Preserve recorded evidence unless the requested work calls for a new verification run. Consult [release notes](outputs/The_Ferryman_Digital_Demo_v0.3/RELEASE_NOTES.md) for recorded results and limits.
 
-Both scripts resolve `../engine.js` relative to their own location, so keep `verification/` beside `engine.js` when moving files.
+## Current architecture
 
-To play the demo itself: open `outputs/The_Ferryman_Digital_Demo/index.html` directly in a browser (or via `START_HERE.html` at the repo root). No server or build step needed. Direct `file://` opening and non-Chrome/local-preview browsers have not been fully validated: see `VALIDATION.md` in that folder before claiming new coverage.
+All paths in this section are under `outputs/The_Ferryman_Digital_Demo_v0.3/`.
 
-## Architecture
+- `rules-data.js`: frozen rules/content tables exposed as `CharonRules`.
+- `engine.js`: deterministic state transitions, view, legality and serialization exposed as `CharonEngine`. Core API: `createGame`, `getView`, `dispatch`, `serialize`, `deserialize`, plus `previewDelivery`. Read [ENGINE_API.md](outputs/The_Ferryman_Digital_Demo_v0.3/docs/ENGINE_API.md) before changing integration.
+- `content.js`: player-facing text. `assets/assets.js` and `assets/art/`: current art manifest and revision 2 artwork.
+- `app.js`, `index.html`, `styles.css`: interface, persistence, import/export and discovered-event reference. Rules and failure calculations belong in the engine.
+- `tests/`, `verification/`: automated checks and dated evidence. `docs/`, `handoff/`: guides and delivery history.
 
-### Digital demo (`outputs/The_Ferryman_Digital_Demo/`)
+For phase order and boundary behavior use the current rules and engine API, not v0.2's crossing sequence.
 
-- **`engine.js`**: the entire rules engine. Pure and deterministic: no DOM access, no randomness. Exports via a UMD wrapper (`module.exports` for Node, `root.FerrymanEngine` for the browser) so the same file is `require()`-d by the verification scripts and `<script>`-included by `index.html`. Contains the frozen content tables (`SOULS`, `RESIDUES`, `ROUTES`) and the state machine: `createGame()` builds initial state, `preview(state, selection)` computes the consequences of a candidate move without committing it, and departure/commit functions apply phases in order (Shore → Recall → Departure costs → Crossing pressure/conflict → Arrival rewards → Quota → Decay). Rewards from an arrival can never retroactively fund that same departure or rescue a pressure failure: this ordering constraint is central to the rules and must not be reordered casually.
-- **`app.js`**: UI/interaction layer: selection state, calling `engine.js`'s `preview`/commit functions, journal rendering, browser `localStorage` save/reload, and JSON export of the play log. Contains no rules logic itself: it should only ever call into `engine.js` for anything that affects game state.
-- **`index.html` / `styles.css`**: structure and responsive layout (narrow-viewport layout moves the crossing preview below selection areas).
-- **`assets/`**: the four concept illustrations reused from `outputs/The_Ferryman_Paper_Mockup_Art/`.
-- **`verification/`**: the two Node scripts above, their JSON output, and `verification/browser/` (captured browser-driven playtest logs: a full win, a pressure-failure loss, UI observations). These browser logs are recorded evidence, not something to regenerate casually: they represent specific manual/agent-driven runs.
+## Physical kit and packaging
 
-For v0.2 maintenance, workbook sections 5-10 document the legacy trial. For v0.3 implementation, `outputs/The_Ferryman_v0.3_Decided_Rules.md` is authoritative and the worker ownership contract is `v0.3_handoffs/SHARED_CONTRACT.md`. Implement v0.3 separately in `outputs/The_Ferryman_Digital_Demo_v0.3/`; do not apply old six-crossing tests as new-version validation. Preserve evidence files unless a requested verification run explicitly needs to regenerate them. If the packaged demo ZIP (`outputs/The_Ferryman_Digital_Demo.zip`, if present) exists alongside changed source, it is now stale and needs rebuilding: check before treating it as current.
+`outputs/The_Ferryman_Workshop_Kit_v0.3/` contains the current PDF, section PDFs, editable sources, art copies, source snapshots, previews and validation. Its companion ZIP is present. Start with its [README](outputs/The_Ferryman_Workshop_Kit_v0.3/README.md) and [physical checklist](outputs/The_Ferryman_Workshop_Kit_v0.3/VALIDATION.md#physical-print-and-rehearsal-checklist). Physical printing and human rehearsal remain NOT_RUN.
 
-### Repository layout
+`outputs/The_Ferryman_Digital_Demo_v0.3.zip` is referenced in the original integration handoff but absent from this checkout. Do not claim it is available. A new distribution must be assembled and verified from the current folder.
 
-- `outputs/` contains the current v0.3 rule specification alongside legacy playable/print artifacts. Read `outputs/README.md` for version labels; not every file is current for v0.3.
-- `v0.3_handoffs/` contains four worker prompts, coordination instructions and the shared contract. Each worker edits only its owned files.
-- `notes/` contains the decision log and categorized ideas. Earlier discussion is not implementation authority.
-- `temp/` is existing ignored scratch. Use ignored `work/` for new temporary files.
-- `sources/`: cached original-concept text and page previews; the original concept PDF itself is not present (see `AGENT_CONTEXT.md` for why).
-- `archive/Production_Work.zip`: pre-transfer `work/` history (Python PDF builders using `reportlab`, source caches, drafts). Historical only; see `archive/README.md` before touching it. Not authoritative, and requires Python/reportlab plus Windows fonts to rebuild PDFs from it: the finished PDFs in `outputs/` don't need any of that to read.
-- `.remember/`: session memory buffer/history for this agent's own use across sessions; not game content.
+Preserve source snapshots and archived art handoffs inside verified packages. Explain their superseded status in current indexes. Approved rule/layout changes require synchronized sources, print outputs, previews, evidence and packages. Windows `core.autocrlf=true` can change checkout text hashes; distinguish line-ending differences from content changes.
 
-## Working rules that matter for code changes
+## Legacy material and repository layout
 
-These are the operational rules from `AGENTS.md` most relevant to making edits here (see that file for the complete list):
+- `outputs/The_Ferryman_Digital_Demo/` is the preserved v0.2 game. Its old tests do not validate v0.3.
+- The workbook, easy playguide, paper mockup kit and older playtest reports are historical. [outputs/README.md](outputs/README.md) labels versions.
+- `v0.3_handoffs/` contains the original browser-worker prompts, workshop follow-up and shared contract.
+- `notes/` retains decisions, ideas and the historical team plan. Earlier suggestions are not current rules.
+- `sources/` and `archive/` preserve original-concept and production history. The original concept PDF is absent.
+- Use ignored `work/` for scratch files. `temp/`, if present, is also scratch. Local tool-state directories are not deliverables.
 
-- Trial rules, balance, and engine choice belong to the user/team, not to an agent's judgment: don't rebalance or add mechanics unassisted, even if a scripted policy in `verification/` "found a winning plan."
-- Numeric or evidence claims (e.g. about play outcomes) must trace to a specific file/field in `verification/` or `verification/browser/`, not be asserted from general impression. Distinguish agent/scripted checks from actual human playtests explicitly.
-- Check `git log` / modification times before relying on files under `sources/`, `archive/`, or older workbook drafts: they can be stale or superseded.
-- No em dashes, no first-person plural ("we") in slide/presentation text; keep slide bullets short.
-- On Windows, use PowerShell with literal paths and UTF-8; avoid heredocs; don't retry recursive deletes into locked directories: report and hand back instead.
-- Never `git push`, force-push, delete remote branches, or otherwise publish; that's the user's to do.
+## Working constraints
+
+Follow AGENTS.md: preserve user changes; no unsolicited mechanics, balance, final-engine or art-direction decisions; no delegation unless explicitly requested; no push, force-push or remote-branch deletion. Check source freshness and cite actual evidence. Separate automated checks from human playtests. Use PowerShell and UTF-8 on Windows, avoid em dashes, and update AGENT_CONTEXT.md at handoff. The September 28 deadline is historical; submission completion is not recorded.

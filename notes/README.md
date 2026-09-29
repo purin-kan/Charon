@@ -9,4 +9,4 @@ Discussion and decision history live here. The current implementation authority 
 
 The original collectiveThoughts.md referenced by the idea inventory is not present in this checkout. Preserve that provenance note; do not invent or recreate the missing source from the summary.
 
-Use [the handoff pack](../v0.3_handoffs/README.md) to assign implementation work. Any scratch notes in temp/ are ignored local working material and are not the authoritative design.
+The [v0.3 game and workshop kit](../outputs/README.md) are delivered. The [handoff pack](../v0.3_handoffs/README.md) preserves their production history. The September team schedule and unchecked planning boxes are historical, not a current delivery checklist. Use the kit's validation checklist for remaining physical work. Scratch notes in work/ or temp/ are not authoritative.

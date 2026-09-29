@@ -4,7 +4,7 @@ Prepared September 25, 2026 for the seven-member group.
 
 **Deadline supplied by the team:** Monday, September 28, 2026, midnight, in the Asia/Bangkok context. Confirm the exact course-portal timestamp and required submission contents. This is the three-day plan discussed on September 25; recalculate remaining time when reading it later.
 
-**Status:** Current gameplay decisions are consolidated below and in the v0.3 specification. The playable artifacts still implement v0.2; new values require implementation and testing.
+**Status updated September 29, 2026:** The [v0.3 browser demo](../outputs/The_Ferryman_Digital_Demo_v0.3/index.html) and [physical workshop kit](../outputs/The_Ferryman_Workshop_Kit_v0.3/README.md) are delivered. Digital checks are recorded in the [integration handoff](../outputs/The_Ferryman_Digital_Demo_v0.3/handoff/integration.md). Physical printer checks and human rehearsal remain NOT_RUN in the [kit validation](../outputs/The_Ferryman_Workshop_Kit_v0.3/VALIDATION.md). The supplied deadline has passed; submission outcome is not recorded. Earlier implementation-status statements and scheduling checkboxes below describe their dated discussions, not the current backlog.
 
 ## Current authority: v0.3 endless prototype
 

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>The Ferryman | One crossing at a time</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="engine.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="world" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+  <header class="masthead">
+    <a class="brand" href="../../START_HERE.html">THE FERRYMAN <span>v0.4</span></a>
+    <button id="menu-button" class="quiet" type="button">Guide &amp; save</button>
+  </header>
+  <div id="status" class="status" aria-label="Journey summary"></div>
+  <main id="stage" tabindex="-1"></main>
+  <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+  <dialog id="menu" aria-labelledby="menu-title">
+    <div class="dialog-top"><h2 id="menu-title">Your journey</h2><button id="close-menu" type="button">Close</button></div>
+    <div id="menu-content"></div>
+  </dialog>
+  <noscript>This local game needs JavaScript enabled in your browser.</noscript>
+</body>
+</html>
