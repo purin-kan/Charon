@@ -1,0 +1,68 @@
+[
+  {
+    "id": "R01",
+    "file": "assets/memory-R01.png",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "opaque": true,
+    "format": "Png",
+    "sha256": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46",
+    "bytes": 2619265
+  },
+  {
+    "id": "R02",
+    "file": "assets/memory-R02.png",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "opaque": true,
+    "format": "Png",
+    "sha256": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9",
+    "bytes": 2321317
+  },
+  {
+    "id": "R03",
+    "file": "assets/memory-R03.png",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "opaque": true,
+    "format": "Png",
+    "sha256": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597",
+    "bytes": 2500220
+  },
+  {
+    "id": "R04",
+    "file": "assets/memory-R04.png",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "opaque": true,
+    "format": "Png",
+    "sha256": "431573954947b3c8053119b6a75bc854191f0f7a9a45ef538d7cb6a6d301c038",
+    "bytes": 2714225
+  },
+  {
+    "id": "R05",
+    "file": "assets/memory-R05.png",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "opaque": true,
+    "format": "Png",
+    "sha256": "7ffca2135b2c810854767d074b4016567a260e4c60ea6971ceb7fb3547f69417",
+    "bytes": 2644017
+  },
+  {
+    "id": "R06",
+    "file": "assets/memory-R06.png",
+    "width": 1536,
+    "height": 1024,
+    "pixelFormat": "Format24bppRgb",
+    "opaque": true,
+    "format": "Png",
+    "sha256": "0068fe8bed0d9c51d041ecfa29725e62d48a84036182fed3d9febf9f559b6c2e",
+    "bytes": 2489778
+  }
+]
