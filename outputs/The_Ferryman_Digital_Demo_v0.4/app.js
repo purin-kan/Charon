@@ -2,10 +2,11 @@
 (() => {
   'use strict';
   const E = window.Ferryman;
-  const SAVE = 'ferryman-v0.4-run', KNOWLEDGE = 'ferryman-v0.4-discoveries';
+  // Save 1 keeps the original key so earlier v0.4 saves appear there.
+  const SLOTS = [1,2,3], slotKey = n => n === 1 ? 'ferryman-v0.4-run' : 'ferryman-v0.4-run-' + n, KNOWLEDGE = 'ferryman-v0.4-discoveries';
   const stage = document.querySelector('#stage'), status = document.querySelector('#status');
   const menu = document.querySelector('#menu'), menuContent = document.querySelector('#menu-content'), popup = document.querySelector('#popup');
-  let state = null, saved = null, behind = null, selected = new Set(), storageNote = '', discovered = false, popupLocked = false;
+  let state = null, saved = null, slot = 1, slots = {}, broken = {}, behind = null, selected = new Set(), storageNote = '', discovered = false, popupLocked = false;
   function el(tag, text, cls) {
     const n = document.createElement(tag);
     if (text !== undefined && text !== null) n.textContent = text;
@@ -26,16 +27,19 @@
     if (description) paragraph(stage, description, 'intro');
   }
   function persist(newDiscovery = false) {
-    saved = state;
+    saved = slots[slot] = state; broken[slot] = false;
     try {
-      localStorage.setItem(SAVE, E.serialize(state));
+      localStorage.setItem(slotKey(slot), E.serialize(state));
       if (newDiscovery && state.events.includes('farewell')) { discovered = true; localStorage.setItem(KNOWLEDGE, 'farewell'); }
       storageNote = '';
     } catch { storageNote = 'This browser cannot save locally. Export JSON to keep your journey.'; }
   }
   try {
-    const raw = localStorage.getItem(SAVE);
-    if (raw) { const r = E.deserialize(raw); if (r.ok) saved = r.state; else storageNote = 'The local save could not be loaded. Import a valid v0.4 save or start a new run.'; }
+    for (const n of SLOTS) {
+      const raw = localStorage.getItem(slotKey(n));
+      if (raw) { const r = E.deserialize(raw); if (r.ok) slots[n] = r.state; else broken[n] = true; }
+    }
+    saved = slots[slot] || null;
     discovered = localStorage.getItem(KNOWLEDGE) === 'farewell';
   } catch { storageNote = 'Local saving is unavailable. Export JSON to keep your journey.'; }
   function send(action, focusKey) {
@@ -46,8 +50,15 @@
     if (state.phase === 'delivery' && action.type === 'CONTINUE') selected = new Set();
     persist(newDiscovery); render(focusKey);
   }
-  function begin() {
-    if ((state || saved) && !window.confirm('Start a new run? This replaces your current local save. Export it first if you want to keep it.')) return;
+  function useSlot(n) { slot = n; saved = slots[n] || null; }
+  function erase(n) {
+    if (!window.confirm('Erase Save ' + n + '? This cannot be undone. Export it first if you want to keep it.')) return;
+    try { localStorage.removeItem(slotKey(n)); } catch {}
+    slots[n] = null; broken[n] = false; if (slot === n) saved = null; render();
+  }
+  function begin(n = slot) {
+    if (slots[n] && !window.confirm('Start a new journey in Save ' + n + '? This replaces that save. Export it first if you want to keep it.')) return;
+    useSlot(n);
     state = E.createGame(crypto.getRandomValues(new Uint32Array(1))[0]); behind = null; selected = new Set(); persist(); render();
   }
   function summary() {
@@ -93,6 +104,18 @@
     b.setAttribute('aria-describedby', body.id); b.append(body);
     return { b, body };
   }
+  // Passenger abilities that prevent fog; the soldiers' +1 fog clash is shown separately.
+  const ABILITY = ['S05','S10'];
+  function fact(list, text, cls = '') {
+    const row = el('span', null, 'fact' + (cls ? ' ' + cls : '')), ic = el('span', '•', 'ic'); ic.setAttribute('aria-hidden', 'true');
+    row.append(ic, el('span', text)); list.append(row); return row;
+  }
+  // Red (S04) and Blue (S06) Soldier from the same group add 1 fog when both are aboard.
+  function rivalOf(id) {
+    const q = state.souls[id], other = { S04: 'S06', S06: 'S04' }[q.template]; if (!other) return null;
+    const rid = Object.keys(state.souls).find(x => state.souls[x].cohort === q.cohort && state.souls[x].template === other);
+    return { name: rid ? E.soul(state,rid).name : (other === 'S06' ? 'Blue Soldier' : 'Red Soldier'), clash: !!rid && state.boat.includes(id) && state.boat.includes(rid) };
+  }
   function soulCard(id, mode) {
     const q = E.soul(state,id), aboard = state.boat.includes(id), delivery = mode === 'delivery', chosen = delivery ? selected.has(id) : aboard;
     const full = !delivery && !aboard && E.seats(state) + q.seats > 4;
@@ -100,32 +123,73 @@
     const { b, body } = choiceCard({ art: 'assets/' + q.template + '.png', label, pressed: chosen, disabled: full, focusKey: id, badge: delivery ? 'Disembarks' : 'Aboard',
       onPick: () => { if (delivery) { if (chosen) selected.delete(id); else selected.add(id); render(id); } else send({type:aboard?'UNBOARD':'BOARD',id},id); } });
     paragraph(body, id + ' · ' + q.seats + (q.seats === 1 ? ' seat' : ' seats'), 'tag'); paragraph(body, q.name, 'title');
+    const list = el('span', null, 'facts'); body.append(list);
     const match = delivery && E.deliveryPreview(state,[id])[0].match;
-    paragraph(body, match ? '★ Wish is here: +1 light' : 'Wishes for ' + E.NODES[q.wish], 'key');
-    paragraph(body, q.text);
-    if (q.partner) paragraph(body, 'Linked to ' + E.partner(state,id) + '. Together: Joined Memory. Apart: Faint Memory; a partner left waiting gains extra anger.', 'hint');
-    else paragraph(body, 'Memory: ' + E.MEMORIES[q.memory].name, 'hint');
+    fact(list, match ? 'Wish is here: +1 light' : 'Wishes for ' + E.NODES[q.wish], 'wish');
+    const r = rivalOf(id);
+    if (r) fact(list, r.clash ? 'Clashing with ' + r.name + ': +1 fog' : 'With ' + r.name + ': +1 fog', 'clash' + (r.clash ? ' live' : ''));
+    else if (ABILITY.includes(q.template)) fact(list, q.text, 'ability');
+    else if (!q.partner) fact(list, q.text, 'flavor');
+    if (q.partner) { const pid = E.partner(state,id); fact(list, 'With ' + E.soul(state,pid).name + ': Joined Memory. Apart: Faint Memory and extra anger.'); }
+    else fact(list, 'Memory: ' + E.MEMORIES[q.memory].name);
     paragraph(body, 'Anger ' + q.anger + ' / 3', 'anger');
     if (full) paragraph(body, 'Needs ' + q.seats + ' free seats.', 'warning');
     return b;
   }
+  function pips(before, after) {
+    const s = el('span', null, 'pips'); s.setAttribute('aria-hidden', 'true');
+    for (let i = 1; i <= 3; i++) s.append(el('i', null, i <= before ? 'on' : i <= after ? 'new' : ''));
+    return s;
+  }
+  function tagx(text, cls) { return el('span', text, 'tagx' + (cls ? ' ' + cls : '')); }
+  // One soul row: portrait, name, icon line. `said` is the full sentence for screen readers.
+  function mini(id, said, icons, cls = '') {
+    const q = E.soul(state,id), row = el('li', null, 'mini' + (cls ? ' ' + cls : '')); row.dataset.soul = id;
+    image(row, 'assets/' + q.template + '.png');
+    const t = el('div'); t.append(el('strong', q.name)); const meta = el('span', null, 'meta'); meta.setAttribute('aria-hidden', 'true');
+    meta.append(...icons); t.append(meta, el('span', said, 'sr-only')); row.append(t); return row;
+  }
+  function tripColumn(icon, title, count, empty) {
+    const col = el('div', null, 'trip-col'), h = el('h3');
+    h.append(el('span', icon, 'icon'), el('span', title)); if (count !== null) h.append(el('span', String(count), 'count'));
+    col.append(h); const list = el('ul', null, 'minis'); col.append(list);
+    if (empty) paragraph(col, empty, 'trip-empty');
+    return { col, list };
+  }
   function tactics() {
-    const details = el('details', null, 'tactics');
-    details.open = true; details.append(el('summary','Trip information · boat, waiting shore and wraiths'));
-    paragraph(details, 'Visited: ' + (state.visited.map(n=>E.NODES[n]).join(', ') || 'none') + '. Return needs an empty boat.', 'hint');
-    if (state.cycle >= 5) {
-      const v=E.preview(state,'elysium'); paragraph(details,'Non-return crossings add 1 cycle fog.' + (v.favored ? ' This cycle, ' + E.NODES[v.favored] + ' avoids it.' : ''),'hint');
+    const box = el('section', null, 'trip'); box.setAttribute('aria-label', 'Trip information');
+    const head = el('div', null, 'trip-head'); head.append(el('h2', 'This trip'));
+    const stops = el('div', null, 'stops');
+    for (const n of ['elysium','asphodel','tartarus']) { const done = state.visited.includes(n); stops.append(el('span', (done ? '✓ ' : '') + E.NODES[n], 'stop' + (done ? ' done' : ''))); }
+    head.append(stops); box.append(head);
+    if (state.cycle >= 5) { const v = E.preview(state,'elysium'); paragraph(box, '🌫 Crossings away from the shore add 1 fog.' + (v.favored ? ' ' + E.NODES[v.favored] + ' avoids it this trip.' : ''), 'trip-note'); }
+    const cols = el('div', null, 'trip-cols');
+
+    const boat = tripColumn('⛵', 'On the boat', E.seats(state) + '/4', state.boat.length ? '' : 'Empty. You can head back to the shore.');
+    for (const id of state.boat) {
+      const q = E.soul(state,id), pid = q.partner && E.partner(state,id), pname = pid && E.soul(state,pid).name;
+      const icons = [tagx('📍 ' + E.NODES[q.wish])];
+      if (pname) icons.push(tagx('🔗 ' + pname));
+      const r = rivalOf(id); if (r && r.clash) icons.push(tagx('⚔️ ' + r.name + ' +1 fog', 'bad'));
+      boat.list.append(mini(id, q.name + ': wishes for ' + E.NODES[q.wish] + (pname ? ', linked to ' + pname : '') + (r && r.clash ? ', clashing with ' + r.name + ' for +1 fog' : '') + '.', icons, r && r.clash ? 'doomed' : ''));
     }
-    paragraph(details, 'Aboard: ' + (state.boat.map(identity).join(', ') || 'empty') + '.', 'hint');
-    if (state.phase !== 'boarding' && state.phase !== 'delivery') for (const id of state.boat) {
-      const q=E.soul(state,id); paragraph(details,q.name + ': ' + q.seats + ' seats; wishes for ' + E.NODES[q.wish] + '. ' + q.text + (q.partner ? ' Partner: '+E.partner(state,id)+'. Deliver together for Joined Memory.' : ''),'hint');
+    if (state.boat.length) paragraph(boat.col, '🏠 Deliver everyone before returning.', 'trip-note');
+    cols.append(boat.col);
+
+    const shore = tripColumn('🏝', 'Waiting on shore', state.shore.length, state.shore.length ? '' : 'No one is waiting.');
+    for (const id of state.shore) {
+      const q = E.soul(state,id), guarded = state.guarded.includes(id) || !!(state.pending && state.pending.target === id);
+      const icons = [pips(q.anger, q.anger), el('span', 'Anger ' + q.anger + '/3', 'anger-change')];
+      if (guarded) icons.push(tagx('🛡 Protected', 'safe'));
+      shore.list.append(mini(id, q.name + ': anger ' + q.anger + ' of 3' + (guarded ? ', protected' : '') + '.', icons));
     }
-    paragraph(details,'If you return with the current protection:', 'hint');
-    const list = el('ul');
-    for (const f of E.forecast(state)) list.append(el('li',identity(f.id) + ': anger ' + f.before + ' → ' + f.after + (f.after >= 3 ? ', becomes a wraith' : '') + '. Normal +' + f.normal + ', separation +' + f.extra + '.'));
-    if (!list.children.length) list.append(el('li','No souls left waiting.')); details.append(list);
-    paragraph(details, 'Active wraiths (' + state.wraiths.length + '): ' + (state.wraiths.map(identity).join(', ') || 'none') + '. Each adds 1 fog.', 'hint');
-    stage.append(details);
+    cols.append(shore.col);
+
+    const wraiths = tripColumn('👻', 'Wraiths', state.wraiths.length, state.wraiths.length ? '' : 'None. The fog is calm.');
+    for (const id of state.wraiths) wraiths.list.append(mini(id, E.soul(state,id).name + ' is a wraith and adds 1 fog to every crossing.', [tagx('🌫 +1 fog', 'bad')], 'wraith'));
+    cols.append(wraiths.col);
+
+    box.append(cols); stage.append(box);
   }
   function toolbar(back, mainLabel, mainFn, disabled = false, chip = '') {
     const bar = el('div',null,'toolbar');
@@ -238,21 +302,71 @@
     const box=el('div',null,'review');for(const text of [state.completed+' cycles completed',state.delivered.length+' souls delivered',state.memorySeq+' memories earned',state.formed+' wraiths formed; '+state.released+' released',state.crossings+' crossings survived'])paragraph(box,text);
     const d=el('details');d.append(el('summary','Delivered souls'));for(const q of state.delivered)paragraph(d,identity(q.id)+' → '+E.NODES[q.to]+(q.match?' (wish matched)':''));box.append(d);stage.append(box);toolbar(false,'Start a new run',begin);
   }
+  // Static artwork: a ferryman silhouette poling a boat with a lit lantern.
+  const BOAT_SVG='<svg viewBox="0 0 240 130" aria-hidden="true"><defs><radialGradient id="lg"><stop offset="0" stop-color="#fff0c4"/><stop offset=".3" stop-color="#edc47f" stop-opacity=".6"/><stop offset="1" stop-color="#edc47f" stop-opacity="0"/></radialGradient></defs>'
+    +'<circle class="lantern-glow" cx="182" cy="52" r="46" fill="url(#lg)"/>'
+    +'<line class="pole" x1="88" y1="14" x2="132" y2="122"/>'
+    +'<path class="s" d="M104 94 L113 50 Q118 40 124 50 L134 94 Z"/><circle class="s" cx="118" cy="40" r="7.5"/><path class="s" d="M110 42 Q118 26 126 42 Z"/>'
+    +'<line class="pole" x1="176" y1="96" x2="176" y2="36"/><path class="hook" d="M176 38 Q182 34 182 44"/>'
+    +'<rect class="lamp" x="177" y="44" width="10" height="14" rx="2"/>'
+    +'<path class="s hull" d="M18 88 Q120 108 222 86 L208 104 Q120 124 34 104 Z"/>'
+    +'<path class="ripple" d="M10 116 Q40 110 70 116 T130 116 T190 116 T250 116"/></svg>';
+  function boat(cls) { const b = el('div', null, 'boat ' + cls); b.innerHTML = BOAT_SVG; return b; }
+  let entered = false; try { entered = sessionStorage.getItem('ferryman-entered') === '1'; } catch {}
+  function renderSplash() {
+    const sp = el('div', null, 'splash'), text = el('div', null, 'splash-text');
+    paragraph(text, 'The river is calling…', 'eyebrow calling');
+    const h = el('h1', null, 'splash-title'); h.tabIndex = -1;
+    'Welcome to The Ferryman'.split(' ').forEach((w, i) => { const s = el('span', w + ' '); s.style.animationDelay = (0.4 + i * 0.28) + 's'; h.append(s); });
+    text.append(h); paragraph(text, 'Carry a soul. Keep a memory.', 'splash-sub');
+    const river = el('div', null, 'river'); river.append(boat('arriving'));
+    const go = el('div', null, 'splash-go'), enter = button('Enter', () => {
+      enter.disabled = true; sp.classList.add('sailing');
+      const done = () => { entered = true; try { sessionStorage.setItem('ferryman-entered', '1'); } catch {} render('slot1'); };
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) done(); else setTimeout(done, 1500);
+    }, 'primary enter', false, 'enter');
+    go.append(enter); sp.append(text, river, go); stage.append(sp);
+  }
+  function renderTitle() {
+    const hero=el('div',null,'hero');hero.append(boat('docked'));paragraph(hero,'Welcome aboard · v0.4','eyebrow');hero.append(el('h1','Welcome to The Ferryman'));
+    paragraph(hero,'You are an apprentice ferryman. Choose passengers, plan each crossing and keep the lantern alive. The journey continues for as long as you can carry it.','intro');
+    paragraph(hero,'⛵ Four seats · 🏮 One lantern · 🧭 One decision at a time','hint');stage.append(hero);
+    const title=el('h2','Choose a save','slots-title');stage.append(title);
+    const grid=el('div',null,'grid slot-grid');
+    for(const n of SLOTS){
+      const s=slots[n],cell=el('div',null,'slot');
+      if(broken[n]){const {b,body}=choiceCard({label:'Save '+n+': unreadable',disabled:true,onPick:()=>{}});paragraph(body,'Save '+n,'title');paragraph(body,'This save could not be read.','warning');cell.append(b);}
+      else if(s){
+        const {b,body}=choiceCard({art:art(s.ended?'wraith':s.node),label:s.ended?'Save '+n+': view ended journey':'Save '+n+': continue cycle '+s.cycle,focusKey:'slot'+n,onPick:()=>{useSlot(n);state=s;behind=null;selected=new Set();render();}});
+        paragraph(body,'Save '+n,'title');
+        paragraph(body,s.ended?'Journey ended':'▶ Continue',  'key');
+        paragraph(body,'🔁 Cycle '+s.cycle+' · 📍 '+E.NODES[s.node]);
+        paragraph(body,'🏮 Light '+s.light+'/6 · ⛵ '+s.boat.length+' aboard · 🕊 '+s.delivered.length+' delivered');
+        cell.append(b);
+      }else{
+        const {b,body}=choiceCard({label:'Save '+n+': begin the journey',focusKey:'slot'+n,onPick:()=>begin(n)});b.classList.add('empty-slot');
+        paragraph(body,'Save '+n,'title');paragraph(body,'＋ New journey','key');paragraph(body,'Empty slot. Start fresh at the shore.');cell.append(b);
+      }
+      if(s||broken[n]){const row=el('div',null,'slot-actions');if(s)row.append(button('New journey',()=>begin(n),'text-button'));row.append(button('Erase',()=>erase(n),'text-button'));cell.append(row);}
+      grid.append(cell);
+    }
+    stage.append(grid);
+  }
   const PAGES = {boarding:renderBoarding,route:renderRoute,memory:renderMemory,review:renderReview,delivery:renderDelivery,ended:renderEnded};
   function render(focusKey) {
     closePopup();
     stage.replaceChildren();stage.inert=false;summary();document.querySelector('.world').style.backgroundImage='url("'+art(state?state.node:'shore')+'")';
     if(storageNote)notice(storageNote,true);
-    if(!state){const hero=el('div',null,'hero');paragraph(hero,'THE FERRYMAN · v0.4','eyebrow');hero.append(el('h1','Carry a soul. Keep a memory.'));paragraph(hero,'You are an apprentice ferryman. Choose passengers, plan each crossing and keep the lantern alive. The journey continues for as long as you can carry it.','intro');
-      if(saved)hero.append(button('Resume cycle '+saved.cycle,()=>{state=saved;behind=null;selected=new Set();render();},'primary'));
-      hero.append(button(saved?'Start a new run':'Begin the journey',begin,saved?'quiet':'primary'));paragraph(hero,'Four seats. One lantern. One decision at a time.','hint');stage.append(hero);
-    }else{
+    document.body.classList.toggle('splash-on',!state&&!entered);
+    if(!state){if(entered)renderTitle();else renderSplash();}
+    else{
       // A result is a popup over the page that produced it; after a reload only the scene shows behind it.
       const real=state, view=state.phase==='result'?behind:state;
       if(view){state=view;try{flow();PAGES[state.phase]();if(['boarding','route','memory','review','delivery'].includes(state.phase))tactics();}finally{state=real;}}
       if(state.phase==='result'){stage.inert=true;showResult();announce(resultTitle(state.result)+'. Light '+state.light+'.');return;}
     }
-    const target=focusKey&&[...stage.querySelectorAll('[data-focus]')].find(n=>n.dataset.focus===focusKey);
+    const key=focusKey||(!state&&!entered?'enter':'');
+    const target=key&&[...stage.querySelectorAll('[data-focus]')].find(n=>n.dataset.focus===key);
     if(target)target.focus();else{stage.focus();window.scrollTo(0,0);}
     announce(state?E.NODES[state.node]+'. '+state.phase+' step. Light '+state.light+'.':'Choose a new journey or resume.');
   }
@@ -264,7 +378,7 @@
   function importSave(text) {
     const r=E.deserialize(text);
     if(!r.ok){message.textContent='Import rejected: '+r.error+' Your current run is unchanged.';return;}
-    if((state||saved)&&!window.confirm('Replace the current run with this v0.4 save?'))return;
+    if((state||saved)&&!window.confirm('Replace Save '+slot+' with this v0.4 save?'))return;
     state=r.state;behind=null;selected=new Set();persist(true);menu.close();render();
   }
   let message;
@@ -277,7 +391,7 @@
     const event=el('details');event.append(el('summary',discovered?'Discovered: Shared Farewell':'Event reference (spoiler)'));paragraph(event,'Shared Farewell: deliver a matching linked pair together at Elysium for 1 extra light, once per run.');menuContent.append(event);
     if(discovered)menuContent.append(button('Clear remembered discovery',()=>{discovered=false;try{localStorage.removeItem(KNOWLEDGE);}catch{}openMenu();},'text-button'));
     paragraph(menuContent,storageNote||'Progress saves automatically in this browser. File opening and different browser addresses may have separate storage. Export before moving or clearing files.','hint');
-    const actions=el('div',null,'menu-actions');actions.append(button('Export JSON',exportSave,'',!(state||saved)),button('New run',()=>{begin();if(state)menu.close();}));menuContent.append(actions);
+    const actions=el('div',null,'menu-actions');actions.append(button('Export JSON',exportSave,'',!(state||saved)),button('New run',()=>{begin();if(state)menu.close();}),button('Save slots',()=>{state=null;behind=null;menu.close();render();},'',!state));menuContent.append(actions);
     const label=el('label','Import a v0.4 JSON file');label.htmlFor='import-file';const input=el('input');input.type='file';input.accept='.json,application/json';input.id='import-file';input.addEventListener('change',async()=>{const file=input.files[0];if(!file)return;if(file.size>5000000){message.textContent='Import rejected: file exceeds 5 MB. Current run unchanged.';return;}try{importSave(await file.text());}catch{message.textContent='Could not read that file. Current run unchanged.';}});menuContent.append(label,input);
     const pasteLabel=el('label','Or paste save JSON');pasteLabel.htmlFor='import-json';const area=el('textarea');area.id='import-json';area.rows=4;area.maxLength=5000000;menuContent.append(pasteLabel,area,button('Import pasted JSON',()=>importSave(area.value)));
     message=el('p');message.setAttribute('role','status');menuContent.append(message);

@@ -21,7 +21,7 @@ Then open `http://localhost:8044/`. On Windows with Python's launcher, use `py -
 
 ## Save and resume
 
-Progress automatically saves under `ferryman-v0.4-run` in browser storage. The opening screen offers Resume. Guide & save provides JSON export, file import, pasted JSON import and a confirmed New Run. Imports validate before replacing anything and ask before replacing a current run. Invalid or v0.3 saves leave current progress intact. Import limit: 5 MB. Save validation checks structure and invariants, not whether an edited save came from honest play.
+Progress automatically saves to one of three slots in browser storage: `ferryman-v0.4-run` (Save 1, the original key), `ferryman-v0.4-run-2` and `ferryman-v0.4-run-3`. The opening screen shows all three slots with Continue, New journey and Erase. Guide & save provides JSON export, file import, pasted JSON import, a confirmed New Run and a return to the save slots; these act on the current slot. Imports validate before replacing anything and ask before replacing a current run. Invalid or v0.3 saves leave current progress intact. Import limit: 5 MB. Save validation checks structure and invariants, not whether an edited save came from honest play.
 
 Different browser profiles, local file URLs, `localhost` and `127.0.0.1` may have separate storage. Export when changing addresses, machines or browsers, or before clearing data. Private mode and browser storage limits can prevent saving; the UI shows a warning and offers export. Tentative delivery selections reset on reload; confirmed engine phases and pending crossing choices resume. A discovery annotation has its own `ferryman-v0.4-discoveries` key and can be cleared separately.
 

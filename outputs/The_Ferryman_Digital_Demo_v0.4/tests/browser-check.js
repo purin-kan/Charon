@@ -22,10 +22,10 @@ async currentPage => {
   const crossing=async(to,mem='Use no memory')=>{await click('Travel to '+to);await click(mem);await click('Confirm crossing');await click('Continue');};
   const onError=e=>errors.push(e.message);page.on('pageerror',onError);
   try {
-    await page.goto(base);
+    await page.goto(base);await click('Enter');
     await page.setViewportSize({width:1280,height:900});
-    check('Intro explains objective',await page.getByRole('button',{name:'Begin the journey',exact:true}).isVisible());
-    await click('Begin the journey');
+    check('Intro explains objective',await page.getByRole('button',{name:'Save 1: begin the journey',exact:true}).isVisible());
+    await click('Save 1: begin the journey');
     await page.locator('#stage').focus();await page.keyboard.press('Tab');
     check('Keyboard enters current decision',await page.evaluate(()=>document.activeElement.getAttribute('aria-label'))==='Board Mother');
     await page.keyboard.press('Enter');
@@ -46,13 +46,13 @@ async currentPage => {
     const before=await saved();await click('Back');const after=await saved();
     check('Back leaves memory and protection uncommitted',before.hand.join()===after.hand.join()&&!after.guarded.length&&!after.pending.memory);
     await click('Choose Joined Memory M1');await page.getByRole('button',{name:/\(C01-S04\)$/}).click();
-    check('Review shows exact fog and guarded forecast',(await text()).includes('0 fog · 5 light left')&&(await text()).includes('Red Soldier (C01-S04): anger 0 → 0'));
+    check('Review shows exact fog and guarded forecast',(await text()).includes('0 fog · 5 light left')&&(await page.locator('[data-soul="C01-S04"]').innerText()).includes('Protected'));
     await capture('review-desktop');await click('Confirm crossing');await click('Continue');await click('Select: Merchant');await click('Deliver 1 passenger');await click('Continue');
     await crossing('Starting Shore');
     await click('Guide & save');check('Cleared discovery stays cleared on later actions',!(await page.locator('#menu-content').innerText()).includes('Discovered: Shared Farewell'));await click('Close');
     const trip=await saved();
     check('Complete multi-destination trip and refill',trip.completed===1&&trip.light===6&&trip.delivered.length===3&&trip.shore.length===5&&trip.souls['C01-S04'].anger===0&&trip.souls['C01-S05'].anger===1);
-    await page.reload();await click('Resume cycle 2');check('Reload/resume retains exact run',JSON.stringify(await saved())===JSON.stringify(trip));
+    await page.reload();await click('Save 1: continue cycle 2');check('Reload/resume retains exact run',JSON.stringify(await saved())===JSON.stringify(trip));
     await click('Guide & save');const downloadPromise=page.waitForEvent('download');await click('Export JSON');const download=await downloadPromise;const exportPath=root+'work/v04/browser-export.json';await download.saveAs(exportPath);
     check('JSON export download has versioned filename',download.suggestedFilename()==='ferryman-v0.4-cycle-2.json');
     await page.locator('#import-json').fill('{"version":"0.3"}');await click('Import pasted JSON');
@@ -80,7 +80,7 @@ async currentPage => {
     await click('Travel to Tartarus');await capture('memory-mobile');check('Narrow memory viewport has no horizontal overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     await page.getByRole('button',{name:/^Choose Recollection /}).click();await capture('review-mobile');
     check('Narrow review has no horizontal overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-    await page.reload();await click('Resume cycle 1');check('Reload resumes review without spending memory',(await saved()).phase==='review'&&(await saved()).hand.length===3);
+    await page.reload();await click('Save 1: continue cycle 1');check('Reload resumes review without spending memory',(await saved()).phase==='review'&&(await saved()).hand.length===3);
     await page.evaluate(()=>scrollTo(0,document.body.scrollHeight));check('Light and boat summary stays visible while scrolling',await page.evaluate(()=>{const r=document.querySelector('#status').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}));
     await click('Guide & save');page.once('dialog',d=>d.dismiss());const keep=await saved();await click('New run');check('Cancel new run preserves progress',JSON.stringify(await saved())===JSON.stringify(keep));
     await click('Guide & save');page.once('dialog',d=>d.accept());await click('New run');check('Confirmed new run clears game resources and flags',(await saved()).light===2&&!(await saved()).hand.length&&!(await saved()).events.length);
