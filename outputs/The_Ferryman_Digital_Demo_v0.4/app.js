@@ -397,6 +397,8 @@
     message=el('p');message.setAttribute('role','status');menuContent.append(message);
     if(!menu.open)menu.showModal();
   }
+  // The brand returns to the intro; progress is already saved after every action.
+  document.querySelector('.brand').addEventListener('click',e=>{e.preventDefault();if(menu.open)menu.close();state=null;behind=null;selected=new Set();entered=false;render();});
   document.querySelector('#menu-button').addEventListener('click',openMenu);
   document.querySelector('#close-menu').addEventListener('click',()=>menu.close());
   menu.addEventListener('close',()=>document.querySelector('#menu-button').focus());
