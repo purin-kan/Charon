@@ -178,3 +178,14 @@ dialog,dialog.popup{background:linear-gradient(180deg,#110d0a,#070504);border-co
 .brand.home{border:0;background:none;padding:10px 4px}.brand.home:hover{background:none}
 /* Header menu button as plain text, matching Home */
 #menu-button{border:0;background:none;padding:10px 4px;color:#cfc4ab;font-size:16px;letter-spacing:.02em}#menu-button:hover{background:none;color:var(--gold-hi)}
+/* Reaper ferryman: bone-grey blade, near-black robe, ember eyes that wake once the boat arrives */
+.boat .blade{fill:#8f978f;stroke:#cdd3c8;stroke-width:1;stroke-linejoin:round}
+.boat .robe{fill:#0c0a08;stroke:#b8914f99}
+.boat .hood-void{fill:#020202}
+.boat .bone{fill:none;stroke:#d8cfb8;stroke-width:1.6;stroke-linecap:round}
+.boat .eyes{fill:#ffc768;filter:drop-shadow(0 0 2.5px #ff9a3c);animation:ember 3.2s ease-in-out infinite}
+@keyframes ember{0%,100%{opacity:1}45%{opacity:.55}50%{opacity:.15}55%{opacity:.6}}
+.boat.arriving .eyes{opacity:0;animation:wake 1.2s ease-in 2.4s forwards,ember 3.2s ease-in-out 3.6s infinite}
+@keyframes wake{to{opacity:1}}
+.boat.dark .eyes{animation:none;opacity:.2;filter:none}
+@media(prefers-reduced-motion:reduce){.boat .eyes,.boat.arriving .eyes{opacity:1}}

@@ -348,8 +348,13 @@
   // Static artwork: a ferryman silhouette poling a boat with a lit lantern.
   const BOAT_SVG='<svg viewBox="0 0 240 130" aria-hidden="true"><defs><radialGradient id="lg"><stop offset="0" stop-color="#fff0c4"/><stop offset=".3" stop-color="#edc47f" stop-opacity=".6"/><stop offset="1" stop-color="#edc47f" stop-opacity="0"/></radialGradient></defs>'
     +'<circle class="lantern-glow" cx="182" cy="52" r="46" fill="url(#lg)"/>'
-    +'<line class="pole" x1="88" y1="14" x2="132" y2="122"/>'
-    +'<path class="s" d="M104 94 L113 50 Q118 40 124 50 L134 94 Z"/><circle class="s" cx="118" cy="40" r="7.5"/><path class="s" d="M110 42 Q118 26 126 42 Z"/>'
+    // The ferryman as a reaper: scythe blade on the pole, ragged hooded robe, an empty hood with two ember eyes.
+    +'<line class="pole" x1="86" y1="8" x2="132" y2="122"/>'
+    +'<path class="blade" d="M87 10 Q104 -4 131 9 Q121 5.5 110 7 Q98 8.5 89.5 15.5 Z"/>'
+    +'<path class="s robe" d="M118 22 Q108.5 29 106.5 41 Q101 47 100 60 L95.5 97 L101.5 91.5 L106 98.5 L111 91 L116.5 99.5 L121.5 91 L127 98.5 L132 91.5 L140.5 97 L136 60 Q135 47 129.5 41 Q127.5 29 118 22 Z"/>'
+    +'<path class="hood-void" d="M118 30.5 Q111.5 34 111 43.5 Q111.5 51.5 118 53.5 Q124.5 51.5 125 43.5 Q124.5 34 118 30.5 Z"/>'
+    +'<g class="eyes"><circle cx="115" cy="43.5" r="1.3"/><circle cx="121" cy="43.5" r="1.3"/></g>'
+    +'<path class="bone" d="M105 60 Q100.5 61.5 99.5 58.5M104.5 63 Q100 65 98.5 62.5"/>'
     +'<line class="pole" x1="176" y1="96" x2="176" y2="36"/><path class="hook" d="M176 38 Q182 34 182 44"/>'
     +'<rect class="lamp" x="177" y="44" width="10" height="14" rx="2"/>'
     +'<path class="s hull" d="M18 88 Q120 108 222 86 L208 104 Q120 124 34 104 Z"/>'
