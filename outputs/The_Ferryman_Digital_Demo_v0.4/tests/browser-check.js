@@ -11,7 +11,7 @@ async currentPage => {
   const root='/Users/supa/projects/SIIT/charon/';
   const check=(name,ok,detail)=>{results.push({name,status:ok?'PASS':'FAIL',detail});if(!ok)throw Error(name);};
   const click=name=>page.getByRole('button',{name,exact:true}).click();
-  const text=()=>page.locator('main').innerText();
+  const text=async()=>(await page.locator('main').innerText())+'\n'+(await page.locator('#popup').innerText());
   const saved=()=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
   const capture=async name=>{await page.evaluate(()=>scrollTo(0,0));return page.screenshot({path:root+'outputs/The_Ferryman_Digital_Demo_v0.4/verification/'+name+'.png',fullPage:true});};
   const importFixture=async name=>{
@@ -27,9 +27,9 @@ async currentPage => {
     check('Intro explains objective',await page.getByRole('button',{name:'Begin the journey',exact:true}).isVisible());
     await click('Begin the journey');
     await page.locator('#stage').focus();await page.keyboard.press('Tab');
-    check('Keyboard enters current decision',await page.evaluate(()=>document.activeElement.textContent)==='Board Mother');
+    check('Keyboard enters current decision',await page.evaluate(()=>document.activeElement.getAttribute('aria-label'))==='Board Mother');
     await page.keyboard.press('Enter');
-    check('Keyboard boarding retains focused soul control',await page.evaluate(()=>document.activeElement.textContent)==='Leave Mother ashore');
+    check('Keyboard boarding retains focused soul control',await page.evaluate(()=>document.activeElement.getAttribute('aria-label'))==='Leave Mother ashore');
     await click('Board Child');await click('Board Merchant');
     check('Four-seat capacity disables extra boarding',await page.getByRole('button',{name:'Board Poet',exact:true}).isDisabled());
     await capture('boarding-desktop');
@@ -42,10 +42,10 @@ async currentPage => {
     await click('Guide & save');check('Event discovery retained separately',(await page.locator('#menu-content').innerText()).includes('Discovered: Shared Farewell'));
     await click('Clear remembered discovery');await click('Close');
     check('Return disabled with Merchant aboard',await page.getByRole('button',{name:'Travel to Starting Shore',exact:true}).isDisabled());
-    await click('Travel to Tartarus');await page.locator('#target-M1').selectOption('C01-S04');await click('Choose Joined Memory M1');
+    await click('Travel to Tartarus');await click('Choose Joined Memory M1');await page.getByRole('button',{name:/\(C01-S04\)$/}).click();
     const before=await saved();await click('Back');const after=await saved();
     check('Back leaves memory and protection uncommitted',before.hand.join()===after.hand.join()&&!after.guarded.length&&!after.pending.memory);
-    await page.locator('#target-M1').selectOption('C01-S04');await click('Choose Joined Memory M1');
+    await click('Choose Joined Memory M1');await page.getByRole('button',{name:/\(C01-S04\)$/}).click();
     check('Review shows exact fog and guarded forecast',(await text()).includes('0 fog · 5 light left')&&(await text()).includes('Red Soldier (C01-S04): anger 0 → 0'));
     await capture('review-desktop');await click('Confirm crossing');await click('Continue');await click('Select: Merchant');await click('Deliver 1 passenger');await click('Continue');
     await crossing('Starting Shore');
@@ -86,7 +86,7 @@ async currentPage => {
     await click('Guide & save');page.once('dialog',d=>d.accept());await click('New run');check('Confirmed new run clears game resources and flags',(await saved()).light===2&&!(await saved()).hand.length&&!(await saved()).events.length);
     await capture('boarding-mobile');check('Narrow boarding viewport has no horizontal overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     check('All rendered images loaded',await page.evaluate(()=>[...document.images].every(img=>img.complete&&img.naturalWidth>0)));
-    await importFixture('literal');check('Imported result strings render as inert text',await page.locator('h1').innerText()==='<img src=x onerror="window.importExecuted=true">'&&await page.evaluate(()=>!window.importExecuted&&!document.querySelector('img[src="x"]')));
+    await importFixture('literal');check('Imported result strings render as inert text',await page.locator('#popup-title').innerText()==='<img src=x onerror="window.importExecuted=true">'&&await page.evaluate(()=>!window.importExecuted&&!document.querySelector('img[src="x"]')));
     check('No JavaScript runtime errors',errors.length===0,errors);
   } catch(e){results.push({name:'Browser runner completion',status:'FAIL',detail:e.message});}
   finally {page.off('pageerror',onError);}
