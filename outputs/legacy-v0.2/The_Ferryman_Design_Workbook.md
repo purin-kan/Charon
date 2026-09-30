@@ -4,7 +4,7 @@ Editable examples and templates for the whole game
 
 Version 0.2 | 17 September 2026 | Team F2P
 
-**Version notice, September 29, 2026:** this workbook preserves v0.2 examples and the later v0.3 decision register. The current browser prototype uses [v0.4 rules](The_Ferryman_Digital_Demo_v0.4/RULES.md) and its matching [quick start](The_Ferryman_Digital_Demo_v0.4/QUICK_START.md). v0.4 removes obols, hull, reprimands and quotas and changes delivery rewards. Do not use the old workbook examples, PDFs or v0.3 paper pieces as v0.4 instructions. A v0.4 physical kit is deferred until the user tries the browser flow.
+**Version notice, September 29, 2026:** this workbook preserves v0.2 examples and the later v0.3 decision register. The current browser prototype uses [v0.4 rules](../The_Ferryman_Digital_Demo_v0.4/RULES.md) and its matching [quick start](../The_Ferryman_Digital_Demo_v0.4/QUICK_START.md). v0.4 removes obols, hull, reprimands and quotas and changes delivery rewards. Do not use the old workbook examples, PDFs or v0.3 paper pieces as v0.4 instructions. A v0.4 physical kit is deferred until the user tries the browser flow.
 
 The next task is to test a complete crossing, then a short run, and use what happens to decide the larger game. This workbook covers the concept, destinations, rules, content, presentation, digital systems, and playtesting. Completed examples provide something concrete to try. Blank templates let the team replace those examples and extend the design.
 
@@ -131,7 +131,7 @@ These are proposed criteria, not results. A team may prefer strategic mastery, n
 
 ## 4 Current decisions and version authority
 
-The user confirmed endless play and authorized ChatGPT to make the remaining decisions. [The Ferryman v0.3 decided rules](The_Ferryman_v0.3_Decided_Rules.md) is authoritative for the next prototype. It distinguishes user requirements from **Decided by ChatGPT** resolutions and contains complete phase order, numerical defaults and starter content.
+The user confirmed endless play and authorized ChatGPT to make the remaining decisions. [The Ferryman v0.3 decided rules](../The_Ferryman_v0.3_Decided_Rules.md) is authoritative for the next prototype. It distinguishes user requirements from **Decided by ChatGPT** resolutions and contains complete phase order, numerical defaults and starter content.
 
 This workbook's older trial rules, examples, quick summary and implementation notes describe v0.2. They are preserved for comparison and must not override v0.3. Updating this decision register does not rebuild the workbook PDF, game, paper kit or ZIP.
 

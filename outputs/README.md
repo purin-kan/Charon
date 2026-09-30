@@ -27,19 +27,21 @@ Keep the v0.4 folder intact. No v0.4 demo ZIP has been generated. Its 20 art cop
 
 The original art ZIP is a superseded revision, retained for history. The full digital-demo ZIP named in the integration handoff is absent from this checkout; use the intact demo folder. The workshop ZIP is available above.
 
-[Production prompts](../v0.3_handoffs/README.md) document completed assignments and the shared contract. They are not a current backlog.
+[Production prompts](../history/handoffs/v0.3_handoffs/README.md) document completed assignments and the shared contract. They are not a current backlog.
 
-## Existing v0.2 playable and printable material
+## Legacy v0.2 playable and printable material (`legacy-v0.2/`)
+
+Moved here on September 30, 2026 from the top of `outputs/`. The v0.3 and v0.4 folders, the workshop kit and their recorded evidence were not moved.
 
 | Material | Location | Status |
 |---|---|---|
-| Browser demo | [The_Ferryman_Digital_Demo/](The_Ferryman_Digital_Demo/index.html) | Existing v0.2 rules implementation |
-| Verification and playtest report | [VALIDATION.md](The_Ferryman_Digital_Demo/VALIDATION.md), [PLAYTEST_REPORT.md](The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md) | Historical agent/script/browser evidence, not v0.3 validation |
-| Workbook Markdown | [The_Ferryman_Design_Workbook.md](The_Ferryman_Design_Workbook.md) | Updated decision register, with legacy trial sections retained |
-| Workbook PDF | [The_Ferryman_Design_Workbook.pdf](The_Ferryman_Design_Workbook.pdf) | Older export; does not include the latest Markdown decisions |
-| Easy playguide | [The_Ferryman_Easy_Playguide.pdf](The_Ferryman_Easy_Playguide.pdf) | Existing prototype guide, not rewritten for v0.3 |
-| Paper kit and art | [The_Ferryman_Paper_Mockup_Art/START_HERE.md](The_Ferryman_Paper_Mockup_Art/START_HERE.md) | Existing printable pieces, illustrations and editable SVGs |
-| Earlier opinion | [The_Ferryman_Playtest_Opinion.md](The_Ferryman_Playtest_Opinion.md) | Historical interpretation of the old prototype |
-| Earlier detailed handoff | [The_Ferryman_Project_Handoff_Prompt.md](The_Ferryman_Project_Handoff_Prompt.md) | Historical handoff with superseded paths/decisions; use root AGENT_CONTEXT.md now |
+| Browser demo | [The_Ferryman_Digital_Demo/](legacy-v0.2/The_Ferryman_Digital_Demo/index.html) | Existing v0.2 rules implementation |
+| Verification and playtest report | [VALIDATION.md](legacy-v0.2/The_Ferryman_Digital_Demo/VALIDATION.md), [PLAYTEST_REPORT.md](legacy-v0.2/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md) | Historical agent/script/browser evidence, not v0.3 validation |
+| Workbook Markdown | [The_Ferryman_Design_Workbook.md](legacy-v0.2/The_Ferryman_Design_Workbook.md) | Updated decision register, with legacy trial sections retained |
+| Workbook PDF | [The_Ferryman_Design_Workbook.pdf](legacy-v0.2/The_Ferryman_Design_Workbook.pdf) | Older export; does not include the latest Markdown decisions |
+| Easy playguide | [The_Ferryman_Easy_Playguide.pdf](legacy-v0.2/The_Ferryman_Easy_Playguide.pdf) | Existing prototype guide, not rewritten for v0.3 |
+| Paper kit and art | [The_Ferryman_Paper_Mockup_Art/START_HERE.md](legacy-v0.2/The_Ferryman_Paper_Mockup_Art/START_HERE.md) | Existing printable pieces, illustrations and editable SVGs |
+| Earlier opinion | [The_Ferryman_Playtest_Opinion.md](legacy-v0.2/The_Ferryman_Playtest_Opinion.md) | Historical interpretation of the old prototype |
+| Earlier detailed handoff | [The_Ferryman_Project_Handoff_Prompt.md](legacy-v0.2/The_Ferryman_Project_Handoff_Prompt.md) | Historical handoff with superseded paths/decisions; use root AGENT_CONTEXT.md now |
 
-Folders remain in place so local links and recorded evidence stay stable. Keep legacy material separate from current v0.3 workshop instructions. Rebuild and verify a distribution ZIP when its packaged files change. Windows checkout line endings can differ from release hashes without changing content; the workshop ZIP remains the recorded release artifact.
+The v0.3 and v0.4 folders remain in place so local links and recorded evidence stay stable. Old paths inside recorded evidence are historical, see the [path map](../history/README.md). Keep legacy material separate from current v0.3 workshop instructions. Rebuild and verify a distribution ZIP when its packaged files change. Windows checkout line endings can differ from release hashes without changing content; the workshop ZIP remains the recorded release artifact.

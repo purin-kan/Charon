@@ -19,7 +19,7 @@ Open [START_HERE.html](START_HERE.html) for a clickable project home.
 | Find all deliverables and legacy versions | [Version guide](outputs/README.md) |
 | Review decisions and ideas | [Decision log](notes/Decisions_and_Team_Plan.md) and [categorized ideas](notes/categorized%20team%20ideas.md) |
 | Continue with an agent | [AGENT_CONTEXT.md](AGENT_CONTEXT.md), then [AGENTS.md](AGENTS.md) |
-| Review production history | [Handoff pack](v0.3_handoffs/README.md) and [shared contract](v0.3_handoffs/SHARED_CONTRACT.md) |
+| Review production history | [Handoff pack](history/handoffs/v0.3_handoffs/README.md) and [shared contract](history/handoffs/v0.3_handoffs/SHARED_CONTRACT.md) |
 
 ## Play and print
 
@@ -36,9 +36,9 @@ The workshop ZIP is present. `outputs/The_Ferryman_Digital_Demo_v0.3.zip`, menti
 ```text
 Charon/
   README.md, START_HERE.html       Current project entry points
-  AGENT_CONTEXT.md                Current state, limits and dated history
+  AGENT_CONTEXT.md                Current state and limits
   AGENTS.md, CLAUDE.md            Agent working guidance
-  v0.3_handoffs/                  Historical production prompts and shared contract
+  history/                        Completed handoffs, production prompts, dated agent log
   notes/                         Decisions, ideas and historical team plan
   outputs/
     The_Ferryman_v0.3_Decided_Rules.md
@@ -46,8 +46,7 @@ Charon/
     The_Ferryman_Digital_Demo_v0.3/  Preserved playable comparison
     The_Ferryman_Workshop_Kit_v0.3/  Older rules, printable kit and editable sources
     The_Ferryman_Workshop_Kit_v0.3.zip
-    The_Ferryman_Digital_Demo/       Legacy v0.2 game and evidence
-    The_Ferryman_Paper_Mockup_Art/   Legacy paper kit and artwork
+    legacy-v0.2/                     v0.2 game, paper kit, workbook, playguide, older handoffs
   sources/                       Original-concept extracts and page images
   archive/                       Historical production archive
   work/                          Ignored scratch/build work

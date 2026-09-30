@@ -4,13 +4,13 @@ Prepared September 27, 2026. Status updated September 29, 2026: the browser game
 
 ## Completed deliveries and remaining work
 
-- [Play v0.3](../outputs/The_Ferryman_Digital_Demo_v0.3/index.html), [quick start](../outputs/The_Ferryman_Digital_Demo_v0.3/docs/QUICK_START.md), and [integrated browser evidence](../outputs/The_Ferryman_Digital_Demo_v0.3/handoff/integration.md).
-- [Workshop kit and assembly](../outputs/The_Ferryman_Workshop_Kit_v0.3/README.md), [PDF](../outputs/The_Ferryman_Workshop_Kit_v0.3/Print_and_Play_Workshop_v0.3.pdf), and [ZIP](../outputs/The_Ferryman_Workshop_Kit_v0.3.zip).
-- [Remaining physical checks](../outputs/The_Ferryman_Workshop_Kit_v0.3/VALIDATION.md#physical-print-and-rehearsal-checklist): printing, handling, human rehearsal and team review.
+- [Play v0.3](../../../outputs/The_Ferryman_Digital_Demo_v0.3/index.html), [quick start](../../../outputs/The_Ferryman_Digital_Demo_v0.3/docs/QUICK_START.md), and [integrated browser evidence](../../../outputs/The_Ferryman_Digital_Demo_v0.3/handoff/integration.md).
+- [Workshop kit and assembly](../../../outputs/The_Ferryman_Workshop_Kit_v0.3/README.md), [PDF](../../../outputs/The_Ferryman_Workshop_Kit_v0.3/Print_and_Play_Workshop_v0.3.pdf), and [ZIP](../../../outputs/The_Ferryman_Workshop_Kit_v0.3.zip).
+- [Remaining physical checks](../../../outputs/The_Ferryman_Workshop_Kit_v0.3/VALIDATION.md#physical-print-and-rehearsal-checklist): printing, handling, human rehearsal and team review.
 
 Worker A's art handoff and Worker B's content handoff describe their pre-integration delivery dates. Their pending-integration statements are superseded by Worker D's integration handoff. Preserve the original art handoff because it is captured in verified art/workshop packages. The original art ZIP is superseded by revision 2. The full demo ZIP mentioned by D is absent from this checkout; the playable folder is available.
 
-This folder lives at the repository root: `v0.3_handoffs/`. See the [project guide](../README.md), [decided rules](../outputs/The_Ferryman_v0.3_Decided_Rules.md) and [decision history](../notes/Decisions_and_Team_Plan.md).
+This folder lives at the repository root: `v0.3_handoffs/`. See the [project guide](../../../README.md), [decided rules](../../../outputs/The_Ferryman_v0.3_Decided_Rules.md) and [decision history](../../../notes/Decisions_and_Team_Plan.md).
 
 Use two ChatGPT Astra conversations for images and content, and two Claude conversations for implementation. This follows the user's available accounts and preferred allocation, not a model benchmark or a claim about plan entitlements. Each person runs their own conversation and passes files through the coordinator.
 
@@ -27,7 +27,7 @@ D is the integration owner, not a fifth worker. The human coordinator distribute
 
 ## Workshop follow-up
 
-[05_ChatGPT_Workshop_Art.md](05_ChatGPT_Workshop_Art.md) records the completed physical v0.3 workshop production assignment: printable cards, board and mats, counters and trackers, references, event cards and observation sheets. It reuses the delivered revision 2 artwork and defines a separate output folder, print checks and packaging requirements. This is a follow-up production prompt, not an additional worker in the four-worker browser-game allocation. Completion is documented in the [kit handoff](../outputs/The_Ferryman_Workshop_Kit_v0.3/handoff.md); the prompt below remains an archived production brief.
+[05_ChatGPT_Workshop_Art.md](05_ChatGPT_Workshop_Art.md) records the completed physical v0.3 workshop production assignment: printable cards, board and mats, counters and trackers, references, event cards and observation sheets. It reuses the delivered revision 2 artwork and defines a separate output folder, print checks and packaging requirements. This is a follow-up production prompt, not an additional worker in the four-worker browser-game allocation. Completion is documented in the [kit handoff](../../../outputs/The_Ferryman_Workshop_Kit_v0.3/handoff.md); the prompt below remains an archived production brief.
 
 ## What to give each conversation
 

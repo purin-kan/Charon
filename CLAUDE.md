@@ -4,7 +4,7 @@
 
 The Ferryman now has a completed v0.4 guided browser prototype. The physical kit remains v0.3 and uses different rules. Read [AGENT_CONTEXT.md](AGENT_CONTEXT.md) first, then [AGENTS.md](AGENTS.md). Status refreshed September 29, 2026 after completing the resumed v0.4 handoff.
 
-Current authority is [v0.4 RULES.md](outputs/The_Ferryman_Digital_Demo_v0.4/RULES.md), which separates explicit user choices, retained v0.3 defaults and implementation interpretations. The [v0.4 handoff](V0.4_HANDOFF.md) is completed history with paper considerations for a later task. Earlier worker prompts are not instructions to regenerate completed work.
+Current authority is [v0.4 RULES.md](outputs/The_Ferryman_Digital_Demo_v0.4/RULES.md), which separates explicit user choices, retained v0.3 defaults and implementation interpretations. The [v0.4 handoff](history/handoffs/V0.4_HANDOFF.md) is completed history with paper considerations for a later task. Earlier worker prompts are not instructions to regenerate completed work.
 
 ## Launch and verification
 
@@ -54,9 +54,9 @@ Preserve source snapshots and archived art handoffs inside verified packages. Ex
 
 ## Legacy material and repository layout
 
-- `outputs/The_Ferryman_Digital_Demo/` is the preserved v0.2 game. Its old tests do not validate v0.3.
-- The workbook, easy playguide, paper mockup kit and older playtest reports are historical. [outputs/README.md](outputs/README.md) labels versions.
-- `v0.3_handoffs/` contains the original browser-worker prompts, workshop follow-up and shared contract.
+- `outputs/legacy-v0.2/The_Ferryman_Digital_Demo/` is the preserved v0.2 game. Its old tests do not validate v0.3.
+- The workbook, easy playguide, paper mockup kit and older playtest reports are historical and live in `outputs/legacy-v0.2/`. [outputs/README.md](outputs/README.md) labels versions.
+- `history/handoffs/v0.3_handoffs/` contains the original browser-worker prompts, workshop follow-up and shared contract; `history/context-log.md` holds dated agent checkpoints. Old paths inside recorded evidence refer to the pre-reorganization layout, see [history/README.md](history/README.md).
 - `notes/` retains decisions, ideas and the historical team plan. Earlier suggestions are not current rules.
 - `sources/` and `archive/` preserve original-concept and production history. The original concept PDF is absent.
 - Use ignored `work/` for scratch files. `temp/`, if present, is also scratch. Local tool-state directories are not deliverables.

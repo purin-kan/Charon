@@ -160,7 +160,7 @@ This records the user's acceptance of the preceding design proposal. It is a des
 | Demonstration format | Full run or shorter example for visitors? | Prepare a short introduction and a complete playable run. Label a shortened demonstration as an excerpt. | [assign / record] |
 | Final approval and version | Who decides readiness, and which rules are authoritative? | Assign a coordinator and a rules owner. Use the same version across rules, cards and demonstration materials. | [assign / record] |
 
-Use [workbook section 4](../outputs/The_Ferryman_Design_Workbook.md#4-current-decisions-and-version-authority) for the updated D01-D12 register. The original line references in this historical plan predate that section's revision. Choosing a temporary answer for the showcase does not approve it as the final game design.
+Use [workbook section 4](../outputs/legacy-v0.2/The_Ferryman_Design_Workbook.md#4-current-decisions-and-version-authority) for the updated D01-D12 register. The original line references in this historical plan predate that section's revision. Choosing a temporary answer for the showcase does not approve it as the final game design.
 
 ## 2. Things to test or tweak before freezing the prototype
 
@@ -178,8 +178,8 @@ Use [workbook section 4](../outputs/The_Ferryman_Design_Workbook.md#4-current-de
 
 Evidence from the September 18 agent review:
 
-- Ending and late memories: [successful browser log](../outputs/The_Ferryman_Digital_Demo/verification/browser/all-souls-run.json), `finalState.log[3..5]` and `finalState.queue`; [full report](../outputs/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md), lines 62-82.
-- Faint Memory comparison: [design experiments](../outputs/The_Ferryman_Digital_Demo/verification/demo_design_experiments.json), `probes.faintProbe.sameResultingStateApartFromLog`.
+- Ending and late memories: [successful browser log](../outputs/legacy-v0.2/The_Ferryman_Digital_Demo/verification/browser/all-souls-run.json), `finalState.log[3..5]` and `finalState.queue`; [full report](../outputs/legacy-v0.2/The_Ferryman_Digital_Demo/PLAYTEST_REPORT.md), lines 62-82.
+- Faint Memory comparison: [design experiments](../outputs/legacy-v0.2/The_Ferryman_Digital_Demo/verification/demo_design_experiments.json), `probes.faintProbe.sameResultingStateApartFromLog`.
 - Route behavior and fixed-order comparisons: the same experiment file, `probes.routeProbe` and `runs`; full report, lines 46-60 and 84-90.
 
 These are agent/browser checks and deterministic experiments. They do not establish human enjoyment, balance or learning difficulty.
@@ -235,7 +235,7 @@ The exact portal cutoff controls this plan. If its timestamp is earlier than an 
 - [ ] Explanation, play and reset times are recorded and fit the available slot.
 - [ ] The kit and submission files are packed, checked and assigned to an owner.
 
-This condenses [workbook checkpoint C01](../outputs/The_Ferryman_Design_Workbook.md#c01-readiness-checklist), source lines 776-789. Leave boxes unchecked until there is actual evidence.
+This condenses [workbook checkpoint C01](../outputs/legacy-v0.2/The_Ferryman_Design_Workbook.md#c01-readiness-checklist), source lines 776-789. Leave boxes unchecked until there is actual evidence.
 
 ### Record a decision
 

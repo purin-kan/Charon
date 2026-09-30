@@ -5,8 +5,8 @@ Worker B, September 27, 2026, Asia/Bangkok. This is a source and content-format 
 ## Authority and snapshot
 
 - [Decided rules](../../The_Ferryman_v0.3_Decided_Rules.md), sections 1–11 and retained user requirements. SHA-256: `459d7a8501b5e0674e95e31db09806dd6657117da1470b44a42684d5f9e5cdfb`.
-- [Shared contract v1](../../../v0.3_handoffs/SHARED_CONTRACT.md), stable identifiers, content pack, phases and view contract. SHA-256: `2a90fb7c41c0abf086034ef21da23bfdfb7ad5ba343fb08698f44e3ff879528a`.
-- [Worker B assignment](../../../v0.3_handoffs/02_ChatGPT_Content.md). SHA-256: `bfc119cf046f51a325d6c6a51e3ca8e9567883519e4522e8885d4f37e66745ae`.
+- [Shared contract v1](../../../history/handoffs/v0.3_handoffs/SHARED_CONTRACT.md), stable identifiers, content pack, phases and view contract. SHA-256: `2a90fb7c41c0abf086034ef21da23bfdfb7ad5ba343fb08698f44e3ff879528a`.
+- [Worker B assignment](../../../history/handoffs/v0.3_handoffs/02_ChatGPT_Content.md). SHA-256: `bfc119cf046f51a325d6c6a51e3ca8e9567883519e4522e8885d4f37e66745ae`.
 
 The reviewed sources are committed at repository HEAD `932a7ace3498297ca34887d36f0216f3beb27712` (`docs: organize repository navigation and versioned project guides`, September 27, 2026, 00:23:32 +0700). Their observed local modification time was September 27, 2026, 00:24:54 +0700. These are source provenance facts, not playtest dates. The coordination README's older statement that the specification was untracked describes an earlier snapshot.
 
