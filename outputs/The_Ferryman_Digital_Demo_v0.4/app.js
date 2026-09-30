@@ -20,6 +20,7 @@
   function paragraph(parent, text, cls) { const inline = parent.dataset && parent.dataset.inline; const p = el(inline ? 'span' : 'p', text, (inline ? 'line ' : '') + (cls || '')); parent.append(p); return p; }
   function announce(text) { document.querySelector('#announcement').textContent = text; }
   function notice(text, danger = false, parent = stage) { paragraph(parent, text, 'notice' + (danger ? ' danger' : '')); }
+  function memoryArt(type) { return 'assets/memory-' + type + '.png'; }
   function art(name) { return 'assets/' + (name === 'wraith' ? 'wraith-r2' : name + '-r2') + '.png'; }
   function image(parent, src) { const img = el('img'); img.src = src; img.alt = ''; parent.append(img); }
   function heading(title, description) {
@@ -85,6 +86,11 @@
     paragraph(parent, v.damage + ' fog · ' + (v.lethal ? 'exceeds your light' : v.after + ' light left'), 'numbers' + (v.lethal ? ' warning' : ''));
     breakdown(v, parent); return v;
   }
+  // Route and memory cards show only the short outcome; the full breakdown stays on the review page.
+  function fogBrief(parent, to, mid = null) {
+    const v = E.preview(state, to, mid);
+    paragraph(parent, v.damage + ' fog · ' + (v.lethal ? 'exceeds your light' : v.after + ' light left'), 'fog-brief' + (v.lethal ? ' warning' : ''));
+  }
   function lastDestination(to) {
     return ['elysium','asphodel','tartarus'].includes(to) && ['elysium','asphodel','tartarus'].every(n => n === to || state.visited.includes(n));
   }
@@ -116,6 +122,8 @@
     const rid = Object.keys(state.souls).find(x => state.souls[x].cohort === q.cohort && state.souls[x].template === other);
     return { name: rid ? E.soul(state,rid).name : (other === 'S06' ? 'Blue Soldier' : 'Red Soldier'), clash: !!rid && state.boat.includes(id) && state.boat.includes(rid) };
   }
+  // A linked partner may not have reached the shore yet, so name it from its template.
+  function partnerName(id) { const pid = E.partner(state,id); return state.souls[pid] ? E.soul(state,pid).name : E.TEMPLATES.find(t => t.id === E.soul(state,id).partner).name; }
   function soulCard(id, mode) {
     const q = E.soul(state,id), aboard = state.boat.includes(id), delivery = mode === 'delivery', chosen = delivery ? selected.has(id) : aboard;
     const full = !delivery && !aboard && E.seats(state) + q.seats > 4;
@@ -130,7 +138,7 @@
     if (r) fact(list, r.clash ? 'Clashing with ' + r.name + ': +1 fog' : 'With ' + r.name + ': +1 fog', 'clash' + (r.clash ? ' live' : ''));
     else if (ABILITY.includes(q.template)) fact(list, q.text, 'ability');
     else if (!q.partner) fact(list, q.text, 'flavor');
-    if (q.partner) { const pid = E.partner(state,id); fact(list, 'With ' + E.soul(state,pid).name + ': Joined Memory. Apart: Faint Memory and extra anger.'); }
+    if (q.partner) { fact(list, 'With ' + partnerName(id) + ': Joined Memory. Apart: Faint Memory and extra anger.'); }
     else fact(list, 'Memory: ' + E.MEMORIES[q.memory].name);
     paragraph(body, 'Anger ' + q.anger + ' / 3', 'anger');
     if (full) paragraph(body, 'Needs ' + q.seats + ' free seats.', 'warning');
@@ -167,7 +175,7 @@
 
     const boat = tripColumn('⛵', 'On the boat', E.seats(state) + '/4', state.boat.length ? '' : 'Empty. You can head back to the shore.');
     for (const id of state.boat) {
-      const q = E.soul(state,id), pid = q.partner && E.partner(state,id), pname = pid && E.soul(state,pid).name;
+      const q = E.soul(state,id), pid = q.partner && E.partner(state,id), pname = pid && partnerName(id);
       const icons = [tagx('📍 ' + E.NODES[q.wish])];
       if (pname) icons.push(tagx('🔗 ' + pname));
       const r = rivalOf(id); if (r && r.clash) icons.push(tagx('⚔️ ' + r.name + ' +1 fog', 'bad'));
@@ -210,10 +218,11 @@
     const grid=el('div',null,'grid');
     for (const r of E.routes(state)) {
       const { b, body } = choiceCard({ art: art(r.to), label: 'Travel to ' + r.name, disabled: r.disabled, onPick: () => send({type:'ROUTE',to:r.to}) });
-      paragraph(body, r.name, 'title'); fog(body,r.to);
+      paragraph(body, r.name, 'title');
       if(r.to==='haven')paragraph(body,'After surviving arrival: restore 1 light. No delivery here.','key');
       if(r.to==='shore')paragraph(body,'After surviving return: resolve waiting anger, restore 1 light and refill.','key');
       if(r.disabled)paragraph(body,r.reason,'warning'); else routeWarning(r.to,body);
+      fogBrief(body,r.to);
       grid.append(b);
     } stage.append(grid);
     if(state.wraiths.length){
@@ -245,12 +254,13 @@
     routeWarning(state.pending.to);
     const grid=el('div',null,'grid');
     const none=choiceCard({ label: 'Use no memory', onPick: () => send({type:'MEMORY',id:null}) });
-    paragraph(none.body,'Keep your memories','title'); paragraph(none.body,'Save every card for a later crossing.','key'); fog(none.body,state.pending.to); grid.append(none.b);
+    paragraph(none.body,'Keep your memories','title'); paragraph(none.body,'Save every card for a later crossing.','key'); fogBrief(none.body,state.pending.to); grid.append(none.b);
     for(const id of state.hand){
       const m=state.memories[id],t=E.MEMORIES[m.type],targets=t.target?state.shore.filter(x=>!state.guarded.includes(x)):[];
-      const { b, body } = choiceCard({ label: 'Choose '+t.name+' '+id, onPick: () => { if (targets.length) pickTarget(id,t,targets); else send({type:'MEMORY',id,target:null}); } });
-      paragraph(body,t.name,'title'); paragraph(body,t.text,'key'); paragraph(body,'From '+identity(m.source)+' at '+E.NODES[m.destination]+'.','hint'); fog(body,state.pending.to,id);
+      const { b, body } = choiceCard({ art: memoryArt(m.type), label: 'Choose '+t.name+' '+id, onPick: () => { if (targets.length) pickTarget(id,t,targets); else send({type:'MEMORY',id,target:null}); } });
+      paragraph(body,t.name,'title'); paragraph(body,t.text,'key');
       if(targets.length)paragraph(body,'Next: pick a waiting soul to protect (optional).','hint');
+      fogBrief(body,state.pending.to,id);
       grid.append(b);
     }stage.append(grid);if(!state.hand.length)notice('Your hand is empty. Every delivered soul leaves a memory.');
     backLink('Back');
@@ -259,6 +269,7 @@
     heading('One crossing at a time', 'Review your choice. Back lets you change it without spending a memory.');
     const box=el('div',null,'review');box.append(el('h2',E.NODES[state.node]+' → '+E.NODES[state.pending.to]));
     const v=fog(box,state.pending.to,state.pending.memory),m=state.pending.memory&&state.memories[state.pending.memory];
+    if(m){const img=el('img',null,'result-art');img.src=memoryArt(m.type);img.alt='';box.append(img);}
     paragraph(box,'Memory: '+(m?E.MEMORIES[m.type].name+' from '+identity(m.source):'none')+'.');
     if(state.pending.target)paragraph(box,'Protect '+identity(state.pending.target)+' from normal anger on return. Separation anger is unchanged.');
     routeWarning(state.pending.to,box);
@@ -298,9 +309,20 @@
   }
   function closePopup() { popupLocked = false; if (popup.open) popup.close(); }
   function renderEnded() {
-    heading('The river remembers', 'Your run has ended. A new journey starts with a fresh shore and no carried resources.');
-    const box=el('div',null,'review');for(const text of [state.completed+' cycles completed',state.delivered.length+' souls delivered',state.memorySeq+' memories earned',state.formed+' wraiths formed; '+state.released+' released',state.crossings+' crossings survived'])paragraph(box,text);
-    const d=el('details');d.append(el('summary','Delivered souls'));for(const q of state.delivered)paragraph(d,identity(q.id)+' → '+E.NODES[q.to]+(q.match?' (wish matched)':''));box.append(d);stage.append(box);toolbar(false,'Start a new run',begin);
+    const hero=el('div',null,'ending');hero.append(boat('docked dark'));paragraph(hero,'Journey’s end · cycle '+state.cycle,'eyebrow');stage.append(hero);
+    heading('The river remembers', 'Your lantern went dark on the water. A new journey starts with a fresh shore and no carried resources.');
+    const matched=state.delivered.filter(q=>q.match).length,stats=el('dl',null,'end-stats');
+    for(const [n,label,sub] of [[state.crossings,'Crossings survived'],[state.delivered.length,'Souls delivered',matched+' wishes matched'],[state.memorySeq,'Memories earned'],[state.completed,'Cycles completed'],[state.formed,'Wraiths formed',state.released+' released']]){
+      const tile=el('div',null,'end-stat');tile.append(el('dd',String(n)),el('dt',label));if(sub)tile.append(el('span',sub,'end-sub'));stats.append(tile);
+    }stage.append(stats);
+    const cols=el('div',null,'end-cols'),souls=el('section',null,'end-panel');souls.append(el('h2','Souls you carried'));
+    if(state.delivered.length){const list=el('ul',null,'minis');for(const q of state.delivered)list.append(mini(q.id,identity(q.id)+' delivered to '+E.NODES[q.to]+(q.match?', wish matched.':'.'),[tagx('→ '+E.NODES[q.to]),...(q.match?[tagx('✓ Wish matched','safe')]:[])]));souls.append(list);}
+    else paragraph(souls,'No soul reached the far shore this time.','hint');
+    const mems=el('section',null,'end-panel');mems.append(el('h2','Memories earned'));const earned=Object.values(state.memories);
+    if(earned.length){const g=el('ul',null,'end-mems');const counts={};for(const m of earned)counts[m.type]=(counts[m.type]||0)+1;for(const type of Object.keys(E.MEMORIES).filter(t=>counts[t])){const li=el('li');image(li,memoryArt(type));li.append(el('span',E.MEMORIES[type].name));if(counts[type]>1)li.append(el('b','\u00d7'+counts[type],'end-count'));g.append(li);}mems.append(g);}
+    else paragraph(mems,'Every delivered soul leaves a memory. None were earned this run.','hint');
+    cols.append(souls,mems);stage.append(cols);
+    const go=el('div',null,'end-go');go.append(button('Start a new run',()=>begin(),'primary'));stage.append(go);
   }
   // Static artwork: a ferryman silhouette poling a boat with a lit lantern.
   const BOAT_SVG='<svg viewBox="0 0 240 130" aria-hidden="true"><defs><radialGradient id="lg"><stop offset="0" stop-color="#fff0c4"/><stop offset=".3" stop-color="#edc47f" stop-opacity=".6"/><stop offset="1" stop-color="#edc47f" stop-opacity="0"/></radialGradient></defs>'
