@@ -75,3 +75,106 @@ body.splash-on .masthead{visibility:hidden}.splash{min-height:calc(100vh - 150px
 .end-go{text-align:center;margin-top:28px}.end-go .primary{min-width:230px;font-size:19px;padding:14px 34px;border-radius:40px}
 @media(max-width:760px){.end-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.end-stat:last-child{grid-column:1/-1}.end-cols{grid-template-columns:1fr}.end-stat dd{font-size:36px}}
 .end-count{position:absolute;top:6px;right:6px;background:var(--gold);color:#172a2b;font-size:12px;padding:2px 8px;border-radius:12px}
+/* Khmer theme layer: lacquer panels, gold leaf, sandstone lines, lotus and temple-arch shapes. Overrides the base look above. */
+:root{--paper:#f0e4c8;--muted:#c2b193;--gold:#dcab4f;--gold-hi:#f2d18a;--sand:#b99a73;--ink:#22160d;--line:#dcab4f40;--panel:#1c1510ee;--lacquer:#9c3526;--danger:#ef9f86;--jade:#8cc5a5;
+  --rule:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 18'%3E%3Cg fill='none' stroke='%23dcab4f' stroke-width='1.1' stroke-linejoin='round'%3E%3Cpath d='M0 9h94M146 9h94' stroke-opacity='.5'/%3E%3Cpath d='M99 9l4-3 4 3-4 3zM133 9l4-3 4 3-4 3z'/%3E%3Cpath d='M120 16.5c-3-3-3-9.5 0-14.5 3 5 3 11.5 0 14.5z'/%3E%3Cpath d='M118 16c-5-1-8.5-4.2-8.5-8.5 3.6.4 6.2 2.4 7.8 5.2M122 16c5-1 8.5-4.2 8.5-8.5-3.6.4-6.2 2.4-7.8 5.2'/%3E%3C/g%3E%3C/svg%3E");
+  --finial:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 18'%3E%3Cg fill='%231c1510' stroke='%23dcab4f' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M15 1.5c3.2 4 3.2 9.5 0 14-3.2-4.5-3.2-10 0-14z'/%3E%3Cpath d='M13 15.2C8.5 14.6 5 11.8 4.5 8c3.5.2 6.4 2.2 8 5M17 15.2c4.5-.6 8-3.4 8.5-7.2-3.5.2-6.4 2.2-8 5'/%3E%3C/g%3E%3C/svg%3E")}
+body{background:#0d1719;font-family:'Kantumruy Pro',system-ui,sans-serif}
+h1,h2,h3,.choice .title,.status strong,.slots-title,.popup h2{font-family:Battambang,Georgia,serif;font-weight:700;letter-spacing:.01em}
+h1{font-weight:900}
+.veil{background:linear-gradient(180deg,#130d0ab3,#0d171940 38%,#0c1313f2)}
+.eyebrow{text-transform:none;letter-spacing:.04em;font-size:14px;color:var(--gold)}
+main>h1:not(.splash-title)::after{content:'';display:block;width:210px;height:16px;margin:14px auto 0;background:var(--rule) center/contain no-repeat}
+/* Icons */
+.ico{display:inline-flex;flex:none;width:1.15em;height:1.15em;vertical-align:-.2em}.ico svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.icon-line{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}.icon-pair{display:inline-flex;align-items:center;gap:6px}.icon-pair .ico{color:var(--gold)}
+.choice .icon-line{justify-content:flex-start;gap:4px 12px;margin:0}.choice.empty-slot .icon-line{justify-content:center}
+/* Buttons: lacquer with sandstone edge; forward actions are gold-leaf lotus buds with pointed ends */
+button{background:#2a1f17;border-color:#b99a7359;border-radius:4px}button:hover{background:#3a2a1e}
+.primary{background:linear-gradient(180deg,var(--gold-hi),var(--gold) 55%,#b8862f);color:var(--ink);border:0;border-radius:0;font-weight:600;clip-path:polygon(16px 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,16px 100%,0 50%);padding-left:34px;padding-right:34px}
+.primary:hover{background:linear-gradient(180deg,#f8e2ad,var(--gold-hi) 55%,var(--gold))}
+.toolbar .primary,.popup .primary,.end-go .primary,.splash-go .enter{border-radius:0;box-shadow:none}
+.text-button{background:none;color:var(--gold)}.text-button:hover{background:none}
+/* Cards: lacquer panel, picture set in a temple-doorway arch crowned by a lotus bud */
+.choice{background:linear-gradient(180deg,#241a12f2,#17110cf2);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 22px #0007,inset 0 0 0 4px #17110c,inset 0 0 0 5px #dcab4f22}
+.choice:hover:not(:disabled){background:linear-gradient(180deg,#2a1f15f2,#1a130df2);border-color:#dcab4fa0}
+.choice.selected{border-color:var(--gold);background:linear-gradient(180deg,#33251af5,#1d150ef5);box-shadow:0 0 0 3px #dcab4f40,0 14px 30px #0009,inset 0 0 0 4px #17110c,inset 0 0 0 5px #dcab4f55}
+.choice img{margin:14px 10px 0;width:calc(100% - 20px);border-radius:50% 50% 5px 5px/34px 34px 5px 5px;border:1px solid #dcab4f66;background:#20302f}
+.choice:has(img)::before{content:'';position:absolute;top:3px;left:50%;width:28px;height:17px;margin-left:-14px;background:var(--finial) center/contain no-repeat;z-index:1}
+.choice.empty-slot{background:#150f0bcc;border:1px dashed #dcab4f66}
+.choice .facts{border-top:0;padding-top:12px;background:var(--rule) center top/150px 11px no-repeat}
+.choice .fact .ic{width:11px;height:11px;margin-top:3px;color:var(--gold)}.choice .fact.clash .ic{color:var(--danger)}.choice .fact.clash.live{background:var(--lacquer);color:#fbe7dc}.choice .fact.clash.live .ic{color:#fbe7dc}
+.choice .fact.ability{color:var(--jade)}.choice .anger,.choice .fact.anger{color:#e8cf9f}
+.badge{background:var(--gold);color:var(--ink);border-radius:0;display:inline-flex;align-items:center;gap:4px;padding:5px 12px 5px 16px;clip-path:polygon(9px 0,100% 0,100% 100%,9px 100%,0 50%);box-shadow:none}
+/* Panels and chips */
+.status{background:linear-gradient(180deg,#241a12f0,#17110cf0);border:1px solid var(--line);border-radius:6px}
+@media(min-width:900px){.status{border-radius:8px;border-top:2px solid var(--gold)}.status span+span{border-top:1px solid #dcab4f2e}}
+.chip,.stop{border-radius:3px}.stop{border:1px dashed #b99a7366;display:inline-flex;align-items:center;gap:4px}.stop.done{background:#dcab4f1f}
+.trip,.tactics,.review,.delivery-preview,.end-stat,.end-panel,.notice{background:linear-gradient(180deg,#221810ee,#17110cee);border:1px solid var(--line);border-radius:8px}
+.trip-col{background:#0f0b08c7;border-radius:6px;border:1px solid #dcab4f1f}.trip-col h3{font-family:'Kantumruy Pro',system-ui,sans-serif;letter-spacing:.06em}.trip-col h3 .icon{width:20px;height:20px}.trip-col h3 .count{border-radius:3px}
+.mini{border-radius:6px;background:#dcab4f0d}.mini img{border:1.5px solid #dcab4f88;box-shadow:0 0 0 2px #17110c,0 0 0 3px #dcab4f33}
+.tagx{border-radius:3px;display:inline-flex;align-items:center;gap:4px;background:#dcab4f14}.tagx .ico{width:13px;height:13px;color:var(--gold)}.tagx.safe{color:var(--jade);background:#8cc5a51a}.tagx.safe .ico{color:var(--jade)}.tagx.bad{background:#9c352633}.tagx.bad .ico{color:var(--danger)}
+.pips i{border-radius:1px;transform:rotate(45deg);width:9px;height:9px;margin:1px}
+.notice{border-left:3px solid var(--gold)}.notice.danger{border-left-color:var(--lacquer)}
+.toolbar{border-top:0;padding-top:30px;background:var(--rule) center top/240px 18px no-repeat}
+.flow .active{border-color:transparent;position:relative}.flow .active::after{content:'';position:absolute;left:50%;bottom:-5px;width:7px;height:7px;margin-left:-3.5px;background:var(--gold);transform:rotate(45deg)}
+dialog,dialog.popup{background:linear-gradient(180deg,#221810,#140f0b);border:1px solid #dcab4f77;border-radius:10px}
+.popup-art{border-bottom:1px solid #dcab4f55}.popup::backdrop{background:#0b0806cc}
+.end-stat dd{font-family:'Kantumruy Pro',system-ui,sans-serif}.end-stat{border-top:2px solid var(--gold)}.end-mems li{border-radius:4px;border:1px solid #dcab4f2e}.end-count{border-radius:2px}
+.boat .s{fill:#3a2a1e;stroke:#dcab4fc0}.boat .hull{fill:#4a3322}.boat .pole{stroke:#b99a73}.boat .hook{stroke:#b99a73}
+.river::after{background:linear-gradient(90deg,transparent,#dcab4f77,transparent)}
+@media(max-width:600px){main>h1:not(.splash-title)::after{width:170px}.primary{padding-left:28px;padding-right:28px}}
+.quiet{background:#1c1510d9;border-color:#dcab4f55}.quiet:hover{background:#2a1f17}
+.review .result-art{border-radius:50% 50% 5px 5px/40px 40px 5px 5px;border:1px solid #dcab4f66}
+/* Darker pass: the underworld at night. Tarnished bronze, bone text, dim pictures, drifting fog. */
+:root{--paper:#dcd1b8;--muted:#8f8676;--gold:#b8914f;--gold-hi:#d9b573;--sand:#7d6a52;--ink:#0b0806;--line:#b8914f30;--panel:#0d0a08f0;--lacquer:#6e1d16;--danger:#d9826c;--jade:#7fa892}
+body{background:#050807}
+.world{opacity:.3;filter:saturate(.55) brightness(.75) contrast(1.1)}
+.veil{background:radial-gradient(ellipse 75% 60% at 50% 38%,#05080700,#050807b8 70%,#050807f7),linear-gradient(180deg,#050807cc,#05080733 35%,#050807f5)}
+.veil::before,.veil::after{content:'';position:absolute;inset:-20% -40%;background:radial-gradient(ellipse 30% 12% at 30% 62%,#9fb3ad14,transparent 70%),radial-gradient(ellipse 26% 10% at 72% 78%,#9fb3ad12,transparent 70%),radial-gradient(ellipse 34% 14% at 55% 92%,#9fb3ad10,transparent 70%);animation:fogdrift 70s linear infinite}
+.veil::after{animation-duration:110s;animation-direction:reverse;opacity:.8;transform:translateY(-12%)}
+@keyframes fogdrift{from{translate:-8% 0}50%{translate:8% -1.5%}to{translate:-8% 0}}
+h1,h2,.choice .title,.popup h2,.slots-title{color:#e4dac3;text-shadow:0 2px 18px #000,0 0 2px #000}
+main>h1,.splash-title{letter-spacing:.02em}
+.intro,.popup>p{color:#b5ab96}
+/* Primary actions: dark bronze bud that glows faintly, not a bright gold slab */
+.primary{background:linear-gradient(180deg,#4a3720,#2a1d10 60%,#1d140b);color:var(--gold-hi);text-shadow:0 0 10px #d9b57355}
+.primary:hover{background:linear-gradient(180deg,#5c4527,#34240f 60%,#231709);color:#f0d49a}
+.primary:disabled{color:#8f7a55}
+.splash-go .enter{animation:rise .8s ease-out 2.2s forwards}
+button{background:#120e0b;border-color:#7d6a5255;color:#cfc4ab}button:hover{background:#1c1510}
+.quiet{background:#0b0908d9;border-color:#b8914f44}
+/* Cards: near-black lacquer; pictures stay dim until chosen or hovered */
+.choice{background:linear-gradient(180deg,#120d0a,#0a0706);border-color:#b8914f2e;box-shadow:0 10px 28px #000c,inset 0 0 0 4px #0a0706,inset 0 0 0 5px #b8914f1a}
+.choice:hover:not(:disabled){background:linear-gradient(180deg,#17110d,#0c0907);border-color:#b8914f80}
+.choice.selected{background:linear-gradient(180deg,#1c140d,#0e0a07);box-shadow:0 0 0 2px #b8914f55,0 0 28px #d9b57322,0 14px 30px #000c,inset 0 0 0 4px #0a0706,inset 0 0 0 5px #b8914f44}
+.choice img{filter:saturate(.6) brightness(.72) contrast(1.08);border-color:#b8914f44;transition:filter .3s}
+.choice:hover:not(:disabled) img,.choice.selected img,.choice:focus-visible img{filter:saturate(.9) brightness(.95)}
+.choice .key{color:var(--gold-hi)}.choice .line,.choice .fog-brief{color:#8f8676}
+.choice .fact{color:#bdb39e}.choice .fact.wish{color:var(--gold-hi)}.choice .fact.flavor{color:#8a8171}
+.choice .fact.clash.live{background:#5a1712;color:#f1d3c8}
+.badge{background:#b8914f;color:#0b0806}
+/* Panels */
+.status,.trip,.tactics,.review,.delivery-preview,.end-stat,.end-panel,.notice{background:linear-gradient(180deg,#100c09f2,#080605f2);border-color:#b8914f2a}
+@media(min-width:900px){.status{border-top-color:#8a6b3a}}
+.trip-col{background:#060504d0;border-color:#b8914f18}.mini{background:#b8914f0a}.mini img{filter:saturate(.7) brightness(.85)}
+dialog,dialog.popup{background:linear-gradient(180deg,#110d0a,#070504);border-color:#b8914f55;box-shadow:0 30px 90px #000,0 0 60px #00000080}
+.popup::backdrop{background:#020303e6}
+.popup-art,.review .result-art{filter:saturate(.7) brightness(.8) contrast(1.08)}
+.end-stat{border-top-color:#8a6b3a}.end-stat dd{color:var(--gold-hi)}.end-mems img{filter:saturate(.6) brightness(.75)}
+.boat .lamp{fill:#e8b45a}.lantern-glow{opacity:.85}
+.boat .s{fill:#1d150f}.boat .hull{fill:#261b12}
+.flow span{color:#6f6758}.flow .active{color:var(--gold-hi)}
+.tagx{background:#b8914f12}.tagx.bad{background:#6e1d1640}
+@media(prefers-reduced-motion:reduce){.veil::before,.veil::after{animation:none}}
+.choice .title{text-shadow:none;color:#e8dfc9}
+/* Background brought back up: the river stays visible, only the edges fall into shadow */
+.world{opacity:.55;filter:saturate(.7) brightness(.95) contrast(1.05)}
+.veil{background:radial-gradient(ellipse 80% 65% at 50% 40%,#05080700,#05080770 70%,#050807d9),linear-gradient(180deg,#05080799,#05080710 35%,#050807cc)}
+/* Header home button: prasat tower + "Home", styled like the other header button */
+.brand.home{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:10px 18px 10px 14px;border:1px solid #b8914f44;border-radius:4px;background:#0b0908d9;color:#cfc4ab;font-size:16px;letter-spacing:.02em;text-decoration:none}
+.brand.home:hover{background:#1c1510;color:var(--gold-hi);border-color:#b8914f88}.brand.home .home-ico{width:20px;height:20px;fill:none;stroke:var(--gold);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:600px){.brand.home{font-size:15px;padding:8px 14px 8px 11px}}
+.brand.home{border:0;background:none;padding:10px 4px}.brand.home:hover{background:none}
+/* Header menu button as plain text, matching Home */
+#menu-button{border:0;background:none;padding:10px 4px;color:#cfc4ab;font-size:16px;letter-spacing:.02em}#menu-button:hover{background:none;color:var(--gold-hi)}

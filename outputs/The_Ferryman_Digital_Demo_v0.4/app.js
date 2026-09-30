@@ -105,7 +105,7 @@
     if (o.focusKey) b.dataset.focus = o.focusKey;
     b.addEventListener('click', o.onPick);
     if (o.art) image(b, o.art);
-    if (o.badge && o.pressed) b.append(el('span', '✓ ' + o.badge, 'badge'));
+    if (o.badge && o.pressed) { const bd = el('span', null, 'badge'); bd.append(ico('check'), el('span', o.badge)); b.append(bd); }
     const body = el('span', null, 'card-body'); body.dataset.inline = '1'; body.id = 'choice-' + (++cardCount);
     b.setAttribute('aria-describedby', body.id); b.append(body);
     return { b, body };
@@ -113,7 +113,7 @@
   // Passenger abilities that prevent fog; the soldiers' +1 fog clash is shown separately.
   const ABILITY = ['S05','S10'];
   function fact(list, text, cls = '') {
-    const row = el('span', null, 'fact' + (cls ? ' ' + cls : '')), ic = el('span', '•', 'ic'); ic.setAttribute('aria-hidden', 'true');
+    const row = el('span', null, 'fact' + (cls ? ' ' + cls : '')), ic = ico('bud'); ic.classList.add('ic');
     row.append(ic, el('span', text)); list.append(row); return row;
   }
   // Red (S04) and Blue (S06) Soldier from the same group add 1 fog when both are aboard.
@@ -149,7 +149,28 @@
     for (let i = 1; i <= 3; i++) s.append(el('i', null, i <= before ? 'on' : i <= after ? 'new' : ''));
     return s;
   }
-  function tagx(text, cls) { return el('span', text, 'tagx' + (cls ? ' ' + cls : '')); }
+  // Line icons drawn from Khmer motifs: sampan, oil lamp, lotus, naga hood, prasat tower, dharma wheel.
+  const ICONS = {
+    boat: '<path d="M2 15h20l-3.5 4.5h-13z"/><path d="M6.5 15V10q5.5-4 11 0v5"/><path d="M12 7.5V4"/>',
+    lamp: '<path d="M12 2.5c2.2 2.8 2.2 5 0 7-2.2-2-2.2-4.2 0-7z"/><path d="M5.5 12h13l-2.5 4h-8z"/><path d="M10 16v3.5h4V16M8 20.5h8"/>',
+    lotus: '<path d="M12 20c-2.5-2.6-2.5-8.6 0-13 2.5 4.4 2.5 10.4 0 13z"/><path d="M11 19.6C7 19 4 15.5 4 11c3.3.3 5.6 2.2 7 4.6M13 19.6c4-.6 7-4.1 7-8.6-3.3.3-5.6 2.2-7 4.6"/>',
+    knot: '<circle cx="9" cy="12" r="4.5"/><circle cx="15" cy="12" r="4.5"/>',
+    spears: '<path d="M4 20 18 6M20 20 6 6"/><path d="m18 6 1.5-3.5L16 4zM6 6 4.5 2.5 8 4z"/>',
+    prasat: '<path d="M12 2.5 13.2 5h-2.4z"/><path d="M9.8 9h4.4l-1-4h-2.4z"/><path d="M8 14h8l-1.8-5H9.8z"/><path d="M5.5 20.5h13L16 14H8z"/><path d="M10.5 20.5v-3h3v3"/>',
+    steps: '<path d="M2.5 20.5h19M5 16.5h14M8 12.5h8"/><path d="M12 12.5V5.5"/><path d="M12 5.5c-2 0-3.5 1-4.5 2.5M12 5.5c2 0 3.5 1 4.5 2.5"/>',
+    naga: '<path d="M12 3c3.9 0 6.5 2.8 6.5 6.6 0 4.8-3.6 8.6-6.5 11.4-2.9-2.8-6.5-6.6-6.5-11.4C5.5 5.8 8.1 3 12 3z"/><path d="M9.5 10.5h.01M14.5 10.5h.01M12 12.5v4"/>',
+    spirit: '<path d="M7 20.5V11a5 5 0 0 1 10 0v9.5l-2.5-2-2.5 2-2.5-2z"/><path d="M10 11h.01M14 11h.01"/>',
+    fog: '<path d="M3 8.5h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 13h15a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 17.5h7"/>',
+    wheel: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2"/><path d="M12 3.5V10M12 14v6.5M3.5 12H10M14 12h6.5M6 6l4.6 4.6M13.4 13.4 18 18M18 6l-4.6 4.6M10.6 13.4 6 18"/>',
+    flower: '<circle cx="12" cy="12" r="2.2"/><path d="M12 9.8c-1.6-2-1.6-4.6 0-6.8 1.6 2.2 1.6 4.8 0 6.8zM12 14.2c1.6 2 1.6 4.6 0 6.8-1.6-2.2-1.6-4.8 0-6.8zM9.8 12c-2 1.6-4.6 1.6-6.8 0 2.2-1.6 4.8-1.6 6.8 0zM14.2 12c2-1.6 4.6-1.6 6.8 0-2.2 1.6-4.8 1.6-6.8 0z"/>',
+    check: '<path d="m4.5 12.5 5 5 10-11"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    bud: '<path d="M12 3.5 16.5 12 12 20.5 7.5 12z"/>'
+  };
+  function ico(name) { const i = el('span', null, 'ico ico-' + name); i.setAttribute('aria-hidden', 'true'); i.innerHTML = '<svg viewBox="0 0 24 24">' + ICONS[name] + '</svg>'; return i; }
+  function tagx(text, cls, icon) { const t = el('span', null, 'tagx' + (cls ? ' ' + cls : '')); if (icon) t.append(ico(icon)); t.append(el('span', text)); return t; }
+  // A short line of icon + text pairs, used for summaries on the title page and save slots.
+  function iconLine(parent, pairs, cls = 'hint') { const p = el('p', null, 'icon-line ' + cls); for (const [icon, text] of pairs) { const g = el('span', null, 'icon-pair'); g.append(ico(icon), el('span', text)); p.append(g); } parent.append(p); return p; }
   // One soul row: portrait, name, icon line. `said` is the full sentence for screen readers.
   function mini(id, said, icons, cls = '') {
     const q = E.soul(state,id), row = el('li', null, 'mini' + (cls ? ' ' + cls : '')); row.dataset.soul = id;
@@ -159,7 +180,7 @@
   }
   function tripColumn(icon, title, count, empty) {
     const col = el('div', null, 'trip-col'), h = el('h3');
-    h.append(el('span', icon, 'icon'), el('span', title)); if (count !== null) h.append(el('span', String(count), 'count'));
+    const ic = ico(icon); ic.classList.add('icon'); h.append(ic, el('span', title)); if (count !== null) h.append(el('span', String(count), 'count'));
     col.append(h); const list = el('ul', null, 'minis'); col.append(list);
     if (empty) paragraph(col, empty, 'trip-empty');
     return { col, list };
@@ -168,33 +189,33 @@
     const box = el('section', null, 'trip'); box.setAttribute('aria-label', 'Trip information');
     const head = el('div', null, 'trip-head'); head.append(el('h2', 'This trip'));
     const stops = el('div', null, 'stops');
-    for (const n of ['elysium','asphodel','tartarus']) { const done = state.visited.includes(n); stops.append(el('span', (done ? '✓ ' : '') + E.NODES[n], 'stop' + (done ? ' done' : ''))); }
+    for (const n of ['elysium','asphodel','tartarus']) { const done = state.visited.includes(n); const st = el('span', null, 'stop' + (done ? ' done' : '')); if (done) st.append(ico('check')); st.append(el('span', E.NODES[n])); stops.append(st); }
     head.append(stops); box.append(head);
-    if (state.cycle >= 5) { const v = E.preview(state,'elysium'); paragraph(box, '🌫 Crossings away from the shore add 1 fog.' + (v.favored ? ' ' + E.NODES[v.favored] + ' avoids it this trip.' : ''), 'trip-note'); }
+    if (state.cycle >= 5) { const v = E.preview(state,'elysium'); iconLine(box, [['fog', 'Crossings away from the shore add 1 fog.' + (v.favored ? ' ' + E.NODES[v.favored] + ' avoids it this trip.' : '')]], 'trip-note'); }
     const cols = el('div', null, 'trip-cols');
 
-    const boat = tripColumn('⛵', 'On the boat', E.seats(state) + '/4', state.boat.length ? '' : 'Empty. You can head back to the shore.');
+    const boat = tripColumn('boat', 'On the boat', E.seats(state) + '/4', state.boat.length ? '' : 'Empty. You can head back to the shore.');
     for (const id of state.boat) {
       const q = E.soul(state,id), pid = q.partner && E.partner(state,id), pname = pid && partnerName(id);
-      const icons = [tagx('📍 ' + E.NODES[q.wish])];
-      if (pname) icons.push(tagx('🔗 ' + pname));
-      const r = rivalOf(id); if (r && r.clash) icons.push(tagx('⚔️ ' + r.name + ' +1 fog', 'bad'));
+      const icons = [tagx(E.NODES[q.wish], '', 'lotus')];
+      if (pname) icons.push(tagx(pname, '', 'knot'));
+      const r = rivalOf(id); if (r && r.clash) icons.push(tagx(r.name + ' +1 fog', 'bad', 'spears'));
       boat.list.append(mini(id, q.name + ': wishes for ' + E.NODES[q.wish] + (pname ? ', linked to ' + pname : '') + (r && r.clash ? ', clashing with ' + r.name + ' for +1 fog' : '') + '.', icons, r && r.clash ? 'doomed' : ''));
     }
-    if (state.boat.length) paragraph(boat.col, '🏠 Deliver everyone before returning.', 'trip-note');
+    if (state.boat.length) iconLine(boat.col, [['prasat', 'Deliver everyone before returning.']], 'trip-note');
     cols.append(boat.col);
 
-    const shore = tripColumn('🏝', 'Waiting on shore', state.shore.length, state.shore.length ? '' : 'No one is waiting.');
+    const shore = tripColumn('steps', 'Waiting on shore', state.shore.length, state.shore.length ? '' : 'No one is waiting.');
     for (const id of state.shore) {
       const q = E.soul(state,id), guarded = state.guarded.includes(id) || !!(state.pending && state.pending.target === id);
       const icons = [pips(q.anger, q.anger), el('span', 'Anger ' + q.anger + '/3', 'anger-change')];
-      if (guarded) icons.push(tagx('🛡 Protected', 'safe'));
+      if (guarded) icons.push(tagx('Protected', 'safe', 'naga'));
       shore.list.append(mini(id, q.name + ': anger ' + q.anger + ' of 3' + (guarded ? ', protected' : '') + '.', icons));
     }
     cols.append(shore.col);
 
-    const wraiths = tripColumn('👻', 'Wraiths', state.wraiths.length, state.wraiths.length ? '' : 'None. The fog is calm.');
-    for (const id of state.wraiths) wraiths.list.append(mini(id, E.soul(state,id).name + ' is a wraith and adds 1 fog to every crossing.', [tagx('🌫 +1 fog', 'bad')], 'wraith'));
+    const wraiths = tripColumn('spirit', 'Wraiths', state.wraiths.length, state.wraiths.length ? '' : 'None. The fog is calm.');
+    for (const id of state.wraiths) wraiths.list.append(mini(id, E.soul(state,id).name + ' is a wraith and adds 1 fog to every crossing.', [tagx('+1 fog', 'bad', 'fog')], 'wraith'));
     cols.append(wraiths.col);
 
     box.append(cols); stage.append(box);
@@ -316,7 +337,7 @@
       const tile=el('div',null,'end-stat');tile.append(el('dd',String(n)),el('dt',label));if(sub)tile.append(el('span',sub,'end-sub'));stats.append(tile);
     }stage.append(stats);
     const cols=el('div',null,'end-cols'),souls=el('section',null,'end-panel');souls.append(el('h2','Souls you carried'));
-    if(state.delivered.length){const list=el('ul',null,'minis');for(const q of state.delivered)list.append(mini(q.id,identity(q.id)+' delivered to '+E.NODES[q.to]+(q.match?', wish matched.':'.'),[tagx('→ '+E.NODES[q.to]),...(q.match?[tagx('✓ Wish matched','safe')]:[])]));souls.append(list);}
+    if(state.delivered.length){const list=el('ul',null,'minis');for(const q of state.delivered)list.append(mini(q.id,identity(q.id)+' delivered to '+E.NODES[q.to]+(q.match?', wish matched.':'.'),[tagx(E.NODES[q.to],'','lotus'),...(q.match?[tagx('Wish matched','safe','check')]:[])]));souls.append(list);}
     else paragraph(souls,'No soul reached the far shore this time.','hint');
     const mems=el('section',null,'end-panel');mems.append(el('h2','Memories earned'));const earned=Object.values(state.memories);
     if(earned.length){const g=el('ul',null,'end-mems');const counts={};for(const m of earned)counts[m.type]=(counts[m.type]||0)+1;for(const type of Object.keys(E.MEMORIES).filter(t=>counts[t])){const li=el('li');image(li,memoryArt(type));li.append(el('span',E.MEMORIES[type].name));if(counts[type]>1)li.append(el('b','\u00d7'+counts[type],'end-count'));g.append(li);}mems.append(g);}
@@ -350,9 +371,9 @@
     go.append(enter); sp.append(text, river, go); stage.append(sp);
   }
   function renderTitle() {
-    const hero=el('div',null,'hero');hero.append(boat('docked'));paragraph(hero,'Welcome aboard · v0.4','eyebrow');hero.append(el('h1','Welcome to The Ferryman'));
+    const hero=el('div',null,'hero');hero.append(boat('docked'));hero.append(el('h1','Welcome to The Ferryman'));
     paragraph(hero,'You are an apprentice ferryman. Choose passengers, plan each crossing and keep the lantern alive. The journey continues for as long as you can carry it.','intro');
-    paragraph(hero,'⛵ Four seats · 🏮 One lantern · 🧭 One decision at a time','hint');stage.append(hero);
+    iconLine(hero,[['boat','Four seats'],['lamp','One lantern'],['wheel','One decision at a time']]);stage.append(hero);
     const title=el('h2','Choose a save','slots-title');stage.append(title);
     const grid=el('div',null,'grid slot-grid');
     for(const n of SLOTS){
@@ -361,13 +382,13 @@
       else if(s){
         const {b,body}=choiceCard({art:art(s.ended?'wraith':s.node),label:s.ended?'Save '+n+': view ended journey':'Save '+n+': continue cycle '+s.cycle,focusKey:'slot'+n,onPick:()=>{useSlot(n);state=s;behind=null;selected=new Set();render();}});
         paragraph(body,'Save '+n,'title');
-        paragraph(body,s.ended?'Journey ended':'▶ Continue',  'key');
-        paragraph(body,'🔁 Cycle '+s.cycle+' · 📍 '+E.NODES[s.node]);
-        paragraph(body,'🏮 Light '+s.light+'/6 · ⛵ '+s.boat.length+' aboard · 🕊 '+s.delivered.length+' delivered');
+        paragraph(body,s.ended?'Journey ended':'Continue',  'key');
+        iconLine(body,[['wheel','Cycle '+s.cycle],['lotus',E.NODES[s.node]]],'line');
+        iconLine(body,[['lamp','Light '+s.light+'/6'],['boat',s.boat.length+' aboard'],['flower',s.delivered.length+' delivered']],'line');
         cell.append(b);
       }else{
         const {b,body}=choiceCard({label:'Save '+n+': begin the journey',focusKey:'slot'+n,onPick:()=>begin(n)});b.classList.add('empty-slot');
-        paragraph(body,'Save '+n,'title');paragraph(body,'＋ New journey','key');paragraph(body,'Empty slot. Start fresh at the shore.');cell.append(b);
+        paragraph(body,'Save '+n,'title');iconLine(body,[['plus','New journey']],'key');paragraph(body,'Empty slot. Start fresh at the shore.');cell.append(b);
       }
       if(s||broken[n]){const row=el('div',null,'slot-actions');if(s)row.append(button('New journey',()=>begin(n),'text-button'));row.append(button('Erase',()=>erase(n),'text-button'));cell.append(row);}
       grid.append(cell);
