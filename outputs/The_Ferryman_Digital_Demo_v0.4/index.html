@@ -6,6 +6,9 @@
   <meta name="color-scheme" content="dark">
   <link rel="icon" href="data:,">
   <title>The Ferryman | One crossing at a time</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700;900&family=Kantumruy+Pro:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="styles.css">
   <script defer src="engine.js"></script>
   <script defer src="app.js"></script>
@@ -14,11 +17,12 @@
   <div class="world" aria-hidden="true"></div>
   <div class="veil" aria-hidden="true"></div>
   <header class="masthead">
-    <a class="brand" href="index.html">THE FERRYMAN <span>v0.4</span></a>
+    <a class="brand home" href="index.html" aria-label="Home: back to the title screen"><svg class="home-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 13.2 5h-2.4z"/><path d="M9.8 9h4.4l-1-4h-2.4z"/><path d="M8 14h8l-1.8-5H9.8z"/><path d="M5.5 20.5h13L16 14H8z"/><path d="M10.5 20.5v-3h3v3"/></svg>Home</a>
     <button id="menu-button" class="quiet" type="button">Guide &amp; save</button>
   </header>
   <div id="status" class="status" aria-label="Journey summary"></div>
   <main id="stage" tabindex="-1"></main>
+  <dialog id="popup" class="popup" aria-labelledby="popup-title"></dialog>
   <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
   <dialog id="menu" aria-labelledby="menu-title">
     <div class="dialog-top"><h2 id="menu-title">Your journey</h2><button id="close-menu" type="button">Close</button></div>

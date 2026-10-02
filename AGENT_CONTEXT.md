@@ -1,5 +1,11 @@
 # The Ferryman / Charon: agent context
 
+## October 1, 2026: v0.4 memory art delivery
+
+Completed the user's request to work on `v0.4_handoffs/01_Memory_Card_Art.md`. Six new prototype images are saved as `outputs/The_Ferryman_Digital_Demo_v0.4/assets/memory-R01.png` through `memory-R06.png`. [Memory art handoff](outputs/The_Ferryman_Digital_Demo_v0.4/memory-art.md) records each file as READY, exact generation prompts, style, source freshness, tool provenance and SHA-256 hashes. Built-in image generation produced every file; file checks confirm 1536 x 1024 opaque PNGs. All six received agent review at original resolution and 260 x 175 thumbnails. Existing asset hashes are unchanged. These are art/file checks, not browser tests, human playtests or final team approval.
+
+Remaining: integrate the images in the UI and incorporate the supplied provenance records in a separate task, then review the actual card crop and team art direction. Game code, rules and existing artwork were preserved. No push or publishing occurred. The following September 29 status is retained as the completed browser-version checkpoint.
+
 Updated September 29, 2026 after completing the resumed v0.4 handoff. Current status below supersedes the paused draft and dated delivery history.
 
 ## Current completed browser version: v0.4
