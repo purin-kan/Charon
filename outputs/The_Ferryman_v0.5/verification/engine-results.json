@@ -1,6 +1,6 @@
 {
   "scope": "Automated engine checks, not human playtests.",
-  "createdAt": "2026-10-04T13:11:43.848Z",
+  "createdAt": "2026-10-04T14:35:06.703Z",
   "counts": {
     "passed": 37,
     "failed": 0
@@ -9,7 +9,7 @@
   "randomTransitions": 4820,
   "sourceHashes": {
     "engine.js": "57f7240c8b8f64b2d6e1e1427bf8777657ace35937d8e70e316f959fd03b85aa",
-    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4"
+    "content.json": "a3879cc51250d0de10c77c55a9af65958716cb3d8feec04568672fbcd6cf4fd1"
   },
   "records": [
     {

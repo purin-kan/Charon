@@ -14,7 +14,7 @@ Choose who boards, compare two uncertain routes, and decide whether to spend a l
 |---|---|---|
 | How does the night end? | Survive four trips and fulfill eight wishes; an empty shore and supply after a return can end earlier at the same target. | content.json: config; RULES.md: Objective |
 | Who plays? | One ferryman controls every decision. No facilitator is needed to run the rules. | User decision; RULES.md: Return and events |
-| What changes each move? | Pay light, advance shared tide, resolve waiting deadlines, deliver, check boat expiry. | RULES.md: Tide, anger and the last delivery chance |
+| What changes each move? | Pay light, advance shared anger, resolve waiting deadlines, deliver, check boat expiry. | RULES.md: Anger, anger and the last delivery chance |
 | How is resource abundance reduced? | One light per matched landing, finite single-effect memories, hand limit three, no return recovery. | content.json: config.handLimit; RULES.md: Deliveries, wishes and the hand limit |
 | What carries Guy's idea? | Random routes, per-move waiting pressure, Killer, Fool, Ship Wraiths, tainted souls, family quest, Po Din and Achilles/Styx. | DESIGN_DECISIONS.md: Feedback to implementation |
 | What keeps paper tracking manageable? | Five track markers, written waiting deadlines and visible Wraith cards; one common boat-move counter. | print/COMPONENT_INVENTORY.json; kit pages 6-7 and 16 |

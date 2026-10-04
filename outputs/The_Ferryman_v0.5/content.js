@@ -117,7 +117,7 @@ window.FerryData = {
       "tainted": true,
       "patience": 3,
       "art": null,
-      "text": "Waiting deadline: tide +3, not +5. Tainted: deliver by boat move 2 or become a Ship Wraith."
+      "text": "Waiting deadline: anger +3, not +5. Tainted: deliver by boat move 2 or become a Ship Wraith."
     },
     {
       "id": "S07",
@@ -143,46 +143,46 @@ window.FerryData = {
     },
     {
       "id": "S09",
-      "name": "Quiet Soul A",
+      "name": "Mason",
       "seats": 1,
       "wish": "elysium",
       "memory": "M09",
       "tainted": false,
       "patience": 5,
-      "art": null,
+      "art": "mason.png",
       "text": "A simple passenger. Deliver by boat move 3. This is a provisional filler soul."
     },
     {
       "id": "S10",
-      "name": "Quiet Soul B",
+      "name": "Cook",
       "seats": 1,
       "wish": "asphodel",
       "memory": "M10",
       "tainted": false,
       "patience": 5,
-      "art": null,
+      "art": "cook.png",
       "text": "A simple passenger. Deliver by boat move 3. This is a provisional filler soul."
     },
     {
       "id": "S11",
-      "name": "Quiet Soul C",
+      "name": "Merchant",
       "seats": 1,
       "wish": "tartarus",
       "memory": "M11",
       "tainted": false,
       "patience": 5,
-      "art": null,
+      "art": "merchant.png",
       "text": "A simple passenger. Deliver by boat move 3. This is a provisional filler soul."
     },
     {
       "id": "S12",
-      "name": "Quiet Soul D",
+      "name": "Musician",
       "seats": 1,
       "wish": "elysium",
       "memory": "M12",
       "tainted": false,
       "patience": 5,
-      "art": null,
+      "art": "musician.png",
       "text": "A simple passenger. Deliver by boat move 3. This is a provisional filler soul."
     },
     {
@@ -420,28 +420,28 @@ window.FerryData = {
     },
     {
       "id": "A07",
-      "name": "Quiet Soul A",
+      "name": "Mason",
       "souls": [
         "S09"
       ]
     },
     {
       "id": "A08",
-      "name": "Quiet Soul B",
+      "name": "Cook",
       "souls": [
         "S10"
       ]
     },
     {
       "id": "A09",
-      "name": "Quiet Soul C",
+      "name": "Merchant",
       "souls": [
         "S11"
       ]
     },
     {
       "id": "A10",
-      "name": "Quiet Soul D",
+      "name": "Musician",
       "souls": [
         "S12"
       ]
@@ -490,7 +490,7 @@ window.FerryData = {
     },
     {
       "title": "SET UP",
-      "text": "Start with light 5/6, trip 1, tide 0, no memories or Wraiths. Shuffle Arrivals, Routes and Events separately. Draw Arrivals until at least 5 souls wait; a pair may make 6. Write each deadline: tide +5, or +3 for Fool. Reveal 2 Routes."
+      "text": "Start with light 5/6, trip 1, anger 0, no memories or Wraiths. Shuffle Arrivals, Routes and Events separately. Draw Arrivals until at least 5 souls wait; a pair may make 6. Write each deadline: anger +5, or +3 for Fool. Reveal 2 Routes."
     },
     {
       "title": "1 / BOARD",
@@ -502,7 +502,7 @@ window.FerryData = {
     },
     {
       "title": "3 / ADVANCE AND DELIVER",
-      "text": "After surviving, advance tide and boat move by 1. Any waiting deadline now reached becomes a Wraith, affecting the next move. At ordinary stops, deliver any passengers. Each matching wish scores 1 and earns that soul's memory; gain only 1 light total per stop with matches. Keep at most 3 memories. Unmatched deliveries give nothing."
+      "text": "After surviving, advance anger and boat move by 1. Any waiting deadline now reached becomes a Wraith, affecting the next move. At ordinary stops, deliver any passengers. Each matching wish scores 1 and earns that soul's memory; gain only 1 light total per stop with matches. Keep at most 3 memories. Unmatched deliveries give nothing."
     },
     {
       "title": "4 / CHECK THE BOAT",
@@ -510,7 +510,7 @@ window.FerryData = {
     },
     {
       "title": "5 / RETURN",
-      "text": "Return only with an empty boat. Return base fog is 0; pressure and Wraiths still apply. You may spend one memory. Advance tide and resolve due waiting souls; no free recovery. Begin the next trip, refill the shore and reset boat moves. Reveal an Event before refill on trips 2 and 4. Pressure: +0 on trips 1-2; +1 on trips 3-4."
+      "text": "Return only with an empty boat. Return base fog is 0; pressure and Wraiths still apply. You may spend one memory. Advance anger and resolve due waiting souls; no free recovery. Begin the next trip, refill the shore and reset boat moves. Reveal an Event before refill on trips 2 and 4. Pressure: +0 on trips 1-2; +1 on trips 3-4."
     },
     {
       "title": "SPECIAL STOPS AND QUEST",

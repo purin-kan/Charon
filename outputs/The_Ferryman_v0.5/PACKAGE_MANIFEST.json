@@ -1,14 +1,46 @@
 {
-  "createdAt": "2026-10-04T13:32:07.437527+00:00",
+  "createdAt": "2026-10-04T14:37:29.381100+00:00",
   "scope": "Hashes cover every payload file except this manifest and verification/package-check.json, which describe this package.",
   "files": {
     ".gitattributes": {
       "bytes": 316,
       "sha256": "9730cf0bae0f4fe717cc6ae6278628bbce528da3fc9aecdba68917253f9ca08d"
     },
+    "DESIGN_DECISIONS.md": {
+      "bytes": 7042,
+      "sha256": "e9618488dc703c20954dc3625694eeb40d6ce542e3f09ff67130f23848b4530e"
+    },
+    "DESIGN_WORKBOOK.md": {
+      "bytes": 5314,
+      "sha256": "c07440dad73ff748cc110343f83c69b40f7d7e4eeeabf05e29b531e07a89927d"
+    },
+    "QUICK_START.md": {
+      "bytes": 2477,
+      "sha256": "5409c1b4222f1e59b4b624c8e7bd825a228f79fbe10ccc26d2e90a21e4737c73"
+    },
+    "README.md": {
+      "bytes": 3720,
+      "sha256": "43526982df8fefc045227a0169c8eb1453dd8f2c5b5a1bc29399824d9e464a26"
+    },
+    "RULES.md": {
+      "bytes": 7109,
+      "sha256": "4960e34324bde265d21b3457890afe1b348fcc6bec43b5ac1e9c6dbdd7e8c9fc"
+    },
+    "VALIDATION.md": {
+      "bytes": 6752,
+      "sha256": "581798b74aa2ccef773588f5061f5f2d289fc373dfaf03e2a6f622527d9dadc3"
+    },
     "app.js": {
-      "bytes": 15874,
-      "sha256": "3a0231bf2525d361019ebf318377f8e7567342b5c10f832d48955b5f804284fb"
+      "bytes": 41240,
+      "sha256": "e52af6274a01131d5e158ab292e9f99adcf289a5347e7f291f14aee42612368e"
+    },
+    "assets/PROVENANCE.json": {
+      "bytes": 5310,
+      "sha256": "3b67830048365a47313f9eed90d5c44544eb3a26ddfecc3d7b4d0114e68f35f8"
+    },
+    "assets/asphodel.png": {
+      "bytes": 3458462,
+      "sha256": "a97669e9cd13aadb3cab1f3e8c57abf2933e2d74f2c13b3ec186b03ae069b15c"
     },
     "assets/blue-soldier.png": {
       "bytes": 2734851,
@@ -18,9 +50,13 @@
       "bytes": 2640040,
       "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2"
     },
-    "assets/fonts/bitstream-vera-license.txt": {
-      "bytes": 6078,
-      "sha256": "268d8e58c04d3535c21e7ef43b835e1b00ba7e1e714fcc06ff2f5d59ee9ce17f"
+    "assets/cook.png": {
+      "bytes": 2892455,
+      "sha256": "de073f0fc55e1dca27a9cd234def57e85dd87fb8a6a7081f58a1c846f7d3f189"
+    },
+    "assets/elysium.png": {
+      "bytes": 3829580,
+      "sha256": "0ab0336bd71e9ce4250c299ab4901a0c1e3eef1bdca1e71e8711eb98f8e68c38"
     },
     "assets/fonts/Vera.ttf": {
       "bytes": 65932,
@@ -34,77 +70,97 @@
       "bytes": 63684,
       "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a"
     },
+    "assets/fonts/bitstream-vera-license.txt": {
+      "bytes": 6078,
+      "sha256": "268d8e58c04d3535c21e7ef43b835e1b00ba7e1e714fcc06ff2f5d59ee9ce17f"
+    },
+    "assets/haven.png": {
+      "bytes": 3033878,
+      "sha256": "c881ecab2c5249a90d6be269a4a7d1b191b4f8e394eead6b7f327f97b000b5c0"
+    },
+    "assets/mason.png": {
+      "bytes": 2918204,
+      "sha256": "37aeae89b4b4aa39e6f9ba7f60dd29b5890a4bcd2b56bf15444413d10ab16deb"
+    },
+    "assets/memory-calm.png": {
+      "bytes": 2500220,
+      "sha256": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597"
+    },
+    "assets/memory-fog.png": {
+      "bytes": 2619265,
+      "sha256": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46"
+    },
+    "assets/memory-light.png": {
+      "bytes": 2321317,
+      "sha256": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9"
+    },
+    "assets/merchant.png": {
+      "bytes": 2877047,
+      "sha256": "c9dc76b122c6c21d16fe7bc9f97868b1adf2c9d0bd9b786da1d0e35b06f90491"
+    },
     "assets/mother.png": {
       "bytes": 2932143,
       "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212"
     },
-    "assets/PROVENANCE.json": {
-      "bytes": 1920,
-      "sha256": "bb1faf88a7646c13e00d71b4fd5fee6183e907ada7ed88dbfba376b79bca929d"
+    "assets/musician.png": {
+      "bytes": 2912603,
+      "sha256": "87a23b020311344705f9b75dcd790b82e34bf3581b6625a1b11c066b47bccca5"
     },
     "assets/red-soldier.png": {
       "bytes": 2754376,
       "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0"
     },
+    "assets/shore.png": {
+      "bytes": 3067400,
+      "sha256": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60"
+    },
+    "assets/tartarus.png": {
+      "bytes": 2938877,
+      "sha256": "f226518732adfa150d00582c02bc4f53e1d13b8d6e6cdb92741d02166fc99e2f"
+    },
+    "assets/wraith.png": {
+      "bytes": 3188112,
+      "sha256": "a636ea22b54a4dd0715f83b04820bbd5288fcc28d66a13ae0fe24c35e7fec989"
+    },
     "content.js": {
-      "bytes": 14228,
-      "sha256": "1b18651f0bfb6d58bb7c1286337cbfd6222fc9580ec234207593d53a64d3031d"
+      "bytes": 13700,
+      "sha256": "604e445e63f1aa7cc3b07dd83581e588be969d64ab82b1d5ef639ec8ef8c5bd7"
     },
     "content.json": {
-      "bytes": 10392,
-      "sha256": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4"
-    },
-    "DESIGN_DECISIONS.md": {
-      "bytes": 5881,
-      "sha256": "15b3836b47f7e3f16b23c7337aab48069d77ebca0a980e39664be7c4baf789a5"
-    },
-    "DESIGN_WORKBOOK.md": {
-      "bytes": 5312,
-      "sha256": "83de08689dfb8cc19df4b4d168855239bccc1066edb14c37a815d1570cca004c"
+      "bytes": 10384,
+      "sha256": "a3879cc51250d0de10c77c55a9af65958716cb3d8feec04568672fbcd6cf4fd1"
     },
     "engine.js": {
       "bytes": 14147,
       "sha256": "57f7240c8b8f64b2d6e1e1427bf8777657ace35937d8e70e316f959fd03b85aa"
     },
     "index.html": {
-      "bytes": 2026,
-      "sha256": "72c7bc9e2d97d78648500dec22998198c82ee283137d36f828941d82648c339b"
+      "bytes": 1867,
+      "sha256": "f75de2f214a2e4b1c6994556952981af87465829fbd34f79e169b37a80d07f27"
     },
     "print/COMPONENT_INVENTORY.json": {
-      "bytes": 11279,
-      "sha256": "a5b3dd0c444c395b84eac963c73e54bc64ab7c22735d828bb06aeb3397b8fc1b"
+      "bytes": 10663,
+      "sha256": "0670a48f98c4f1580c2d705b8e47d6f2d6aceb55a872f88b27fc55f9152c9180"
     },
     "print/Player_Guide_v0.5.pdf": {
-      "bytes": 43496,
-      "sha256": "1ebc9f28c2bc4db31621e85d5cf1a4f86ec2b22d5c5ad22870bbcc1c27a26b85"
+      "bytes": 43479,
+      "sha256": "cb604b35491cfd5946ae3e93bfe724bf8c42c9bc31fd62a872680ec6718e627c"
     },
     "print/Print_and_Play_v0.5.pdf": {
-      "bytes": 15682464,
-      "sha256": "67023951aa9b78b6fc7fb1278b5c32d004e71120d0997e3e026ddf17af956336"
-    },
-    "QUICK_START.md": {
-      "bytes": 2506,
-      "sha256": "6e164831f7a25bfcc6ecd6b2b08f1fcce77e4fd5735ea96e39cc9d89d6b716fe"
-    },
-    "README.md": {
-      "bytes": 3626,
-      "sha256": "d1f517c661cdaceb28b413db21edf723c5a55a212a7f4c0a355b762efe858727"
+      "bytes": 32021366,
+      "sha256": "080e443cbc3bc88ff3b5f34a5e7478bbb06c178609646f4c1bee4fd8bb193a88"
     },
     "rules.json": {
-      "bytes": 7117,
-      "sha256": "a93bb7e9d4b3b86023f1a57d46aec9743c68ad82e3dabf0b6520d2ca2033d27b"
-    },
-    "RULES.md": {
-      "bytes": 7136,
-      "sha256": "1ff45515fdb6acc259654a05f92f88611e840b2e4122fd311513009aab349797"
+      "bytes": 7125,
+      "sha256": "9294d706e1d2ef634967da6b04f7d9942fa4066ddb512aafd115b827feada9f7"
     },
     "source/game_feedback.md": {
       "bytes": 5281,
       "sha256": "5e3ebc5a5a2af020dec158c4e45f8acabf9cdc7b3e06c38b686d71c8e7683103"
     },
     "styles.css": {
-      "bytes": 7660,
-      "sha256": "02ee8cebfb78dc23b65cd490f4ad0ca91aecc5a517dee3561a5aa5819ed7e92d"
+      "bytes": 35718,
+      "sha256": "387068c057dadff6a658c2aa9f86bff951cba96f321ceda546cd84e5f395ea01"
     },
     "tests/engine-check.js": {
       "bytes": 13742,
@@ -115,8 +171,8 @@
       "sha256": "9819f4c6fe0974b61a713b51d9b8f78c6722c822e1b5fe128806ece570ebca08"
     },
     "tools/build.py": {
-      "bytes": 20811,
-      "sha256": "ccb309516e470a095de9248673ca8d07e8cbe208f06a4684dd7a85f55a671113"
+      "bytes": 21296,
+      "sha256": "0a9575051a2c00c192079b45064c751e753c48ecd5ca61ed0b1ae9089bb90168"
     },
     "tools/check_artifacts.py": {
       "bytes": 7836,
@@ -126,25 +182,21 @@
       "bytes": 2431,
       "sha256": "84a5ac0c676cd73bb752426239dec14a67e1406d373a204ae62705b5e983020f"
     },
-    "VALIDATION.md": {
-      "bytes": 6010,
-      "sha256": "2a17e7109b6d3456cc38d8413b9d8d602a9343a60ca21d71d70e5f2923410498"
-    },
     "verification/browser-results.json": {
-      "bytes": 5810,
-      "sha256": "72010939b2181362efc1cd01015fc26be7beaa9911c34de733f612cbbb568c28"
+      "bytes": 12253,
+      "sha256": "c41f0c362aedd7ec93a09315e39012770aef83bb238051aff7ccb857b0659a90"
     },
     "verification/build-results.json": {
-      "bytes": 826,
-      "sha256": "b5eb3870a31f9292da724d09e4fdb99cd7063c6d70f60144d1d8c4997bf13b2a"
+      "bytes": 800,
+      "sha256": "774f94ef9b081c83037d2d2ff2a769e64c08e71e7e9ac5d8fc4168ad4535f3d2"
     },
     "verification/engine-results.json": {
       "bytes": 4454,
-      "sha256": "cf9c279e59ba565a0e4b57a2f5edf28fdcb2846d84ccfd4b42400717c2408cc7"
+      "sha256": "6be04ec970bf8b61520ebed2c071785a9041321db1ca447fe2f00c3d3bcf344a"
     },
     "verification/layout-bounds.json": {
-      "bytes": 116701,
-      "sha256": "9379418ca5731a3da8e656b55ad22a43b1e8fc22b8e0d1cdd5522fb18284c384"
+      "bytes": 111434,
+      "sha256": "fc7bd6dc693c6a7ac3ee6b75af2db3a5939661323f8fd32e0227b80b5ac5cf65"
     },
     "verification/navigation-results.json": {
       "bytes": 183,
@@ -167,8 +219,8 @@
       "sha256": "4172257a5d96f8f1089a353b3d56c28d92fd2f00b6e3549f5cb933df01cff102"
     },
     "verification/static-results.json": {
-      "bytes": 1881,
-      "sha256": "d41c4086e2edce400fb83d5aa883fec77fc1d725f1b27aae3287e00fdf5fcb77"
+      "bytes": 1824,
+      "sha256": "3c534994b2882dcbc9cb4d2b2910628d4885dbc233a3850a2a79fb895e9b80a5"
     },
     "verification/winning-replay.json": {
       "bytes": 2655,

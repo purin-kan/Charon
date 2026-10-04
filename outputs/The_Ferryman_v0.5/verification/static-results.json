@@ -1,6 +1,6 @@
 {
   "scope": "Static artifact checks, not a physical print or human playtest.",
-  "createdAt": "2026-10-04T13:30:44.197987+00:00",
+  "createdAt": "2026-10-04T14:37:29.221511+00:00",
   "counts": {
     "passed": 6,
     "failed": 0
@@ -9,7 +9,7 @@
     "componentCount": 67,
     "masterPages": 16,
     "guidePages": 1,
-    "glyphCount": 21757,
+    "glyphCount": 21739,
     "minimumTextPt": 7.5,
     "embeddedUsedFonts": [
       "AAAAAA+BitstreamVeraSans-Bold",
@@ -17,7 +17,7 @@
     ],
     "guideMatchesMasterPage": 2,
     "calibrationMm": 50,
-    "localLinksChecked": 36
+    "localLinksChecked": 31
   },
   "records": [
     {
@@ -46,13 +46,13 @@
     }
   ],
   "sourceHashes": {
-    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4",
-    "rules.json": "a93bb7e9d4b3b86023f1a57d46aec9743c68ad82e3dabf0b6520d2ca2033d27b",
+    "content.json": "a3879cc51250d0de10c77c55a9af65958716cb3d8feec04568672fbcd6cf4fd1",
+    "rules.json": "9294d706e1d2ef634967da6b04f7d9942fa4066ddb512aafd115b827feada9f7",
     "engine.js": "57f7240c8b8f64b2d6e1e1427bf8777657ace35937d8e70e316f959fd03b85aa",
-    "app.js": "3a0231bf2525d361019ebf318377f8e7567342b5c10f832d48955b5f804284fb",
-    "index.html": "72c7bc9e2d97d78648500dec22998198c82ee283137d36f828941d82648c339b",
-    "styles.css": "02ee8cebfb78dc23b65cd490f4ad0ca91aecc5a517dee3561a5aa5819ed7e92d",
-    "print/Print_and_Play_v0.5.pdf": "67023951aa9b78b6fc7fb1278b5c32d004e71120d0997e3e026ddf17af956336",
-    "print/Player_Guide_v0.5.pdf": "1ebc9f28c2bc4db31621e85d5cf1a4f86ec2b22d5c5ad22870bbcc1c27a26b85"
+    "app.js": "e52af6274a01131d5e158ab292e9f99adcf289a5347e7f291f14aee42612368e",
+    "index.html": "f75de2f214a2e4b1c6994556952981af87465829fbd34f79e169b37a80d07f27",
+    "styles.css": "387068c057dadff6a658c2aa9f86bff951cba96f321ceda546cd84e5f395ea01",
+    "print/Print_and_Play_v0.5.pdf": "080e443cbc3bc88ff3b5f34a5e7478bbb06c178609646f4c1bee4fd8bb193a88",
+    "print/Player_Guide_v0.5.pdf": "cb604b35491cfd5946ae3e93bfe724bf8c42c9bc31fd62a872680ec6718e627c"
   }
 }

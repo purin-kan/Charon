@@ -1,116 +1,116 @@
 {
-  "scope": "Agent UI walkthrough in Codex in-app browser on Windows, served over local HTTP. No human playtest or real phone test.",
-  "recordedAt": "2026-10-04T13:18:34.462606+00:00",
-  "url": "http://127.0.0.1:8765/outputs/The_Ferryman_v0.5/index.html?qa=1",
-  "saveIsolation": "ferryman-v05-qa; normal player key not used",
+  "scope": "Agent UI walkthrough in headless Chromium (Playwright chrome-headless-shell 1234) on macOS over file:// with ?qa=1, on the rebuilt v0.4-style interface (intro, save slots, one decision per page, picture cards, popups). No human playtest or real phone test.",
+  "recordedAt": "2026-10-04T14:37:28.238034+00:00",
+  "url": "file://.../index.html?qa=1 (scratch copy of the runtime files plus a test driver script)",
+  "saveIsolation": "ferryman-v05-qa slots in separate headless profiles; normal player keys not used",
   "sourceHashes": {
     "engine.js": "57f7240c8b8f64b2d6e1e1427bf8777657ace35937d8e70e316f959fd03b85aa",
-    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4",
-    "content.js": "1b18651f0bfb6d58bb7c1286337cbfd6222fc9580ec234207593d53a64d3031d",
-    "app.js": "3a0231bf2525d361019ebf318377f8e7567342b5c10f832d48955b5f804284fb",
-    "index.html": "72c7bc9e2d97d78648500dec22998198c82ee283137d36f828941d82648c339b",
-    "styles.css": "02ee8cebfb78dc23b65cd490f4ad0ca91aecc5a517dee3561a5aa5819ed7e92d"
+    "content.json": "a3879cc51250d0de10c77c55a9af65958716cb3d8feec04568672fbcd6cf4fd1",
+    "content.js": "604e445e63f1aa7cc3b07dd83581e588be969d64ab82b1d5ef639ec8ef8c5bd7",
+    "app.js": "e52af6274a01131d5e158ab292e9f99adcf289a5347e7f291f14aee42612368e",
+    "index.html": "f75de2f214a2e4b1c6994556952981af87465829fbd34f79e169b37a80d07f27",
+    "styles.css": "387068c057dadff6a658c2aa9f86bff951cba96f321ceda546cd84e5f395ea01"
   },
   "checks": [
     {
       "name": "Passenger information",
-      "status": "PASS",
-      "observation": "Soul effects and counterpart status stayed visible during boarding, routes and delivery."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Preview and Back",
-      "status": "PASS",
-      "observation": "Changed passengers and returned from a plan without spending a memory or moving the clocks."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Reload and resume",
-      "status": "PASS",
-      "observation": "Reloading a reviewed crossing preserved the pending plan."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Matching deliveries",
       "status": "PASS",
-      "observation": "Matching and select-everyone controls produced the expected rewards; multiple matches restored only one light."
+      "detail": "Seed 1 replay selected passengers on the delivery cards: 14 souls delivered, 8 wishes counted."
     },
     {
       "name": "Killer and event",
-      "status": "PASS",
-      "observation": "Merciful Current set base fog to zero but Killer still drained one light."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Memory use and cap",
       "status": "PASS",
-      "observation": "Light capped at six; fog memories changed the preview; hand overflow required a chosen discard."
+      "detail": "Replay chose memory M13 on the memory page and discarded one card on the \"Keep up to 3 memories\" page."
     },
     {
       "name": "Calm target",
-      "status": "PASS",
-      "observation": "A calming memory required a waiting target; selection could be changed before committing."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Family quest",
       "status": "PASS",
-      "observation": "Mother and Child matched together unlocked Passage; sending Achilles added one wish and no light or memory."
+      "detail": "Replay used Passage from the route page after Mother and Child were reunited."
     },
     {
       "name": "Sanctuary",
-      "status": "PASS",
-      "observation": "Any wish matched; no light or memory reward; later final return still required payment."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Winning ending",
       "status": "PASS",
-      "observation": "Four survived returns ended the night with eight wishes."
+      "detail": "Ending \"A passage well kept\": 8 wishes, 14 delivered, 4 trips, anger track 8, light 5, 0 Wraiths, at 1280 and 390 wide."
     },
     {
       "name": "Last-chance warning",
-      "status": "PASS",
-      "observation": "Killer at outward move two displayed a last delivery warning."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Zero light and Ship Wraith",
       "status": "PASS",
-      "observation": "The second crossing survived at exactly zero; leaving Killer aboard created one Ship Wraith."
+      "detail": "Losing night ended at light 0 with the Killer as a Ship Wraith."
     },
     {
       "name": "Known losing move",
       "status": "PASS",
-      "observation": "Return preview warned of one fog with zero light; explicit acceptance ended before arrival or tide advance."
+      "detail": "Killer; Deep Reeds, River of Oaths, Return to Shore (failed); ending \"The river remembers\"."
     },
     {
       "name": "Help",
-      "status": "PASS",
-      "observation": "Opened the guide dialog and closed it."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "New Night cancel",
-      "status": "PASS",
-      "observation": "Keep current night preserved the winning game."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "New Night seed",
       "status": "PASS",
-      "observation": "Starting seed one reset the isolated test game."
+      "detail": "Both walkthroughs started seed 1 from the Guide & save menu seed field after the intro and save-slot screens."
     },
     {
       "name": "Save import",
-      "status": "PASS",
-      "observation": "Imported work/v05/import-check.json generated by F.save(F.create(42)); UI showed Seed 42 and Killer, Mother, Child, Achilles and Tainted Soul A."
+      "status": "NOT_RUN",
+      "detail": "Not re-executed on the rebuilt v0.4-style interface. Passed on the original v0.5 interface on 2026-10-04 (see previousRun)."
     },
     {
       "name": "Image load",
       "status": "PASS",
-      "observation": "DOM inspection reported Mother and Child loaded with nonzero natural dimensions."
+      "detail": "No broken images across all 39 replay steps (up to 15 images on screen)."
     },
     {
       "name": "Narrow layout",
       "status": "PASS",
-      "observation": "Inspected 390 x 844 layout and measured document width 375; no horizontal overflow."
+      "detail": "390 px: document width 390, no horizontal overflow; full winning replay completed."
     },
     {
       "name": "Desktop layout",
       "status": "PASS",
-      "observation": "Inspected 1280 x 900 ending layout and measured document width 1265; no horizontal overflow."
+      "detail": "1280 px: document width 1280, no horizontal overflow."
     }
   ],
   "winningWalkthrough": {
@@ -120,7 +120,23 @@
     "completedTrips": 4,
     "tide": 8,
     "light": 5,
-    "wraiths": 0
+    "wraiths": 0,
+    "steps": 39,
+    "popupsAcknowledged": 10,
+    "screens": [
+      "A passage well kept",
+      "Keep up to 3 memories",
+      "One crossing at a time",
+      "Time to return",
+      "What will you remember?",
+      "Where next?",
+      "Who disembarks here?",
+      "Who will you carry?"
+    ],
+    "viewports": [
+      1280,
+      390
+    ]
   },
   "losingWalkthrough": {
     "seed": 1,
@@ -142,13 +158,11 @@
   "viewports": [
     {
       "width": 1280,
-      "height": 900,
-      "documentWidth": 1265
+      "documentWidth": 1280
     },
     {
       "width": 390,
-      "height": 844,
-      "documentWidth": 375
+      "documentWidth": 390
     }
   ],
   "warningAndErrorLogSnapshot": [],
@@ -164,7 +178,173 @@
     {
       "name": "Real phones, broader browsers and full accessibility audit",
       "reason": "Outside executed coverage."
+    },
+    {
+      "name": "Checks not re-executed on the rebuilt interface",
+      "reason": "Passenger information, Preview and Back, Reload and resume, Killer and event, Calm target, Sanctuary, Last-chance warning, Help, New Night cancel, Save import."
     }
   ],
-  "screenshots": "Reviewed in tool output. Local browser screenshot write was denied with EPERM; no saved screenshot is claimed."
+  "screenshots": "Title, passengers, route, memory, review, arrival popup, delivery and ending reviewed in tool output; not saved to the repository.",
+  "previousRun": {
+    "scope": "Agent UI walkthrough in Codex in-app browser on Windows, served over local HTTP. No human playtest or real phone test.",
+    "recordedAt": "2026-10-04T13:18:34.462606+00:00",
+    "url": "http://127.0.0.1:8765/outputs/The_Ferryman_v0.5/index.html?qa=1",
+    "saveIsolation": "ferryman-v05-qa; normal player key not used",
+    "checks": [
+      {
+        "name": "Passenger information",
+        "status": "PASS",
+        "observation": "Soul effects and counterpart status stayed visible during boarding, routes and delivery."
+      },
+      {
+        "name": "Preview and Back",
+        "status": "PASS",
+        "observation": "Changed passengers and returned from a plan without spending a memory or moving the clocks."
+      },
+      {
+        "name": "Reload and resume",
+        "status": "PASS",
+        "observation": "Reloading a reviewed crossing preserved the pending plan."
+      },
+      {
+        "name": "Matching deliveries",
+        "status": "PASS",
+        "observation": "Matching and select-everyone controls produced the expected rewards; multiple matches restored only one light."
+      },
+      {
+        "name": "Killer and event",
+        "status": "PASS",
+        "observation": "Merciful Current set base fog to zero but Killer still drained one light."
+      },
+      {
+        "name": "Memory use and cap",
+        "status": "PASS",
+        "observation": "Light capped at six; fog memories changed the preview; hand overflow required a chosen discard."
+      },
+      {
+        "name": "Calm target",
+        "status": "PASS",
+        "observation": "A calming memory required a waiting target; selection could be changed before committing."
+      },
+      {
+        "name": "Family quest",
+        "status": "PASS",
+        "observation": "Mother and Child matched together unlocked Passage; sending Achilles added one wish and no light or memory."
+      },
+      {
+        "name": "Sanctuary",
+        "status": "PASS",
+        "observation": "Any wish matched; no light or memory reward; later final return still required payment."
+      },
+      {
+        "name": "Winning ending",
+        "status": "PASS",
+        "observation": "Four survived returns ended the night with eight wishes."
+      },
+      {
+        "name": "Last-chance warning",
+        "status": "PASS",
+        "observation": "Killer at outward move two displayed a last delivery warning."
+      },
+      {
+        "name": "Zero light and Ship Wraith",
+        "status": "PASS",
+        "observation": "The second crossing survived at exactly zero; leaving Killer aboard created one Ship Wraith."
+      },
+      {
+        "name": "Known losing move",
+        "status": "PASS",
+        "observation": "Return preview warned of one fog with zero light; explicit acceptance ended before arrival or tide advance."
+      },
+      {
+        "name": "Help",
+        "status": "PASS",
+        "observation": "Opened the guide dialog and closed it."
+      },
+      {
+        "name": "New Night cancel",
+        "status": "PASS",
+        "observation": "Keep current night preserved the winning game."
+      },
+      {
+        "name": "New Night seed",
+        "status": "PASS",
+        "observation": "Starting seed one reset the isolated test game."
+      },
+      {
+        "name": "Save import",
+        "status": "PASS",
+        "observation": "Imported work/v05/import-check.json generated by F.save(F.create(42)); UI showed Seed 42 and Killer, Mother, Child, Achilles and Tainted Soul A."
+      },
+      {
+        "name": "Image load",
+        "status": "PASS",
+        "observation": "DOM inspection reported Mother and Child loaded with nonzero natural dimensions."
+      },
+      {
+        "name": "Narrow layout",
+        "status": "PASS",
+        "observation": "Inspected 390 x 844 layout and measured document width 375; no horizontal overflow."
+      },
+      {
+        "name": "Desktop layout",
+        "status": "PASS",
+        "observation": "Inspected 1280 x 900 ending layout and measured document width 1265; no horizontal overflow."
+      }
+    ],
+    "winningWalkthrough": {
+      "seed": 1,
+      "wishes": 8,
+      "delivered": 14,
+      "completedTrips": 4,
+      "tide": 8,
+      "light": 5,
+      "wraiths": 0
+    },
+    "losingWalkthrough": {
+      "seed": 1,
+      "passengers": [
+        "Killer"
+      ],
+      "moves": [
+        "Deep Reeds",
+        "River of Oaths",
+        "Return to Shore (failed)"
+      ],
+      "delivered": 0,
+      "wishes": 0,
+      "wraiths": 1,
+      "completedTrips": 0,
+      "tide": 2,
+      "light": 0
+    },
+    "viewports": [
+      {
+        "width": 1280,
+        "height": 900,
+        "documentWidth": 1265
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "documentWidth": 375
+      }
+    ],
+    "warningAndErrorLogSnapshot": [],
+    "unverified": [
+      {
+        "name": "Export save UI download",
+        "reason": "Browser wait-for-download timed out. Download success was not observed; engine JSON round trips passed."
+      },
+      {
+        "name": "Direct-file launch",
+        "reason": "Browser QA used local HTTP only."
+      },
+      {
+        "name": "Real phones, broader browsers and full accessibility audit",
+        "reason": "Outside executed coverage."
+      }
+    ],
+    "screenshots": "Reviewed in tool output. Local browser screenshot write was denied with EPERM; no saved screenshot is claimed."
+  }
 }

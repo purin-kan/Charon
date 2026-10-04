@@ -1,17 +1,17 @@
 {
-  "builtAt": "2026-10-04T13:18:34.317085+00:00",
+  "builtAt": "2026-10-04T14:27:13.498054+00:00",
   "sourceHashes": {
-    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4",
-    "rules.json": "a93bb7e9d4b3b86023f1a57d46aec9743c68ad82e3dabf0b6520d2ca2033d27b",
-    "build.py": "ccb309516e470a095de9248673ca8d07e8cbe208f06a4684dd7a85f55a671113"
+    "content.json": "a3879cc51250d0de10c77c55a9af65958716cb3d8feec04568672fbcd6cf4fd1",
+    "rules.json": "9294d706e1d2ef634967da6b04f7d9942fa4066ddb512aafd115b827feada9f7",
+    "build.py": "0a9575051a2c00c192079b45064c751e753c48ecd5ca61ed0b1ae9089bb90168"
   },
   "outputs": {
     "Print_and_Play_v0.5.pdf": {
-      "sha256": "67023951aa9b78b6fc7fb1278b5c32d004e71120d0997e3e026ddf17af956336",
+      "sha256": "080e443cbc3bc88ff3b5f34a5e7478bbb06c178609646f4c1bee4fd8bb193a88",
       "pages": 16
     },
     "Player_Guide_v0.5.pdf": {
-      "sha256": "1ebc9f28c2bc4db31621e85d5cf1a4f86ec2b22d5c5ad22870bbcc1c27a26b85",
+      "sha256": "cb604b35491cfd5946ae3e93bfe724bf8c42c9bc31fd62a872680ec6718e627c",
       "pages": 1
     }
   },

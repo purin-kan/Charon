@@ -27,6 +27,8 @@ The synthetic policy is a program using visible information, not a sample of hum
 
 Checks used the Codex in-app browser on Windows and local HTTP with the isolated test save key. Viewport resizing is not a real phone test. Full browser compatibility, a complete accessibility audit and direct-file browser launch are unverified. The runtime uses local plain scripts and includes all its assets.
 
+October 4, 2026 interface rebuild (user request): the browser now uses the v0.4 interface style (intro, three save slots, one decision per page, picture cards, popups, Khmer night theme, reaper boat). Rules, engine and seeded outcomes are unchanged. On the rebuilt page, headless Chromium on macOS over file:// replayed the seed 1 winning night (all 39 moves) at 1280 and 390 px and the seed 1 losing night, with identical results and no page errors; ten checks passed and ten are NOT_RUN on the new interface (passenger information, Preview and Back, reload, Killer and event, calm target, Sanctuary, last-chance warning, help, New Night cancel, save import). See browser-results.json; the original interface run is kept under previousRun.
+
 The browser tool did not confirm a save download, so that UI download check is UNVERIFIED. JSON serialization, validation and round trips passed in the engine, browser reload preserved a reviewed crossing, and importing a generated seed-42 JSON save displayed that seed and its expected initial shore. Import/export do not require an account.
 
 No browser JavaScript warnings or errors were returned in the checked log snapshots. This is limited to the observed session, not a universal error-free claim.

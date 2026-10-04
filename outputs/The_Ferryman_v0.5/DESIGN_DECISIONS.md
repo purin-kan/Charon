@@ -13,7 +13,7 @@ Every exact number and effect below is an agent-authored provisional implementat
 | Feedback evidence | v0.5 interpretation | Reason for adaptation |
 |---|---|---|
 | Random routes; `game_feedback.md:31,63` | Reveal two random route cards and choose one. Discard both after choosing. Reshuffle when needed. | Retains random routes and makes the player responsible for a decision. Preview before boarding. |
-| Anger on every move; lines 55-59 | Every move, including return, advances a shared tide. Waiting souls expire at a written deadline. Normal patience is 5 moves; Fool is 3. | Equivalent to a per-move wait counter without moving every soul's token each turn. No separate round-end anger. |
+| Anger on every move; lines 55-59 | Every move, including return, advances a shared anger. Waiting souls expire at a written deadline. Normal patience is 5 moves; Fool is 3. | Equivalent to a per-move wait counter without moving every soul's token each turn. No separate round-end anger. |
 | Killer; lines 31,58 | Killer drains 1 light before fog on each move aboard. | Visible arithmetic, no separate resource or die. |
 | Ship Wraith timer; line 57 | One boat-move counter for everyone boarded together. Tainted souls expire after delivery on move 2, others on move 3. | One counter instead of separate passenger timers. Last-chance delivery is allowed. |
 | Fool; line 32 | Shorter waiting deadline and tainted boat timer. | Provisional exact effect; the supplied file names Fool without defining the ability. |
@@ -38,3 +38,14 @@ Single-player means one decision maker, one boat and one hand. An observer may r
 ## Evidence policy
 
 Automated engine tests, browser checks and agent paper walkthroughs are recorded separately. Physical printing, cutting, table handling, human completion time, enjoyment and balance require a real workshop session. No such session is claimed by this delivery.
+
+## October 4, 2026 user decisions
+
+These are explicit user requests, not agent-authored balance changes. Rules, numbers and effects are unchanged.
+
+| Request | Implementation |
+|---|---|
+| Use v0.4 names for the filler souls | Quiet Soul A, B, C and D are now Mason (Elysium), Cook (Asphodel), Merchant (Tartarus) and Musician (Elysium), matched by wish, with the v0.4 portraits. Abilities, wishes and seats are unchanged. Tainted Soul A and B, Killer, Fool, Po Din and Achilles keep their names and letter emblems. |
+| Say "anger" instead of "tide" | The shared tide track is now the shared anger track in the rules, guide, cards and dashboard. In the browser each waiting soul shows its anger rising toward its limit (5, or 3 for the Fool). The engine field is still named `tide`. |
+| Make the browser look and feel like v0.4 | Intro, three save slots, one decision per page, picture cards, result popups, side status panel and trip panel, in the Khmer night theme with the reaper ferryman. Destination scenes and memory images are reused v0.4 art; Styx and Sanctuary have no scene. Paper components are unchanged apart from the names and wording above. |
+

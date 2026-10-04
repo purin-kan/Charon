@@ -23,7 +23,10 @@ ASSETS=ROOT/'assets'; ASSETS.mkdir(exist_ok=True)
 VERIFY=ROOT/'verification'; VERIFY.mkdir(exist_ok=True)
 FONT=ASSETS/'fonts'; FONT.mkdir(exist_ok=True)
 SOURCE=REPO/'outputs/The_Ferryman_Digital_Demo_v0.4/assets'
-ART={'mother.png':'S01.png','child.png':'S02.png','red-soldier.png':'S04.png','blue-soldier.png':'S06.png'}
+ART={'mother.png':'S01.png','child.png':'S02.png','red-soldier.png':'S04.png','blue-soldier.png':'S06.png','merchant.png':'S03.png','cook.png':'S07.png','mason.png':'S08.png','musician.png':'S11.png',
+     # Browser scenes and memory cards reused from v0.4 (screen only, not printed).
+     'shore.png':'shore-r2.png','elysium.png':'elysium-r2.png','asphodel.png':'asphodel-r2.png','tartarus.png':'tartarus-r2.png','haven.png':'haven-r2.png','wraith.png':'wraith-r2.png',
+     'memory-fog.png':'memory-R01.png','memory-light.png':'memory-R02.png','memory-calm.png':'memory-R03.png'}
 provenance=[]
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 previous=json.loads((ASSETS/'PROVENANCE.json').read_text(encoding='utf-8')) if (ASSETS/'PROVENANCE.json').exists() else {'files':[]}
@@ -114,11 +117,11 @@ def soul_card(s,i):
     para(f'{s["seats"]} SEAT'+('S' if s['seats']>1 else '')+' / '+('TAINTED: MOVE 2' if s['tainted'] else 'DELIVER BY MOVE 3'),x+3*mm,y+42*mm,w-6*mm,7.8,bold=True,color=RED if s['tainted'] else MUTE)
     text=s['text'].replace(' This is a provisional filler soul.','').replace(' Provisional filler soul.','')
     if s['id']=='S05':text='Aboard: pay 1 light before fog on every move. Deliver by move 2.'
-    if s['id']=='S06':text='Waiting deadline: tide +3. Deliver by move 2.'
+    if s['id']=='S06':text='Waiting deadline: anger +3. Deliver by move 2.'
     if s['id']=='S01':text='Quest: deliver with Child and match both wishes to earn Passage.'
     if s['id']=='S08':text='Wishes for Styx. Other ordinary stops accept Achilles unmatched.'
     para(escape(text),x+3*mm,y+49*mm,w-6*mm,10,leading=12.4,max_height=24*mm)
-    para('DEADLINE: ______  (tide +'+str(s['patience'])+')',x+3*mm,y+74*mm,w-6*mm,8.7,bold=True)
+    para('DEADLINE: ______  (anger +'+str(s['patience'])+')',x+3*mm,y+74*mm,w-6*mm,8.7,bold=True)
 def route_card(r,i):
     x,y,w,h=coords(i);d=D['destinations'][r['to']];card_frame(x,y,w,h,d['color'],'ROUTE / '+d['symbol'],r['id'])
     para(escape(d['name']),x+3*mm,y+12*mm,w-6*mm,17,bold=True)
@@ -153,7 +156,7 @@ for name,blocks in [('Rules / prepare and cross',RULES[:3]),('Rules / souls and 
     if len(blocks)==2:
         y+=7*mm
         y+=section('No hidden reference work','All Soul, Memory, Route and Event effects are printed on their pieces. Keep passenger information visible. When a partner or rival has not arrived, its interaction is inactive. Pair tickets guarantee simultaneous arrival, not that the player must board both.',10*mm,y,190*mm,11)
-        y+=section('Pressure, not busywork','One tide marker replaces per-soul anger increments. One boat counter replaces individual passenger timers. Write a deadline only when a soul arrives or when a card changes that deadline. The rules can be run without a browser or a facilitator.',10*mm,y,190*mm,11)
+        y+=section('Pressure, not busywork','One shared anger marker replaces per-soul anger markers. One boat counter replaces individual passenger timers. Write a deadline only when a soul arrives or when a card changes that deadline. The rules can be run without a browser or a facilitator.',10*mm,y,190*mm,11)
 
 def track(title,values,x,y,w,cols,caption=''):
     para(title,x,y,w,11,bold=True);y+=7*mm
@@ -169,7 +172,7 @@ page('The river dashboard','KEEP WHOLE / FIVE TRACK MARKERS / KEEP PASSAGE BY IT
 y=54*mm
 y=track('LIGHT / start at 5',list(range(7)),10*mm,y,190*mm,7,'Zero survives. If a crossing costs more than available light, lose.')
 y=track('WISHES / start at 0',list(range(15)),10*mm,y,190*mm,8,'Reach at least 8 and survive the final return.')
-y=track('TIDE / start at 0',list(range(17)),10*mm,y,190*mm,9,'After every surviving move, advance once. Waiting deadline reached = Wraith.')
+y=track('ANGER / start at 0',list(range(17)),10*mm,y,190*mm,9,'After every surviving move, advance once. Waiting deadline reached = Wraith.')
 bottom=y
 track('TRIP / start at 1',[1,2,3,4],10*mm,bottom,91*mm,4,'Pressure: 0, 0, +1, +1. Events: trips 2 and 4.')
 track('BOAT MOVES / reset to 0',[0,1,2,3],109*mm,bottom,91*mm,4,'After delivery: tainted expire at 2, others at 3.')
@@ -195,7 +198,7 @@ for k in range(2):
     page('Routes / '+str(k+1),'CUT OUTER BORDERS / SHUFFLE ALL TEN ROUTES / REVEAL TWO')
     for i,r in enumerate(D['routes'][k*6:(k+1)*6]):route_card(r,i)
     if k==1:
-        utility(4,'RETURN','Not shuffled. Empty boat only. Base fog 0. Pressure and Wraiths apply. One Memory allowed. Advance tide, no light recovery.','L05')
+        utility(4,'RETURN','Not shuffled. Empty boat only. Base fog 0. Pressure and Wraiths apply. One Memory allowed. Advance anger, no light recovery.','L05')
         utility(5,'LAST CHANCE','After arrival delivery: tainted still aboard at boat move 2 become Wraiths. All others still aboard at move 3 do so. Haven also checks this.','L06')
 page('Memories','CUT OUTER BORDERS / KEEP IN RESERVE / DO NOT SHUFFLE')
 for i,m in enumerate(D['memories']):
@@ -209,7 +212,7 @@ for i,a in enumerate(D['arrivals']):
     x,y,w,h=coords(i,40);card_frame(x,y,w,h,INK,'ARRIVAL',a['id'])
     para(escape(a['name']),x+3*mm,y+11*mm,w-6*mm,12,bold=True,max_height=12*mm)
     para('Bring '+', '.join(a['souls'])+' to the shore.',x+3*mm,y+24*mm,w-6*mm,10,max_height=10*mm)
-para('Refill until at least five souls wait or tickets run out. A paired ticket brings both souls and may make six. Write each new deadline using the current tide. Never reuse a ticket this night.',10*mm,239*mm,190*mm,11)
+para('Refill until at least five souls wait or tickets run out. A paired ticket brings both souls and may make six. Write each new deadline using the current anger. Never reuse a ticket this night.',10*mm,239*mm,190*mm,11)
 page('River events','CUT OUTER BORDERS / SHUFFLE FOUR EVENTS / REVEAL ON TRIPS 2 AND 4')
 for i,e in enumerate(D['events']):
     x,y,w,h=coords(i);card_frame(x,y,w,h,'#685375','EVENT',e['id'])
@@ -218,7 +221,7 @@ for i,e in enumerate(D['events']):
 utility(4,'PASSAGE','Earn once: Mother and Child delivered together, both wishes matched. Before a move, spend to send one waiting soul to its wish. Gain 1 wish only.','L07')
 utility(5,'START A TRIP','Reset boat moves. Clear last Event. On trips 2 and 4, reveal and resolve an Event. Refill waiting shore. Reveal two Routes. Then board.','L08')
 page('Markers and workshop record','CUT ONLY THE SIX MARKERS / KEEP THE RECORD AREA WHOLE')
-for i,title in enumerate(['LIGHT','WISH','TIDE','TRIP','BOAT','PASSAGE']):
+for i,title in enumerate(['LIGHT','WISH','ANGER','TRIP','BOAT','PASSAGE']):
     x=(10+i*31.8)*mm;y=54*mm
     rect(x,y,10*mm,10*mm,GOLD,INK,.8);para(['L','W','T','TR','B','P'][i],x+2*mm,y+2.5*mm,7*mm,9,bold=True)
     para(title,x,y+12*mm,29*mm,8,bold=True)

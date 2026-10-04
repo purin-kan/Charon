@@ -6,7 +6,7 @@ One player. Finish 4 trips with at least 8 fulfilled wishes. Survive the final r
 
 ## SET UP
 
-Start with light 5/6, trip 1, tide 0, no memories or Wraiths. Shuffle Arrivals, Routes and Events separately. Draw Arrivals until at least 5 souls wait; a pair may make 6. Write each deadline: tide +5, or +3 for Fool. Reveal 2 Routes.
+Start with light 5/6, trip 1, anger 0, no memories or Wraiths. Shuffle Arrivals, Routes and Events separately. Draw Arrivals until at least 5 souls wait; a pair may make 6. Write each deadline: anger +5, or +3 for Fool. Reveal 2 Routes.
 
 ## 1 / BOARD
 
@@ -18,7 +18,7 @@ Choose a revealed Route. Optional: spend one memory, once only. Restore its ligh
 
 ## 3 / ADVANCE AND DELIVER
 
-After surviving, advance tide and boat move by 1. Any waiting deadline now reached becomes a Wraith, affecting the next move. At ordinary stops, deliver any passengers. Each matching wish scores 1 and earns that soul's memory; gain only 1 light total per stop with matches. Keep at most 3 memories. Unmatched deliveries give nothing.
+After surviving, advance anger and boat move by 1. Any waiting deadline now reached becomes a Wraith, affecting the next move. At ordinary stops, deliver any passengers. Each matching wish scores 1 and earns that soul's memory; gain only 1 light total per stop with matches. Keep at most 3 memories. Unmatched deliveries give nothing.
 
 ## 4 / CHECK THE BOAT
 
@@ -26,7 +26,7 @@ After delivery, tainted passengers still aboard on move 2 become Ship Wraiths. A
 
 ## 5 / RETURN
 
-Return only with an empty boat. Return base fog is 0; pressure and Wraiths still apply. You may spend one memory. Advance tide and resolve due waiting souls; no free recovery. Begin the next trip, refill the shore and reset boat moves. Reveal an Event before refill on trips 2 and 4. Pressure: +0 on trips 1-2; +1 on trips 3-4.
+Return only with an empty boat. Return base fog is 0; pressure and Wraiths still apply. You may spend one memory. Advance anger and resolve due waiting souls; no free recovery. Begin the next trip, refill the shore and reset boat moves. Reveal an Event before refill on trips 2 and 4. Pressure: +0 on trips 1-2; +1 on trips 3-4.
 
 ## SPECIAL STOPS AND QUEST
 

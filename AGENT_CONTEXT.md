@@ -1,5 +1,9 @@
 # The Ferryman / Charon: agent context
 
+## October 4, 2026: v0.5 browser and naming update (user requests)
+
+On `main`: the v0.5 browser was rebuilt in the v0.4 interface style (intro, three save slots, one decision per page, picture cards, popups, Khmer night theme, reaper ferryman). Quiet Soul A-D became Mason, Cook, Merchant and Musician with v0.4 portraits, and "tide" became "anger" in rules, guide, cards and dashboard. Rules, numbers and engine are unchanged. PDFs, rules text, content.js, evidence and the ZIP were regenerated with v0.5's own tools. Engine 37/0, simulation 72/100 wins (unchanged), static 6/0, package PASS. Browser: seed 1 win and loss replayed on the new page in headless Chromium (macOS); 10 checks PASS, 10 NOT_RUN on the new interface. Decisions are in `outputs/The_Ferryman_v0.5/DESIGN_DECISIONS.md`. Live site: https://the-ferryman-one.vercel.app serves v0.5.
+
 ## October 4, 2026: v0.5 workshop iteration COMPLETE
 
 Current task: create a new paper and browser iteration from `Guyidea` at `82526cf`, using only the user-supplied `game_feedback.md` as design input. The user explicitly asked to work autonomously while they sleep. Preserve older versions. Do not delegate or claim a human paper playtest.

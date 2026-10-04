@@ -22,7 +22,7 @@ For a local web server, any static server can serve this directory. The game als
 
 `content.json` contains card text, quantities, shared settings and guide copy. `rules.json` contains the detailed rules. `tools/build.py` generates the browser data wrapper, printable PDFs, rules Markdown, component inventory and provenance. The browser engine and PDF generator use the same content source. `tests/engine-check.js` checks the rules; `tests/simulation.js` records a synthetic policy experiment. These scripts use existing Node.js, Python/reportlab/pypdf and Poppler; playing the deliverables requires none of them.
 
-The build reuses four existing v0.4 character portraits without modifying the original files. In an extracted package it verifies and reuses the bundled copies. New characters use neutral letter emblems, not an asserted final art direction. The PDF embeds reusable fonts and records the source hashes. An unchanged copy of the supplied feedback is in `source/game_feedback.md`.
+The build reuses eight existing v0.4 character portraits, plus five v0.4 river scenes, the wraith scene and three memory images for the browser only, without modifying the original files. In an extracted package it verifies and reuses the bundled copies. New characters use neutral letter emblems, not an asserted final art direction. The PDF embeds reusable fonts and records the source hashes. An unchanged copy of the supplied feedback is in `source/game_feedback.md`.
 
 To regenerate the distribution after changes, run `python tools/package.py`. It includes every deliverable, checks ZIP CRC and compares the contents byte for byte. `PACKAGE_MANIFEST.json` records payload hashes. The local `.gitattributes` preserves release bytes across operating systems.
 
