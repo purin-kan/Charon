@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-10-04T13:25:52.801117+00:00",
+  "comparison": "Prior verification commit eef2c24, 2026-09-29 21:32:22 +0700. File mtimes are not new playtests. New v0.5 sources are tied to build/test SHA-256 records.",
+  "recordsOldestFirst": [
+    {
+      "file": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/Vera.ttf",
+      "lastCommit": "2026-09-27 22:01:36 +0700",
+      "mtimeUtc": "2026-09-29T13:04:27.851648+00:00",
+      "use": "Reused art/font only",
+      "freshness": "POSSIBLY STALE for design evidence; current bytes checked"
+    },
+    {
+      "file": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/VeraBd.ttf",
+      "lastCommit": "2026-09-27 22:01:36 +0700",
+      "mtimeUtc": "2026-09-29T13:04:27.853164+00:00",
+      "use": "Reused art/font only",
+      "freshness": "POSSIBLY STALE for design evidence; current bytes checked"
+    },
+    {
+      "file": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/VeraIt.ttf",
+      "lastCommit": "2026-09-27 22:01:36 +0700",
+      "mtimeUtc": "2026-09-29T13:04:27.853164+00:00",
+      "use": "Reused art/font only",
+      "freshness": "POSSIBLY STALE for design evidence; current bytes checked"
+    },
+    {
+      "file": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S01.png",
+      "lastCommit": "2026-09-29 20:53:47 +0700",
+      "mtimeUtc": "2026-09-29T13:40:28.556504+00:00",
+      "use": "Reused art/font only",
+      "freshness": "POSSIBLY STALE for design evidence; current bytes checked"
+    },
+    {
+      "file": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S02.png",
+      "lastCommit": "2026-09-29 20:53:47 +0700",
+      "mtimeUtc": "2026-09-29T13:40:28.561022+00:00",
+      "use": "Reused art/font only",
+      "freshness": "POSSIBLY STALE for design evidence; current bytes checked"
+    },
+    {
+      "file": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S04.png",
+      "lastCommit": "2026-09-29 20:53:47 +0700",
+      "mtimeUtc": "2026-09-29T13:40:28.568027+00:00",
+      "use": "Reused art/font only",
+      "freshness": "POSSIBLY STALE for design evidence; current bytes checked"
+    },
+    {
+      "file": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S06.png",
+      "lastCommit": "2026-09-29 20:53:47 +0700",
+      "mtimeUtc": "2026-09-29T13:40:28.575054+00:00",
+      "use": "Reused art/font only",
+      "freshness": "POSSIBLY STALE for design evidence; current bytes checked"
+    },
+    {
+      "file": "README.md",
+      "lastCommit": "2026-09-29 21:32:22 +0700",
+      "mtimeUtc": "2026-10-04T13:21:22.799185+00:00",
+      "use": "Legacy navigation updated; not a rules source",
+      "freshness": "Historical v0.4 status, updated in this task"
+    },
+    {
+      "file": "START_HERE.html",
+      "lastCommit": "2026-09-29 21:32:22 +0700",
+      "mtimeUtc": "2026-10-04T13:22:19.935266+00:00",
+      "use": "Legacy navigation updated; not a rules source",
+      "freshness": "Historical v0.4 status, updated in this task"
+    },
+    {
+      "file": "outputs/README.md",
+      "lastCommit": "2026-09-29 21:32:22 +0700",
+      "mtimeUtc": "2026-10-04T13:21:37.118360+00:00",
+      "use": "Legacy navigation updated; not a rules source",
+      "freshness": "Historical v0.4 status, updated in this task"
+    },
+    {
+      "file": "outputs/The_Ferryman_Design_Workbook.md",
+      "lastCommit": "2026-09-29 21:32:22 +0700",
+      "mtimeUtc": "2026-10-04T13:21:37.120372+00:00",
+      "use": "Legacy navigation updated; not a rules source",
+      "freshness": "Historical v0.4 status, updated in this task"
+    },
+    {
+      "file": "game_feedback.md",
+      "lastCommit": null,
+      "mtimeUtc": "2026-10-03T15:17:29.461495+00:00",
+      "use": "Supplied design input",
+      "freshness": "Supplied untracked input"
+    }
+  ],
+  "feedbackSnapshotMatches": true
+}

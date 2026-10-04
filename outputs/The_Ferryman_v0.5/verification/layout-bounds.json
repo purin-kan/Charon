@@ -1,0 +1,5259 @@
+{
+  "textBlocks": [
+    {
+      "page": 1,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 1,
+      "text": "Print, cut, begin.",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 1,
+      "text": "COLOR WORKSHOP KIT / ONE COMPLETE SET PER PLAYER",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 1,
+      "text": "01 / 16   \u00b7   Print and assembly",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 1,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 1,
+      "text": "A complete solo game",
+      "x": 28.35,
+      "y": 158.74,
+      "width": 538.58,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 1,
+      "text": "Carry souls through one night on the river. Fulfill eight wishes in four trips and survive the final return. The rules, cards and browser version are v0.5. Do not mix earlier-version pieces into this kit.",
+      "x": 28.35,
+      "y": 180.9,
+      "width": 538.58,
+      "height": 47.52,
+      "fontSize": 12
+    },
+    {
+      "page": 1,
+      "text": "Send this whole PDF to the printer",
+      "x": 28.35,
+      "y": 239.42,
+      "width": 538.58,
+      "height": 16.5,
+      "fontSize": 12.5
+    },
+    {
+      "page": 1,
+      "text": "Print all 16 pages on A4, color, single-sided, at actual size / 100%. Turn off fit-to-page and booklet printing. Use opaque 180-250 gsm cardstock for pages 8-15 and the markers on page 16, or mount ordinary paper to opaque card. Blank backs are intentional. Do not duplex.",
+      "x": 28.35,
+      "y": 260.92,
+      "width": 538.58,
+      "height": 60.72,
+      "fontSize": 11.5
+    },
+    {
+      "page": 1,
+      "text": "Keep these sheets whole",
+      "x": 28.35,
+      "y": 332.64,
+      "width": 538.58,
+      "height": 16.5,
+      "fontSize": 12.5
+    },
+    {
+      "page": 1,
+      "text": "Page 2: one-page player guide. Pages 3-5: complete rules and example. Pages 6-7: river dashboard and boat mat. Page 16 below the cut line: optional workshop record. The separate Player Guide PDF repeats page 2 for extra copies.",
+      "x": 28.35,
+      "y": 354.14,
+      "width": 538.58,
+      "height": 45.54,
+      "fontSize": 11.5
+    },
+    {
+      "page": 1,
+      "text": "Cut these pieces",
+      "x": 28.35,
+      "y": 410.68,
+      "width": 538.58,
+      "height": 16.5,
+      "fontSize": 12.5
+    },
+    {
+      "page": 1,
+      "text": "Pages 8-10: 14 Soul cards and 4 table labels. Pages 11-12: 10 Routes and 2 reminder cards. Page 13: 13 Memories. Page 14: 12 Arrival tickets. Page 15: 4 Events and 2 reference cards. Page 16: 6 markers. Cut on each outer rectangle; trim square corners. No folding or aligned backs are required.",
+      "x": 28.35,
+      "y": 432.18,
+      "width": 538.58,
+      "height": 60.72,
+      "fontSize": 11.5
+    },
+    {
+      "page": 1,
+      "text": "Arrange the table",
+      "x": 28.35,
+      "y": 503.9,
+      "width": 538.58,
+      "height": 16.5,
+      "fontSize": 12.5
+    },
+    {
+      "page": 1,
+      "text": "Dashboard on the left, boat mat in the middle, waiting Soul cards on the right. Keep face-up Soul and Memory reserves above them. Shuffle Arrivals, Routes and Events separately, face down. Keep distinct Route discard, spent Memory, delivered Soul and Wraith areas. Use the cut-out labels. Bring a pencil and eraser for deadlines.",
+      "x": 28.35,
+      "y": 525.4,
+      "width": 538.58,
+      "height": 60.72,
+      "fontSize": 11.5
+    },
+    {
+      "page": 1,
+      "text": "Check this line measures exactly 50 mm after printing.",
+      "x": 28.35,
+      "y": 722.83,
+      "width": 538.58,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 2,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 2,
+      "text": "Your one-page river guide",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 2,
+      "text": "SINGLE PLAYER / 20-30 MINUTE TARGET / KEEP BESIDE THE BOAT",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 2,
+      "text": "02 / 16   \u00b7   One-page player guide",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 2,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 2,
+      "text": "YOUR NIGHT",
+      "x": 28.35,
+      "y": 153.07,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "One player. Finish 4 trips with at least 8 fulfilled wishes. Survive the final return. An empty shore and supply after a return ends the night early at the same target. Lose if a move costs more light than you have. Zero survives. Target: 20-30 minutes, untested with humans.",
+      "x": 28.35,
+      "y": 172.99,
+      "width": 257.95,
+      "height": 81.58,
+      "fontSize": 10.3
+    },
+    {
+      "page": 2,
+      "text": "SET UP",
+      "x": 28.35,
+      "y": 265.56,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "Start with light 5/6, trip 1, tide 0, no memories or Wraiths. Shuffle Arrivals, Routes and Events separately. Draw Arrivals until at least 5 souls wait; a pair may make 6. Write each deadline: tide +5, or +3 for Fool. Reveal 2 Routes.",
+      "x": 28.35,
+      "y": 285.48,
+      "width": 257.95,
+      "height": 67.98,
+      "fontSize": 10.3
+    },
+    {
+      "page": 2,
+      "text": "1 / BOARD",
+      "x": 28.35,
+      "y": 364.46,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "Choose passengers within 4 seats; Achilles takes 2. Board at least one. Passenger cards stay visible. You may change the load before departure. Read the two Routes before deciding.",
+      "x": 28.35,
+      "y": 384.37,
+      "width": 257.95,
+      "height": 54.38,
+      "fontSize": 10.3
+    },
+    {
+      "page": 2,
+      "text": "2 / CHOOSE AND PAY",
+      "x": 28.35,
+      "y": 449.76,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "Choose a revealed Route. Optional: spend one memory, once only. Restore its light or change its target deadline first. Fog = route base + pressure + Wraiths + rival pair + Event - memory shield (minimum 0). Pay Killer's 1 light separately, then fog. If you cannot pay, lose. Discard both offered Routes; reshuffle discards when the pile runs out.",
+      "x": 28.35,
+      "y": 469.67,
+      "width": 257.95,
+      "height": 95.17,
+      "fontSize": 10.3
+    },
+    {
+      "page": 2,
+      "text": "3 / ADVANCE AND DELIVER",
+      "x": 308.98,
+      "y": 153.07,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "After surviving, advance tide and boat move by 1. Any waiting deadline now reached becomes a Wraith, affecting the next move. At ordinary stops, deliver any passengers. Each matching wish scores 1 and earns that soul's memory; gain only 1 light total per stop with matches. Keep at most 3 memories. Unmatched deliveries give nothing.",
+      "x": 308.98,
+      "y": 172.99,
+      "width": 257.95,
+      "height": 108.77,
+      "fontSize": 10.3
+    },
+    {
+      "page": 2,
+      "text": "4 / CHECK THE BOAT",
+      "x": 308.98,
+      "y": 292.75,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "After delivery, tainted passengers still aboard on move 2 become Ship Wraiths. All others still aboard on move 3 do so. Each Wraith adds 1 fog on later moves. Draw 2 new Routes if passengers remain. At 3 boat moves, return is the only next move.",
+      "x": 308.98,
+      "y": 312.67,
+      "width": 257.95,
+      "height": 81.58,
+      "fontSize": 10.3
+    },
+    {
+      "page": 2,
+      "text": "5 / RETURN",
+      "x": 308.98,
+      "y": 405.25,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "Return only with an empty boat. Return base fog is 0; pressure and Wraiths still apply. You may spend one memory. Advance tide and resolve due waiting souls; no free recovery. Begin the next trip, refill the shore and reset boat moves. Reveal an Event before refill on trips 2 and 4. Pressure: +0 on trips 1-2; +1 on trips 3-4.",
+      "x": 308.98,
+      "y": 425.16,
+      "width": 257.95,
+      "height": 95.17,
+      "fontSize": 10.3
+    },
+    {
+      "page": 2,
+      "text": "SPECIAL STOPS AND QUEST",
+      "x": 308.98,
+      "y": 531.33,
+      "width": 257.95,
+      "height": 14.92,
+      "fontSize": 11.3
+    },
+    {
+      "page": 2,
+      "text": "Haven: no delivery; +1 light after paying, but clocks and Ship Wraiths still apply. Sanctuary: any wishes match; no light or memories, then retire its Route. Mother + Child matched together earn Passage once: before a move, send one waiting soul directly to its wish for 1 score only. Full details and an example follow in the kit.",
+      "x": 308.98,
+      "y": 551.25,
+      "width": 257.95,
+      "height": 95.17,
+      "fontSize": 10.3
+    },
+    {
+      "page": 3,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 3,
+      "text": "Rules / prepare and cross",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 3,
+      "text": "COMPLETE RULES / PROVISIONAL WORKSHOP VALUES",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 3,
+      "text": "03 / 16   \u00b7   Rules / prepare and cross",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 3,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 3,
+      "text": "Objective and setup",
+      "x": 28.35,
+      "y": 153.07,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 3,
+      "text": "Strictly one player. Finish four trips with at least eight fulfilled wishes and survive the final return. If no souls remain at the shore or in the arrival supply after a survived return, the night ends early with the same eight-wish requirement. Target duration is 20-30 minutes; it has not been measured with humans. Start light at 5 (maximum 6), trip at 1, tide at 0, wishes at 0 and boat moves at 0. No memories, Wraiths or Passage. Shuffle the 12 Arrival tickets, 10 Routes and 4 Events separately, face down. Keep the 14 Soul cards and 13 Memory cards in face-up reserves. Draw Arrival tickets until at least five souls wait or the supply is empty. A pair can bring the shore to six. Move the named Soul cards to the shore and write a waiting deadline on each: current tide +5, or +3 for Fool. Used Arrival tickets never return. Reveal two Route cards before boarding.",
+      "x": 28.35,
+      "y": 173.65,
+      "width": 538.58,
+      "height": 128.3,
+      "fontSize": 10.8
+    },
+    {
+      "page": 3,
+      "text": "Boarding and route offers",
+      "x": 28.35,
+      "y": 312.95,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 3,
+      "text": "Choose at least one waiting soul within four seats. Achilles takes two seats; all others take one. Narrow Channel reduces the boat to three seats for that trip. Boarding and unboarding are free and reversible before the first move; retain each soul's original waiting deadline. No boarding happens away from shore. Soul cards remain visible in both media. Choose one of the two Routes. Both offered Routes are discarded after the crossing, except a chosen Sanctuary is retired permanently. After a stop, reveal two new Routes only if passengers remain. Whenever the Route pile runs out while dealing, shuffle its discard pile and finish the two-card offer. Unchosen Sanctuary stays in circulation. Revisiting a named destination is allowed if its Route appears again. With an empty boat, return is mandatory as the next move; no more outward detours.",
+      "x": 28.35,
+      "y": 333.53,
+      "width": 538.58,
+      "height": 128.3,
+      "fontSize": 10.8
+    },
+    {
+      "page": 3,
+      "text": "Memories and crossing cost",
+      "x": 28.35,
+      "y": 472.83,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 3,
+      "text": "Before any move, including return, optionally play one earned Memory. It has only its printed effect and is removed from play after use. Light restoration happens before costs and never exceeds six. Calm adds two to one waiting soul's deadline; it does not prevent fog or change a boat timer. A fog memory reduces only fog, to a minimum of zero. Fog equals Route base + night pressure + number of existing Wraiths + one if both soldiers are aboard + event fog - memory prevention. Night pressure is zero on trips 1-2 and one on trips 3-4, including returns, Haven and Sanctuary. Killer drains one additional light before fog on every move aboard; a shield cannot block this drain. If available light is less than drain plus fog, lose immediately before advancing clocks or arriving. Exactly zero light after payment survives. Committed memories are spent even on a losing move.",
+      "x": 28.35,
+      "y": 493.41,
+      "width": 538.58,
+      "height": 128.3,
+      "fontSize": 10.8
+    },
+    {
+      "page": 4,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 4,
+      "text": "Rules / souls and memories",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 4,
+      "text": "COMPLETE RULES / PROVISIONAL WORKSHOP VALUES",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 4,
+      "text": "04 / 16   \u00b7   Rules / souls and memories",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 4,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 4,
+      "text": "Tide, anger and the last delivery chance",
+      "x": 28.35,
+      "y": 153.07,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 4,
+      "text": "After a surviving move, advance the shared tide by one. A waiting soul whose written deadline is now reached becomes a Wraith. This is the paper form of +1 anger per move: only the tide marker moves, not a marker on every soul. A boarded soul ignores its waiting deadline. Advance boat moves by one on outward moves only. Then resolve delivery or Haven. After delivery, every tainted passenger still aboard on boat move two becomes a Ship Wraith. On boat move three, all remaining passengers become Ship Wraiths. The arrival is their last chance to leave. There is no fourth outward move. Normal and Ship Wraiths have the same ongoing effect: each adds one fog to every later move. Keep their Soul cards in the Wraith area; no removal action exists. Newly formed Wraiths do not increase the cost of the move just survived.",
+      "x": 28.35,
+      "y": 173.65,
+      "width": 538.58,
+      "height": 128.3,
+      "fontSize": 10.8
+    },
+    {
+      "page": 4,
+      "text": "Deliveries, wishes and the hand limit",
+      "x": 28.35,
+      "y": 312.95,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 4,
+      "text": "At Elysium, Asphodel, Tartarus or Styx, choose any subset of passengers, including none, to deliver in one action. All these destinations accept all souls. A wish matches only the destination printed on the Soul card. Each matched soul scores one wish and earns its corresponding Memory from the reserve, except Po Din earns no Memory. A landing with at least one matched delivery restores one light total, regardless of how many wishes matched. An unmatched delivery grants no score, light or Memory, but safely removes that passenger from the boat. Delivered souls never return. After the expiry check, if more than three memories are held, choose and permanently discard excess cards before making another move. There is no Memory draw pile or reshuffle. Unused memories persist between trips.",
+      "x": 28.35,
+      "y": 333.53,
+      "width": 538.58,
+      "height": 128.3,
+      "fontSize": 10.8
+    },
+    {
+      "page": 4,
+      "text": "Haven, Sanctuary and the family quest",
+      "x": 28.35,
+      "y": 472.83,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 4,
+      "text": "Haven has base fog zero. Pay all added fog and Killer drain before gaining one light, capped at six. Deliver nobody there. Tide, boat moves and passenger expiry all apply. Sanctuary has base fog zero and treats every delivered soul as matching its wish, including Achilles. It grants no light or Memories and is retired after use. Ordinary pressure and both clocks still apply. Delivering Mother and Child together in one action with both wishes matched, at Elysium or Sanctuary, unlocks Passage once. Before a later move, while boarding or choosing a route, spend Passage to send one waiting soul directly to its printed wish. Gain one wish only, with no light or Memory; no clock advances. Passage cannot target a passenger aboard, a Wraith, a delivered soul or someone who has not arrived.",
+      "x": 28.35,
+      "y": 493.41,
+      "width": 538.58,
+      "height": 128.3,
+      "fontSize": 10.8
+    },
+    {
+      "page": 5,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 5,
+      "text": "Rules / return and example",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 5,
+      "text": "COMPLETE RULES / PROVISIONAL WORKSHOP VALUES",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 5,
+      "text": "05 / 16   \u00b7   Rules / return and example",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 5,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 5,
+      "text": "Return and events",
+      "x": 28.35,
+      "y": 153.07,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 5,
+      "text": "The boat must be empty to return, and at least one outward move must have happened. Return is a move with base fog zero. Play at most one Memory, pay night pressure and existing Wraith fog, advance tide and resolve waiting deadlines. Do not advance boat moves or recover light. After a survived return, record a completed trip. After trip four, end and check the eight-wish target. Otherwise advance the trip and reset boat moves to zero. Clear the prior Event. On trips two and four only, reveal one Event before refilling. Its face-up text remains available. Restless Shore subtracts one from every existing waiting deadline, resolves any now-due Wraiths immediately, and does not affect new arrivals. Then refill to at least five waiting souls, allowing six for a pair, and reveal two Routes. Other Events apply only to the new trip. No game master, timer, die, unlock ledger or hidden passenger information is required.",
+      "x": 28.35,
+      "y": 173.65,
+      "width": 538.58,
+      "height": 142.56,
+      "fontSize": 10.8
+    },
+    {
+      "page": 5,
+      "text": "Paper example and reset",
+      "x": 28.35,
+      "y": 327.21,
+      "width": 538.58,
+      "height": 15.58,
+      "fontSize": 11.8
+    },
+    {
+      "page": 5,
+      "text": "Example: tide 2, light 4, trip 2, boat move 0. Killer and Quiet Soul C are aboard; Po Din waits with deadline 3. Choose Ashen Gate (base 1) with no Memory, no active Event and no Wraiths. Pay 1 Killer drain +1 fog, leaving light 2. Advance tide to 3 and boat moves to 1. Po Din now becomes a Wraith; it did not tax this move. Deliver Killer and Quiet Soul C to Tartarus: gain 2 wishes, their 2 Memories, and only 1 light, ending at light 3. The empty return now costs 1 Wraith fog. Reset: return all Soul and Memory cards to their reserves, restore the retired Sanctuary to Routes, collect all Arrival and Event tickets, erase deadlines, reshuffle the three random piles and reset trackers. No consumable component is required beyond erasable pencil marks.",
+      "x": 28.35,
+      "y": 347.78,
+      "width": 538.58,
+      "height": 114.05,
+      "fontSize": 10.8
+    },
+    {
+      "page": 5,
+      "text": "No hidden reference work",
+      "x": 28.35,
+      "y": 492.67,
+      "width": 538.58,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 5,
+      "text": "All Soul, Memory, Route and Event effects are printed on their pieces. Keep passenger information visible. When a partner or rival has not arrived, its interaction is inactive. Pair tickets guarantee simultaneous arrival, not that the player must board both.",
+      "x": 28.35,
+      "y": 513.51,
+      "width": 538.58,
+      "height": 43.56,
+      "fontSize": 11
+    },
+    {
+      "page": 5,
+      "text": "Pressure, not busywork",
+      "x": 28.35,
+      "y": 568.07,
+      "width": 538.58,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 5,
+      "text": "One tide marker replaces per-soul anger increments. One boat counter replaces individual passenger timers. Write a deadline only when a soul arrives or when a card changes that deadline. The rules can be run without a browser or a facilitator.",
+      "x": 28.35,
+      "y": 588.91,
+      "width": 538.58,
+      "height": 43.56,
+      "fontSize": 11
+    },
+    {
+      "page": 6,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 6,
+      "text": "The river dashboard",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 6,
+      "text": "KEEP WHOLE / FIVE TRACK MARKERS / KEEP PASSAGE BY ITS REFERENCE CARD",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 6,
+      "text": "06 / 16   \u00b7   River dashboard",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 6,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 6,
+      "text": "LIGHT / start at 5",
+      "x": 28.35,
+      "y": 153.07,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 6,
+      "text": "0",
+      "x": 32.6,
+      "y": 177.45,
+      "width": 65.6,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "1",
+      "x": 109.54,
+      "y": 177.45,
+      "width": 65.6,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "2",
+      "x": 186.48,
+      "y": 177.45,
+      "width": 65.6,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "3",
+      "x": 263.42,
+      "y": 177.45,
+      "width": 65.6,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "4",
+      "x": 340.36,
+      "y": 177.45,
+      "width": 65.6,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "5",
+      "x": 417.3,
+      "y": 177.45,
+      "width": 65.6,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "6",
+      "x": 494.24,
+      "y": 177.45,
+      "width": 65.6,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "Zero survives. If a crossing costs more than available light, lose.",
+      "x": 28.35,
+      "y": 209.76,
+      "width": 538.58,
+      "height": 11.62,
+      "fontSize": 8.8
+    },
+    {
+      "page": 6,
+      "text": "WISHES / start at 0",
+      "x": 28.35,
+      "y": 238.11,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 6,
+      "text": "0",
+      "x": 32.6,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "1",
+      "x": 99.92,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "2",
+      "x": 167.24,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "3",
+      "x": 234.57,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "4",
+      "x": 301.89,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "5",
+      "x": 369.21,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "6",
+      "x": 436.54,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "7",
+      "x": 503.86,
+      "y": 262.49,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "8",
+      "x": 32.6,
+      "y": 296.5,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "9",
+      "x": 99.92,
+      "y": 296.5,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "10",
+      "x": 167.24,
+      "y": 296.5,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "11",
+      "x": 234.57,
+      "y": 296.5,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "12",
+      "x": 301.89,
+      "y": 296.5,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "13",
+      "x": 369.21,
+      "y": 296.5,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "14",
+      "x": 436.54,
+      "y": 296.5,
+      "width": 55.98,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "Reach at least 8 and survive the final return.",
+      "x": 28.35,
+      "y": 328.82,
+      "width": 538.58,
+      "height": 11.62,
+      "fontSize": 8.8
+    },
+    {
+      "page": 6,
+      "text": "TIDE / start at 0",
+      "x": 28.35,
+      "y": 357.17,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 6,
+      "text": "0",
+      "x": 32.6,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "1",
+      "x": 92.44,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "2",
+      "x": 152.28,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "3",
+      "x": 212.13,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "4",
+      "x": 271.97,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "5",
+      "x": 331.81,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "6",
+      "x": 391.65,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "7",
+      "x": 451.5,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "8",
+      "x": 511.34,
+      "y": 381.54,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "9",
+      "x": 32.6,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "10",
+      "x": 92.44,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "11",
+      "x": 152.28,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "12",
+      "x": 212.13,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "13",
+      "x": 271.97,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "14",
+      "x": 331.81,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "15",
+      "x": 391.65,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "16",
+      "x": 451.5,
+      "y": 415.56,
+      "width": 48.5,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "After every surviving move, advance once. Waiting deadline reached = Wraith.",
+      "x": 28.35,
+      "y": 447.87,
+      "width": 538.58,
+      "height": 11.62,
+      "fontSize": 8.8
+    },
+    {
+      "page": 6,
+      "text": "TRIP / start at 1",
+      "x": 28.35,
+      "y": 476.22,
+      "width": 257.95,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 6,
+      "text": "1",
+      "x": 32.6,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "2",
+      "x": 97.09,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "3",
+      "x": 161.57,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "4",
+      "x": 226.06,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "Pressure: 0, 0, +1, +1. Events: trips 2 and 4.",
+      "x": 28.35,
+      "y": 532.91,
+      "width": 257.95,
+      "height": 11.62,
+      "fontSize": 8.8
+    },
+    {
+      "page": 6,
+      "text": "BOAT MOVES / reset to 0",
+      "x": 308.98,
+      "y": 476.22,
+      "width": 257.95,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 6,
+      "text": "0",
+      "x": 313.23,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "1",
+      "x": 377.72,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "2",
+      "x": 442.2,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "3",
+      "x": 506.69,
+      "y": 500.6,
+      "width": 53.15,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 6,
+      "text": "After delivery: tainted expire at 2, others at 3.",
+      "x": 308.98,
+      "y": 532.91,
+      "width": 257.95,
+      "height": 11.62,
+      "fontSize": 8.8
+    },
+    {
+      "page": 6,
+      "text": "FOG = base + pressure + Wraiths + rival pair + Event - Memory. Minimum 0.Pay Killer drain separately. New Wraiths affect the next move.",
+      "x": 28.35,
+      "y": 694.49,
+      "width": 538.58,
+      "height": 26.4,
+      "fontSize": 10
+    },
+    {
+      "page": 7,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 7,
+      "text": "The boat",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 7,
+      "text": "FOUR SEATS / ACHILLES OCCUPIES TWO / ALL PASSENGERS STAY VISIBLE",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 7,
+      "text": "07 / 16   \u00b7   Boat mat",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 7,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 7,
+      "text": "SEAT 1",
+      "x": 119.06,
+      "y": 175.75,
+      "width": 155.91,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 7,
+      "text": "Place a Soul card here. Achilles also occupies an adjacent empty seat.",
+      "x": 121.89,
+      "y": 274.96,
+      "width": 150.24,
+      "height": 41.58,
+      "fontSize": 10.5
+    },
+    {
+      "page": 7,
+      "text": "SEAT 2",
+      "x": 308.98,
+      "y": 175.75,
+      "width": 155.91,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 7,
+      "text": "Place a Soul card here. Achilles also occupies an adjacent empty seat.",
+      "x": 311.81,
+      "y": 274.96,
+      "width": 150.24,
+      "height": 41.58,
+      "fontSize": 10.5
+    },
+    {
+      "page": 7,
+      "text": "SEAT 3",
+      "x": 119.06,
+      "y": 436.54,
+      "width": 155.91,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 7,
+      "text": "Place a Soul card here. Achilles also occupies an adjacent empty seat.",
+      "x": 121.89,
+      "y": 535.75,
+      "width": 150.24,
+      "height": 41.58,
+      "fontSize": 10.5
+    },
+    {
+      "page": 7,
+      "text": "SEAT 4",
+      "x": 308.98,
+      "y": 436.54,
+      "width": 155.91,
+      "height": 17.16,
+      "fontSize": 13
+    },
+    {
+      "page": 7,
+      "text": "Place a Soul card here. Achilles also occupies an adjacent empty seat.",
+      "x": 311.81,
+      "y": 535.75,
+      "width": 150.24,
+      "height": 41.58,
+      "fontSize": 10.5
+    },
+    {
+      "page": 7,
+      "text": "Narrow Channel: cover one seat for this trip. Board only at shore.At every arrival, deliver first, then check Ship Wraith expiry.",
+      "x": 28.35,
+      "y": 697.32,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 11
+    },
+    {
+      "page": 8,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 8,
+      "text": "Souls / 1",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 8,
+      "text": "CUT OUTER BORDERS / 63 x 88 mm / WRITE DEADLINES IN PENCIL",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 8,
+      "text": "08 / 16   \u00b7   Soul cards / 1",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 8,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 8,
+      "text": "SOUL / ELYSIUM",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 8,
+      "text": "S01",
+      "x": 36.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 8,
+      "text": "Mother",
+      "x": 36.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 8,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 36.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Quest: deliver with Child and match both wishes to earn Passage.",
+      "x": 36.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 37.2,
+      "fontSize": 10
+    },
+    {
+      "page": 8,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 36.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 8,
+      "text": "SOUL / ELYSIUM",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 8,
+      "text": "S02",
+      "x": 216.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 8,
+      "text": "Child",
+      "x": 216.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 8,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 216.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Quest partner: Mother. The pair arrives together; both cards stay visible.",
+      "x": 216.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 37.2,
+      "fontSize": 10
+    },
+    {
+      "page": 8,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 216.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 8,
+      "text": "SOUL / TARTARUS",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 8,
+      "text": "S03",
+      "x": 396.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 8,
+      "text": "Red Soldier",
+      "x": 396.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 8,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 396.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Rivals: while both soldiers are aboard, add 1 fog to each move.",
+      "x": 396.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 37.2,
+      "fontSize": 10
+    },
+    {
+      "page": 8,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 396.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 8,
+      "text": "SOUL / ASPHODEL",
+      "x": 36.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 8,
+      "text": "S04",
+      "x": 36.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 8,
+      "text": "Blue Soldier",
+      "x": 36.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 8,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 36.85,
+      "y": 532.91,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Rivals: while both soldiers are aboard, add 1 fog to each move. Count the pair only once.",
+      "x": 36.85,
+      "y": 552.76,
+      "width": 161.57,
+      "height": 37.2,
+      "fontSize": 10
+    },
+    {
+      "page": 8,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 36.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 8,
+      "text": "SOUL / TARTARUS",
+      "x": 216.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 8,
+      "text": "S05",
+      "x": 216.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 8,
+      "text": "Killer",
+      "x": 216.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 8,
+      "text": "1 SEAT / TAINTED: MOVE 2",
+      "x": 216.85,
+      "y": 532.91,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Aboard: pay 1 light before fog on every move. Deliver by move 2.",
+      "x": 216.85,
+      "y": 552.76,
+      "width": 161.57,
+      "height": 37.2,
+      "fontSize": 10
+    },
+    {
+      "page": 8,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 216.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 8,
+      "text": "SOUL / ASPHODEL",
+      "x": 396.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 8,
+      "text": "S06",
+      "x": 396.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 8,
+      "text": "Fool",
+      "x": 396.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 8,
+      "text": "1 SEAT / TAINTED: MOVE 2",
+      "x": 396.85,
+      "y": 532.91,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Waiting deadline: tide +3. Deliver by move 2.",
+      "x": 396.85,
+      "y": 552.76,
+      "width": 161.57,
+      "height": 24.8,
+      "fontSize": 10
+    },
+    {
+      "page": 8,
+      "text": "DEADLINE: ______  (tide +3)",
+      "x": 396.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 8,
+      "text": "Pairs arrive together via tickets. Soul cards and their effects stay face up once they arrive.",
+      "x": 28.35,
+      "y": 717.17,
+      "width": 538.58,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 9,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 9,
+      "text": "Souls / 2",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 9,
+      "text": "CUT OUTER BORDERS / 63 x 88 mm / WRITE DEADLINES IN PENCIL",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 9,
+      "text": "09 / 16   \u00b7   Soul cards / 2",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 9,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 9,
+      "text": "SOUL / ELYSIUM",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 9,
+      "text": "S07",
+      "x": 36.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 9,
+      "text": "Po Din",
+      "x": 36.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 9,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 36.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Leaves no memory, even when the wish is met. A matched delivery still counts as a wish.",
+      "x": 36.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 37.2,
+      "fontSize": 10
+    },
+    {
+      "page": 9,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 36.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 9,
+      "text": "SOUL / STYX",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 9,
+      "text": "S08",
+      "x": 216.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 9,
+      "text": "Achilles",
+      "x": 216.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 9,
+      "text": "2 SEATS / DELIVER BY MOVE 3",
+      "x": 216.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Wishes for Styx. Other ordinary stops accept Achilles unmatched.",
+      "x": 216.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 37.2,
+      "fontSize": 10
+    },
+    {
+      "page": 9,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 216.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 9,
+      "text": "SOUL / ELYSIUM",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 9,
+      "text": "S09",
+      "x": 396.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 9,
+      "text": "Quiet Soul A",
+      "x": 396.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 9,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 396.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "A simple passenger. Deliver by boat move 3.",
+      "x": 396.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 24.8,
+      "fontSize": 10
+    },
+    {
+      "page": 9,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 396.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 9,
+      "text": "SOUL / ASPHODEL",
+      "x": 36.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 9,
+      "text": "S10",
+      "x": 36.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 9,
+      "text": "Quiet Soul B",
+      "x": 36.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 9,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 36.85,
+      "y": 532.91,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "A simple passenger. Deliver by boat move 3.",
+      "x": 36.85,
+      "y": 552.76,
+      "width": 161.57,
+      "height": 24.8,
+      "fontSize": 10
+    },
+    {
+      "page": 9,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 36.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 9,
+      "text": "SOUL / TARTARUS",
+      "x": 216.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 9,
+      "text": "S11",
+      "x": 216.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 9,
+      "text": "Quiet Soul C",
+      "x": 216.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 9,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 216.85,
+      "y": 532.91,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "A simple passenger. Deliver by boat move 3.",
+      "x": 216.85,
+      "y": 552.76,
+      "width": 161.57,
+      "height": 24.8,
+      "fontSize": 10
+    },
+    {
+      "page": 9,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 216.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 9,
+      "text": "SOUL / ELYSIUM",
+      "x": 396.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 9,
+      "text": "S12",
+      "x": 396.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 9,
+      "text": "Quiet Soul D",
+      "x": 396.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 9,
+      "text": "1 SEAT / DELIVER BY MOVE 3",
+      "x": 396.85,
+      "y": 532.91,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "A simple passenger. Deliver by boat move 3.",
+      "x": 396.85,
+      "y": 552.76,
+      "width": 161.57,
+      "height": 24.8,
+      "fontSize": 10
+    },
+    {
+      "page": 9,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 396.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 9,
+      "text": "Pairs arrive together via tickets. Soul cards and their effects stay face up once they arrive.",
+      "x": 28.35,
+      "y": 717.17,
+      "width": 538.58,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 10,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 10,
+      "text": "Souls / 3",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 10,
+      "text": "CUT OUTER BORDERS / 63 x 88 mm / WRITE DEADLINES IN PENCIL",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 10,
+      "text": "10 / 16   \u00b7   Soul cards / 3 and table labels",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 10,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 10,
+      "text": "SOUL / ASPHODEL",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 10,
+      "text": "S13",
+      "x": 36.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 10,
+      "text": "Tainted Soul A",
+      "x": 36.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 10,
+      "text": "1 SEAT / TAINTED: MOVE 2",
+      "x": 36.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 10,
+      "text": "Tainted: deliver by boat move 2 or become a Ship Wraith.",
+      "x": 36.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 24.8,
+      "fontSize": 10
+    },
+    {
+      "page": 10,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 36.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 10,
+      "text": "SOUL / TARTARUS",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 10,
+      "text": "S14",
+      "x": 216.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 10,
+      "text": "Tainted Soul B",
+      "x": 216.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 10,
+      "text": "1 SEAT / TAINTED: MOVE 2",
+      "x": 216.85,
+      "y": 272.13,
+      "width": 161.57,
+      "height": 10.3,
+      "fontSize": 7.8
+    },
+    {
+      "page": 10,
+      "text": "Tainted: deliver by boat move 2 or become a Ship Wraith.",
+      "x": 216.85,
+      "y": 291.97,
+      "width": 161.57,
+      "height": 24.8,
+      "fontSize": 10
+    },
+    {
+      "page": 10,
+      "text": "DEADLINE: ______  (tide +5)",
+      "x": 216.85,
+      "y": 362.83,
+      "width": 161.57,
+      "height": 11.48,
+      "fontSize": 8.7
+    },
+    {
+      "page": 10,
+      "text": "TABLE LABEL",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 10,
+      "text": "L01",
+      "x": 396.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 10,
+      "text": "WRAITHS",
+      "x": 399.69,
+      "y": 192.76,
+      "width": 155.91,
+      "height": 23.76,
+      "fontSize": 18
+    },
+    {
+      "page": 10,
+      "text": "Put expired waiting souls and Ship Wraiths here. Each adds 1 fog to every later move. No removal action.",
+      "x": 399.69,
+      "y": 255.12,
+      "width": 155.91,
+      "height": 56,
+      "fontSize": 10.5
+    },
+    {
+      "page": 10,
+      "text": "TABLE LABEL",
+      "x": 36.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 10,
+      "text": "L02",
+      "x": 36.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 10,
+      "text": "DELIVERED",
+      "x": 39.69,
+      "y": 453.54,
+      "width": 155.91,
+      "height": 23.76,
+      "fontSize": 18
+    },
+    {
+      "page": 10,
+      "text": "Keep delivered souls here. Count matched wishes with the WISH marker. No soul returns to the supply.",
+      "x": 39.69,
+      "y": 515.91,
+      "width": 155.91,
+      "height": 56,
+      "fontSize": 10.5
+    },
+    {
+      "page": 10,
+      "text": "TABLE LABEL",
+      "x": 216.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 10,
+      "text": "L03",
+      "x": 216.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 10,
+      "text": "SPENT MEMORIES",
+      "x": 219.69,
+      "y": 453.54,
+      "width": 155.91,
+      "height": 47.52,
+      "fontSize": 18
+    },
+    {
+      "page": 10,
+      "text": "Used and overflow Memories leave the night permanently. Do not shuffle or reuse them.",
+      "x": 219.69,
+      "y": 515.91,
+      "width": 155.91,
+      "height": 42,
+      "fontSize": 10.5
+    },
+    {
+      "page": 10,
+      "text": "TABLE LABEL",
+      "x": 396.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 10,
+      "text": "L04",
+      "x": 396.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 10,
+      "text": "ROUTE DISCARD",
+      "x": 399.69,
+      "y": 453.54,
+      "width": 155.91,
+      "height": 47.52,
+      "fontSize": 18
+    },
+    {
+      "page": 10,
+      "text": "Put both offered Routes here after choosing. Retire a chosen Sanctuary separately. Reshuffle only when the draw pile runs out.",
+      "x": 399.69,
+      "y": 515.91,
+      "width": 155.91,
+      "height": 70,
+      "fontSize": 10.5
+    },
+    {
+      "page": 10,
+      "text": "Pairs arrive together via tickets. Soul cards and their effects stay face up once they arrive.",
+      "x": 28.35,
+      "y": 717.17,
+      "width": 538.58,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 11,
+      "text": "Routes / 1",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 11,
+      "text": "CUT OUTER BORDERS / SHUFFLE ALL TEN ROUTES / REVEAL TWO",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 11,
+      "text": "11 / 16   \u00b7   Route cards / 1",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 11,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 11,
+      "text": "ROUTE / LEAF",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 11,
+      "text": "R01",
+      "x": 36.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 11,
+      "text": "Elysium",
+      "x": 36.85,
+      "y": 187.09,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 11,
+      "text": "Fields of Rest",
+      "x": 36.85,
+      "y": 218.27,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "1",
+      "x": 36.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 85.04,
+      "y": 266.46,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 11,
+      "text": "Deliver any passengers. Only Elysium wishes match.",
+      "x": 36.85,
+      "y": 300.47,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "ROUTE / LEAF",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 11,
+      "text": "R02",
+      "x": 216.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 11,
+      "text": "Elysium",
+      "x": 216.85,
+      "y": 187.09,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 11,
+      "text": "Garden Landing",
+      "x": 216.85,
+      "y": 218.27,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "2",
+      "x": 216.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 265.04,
+      "y": 266.46,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 11,
+      "text": "Deliver any passengers. Only Elysium wishes match.",
+      "x": 216.85,
+      "y": 300.47,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "ROUTE / WAVE",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 11,
+      "text": "R03",
+      "x": 396.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 11,
+      "text": "Asphodel",
+      "x": 396.85,
+      "y": 187.09,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 11,
+      "text": "Reed Channel",
+      "x": 396.85,
+      "y": 218.27,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "1",
+      "x": 396.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 445.04,
+      "y": 266.46,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 11,
+      "text": "Deliver any passengers. Only Asphodel wishes match.",
+      "x": 396.85,
+      "y": 300.47,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "ROUTE / WAVE",
+      "x": 36.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 11,
+      "text": "R04",
+      "x": 36.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 11,
+      "text": "Asphodel",
+      "x": 36.85,
+      "y": 447.87,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 11,
+      "text": "Grey Meadows",
+      "x": 36.85,
+      "y": 479.06,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "2",
+      "x": 36.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 85.04,
+      "y": 527.24,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 11,
+      "text": "Deliver any passengers. Only Asphodel wishes match.",
+      "x": 36.85,
+      "y": 561.26,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "ROUTE / FIRE",
+      "x": 216.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 11,
+      "text": "R05",
+      "x": 216.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 11,
+      "text": "Tartarus",
+      "x": 216.85,
+      "y": 447.87,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 11,
+      "text": "Ashen Gate",
+      "x": 216.85,
+      "y": 479.06,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "1",
+      "x": 216.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 265.04,
+      "y": 527.24,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 11,
+      "text": "Deliver any passengers. Only Tartarus wishes match.",
+      "x": 216.85,
+      "y": 561.26,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "ROUTE / FIRE",
+      "x": 396.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 11,
+      "text": "R06",
+      "x": 396.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 11,
+      "text": "Tartarus",
+      "x": 396.85,
+      "y": 447.87,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 11,
+      "text": "Iron Crossing",
+      "x": 396.85,
+      "y": 479.06,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 11,
+      "text": "2",
+      "x": 396.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 445.04,
+      "y": 527.24,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 11,
+      "text": "Deliver any passengers. Only Tartarus wishes match.",
+      "x": 396.85,
+      "y": 561.26,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 12,
+      "text": "Routes / 2",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 12,
+      "text": "CUT OUTER BORDERS / SHUFFLE ALL TEN ROUTES / REVEAL TWO",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 12,
+      "text": "12 / 16   \u00b7   Route cards / 2",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 12,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 12,
+      "text": "ROUTE / STAR",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 12,
+      "text": "R07",
+      "x": 36.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 12,
+      "text": "Styx",
+      "x": 36.85,
+      "y": 187.09,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 12,
+      "text": "River of Oaths",
+      "x": 36.85,
+      "y": 218.27,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "2",
+      "x": 36.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 85.04,
+      "y": 266.46,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 12,
+      "text": "Deliver any passengers. Only Achilles' Styx wish matches.",
+      "x": 36.85,
+      "y": 300.47,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "ROUTE / LAMP",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 12,
+      "text": "R08",
+      "x": 216.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 12,
+      "text": "Haven",
+      "x": 216.85,
+      "y": 187.09,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 12,
+      "text": "Lantern Haven",
+      "x": 216.85,
+      "y": 218.27,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "0",
+      "x": 216.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 265.04,
+      "y": 266.46,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 12,
+      "text": "Deliver nobody. Restore 1 light after fog. All clocks advance; passengers can expire here.",
+      "x": 216.85,
+      "y": 300.47,
+      "width": 161.57,
+      "height": 38.4,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "ROUTE / DAWN",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 12,
+      "text": "R09",
+      "x": 396.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 12,
+      "text": "Sanctuary",
+      "x": 396.85,
+      "y": 187.09,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 12,
+      "text": "Last Sanctuary",
+      "x": 396.85,
+      "y": 218.27,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "0",
+      "x": 396.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 445.04,
+      "y": 266.46,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 12,
+      "text": "All delivered passengers match their wishes. Gain no light or memories here. Retire this route after using it.",
+      "x": 396.85,
+      "y": 300.47,
+      "width": 161.57,
+      "height": 51.2,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "ROUTE / WAVE",
+      "x": 36.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 12,
+      "text": "R10",
+      "x": 36.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 12,
+      "text": "Asphodel",
+      "x": 36.85,
+      "y": 447.87,
+      "width": 161.57,
+      "height": 22.44,
+      "fontSize": 17
+    },
+    {
+      "page": 12,
+      "text": "Deep Reeds",
+      "x": 36.85,
+      "y": 479.06,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "1",
+      "x": 36.85,
+      "y": 510.24,
+      "width": 161.57,
+      "height": 42.24,
+      "fontSize": 32
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 85.04,
+      "y": 527.24,
+      "width": 113.39,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 12,
+      "text": "Deliver any passengers. Only Asphodel wishes match.",
+      "x": 36.85,
+      "y": 561.26,
+      "width": 161.57,
+      "height": 25.6,
+      "fontSize": 10
+    },
+    {
+      "page": 12,
+      "text": "TABLE LABEL",
+      "x": 216.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 12,
+      "text": "L05",
+      "x": 216.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 12,
+      "text": "RETURN",
+      "x": 219.69,
+      "y": 453.54,
+      "width": 155.91,
+      "height": 23.76,
+      "fontSize": 18
+    },
+    {
+      "page": 12,
+      "text": "Not shuffled. Empty boat only. Base fog 0. Pressure and Wraiths apply. One Memory allowed. Advance tide, no light recovery.",
+      "x": 219.69,
+      "y": 515.91,
+      "width": 155.91,
+      "height": 70,
+      "fontSize": 10.5
+    },
+    {
+      "page": 12,
+      "text": "TABLE LABEL",
+      "x": 396.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 12,
+      "text": "L06",
+      "x": 396.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 12,
+      "text": "LAST CHANCE",
+      "x": 399.69,
+      "y": 453.54,
+      "width": 155.91,
+      "height": 23.76,
+      "fontSize": 18
+    },
+    {
+      "page": 12,
+      "text": "After arrival delivery: tainted still aboard at boat move 2 become Wraiths. All others still aboard at move 3 do so. Haven also checks this.",
+      "x": 399.69,
+      "y": 515.91,
+      "width": 155.91,
+      "height": 70,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Memories",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 13,
+      "text": "CUT OUTER BORDERS / KEEP IN RESERVE / DO NOT SHUFFLE",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 13,
+      "text": "13 / 16   \u00b7   Memory cards",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S01",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M01",
+      "x": 36.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "A Mother's Promise",
+      "x": 36.85,
+      "y": 181.42,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Add 2 to one waiting soul's deadline.",
+      "x": 36.85,
+      "y": 212.6,
+      "width": 161.57,
+      "height": 24,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S02",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M02",
+      "x": 216.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "Small Warmth",
+      "x": 216.85,
+      "y": 181.42,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Restore 1 light, up to 6, before this move.",
+      "x": 216.85,
+      "y": 212.6,
+      "width": 161.57,
+      "height": 24,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S03",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M03",
+      "x": 396.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "Red Oath",
+      "x": 396.85,
+      "y": 181.42,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 2 fog on this move.",
+      "x": 396.85,
+      "y": 212.6,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S04",
+      "x": 36.85,
+      "y": 285.73,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M04",
+      "x": 36.85,
+      "y": 374.17,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "Blue Oath",
+      "x": 36.85,
+      "y": 306.14,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 2 fog on this move.",
+      "x": 36.85,
+      "y": 337.32,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S05",
+      "x": 216.85,
+      "y": 285.73,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M05",
+      "x": 216.85,
+      "y": 374.17,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "Last Confession",
+      "x": 216.85,
+      "y": 306.14,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 2 fog on this move.",
+      "x": 216.85,
+      "y": 337.32,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S06",
+      "x": 396.85,
+      "y": 285.73,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M06",
+      "x": 396.85,
+      "y": 374.17,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "A Fool's Laughter",
+      "x": 396.85,
+      "y": 306.14,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Add 2 to one waiting soul's deadline.",
+      "x": 396.85,
+      "y": 337.32,
+      "width": 161.57,
+      "height": 24,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S08",
+      "x": 36.85,
+      "y": 410.46,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M08",
+      "x": 36.85,
+      "y": 498.9,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "The Hero's Oath",
+      "x": 36.85,
+      "y": 430.87,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 3 fog on this move.",
+      "x": 36.85,
+      "y": 462.05,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S09",
+      "x": 216.85,
+      "y": 410.46,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M09",
+      "x": 216.85,
+      "y": 498.9,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "Road Remembered",
+      "x": 216.85,
+      "y": 430.87,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 1 fog on this move.",
+      "x": 216.85,
+      "y": 462.05,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S10",
+      "x": 396.85,
+      "y": 410.46,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M10",
+      "x": 396.85,
+      "y": 498.9,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "A Window Lit",
+      "x": 396.85,
+      "y": 430.87,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Restore 1 light, up to 6, before this move.",
+      "x": 396.85,
+      "y": 462.05,
+      "width": 161.57,
+      "height": 24,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S11",
+      "x": 36.85,
+      "y": 535.18,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M11",
+      "x": 36.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "Unfinished Song",
+      "x": 36.85,
+      "y": 555.59,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 1 fog on this move.",
+      "x": 36.85,
+      "y": 586.77,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S12",
+      "x": 216.85,
+      "y": 535.18,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M12",
+      "x": 216.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "A Familiar Path",
+      "x": 216.85,
+      "y": 555.59,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 1 fog on this move.",
+      "x": 216.85,
+      "y": 586.77,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S13",
+      "x": 396.85,
+      "y": 535.18,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M13",
+      "x": 396.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "A Quiet Apology",
+      "x": 396.85,
+      "y": 555.59,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Restore 1 light, up to 6, before this move.",
+      "x": 396.85,
+      "y": 586.77,
+      "width": 161.57,
+      "height": 24,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "MEMORY / S14",
+      "x": 36.85,
+      "y": 659.91,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 13,
+      "text": "M14",
+      "x": 36.85,
+      "y": 748.35,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 13,
+      "text": "Last Footstep",
+      "x": 36.85,
+      "y": 680.31,
+      "width": 161.57,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 13,
+      "text": "Prevent 1 fog on this move.",
+      "x": 36.85,
+      "y": 711.5,
+      "width": 161.57,
+      "height": 12,
+      "fontSize": 10
+    },
+    {
+      "page": 13,
+      "text": "Earn only from matched ordinary deliveries. One Memory per move. Keep at most three. Permanently discard used and excess cards.",
+      "x": 28.35,
+      "y": 771.02,
+      "width": 538.58,
+      "height": 23.76,
+      "fontSize": 9
+    },
+    {
+      "page": 14,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 14,
+      "text": "Arrival tickets",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 14,
+      "text": "CUT OUTER BORDERS / SHUFFLE FACE DOWN / DO NOT RECYCLE",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 14,
+      "text": "14 / 16   \u00b7   Arrival tickets",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A01",
+      "x": 36.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Mother and Child",
+      "x": 36.85,
+      "y": 184.25,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S01, S02 to the shore.",
+      "x": 36.85,
+      "y": 221.1,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A02",
+      "x": 216.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Rival Soldiers",
+      "x": 216.85,
+      "y": 184.25,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S03, S04 to the shore.",
+      "x": 216.85,
+      "y": 221.1,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A03",
+      "x": 396.85,
+      "y": 249.45,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Killer",
+      "x": 396.85,
+      "y": 184.25,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S05 to the shore.",
+      "x": 396.85,
+      "y": 221.1,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 36.85,
+      "y": 285.73,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A04",
+      "x": 36.85,
+      "y": 374.17,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Fool",
+      "x": 36.85,
+      "y": 308.98,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S06 to the shore.",
+      "x": 36.85,
+      "y": 345.83,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 216.85,
+      "y": 285.73,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A05",
+      "x": 216.85,
+      "y": 374.17,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Po Din",
+      "x": 216.85,
+      "y": 308.98,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S07 to the shore.",
+      "x": 216.85,
+      "y": 345.83,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 396.85,
+      "y": 285.73,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A06",
+      "x": 396.85,
+      "y": 374.17,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Achilles",
+      "x": 396.85,
+      "y": 308.98,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S08 to the shore.",
+      "x": 396.85,
+      "y": 345.83,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 36.85,
+      "y": 410.46,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A07",
+      "x": 36.85,
+      "y": 498.9,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Quiet Soul A",
+      "x": 36.85,
+      "y": 433.7,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S09 to the shore.",
+      "x": 36.85,
+      "y": 470.55,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 216.85,
+      "y": 410.46,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A08",
+      "x": 216.85,
+      "y": 498.9,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Quiet Soul B",
+      "x": 216.85,
+      "y": 433.7,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S10 to the shore.",
+      "x": 216.85,
+      "y": 470.55,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 396.85,
+      "y": 410.46,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A09",
+      "x": 396.85,
+      "y": 498.9,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Quiet Soul C",
+      "x": 396.85,
+      "y": 433.7,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S11 to the shore.",
+      "x": 396.85,
+      "y": 470.55,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 36.85,
+      "y": 535.18,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A10",
+      "x": 36.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Quiet Soul D",
+      "x": 36.85,
+      "y": 558.43,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S12 to the shore.",
+      "x": 36.85,
+      "y": 595.28,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 216.85,
+      "y": 535.18,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A11",
+      "x": 216.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Tainted Soul A",
+      "x": 216.85,
+      "y": 558.43,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S13 to the shore.",
+      "x": 216.85,
+      "y": 595.28,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "ARRIVAL",
+      "x": 396.85,
+      "y": 535.18,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 14,
+      "text": "A12",
+      "x": 396.85,
+      "y": 623.62,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 14,
+      "text": "Tainted Soul B",
+      "x": 396.85,
+      "y": 558.43,
+      "width": 161.57,
+      "height": 15.84,
+      "fontSize": 12
+    },
+    {
+      "page": 14,
+      "text": "Bring S14 to the shore.",
+      "x": 396.85,
+      "y": 595.28,
+      "width": 161.57,
+      "height": 13.2,
+      "fontSize": 10
+    },
+    {
+      "page": 14,
+      "text": "Refill until at least five souls wait or tickets run out. A paired ticket brings both souls and may make six. Write each new deadline using the current tide. Never reuse a ticket this night.",
+      "x": 28.35,
+      "y": 677.48,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 11
+    },
+    {
+      "page": 15,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 15,
+      "text": "River events",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 15,
+      "text": "CUT OUTER BORDERS / SHUFFLE FOUR EVENTS / REVEAL ON TRIPS 2 AND 4",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 15,
+      "text": "15 / 16   \u00b7   Event cards",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 15,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 15,
+      "text": "EVENT",
+      "x": 36.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 15,
+      "text": "E01",
+      "x": 36.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 15,
+      "text": "Thickening Mist",
+      "x": 36.85,
+      "y": 192.76,
+      "width": 161.57,
+      "height": 18.48,
+      "fontSize": 14
+    },
+    {
+      "page": 15,
+      "text": "This trip's first outward move has +1 fog. Return is unaffected.",
+      "x": 36.85,
+      "y": 260.79,
+      "width": 161.57,
+      "height": 42,
+      "fontSize": 10.5
+    },
+    {
+      "page": 15,
+      "text": "EVENT",
+      "x": 216.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 15,
+      "text": "E02",
+      "x": 216.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 15,
+      "text": "Restless Shore",
+      "x": 216.85,
+      "y": 192.76,
+      "width": 161.57,
+      "height": 18.48,
+      "fontSize": 14
+    },
+    {
+      "page": 15,
+      "text": "Before refilling, subtract 1 from every waiting deadline. Immediately turn any now-due soul into a Wraith. New arrivals are unaffected.",
+      "x": 216.85,
+      "y": 260.79,
+      "width": 161.57,
+      "height": 70,
+      "fontSize": 10.5
+    },
+    {
+      "page": 15,
+      "text": "EVENT",
+      "x": 396.85,
+      "y": 161.01,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 15,
+      "text": "E03",
+      "x": 396.85,
+      "y": 385.51,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 15,
+      "text": "Narrow Channel",
+      "x": 396.85,
+      "y": 192.76,
+      "width": 161.57,
+      "height": 18.48,
+      "fontSize": 14
+    },
+    {
+      "page": 15,
+      "text": "The boat has only 3 seats for this trip.",
+      "x": 396.85,
+      "y": 260.79,
+      "width": 161.57,
+      "height": 28,
+      "fontSize": 10.5
+    },
+    {
+      "page": 15,
+      "text": "EVENT",
+      "x": 36.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 15,
+      "text": "E04",
+      "x": 36.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 15,
+      "text": "Merciful Current",
+      "x": 36.85,
+      "y": 453.54,
+      "width": 161.57,
+      "height": 18.48,
+      "fontSize": 14
+    },
+    {
+      "page": 15,
+      "text": "This trip's first outward move has base fog 0. Other fog and Killer drain still apply.",
+      "x": 36.85,
+      "y": 521.57,
+      "width": 161.57,
+      "height": 42,
+      "fontSize": 10.5
+    },
+    {
+      "page": 15,
+      "text": "TABLE LABEL",
+      "x": 216.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 15,
+      "text": "L07",
+      "x": 216.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 15,
+      "text": "PASSAGE",
+      "x": 219.69,
+      "y": 453.54,
+      "width": 155.91,
+      "height": 23.76,
+      "fontSize": 18
+    },
+    {
+      "page": 15,
+      "text": "Earn once: Mother and Child delivered together, both wishes matched. Before a move, spend to send one waiting soul to its wish. Gain 1 wish only.",
+      "x": 219.69,
+      "y": 515.91,
+      "width": 155.91,
+      "height": 84,
+      "fontSize": 10.5
+    },
+    {
+      "page": 15,
+      "text": "TABLE LABEL",
+      "x": 396.85,
+      "y": 421.8,
+      "width": 161.57,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 15,
+      "text": "L08",
+      "x": 396.85,
+      "y": 646.3,
+      "width": 161.57,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 15,
+      "text": "START A TRIP",
+      "x": 399.69,
+      "y": 453.54,
+      "width": 155.91,
+      "height": 23.76,
+      "fontSize": 18
+    },
+    {
+      "page": 15,
+      "text": "Reset boat moves. Clear last Event. On trips 2 and 4, reveal and resolve an Event. Refill waiting shore. Reveal two Routes. Then board.",
+      "x": 399.69,
+      "y": 515.91,
+      "width": 155.91,
+      "height": 70,
+      "fontSize": 10.5
+    },
+    {
+      "page": 16,
+      "text": "THE FERRYMAN / v0.5",
+      "x": 39.69,
+      "y": 36.85,
+      "width": 515.91,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "Markers and workshop record",
+      "x": 28.35,
+      "y": 87.87,
+      "width": 538.58,
+      "height": 29.04,
+      "fontSize": 22
+    },
+    {
+      "page": 16,
+      "text": "CUT ONLY THE SIX MARKERS / KEEP THE RECORD AREA WHOLE",
+      "x": 28.35,
+      "y": 119.06,
+      "width": 538.58,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 16,
+      "text": "16 / 16   \u00b7   Markers and workshop record",
+      "x": 28.35,
+      "y": 799.37,
+      "width": 425.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 16,
+      "text": "A4 \u00b7 100% \u00b7 single-sided",
+      "x": 453.54,
+      "y": 799.37,
+      "width": 113.39,
+      "height": 9.9,
+      "fontSize": 7.5
+    },
+    {
+      "page": 16,
+      "text": "L",
+      "x": 34.02,
+      "y": 160.16,
+      "width": 19.84,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 16,
+      "text": "LIGHT",
+      "x": 28.35,
+      "y": 187.09,
+      "width": 82.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 16,
+      "text": "W",
+      "x": 124.16,
+      "y": 160.16,
+      "width": 19.84,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 16,
+      "text": "WISH",
+      "x": 118.49,
+      "y": 187.09,
+      "width": 82.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 16,
+      "text": "T",
+      "x": 214.3,
+      "y": 160.16,
+      "width": 19.84,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 16,
+      "text": "TIDE",
+      "x": 208.63,
+      "y": 187.09,
+      "width": 82.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 16,
+      "text": "TR",
+      "x": 304.44,
+      "y": 160.16,
+      "width": 19.84,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 16,
+      "text": "TRIP",
+      "x": 298.77,
+      "y": 187.09,
+      "width": 82.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 16,
+      "text": "B",
+      "x": 394.58,
+      "y": 160.16,
+      "width": 19.84,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 16,
+      "text": "BOAT",
+      "x": 388.91,
+      "y": 187.09,
+      "width": 82.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 16,
+      "text": "P",
+      "x": 484.72,
+      "y": 160.16,
+      "width": 19.84,
+      "height": 11.88,
+      "fontSize": 9
+    },
+    {
+      "page": 16,
+      "text": "PASSAGE",
+      "x": 479.06,
+      "y": 187.09,
+      "width": 82.2,
+      "height": 10.56,
+      "fontSize": 8
+    },
+    {
+      "page": 16,
+      "text": "PHYSICAL WORKSHOP RECORD",
+      "x": 28.35,
+      "y": 249.45,
+      "width": 538.58,
+      "height": 21.12,
+      "fontSize": 16
+    },
+    {
+      "page": 16,
+      "text": "Date / player / observer: ______________________________________________",
+      "x": 28.35,
+      "y": 297.64,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "Printer / paper / 50 mm scale check: ____________________________________",
+      "x": 28.35,
+      "y": 340.16,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "Setup started / ready / first move / finish: ______________________________",
+      "x": 28.35,
+      "y": 382.68,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "Ending / trips / wishes / Wraiths: _______________________________________",
+      "x": 28.35,
+      "y": 425.2,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "First confusing rule or component: ____________________________________",
+      "x": 28.35,
+      "y": 467.72,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "A difficult decision and why: __________________________________________",
+      "x": 28.35,
+      "y": 510.24,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "A choice that felt automatic and why: __________________________________",
+      "x": 28.35,
+      "y": 552.76,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "Missing or awkward components: ______________________________________",
+      "x": 28.35,
+      "y": 595.28,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "One change requested after this session: _______________________________",
+      "x": 28.35,
+      "y": 637.8,
+      "width": 538.58,
+      "height": 14.52,
+      "fontSize": 11
+    },
+    {
+      "page": 16,
+      "text": "Record real observations, not inferred enjoyment or balance. An observer does not choose routes, arrivals or passengers. One player controls the game.",
+      "x": 28.35,
+      "y": 708.66,
+      "width": 538.58,
+      "height": 26.4,
+      "fontSize": 10
+    }
+  ],
+  "safeMarginsMm": 10,
+  "components": [
+    {
+      "page": 8,
+      "id": "S01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S04",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S05",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S06",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S07",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S08",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S09",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S10",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S11",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S12",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "S13",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "S14",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L01",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L02",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L03",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L04",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R04",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R05",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R06",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R07",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R08",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R09",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R10",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "L05",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "L06",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 13,
+      "id": "M01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M04",
+      "x_mm": 10.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M05",
+      "x_mm": 73.5,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M06",
+      "x_mm": 137.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M08",
+      "x_mm": 10.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M09",
+      "x_mm": 73.5,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M10",
+      "x_mm": 137.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M11",
+      "x_mm": 10.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M12",
+      "x_mm": 73.5,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M13",
+      "x_mm": 137.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M14",
+      "x_mm": 10.0,
+      "y_mm": 230.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A04",
+      "x_mm": 10.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A05",
+      "x_mm": 73.5,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A06",
+      "x_mm": 137.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A07",
+      "x_mm": 10.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A08",
+      "x_mm": 73.5,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A09",
+      "x_mm": 137.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A10",
+      "x_mm": 10.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A11",
+      "x_mm": 73.5,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A12",
+      "x_mm": 137.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 15,
+      "id": "E01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "E02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "E03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "E04",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "L07",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "L08",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-LIGHT",
+      "x_mm": 10.0,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-WISH",
+      "x_mm": 41.8,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-TIDE",
+      "x_mm": 73.6,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-TRIP",
+      "x_mm": 105.4,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-BOAT",
+      "x_mm": 137.2,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-PASSAGE",
+      "x_mm": 169.0,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+'use strict';
+const F=require('../engine.js'),fs=require('node:fs'),path=require('node:path');
+function apply(s,a){return F.transition(s,a);}
+function subsets(ids){let out=[[]];for(const id of ids)out=out.concat(out.map(x=>[...x,id]));return out;}
+function options(s){const out=[];for(const route of F.routes(s))for(const memory of [null,...s.hand]){const targets=memory&&F.MEM[memory].kind==='calm'?s.shore:[null];for(const target of targets){const p=F.preview(s,route,memory,target);if(p.lethal)continue;let t=apply(apply(s,{type:'PLAN',route,memory,target}),{type:'CROSS'});const delivered=t.phase==='delivery'?subsets(t.boat):[null];for(const ids of delivered){let u=ids?apply(t,{type:'DELIVER',ids}):t;const value=(u.wishes-s.wishes)*5+(u.light-s.light)*1.2-(u.wraiths.length-s.wraiths.length)*5+(s.boat.length-u.boat.length)*.6+(u.hand.length-s.hand.length)*.5-(memory?.startsWith('M08')?.3:0);out.push({route,memory,target,ids,value,u});}}}return out.sort((a,b)=>b.value-a.value);}
+function run(seed){let s=F.create(seed),actions=[],ticks=0;const go=a=>{actions.push(a);s=apply(s,a);F.validate(s);};while(s.phase!=='ended'&&ticks++<300){
+ if(s.quest==='ready'&&s.shore.length&&(s.phase==='route'||s.phase==='boarding')){const id=s.shore.slice().sort((a,b)=>s.deadlines[a]-s.deadlines[b]||F.SOUL[b].seats-F.SOUL[a].seats)[0];go({type:'PASSAGE',id});continue;}
+ if(s.phase==='boarding'){
+  const candidates=subsets(s.shore).filter(ids=>ids.length&&ids.reduce((v,id)=>v+F.SOUL[id].seats,0)<=F.capacity(s));let best=null;
+  for(const ids of candidates){let t=s;for(const id of ids)t=apply(t,{type:'BOARD',id});t=apply(t,{type:'DEPART'});const o=options(t)[0];if(!o)continue;const urgency=ids.reduce((v,id)=>v+(s.deadlines[id]-s.tide<=3?1.7:0),0);const score=o.value+urgency;if(!best||score>best.score)best={ids,score};}
+  const ids=best?.ids||candidates[0];if(!ids)throw new Error('No boarding option');for(const id of ids)go({type:'BOARD',id});go({type:'DEPART'});
+ }else if(s.phase==='route'){const o=options(s)[0];if(!o){go({type:'PLAN',route:F.routes(s)[0]});go({type:'CROSS',acceptFailure:true});continue;}go({type:'PLAN',route:o.route,memory:o.memory,target:o.target});go({type:'CROSS'});if(o.ids&&s.phase==='delivery')go({type:'DELIVER',ids:o.ids});}
+ else if(s.phase==='trim'){const ranked=s.hand.slice().sort((a,b)=>(F.MEM[a].kind==='fog'?F.MEM[a].amount:1)-(F.MEM[b].kind==='fog'?F.MEM[b].amount:1));go({type:'DISCARD',id:ranked[0]});}
+ else throw new Error('Unexpected phase '+s.phase);
+ }if(s.phase!=='ended')throw new Error('Nonterminating policy');return {seed,won:s.ending.won,wishes:s.wishes,tide:s.tide,completed:s.completed,reason:s.ending.reason,actions};}
+const runs=[];for(let seed=1;seed<=100;seed++)runs.push(run(seed));const summary={scope:'Synthetic greedy policy using visible route offers. Not a human balance or time measurement.',seeds:100,wins:runs.filter(r=>r.won).length,losses:runs.filter(r=>!r.won).length,meanWishes:runs.reduce((n,r)=>n+r.wishes,0)/runs.length,runs:runs.map(({actions,...rest})=>rest)};
+fs.writeFileSync(path.join(__dirname,'../verification/simulation-results.json'),JSON.stringify(summary,null,2));const winner=runs.find(r=>r.won);if(winner)fs.writeFileSync(path.join(__dirname,'../verification/winning-replay.json'),JSON.stringify(winner,null,2));console.log(JSON.stringify({wins:summary.wins,losses:summary.losses,meanWishes:summary.meanWishes,winningSeed:winner?.seed}));

@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-04T13:28:40.247547+00:00",
+  "scope": "Extracted portable package rebuilt without the original repository artwork paths. This is a file/build check, not a direct-file browser test.",
+  "status": "PASS",
+  "checks": [
+    "Bundled art and font fallback verified",
+    "Sixteen PDF page drawing streams match after image resource names are normalized by decoded-image hash",
+    "Browser data wrapper bytes match",
+    "Bundled asset provenance hashes match"
+  ]
+}

@@ -1,0 +1,618 @@
+{
+  "pages": 16,
+  "paper": "A4",
+  "print": "color, single-sided, actual size / 100%",
+  "perPlayer": {
+    "souls": 14,
+    "routes": 10,
+    "memories": 13,
+    "arrivalTickets": 12,
+    "events": 4,
+    "labelsAndReferences": 8,
+    "markers": 6
+  },
+  "pageMap": [
+    {
+      "page": 1,
+      "title": "Print and assembly"
+    },
+    {
+      "page": 2,
+      "title": "One-page player guide"
+    },
+    {
+      "page": 3,
+      "title": "Rules / prepare and cross"
+    },
+    {
+      "page": 4,
+      "title": "Rules / souls and memories"
+    },
+    {
+      "page": 5,
+      "title": "Rules / return and example"
+    },
+    {
+      "page": 6,
+      "title": "River dashboard"
+    },
+    {
+      "page": 7,
+      "title": "Boat mat"
+    },
+    {
+      "page": 8,
+      "title": "Soul cards / 1"
+    },
+    {
+      "page": 9,
+      "title": "Soul cards / 2"
+    },
+    {
+      "page": 10,
+      "title": "Soul cards / 3 and table labels"
+    },
+    {
+      "page": 11,
+      "title": "Route cards / 1"
+    },
+    {
+      "page": 12,
+      "title": "Route cards / 2"
+    },
+    {
+      "page": 13,
+      "title": "Memory cards"
+    },
+    {
+      "page": 14,
+      "title": "Arrival tickets"
+    },
+    {
+      "page": 15,
+      "title": "Event cards"
+    },
+    {
+      "page": 16,
+      "title": "Markers and workshop record"
+    }
+  ],
+  "components": [
+    {
+      "page": 8,
+      "id": "S01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S04",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S05",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 8,
+      "id": "S06",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S07",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S08",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S09",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S10",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S11",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 9,
+      "id": "S12",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "S13",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "S14",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L01",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L02",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L03",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 10,
+      "id": "L04",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R04",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R05",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 11,
+      "id": "R06",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R07",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R08",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R09",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "R10",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "L05",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 12,
+      "id": "L06",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 13,
+      "id": "M01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M04",
+      "x_mm": 10.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M05",
+      "x_mm": 73.5,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M06",
+      "x_mm": 137.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M08",
+      "x_mm": 10.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M09",
+      "x_mm": 73.5,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M10",
+      "x_mm": 137.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M11",
+      "x_mm": 10.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M12",
+      "x_mm": 73.5,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M13",
+      "x_mm": 137.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 13,
+      "id": "M14",
+      "x_mm": 10.0,
+      "y_mm": 230.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A04",
+      "x_mm": 10.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A05",
+      "x_mm": 73.5,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A06",
+      "x_mm": 137.0,
+      "y_mm": 98.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A07",
+      "x_mm": 10.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A08",
+      "x_mm": 73.5,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A09",
+      "x_mm": 137.0,
+      "y_mm": 142.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A10",
+      "x_mm": 10.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A11",
+      "x_mm": 73.5,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 14,
+      "id": "A12",
+      "x_mm": 137.0,
+      "y_mm": 186.0,
+      "width_mm": 63.0,
+      "height_mm": 40.0
+    },
+    {
+      "page": 15,
+      "id": "E01",
+      "x_mm": 10.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "E02",
+      "x_mm": 73.5,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "E03",
+      "x_mm": 137.0,
+      "y_mm": 54.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "E04",
+      "x_mm": 10.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "L07",
+      "x_mm": 73.5,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 15,
+      "id": "L08",
+      "x_mm": 137.0,
+      "y_mm": 146.0,
+      "width_mm": 63.0,
+      "height_mm": 88.0
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-LIGHT",
+      "x_mm": 10.0,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-WISH",
+      "x_mm": 41.8,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-TIDE",
+      "x_mm": 73.6,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-TRIP",
+      "x_mm": 105.4,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-BOAT",
+      "x_mm": 137.2,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    },
+    {
+      "page": 16,
+      "id": "TOKEN-PASSAGE",
+      "x_mm": 169.0,
+      "y_mm": 54,
+      "width_mm": 10,
+      "height_mm": 10
+    }
+  ]
+}

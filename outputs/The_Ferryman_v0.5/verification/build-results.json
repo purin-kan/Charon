@@ -1,0 +1,27 @@
+{
+  "builtAt": "2026-10-04T13:18:34.317085+00:00",
+  "sourceHashes": {
+    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4",
+    "rules.json": "a93bb7e9d4b3b86023f1a57d46aec9743c68ad82e3dabf0b6520d2ca2033d27b",
+    "build.py": "ccb309516e470a095de9248673ca8d07e8cbe208f06a4684dd7a85f55a671113"
+  },
+  "outputs": {
+    "Print_and_Play_v0.5.pdf": {
+      "sha256": "67023951aa9b78b6fc7fb1278b5c32d004e71120d0997e3e026ddf17af956336",
+      "pages": 16
+    },
+    "Player_Guide_v0.5.pdf": {
+      "sha256": "1ebc9f28c2bc4db31621e85d5cf1a4f86ec2b22d5c5ad22870bbcc1c27a26b85",
+      "pages": 1
+    }
+  },
+  "inventory": {
+    "souls": 14,
+    "routes": 10,
+    "memories": 13,
+    "arrivalTickets": 12,
+    "events": 4,
+    "labelsAndReferences": 8,
+    "markers": 6
+  }
+}

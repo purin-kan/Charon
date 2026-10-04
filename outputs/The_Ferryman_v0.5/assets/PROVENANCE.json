@@ -1,0 +1,44 @@
+{
+  "note": "Existing portraits copied unchanged. Letter emblems are provisional vector/text graphics, not AI-generated artwork. No final art approval is claimed.",
+  "files": [
+    {
+      "file": "assets/mother.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S01.png",
+      "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/child.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S02.png",
+      "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/red-soldier.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S04.png",
+      "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/blue-soldier.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S06.png",
+      "sha256": "d905271b8d281d46cee1e8d62bb3b41b6e980d7369eed9c376480fcba4f3903f",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/fonts/Vera.ttf",
+      "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/Vera.ttf",
+      "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d"
+    },
+    {
+      "file": "assets/fonts/VeraBd.ttf",
+      "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/VeraBd.ttf",
+      "sha256": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9"
+    },
+    {
+      "file": "assets/fonts/VeraIt.ttf",
+      "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/VeraIt.ttf",
+      "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a"
+    }
+  ]
+}
