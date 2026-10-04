@@ -1,0 +1,146 @@
+P001 
+P002 This is a Paper Demo Guideline
+P003 1. Objective and ending
+P004 Single player.
+P005 Play up to 3 cycles.
+P006 Lose immediately when Light reaches 0, including during fog payment or wraith conversion.
+P007 The Mother and Child quest is optional. Its reward helps the player, but completing it is not required to win.
+P008 Win condition: Endless survival. Souls will never runout, always shuffled back when run out.
+P009 2. Setup, arrivals and character values
+P010 Start with 6 Light, 4 ordinary passenger seats, 0 memories, and all anger counters at 0.
+P011 The initial shore contains Mother, Child, Merchant, Mason and Cook. Shuffle Soldier, Poet and Keeper into the arrival supply.
+P012 After each return, resolve Shore Anger first. Then draw ordinary souls until 5 are waiting, or the supply is empty. Delivered ordinary souls and ordinary souls that become wraiths never return.
+P013 Soul
+P014 Seats
+P015 Preferred destination
+P016 Delivery memory
+P017 Mother
+P018 1
+P019 Tartarus
+P020 Restore 1 Light
+P021 Child
+P022 1
+P023 Haven
+P024 None
+P025 Merchant
+P026 1
+P027 River Styx
+P028 Foresight
+P029 Soldier
+P030 2
+P031 River Styx
+P032 Guard
+P033 Poet
+P034 1
+P035 Elysium
+P036 Foresight
+P037 Cook
+P038 1
+P039 Asphodel
+P040 Calm
+P041 Mason
+P042 1
+P043 Acheron
+P044 Fog Shield
+P045 Keeper
+P046 1
+P047 Asphodel
+P048 Fog Shield
+P049 PoLong
+P050 0
+P051 Tartarus
+P052 None
+P053 Use one card for each ordinary soul and 2 reusable PoLong cards for overlapping tainted arrivals. Each arriving PoLong is a new instance with fresh counters.
+P054 Before leaving the shore, board at least 1 ordinary soul, using no more than 4 seats. Boarding choices can be changed until departure. These characters have no additional passive abilities beyond the rules listed here.
+P055 3. Map generation, visibility and unreachable destinations
+P056 I will order, shuffle, and handout the maps on my own. Dont worry about order. Just get me 6 maps excluding the starting shore.
+P057 Destination
+P058 Base fog
+P059 Haven
+P060 0
+P061 River Styx
+P062 1
+P063 Acheron
+P064 1
+P065 Asphodel
+P066 2
+P067 Elysium
+P068 3
+P069 Tartarus
+P070 3
+P071 4. Forced tainted arrivals and full boats
+P072 A PoLong boards at the start of global outward rounds 3, 6, 9, 12, and so on.
+P073 The round counter continues across cycles. Boarding, returning and instant delivery do not advance it.
+P074 Resolve the optional memory first, then add the scheduled PoLong before travel. If an instant delivery empties the boat, return immediately instead of starting that outward round.
+P075 PoLong uses 0 seats, so it can attach to a full boat without removing another passenger. It cannot be refused. It follows ordinary preferred-destination and Ship Anger rules, with its additional fog effect.
+P076 5. PoLong’s exact debuff
+P077 Use Ship Anger as PoLong’s timer instead of adding a separate counter.
+P078 PoLong’s current Ship Anger
+P079 Added fog
+P080 0 or 1
+P081 0
+P082 2 or 3
+P083 +1
+P084 Reaches 4
+P085 Becomes a wraith and leaves
+P086 Calculate the penalty before crossing. An anger increase at the end of a round affects later crossings, not the crossing just completed.
+P087 Penalties from multiple PoLongs add together. Delivering or removing a PoLong immediately removes its contribution.
+P088 Calm can lower PoLong’s Ship Anger and therefore lower its fog penalty. Remove the separate “every 3 turns” wording from its ability, since that interval controls arrivals.
+P089 6. Memory rules and exact effects
+P090 Start with no memories.
+P091 Play at most 1 memory before each outward round or return.
+P092 Each memory is single-use and leaves the game after use.
+P093 Unused memories persist between cycles.
+P094 Hold at most 3 memories. After receiving rewards,choose to discard any when excess.
+P095 A newly earned memory becomes usable before a later round or return.
+P096 Rewards cannot rescue a player who already reached 0 Light while arriving.
+P097 Memory
+P098 Exact effect
+P099 Restore Light
+P100 Restore 1 Light, up to the maximum of 6.
+P101 Foresight
+P102 Reveal both options at the current fork and the next 2 forks. They remain visible this cycle.
+P103 Guard
+P104 Prevent the next 1 point of Light loss during this outward round or return. It can prevent fog or wraith damage. Any unused protection expires when that round or return ends.
+P105 Calm
+P106 Reduce one living soul’s current anger by 1, to a minimum of 0. Target Shore Anger for a waiting soul or Ship Anger for a passenger.
+P107 Fog Shield
+P108 Reduce the total fog of this crossing by 1, to a minimum of 0. It also works against fog added by PoLong. It does not prevent wraith damage.
+P109 Merchant and Poet each award their own Foresight card. Mason and Keeper each award their own Fog Shield card.
+P110 7. Anger and resolution order
+P111 Ordinary arrivals start at 0 Shore Anger. Boarding starts their separate Ship Anger at 0, regardless of prior Shore Anger. Souls cannot be unloaded back onto the shore after departure.
+P112 Resolve each outward round in this order:
+P113 Optionally play one memory.
+P114 If the boat is empty, return immediately.
+P115 Advance the global round counter and add any scheduled PoLong at Ship Anger 0.
+P116 Choose a destination and calculate fog, including current PoLong penalties.
+P117 Pay Light. If it reaches 0, lose immediately.
+P118 Optionally deliver any matching passengers and receive their rewards.
+P119 Every passenger still aboard gains 1 Ship Anger, including a PoLong that arrived this round.
+P120 Each passenger reaching 4 Ship Anger becomes a wraith: lose 1 Light, then remove it.
+P121 Enforce the memory hand limit. If the boat is empty, return.
+P122 On return, each soul already waiting gains 1 Shore Anger. At 2, it becomes a wraith: lose 1 Light, then remove it. Resolve this before adding new arrivals.
+P123 Wraiths leave permanently and have no continuing fog effect.
+P124 8. Mother and Child quest
+P125 Deliver Child to Haven before delivering Mother to Tartarus. The deliveries may happen in different cycles.
+P126 When Mother is delivered after Child, receive both:
+P127 Mother’s normal Restore Light memory.
+P128 One special Passage memory.
+P129 Passage counts toward the hand limit and the one-memory use limit. It instantly delivers one soul currently aboard, including PoLong, to its preferred destination.
+P130 That delivery gives its normal reward and counts toward the winning target if it is an ordinary soul. It costs no fog and advances no anger or round counter.
+P131 If Passage empties the boat, return immediately. Passage has already used the memory allowance for that return.
+P132 Delivering Mother first, or losing either family member to a wraith before their required delivery, makes the quest unavailable. The quest awards Passage only once.
+P133 9. Light, Haven and returning
+P134 Starting Light: 6.
+P135 Maximum Light: 6.
+P136 Return travel costs 0 Light and is not an outward round.
+P137 Resolve waiting souls’ Shore Anger and wraith losses first.
+P138 If still alive, recover 2 Light, capped at 6.
+P139 Record the completed cycle and check whether the game ends.
+P140 If another cycle remains, refill the shore and generate its map.
+P141 Ordinary deliveries do not automatically restore Light. Mother’s memory provides recovery when played.
+P142 Haven has 0 base fog, but does not heal. PoLong can still add fog there. Replace “free rest point” with “zero-base-fog destination.”
+P143 Wording and example
+P144 Use “round” consistently for outward travel and “cycle” for a complete trip. Replace “one soul of each memory type” with “one of each listed ordinary soul.” State that Child and PoLong give no memory.
+P145 Example: Before global round 6, Light is 4, Keeper and Soldier each have Ship Anger 3, and the player holds a Fog Shield. Play it, then add the scheduled PoLong at anger 0. Choose Asphodel: base fog 2, minus 1 protection, leaves Light 3. Deliver Keeper and receive its memory. Soldier reaches anger 4, becomes a wraith, and reduces Light to 2. PoLong reaches anger 1 and remains aboard, so the cycle continues.
+P146 

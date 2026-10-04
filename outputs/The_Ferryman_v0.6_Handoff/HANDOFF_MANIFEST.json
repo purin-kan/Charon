@@ -1,0 +1,59 @@
+{
+  "createdAt": "2026-10-04T16:24:44.542811+00:00",
+  "kind": "Handoff package, not final game submission",
+  "exclusions": [
+    "HANDOFF_MANIFEST.json",
+    "verification/handoff-check.json"
+  ],
+  "reason": "Self-reporting metadata excluded from payload hashes to avoid circular hashes; ZIP bytes are checked separately.",
+  "files": {
+    "HANDOFF_A_PRINT_AND_ART.md": {
+      "bytes": 11409,
+      "sha256": "d133a85bea01d8d2614ec41be7ab6e3dab880a72866c8b2d60c7b098d442e268"
+    },
+    "HANDOFF_B_DIGITAL_AND_SUBMISSION.md": {
+      "bytes": 10937,
+      "sha256": "a691b289b2570d5e4451f4b016dc42dc1a5d7b8bdbb4b82f327e815a88e08ce3"
+    },
+    "SHARED_RULES.md": {
+      "bytes": 11790,
+      "sha256": "9f2486ed111c3666d2f71910dfac04813678c65d753ec9801a9f1736d0570e15"
+    },
+    "SOURCE_DECISIONS.md": {
+      "bytes": 7063,
+      "sha256": "fa66b77a6e52156675e166152ea996bca70665c32c6d4f597e6cadbcbef5c7f2"
+    },
+    "SOURCE_FRESHNESS.json": {
+      "bytes": 4647,
+      "sha256": "5b4d6ed6a115ed52d37b8dd4da79c3f07c0584a1ba2542a63e236102f75cb62d"
+    },
+    "sources/game guide.docx": {
+      "bytes": 11140,
+      "sha256": "db9f29d58f6595de7e23ab616848946809038585fb0e552664a483edb15eb152"
+    },
+    "sources/game guide.txt": {
+      "bytes": 4489,
+      "sha256": "4a689ed9de211f5c1fb0d4e595f06f95cca6cc1c7fcff43a89d5c2fdaaa69bd0"
+    },
+    "sources/GameDevLeckyohmmechang.docx": {
+      "bytes": 13211,
+      "sha256": "09e67c2a056a0b148262cf98e5056a9105644d8f356ba2c81e2e414ff6dfc15f"
+    },
+    "sources/GameDevLeckyohmmechang.txt": {
+      "bytes": 8247,
+      "sha256": "dffce947faa6b41e586b44b2968a6dd16cb48671a84a86b9c61e557c7878ac3c"
+    },
+    "sources/USER_CLARIFICATIONS.md": {
+      "bytes": 1481,
+      "sha256": "04553de530d04bbdd6432178fb7ba68006fd5612e8af6a2346858b9fbd4ba85d"
+    },
+    "START_HERE.md": {
+      "bytes": 3402,
+      "sha256": "049b087c38ac9732a6ba1ba8d6ea4bf010681c2328ab898c480a51ebf476e077"
+    },
+    "SUBMISSION_CHECKLIST.md": {
+      "bytes": 3391,
+      "sha256": "7ff5d4b1b94209b88bee3372e74072318b84965aa516cba8b2224287eb962f64"
+    }
+  }
+}

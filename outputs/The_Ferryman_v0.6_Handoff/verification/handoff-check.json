@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-04T16:24:44.542811+00:00",
+  "status": "PASS",
+  "scope": "Handoff/source-package integrity only",
+  "checks": {
+    "requiredHandoffFiles": 8,
+    "sourceCopiesByteIdentical": 2,
+    "indexedExtracts": 2,
+    "portableMarkdownLinks": 5,
+    "authoredMarkdownHasNoEmDashOrReplacementGlyph": true,
+    "rosterAndDestinationIdsPresent": true,
+    "payloadManifestHashes": 12
+  },
+  "links": [
+    {
+      "file": "START_HERE.md",
+      "target": "SHARED_RULES.md"
+    },
+    {
+      "file": "START_HERE.md",
+      "target": "SOURCE_DECISIONS.md"
+    },
+    {
+      "file": "START_HERE.md",
+      "target": "HANDOFF_A_PRINT_AND_ART.md"
+    },
+    {
+      "file": "START_HERE.md",
+      "target": "HANDOFF_B_DIGITAL_AND_SUBMISSION.md"
+    },
+    {
+      "file": "START_HERE.md",
+      "target": "SUBMISSION_CHECKLIST.md"
+    }
+  ],
+  "notPerformed": [
+    "Next game implementation",
+    "New art generation",
+    "New print-kit PDF generation",
+    "Game tests",
+    "Physical printing or playtesting",
+    "Submission upload"
+  ]
+}

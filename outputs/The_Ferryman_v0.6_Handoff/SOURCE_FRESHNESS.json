@@ -1,0 +1,94 @@
+{
+  "checkedAt": "2026-10-04T16:24:44.542811+00:00",
+  "latestResultsCommit": "f3a39b2",
+  "latestResultsCommitTime": "2026-10-04T21:59:01+07:00",
+  "projectReferencesOldestFirst": [
+    {
+      "path": "outputs/The_Ferryman_v0.5/tools/package.py",
+      "lastCommit": "2026-10-04 20:32:49 +0700",
+      "sha256AtInspection": "84a5ac0c676cd73bb752426239dec14a67e1406d373a204ae62705b5e983020f",
+      "lastModifiedLocal": "2026-10-04T20:38:36.537556+07:00",
+      "freshness": "POSSIBLY STALE",
+      "authority": "Prior-version reference only, not next-version mechanics or testing evidence"
+    },
+    {
+      "path": "AGENT_CONTEXT.md",
+      "lastCommit": "2026-10-04 21:59:01 +0700",
+      "sha256AtInspection": "8e0a1ea5cac037179db1fbe27aeea8148cdabc90c15dcaa1eaecff429c4be203",
+      "lastModifiedLocal": "2026-10-04T22:54:17.370546+07:00",
+      "freshness": "Matches latest results commit time",
+      "authority": "Prior-version reference only, not next-version mechanics or testing evidence"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/README.md",
+      "lastCommit": "2026-10-04 21:59:01 +0700",
+      "sha256AtInspection": "43526982df8fefc045227a0169c8eb1453dd8f2c5b5a1bc29399824d9e464a26",
+      "lastModifiedLocal": "2026-10-04T22:40:56.920128+07:00",
+      "freshness": "Matches latest results commit time",
+      "authority": "Prior-version reference only, not next-version mechanics or testing evidence"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/RULES.md",
+      "lastCommit": "2026-10-04 21:59:01 +0700",
+      "sha256AtInspection": "4960e34324bde265d21b3457890afe1b348fcc6bec43b5ac1e9c6dbdd7e8c9fc",
+      "lastModifiedLocal": "2026-10-04T22:40:56.921634+07:00",
+      "freshness": "Matches latest results commit time",
+      "authority": "Prior-version reference only, not next-version mechanics or testing evidence"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/VALIDATION.md",
+      "lastCommit": "2026-10-04 21:59:01 +0700",
+      "sha256AtInspection": "581798b74aa2ccef773588f5061f5f2d289fc373dfaf03e2a6f622527d9dadc3",
+      "lastModifiedLocal": "2026-10-04T22:40:56.922639+07:00",
+      "freshness": "Matches latest results commit time",
+      "authority": "Prior-version reference only, not next-version mechanics or testing evidence"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/tools/build.py",
+      "lastCommit": "2026-10-04 21:59:01 +0700",
+      "sha256AtInspection": "0a9575051a2c00c192079b45064c751e753c48ecd5ca61ed0b1ae9089bb90168",
+      "lastModifiedLocal": "2026-10-04T22:40:57.275848+07:00",
+      "freshness": "Matches latest results commit time",
+      "authority": "Prior-version reference only, not next-version mechanics or testing evidence"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/PROVENANCE.json",
+      "lastCommit": "2026-10-04 21:59:01 +0700",
+      "sha256AtInspection": "3b67830048365a47313f9eed90d5c44544eb3a26ddfecc3d7b4d0114e68f35f8",
+      "lastModifiedLocal": "2026-10-04T22:40:56.924644+07:00",
+      "freshness": "Matches latest results commit time",
+      "authority": "Prior-version reference only, not next-version mechanics or testing evidence"
+    }
+  ],
+  "suppliedSourcesOldestFirst": [
+    {
+      "originalPath": "C:\\Users\\purin\\Downloads\\game guide.docx",
+      "copyPath": "sources/game guide.docx",
+      "extractPath": "sources/game guide.txt",
+      "sha256": "db9f29d58f6595de7e23ab616848946809038585fb0e552664a483edb15eb152",
+      "lastModifiedLocal": "2026-10-04T22:39:03.006297+07:00",
+      "gitHistory": "Unavailable: outside repository",
+      "copyBytesMatch": true,
+      "bodyParagraphs": 88,
+      "tables": 2,
+      "trackedChanges": 0,
+      "embeddedImages": 0,
+      "scope": "Text and table content reviewed; source page layout not verified"
+    },
+    {
+      "originalPath": "C:\\Users\\purin\\Downloads\\GameDevLeckyohmmechang.docx",
+      "copyPath": "sources/GameDevLeckyohmmechang.docx",
+      "extractPath": "sources/GameDevLeckyohmmechang.txt",
+      "sha256": "09e67c2a056a0b148262cf98e5056a9105644d8f356ba2c81e2e414ff6dfc15f",
+      "lastModifiedLocal": "2026-10-04T23:07:15.642813+07:00",
+      "gitHistory": "Unavailable: outside repository",
+      "copyBytesMatch": true,
+      "bodyParagraphs": 146,
+      "tables": 4,
+      "trackedChanges": 0,
+      "embeddedImages": 0,
+      "scope": "Text and table content reviewed; source page layout not verified"
+    }
+  ],
+  "note": "Filesystem copy times do not establish new playtest evidence. Reference hashes are inspection snapshots."
+}
