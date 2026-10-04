@@ -1,0 +1,593 @@
+{
+  "checked_utc": "2026-10-04T21:20:34.851131+00:00",
+  "latest_prior_results_commit": "f3a39b2",
+  "baseline_time": "2026-10-04 21:59:01 +0700",
+  "order": "Oldest first by last commit when tracked, otherwise mtime. Original-source audit remains source-freshness.json.",
+  "files": [
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/source-provenance-v03.json",
+      "last_commit": null,
+      "mtime": "2026-09-27T01:03:36.286767+07:00",
+      "sha256": "b8a0a297ee8b2a434420eaeee4319e790a2a08719b654f44e598a1cb8f732006",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/source-provenance-v03-r2.json",
+      "last_commit": null,
+      "mtime": "2026-09-27T10:44:53.796801+07:00",
+      "sha256": "727e712e39acb78d1ba58fa2e9ce252846e824938426f28c6968df444b30b114",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/boat.png",
+      "last_commit": null,
+      "mtime": "2026-09-29T20:40:28.607937+07:00",
+      "sha256": "98756a61bf5d5b13b939c0d8b63c5f73d01710d91c7138918c32ebdf06377d2e",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/source-provenance-v04.json",
+      "last_commit": null,
+      "mtime": "2026-09-29T20:40:28.635928+07:00",
+      "sha256": "8b35393cabcbd8639054e4a3ffc4bf33e6c31ed762ac1764d17043467930d439",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "AGENT_CONTEXT.md",
+      "last_commit": "2026-10-04 23:32:53 +0700",
+      "mtime": "2026-10-05T04:19:04.801138+07:00",
+      "sha256": "bce3392962aa853c7511803b836edb278692f9d70e8e995c32839c6425bc55e5",
+      "possibly_stale": false,
+      "status": "Tracked source; mtime and hash record current working bytes"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/source-memory-art-v04.md",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:35.834431+07:00",
+      "sha256": "877bc2f8e9270ccb239d282204321e7ecb451b62398165b4eb370d932f57971a",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/child.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:36.429770+07:00",
+      "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/fonts/Vera.ttf",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:36.430770+07:00",
+      "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/fonts/VeraBd.ttf",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:36.431774+07:00",
+      "sha256": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/fonts/VeraIt.ttf",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:36.431774+07:00",
+      "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/fonts/bitstream-vera-license.txt",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:36.432775+07:00",
+      "sha256": "268d8e58c04d3535c21e7ef43b835e1b00ba7e1e714fcc06ff2f5d59ee9ce17f",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/mother.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:36.445308+07:00",
+      "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/soldier.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T20:38:36.457329+07:00",
+      "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/source-provenance-v05.json",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:56.924644+07:00",
+      "sha256": "3b67830048365a47313f9eed90d5c44544eb3a26ddfecc3d7b4d0114e68f35f8",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/asphodel.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:56.942679+07:00",
+      "sha256": "a97669e9cd13aadb3cab1f3e8c57abf2933e2d74f2c13b3ec186b03ae069b15c",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/cook.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:56.956198+07:00",
+      "sha256": "de073f0fc55e1dca27a9cd234def57e85dd87fb8a6a7081f58a1c846f7d3f189",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/elysium.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:56.975998+07:00",
+      "sha256": "0ab0336bd71e9ce4250c299ab4901a0c1e3eef1bdca1e71e8711eb98f8e68c38",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/haven.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:56.989018+07:00",
+      "sha256": "c881ecab2c5249a90d6be269a4a7d1b191b4f8e394eead6b7f327f97b000b5c0",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/mason.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:57.002541+07:00",
+      "sha256": "37aeae89b4b4aa39e6f9ba7f60dd29b5890a4bcd2b56bf15444413d10ab16deb",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/memory-calm.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:57.013646+07:00",
+      "sha256": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/memory-fog.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:57.024669+07:00",
+      "sha256": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/memory-light.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:57.037264+07:00",
+      "sha256": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/merchant.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:57.052291+07:00",
+      "sha256": "c9dc76b122c6c21d16fe7bc9f97868b1adf2c9d0bd9b786da1d0e35b06f90491",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/shore.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:57.090242+07:00",
+      "sha256": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/tartarus.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T22:40:57.110294+07:00",
+      "sha256": "f226518732adfa150d00582c02bc4f53e1d13b8d6e6cdb92741d02166fc99e2f",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/source-contract/SHARED_RULES.md",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:17:58.383468+07:00",
+      "sha256": "9f2486ed111c3666d2f71910dfac04813678c65d753ec9801a9f1736d0570e15",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/source-contract/USER_CLARIFICATIONS.md",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:17:58.383468+07:00",
+      "sha256": "04553de530d04bbdd6432178fb7ba68006fd5612e8af6a2346858b9fbd4ba85d",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/source-contract/SOURCE_DECISIONS.md",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:22:34.906830+07:00",
+      "sha256": "fa66b77a6e52156675e166152ea996bca70665c32c6d4f597e6cadbcbef5c7f2",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/INTEGRATION_CONTRACT.md",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:38:48.248068+07:00",
+      "sha256": "e5cb3c201bbf7651d2d8a71e7d112994585b380dfcd13b4bbcf07e9021293507",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/poet.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:39:46.926074+07:00",
+      "sha256": "c8f3629e1da71a6a0218ca5d0c35f267cc089245c614775ac5a7000d0756cfe0",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/keeper.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:40:34.170536+07:00",
+      "sha256": "d3661328f678f1fe8b05ab773d9f43f6f5e99e6c02b21f51944e535b4a4b81aa",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/polong.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:41:38.697535+07:00",
+      "sha256": "a5257fa9fa51f8e7879dac230afae1bf945dc88ee43d3dee28fa8a18f3a00f7a",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/acheron.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:42:20.906832+07:00",
+      "sha256": "a6ac50f8f71d7995643971a99236b7b63820c5ca0c217d56a3f2304ea7273998",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/styx.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:42:59.602222+07:00",
+      "sha256": "6fc608e95118c4e3c760ff5b61eeed09f9e35d1eb834e5761b70a0ef5526b8d2",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/memory-foresight.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:44:19.317111+07:00",
+      "sha256": "835ef3695a1d6b484f37b30da50d31754cd31a0649670eb2717800d6ec6b9afe",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/memory-guard.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:44:56.315050+07:00",
+      "sha256": "90a1eff6c37ad7c5027484e98ff5a654ed37065edd8a9525eed418e2af05eafd",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/assets/art/memory-passage.png",
+      "last_commit": null,
+      "mtime": "2026-10-04T23:45:32.219634+07:00",
+      "sha256": "83f2ccb25648f524935bc3af52e03679e9ea6369409ab18c1334a1dff2b97904",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/LICENSES.md",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:01:06.305621+07:00",
+      "sha256": "4e504adec5b0e821c9e208030a9d0c48795b462f15f60102ae11a803538b93c4",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/README.md",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:01:06.309629+07:00",
+      "sha256": "0e46f9ba4dc55d903948d694677c8c8afe89ce312c5e70677b73a66369b6de5f",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/check_b_projection.py",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:01:06.315132+07:00",
+      "sha256": "6b42c3a55bd235b301b49eab9696eb6c9fc030c56adb6d10370077f411215118",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/verify.py",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:03:35.895474+07:00",
+      "sha256": "5274d229c7b5af028c526b75a1733d735c2c8d00ec344f0ad44b87aaab584bcd",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/check_render_extracts.py",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:03:35.896473+07:00",
+      "sha256": "0362c3cdc1644158401467a00bb4976cf3e0beeafed9a70cda780df1fb478323",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/source-freshness.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:28.075594+07:00",
+      "sha256": "16a802721fc8b37c71e2761a11f9651bad3cbfc3c07b4b81db5a48ba9717eb98",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/runtime.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:28.088616+07:00",
+      "sha256": "ffa5a13d4287c42ccb0e16cb78c65dfca61a605a523a7d2fb731c698288cac75",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/GENERATION_RECORDS.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:28.089616+07:00",
+      "sha256": "70f00e41e4747f696b06c9f6560386ce947fe8ae55e1dce4561c4d9690abea8f",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/art/ASSET_MANIFEST.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:28.090615+07:00",
+      "sha256": "0775c31733faade2a33521d2b412fd984b4bd2879453b3c43b90e7f2b159f204",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/printed-content-contract.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:28.678856+07:00",
+      "sha256": "ea2b9876d6e0dc32024b84b4104e50210fd77fc2dbc3804d9bedfcbb9af0a6ee",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/Print_and_Play_v0.6.pdf",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.620975+07:00",
+      "sha256": "e7060289ba37fea763789170dd7796ef6601098d6ce14afe4822dfb226345a2a",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/Cutout_Sheets_v0.6.pdf",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.648130+07:00",
+      "sha256": "8bfabf71c721d1eeed0080dea98d82c5272866b7ca9401c800e0f6497b2403d4",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/Player_Guide_v0.6.pdf",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.651079+07:00",
+      "sha256": "02bc1f62b508bc064f9703f4eebe4664b67fc6fa76ecfb9736402b18b25edade",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/Assembly_and_Setup_v0.6.pdf",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.654092+07:00",
+      "sha256": "698c10c73e5681f084fda5f5d6924de2515f33290350beb1f17e0eca8f91b2de",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/Full_Rules_v0.6.pdf",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.658853+07:00",
+      "sha256": "acdd9d78a9fd48856edc30172a4be71a6915afe462d65ffadde6732996f47f58",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/Workshop_Record_v0.6.pdf",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.660856+07:00",
+      "sha256": "8e83019129072670cff7a6e35f76f6c94cc628a3364a3661084ec1eb49ee91c2",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/layout-ledger.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.668389+07:00",
+      "sha256": "80215d7a183443e04df24dff5341c623a0419fe349b0611bea7efdc38694b715",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/text-ledger.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.670364+07:00",
+      "sha256": "4739f0a3c46f9c199109c6cedaec0a9237726aa4ec346ccaf56cbcbcc24bb932",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/build-result.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:33.725368+07:00",
+      "sha256": "b340f51cbe43c2ff5ae95aa75eb1d18e455ffbea05b9fb756cb7b9f998567059",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/static-results.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:41.616713+07:00",
+      "sha256": "641cba1b42c544dfce899bb801be6b4d568c96dcff98051b0518f0d040b3226a",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/supply-results.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:41.616713+07:00",
+      "sha256": "8b111fcf81c22e481705cedb35ec2821b45b0f4e5fcce56d34ab30a2bf7f0e52",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/render-receipt.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:41.657103+07:00",
+      "sha256": "93c4ddb1a13d0129ee03090e84addc8d9117cec57e1f151bd48d8f605cd7a4fb",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/extracted-render-comparison.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:05:47.491450+07:00",
+      "sha256": "1f5b6602293d95c1aa702c0e77520beb2a53ef3f6e739d9f5cc58b59f6b2bdd3",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/desk-walkthroughs.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:07:02.175575+07:00",
+      "sha256": "d13cd7b9331b1a5cf0dbcd1cd089c39a9edc3d22b041a57e1e3bc73bca507c27",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/build.py",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:14:33.936138+07:00",
+      "sha256": "8f575107a16691f853f350a126f13650f2c6df952fb6060cf72e08ada0ac783c",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/INTEGRATION_FOR_B.md",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:14:33.937175+07:00",
+      "sha256": "a1b7d36492107d9a820c1dbd7352c1d3d5446bf0fc97a942e1f7c377e4c67e77",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/README.md",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:14:33.937175+07:00",
+      "sha256": "8ff70659233d0fd3e1c7c26bb516bde8036f389f8e16c1ad7d8b44677464b68b",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/visual-review.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:15:48.613215+07:00",
+      "sha256": "ebb3c9a7d3d1f58fbd6988ee38b99d105920a275912cfd6f1ae852cf8bf15fcd",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/human-checks.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:15:48.613719+07:00",
+      "sha256": "0739fe8811e93ed9a114a4e75bd9aff6b40249cb92f9886d79e9f2abe08ed025",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/b-content-comparison.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:15:48.625617+07:00",
+      "sha256": "ee537cb973af23dbab383ed23864667fe5b02713dca083d02e098830b8a7c22d",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/COMPONENT_INVENTORY.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:15:54.737025+07:00",
+      "sha256": "17d3ea7a68d134eef358d78841940b9104c375d405cf4f62bb34529320e80ab0",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/COMPONENT_INVENTORY.md",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:15:54.749301+07:00",
+      "sha256": "5a0eb2221dcefa8f0d6fabed40cec287862a4a0cc6cfb8afd429972e7d2672fc",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/verification/print/portable-rebuild.json",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:15:57.439851+07:00",
+      "sha256": "3be8be6d3bc38a90429cefe987417fb1a646297375f42f99a8602f7233198e86",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/print/VALIDATION.md",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:17:29.884654+07:00",
+      "sha256": "ae941dee5c88d1eb73086396eda7802e2ff4fb389c480ff4ba42fbe304197c28",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6/tools/print/package_a.py",
+      "last_commit": null,
+      "mtime": "2026-10-05T04:19:04.799341+07:00",
+      "sha256": "e6381ed5ba1c529954480ae6e4f7ab55e71585477ed308526de174834cac150f",
+      "possibly_stale": false,
+      "status": "New uncommitted A output; no Git freshness date or human test implied"
+    }
+  ],
+  "exclusions": [
+    "A_DELIVERY_MANIFEST.json",
+    "Handoff_A_v0.6.zip",
+    "Handoff_A_v0.6.zip.sha256",
+    "a-package-check.json",
+    "delivery-freshness.json",
+    "source-integrity.json"
+  ],
+  "note": "Package manifest covers final delivered bytes; this audit excludes itself and post-audit packaging records to avoid circular hashes."
+}

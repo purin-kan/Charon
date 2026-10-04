@@ -1,0 +1,183 @@
+{
+  "status": "PASS",
+  "preserved_source_file_count": 31,
+  "source_files": [
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo_v0.3/assets/art/PROVENANCE.json",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo_v0.3/assets/art/PROVENANCE_R2.json",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/PROVENANCE.json",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/boat.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_Digital_Demo_v0.4/memory-art.md",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/child.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/fonts/Vera.ttf",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/fonts/VeraBd.ttf",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/fonts/VeraIt.ttf",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/fonts/bitstream-vera-license.txt",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/mother.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/red-soldier.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/PROVENANCE.json",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/asphodel.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/cook.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/elysium.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/haven.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/mason.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/memory-calm.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/memory-fog.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/memory-light.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/merchant.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/shore.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/assets/tartarus.png",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/index.html",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.5/styles.css",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6_Handoff/HANDOFF_A_PRINT_AND_ART.md",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6_Handoff/SHARED_RULES.md",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6_Handoff/SOURCE_DECISIONS.md",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6_Handoff/START_HERE.md",
+      "exists": true,
+      "unchanged": true
+    },
+    {
+      "path": "outputs/The_Ferryman_v0.6_Handoff/sources/USER_CLARIFICATIONS.md",
+      "exists": true,
+      "unchanged": true
+    }
+  ],
+  "rule_snapshots": [
+    {
+      "name": "SHARED_RULES.md",
+      "byte_equal": true,
+      "normalized_text_equal": true
+    },
+    {
+      "name": "SOURCE_DECISIONS.md",
+      "byte_equal": true,
+      "normalized_text_equal": true
+    },
+    {
+      "name": "USER_CLARIFICATIONS.md",
+      "byte_equal": true,
+      "normalized_text_equal": true
+    }
+  ],
+  "tracked_changed_files": [
+    "AGENT_CONTEXT.md"
+  ],
+  "git_diff_check": "PASS",
+  "scope": "All recorded source hashes except the explicitly updated project context remain unchanged. New files confined to A-owned output roots; temporary work kept under work/."
+}
