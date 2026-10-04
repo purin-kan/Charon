@@ -1,0 +1,133 @@
+{
+  "scope": "Agent desk audit of printed instructions and components. No physical printing or human play occurred.",
+  "recordedAt": "2026-10-04T13:18:34.464109+00:00",
+  "visualReview": {
+    "masterPagesInspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "renderDpi": 110,
+    "corrected": [
+      "Portrait face crop placement",
+      "Markers reduced to 10 x 10 mm to fit tracks",
+      "Guide wording for event fog, route discard and waiting deadlines"
+    ],
+    "finalAffectedPagesRechecked": [
+      2,
+      8,
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "procedureChecks": [
+    {
+      "case": "Setup and random supply",
+      "result": "PASS",
+      "observation": "Twelve Arrival tickets cover fourteen unique Soul IDs. Mother/Child and the soldiers use paired tickets. Separate Routes and Events piles and a fixed Memory reserve need no facilitator."
+    },
+    {
+      "case": "Trackers",
+      "result": "PASS",
+      "observation": "Five markers cover light, wishes, tide, trip and boat moves. Wraith cards count their own ongoing tax. Passage is a held token. Deadline fields are erasable."
+    },
+    {
+      "case": "Waiting calculation",
+      "result": "PASS",
+      "observation": "At tide 2 a new ordinary soul writes deadline 7, Fool writes 5. The tide advances once per surviving move, including return. No card-by-card increments are needed."
+    },
+    {
+      "case": "Boat capacity and cohorts",
+      "result": "PASS",
+      "observation": "Four seats are shown, Achilles uses two. All passengers board before moving, so a single common move counter is sufficient."
+    },
+    {
+      "case": "Printed payment example",
+      "result": "PASS",
+      "observation": "4 light minus Killer drain 1 minus base fog 1 leaves 2. Tide 2 becomes 3. Waiting Po Din at deadline 3 becomes a Wraith for later moves. Two matched Tartarus souls give two wishes and two memories but one light, ending at 3. Return costs one Wraith fog. Engine regression independently checks these numbers."
+    },
+    {
+      "case": "Expiry order",
+      "result": "PASS",
+      "observation": "Tainted passengers can deliver on move 2, normal passengers on move 3. Those retained become Wraiths only after that delivery chance. Haven offers no delivery but still checks expiry."
+    },
+    {
+      "case": "Rewards and finite pieces",
+      "result": "PASS",
+      "observation": "Each matched ordinary soul draws its printed unique Memory ID, except Po Din. Thirteen Memory pieces cover all possible awards without duplicates or reshuffling. Excess cards are chosen and removed."
+    },
+    {
+      "case": "Haven and Sanctuary",
+      "result": "PASS",
+      "observation": "Haven pays costs before restoring light, while Sanctuary grants only matched wishes and retires its unique route. Pressure and clocks remain applicable."
+    },
+    {
+      "case": "Quest",
+      "result": "PASS",
+      "observation": "A matched family delivery earns Passage once. It targets only a waiting Soul card, moves it to Delivered, adds one wish and consumes the token."
+    },
+    {
+      "case": "Returns and events",
+      "result": "PASS",
+      "observation": "An empty boat returns, pays pressure/Wraith fog and advances tide. Trips 2 and 4 use an Event before refill. Restless Shore adjusts existing deadlines before new arrivals."
+    },
+    {
+      "case": "Finite ending",
+      "result": "PASS",
+      "observation": "Four completed trips provide an ending; the final return must be paid. Empty supply and shore after a survived return can end earlier. Exact zero light survives."
+    },
+    {
+      "case": "Reset",
+      "result": "PASS",
+      "observation": "Soul, Memory, Route, Arrival and Event pieces can all be collected and reused. Restore Sanctuary, erase deadlines and reshuffle three piles. No one-use printed form is required for play."
+    }
+  ],
+  "notRun": [
+    "Physical printer scale and clipping",
+    "Cutting and opaque backs",
+    "Actual-size legibility and handling",
+    "Human rules learning, duration, balance and enjoyment"
+  ],
+  "finalRenderComparison": {
+    "dpi": 110,
+    "sameAsReviewedPages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "differentPages": []
+  },
+  "sourceHashes": {
+    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4",
+    "rules.json": "a93bb7e9d4b3b86023f1a57d46aec9743c68ad82e3dabf0b6520d2ca2033d27b",
+    "print/Print_and_Play_v0.5.pdf": "67023951aa9b78b6fc7fb1278b5c32d004e71120d0997e3e026ddf17af956336"
+  }
+}

@@ -1,8 +1,21 @@
 # Deliverables and version guide
 
-Status checked September 29, 2026. The current browser prototype is v0.4. The physical workshop kit remains v0.3 and uses different rules.
+Status checked October 4, 2026. The current workshop iteration is v0.5, with matching single-player browser and paper rules. Earlier versions remain available below and use different rules.
 
-## Current v0.4 browser deliverables
+## Current v0.5 workshop iteration
+
+| Material | Location |
+|---|---|
+| Complete download | [v0.5 ZIP](The_Ferryman_v0.5.zip), extract and open index.html |
+| Browser game | [Play locally](The_Ferryman_v0.5/index.html), [launch instructions](The_Ferryman_v0.5/README.md) |
+| Color A4 print kit | [Complete 16-page PDF](The_Ferryman_v0.5/print/Print_and_Play_v0.5.pdf), single-sided, actual size / 100% |
+| Quick player guide | [One-page PDF](The_Ferryman_v0.5/print/Player_Guide_v0.5.pdf), also kit page 2 |
+| Rules and design | [Rules](The_Ferryman_v0.5/RULES.md), [workbook](The_Ferryman_v0.5/DESIGN_WORKBOOK.md), [feedback decisions](The_Ferryman_v0.5/DESIGN_DECISIONS.md) |
+| Checks and remaining workshop work | [Validation](The_Ferryman_v0.5/VALIDATION.md) |
+
+The four-trip night and eight-wish goal are provisional. The 20-30-minute target, physical handling and human balance remain untested. No facilitator or additional player is needed. Keep all components from the same version.
+
+## Preserved v0.4 browser deliverables
 
 | Material | Location | Status |
 |---|---|---|
@@ -42,4 +55,4 @@ The original art ZIP is a superseded revision, retained for history. The full di
 | Earlier opinion | [The_Ferryman_Playtest_Opinion.md](The_Ferryman_Playtest_Opinion.md) | Historical interpretation of the old prototype |
 | Earlier detailed handoff | [The_Ferryman_Project_Handoff_Prompt.md](The_Ferryman_Project_Handoff_Prompt.md) | Historical handoff with superseded paths/decisions; use root AGENT_CONTEXT.md now |
 
-Folders remain in place so local links and recorded evidence stay stable. Keep legacy material separate from current v0.3 workshop instructions. Rebuild and verify a distribution ZIP when its packaged files change. Windows checkout line endings can differ from release hashes without changing content; the workshop ZIP remains the recorded release artifact.
+Folders remain in place so local links and recorded evidence stay stable. Keep legacy material separate from current v0.5 workshop instructions. Rebuild and verify a distribution ZIP when its packaged files change. Windows checkout line endings can differ from release hashes without changing content; each workshop ZIP preserves its recorded release bytes.

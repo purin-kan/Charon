@@ -1,0 +1,164 @@
+{
+  "scope": "Automated engine checks, not human playtests.",
+  "createdAt": "2026-10-04T13:11:43.848Z",
+  "counts": {
+    "passed": 37,
+    "failed": 0
+  },
+  "randomSeeds": 200,
+  "randomTransitions": 4820,
+  "sourceHashes": {
+    "engine.js": "57f7240c8b8f64b2d6e1e1427bf8777657ace35937d8e70e316f959fd03b85aa",
+    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4"
+  },
+  "records": [
+    {
+      "name": "Seed reproducibility and input immutability",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid seeds rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Paired arrival packets are always together",
+      "status": "PASS"
+    },
+    {
+      "name": "Boat capacity includes Achilles two seats",
+      "status": "PASS"
+    },
+    {
+      "name": "Cannot depart empty or return loaded",
+      "status": "PASS"
+    },
+    {
+      "name": "Boarding and unboarding preserve waiting deadline",
+      "status": "PASS"
+    },
+    {
+      "name": "Exact zero light survives; excess fog fails before arrival",
+      "status": "PASS"
+    },
+    {
+      "name": "Known lethal crossings need explicit confirmation",
+      "status": "PASS"
+    },
+    {
+      "name": "Back does not consume a memory or advance time",
+      "status": "PASS"
+    },
+    {
+      "name": "Killer drain cannot be prevented by fog protection",
+      "status": "PASS"
+    },
+    {
+      "name": "Light memory happens before Killer drain and fog, with cap",
+      "status": "PASS"
+    },
+    {
+      "name": "Soldier conflict counted once per pair",
+      "status": "PASS"
+    },
+    {
+      "name": "Waiting deadline advances per move; new Wraith tax begins next move",
+      "status": "PASS"
+    },
+    {
+      "name": "Calm memory postpones one deadline, without shielding fog",
+      "status": "PASS"
+    },
+    {
+      "name": "Calm requires a waiting target and other memories reject targets",
+      "status": "PASS"
+    },
+    {
+      "name": "Tainted passenger may deliver on second move before Ship Wraith check",
+      "status": "PASS"
+    },
+    {
+      "name": "Tainted passenger left aboard after second delivery becomes Wraith",
+      "status": "PASS"
+    },
+    {
+      "name": "Normal passenger expires only after third arrival delivery",
+      "status": "PASS"
+    },
+    {
+      "name": "Haven advances clocks, delivers nobody and can create Ship Wraith",
+      "status": "PASS"
+    },
+    {
+      "name": "Haven cannot rescue a lethal approach",
+      "status": "PASS"
+    },
+    {
+      "name": "Multiple matched souls grant only one light per landing",
+      "status": "PASS"
+    },
+    {
+      "name": "Quest passage gives only a wish and consumes token once",
+      "status": "PASS"
+    },
+    {
+      "name": "Sanctuary matches all wishes but grants no light or memories; retires once",
+      "status": "PASS"
+    },
+    {
+      "name": "Unmatched souls deliver safely without rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Po Din grants wish and landing light but no memory",
+      "status": "PASS"
+    },
+    {
+      "name": "Duplicate delivery and replaying delivery are rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "Memory overflow requires player choice and cards are permanently spent",
+      "status": "PASS"
+    },
+    {
+      "name": "Return has pressure and Wraith fog, no recovery, and advances waiting",
+      "status": "PASS"
+    },
+    {
+      "name": "First-move events modify only their advertised part of fog",
+      "status": "PASS"
+    },
+    {
+      "name": "Narrow Channel limits seats to three",
+      "status": "PASS"
+    },
+    {
+      "name": "Return on final trip decides ending only after surviving cost",
+      "status": "PASS"
+    },
+    {
+      "name": "Save round trip retains pending move and rejects tampered forecasts",
+      "status": "PASS"
+    },
+    {
+      "name": "Save rejects duplicate souls, excess hand, wrong version, oversized input",
+      "status": "PASS"
+    },
+    {
+      "name": "Empty shore and supply end after a survived return",
+      "status": "PASS"
+    },
+    {
+      "name": "Passage on the final waiting soul cannot strand an empty boarding phase",
+      "status": "PASS"
+    },
+    {
+      "name": "Printed example matches payment, deadline, rewards and return",
+      "status": "PASS"
+    },
+    {
+      "name": "200 seeded legal random nights terminate with validated invariants",
+      "status": "PASS"
+    }
+  ]
+}

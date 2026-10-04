@@ -1,0 +1,58 @@
+{
+  "scope": "Static artifact checks, not a physical print or human playtest.",
+  "createdAt": "2026-10-04T13:30:44.197987+00:00",
+  "counts": {
+    "passed": 6,
+    "failed": 0
+  },
+  "details": {
+    "componentCount": 67,
+    "masterPages": 16,
+    "guidePages": 1,
+    "glyphCount": 21757,
+    "minimumTextPt": 7.5,
+    "embeddedUsedFonts": [
+      "AAAAAA+BitstreamVeraSans-Bold",
+      "AAAAAA+BitstreamVeraSans-Roman"
+    ],
+    "guideMatchesMasterPage": 2,
+    "calibrationMm": 50,
+    "localLinksChecked": 36
+  },
+  "records": [
+    {
+      "name": "Build and evidence hashes",
+      "status": "PASS"
+    },
+    {
+      "name": "Component inventory, mapping and geometry",
+      "status": "PASS"
+    },
+    {
+      "name": "PDF dimensions, guide equality, glyphs, fonts and calibration",
+      "status": "PASS"
+    },
+    {
+      "name": "Reused art and font provenance",
+      "status": "PASS"
+    },
+    {
+      "name": "Browser/rules/guide source consistency",
+      "status": "PASS"
+    },
+    {
+      "name": "Package local links",
+      "status": "PASS"
+    }
+  ],
+  "sourceHashes": {
+    "content.json": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4",
+    "rules.json": "a93bb7e9d4b3b86023f1a57d46aec9743c68ad82e3dabf0b6520d2ca2033d27b",
+    "engine.js": "57f7240c8b8f64b2d6e1e1427bf8777657ace35937d8e70e316f959fd03b85aa",
+    "app.js": "3a0231bf2525d361019ebf318377f8e7567342b5c10f832d48955b5f804284fb",
+    "index.html": "72c7bc9e2d97d78648500dec22998198c82ee283137d36f828941d82648c339b",
+    "styles.css": "02ee8cebfb78dc23b65cd490f4ad0ca91aecc5a517dee3561a5aa5819ed7e92d",
+    "print/Print_and_Play_v0.5.pdf": "67023951aa9b78b6fc7fb1278b5c32d004e71120d0997e3e026ddf17af956336",
+    "print/Player_Guide_v0.5.pdf": "1ebc9f28c2bc4db31621e85d5cf1a4f86ec2b22d5c5ad22870bbcc1c27a26b85"
+  }
+}

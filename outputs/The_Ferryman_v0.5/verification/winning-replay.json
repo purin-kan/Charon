@@ -1,0 +1,187 @@
+{
+  "seed": 1,
+  "won": true,
+  "wishes": 8,
+  "tide": 8,
+  "completed": 4,
+  "reason": "Dawn: 8 wishes fulfilled and the final return survived.",
+  "actions": [
+    {
+      "type": "BOARD",
+      "id": "S07"
+    },
+    {
+      "type": "BOARD",
+      "id": "S13"
+    },
+    {
+      "type": "BOARD",
+      "id": "S09"
+    },
+    {
+      "type": "BOARD",
+      "id": "S12"
+    },
+    {
+      "type": "DEPART"
+    },
+    {
+      "type": "PLAN",
+      "route": "R10",
+      "memory": null,
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    },
+    {
+      "type": "DELIVER",
+      "ids": [
+        "S07",
+        "S13",
+        "S09",
+        "S12"
+      ]
+    },
+    {
+      "type": "PLAN",
+      "route": "return",
+      "memory": "M13",
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    },
+    {
+      "type": "BOARD",
+      "id": "S05"
+    },
+    {
+      "type": "BOARD",
+      "id": "S06"
+    },
+    {
+      "type": "BOARD",
+      "id": "S03"
+    },
+    {
+      "type": "BOARD",
+      "id": "S14"
+    },
+    {
+      "type": "DEPART"
+    },
+    {
+      "type": "PLAN",
+      "route": "R06",
+      "memory": null,
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    },
+    {
+      "type": "DELIVER",
+      "ids": [
+        "S05",
+        "S06",
+        "S03",
+        "S14"
+      ]
+    },
+    {
+      "type": "PLAN",
+      "route": "return",
+      "memory": null,
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    },
+    {
+      "type": "BOARD",
+      "id": "S04"
+    },
+    {
+      "type": "BOARD",
+      "id": "S11"
+    },
+    {
+      "type": "BOARD",
+      "id": "S01"
+    },
+    {
+      "type": "BOARD",
+      "id": "S02"
+    },
+    {
+      "type": "DEPART"
+    },
+    {
+      "type": "PLAN",
+      "route": "R01",
+      "memory": "M05",
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    },
+    {
+      "type": "DELIVER",
+      "ids": [
+        "S04",
+        "S11",
+        "S01",
+        "S02"
+      ]
+    },
+    {
+      "type": "DISCARD",
+      "id": "M14"
+    },
+    {
+      "type": "PASSAGE",
+      "id": "S08"
+    },
+    {
+      "type": "PLAN",
+      "route": "return",
+      "memory": "M03",
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    },
+    {
+      "type": "BOARD",
+      "id": "S10"
+    },
+    {
+      "type": "DEPART"
+    },
+    {
+      "type": "PLAN",
+      "route": "R09",
+      "memory": null,
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    },
+    {
+      "type": "DELIVER",
+      "ids": [
+        "S10"
+      ]
+    },
+    {
+      "type": "PLAN",
+      "route": "return",
+      "memory": "M02",
+      "target": null
+    },
+    {
+      "type": "CROSS"
+    }
+  ]
+}

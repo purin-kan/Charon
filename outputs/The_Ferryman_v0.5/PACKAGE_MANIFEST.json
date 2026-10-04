@@ -1,0 +1,178 @@
+{
+  "createdAt": "2026-10-04T13:32:07.437527+00:00",
+  "scope": "Hashes cover every payload file except this manifest and verification/package-check.json, which describe this package.",
+  "files": {
+    ".gitattributes": {
+      "bytes": 316,
+      "sha256": "9730cf0bae0f4fe717cc6ae6278628bbce528da3fc9aecdba68917253f9ca08d"
+    },
+    "app.js": {
+      "bytes": 15874,
+      "sha256": "3a0231bf2525d361019ebf318377f8e7567342b5c10f832d48955b5f804284fb"
+    },
+    "assets/blue-soldier.png": {
+      "bytes": 2734851,
+      "sha256": "d905271b8d281d46cee1e8d62bb3b41b6e980d7369eed9c376480fcba4f3903f"
+    },
+    "assets/child.png": {
+      "bytes": 2640040,
+      "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2"
+    },
+    "assets/fonts/bitstream-vera-license.txt": {
+      "bytes": 6078,
+      "sha256": "268d8e58c04d3535c21e7ef43b835e1b00ba7e1e714fcc06ff2f5d59ee9ce17f"
+    },
+    "assets/fonts/Vera.ttf": {
+      "bytes": 65932,
+      "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d"
+    },
+    "assets/fonts/VeraBd.ttf": {
+      "bytes": 58716,
+      "sha256": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9"
+    },
+    "assets/fonts/VeraIt.ttf": {
+      "bytes": 63684,
+      "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a"
+    },
+    "assets/mother.png": {
+      "bytes": 2932143,
+      "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212"
+    },
+    "assets/PROVENANCE.json": {
+      "bytes": 1920,
+      "sha256": "bb1faf88a7646c13e00d71b4fd5fee6183e907ada7ed88dbfba376b79bca929d"
+    },
+    "assets/red-soldier.png": {
+      "bytes": 2754376,
+      "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0"
+    },
+    "content.js": {
+      "bytes": 14228,
+      "sha256": "1b18651f0bfb6d58bb7c1286337cbfd6222fc9580ec234207593d53a64d3031d"
+    },
+    "content.json": {
+      "bytes": 10392,
+      "sha256": "6036323fa00429fc78d882501491d5c2d6e8794b148ef3093d28ee04749617e4"
+    },
+    "DESIGN_DECISIONS.md": {
+      "bytes": 5881,
+      "sha256": "15b3836b47f7e3f16b23c7337aab48069d77ebca0a980e39664be7c4baf789a5"
+    },
+    "DESIGN_WORKBOOK.md": {
+      "bytes": 5312,
+      "sha256": "83de08689dfb8cc19df4b4d168855239bccc1066edb14c37a815d1570cca004c"
+    },
+    "engine.js": {
+      "bytes": 14147,
+      "sha256": "57f7240c8b8f64b2d6e1e1427bf8777657ace35937d8e70e316f959fd03b85aa"
+    },
+    "index.html": {
+      "bytes": 2026,
+      "sha256": "72c7bc9e2d97d78648500dec22998198c82ee283137d36f828941d82648c339b"
+    },
+    "print/COMPONENT_INVENTORY.json": {
+      "bytes": 11279,
+      "sha256": "a5b3dd0c444c395b84eac963c73e54bc64ab7c22735d828bb06aeb3397b8fc1b"
+    },
+    "print/Player_Guide_v0.5.pdf": {
+      "bytes": 43496,
+      "sha256": "1ebc9f28c2bc4db31621e85d5cf1a4f86ec2b22d5c5ad22870bbcc1c27a26b85"
+    },
+    "print/Print_and_Play_v0.5.pdf": {
+      "bytes": 15682464,
+      "sha256": "67023951aa9b78b6fc7fb1278b5c32d004e71120d0997e3e026ddf17af956336"
+    },
+    "QUICK_START.md": {
+      "bytes": 2506,
+      "sha256": "6e164831f7a25bfcc6ecd6b2b08f1fcce77e4fd5735ea96e39cc9d89d6b716fe"
+    },
+    "README.md": {
+      "bytes": 3626,
+      "sha256": "d1f517c661cdaceb28b413db21edf723c5a55a212a7f4c0a355b762efe858727"
+    },
+    "rules.json": {
+      "bytes": 7117,
+      "sha256": "a93bb7e9d4b3b86023f1a57d46aec9743c68ad82e3dabf0b6520d2ca2033d27b"
+    },
+    "RULES.md": {
+      "bytes": 7136,
+      "sha256": "1ff45515fdb6acc259654a05f92f88611e840b2e4122fd311513009aab349797"
+    },
+    "source/game_feedback.md": {
+      "bytes": 5281,
+      "sha256": "5e3ebc5a5a2af020dec158c4e45f8acabf9cdc7b3e06c38b686d71c8e7683103"
+    },
+    "styles.css": {
+      "bytes": 7660,
+      "sha256": "02ee8cebfb78dc23b65cd490f4ad0ca91aecc5a517dee3561a5aa5819ed7e92d"
+    },
+    "tests/engine-check.js": {
+      "bytes": 13742,
+      "sha256": "e9e375c3f705b87ef524bb965d3773e06ef700e783957597cf85158375290e96"
+    },
+    "tests/simulation.js": {
+      "bytes": 3431,
+      "sha256": "9819f4c6fe0974b61a713b51d9b8f78c6722c822e1b5fe128806ece570ebca08"
+    },
+    "tools/build.py": {
+      "bytes": 20811,
+      "sha256": "ccb309516e470a095de9248673ca8d07e8cbe208f06a4684dd7a85f55a671113"
+    },
+    "tools/check_artifacts.py": {
+      "bytes": 7836,
+      "sha256": "121d4067333a8675dd9c01acc586927eb1f19c214495cd93902d804e78b992de"
+    },
+    "tools/package.py": {
+      "bytes": 2431,
+      "sha256": "84a5ac0c676cd73bb752426239dec14a67e1406d373a204ae62705b5e983020f"
+    },
+    "VALIDATION.md": {
+      "bytes": 6010,
+      "sha256": "2a17e7109b6d3456cc38d8413b9d8d602a9343a60ca21d71d70e5f2923410498"
+    },
+    "verification/browser-results.json": {
+      "bytes": 5810,
+      "sha256": "72010939b2181362efc1cd01015fc26be7beaa9911c34de733f612cbbb568c28"
+    },
+    "verification/build-results.json": {
+      "bytes": 826,
+      "sha256": "b5eb3870a31f9292da724d09e4fdb99cd7063c6d70f60144d1d8c4997bf13b2a"
+    },
+    "verification/engine-results.json": {
+      "bytes": 4454,
+      "sha256": "cf9c279e59ba565a0e4b57a2f5edf28fdcb2846d84ccfd4b42400717c2408cc7"
+    },
+    "verification/layout-bounds.json": {
+      "bytes": 116701,
+      "sha256": "9379418ca5731a3da8e656b55ad22a43b1e8fc22b8e0d1cdd5522fb18284c384"
+    },
+    "verification/navigation-results.json": {
+      "bytes": 183,
+      "sha256": "e77b06bb1780bf57205ed930f55d36f5833af04c49222cd104046a1bbcc222ac"
+    },
+    "verification/paper-review.json": {
+      "bytes": 4886,
+      "sha256": "02e7bf9281de78a5bb36e9ef759d9ea787ec429304342d517486fd18c1cd2937"
+    },
+    "verification/portable-build.json": {
+      "bytes": 498,
+      "sha256": "c18910b5b53094b939180ace29eab2b319498c4aa1593dc3fe759b37e7e27f03"
+    },
+    "verification/simulation-results.json": {
+      "bytes": 18011,
+      "sha256": "fa9ec577671a55e707904e62624cf42433f40d7139eeae2bb432dfa989d09e18"
+    },
+    "verification/source-freshness.json": {
+      "bytes": 3866,
+      "sha256": "4172257a5d96f8f1089a353b3d56c28d92fd2f00b6e3549f5cb933df01cff102"
+    },
+    "verification/static-results.json": {
+      "bytes": 1881,
+      "sha256": "d41c4086e2edce400fb83d5aa883fec77fc1d725f1b27aae3287e00fdf5fcb77"
+    },
+    "verification/winning-replay.json": {
+      "bytes": 2655,
+      "sha256": "d266cbe71ef78489303ed4af2dc210ff8a98650fc4b6814683227970564ac995"
+    }
+  }
+}

@@ -1,0 +1,809 @@
+{
+  "scope": "Synthetic greedy policy using visible route offers. Not a human balance or time measurement.",
+  "seeds": 100,
+  "wins": 72,
+  "losses": 28,
+  "meanWishes": 8.56,
+  "runs": [
+    {
+      "seed": 1,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 2,
+      "won": false,
+      "wishes": 7,
+      "tide": 9,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 3,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 4,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 5,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 6,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 7,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 8,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 9,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 10,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 11,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 12,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 13,
+      "won": true,
+      "wishes": 12,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 12 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 14,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 15,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 16,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 17,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 18,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 19,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 20,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 21,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 22,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 23,
+      "won": false,
+      "wishes": 5,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 5 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 24,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 25,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 26,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 27,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 28,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 29,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 30,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 31,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 32,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 33,
+      "won": false,
+      "wishes": 3,
+      "tide": 6,
+      "completed": 3,
+      "reason": "The lantern cannot pay this crossing: 0 drain + 3 fog, with 2 light."
+    },
+    {
+      "seed": 34,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 35,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 36,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 37,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 38,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 39,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 40,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 41,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 42,
+      "won": false,
+      "wishes": 6,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 6 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 43,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 44,
+      "won": false,
+      "wishes": 2,
+      "tide": 7,
+      "completed": 3,
+      "reason": "The lantern cannot pay this crossing: 0 drain + 2 fog, with 1 light."
+    },
+    {
+      "seed": 45,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 46,
+      "won": false,
+      "wishes": 6,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 6 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 47,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 48,
+      "won": true,
+      "wishes": 10,
+      "tide": 9,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 49,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 50,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 51,
+      "won": false,
+      "wishes": 9,
+      "tide": 7,
+      "completed": 3,
+      "reason": "The lantern cannot pay this crossing: 0 drain + 3 fog, with 1 light."
+    },
+    {
+      "seed": 52,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 53,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 54,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 55,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 56,
+      "won": false,
+      "wishes": 6,
+      "tide": 7,
+      "completed": 3,
+      "reason": "The lantern cannot pay this crossing: 0 drain + 2 fog, with 1 light."
+    },
+    {
+      "seed": 57,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 58,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 59,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 60,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 61,
+      "won": false,
+      "wishes": 9,
+      "tide": 7,
+      "completed": 3,
+      "reason": "The lantern cannot pay this crossing: 0 drain + 1 fog, with 0 light."
+    },
+    {
+      "seed": 62,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 63,
+      "won": true,
+      "wishes": 11,
+      "tide": 9,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 64,
+      "won": false,
+      "wishes": 6,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 6 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 65,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 66,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 67,
+      "won": false,
+      "wishes": 6,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 6 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 68,
+      "won": false,
+      "wishes": 6,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 6 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 69,
+      "won": false,
+      "wishes": 5,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 5 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 70,
+      "won": false,
+      "wishes": 6,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 6 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 71,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 72,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 73,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 74,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 75,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 76,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 77,
+      "won": true,
+      "wishes": 12,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 12 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 78,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 79,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 80,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 81,
+      "won": false,
+      "wishes": 7,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 82,
+      "won": true,
+      "wishes": 11,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 83,
+      "won": false,
+      "wishes": 3,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 3 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 84,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 85,
+      "won": false,
+      "wishes": 9,
+      "tide": 7,
+      "completed": 3,
+      "reason": "The lantern cannot pay this crossing: 0 drain + 1 fog, with 0 light."
+    },
+    {
+      "seed": 86,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 87,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 88,
+      "won": true,
+      "wishes": 12,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 12 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 89,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 90,
+      "won": false,
+      "wishes": 7,
+      "tide": 9,
+      "completed": 4,
+      "reason": "Dawn: 7 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 91,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 92,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 93,
+      "won": true,
+      "wishes": 10,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 10 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 94,
+      "won": true,
+      "wishes": 8,
+      "tide": 9,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 95,
+      "won": false,
+      "wishes": 4,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 4 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 96,
+      "won": true,
+      "wishes": 8,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 8 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 97,
+      "won": false,
+      "wishes": 6,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 6 of 8 wishes fulfilled."
+    },
+    {
+      "seed": 98,
+      "won": true,
+      "wishes": 11,
+      "tide": 9,
+      "completed": 4,
+      "reason": "Dawn: 11 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 99,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    },
+    {
+      "seed": 100,
+      "won": true,
+      "wishes": 9,
+      "tide": 8,
+      "completed": 4,
+      "reason": "Dawn: 9 wishes fulfilled and the final return survived."
+    }
+  ]
+}
