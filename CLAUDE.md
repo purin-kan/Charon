@@ -2,23 +2,27 @@
 
 ## Current project
 
-The Ferryman now has a completed v0.4 guided browser prototype. The physical kit remains v0.3 and uses different rules. Read [AGENT_CONTEXT.md](AGENT_CONTEXT.md) first, then [AGENTS.md](AGENTS.md). Status refreshed September 29, 2026 after completing the resumed v0.4 handoff.
+The current workshop iteration is v0.5, "One Night on the River": a strictly single-player game with matching browser and paper rules, based only on the supplied [game_feedback.md](game_feedback.md). Read [AGENT_CONTEXT.md](AGENT_CONTEXT.md) first, then [AGENTS.md](AGENTS.md). Status refreshed October 4, 2026 after merging `codex/guyidea-paper-v05` into `main`.
 
-Current authority is [v0.4 RULES.md](outputs/The_Ferryman_Digital_Demo_v0.4/RULES.md), which separates explicit user choices, retained v0.3 defaults and implementation interpretations. The [v0.4 handoff](history/handoffs/V0.4_HANDOFF.md) is completed history with paper considerations for a later task. Earlier worker prompts are not instructions to regenerate completed work.
+Current authority is [v0.5 RULES.md](outputs/The_Ferryman_v0.5/RULES.md), with [DESIGN_DECISIONS.md](outputs/The_Ferryman_v0.5/DESIGN_DECISIONS.md) separating the feedback from agent-authored details needed for play. Four trips, eight wishes, a final return and the 20-30-minute duration are provisional targets, not human-validated balance. Exact added abilities and values are not final team approval.
 
 ## Launch and verification
 
-Open `outputs/The_Ferryman_Digital_Demo_v0.4/index.html` or use [START_HERE.html](START_HERE.html). Playing needs no installation, account or build step. See [launch instructions](outputs/The_Ferryman_Digital_Demo_v0.4/README.md) and [validation](outputs/The_Ferryman_Digital_Demo_v0.4/VALIDATION.md). The evidence has 35 passing engine records, 40 browser checks and direct-file smoke, with no failures. Browser scope is Chrome 154/macOS at desktop and narrow emulated widths; no human, Windows or real-phone coverage is claimed.
+Open `outputs/The_Ferryman_v0.5/index.html` or use [START_HERE.html](START_HERE.html). Print `outputs/The_Ferryman_v0.5/print/Print_and_Play_v0.5.pdf`: A4, color, single-sided, actual size / 100%, one copy per player. `Player_Guide_v0.5.pdf` duplicates kit page 2. `outputs/The_Ferryman_v0.5.zip` is the verified distribution. See [launch instructions](outputs/The_Ferryman_v0.5/README.md) and [validation](outputs/The_Ferryman_v0.5/VALIDATION.md).
 
-From the v0.4 folder, `node tests/engine-check.cjs` writes engine evidence, `node tests/static-check.cjs` checks links/provenance, and `node tests/browser-fixtures.cjs` generates constructed boundary fixtures in `work/v04/`. `tests/browser-check.js` runs through the browser tool in an isolated context via local HTTP. Adjust its explicit repository/URL constants for another machine. `tests/file-smoke.js` preserves an executed isolated smoke script; a later dedicated navigation attempt reported file URLs blocked. Use HTTP for future agent QA, without bypassing that restriction. Preserve existing browser saves and older versions' evidence.
+Recorded evidence: 37 passing engine records, zero failures, 200 seeded nights / 4,820 legal transitions; a synthetic policy won 72 of 100 seeds (not a human balance sample); browser winning/losing walkthroughs and desktop/narrow layouts; 16 PDF pages visually reviewed; ZIP bytes verified. Browser scope is the Codex in-app browser on Windows over local HTTP. Export download, direct-file launch, real phones, printing, handling and human play remain unverified or NOT_RUN. Do not replace NOT_RUN entries with inferred results.
 
-## Current v0.4 architecture
+From the v0.5 folder: `node tests/engine-check.js` writes `verification/engine-results.json`; `node tests/simulation.js` writes simulation and winning-replay evidence; `python tools/build.py` (reportlab, pypdf, Poppler) regenerates `content.js`, RULES.md, PDFs, inventory and provenance; `python tools/check_artifacts.py` (also pdfplumber) runs static checks; `python tools/package.py` rebuilds and verifies the ZIP. Runners overwrite their evidence. Use `?qa=1` for browser QA so the separate `ferryman-v05-qa` save key preserves player saves.
 
-All runtime files are under `outputs/The_Ferryman_Digital_Demo_v0.4/`. `engine.js` exposes `Ferryman` and CommonJS exports: createGame, dispatch, preview, routes, soul, partner, seats, forecast, deliveryPreview, validate, serialize and deserialize. Dispatch returns `{ok,state,error}` without mutating the input. Phases: boarding, route, memory, review, result, delivery, ended. Result Continue advances only; it must never reapply committed effects.
+## Current v0.5 architecture
 
-`app.js` owns safe text rendering, local storage, import/export and focus; game calculations stay in the engine. `index.html`, `styles.css` and 20 unchanged PNGs in `assets/` form the standalone runtime. Saves use `ferryman-v0.4-run`; discoveries use `ferryman-v0.4-discoveries`. v0.3 imports reject without replacing the current run. Input limit is 5 MB.
+All runtime files are under `outputs/The_Ferryman_v0.5/`. `content.json` (cards, quantities, settings, guide copy) and `rules.json` (detailed rules) are the editable sources shared by the browser engine and PDF generator. `content.js` is generated from `content.json` and exposes `FerryData`; do not edit it by hand. `engine.js` exposes `Ferry` and CommonJS exports including create, transition, preview, routes, capacity, seats, pressure, matches, validate, save and load. `app.js`, `index.html` and `styles.css` form the interface; saves use `ferryman-v05-night`.
 
-Keep the draft interpretations labeled in RULES.md: retire events requiring removed resources, require delivery at the final destination, persist results and reject old saves. No replacement rewards or new mechanics are authorized. A user trial comes before a v0.4 physical kit; do not generate it yet. No v0.4 ZIP exists.
+After any rule or component change: edit the JSON sources, run the build, review changed PDF pages, rerun checks and rebuild the ZIP. `.gitattributes` in the folder preserves release bytes. Four portraits are reused v0.4 art with recorded hashes; other characters use neutral letter emblems, not a final art direction. `source/game_feedback.md` is an unchanged copy of the design input.
+
+## Preserved v0.4 browser prototype
+
+`outputs/The_Ferryman_Digital_Demo_v0.4/` is a preserved guided browser prototype with its own [rules](outputs/The_Ferryman_Digital_Demo_v0.4/RULES.md) and [validation](outputs/The_Ferryman_Digital_Demo_v0.4/VALIDATION.md): 35 engine records, 40 browser checks, zero failures, Chrome 154/macOS only. `engine.js` exposes `Ferryman`; dispatch returns `{ok,state,error}` without mutating input. Saves use `ferryman-v0.4-run`. From its folder, `node tests/engine-check.cjs`, `node tests/static-check.cjs` and `node tests/browser-fixtures.cjs` regenerate evidence. Its labeled draft interpretations and memory art remain v0.4-only. No v0.4 ZIP or physical kit exists. The [v0.4 handoff](history/handoffs/V0.4_HANDOFF.md) is completed history.
 
 ## Preserved v0.3 checks
 
@@ -46,7 +50,7 @@ For phase order and boundary behavior use the current rules and engine API, not 
 
 ## Physical kit and packaging
 
-`outputs/The_Ferryman_Workshop_Kit_v0.3/` contains the current PDF, section PDFs, editable sources, art copies, source snapshots, previews and validation. Its companion ZIP is present. Start with its [README](outputs/The_Ferryman_Workshop_Kit_v0.3/README.md) and [physical checklist](outputs/The_Ferryman_Workshop_Kit_v0.3/VALIDATION.md#physical-print-and-rehearsal-checklist). Physical printing and human rehearsal remain NOT_RUN.
+The current print kit is the v0.5 kit described above (16 A4 pages, 67 cut pieces per player, single player, no game master). The older `outputs/The_Ferryman_Workshop_Kit_v0.3/` uses v0.3 rules and must not be mixed with v0.5 pieces. It contains its PDF, section PDFs, editable sources, art copies, source snapshots, previews and validation. Its companion ZIP is present. Start with its [README](outputs/The_Ferryman_Workshop_Kit_v0.3/README.md) and [physical checklist](outputs/The_Ferryman_Workshop_Kit_v0.3/VALIDATION.md#physical-print-and-rehearsal-checklist). Physical printing and human rehearsal remain NOT_RUN.
 
 `outputs/The_Ferryman_Digital_Demo_v0.3.zip` is referenced in the original integration handoff but absent from this checkout. Do not claim it is available. A new distribution must be assembled and verified from the current folder.
 
@@ -54,6 +58,7 @@ Preserve source snapshots and archived art handoffs inside verified packages. Ex
 
 ## Legacy material and repository layout
 
+- `Gamelist/` holds soul and memory reference lists from the Guyidea branch.
 - `outputs/legacy-v0.2/The_Ferryman_Digital_Demo/` is the preserved v0.2 game. Its old tests do not validate v0.3.
 - The workbook, easy playguide, paper mockup kit and older playtest reports are historical and live in `outputs/legacy-v0.2/`. [outputs/README.md](outputs/README.md) labels versions.
 - `history/handoffs/v0.3_handoffs/` contains the original browser-worker prompts, workshop follow-up and shared contract; `history/context-log.md` holds dated agent checkpoints. Old paths inside recorded evidence refer to the pre-reorganization layout, see [history/README.md](history/README.md).
