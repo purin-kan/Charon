@@ -1,36 +1,36 @@
 {
   "status": "PASS",
-  "checkedAt": "2026-10-05T01:14:19.094810+00:00",
+  "checkedAt": "2026-10-05T04:48:41.706148+00:00",
   "scope": "Isolated directory with only bundled A inputs; exact current PDFs, no external project paths.",
   "pdfs": [
     {
       "file": "Assembly_and_Setup_v0.6.pdf",
-      "sha256": "698c10c73e5681f084fda5f5d6924de2515f33290350beb1f17e0eca8f91b2de",
+      "sha256": "a0fcdacac7ffe4b88f6979a825c64b1c643a1778d80c1cdd32f25da08b09dea8",
       "byteIdentical": true
     },
     {
       "file": "Cutout_Sheets_v0.6.pdf",
-      "sha256": "8bfabf71c721d1eeed0080dea98d82c5272866b7ca9401c800e0f6497b2403d4",
+      "sha256": "4961f312c272596380e9c7d9f6354a9d3b81017dedcc88b8fb05b1ccee2e03c1",
       "byteIdentical": true
     },
     {
       "file": "Full_Rules_v0.6.pdf",
-      "sha256": "7c46e8eb0f37402dbc162b6232ada4994a4b7327897d7a099a2491ad688efee8",
+      "sha256": "474b920671919b545506116da02b9275a7853e3dd99e36a1353eec126ef4e629",
       "byteIdentical": true
     },
     {
       "file": "Player_Guide_v0.6.pdf",
-      "sha256": "02bc1f62b508bc064f9703f4eebe4664b67fc6fa76ecfb9736402b18b25edade",
+      "sha256": "272e9ac3df4b9cc8405d49af30295c2e9d5616c9bffb99c9768f56883f7a777f",
       "byteIdentical": true
     },
     {
       "file": "Print_and_Play_v0.6.pdf",
-      "sha256": "510a72cf4508fadf929574f375275109c1f67f74b5b01ed7655494430786e2a4",
+      "sha256": "060027bef9f9c746d56725ea21cb3725e7367caf605500418464aa88774dd0bf",
       "byteIdentical": true
     },
     {
       "file": "Workshop_Record_v0.6.pdf",
-      "sha256": "8e83019129072670cff7a6e35f76f6c94cc628a3364a3661084ec1eb49ee91c2",
+      "sha256": "210d7b36e41a6fd00a15b40d566dd35c7ef2f6c5748bd966c424ff90108e9dad",
       "byteIdentical": true
     }
   ],
@@ -40,9 +40,9 @@
     "fail_count": 0
   },
   "runtime": {
-    "reportlab": "4.4.9",
+    "reportlab": "5.0.1",
     "Pillow": "12.3.0",
-    "pypdf": "6.10.0",
-    "pdfplumber": "0.11.9"
+    "pypdf": "6.19.0",
+    "pdfplumber": "0.11.10"
   }
 }

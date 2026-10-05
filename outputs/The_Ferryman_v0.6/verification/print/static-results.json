@@ -39,7 +39,7 @@
       "name": "Recorded content inside 10 mm safe margins",
       "status": "PASS",
       "detail": {
-        "records": 1149,
+        "records": 1184,
         "minimum_margin_mm": 10
       }
     },
@@ -122,7 +122,7 @@
       "name": "All used PDF fonts embedded",
       "status": "PASS",
       "detail": {
-        "used_font_records": 62,
+        "used_font_records": 93,
         "unembedded": []
       }
     },
@@ -534,14 +534,14 @@
       "name": "Actual PDF glyphs inside safe page margins",
       "status": "PASS",
       "detail": {
-        "minimum_mm": 10.5
+        "minimum_mm": 10.444
       }
     },
     {
       "name": "Large cut-piece text inset at least 3 mm",
       "status": "PASS",
       "detail": {
-        "minimum_mm": 3.719,
+        "minimum_mm": 3.666,
         "excludes": "15 mm small markers, whose letter labels are separately reviewed"
       }
     },
@@ -734,7 +734,7 @@
       "name": "Card artwork approximately 300 ppi or better",
       "status": "PASS",
       "detail": {
-        "minimum_card_ppi": 295.6,
+        "minimum_card_ppi": 317.2,
         "minimum_decorative_banner_ppi": 209.8,
         "note": "Large decorative shore banner may be below 300 ppi; card art checked separately."
       }

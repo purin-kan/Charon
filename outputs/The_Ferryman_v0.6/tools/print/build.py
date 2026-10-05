@@ -19,7 +19,12 @@ OUT=BASE/'print'; VERIFY=BASE/'verification/print'; HERE=Path(__file__).resolve(
 for p in [OUT,VERIFY]: p.mkdir(parents=True,exist_ok=True)
 for name,file in [('Vera','Vera.ttf'),('VeraBold','VeraBd.ttf'),('VeraItalic','VeraIt.ttf')]: pdfmetrics.registerFont(TTFont(name,str(HERE/'fonts'/file)))
 pdfmetrics.registerFontFamily('Vera',normal='Vera',bold='VeraBold',italic='VeraItalic',boldItalic='VeraBold')
-INK='#15323B'; GOLD='#A37835'; PAPER='#F5F0E5'; PALE='#E8EDEC'; RED='#993C2E'; WHITE='#FFFFFF'
+# Khmer night theme: Kantumruy Pro body and Battambang display, as in the browser (SIL OFL, bundled locally).
+for name,file in [('Body','KantumruyPro-Regular.ttf'),('BodyBold','KantumruyPro-SemiBold.ttf'),('Display','Battambang-Bold.ttf'),('DisplayBlack','Battambang-Black.ttf')]: pdfmetrics.registerFont(TTFont(name,str(HERE/'fonts'/file)))
+pdfmetrics.registerFontFamily('Body',normal='Body',bold='BodyBold',italic='Body',boldItalic='BodyBold')
+pdfmetrics.registerFontFamily('Display',normal='Display',bold='Display',italic='Display',boldItalic='Display')
+INK='#DCD1B8'; GOLD='#B8914F'; GOLDHI='#D9B573'; PAPER='#15100C'; PALE='#1A130E'; RED='#D9826C'; WHITE='#120D0A'
+BG='#080605'; BAR='#0F0B08'; LINE='#8A6B3A'; RULE='#3A2D20'; WRITE='#EFE4C8'; WRITEINK='#1A120B'; MUTED='#9C9180'
 W,H=210,297
 src=(HERE/'source-contract/SHARED_RULES.md').read_text(encoding='utf-8-sig')
 souls=[]; destinations=[]; memories={}
@@ -41,12 +46,12 @@ PAGES=[]; INV=[]; LEDGER=[]; TEXT=[]; CURRENT=0; C=None; PDF_IMAGES={}
 def rec(kind,x,y,w,h,**extra):
     assert x>=9.99 and y>=9.99 and x+w<=200.01 and y+h<=287.01,(CURRENT,kind,x,y,w,h)
     LEDGER.append(dict(page=CURRENT,kind=kind,x_mm=x,y_mm=y,width_mm=w,height_mm=h,**extra))
-def box(x,y,w,h,fill=PAPER,stroke=INK,lw=.6):
+def box(x,y,w,h,fill=PAPER,stroke=LINE,lw=.6):
     rec('box',x,y,w,h); C.setFillColor(HexColor(fill));C.setStrokeColor(HexColor(stroke));C.setLineWidth(lw);C.rect(x*mm,(H-y-h)*mm,w*mm,h*mm,fill=1,stroke=1)
 def line(x,y,x2,y2,color=INK,lw=.5):
     rec('line',min(x,x2),min(y,y2),abs(x2-x),abs(y2-y));C.setStrokeColor(HexColor(color));C.setLineWidth(lw);C.line(x*mm,(H-y)*mm,x2*mm,(H-y2)*mm)
 def text(t,x,y,w,size=11,bold=False,color=INK,maxh=None,leading=None):
-    style=ParagraphStyle('p',fontName='VeraBold' if bold else 'Vera',fontSize=size,leading=leading or size*1.32,textColor=HexColor(color),spaceAfter=0)
+    style=ParagraphStyle('p',fontName=('Display' if size>=12 else 'BodyBold') if bold else 'Body',fontSize=size,leading=leading or size*1.32,textColor=HexColor(color),spaceAfter=0)
     para=Paragraph(t.replace('\n','<br/>'),style);pw,ph=para.wrap(w*mm,1000*mm);height=ph/mm
     if maxh is not None: assert height<=maxh+.1,('TEXT OVERFLOW',CURRENT,t,height,maxh)
     rec('text',x,y,w,height,font_pt=size,text=re.sub('<[^>]+>','',t));para.drawOn(C,x*mm,(H-y)*mm-ph)
@@ -54,8 +59,8 @@ def text(t,x,y,w,size=11,bold=False,color=INK,maxh=None,leading=None):
 def title(t,y=35): return text(t,12,y,186,20,True)+5
 def para(t,y,w=186,x=12,size=11.5): return text(t,x,y,w,size)+3
 def section(name,t,y,x=12,w=186):
-    y=text(name,x,y,w,13,True)+2;return text(t,x,y,w,11.5)+5
-def art(cid,x,y,w,h,focus=.5):
+    y=text(name,x,y,w,13,True,color=GOLDHI)+2;return text(t,x,y,w,11.5)+5
+def art(cid,x,y,w,h,focus=.5,arch=False):
     p=BASE/ART.get(cid,cid);im=Image.open(p);iw,ih=im.size;scale=max(w/iw,h/ih);dw,dh=iw*scale,ih*scale;ox=x-(dw-w)/2;oy=y-(dh-h)*focus
     rec('art',x,y,w,h,asset=p.relative_to(BASE).as_posix(),effective_ppi=25.4/scale,crop_focus=focus)
     # PDF-only high-quality JPEG encoding. Pixel dimensions and original PNGs
@@ -64,26 +69,88 @@ def art(cid,x,y,w,h,focus=.5):
         if im.mode in ('RGB','L'):
             stream=io.BytesIO();im.save(stream,format='JPEG',quality=94,subsampling=0,optimize=True);stream.seek(0);PDF_IMAGES[str(p)]=ImageReader(stream)
         else:PDF_IMAGES[str(p)]=ImageReader(str(p))
-    C.saveState();clip=C.beginPath();clip.rect(x*mm,(H-y-h)*mm,w*mm,h*mm);C.clipPath(clip,stroke=0,fill=0);C.drawImage(PDF_IMAGES[str(p)],ox*mm,(H-oy-dh)*mm,dw*mm,dh*mm,mask='auto');C.restoreState()
+    C.saveState();clip=archpath(x,y,w,h) if arch else C.beginPath()
+    if not arch: clip.rect(x*mm,(H-y-h)*mm,w*mm,h*mm)
+    C.clipPath(clip,stroke=0,fill=0);C.drawImage(PDF_IMAGES[str(p)],ox*mm,(H-oy-dh)*mm,dw*mm,dh*mm,mask='auto');C.restoreState()
+    # Dim the picture slightly, as the browser does until a card is chosen, then outline it in bronze.
+    C.saveState();shade=archpath(x,y,w,h) if arch else C.beginPath()
+    if not arch: shade.rect(x*mm,(H-y-h)*mm,w*mm,h*mm)
+    C.setFillColor(Color(0.03,0.02,0.02,alpha=.18));C.setStrokeColor(HexColor(GOLD));C.setLineWidth(.5);C.drawPath(shade,stroke=1,fill=1);C.restoreState()
+    if arch: lotus(x+w/2,y-1.2,3.4)
+def archpath(x,y,w,h):
+    """Temple-doorway arch: elliptical top corners (like CSS 50%/34px), square bottom."""
+    ry=min(9,h*.42);rx=w/2;k=.5523;P=C.beginPath();X=lambda v:v*mm;Y=lambda v:(H-v)*mm
+    P.moveTo(X(x),Y(y+h));P.lineTo(X(x),Y(y+ry))
+    P.curveTo(X(x),Y(y+ry-ry*k),X(x+rx-rx*k),Y(y),X(x+rx),Y(y))
+    P.curveTo(X(x+rx+rx*k),Y(y),X(x+w),Y(y+ry-ry*k),X(x+w),Y(y+ry))
+    P.lineTo(X(x+w),Y(y+h));P.close();return P
+def lotus(cx,cy,s):
+    """Small lotus bud finial centred at (cx,cy) mm, size s mm: three petals in bronze."""
+    X=lambda v:v*mm;Y=lambda v:(H-v)*mm;C.saveState();C.setStrokeColor(HexColor(GOLD));C.setFillColor(HexColor(WHITE));C.setLineWidth(.45)
+    P=C.beginPath();P.moveTo(X(cx),Y(cy+s*.55));P.curveTo(X(cx-s*.32),Y(cy+s*.1),X(cx-s*.2),Y(cy-s*.45),X(cx),Y(cy-s*.7));P.curveTo(X(cx+s*.2),Y(cy-s*.45),X(cx+s*.32),Y(cy+s*.1),X(cx),Y(cy+s*.55));C.drawPath(P,stroke=1,fill=1)
+    for d in (-1,1):
+        Q=C.beginPath();Q.moveTo(X(cx-d*s*.08),Y(cy+s*.5));Q.curveTo(X(cx+d*s*.5),Y(cy+s*.42),X(cx+d*s*.78),Y(cy+s*.05),X(cx+d*s*.82),Y(cy-s*.18));Q.curveTo(X(cx+d*s*.5),Y(cy-s*.1),X(cx+d*s*.25),Y(cy+s*.15),X(cx+d*s*.12),Y(cy+s*.38));C.drawPath(Q,stroke=1,fill=0)
+    C.restoreState()
+def lotusrule(cx,y,w):
+    """Divider: bronze lines either side of a lotus with two diamonds, as under the browser headings."""
+    C.saveState();C.setStrokeColor(HexColor(GOLD));C.setLineWidth(.45);X=lambda v:v*mm;Y=lambda v:(H-v)*mm
+    C.line(X(cx-w/2),Y(y),X(cx-5.2),Y(y));C.line(X(cx+5.2),Y(y),X(cx+w/2),Y(y))
+    for dx in (-3.6,3.6):
+        D=C.beginPath();D.moveTo(X(cx+dx-.9),Y(y));D.lineTo(X(cx+dx),Y(y-.7));D.lineTo(X(cx+dx+.9),Y(y));D.lineTo(X(cx+dx),Y(y+.7));D.close();C.drawPath(D,stroke=1,fill=0)
+    C.restoreState();lotus(cx,y,2.6)
 def component(cid,label,page,x,y,w,h,kind='cut',role='play',copy=1):
     INV.append(dict(id=cid,label=label,quantity=1,copy=copy,page=page,width_mm=w,height_mm=h,x_mm=x,y_mm=y,status=kind,role=role))
 def cutbox(cid,label,x,y,w,h,role='play',copy=1):
-    box(x,y,w,h,WHITE,INK,.7);component(cid,label,CURRENT,x,y,w,h,role=role,copy=copy)
+    box(x,y,w,h,WHITE,GOLD,.8);component(cid,label,CURRENT,x,y,w,h,role=role,copy=copy)
+    if w>=30 and h>=30:
+        C.saveState();C.setStrokeColor(HexColor(RULE));C.setLineWidth(.35);C.rect((x+1.6)*mm,(H-y-h+1.6)*mm,(w-3.2)*mm,(h-3.2)*mm,fill=0,stroke=1);C.restoreState()
 def add(name,fn,cut=False,group='reference'): PAGES.append(dict(title=name,fn=fn,cut=cut,group=group))
 def footer():
-    line(12,281,198,281,GOLD,.6);text('THE FERRYMAN / v0.6',12,283,125,8);text(f'{CURRENT:02d} / {len(PAGES):02d}',180,283,18,8,True)
+    line(12,281,198,281,LINE,.5);text('THE FERRYMAN / v0.6',12,283,125,8,color=MUTED);text(f'{CURRENT:02d} / {len(PAGES):02d}',180,283,18,8,True,color=GOLDHI)
 def header(name,cut):
-    box(10,10,190,17,INK,INK);text('CUT  |  STRAIGHT OUTER BORDERS' if cut else 'KEEP WHOLE  |  WORKSHOP EDITION',14,12,180,8,True,color='#EBCB96');text(name,14,17,180,14,True,color=WHITE)
+    box(10,10,190,17,BAR,LINE);line(10,27,200,27,GOLD,.7);text('CUT  |  STRAIGHT OUTER BORDERS' if cut else 'KEEP WHOLE  |  WORKSHOP EDITION',14,12,180,8,True,color=GOLDHI);text(name,14,17,180,14,True,color=INK)
 def makepage(i,p):
-    global CURRENT;CURRENT=i;header(p['title'],p['cut']);p['fn']();footer();C.showPage()
+    global CURRENT;CURRENT=i
+    C.setFillColor(HexColor(BG));C.rect(0,0,W*mm,H*mm,fill=1,stroke=0)
+    header(p['title'],p['cut']);p['fn']();footer();C.showPage()
+
+# The reaper ferryman from the browser game (same drawing, 240 x 130 units), drawn as vector paths.
+REAPER=[('s','M18 88 L222 86 L208 104 L34 104 Z','#261B12',GOLD),
+ ('l','M86 8 L132 122',None,'#7D6A52'),('l','M176 96 L176 36',None,'#7D6A52'),
+ ('s','M87 10 Q104 -4 131 9 Q121 5.5 110 7 Q98 8.5 89.5 15.5 Z','#8F978F','#CDD3C8'),
+ ('s','M118 22 Q108.5 29 106.5 41 Q101 47 100 60 L95.5 97 L101.5 91.5 L106 98.5 L111 91 L116.5 99.5 L121.5 91 L127 98.5 L132 91.5 L140.5 97 L136 60 Q135 47 129.5 41 Q127.5 29 118 22 Z','#0C0A08',GOLD),
+ ('s','M118 30.5 Q111.5 34 111 43.5 Q111.5 51.5 118 53.5 Q124.5 51.5 125 43.5 Q124.5 34 118 30.5 Z','#020202',None),
+ ('s','M177 44 L187 44 L187 58 L177 58 Z','#E8B45A',GOLD)]
+def reaper(x0,y0,w):
+    k=w/240;X=lambda u:(x0+u*k)*mm;Y=lambda v:(H-(y0+v*k))*mm
+    rec('vector',x0,y0,w,130*k,asset='vector reaper ferryman (browser drawing)')
+    C.saveState();C.setFillColor(Color(.93,.77,.5,alpha=.16));C.circle(X(182),Y(52),40*k*mm,fill=1,stroke=0);C.setFillColor(Color(.93,.77,.5,alpha=.16));C.circle(X(182),Y(52),24*k*mm,fill=1,stroke=0)
+    for kind,d,fill,stroke in REAPER:
+        tok=re.findall(r'[MLQZ]|-?[\d.]+',d);P=C.beginPath();i=0;cx=cy=0
+        while i<len(tok):
+            c=tok[i];i+=1
+            if c in 'ML':
+                a,b=float(tok[i]),float(tok[i+1]);i+=2;(P.moveTo if c=='M' else P.lineTo)(X(a),Y(b));cx,cy=a,b
+            elif c=='Q':
+                qx,qy,a,b=map(float,tok[i:i+4]);i+=4
+                P.curveTo(X(cx+2/3*(qx-cx)),Y(cy+2/3*(qy-cy)),X(a+2/3*(qx-a)),Y(b+2/3*(qy-b)),X(a),Y(b));cx,cy=a,b
+            elif c=='Z':P.close()
+        if kind=='l':C.setStrokeColor(HexColor(stroke));C.setLineWidth(3.2*k*mm);C.setLineCap(1);C.drawPath(P,stroke=1,fill=0);continue
+        if fill:C.setFillColor(HexColor(fill))
+        if stroke:C.setStrokeColor(HexColor(stroke));C.setLineWidth(1.3*k*mm)
+        C.drawPath(P,stroke=1 if stroke else 0,fill=1 if fill else 0)
+    C.setFillColor(HexColor('#FFC768'));C.circle(X(115),Y(43.5),1.4*k*mm,fill=1,stroke=0);C.circle(X(121),Y(43.5),1.4*k*mm,fill=1,stroke=0)
+    C.setStrokeColor(HexColor('#D8CFB8'));C.setLineWidth(1.5*k*mm);C.line(X(105),Y(60),X(99.5),Y(58.5));C.line(X(104.5),Y(63),X(98.5),Y(62.5))
+    C.restoreState()
 
 def cover():
     art('MAT-SHORE',12,34,186,85)
-    box(20,86,170,25,INK,INK);text('THE FERRYMAN',26,91,158,27,True,color=WHITE)
+    box(20,86,170,25,BAR,LINE);text('THE FERRYMAN',26,91,158,27,True,color=INK)
     y=title('A river that keeps returning',128)
     y=para('Complete illustrated print-and-cut kit. One player station, with facilitator-controlled route offers. Play endless survival as Charon\'s apprentice.',y)
     y=section('Print this PDF once, in full',f'{len(PAGES)} A4 pages. Color, single-sided, actual size / 100%. Turn off fit-to-page, booklet and duplex. Print CUT pages on opaque card, or mount them to opaque card after printing. Keep all other pages whole.',y)
     y=para('Use a printer, paper or card, scissors, pencil and eraser. Glue is optional for mounting. No phone, internet or app is needed. Check printer scale before printing the remaining sheets.',y)
+    reaper(78,199,54);lotusrule(105,231.5,90)
     line(14,238,64,238,INK,1);line(14,235,14,241,INK,1);line(64,235,64,241,INK,1);text('This line must measure 50 mm.',14,245,95,11,True)
     text('Replacement PDFs contain pages from this master. Do not print the full kit and the cutout PDF for one ordinary set.',113,235,83,11,maxh=32)
 
@@ -109,7 +176,7 @@ def assembly():
     y=section('Inventory by sheet', 'Cards are 90 x 112 mm unless a different size is shown below. Card gutters are at least 6 mm. Markers are 15 x 15 mm.',y)
     rows=[('17-18','8 ordinary soul cards, one per identity'),('19','4 PoLong cards: 2 base + 2 spare instances'),('20-21','6 destination map cards, one per destination'),('22-28','28 memories: 4 per rewarding source soul'),('29','1 Passage memory (quest reward, once per run)'),('30','6 offer slips (90 x 50 mm); 2 reusable PoLong templates (90 x 66 mm)'),('31','22 markers (15 mm); Soldier second-seat marker (90 x 24 mm)')]
     for pg,t in rows:
-        text(pg,14,y,23,11,True); yy=text(t,40,y,155,11);line(12,yy+2,198,yy+2,'#CDD6D4');y=yy+5
+        text(pg,14,y,23,11,True); yy=text(t,40,y,155,11);line(12,yy+2,198,yy+2,RULE);y=yy+5
     y=section('Keep-whole play aids','Pages 12-16: shore, two boat panels, dashboard and route mat. Place boat panels side by side. Rules: pages 5-10. Page 2 is the quick reference. Page 11 is a blank workshop record.',y)
     text('Spare pieces do not add souls or change spawn timing. Print pages 20-21 again only if the facilitator wants extra destination pictures. Keep extra ordinary identity cards out of play.',12,y,186,11,maxh=24)
 
@@ -117,7 +184,7 @@ def setup():
     text('An illustrated table arrangement',12,34,186,18,True)
     # Diagram is a placement guide, not a printed-size template.
     for x,y,w,h,cid,label in [(12,49,58,40,'MAT-SHORE','SHORE + PILES'),(76,49,58,40,'MAT-BOAT','BOAT LEFT'),(140,49,58,40,'MAT-BOAT','BOAT RIGHT'),(12,99,58,34,'MEM-LIGHT','MEMORY RESERVE'),(76,99,58,34,'MEM-FORESIGHT','ROUTE OFFERS'),(140,99,58,34,'MEM-PASSAGE','DASHBOARD')]:
-        art(cid,x,y,w,h);box(x,y+h-8,w,8,INK,INK);text(label,x+2,y+h-6,w-4,8,True,color=WHITE)
+        art(cid,x,y,w,h);box(x,y+h-8,w,8,BAR,LINE);text(label,x+2,y+h-6,w-4,8,True,color=INK)
     y=145
     for head,body in [
         ('1  Sort the supplies','Separate ordinary souls, PoLong, destination maps and source-labeled memories. Place memories face up in 8 reserve stacks: Mother, Merchant, Soldier, Poet, Cook, Mason, Keeper and Passage. Child and PoLong give no memory.'),
@@ -134,7 +201,7 @@ def rules1():
     y+=9
     for s in souls:
         for xx,ww,t in [(14,45,s['name']),(60,16,str(s['seats'])),(81,49,DEST[s['destination']]['name']),(140,56,NAMES.get(s['memory'],'None'))]:text(t,xx,y,ww,11)
-        line(12,y+7,198,y+7,'#CDD6D4');y+=10
+        line(12,y+7,198,y+7,RULE);y+=10
     y+=4
     y=section('Boarding','Board at least one ordinary soul within 4 seats. Soldier occupies 2 seats; place the second-seat marker beside it. Reverse choices freely before departure. Boarding resets Ship Anger to 0, whatever the old Shore Anger. After departure, do not unload back onto the shore. No older-version passive powers apply.',y)
     text('One active ordinary card per identity. PoLong is a separate zero-seat type whose scheduled arrivals are independent instances. Its spare cards are supplies, not extra scheduled spawns.',12,y,186,11.5,maxh=30)
@@ -190,7 +257,7 @@ def rules6():
 def record():
     y=para('Blank human record. No printing or play results have been entered. Use one sheet per session; add paper for an endless run.',34)
     for label,h in [('Date / observer / player / station',13),('Printer / paper / color / scale setting / measured 50 mm line',18),('Cutting, opacity and marker handling observations',18),('Setup time / play duration / completed cycles / outward rounds / ordinary deliveries',20),('Ending reason: Light reached 0, voluntary stop, or interrupted',14),('Unclear rule, exact game state and page/component ID',28),('Player comments: learning, decisions, pacing, enjoyment, balance',28),('Changes proposed by people, not yet approved rules',20)]:
-        text(label,12,y,186,11,True);line(12,y+h,198,y+h,'#84999C');y+=h+8
+        text(label,12,y,186,11,True);box(12,y+6,186,h-5,WRITE,GOLD,.5);y+=h+8
 
 def shore():
     component('MAT-SHORE','Shore and boarding mat',CURRENT,10,10,190,270,'keep whole')
@@ -205,7 +272,7 @@ def boat(panel):
     nums=(1,2) if panel=='LEFT' else (3,4)
     text('Join the two boat pages side by side. Four ordinary seats total.',12,33,186,11)
     for x,n in zip([12,108],nums):
-        box(x,47,90,112,PALE);text(f'SEAT {n}',x+7,52,76,18,True);art('MAT-BOAT',x+6,68,78,37)
+        box(x,47,90,112,PALE);text(f'SEAT {n}',x+7,52,76,18,True);art('MAT-BOAT',x+6,70,78,35,arch=True)
         text('Place a soul here.\nSoldier also blocks one other seat.',x+7,115,76,11.5,maxh=36)
     text('ZERO-SEAT POLONG LANE',12,165,186,14,True)
     for x in [12,108]:
@@ -219,7 +286,7 @@ def dashboard():
     text('0 = immediate loss. Stop before delivery or later recovery.',12,70,186,11.5,True)
     y=87
     for label in ['Global outward round: __________   Start 0; never reset between cycles.','Completed cycles: __________   Start 0; current cycle = this + 1.','Ordinary deliveries: __________   Descriptive count, never a win target.']:
-        y=para(label,y,size=11.5)
+        box(12,y-1.3,186,7.4,WRITE,GOLD,.5);y=text(label,14,y,182,11.5,color=WRITEINK)+3
     y=text('NEXT ROUND REMINDER',12,y+2,186,13,True)+8
     for x,label in [(12,'NEXT: no spawn'),(77,'NEXT: no spawn'),(142,'NEXT: spawn')]:box(x,y,56,17,PALE);text(label,x+3,y+5,50,10.5,True)
     y+=21;y=para('At global round 0, start on the first reminder. Move right after each outward round; after spawn, wrap to the first. Keep the written total too.',y,size=11)
@@ -250,7 +317,7 @@ def anger(x,y,polong=False):
 def soulcard(s,x,y,idx=None):
     cid=s['id'] if idx is None else f'SOUL-POLONG-{idx:02d}';role='spare instance' if idx and idx>2 else 'play'
     cutbox(cid,s['name'],x,y,CARDW,CARDH,role=role,copy=idx or 1)
-    art(s['id'],x+1,y+1,88,33,focus=.14)
+    art(s['id'],x+4,y+5,82,30,focus=.14,arch=True)
     text(s['name']+(f' {idx:02d}' if idx else ''),x+4,y+37,82,18,True)
     text(f"To: {DEST[s['destination']]['name']}  |  {s['seats']} seat"+('s' if s['seats']!=1 else ''),x+4,y+46,82,11,True)
     if idx:
@@ -265,14 +332,14 @@ def polongpage():
     for i,(x,y) in enumerate(POS,1):soulcard(souls[-1],x,y,i)
 def destpage(ds):
     for d,(x,y) in zip(ds,POS):
-        cutbox(d['id'],d['name'],x,y,90,112);art(d['id'],x+1,y+1,88,51)
+        cutbox(d['id'],d['name'],x,y,90,112);art(d['id'],x+4,y+5,82,48,arch=True)
         text(d['name'],x+4,y+57,82,18,True);text(f"BASE FOG {d['fog']}",x+4,y+69,82,19,True)
         text('Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.',x+4,y+82,82,11,maxh=22);idlabel(d['id'],x+4,y+105)
     if len(ds)==2:text('Repeat-print option: pages 20-21 supply another picture set if the facilitator wants duplicates. Duplicate pictures do not impose a route pattern. The starting shore is separate.',12,171,186,11.5,maxh=45)
 def memorycard(mid,source,idx,x,y):
     cid=f'{source}-MEM-{idx:02d}' if source else 'MEM-PASSAGE-01'
     cutbox(cid,NAMES[mid]+' / '+(source or 'quest'),x,y,90,112,copy=idx)
-    art(mid,x+1,y+1,88,33);text(NAMES[mid],x+4,y+38,82,18,True)
+    art(mid,x+4,y+5,82,30,arch=True);text(NAMES[mid],x+4,y+38,82,18,True)
     text('FROM '+source.removeprefix('SOUL-') if source else 'FAMILY QUEST / ONCE PER RUN',x+4,y+48,82,8.5,True,color=GOLD)
     effect=memories[mid]
     # Exact shared rule effects. Paragraphs are kept at 11 pt.
@@ -292,7 +359,7 @@ def slips():
         text('OFFER  |  MARK ONE DESTINATION',x+4,y+4,82,9.5,True)
         for j,d in enumerate(destinations):
             xx=x+4+(j%2)*43;yy=y+13+(j//2)*9
-            box(xx,yy+1,3,3,WHITE);text(d['name']+' '+str(d['fog']),xx+5,yy,35,11)
+            box(xx,yy+1,3,3,WRITE,GOLD);text(d['name']+' '+str(d['fog']),xx+5,yy,35,11)
         idlabel(cid+' / number = base fog',x+4,y+43)
     for i,x in enumerate([12,108],1):
         y=210;cid=f'POLONG-TEMPLATE-{i:02d}';cutbox(cid,'Reusable PoLong instance template',x,y,90,66,'spare template')

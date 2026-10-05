@@ -25,3 +25,8 @@ The engine suite exhaustively explores 23 relaxed PoLong states with one free Ca
 ## Release boundary
 
 A owns the original print/art delivery. The user's subsequent integration authorization permits combining and resolving discrepancies while preserving both workers. The integrator changes only page 7 spacing, retains original A evidence and archive, adapts B's asset/receipt interfaces to A's actual schemas, and adds the missing browser route ledger. No new game mechanic or art choice is introduced. The complete-release packager requires current exact-byte evidence. No push, deployment, art approval, course upload or human outcome is claimed.
+
+## October 5, 2026: print kit redesign (user request)
+
+The user asked for every printed card and page to match the live browser design, fully dark. All 31 pages now use the Khmer night theme: near-black background, tarnished bronze borders and lines, bone text, Battambang headings and Kantumruy Pro body text. Card art sits in a temple-doorway arch with a lotus finial, cut cards have a bronze cut border and inner frame, and the cover carries the reaper ferryman from the browser. Writing areas (workshop record, dashboard counters, offer-slip checkboxes) are parchment so pencil stays legible. Rules text, card geometry, component counts and artwork are unchanged. Dark full-page printing uses much more ink.
+
