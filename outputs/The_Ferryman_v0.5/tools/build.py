@@ -4,7 +4,7 @@ import json, hashlib, shutil, re
 from datetime import datetime, timezone
 from xml.sax.saxutils import escape
 from reportlab.pdfgen import canvas
-from reportlab.lib.colors import HexColor
+from reportlab.lib.colors import HexColor, Color
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib.utils import ImageReader
@@ -49,6 +49,14 @@ if font_source.exists():
     for item in font_source.iterdir():
         if item.suffix.lower() in ['.txt','.md']:shutil.copyfile(item,FONT/item.name)
 if not (FONT/'bitstream-vera-license.txt').exists():raise ValueError('Bundled font license is missing.')
+# Khmer night theme fonts, as in the browser: Kantumruy Pro body, Battambang display (SIL OFL, bundled with licenses).
+theme_source=REPO/'outputs/The_Ferryman_v0.6/tools/print/fonts'
+for name in ['Battambang-Bold.ttf','Battambang-Black.ttf','KantumruyPro-Regular.ttf','KantumruyPro-SemiBold.ttf','Battambang-OFL.txt','KantumruyPro-OFL.txt']:
+    reuse(theme_source/name,FONT/name)
+    if name.endswith('.ttf'):provenance.append({'file':'assets/fonts/'+name,'source':str((theme_source/name).relative_to(REPO)).replace('\\','/'),'sha256':digest(FONT/name)})
+for name,file in [('Body','KantumruyPro-Regular.ttf'),('BodyBold','KantumruyPro-SemiBold.ttf'),('Display','Battambang-Bold.ttf')]:pdfmetrics.registerFont(TTFont(name,str(FONT/file)))
+pdfmetrics.registerFontFamily('Body',normal='Body',bold='BodyBold',italic='Body',boldItalic='BodyBold')
+pdfmetrics.registerFontFamily('Display',normal='Display',bold='Display',italic='Display',boldItalic='Display')
 pdfmetrics.registerFont(TTFont('Vera',str(FONT/'Vera.ttf')))
 pdfmetrics.registerFont(TTFont('VeraBd',str(FONT/'VeraBd.ttf')))
 pdfmetrics.registerFont(TTFont('VeraIt',str(FONT/'VeraIt.ttf')))
@@ -59,7 +67,8 @@ pdfmetrics.registerFontFamily('Vera',normal='Vera',bold='VeraBd',italic='VeraIt'
 (ASSETS/'PROVENANCE.json').write_text(json.dumps({'note':'Existing portraits copied unchanged. Letter emblems are provisional vector/text graphics, not AI-generated artwork. No final art approval is claimed.','files':provenance},indent=2),encoding='utf-8')
 
 W,H=A4
-INK='#183b3e'; GOLD='#bc8d42'; CREAM='#f7f3e8'; MUTE='#506461'; PALE='#e6eadd'; RED='#9c4335'
+INK='#DCD1B8'; GOLD='#B8914F'; GOLDHI='#D9B573'; CREAM='#15100C'; MUTE='#9C9180'; PALE='#1A130E'; RED='#D9826C'
+BG='#080605'; BAR='#0F0B08'; CARD='#120D0A'; RULE='#3A2D20'; WRITE='#EFE4C8'; WRITEINK='#1A120B'
 PAGE_NAMES=['Print and assembly','One-page player guide','Rules / prepare and cross','Rules / souls and memories','Rules / return and example','River dashboard','Boat mat','Soul cards / 1','Soul cards / 2','Soul cards / 3 and table labels','Route cards / 1','Route cards / 2','Memory cards','Arrival tickets','Event cards','Markers and workshop record']
 PDF=OUT/'Print_and_Play_v0.5.pdf'
 c=canvas.Canvas(str(PDF),pagesize=A4,pageCompression=1)
@@ -72,7 +81,7 @@ def rect(x,y,w,h,fill=CREAM,stroke=None,width=.5):
 def line(x,y,x2,y2,color=MUTE,width=.5):
     c.setStrokeColor(HexColor(color));c.setLineWidth(width);c.line(x,H-y,x2,H-y2)
 def para(text,x,y,w,size=11,leading=None,color=INK,bold=False,max_height=None):
-    style=ParagraphStyle('local',fontName='VeraBd' if bold else 'Vera',fontSize=size,leading=leading or size*1.32,textColor=HexColor(color),spaceAfter=0)
+    style=ParagraphStyle('local',fontName=('Display' if size>=12 else 'BodyBold') if bold else 'Body',fontSize=size,leading=leading or size*1.32,textColor=HexColor(color),spaceAfter=0)
     p=Paragraph(text,style);pw,ph=p.wrap(w,2000)
     if max_height is not None and ph>max_height+.1:raise ValueError(f'Page {page_no}: text overflows {text[:60]!r}: {ph:.1f} > {max_height:.1f}')
     if x<10*mm-.2 or x+w>W-10*mm+.2 or y+ph>H-10*mm+.2:raise ValueError(f'Page {page_no}: text outside safe area: {text[:60]}')
@@ -82,37 +91,55 @@ def page(title,subtitle='ONE NIGHT ON THE RIVER / SINGLE PLAYER'):
     global page_no
     if page_no:c.showPage()
     page_no+=1
-    rect(10*mm,10*mm,190*mm,17*mm,INK)
-    para('THE FERRYMAN <font color="#dfb66d">/ v0.5</font>',14*mm,13*mm,182*mm,11,bold=True,color='#ffffff')
+    c.setFillColor(HexColor(BG));c.rect(0,0,W,H,fill=1,stroke=0)
+    rect(10*mm,10*mm,190*mm,17*mm,BAR,GOLD,.5);line(10*mm,27*mm,200*mm,27*mm,GOLD,.7)
+    para('THE FERRYMAN <font color="#D9B573">/ v0.5</font>',14*mm,13*mm,182*mm,11,bold=True,color=INK)
     para(title,10*mm,31*mm,190*mm,22,bold=True)
     para(subtitle,10*mm,42*mm,190*mm,9,color=MUTE)
-    line(10*mm,281*mm,200*mm,281*mm,'#bec6ba')
+    line(10*mm,281*mm,200*mm,281*mm,'#8A6B3A')
     para(f'{page_no:02d} / {len(PAGE_NAMES)}   ·   '+PAGE_NAMES[page_no-1],10*mm,282*mm,150*mm,8,color=MUTE)
     para('A4 · 100% · single-sided',160*mm,282*mm,40*mm,7.5,color=MUTE)
 def section(title,text,x,y,w,size=11):
-    h=para(title,x,y,w,size+1,bold=True)+5
+    h=para(title,x,y,w,size+1,bold=True,color=GOLDHI)+5
     return h+para(text,x,y+h,w,size=size)+11
 def card_frame(x,y,w,h,band,label,cid):
-    rect(x,y,w,h,'#ffffff','#8b9790',.55)
+    rect(x,y,w,h,CARD,GOLD,.8)
+    c.saveState();c.setStrokeColor(HexColor(RULE));c.setLineWidth(.35);c.rect(x+1*mm,H-y-h+1*mm,w-2*mm,h-2*mm,fill=0,stroke=1);c.restoreState()
     rect(x+1.5*mm,y+1.5*mm,w-3*mm,7*mm,band)
-    para(escape(label),x+3*mm,y+2.8*mm,w-6*mm,8,bold=True,color='#ffffff',max_height=5*mm)
+    para(escape(label),x+3*mm,y+2.8*mm,w-6*mm,8,bold=True,color='#F3EAD5',max_height=5*mm)
     para(cid,x+3*mm,y+h-6*mm,w-6*mm,7.5,color=MUTE)
     components.append({'page':page_no,'id':cid,'x_mm':round(x/mm,2),'y_mm':round(y/mm,2),'width_mm':round(w/mm,2),'height_mm':round(h/mm,2)})
+def archpath(x,y,w,h):
+    """Temple-doorway arch (points): elliptical top corners, square bottom."""
+    ry=min(7*mm,h*.42);rx=w/2;k=.5523;P=c.beginPath();Y=lambda v:H-v
+    P.moveTo(x,Y(y+h));P.lineTo(x,Y(y+ry))
+    P.curveTo(x,Y(y+ry-ry*k),x+rx-rx*k,Y(y),x+rx,Y(y));P.curveTo(x+rx+rx*k,Y(y),x+w,Y(y+ry-ry*k),x+w,Y(y+ry))
+    P.lineTo(x+w,Y(y+h));P.close();return P
+def lotus(cx,cy,s):
+    """Small bronze lotus-bud finial centred at (cx,cy), size s (points)."""
+    Y=lambda v:H-v;c.saveState();c.setStrokeColor(HexColor(GOLD));c.setFillColor(HexColor(CARD));c.setLineWidth(.45)
+    P=c.beginPath();P.moveTo(cx,Y(cy+s*.55));P.curveTo(cx-s*.32,Y(cy+s*.1),cx-s*.2,Y(cy-s*.45),cx,Y(cy-s*.7));P.curveTo(cx+s*.2,Y(cy-s*.45),cx+s*.32,Y(cy+s*.1),cx,Y(cy+s*.55));c.drawPath(P,stroke=1,fill=1)
+    for d in (-1,1):
+        Q=c.beginPath();Q.moveTo(cx-d*s*.08,Y(cy+s*.5));Q.curveTo(cx+d*s*.5,Y(cy+s*.42),cx+d*s*.78,Y(cy+s*.05),cx+d*s*.82,Y(cy-s*.18));Q.curveTo(cx+d*s*.5,Y(cy-s*.1),cx+d*s*.25,Y(cy+s*.15),cx+d*s*.12,Y(cy+s*.38));c.drawPath(Q,stroke=1,fill=0)
+    c.restoreState()
 def coords(i,height=88):return (10*mm+(i%3)*63.5*mm,54*mm+(i//3)*(height+4)*mm,63*mm,height*mm)
 def emblem(name,x,y,w,h,color):
     rect(x,y,w,h,color)
     initials=''.join(part[0] for part in name.split()[:2])
-    c.setStrokeColor(HexColor('#e1c48b'));c.setLineWidth(.8)
+    c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.8)
     cx=x+w/2;cy=H-y-h/2;sz=h*.34
     p=c.beginPath();p.moveTo(cx,cy+sz);p.lineTo(cx+sz,cy);p.lineTo(cx,cy-sz);p.lineTo(cx-sz,cy);p.close();c.drawPath(p)
-    c.setFillColor(HexColor('#f8e7ba'));c.setFont('VeraBd',17);c.drawCentredString(cx,cy-5,initials)
+    c.setFillColor(HexColor(GOLDHI));c.setFont('Display',17);c.drawCentredString(cx,cy-5,initials)
 def soul_card(s,i):
     x,y,w,h=coords(i);dest=D['destinations'][s['wish']];card_frame(x,y,w,h,dest['color'],'SOUL / '+dest['name'].upper(),s['id'])
     if s['art']:
-        c.saveState();clip=c.beginPath();clip.rect(x+2*mm,H-y-32*mm,w-4*mm,22*mm);c.clipPath(clip,stroke=0,fill=0)
-        iw,ih=ImageReader(str(ASSETS/s['art'])).getSize();dw=w-4*mm;dh=dw*ih/iw
-        c.drawImage(str(ASSETS/s['art']),x+2*mm,H-y-32*mm-(dh-22*mm)*.87,width=dw,height=dh,mask='auto');c.restoreState()
-    else:emblem(s['name'],x+2*mm,y+10*mm,w-4*mm,22*mm,INK)
+        ax,ay,aw,ah=x+3*mm,y+12*mm,w-6*mm,20*mm
+        c.saveState();clip=archpath(ax,ay,aw,ah);c.clipPath(clip,stroke=0,fill=0)
+        iw,ih=ImageReader(str(ASSETS/s['art'])).getSize();dw=aw;dh=dw*ih/iw
+        c.drawImage(str(ASSETS/s['art']),ax,H-ay-ah-(dh-ah)*.87,width=dw,height=dh,mask='auto');c.restoreState()
+        c.saveState();o=archpath(ax,ay,aw,ah);c.setFillColor(Color(.03,.02,.02,alpha=.18));c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.5);c.drawPath(o,stroke=1,fill=1);c.restoreState()
+        lotus(ax+aw/2,ay-.9*mm,2.6*mm)
+    else:emblem(s['name'],x+3*mm,y+12*mm,w-6*mm,20*mm,'#0B0907')
     para(escape(s['name']),x+3*mm,y+34*mm,w-6*mm,12,bold=True,max_height=11*mm)
     para(f'{s["seats"]} SEAT'+('S' if s['seats']>1 else '')+' / '+('TAINTED: MOVE 2' if s['tainted'] else 'DELIVER BY MOVE 3'),x+3*mm,y+42*mm,w-6*mm,7.8,bold=True,color=RED if s['tainted'] else MUTE)
     text=s['text'].replace(' This is a provisional filler soul.','').replace(' Provisional filler soul.','')
@@ -121,7 +148,7 @@ def soul_card(s,i):
     if s['id']=='S01':text='Quest: deliver with Child and match both wishes to earn Passage.'
     if s['id']=='S08':text='Wishes for Styx. Other ordinary stops accept Achilles unmatched.'
     para(escape(text),x+3*mm,y+49*mm,w-6*mm,10,leading=12.4,max_height=24*mm)
-    para('DEADLINE: ______  (anger +'+str(s['patience'])+')',x+3*mm,y+74*mm,w-6*mm,8.7,bold=True)
+    rect(x+2.5*mm,y+73*mm,w-5*mm,6.2*mm,WRITE,GOLD,.4);para('DEADLINE: ______  (anger +'+str(s['patience'])+')',x+3.5*mm,y+74*mm,w-7*mm,8.7,bold=True,color=WRITEINK)
 def route_card(r,i):
     x,y,w,h=coords(i);d=D['destinations'][r['to']];card_frame(x,y,w,h,d['color'],'ROUTE / '+d['symbol'],r['id'])
     para(escape(d['name']),x+3*mm,y+12*mm,w-6*mm,17,bold=True)
@@ -130,7 +157,7 @@ def route_card(r,i):
     para('BASE FOG',x+20*mm,y+40*mm,w-23*mm,9,bold=True,color=MUTE)
     para(escape(r['text']),x+3*mm,y+52*mm,w-6*mm,10,leading=12.8,max_height=26*mm)
 def utility(i,title,text,code):
-    x,y,w,h=coords(i);card_frame(x,y,w,h,INK,'TABLE LABEL',code)
+    x,y,w,h=coords(i);card_frame(x,y,w,h,'#4A3720','TABLE LABEL',code)
     para(title,x+4*mm,y+14*mm,w-8*mm,18,bold=True)
     para(text,x+4*mm,y+36*mm,w-8*mm,10.5,leading=14,max_height=42*mm)
 
@@ -163,7 +190,7 @@ def track(title,values,x,y,w,cols,caption=''):
     cell=w/cols
     for i,n in enumerate(values):
         xx=x+(i%cols)*cell;yy=y+(i//cols)*12*mm
-        rect(xx,yy,cell-1*mm,11*mm,PALE,INK,.45)
+        rect(xx,yy,cell-1*mm,11*mm,PALE,GOLD,.45)
         para(str(n),xx+1.5*mm,yy+1.6*mm,cell-4*mm,13,bold=True)
     y+=((len(values)+cols-1)//cols)*12*mm
     if caption:para(caption,x,y+1*mm,w,8.8,color=MUTE)
@@ -181,7 +208,7 @@ para('FOG = base + pressure + Wraiths + rival pair + Event - Memory. Minimum 0.<
 page('The boat','FOUR SEATS / ACHILLES OCCUPIES TWO / ALL PASSENGERS STAY VISIBLE')
 for i in range(4):
     x=(38+(i%2)*67)*mm;y=(54+(i//2)*92)*mm
-    rect(x,y,63*mm,88*mm,CREAM,'#6e847b',.7)
+    rect(x,y,63*mm,88*mm,CREAM,GOLD,.7)
     para('SEAT '+str(i+1),x+4*mm,y+8*mm,55*mm,13,bold=True,color=MUTE)
     para('Place a Soul card here. Achilles also occupies an adjacent empty seat.',x+5*mm,y+43*mm,53*mm,10.5,color=MUTE)
 para('Narrow Channel: cover one seat for this trip. Board only at shore.<br/>At every arrival, deliver first, then check Ship Wraith expiry.',10*mm,246*mm,190*mm,11,bold=True)
@@ -203,13 +230,13 @@ for k in range(2):
 page('Memories','CUT OUTER BORDERS / KEEP IN RESERVE / DO NOT SHUFFLE')
 for i,m in enumerate(D['memories']):
     x,y,w,h=coords(i,40);source=next(s for s in D['souls'] if s['memory']==m['id'])
-    card_frame(x,y,w,h,GOLD,'MEMORY / '+source['id'],m['id'])
+    card_frame(x,y,w,h,'#6B4F25','MEMORY / '+source['id'],m['id'])
     para(escape(m['name']),x+3*mm,y+10*mm,w-6*mm,11,bold=True,max_height=12*mm)
     para(escape(m['text']),x+3*mm,y+21*mm,w-6*mm,10,leading=12,max_height=12*mm)
 para('Earn only from matched ordinary deliveries. One Memory per move. Keep at most three. Permanently discard used and excess cards.',10*mm,272*mm,190*mm,9,color=MUTE,max_height=9*mm)
 page('Arrival tickets','CUT OUTER BORDERS / SHUFFLE FACE DOWN / DO NOT RECYCLE')
 for i,a in enumerate(D['arrivals']):
-    x,y,w,h=coords(i,40);card_frame(x,y,w,h,INK,'ARRIVAL',a['id'])
+    x,y,w,h=coords(i,40);card_frame(x,y,w,h,'#4A3720','ARRIVAL',a['id'])
     para(escape(a['name']),x+3*mm,y+11*mm,w-6*mm,12,bold=True,max_height=12*mm)
     para('Bring '+', '.join(a['souls'])+' to the shore.',x+3*mm,y+24*mm,w-6*mm,10,max_height=10*mm)
 para('Refill until at least five souls wait or tickets run out. A paired ticket brings both souls and may make six. Write each new deadline using the current anger. Never reuse a ticket this night.',10*mm,239*mm,190*mm,11)
@@ -223,14 +250,14 @@ utility(5,'START A TRIP','Reset boat moves. Clear last Event. On trips 2 and 4, 
 page('Markers and workshop record','CUT ONLY THE SIX MARKERS / KEEP THE RECORD AREA WHOLE')
 for i,title in enumerate(['LIGHT','WISH','ANGER','TRIP','BOAT','PASSAGE']):
     x=(10+i*31.8)*mm;y=54*mm
-    rect(x,y,10*mm,10*mm,GOLD,INK,.8);para(['L','W','T','TR','B','P'][i],x+2*mm,y+2.5*mm,7*mm,9,bold=True)
+    rect(x,y,10*mm,10*mm,GOLD,GOLDHI,.8);para(['L','W','T','TR','B','P'][i],x+2*mm,y+2.5*mm,7*mm,9,bold=True,color=WRITEINK)
     para(title,x,y+12*mm,29*mm,8,bold=True)
     components.append({'page':page_no,'id':'TOKEN-'+title,'x_mm':round(x/mm,2),'y_mm':54,'width_mm':10,'height_mm':10})
 line(10*mm,78*mm,200*mm,78*mm,INK,.7)
 para('PHYSICAL WORKSHOP RECORD',10*mm,88*mm,190*mm,16,bold=True)
 y=105*mm
 for text in ['Date / player / observer: ______________________________________________','Printer / paper / 50 mm scale check: ____________________________________','Setup started / ready / first move / finish: ______________________________','Ending / trips / wishes / Wraiths: _______________________________________','First confusing rule or component: ____________________________________','A difficult decision and why: __________________________________________','A choice that felt automatic and why: __________________________________','Missing or awkward components: ______________________________________','One change requested after this session: _______________________________']:
-    para(text,10*mm,y,190*mm,11);y+=15*mm
+    rect(10*mm,y-1.6*mm,190*mm,8.4*mm,WRITE,GOLD,.4);para(text,12*mm,y,186*mm,11,color=WRITEINK);y+=15*mm
 para('Record real observations, not inferred enjoyment or balance. An observer does not choose routes, arrivals or passengers. One player controls the game.',10*mm,250*mm,190*mm,10,color=MUTE)
 c.save()
 reader=PdfReader(str(PDF));assert len(reader.pages)==16

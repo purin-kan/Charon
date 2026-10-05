@@ -78,14 +78,14 @@
       "x": 28.35,
       "y": 260.92,
       "width": 538.58,
-      "height": 60.72,
+      "height": 45.54,
       "fontSize": 11.5
     },
     {
       "page": 1,
       "text": "Keep these sheets whole",
       "x": 28.35,
-      "y": 332.64,
+      "y": 317.46,
       "width": 538.58,
       "height": 16.5,
       "fontSize": 12.5
@@ -94,7 +94,7 @@
       "page": 1,
       "text": "Page 2: one-page player guide. Pages 3-5: complete rules and example. Pages 6-7: river dashboard and boat mat. Page 16 below the cut line: optional workshop record. The separate Player Guide PDF repeats page 2 for extra copies.",
       "x": 28.35,
-      "y": 354.14,
+      "y": 338.96,
       "width": 538.58,
       "height": 45.54,
       "fontSize": 11.5
@@ -103,7 +103,7 @@
       "page": 1,
       "text": "Cut these pieces",
       "x": 28.35,
-      "y": 410.68,
+      "y": 395.5,
       "width": 538.58,
       "height": 16.5,
       "fontSize": 12.5
@@ -112,7 +112,7 @@
       "page": 1,
       "text": "Pages 8-10: 14 Soul cards and 4 table labels. Pages 11-12: 10 Routes and 2 reminder cards. Page 13: 13 Memories. Page 14: 12 Arrival tickets. Page 15: 4 Events and 2 reference cards. Page 16: 6 markers. Cut on each outer rectangle; trim square corners. No folding or aligned backs are required.",
       "x": 28.35,
-      "y": 432.18,
+      "y": 417.0,
       "width": 538.58,
       "height": 60.72,
       "fontSize": 11.5
@@ -121,7 +121,7 @@
       "page": 1,
       "text": "Arrange the table",
       "x": 28.35,
-      "y": 503.9,
+      "y": 488.72,
       "width": 538.58,
       "height": 16.5,
       "fontSize": 12.5
@@ -130,7 +130,7 @@
       "page": 1,
       "text": "Dashboard on the left, boat mat in the middle, waiting Soul cards on the right. Keep face-up Soul and Memory reserves above them. Shuffle Arrivals, Routes and Events separately, face down. Keep distinct Route discard, spent Memory, delivered Soul and Wraith areas. Use the cut-out labels. Bring a pencil and eraser for deadlines.",
       "x": 28.35,
-      "y": 525.4,
+      "y": 510.22,
       "width": 538.58,
       "height": 60.72,
       "fontSize": 11.5
@@ -276,14 +276,14 @@
       "x": 308.98,
       "y": 172.99,
       "width": 257.95,
-      "height": 108.77,
+      "height": 95.17,
       "fontSize": 10.3
     },
     {
       "page": 2,
       "text": "4 / CHECK THE BOAT",
       "x": 308.98,
-      "y": 292.75,
+      "y": 279.16,
       "width": 257.95,
       "height": 14.92,
       "fontSize": 11.3
@@ -292,16 +292,16 @@
       "page": 2,
       "text": "After delivery, tainted passengers still aboard on move 2 become Ship Wraiths. All others still aboard on move 3 do so. Each Wraith adds 1 fog on later moves. Draw 2 new Routes if passengers remain. At 3 boat moves, return is the only next move.",
       "x": 308.98,
-      "y": 312.67,
+      "y": 299.07,
       "width": 257.95,
-      "height": 81.58,
+      "height": 67.98,
       "fontSize": 10.3
     },
     {
       "page": 2,
       "text": "5 / RETURN",
       "x": 308.98,
-      "y": 405.25,
+      "y": 378.05,
       "width": 257.95,
       "height": 14.92,
       "fontSize": 11.3
@@ -310,7 +310,7 @@
       "page": 2,
       "text": "Return only with an empty boat. Return base fog is 0; pressure and Wraiths still apply. You may spend one memory. Advance anger and resolve due waiting souls; no free recovery. Begin the next trip, refill the shore and reset boat moves. Reveal an Event before refill on trips 2 and 4. Pressure: +0 on trips 1-2; +1 on trips 3-4.",
       "x": 308.98,
-      "y": 425.16,
+      "y": 397.97,
       "width": 257.95,
       "height": 95.17,
       "fontSize": 10.3
@@ -319,7 +319,7 @@
       "page": 2,
       "text": "SPECIAL STOPS AND QUEST",
       "x": 308.98,
-      "y": 531.33,
+      "y": 504.14,
       "width": 257.95,
       "height": 14.92,
       "fontSize": 11.3
@@ -328,7 +328,7 @@
       "page": 2,
       "text": "Haven: no delivery; +1 light after paying, but clocks and Ship Wraiths still apply. Sanctuary: any wishes match; no light or memories, then retire its Route. Mother + Child matched together earn Passage once: before a move, send one waiting soul directly to its wish for 1 score only. Full details and an example follow in the kit.",
       "x": 308.98,
-      "y": 551.25,
+      "y": 524.06,
       "width": 257.95,
       "height": 95.17,
       "fontSize": 10.3
@@ -510,14 +510,14 @@
       "x": 28.35,
       "y": 333.53,
       "width": 538.58,
-      "height": 128.3,
+      "height": 114.05,
       "fontSize": 10.8
     },
     {
       "page": 4,
       "text": "Haven, Sanctuary and the family quest",
       "x": 28.35,
-      "y": 472.83,
+      "y": 458.57,
       "width": 538.58,
       "height": 15.58,
       "fontSize": 11.8
@@ -526,9 +526,9 @@
       "page": 4,
       "text": "Haven has base fog zero. Pay all added fog and Killer drain before gaining one light, capped at six. Deliver nobody there. Anger, boat moves and passenger expiry all apply. Sanctuary has base fog zero and treats every delivered soul as matching its wish, including Achilles. It grants no light or Memories and is retired after use. Ordinary pressure and both clocks still apply. Delivering Mother and Child together in one action with both wishes matched, at Elysium or Sanctuary, unlocks Passage once. Before a later move, while boarding or choosing a route, spend Passage to send one waiting soul directly to its printed wish. Gain one wish only, with no light or Memory; no clock advances. Passage cannot target a passenger aboard, a Wraith, a delivered soul or someone who has not arrived.",
       "x": 28.35,
-      "y": 493.41,
+      "y": 479.15,
       "width": 538.58,
-      "height": 128.3,
+      "height": 114.05,
       "fontSize": 10.8
     },
     {
@@ -591,14 +591,14 @@
       "x": 28.35,
       "y": 173.65,
       "width": 538.58,
-      "height": 142.56,
+      "height": 128.3,
       "fontSize": 10.8
     },
     {
       "page": 5,
       "text": "Paper example and reset",
       "x": 28.35,
-      "y": 327.21,
+      "y": 312.95,
       "width": 538.58,
       "height": 15.58,
       "fontSize": 11.8
@@ -607,7 +607,7 @@
       "page": 5,
       "text": "Example: anger 2, light 4, trip 2, boat move 0. Killer and Merchant are aboard; Po Din waits with deadline 3. Choose Ashen Gate (base 1) with no Memory, no active Event and no Wraiths. Pay 1 Killer drain +1 fog, leaving light 2. Advance anger to 3 and boat moves to 1. Po Din now becomes a Wraith; it did not tax this move. Deliver Killer and Merchant to Tartarus: gain 2 wishes, their 2 Memories, and only 1 light, ending at light 3. The empty return now costs 1 Wraith fog. Reset: return all Soul and Memory cards to their reserves, restore the retired Sanctuary to Routes, collect all Arrival and Event tickets, erase deadlines, reshuffle the three random piles and reset trackers. No consumable component is required beyond erasable pencil marks.",
       "x": 28.35,
-      "y": 347.78,
+      "y": 333.53,
       "width": 538.58,
       "height": 114.05,
       "fontSize": 10.8
@@ -616,7 +616,7 @@
       "page": 5,
       "text": "No hidden reference work",
       "x": 28.35,
-      "y": 492.67,
+      "y": 478.42,
       "width": 538.58,
       "height": 15.84,
       "fontSize": 12
@@ -625,7 +625,7 @@
       "page": 5,
       "text": "All Soul, Memory, Route and Event effects are printed on their pieces. Keep passenger information visible. When a partner or rival has not arrived, its interaction is inactive. Pair tickets guarantee simultaneous arrival, not that the player must board both.",
       "x": 28.35,
-      "y": 513.51,
+      "y": 499.26,
       "width": 538.58,
       "height": 43.56,
       "fontSize": 11
@@ -634,7 +634,7 @@
       "page": 5,
       "text": "Pressure, not busywork",
       "x": 28.35,
-      "y": 568.07,
+      "y": 553.82,
       "width": 538.58,
       "height": 15.84,
       "fontSize": 12
@@ -643,7 +643,7 @@
       "page": 5,
       "text": "One shared anger marker replaces per-soul anger markers. One boat counter replaces individual passenger timers. Write a deadline only when a soul arrives or when a card changes that deadline. The rules can be run without a browser or a facilitator.",
       "x": 28.35,
-      "y": 588.91,
+      "y": 574.66,
       "width": 538.58,
       "height": 43.56,
       "fontSize": 11
@@ -1434,9 +1434,9 @@
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 36.85,
+      "x": 38.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1488,9 +1488,9 @@
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 216.85,
+      "x": 218.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1536,15 +1536,15 @@
       "x": 396.85,
       "y": 291.97,
       "width": 161.57,
-      "height": 37.2,
+      "height": 24.8,
       "fontSize": 10
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 396.85,
+      "x": 398.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1596,9 +1596,9 @@
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 36.85,
+      "x": 38.27,
       "y": 623.62,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1644,15 +1644,15 @@
       "x": 216.85,
       "y": 552.76,
       "width": 161.57,
-      "height": 37.2,
+      "height": 24.8,
       "fontSize": 10
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 216.85,
+      "x": 218.27,
       "y": 623.62,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1704,9 +1704,9 @@
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +3)",
-      "x": 396.85,
+      "x": 398.27,
       "y": 623.62,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1812,9 +1812,9 @@
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 36.85,
+      "x": 38.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1860,15 +1860,15 @@
       "x": 216.85,
       "y": 291.97,
       "width": 161.57,
-      "height": 37.2,
+      "height": 24.8,
       "fontSize": 10
     },
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 216.85,
+      "x": 218.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1920,9 +1920,9 @@
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 396.85,
+      "x": 398.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -1974,9 +1974,9 @@
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 36.85,
+      "x": 38.27,
       "y": 623.62,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -2028,9 +2028,9 @@
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 216.85,
+      "x": 218.27,
       "y": 623.62,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -2082,9 +2082,9 @@
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 396.85,
+      "x": 398.27,
       "y": 623.62,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -2190,9 +2190,9 @@
     {
       "page": 10,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 36.85,
+      "x": 38.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -2244,9 +2244,9 @@
     {
       "page": 10,
       "text": "DEADLINE: ______  (anger +5)",
-      "x": 216.85,
+      "x": 218.27,
       "y": 362.83,
-      "width": 161.57,
+      "width": 158.74,
       "height": 11.48,
       "fontSize": 8.7
     },
@@ -2382,7 +2382,7 @@
       "x": 399.69,
       "y": 453.54,
       "width": 155.91,
-      "height": 47.52,
+      "height": 23.76,
       "fontSize": 18
     },
     {
@@ -4281,7 +4281,7 @@
       "x": 36.85,
       "y": 260.79,
       "width": 161.57,
-      "height": 42,
+      "height": 28,
       "fontSize": 10.5
     },
     {
@@ -4425,7 +4425,7 @@
       "x": 219.69,
       "y": 515.91,
       "width": 155.91,
-      "height": 84,
+      "height": 70,
       "fontSize": 10.5
     },
     {
@@ -4629,81 +4629,81 @@
     {
       "page": 16,
       "text": "Date / player / observer: ______________________________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 297.64,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "Printer / paper / 50 mm scale check: ____________________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 340.16,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "Setup started / ready / first move / finish: ______________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 382.68,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "Ending / trips / wishes / Wraiths: _______________________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 425.2,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "First confusing rule or component: ____________________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 467.72,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "A difficult decision and why: __________________________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 510.24,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "A choice that felt automatic and why: __________________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 552.76,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "Missing or awkward components: ______________________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 595.28,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },
     {
       "page": 16,
       "text": "One change requested after this session: _______________________________",
-      "x": 28.35,
+      "x": 34.02,
       "y": 637.8,
-      "width": 538.58,
+      "width": 527.24,
       "height": 14.52,
       "fontSize": 11
     },

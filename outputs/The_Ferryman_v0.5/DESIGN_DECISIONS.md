@@ -49,3 +49,7 @@ These are explicit user requests, not agent-authored balance changes. Rules, num
 | Say "anger" instead of "tide" | The shared tide track is now the shared anger track in the rules, guide, cards and dashboard. In the browser each waiting soul shows its anger rising toward its limit (5, or 3 for the Fool). The engine field is still named `tide`. |
 | Make the browser look and feel like v0.4 | Intro, three save slots, one decision per page, picture cards, result popups, side status panel and trip panel, in the Khmer night theme with the reaper ferryman. Destination scenes and memory images are reused v0.4 art; Styx and Sanctuary have no scene. Paper components are unchanged apart from the names and wording above. |
 
+## October 5, 2026: dark print kit (user request)
+
+The A4 print-and-play kit now matches the live browser design: near-black pages, tarnished bronze borders and rules, bone text, Battambang headings and Kantumruy Pro body text (SIL OFL, bundled in `assets/fonts/` with licenses). Portraits sit in a temple-doorway arch with a lotus finial, cards have a bronze cut border and inner frame, and label bands are dark bronze. Deadline lines and the workshop record stay parchment so pencil remains legible. Rules text, card sizes, positions and counts are unchanged. Dark pages use far more ink.
+

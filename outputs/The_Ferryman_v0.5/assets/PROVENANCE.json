@@ -117,6 +117,26 @@
       "file": "assets/fonts/VeraIt.ttf",
       "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/VeraIt.ttf",
       "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a"
+    },
+    {
+      "file": "assets/fonts/Battambang-Bold.ttf",
+      "source": "outputs/The_Ferryman_v0.6/tools/print/fonts/Battambang-Bold.ttf",
+      "sha256": "4cd10f7a56a7d9d1fb4184b2219821f8ad6f425be290243ef73c4ef3a80c86ff"
+    },
+    {
+      "file": "assets/fonts/Battambang-Black.ttf",
+      "source": "outputs/The_Ferryman_v0.6/tools/print/fonts/Battambang-Black.ttf",
+      "sha256": "4426332a541f6cc85489813b11d99b8a1aaca53b313f8deb21b403a3d58286dd"
+    },
+    {
+      "file": "assets/fonts/KantumruyPro-Regular.ttf",
+      "source": "outputs/The_Ferryman_v0.6/tools/print/fonts/KantumruyPro-Regular.ttf",
+      "sha256": "044cec13f18a28fe7953a9f12d310c8f9efd36e2c86e52f468b2046ab0f58bd6"
+    },
+    {
+      "file": "assets/fonts/KantumruyPro-SemiBold.ttf",
+      "source": "outputs/The_Ferryman_v0.6/tools/print/fonts/KantumruyPro-SemiBold.ttf",
+      "sha256": "ec0e359e5f86e5b2422fdfc768040d8bc816bccfda186af09dd73af5324b3355"
     }
   ]
 }

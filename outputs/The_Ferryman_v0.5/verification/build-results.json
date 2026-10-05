@@ -1,17 +1,17 @@
 {
-  "builtAt": "2026-10-04T14:27:13.498054+00:00",
+  "builtAt": "2026-10-05T05:07:09.716597+00:00",
   "sourceHashes": {
     "content.json": "a3879cc51250d0de10c77c55a9af65958716cb3d8feec04568672fbcd6cf4fd1",
     "rules.json": "9294d706e1d2ef634967da6b04f7d9942fa4066ddb512aafd115b827feada9f7",
-    "build.py": "0a9575051a2c00c192079b45064c751e753c48ecd5ca61ed0b1ae9089bb90168"
+    "build.py": "6cfbce36889b54a3b67cf9b9bbfd7808b32de8e7742cda1014aee2c31df2c856"
   },
   "outputs": {
     "Print_and_Play_v0.5.pdf": {
-      "sha256": "080e443cbc3bc88ff3b5f34a5e7478bbb06c178609646f4c1bee4fd8bb193a88",
+      "sha256": "c29e8b3cc5b0d7e6d393e2bd424112effd3137c515d6cbb78a3c51a75d714911",
       "pages": 16
     },
     "Player_Guide_v0.5.pdf": {
-      "sha256": "cb604b35491cfd5946ae3e93bfe724bf8c42c9bc31fd62a872680ec6718e627c",
+      "sha256": "33646a4ab06bb653fb7f507dbe31e33d786e5a9d2ea06200b7d90dce67784fa5",
       "pages": 1
     }
   },

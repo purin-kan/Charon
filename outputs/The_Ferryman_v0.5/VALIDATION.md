@@ -56,3 +56,4 @@ Run `node tests/engine-check.js` and `node tests/simulation.js` from this folder
 
 Checks store source hashes, and rebuilding overwrites generated files and their evidence. After any rule or component change, regenerate the browser data, rules, guide and PDFs, review changed pages, rerun checks and rebuild the ZIP.
 
+October 5, 2026 dark print redesign: all 16 A4 pages were rebuilt with the dark theme and inspected as rendered images by the agent; static checks pass 6/0. Printed color, dark-art detail and ink use on real paper are NOT_RUN.
