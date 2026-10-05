@@ -2,175 +2,175 @@
   "status": "PASS",
   "reviewer": "Claude agent visual inspection",
   "checked_utc": "2026-10-05T10:55:52.394693+00:00",
-  "master_sha256": "ba29889922acbc6a2260777bc1cc48f32bc443a7fe6d117a69c948cfd29e29f3",
-  "method": "White page backgrounds with dark lacquer cards; cards resized to poker size (63 x 88 mm), nine per sheet with shared cut lines, larger undimmed character art (user request). Agent inspected the 80 dpi overview of all 24 pages and 110 dpi renders of card sheets 17, 22, 23 and 24 plus reference, mat and dashboard pages.",
+  "master_sha256": "102150f0c0fe534c1e3e998a88cde47e2d8abf01f9e1cd8bdf586d7791d9a8d0",
+  "method": "Fonts changed to Cinzel Decorative (headings) and Cormorant Garamond (body), user request; card digits use Cinzel for lining numerals. Agent inspected pages 1, 5, 17 and 19 at 90 dpi and card sheets 17 and 22 at 160 dpi. White page backgrounds with dark lacquer cards; cards resized to poker size (63 x 88 mm), nine per sheet with shared cut lines, larger undimmed character art (user request). Agent inspected the 80 dpi overview of all 24 pages and 110 dpi renders of card sheets 17, 22, 23 and 24 plus reference, mat and dashboard pages.",
   "reviewed_master_pages": 24,
   "pages": [
     {
       "page": 1,
       "title": "Print and play / start here",
-      "render_sha256": "db2ae6522765cbb6e9a14b6d6a5eef1c27661bfac75ab48eb7a75a5a74cf7d95",
+      "render_sha256": "afc103da5f29c8a16c4ea8cd59ec07b8dd8978d8cdc5e05b0f82b34d1312f086",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 2,
       "title": "Player guide / keep at the table",
-      "render_sha256": "dd534700b8bf1e50c59924eace18db56244fd04604c672ea946d29f313098e34",
+      "render_sha256": "239566cea0c87d9f6b442f74760952a75412ac3848503d74875b6b3a92ca05c3",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 3,
       "title": "Assembly and component inventory",
-      "render_sha256": "90a6d3516dd61ccddda42e8eb16fcc7aa571c23c7ec29989dc0af30f6224466d",
+      "render_sha256": "ae9cac6659d6de9cf0812562413910cab407d31072cb3f9e753cc06ba280f0aa",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 4,
       "title": "Table setup / one player station",
-      "render_sha256": "b6a8d3760e4fe3b2bc7d519038f9a21bffc73193a30218608d620d7224e135a7",
+      "render_sha256": "232b9215e7992a08c00015e21eee47865e22544a81106d7e265693d81c4b06b9",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 5,
       "title": "Full rules / 1. Souls and setup",
-      "render_sha256": "0858ef8b462ff5f632bb971172cdfcf498ee5fa866eb257ea13a5bed6e546a48",
+      "render_sha256": "9fc444a8cb1566e3bd88c1069e946f44789603b423ec75c70449971eddf8276d",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 6,
       "title": "Full rules / 2. Outward sequence",
-      "render_sha256": "28ce473dae347b708798e12cbf95edb4ddbfdbe439ef7a938ff2b97eb2e4932b",
+      "render_sha256": "497bb53be1745a05d19e4b3e2c5b54aa72c60afed7b08a00506f9606d9ff41b0",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 7,
       "title": "Full rules / 3. Memories",
-      "render_sha256": "511ce5b601483b123ec15ba9058610a0944dd6635e4fc651217e7c58173b827b",
+      "render_sha256": "5ea6156e45c0d5282435fac14c50b5791f34733ef7285f4ecae1d51e8054db2e",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 8,
       "title": "Full rules / 4. Return and quest",
-      "render_sha256": "3ee6ae7a2277150d05f3f585f88412f23860a17d6f5a26c6f45ec66af0221c01",
+      "render_sha256": "b0ab2153902e37feee55216f0f5a4f6f9db0dcb367f7ae488e9729666860b2be",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 9,
       "title": "Full rules / 5. Worked examples",
-      "render_sha256": "e43b4156089ac5cd62c8d1a5a958c93bea40d05c2699ab6e2a3f1e0eb703bc6a",
+      "render_sha256": "da42450c5f0a218443f70c768b565bc7633fad386a119ce49414f32f7a6622df",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 10,
       "title": "Full rules / 6. Routes and recycling",
-      "render_sha256": "13a6a2d4d91c82080d739e78d7e4f616d954e05863fe30195b2cd133bbdc7236",
+      "render_sha256": "550a555579863fcfdde77dfde4dea93f7a2d456af3dccfa1da551b4a0cf595e3",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 11,
       "title": "Workshop record / blank human form",
-      "render_sha256": "0c50a14379ab41e25ad3126a05e6d3be87bf897a0497ee60f51896352ef18757",
+      "render_sha256": "ef57c33fb0d2277cf5f6317d9e5b75134e8ffe4416cb16d39e0223940fbf4a0b",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 12,
       "title": "Shore / boarding and soul supply",
-      "render_sha256": "5ccda5586ea847bcdafd774987ff65b95db5265b3386f0d1e46033d62dec7cb7",
+      "render_sha256": "dff12ed598457fa4c30d229557732e6a732db6fdd0304f49edaad0d7ed9b56e2",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 13,
       "title": "Boat / left panel / seats 1-2",
-      "render_sha256": "b299fcf74464d54144d7eb3504185451636e80c76f970aff99f08da23e4763b1",
+      "render_sha256": "90eab1a36cffe75812716647e32d5148164a4853ddeb961878685ebd39f4ccd4",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 14,
       "title": "Boat / right panel / seats 3-4",
-      "render_sha256": "5dece4d1b99297940517978ac13f06ef2b49ef43f86b93e8a6bf022b520d7808",
+      "render_sha256": "172b6d1dad19f729a09c896773696c7fc14adeeb62c6737efde19a4eec87c446",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 15,
       "title": "Dashboard / endless counters",
-      "render_sha256": "39553f06fe196f7c0a11c81744a6028411ea269198d678cd19690b00b1ad3bd0",
+      "render_sha256": "0f4f250b7cd3c77fc9adb97d731e7c626be3a4e87fb96da8a02610174ab42012",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 16,
       "title": "Route staging / facilitator control",
-      "render_sha256": "3ceb57c3a40b1f4662ecdb2c52d96cd4ca1fd8635e015fa95ca241c4df9d0e65",
+      "render_sha256": "42b1f980067743770aa7dcbb62d1b7c7f4a9f7c93a3a256cf93b5ace026dddb9",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 17,
       "title": "Card sheet 1",
-      "render_sha256": "e629cf815ea7e810b9ae949c030c05f46552e797e5d892e5c7d942bc1ce49869",
+      "render_sha256": "d346e059df66d54c3c89366926a6fbd82eeb75aa5e689f66f8cf883a4667697d",
       "status": "PASS",
       "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 18,
       "title": "Card sheet 2",
-      "render_sha256": "9a05744d78a22bdbe890a24cc4b1c9666f7736d19a83138ff5dd289b2676391b",
+      "render_sha256": "554988624a24beefec3822a23558e732253e8d231bc91dac233c4889cbc014ba",
       "status": "PASS",
       "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 19,
       "title": "Card sheet 3",
-      "render_sha256": "a26998122faeaede7c1c26a1c6a63f181d1bedd96a71fb845b00bea284a9964c",
+      "render_sha256": "1d5b83428e29aab4935eb308a5911236443ec40c0f15053e5bdbe83425b8e9b8",
       "status": "PASS",
       "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 20,
       "title": "Card sheet 4",
-      "render_sha256": "cb52d85a526ee0a5b6131db26340931b92c2d4651c0f2ab1456d19f56e3c05c2",
+      "render_sha256": "e77cf866bcd1c7d5ce63bc386884a52ed72cafbf0f10bd2f50d455be5b3ef6a7",
       "status": "PASS",
       "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 21,
       "title": "Card sheet 5",
-      "render_sha256": "d60bdebfe4e23206b0f9ebd5778e03b24f17d3e4124554de966bd5266f00c9c4",
+      "render_sha256": "f6041d89dba7ba7ccf6955a2a738f50e4e7f53c346eced86d8441f326a711cda",
       "status": "PASS",
       "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 22,
       "title": "Card sheet 6",
-      "render_sha256": "3b599f483f72cf59f8393574d3e8e1b655520a98d9fc3cf7e866a32afe787f57",
+      "render_sha256": "f55740f65bafc5a8259cdcc358c8602ecbe02a1f2329c0d1125f7a957384421b",
       "status": "PASS",
       "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 23,
       "title": "Route offer slips and PoLong templates",
-      "render_sha256": "f4d7385be5a7cae2cb8f9e8e126731a7c5dacc1cadb6faa49d309d360e0c7855",
+      "render_sha256": "371073dc95f45ba0199515048bdee2e73e055160d0c02392aa82de24d81a40d2",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 24,
       "title": "Markers and Soldier occupancy piece",
-      "render_sha256": "8dd0b5e75f681fd042f6800c72395db346b1d96e2eda4a0a86713e523d5098db",
+      "render_sha256": "f91414e9e59fa34fb81e597764a5b2629b3db9c0c0ee5cca8b494cce55f97752",
       "status": "PASS",
       "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     }

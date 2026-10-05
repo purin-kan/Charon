@@ -79,8 +79,8 @@ body.splash-on .masthead{visibility:hidden}.splash{min-height:calc(100vh - 150px
 :root{--paper:#f0e4c8;--muted:#c2b193;--gold:#dcab4f;--gold-hi:#f2d18a;--sand:#b99a73;--ink:#22160d;--line:#dcab4f40;--panel:#1c1510ee;--lacquer:#9c3526;--danger:#ef9f86;--jade:#8cc5a5;
   --rule:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 18'%3E%3Cg fill='none' stroke='%23dcab4f' stroke-width='1.1' stroke-linejoin='round'%3E%3Cpath d='M0 9h94M146 9h94' stroke-opacity='.5'/%3E%3Cpath d='M99 9l4-3 4 3-4 3zM133 9l4-3 4 3-4 3z'/%3E%3Cpath d='M120 16.5c-3-3-3-9.5 0-14.5 3 5 3 11.5 0 14.5z'/%3E%3Cpath d='M118 16c-5-1-8.5-4.2-8.5-8.5 3.6.4 6.2 2.4 7.8 5.2M122 16c5-1 8.5-4.2 8.5-8.5-3.6.4-6.2 2.4-7.8 5.2'/%3E%3C/g%3E%3C/svg%3E");
   --finial:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 18'%3E%3Cg fill='%231c1510' stroke='%23dcab4f' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M15 1.5c3.2 4 3.2 9.5 0 14-3.2-4.5-3.2-10 0-14z'/%3E%3Cpath d='M13 15.2C8.5 14.6 5 11.8 4.5 8c3.5.2 6.4 2.2 8 5M17 15.2c4.5-.6 8-3.4 8.5-7.2-3.5.2-6.4 2.2-8 5'/%3E%3C/g%3E%3C/svg%3E")}
-body{background:#0d1719;font-family:'Kantumruy Pro',system-ui,sans-serif}
-h1,h2,h3,.choice .title,.status strong,.slots-title,.popup h2{font-family:Battambang,Georgia,serif;font-weight:700;letter-spacing:.01em}
+body{background:#0d1719;font-family:'Cormorant Garamond',Georgia,serif}
+h1,h2,h3,.choice .title,.status strong,.slots-title,.popup h2{font-family:'Cinzel Decorative',Georgia,serif;font-weight:700;letter-spacing:.01em}
 h1{font-weight:900}
 .veil{background:linear-gradient(180deg,#130d0ab3,#0d171940 38%,#0c1313f2)}
 .eyebrow{text-transform:none;letter-spacing:.04em;font-size:14px;color:var(--gold)}
@@ -111,7 +111,7 @@ button{background:#2a1f17;border-color:#b99a7359;border-radius:4px}button:hover{
 @media(min-width:900px){.status{border-radius:8px;border-top:2px solid var(--gold)}.status span+span{border-top:1px solid #dcab4f2e}}
 .chip,.stop{border-radius:3px}.stop{border:1px dashed #b99a7366;display:inline-flex;align-items:center;gap:4px}.stop.done{background:#dcab4f1f}
 .trip,.tactics,.review,.delivery-preview,.end-stat,.end-panel,.notice{background:linear-gradient(180deg,#221810ee,#17110cee);border:1px solid var(--line);border-radius:8px}
-.trip-col{background:#0f0b08c7;border-radius:6px;border:1px solid #dcab4f1f}.trip-col h3{font-family:'Kantumruy Pro',system-ui,sans-serif;letter-spacing:.06em}.trip-col h3 .icon{width:20px;height:20px}.trip-col h3 .count{border-radius:3px}
+.trip-col{background:#0f0b08c7;border-radius:6px;border:1px solid #dcab4f1f}.trip-col h3{font-family:'Cormorant Garamond',Georgia,serif;letter-spacing:.06em}.trip-col h3 .icon{width:20px;height:20px}.trip-col h3 .count{border-radius:3px}
 .mini{border-radius:6px;background:#dcab4f0d}.mini img{border:1.5px solid #dcab4f88;box-shadow:0 0 0 2px #17110c,0 0 0 3px #dcab4f33}
 .tagx{border-radius:3px;display:inline-flex;align-items:center;gap:4px;background:#dcab4f14}.tagx .ico{width:13px;height:13px;color:var(--gold)}.tagx.safe{color:var(--jade);background:#8cc5a51a}.tagx.safe .ico{color:var(--jade)}.tagx.bad{background:#9c352633}.tagx.bad .ico{color:var(--danger)}
 .pips i{border-radius:1px;transform:rotate(45deg);width:9px;height:9px;margin:1px}
@@ -120,7 +120,7 @@ button{background:#2a1f17;border-color:#b99a7359;border-radius:4px}button:hover{
 .flow .active{border-color:transparent;position:relative}.flow .active::after{content:'';position:absolute;left:50%;bottom:-5px;width:7px;height:7px;margin-left:-3.5px;background:var(--gold);transform:rotate(45deg)}
 dialog,dialog.popup{background:linear-gradient(180deg,#221810,#140f0b);border:1px solid #dcab4f77;border-radius:10px}
 .popup-art{border-bottom:1px solid #dcab4f55}.popup::backdrop{background:#0b0806cc}
-.end-stat dd{font-family:'Kantumruy Pro',system-ui,sans-serif}.end-stat{border-top:2px solid var(--gold)}.end-mems li{border-radius:4px;border:1px solid #dcab4f2e}.end-count{border-radius:2px}
+.end-stat dd{font-family:'Cormorant Garamond',Georgia,serif}.end-stat{border-top:2px solid var(--gold)}.end-mems li{border-radius:4px;border:1px solid #dcab4f2e}.end-count{border-radius:2px}
 .boat .s{fill:#3a2a1e;stroke:#dcab4fc0}.boat .hull{fill:#4a3322}.boat .pole{stroke:#b99a73}.boat .hook{stroke:#b99a73}
 .river::after{background:linear-gradient(90deg,transparent,#dcab4f77,transparent)}
 @media(max-width:600px){main>h1:not(.splash-title)::after{width:170px}.primary{padding-left:28px;padding-right:28px}}
@@ -193,7 +193,7 @@ dialog,dialog.popup{background:linear-gradient(180deg,#110d0a,#070504);border-co
 .status .ico{display:none}
 .choice .tag.tainted,.tagx.tainted{color:var(--danger)}
 .choice .fact.deadline{color:#e8cf9f}.choice .fact.deadline.urgent{color:var(--danger)}
-.choice .sigil{display:grid;place-items:center;margin:14px 10px 0;width:calc(100% - 20px);aspect-ratio:4/5;border-radius:50% 50% 5px 5px/34px 34px 5px 5px;border:1px solid #b8914f44;background:radial-gradient(ellipse at 50% 70%,#1d1712,#0b0907);color:var(--gold-hi);font:700 40px Battambang,Georgia,serif;position:relative}
+.choice .sigil{display:grid;place-items:center;margin:14px 10px 0;width:calc(100% - 20px);aspect-ratio:4/5;border-radius:50% 50% 5px 5px/34px 34px 5px 5px;border:1px solid #b8914f44;background:radial-gradient(ellipse at 50% 70%,#1d1712,#0b0907);color:var(--gold-hi);font:700 40px 'Cinzel Decorative',Georgia,serif;position:relative}
 .choice .sigil::after{content:'';position:absolute;width:58px;height:58px;border:1px solid #b8914f55;transform:rotate(45deg)}
 .choice .scene-none{display:block;margin:14px 10px 0;width:calc(100% - 20px);aspect-ratio:3/2;border-radius:50% 50% 5px 5px/34px 34px 5px 5px;border:1px solid #b8914f44;background:linear-gradient(180deg,var(--dest,#2a2018) -40%,#0b0907 85%)}
 .choice.route-card{border-top:3px solid var(--dest,#b8914f)}
@@ -205,4 +205,11 @@ dialog,dialog.popup{background:linear-gradient(180deg,#110d0a,#070504);border-co
 .end-stats.five{grid-template-columns:repeat(5,minmax(0,1fr))}
 .seed-row{display:flex;gap:8px;align-items:center;margin:6px 0 14px}.seed-row input{flex:1;padding:9px;background:#0b0908;color:var(--paper);border:1px solid #7d6a5266;border-radius:4px;font:inherit}
 @media print{.world,.veil,.masthead,.status,dialog{display:none}body{background:#fff;color:#000}}
-.mini-sigil{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid #b8914f88;background:#0b0907;color:var(--gold-hi);font:700 15px Battambang,Georgia,serif;box-shadow:0 0 0 2px #0a0706,0 0 0 3px #b8914f33}
+.mini-sigil{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid #b8914f88;background:#0b0907;color:var(--gold-hi);font:700 15px 'Cinzel Decorative',Georgia,serif;box-shadow:0 0 0 2px #0a0706,0 0 0 3px #b8914f33}
+/* Cinzel Decorative headings + Cormorant Garamond body (user request). Cormorant runs small, so body text is a little larger, with lining figures for numbers. */
+body{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:500;font-variant-numeric:lining-nums}
+button,input,select,textarea{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600}
+h1,h2,h3,.choice .title,.status strong,.slots-title,.popup h2,.splash-title,.end-stat dd{font-family:'Cinzel Decorative',Georgia,serif;font-weight:700;letter-spacing:0}
+.choice .line,.choice .fact,.hint,.trip-note,.tagx,.mini .meta,.status span,.stop,.chip{font-size:1.06em}
+
+.choice .title{font-size:26px;line-height:1.1}@media(max-width:600px){.choice .title{font-size:21px}}

@@ -40,3 +40,4 @@ PoLong uses the user's portrait `assets/art/newpolong.jpg` in the browser and on
 
 Later the same day (user request): print page backgrounds are white while cards keep the dark lacquer style; mats and writing areas use light parchment with dark text. Cards are now poker size, 63 x 88 mm, nine per A4 sheet with shared cut lines, and character pictures fill most of each card without the dimming veil. The kit is 24 pages instead of 31; rules text and the 78 pieces are unchanged.
 
+Fonts (user request, October 5, 2026): Cinzel Decorative for headings and Cormorant Garamond for body text, in the browser (Google Fonts) and in the print kit (SIL OFL files bundled in `tools/print/fonts/` with licenses; Cormorant Garamond Medium and Bold are fixed-weight instances of the official variable font). They replace Battambang and Kantumruy Pro.

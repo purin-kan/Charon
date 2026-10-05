@@ -7,3 +7,5 @@
 The two supplied Word guides are unchanged provenance copies, not the reconciled player rules. Their source identities and conflict-resolution records are included under `source/`. The project/team retains its existing rights in code, text and assets; this local preparation does not add an open-source license or authorize external publication.
 
 The dark print redesign (October 5, 2026) embeds Battambang (Bold, Black) and Kantumruy Pro, both under the SIL Open Font License 1.1, with no Reserved Font Names. They are bundled in `tools/print/fonts/` with `Battambang-OFL.txt` and `KantumruyPro-OFL.txt`. The Kantumruy Pro Regular and SemiBold files are fixed-weight instances made with fontTools from the official variable font, so the PDF builder can embed them; they remain under the OFL.
+
+Cinzel Decorative and Cormorant Garamond (SIL Open Font License 1.1) are bundled in `tools/print/fonts/` with `CinzelDecorative-OFL.txt` and `CormorantGaramond-OFL.txt`; Cormorant Garamond Medium and Bold were instanced with fontTools from the official variable font.

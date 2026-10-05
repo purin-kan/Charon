@@ -19,8 +19,8 @@ OUT=BASE/'print'; VERIFY=BASE/'verification/print'; HERE=Path(__file__).resolve(
 for p in [OUT,VERIFY]: p.mkdir(parents=True,exist_ok=True)
 for name,file in [('Vera','Vera.ttf'),('VeraBold','VeraBd.ttf'),('VeraItalic','VeraIt.ttf')]: pdfmetrics.registerFont(TTFont(name,str(HERE/'fonts'/file)))
 pdfmetrics.registerFontFamily('Vera',normal='Vera',bold='VeraBold',italic='VeraItalic',boldItalic='VeraBold')
-# Khmer night theme: Kantumruy Pro body and Battambang display, as in the browser (SIL OFL, bundled locally).
-for name,file in [('Body','KantumruyPro-Regular.ttf'),('BodyBold','KantumruyPro-SemiBold.ttf'),('Display','Battambang-Bold.ttf'),('DisplayBlack','Battambang-Black.ttf')]: pdfmetrics.registerFont(TTFont(name,str(HERE/'fonts'/file)))
+# Cormorant Garamond body and Cinzel Decorative display, as in the browser (SIL OFL, bundled locally).
+for name,file in [('Body','CormorantGaramond-Medium.ttf'),('BodyBold','CormorantGaramond-Bold.ttf'),('Display','CinzelDecorative-Bold.ttf'),('DisplayBlack','CinzelDecorative-Bold.ttf')]: pdfmetrics.registerFont(TTFont(name,str(HERE/'fonts'/file)))
 pdfmetrics.registerFontFamily('Body',normal='Body',bold='BodyBold',italic='Body',boldItalic='BodyBold')
 pdfmetrics.registerFontFamily('Display',normal='Display',bold='Display',italic='Display',boldItalic='Display')
 INK='#DCD1B8'; GOLD='#B8914F'; GOLDHI='#D9B573'; PAPER='#15100C'; PALE='#1A130E'; RED='#D9826C'; WHITE='#120D0A'
@@ -325,26 +325,26 @@ def idlabel(cid,x,y,w=57):text(cid,x,y,w,6.5)
 def anger(x,y,polong=False):
     text('SHIP ANGER  |  4 = wraith' if polong else 'ANGER  |  shore 2 / ship 4',x,y,57,6.5,True)
     for n in range(5):
-        xx=x+n*11.4;box(xx,y+3.6,10.4,7.6,WHITE,RED if n in ([4] if polong else [2,4]) else INK);text(str(n),xx+3.7,y+4.9,6,10,True)
+        xx=x+n*11.4;box(xx,y+3.6,10.4,7.6,WHITE,RED if n in ([4] if polong else [2,4]) else INK);text(str(n),xx+3.4,y+4.3,6,12,True)
 def soulcard(s,x,y,idx=None):
     cid=s['id'] if idx is None else f'SOUL-POLONG-{idx:02d}';role='spare instance' if idx and idx>2 else 'play'
     cutbox(cid,s['name'],x,y,CARDW,CARDH,role=role,copy=idx or 1)
     art(s['id'],x+3,y+5,57,48,focus=.12,arch=True)
     text(s['name']+(f' {idx:02d}' if idx else ''),x+3,y+55,57,13,True)
-    text(f"To: {DEST[s['destination']]['name']}  |  {s['seats']} seat"+('s' if s['seats']!=1 else ''),x+3,y+61.2,57,7.6,True)
-    text('No memory. Fog +1 at anger 2-3.' if idx else 'Memory: '+NAMES.get(s['memory'],'none')+'.',x+3,y+65.4,57,7.6,maxh=4)
+    text(f"To: {DEST[s['destination']]['name']}  |  {s['seats']} seat"+('s' if s['seats']!=1 else ''),x+3,y+61.2,57,8.2,True)
+    text('No memory. Fog +1 at anger 2-3.' if idx else 'Memory: '+NAMES.get(s['memory'],'none')+'.',x+3,y+65.2,57,8.2,maxh=4.4)
     anger(x+3,y+70,idx is not None)
     idlabel(cid+(' / SPARE' if role=='spare instance' else ''),x+3,y+83.2)
 def destcard(d,x,y):
     cutbox(d['id'],d['name'],x,y,CARDW,CARDH);art(d['id'],x+3,y+5,57,48,arch=True)
     text(d['name'],x+3,y+55,57,14,True);text(f"BASE FOG {d['fog']}",x+3,y+62.5,57,11,True)
-    text('Add PoLong fog, apply any memory, then pay Light. At 0, stop. Optional matching delivery.',x+3,y+69,57,7.4,maxh=13);idlabel(d['id'],x+3,y+83.2)
+    text('Add PoLong fog, apply any memory, then pay Light. At 0, stop. Optional matching delivery.',x+3,y+69,57,8.2,maxh=13);idlabel(d['id'],x+3,y+83.2)
 def memorycard(mid,source,idx,x,y):
     cid=f'{source}-MEM-{idx:02d}' if source else 'MEM-PASSAGE-01'
     cutbox(cid,NAMES[mid]+' / '+(source or 'quest'),x,y,CARDW,CARDH,copy=idx)
     art(mid,x+3,y+5,57,34,arch=True);text(NAMES[mid],x+3,y+41,57,13,True)
     text('FROM '+source.removeprefix('SOUL-') if source else 'FAMILY QUEST / ONCE PER RUN',x+3,y+46.8,57,6.8,True,color=GOLD)
-    text(memories[mid],x+3,y+50.6,57,7.4 if mid=='MEM-PASSAGE' else 7.6,maxh=25.4)
+    text(memories[mid],x+3,y+50.6,57,8 if mid=='MEM-PASSAGE' else 8.4,maxh=25.4)
     text('Use before a round or return. One use; return to reserve.',x+3,y+76.4,57,6.6,maxh=6.6)
     idlabel(cid,x+3,y+83.2)
 SHEETS=[]

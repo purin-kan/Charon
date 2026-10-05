@@ -2,7 +2,7 @@
   "status": "PASS",
   "reviewedAt": "2026-10-05",
   "method": "White page backgrounds with dark lacquer cards; cards resized to poker size (63 x 88 mm), nine per sheet with shared cut lines, larger undimmed character art (user request). Agent inspected the 80 dpi overview of all 24 pages and 110 dpi renders of card sheets 17, 22, 23 and 24 plus reference, mat and dashboard pages.",
-  "masterSha256": "ba29889922acbc6a2260777bc1cc48f32bc443a7fe6d117a69c948cfd29e29f3",
+  "masterSha256": "102150f0c0fe534c1e3e998a88cde47e2d8abf01f9e1cd8bdf586d7791d9a8d0",
   "pages": [
     1,
     2,
@@ -30,6 +30,7 @@
     24
   ],
   "findings": [
+    "Fonts changed to Cinzel Decorative (headings) and Cormorant Garamond (body), user request; card digits use Cinzel for lining numerals. Agent inspected pages 1, 5, 17 and 19 at 90 dpi and card sheets 17 and 22 at 160 dpi.",
     "24 A4 pages: 16 reference and mat pages on white, 6 sheets of nine poker-size cards, offer slips and markers.",
     "Cards keep the dark browser style; character pictures are larger and no longer dimmed.",
     "Neighbouring cards share a cut line; assembly page explains one cut separates two cards."
