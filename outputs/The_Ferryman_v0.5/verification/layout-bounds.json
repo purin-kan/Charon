@@ -1388,327 +1388,381 @@
     },
     {
       "page": 8,
-      "text": "SOUL / ELYSIUM",
+      "text": "S01  \u00b7  SOUL",
       "x": 36.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 8,
-      "text": "S01",
+      "text": "S01 \u00b7 1 seat",
       "x": 36.85,
-      "y": 385.51,
+      "y": 265.04,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 8,
       "text": "Mother",
       "x": 36.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 8,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 36.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Elysium",
+      "x": 46.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "Quest: deliver with Child and match both wishes to earn Passage.",
-      "x": 36.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 37.2,
-      "fontSize": 10
+      "x": 46.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Memory: A Mother's Promise",
+      "x": 46.49,
+      "y": 340.44,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 38.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 8,
-      "text": "SOUL / ELYSIUM",
-      "x": 216.85,
-      "y": 161.01,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 8,
-      "text": "S02",
+      "text": "S02  \u00b7  SOUL",
       "x": 216.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 8,
+      "text": "S02 \u00b7 1 seat",
+      "x": 216.85,
+      "y": 265.04,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 8,
       "text": "Child",
       "x": 216.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 8,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 216.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Elysium",
+      "x": 226.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "Quest partner: Mother. The pair arrives together; both cards stay visible.",
-      "x": 216.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 37.2,
-      "fontSize": 10
+      "x": 226.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Memory: Small Warmth",
+      "x": 226.49,
+      "y": 340.44,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 218.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 8,
-      "text": "SOUL / TARTARUS",
-      "x": 396.85,
-      "y": 161.01,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 8,
-      "text": "S03",
+      "text": "S03  \u00b7  SOUL",
       "x": 396.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 8,
+      "text": "S03 \u00b7 1 seat",
+      "x": 396.85,
+      "y": 265.04,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 8,
       "text": "Red Soldier",
       "x": 396.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 8,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 396.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Tartarus",
+      "x": 406.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "Rivals: while both soldiers are aboard, add 1 fog to each move.",
-      "x": 396.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 406.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Memory: Red Oath",
+      "x": 406.49,
+      "y": 340.44,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 398.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 8,
-      "text": "SOUL / ASPHODEL",
-      "x": 36.85,
-      "y": 421.8,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 8,
-      "text": "S04",
+      "text": "S04  \u00b7  SOUL",
       "x": 36.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 8,
+      "text": "S04 \u00b7 1 seat",
+      "x": 36.85,
+      "y": 525.83,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 8,
       "text": "Blue Soldier",
       "x": 36.85,
-      "y": 510.24,
+      "y": 535.75,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 8,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 36.85,
-      "y": 532.91,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Asphodel",
+      "x": 46.49,
+      "y": 565.51,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "Rivals: while both soldiers are aboard, add 1 fog to each move. Count the pair only once.",
-      "x": 36.85,
-      "y": 552.76,
-      "width": 161.57,
-      "height": 37.2,
-      "fontSize": 10
+      "x": 46.49,
+      "y": 578.46,
+      "width": 151.94,
+      "height": 29.48,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Memory: Blue Oath",
+      "x": 46.49,
+      "y": 611.06,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 38.27,
-      "y": 623.62,
+      "y": 627.87,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 8,
-      "text": "SOUL / TARTARUS",
-      "x": 216.85,
-      "y": 421.8,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 8,
-      "text": "S05",
+      "text": "S05  \u00b7  SOUL",
       "x": 216.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 8,
+      "text": "S05 \u00b7 1 seat \u00b7 Tainted",
+      "x": 216.85,
+      "y": 525.83,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 8,
       "text": "Killer",
       "x": 216.85,
-      "y": 510.24,
+      "y": 535.75,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 8,
-      "text": "1 SEAT / TAINTED: MOVE 2",
-      "x": 216.85,
-      "y": 532.91,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Tartarus",
+      "x": 226.49,
+      "y": 565.51,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "Aboard: pay 1 light before fog on every move. Deliver by move 2.",
-      "x": 216.85,
-      "y": 552.76,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 226.49,
+      "y": 578.46,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Memory: Last Confession",
+      "x": 226.49,
+      "y": 601.23,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 218.27,
-      "y": 623.62,
+      "y": 627.87,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 8,
-      "text": "SOUL / ASPHODEL",
-      "x": 396.85,
-      "y": 421.8,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 8,
-      "text": "S06",
+      "text": "S06  \u00b7  SOUL",
       "x": 396.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 8,
+      "text": "S06 \u00b7 1 seat \u00b7 Tainted",
+      "x": 396.85,
+      "y": 525.83,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 8,
       "text": "Fool",
       "x": 396.85,
-      "y": 510.24,
+      "y": 535.75,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 8,
-      "text": "1 SEAT / TAINTED: MOVE 2",
-      "x": 396.85,
-      "y": 532.91,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Asphodel",
+      "x": 406.49,
+      "y": 565.51,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "Waiting deadline: anger +3. Deliver by move 2.",
-      "x": 396.85,
-      "y": 552.76,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 406.49,
+      "y": 578.46,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 8,
+      "text": "Memory: A Fool's Laughter",
+      "x": 406.49,
+      "y": 601.23,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 8,
       "text": "DEADLINE: ______  (anger +3)",
       "x": 398.27,
-      "y": 623.62,
+      "y": 627.87,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
+      "height": 10.56,
+      "fontSize": 8
     },
     {
       "page": 8,
@@ -1766,327 +1820,381 @@
     },
     {
       "page": 9,
-      "text": "SOUL / ELYSIUM",
+      "text": "S07  \u00b7  SOUL",
       "x": 36.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 9,
-      "text": "S07",
+      "text": "S07 \u00b7 1 seat",
       "x": 36.85,
-      "y": 385.51,
+      "y": 265.04,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 9,
       "text": "Po Din",
       "x": 36.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 9,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 36.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Elysium",
+      "x": 46.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "Leaves no memory, even when the wish is met. A matched delivery still counts as a wish.",
-      "x": 36.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 37.2,
-      "fontSize": 10
+      "x": 46.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 29.48,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Leaves no memory",
+      "x": 46.49,
+      "y": 350.27,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 38.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 9,
-      "text": "SOUL / STYX",
-      "x": 216.85,
-      "y": 161.01,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 9,
-      "text": "S08",
+      "text": "S08  \u00b7  SOUL",
       "x": 216.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 9,
+      "text": "S08 \u00b7 2 seats",
+      "x": 216.85,
+      "y": 265.04,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 9,
       "text": "Achilles",
       "x": 216.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 9,
-      "text": "2 SEATS / DELIVER BY MOVE 3",
-      "x": 216.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Styx",
+      "x": 226.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "Wishes for Styx. Other ordinary stops accept Achilles unmatched.",
-      "x": 216.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 226.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Memory: The Hero's Oath",
+      "x": 226.49,
+      "y": 340.44,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 218.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 9,
-      "text": "SOUL / ELYSIUM",
-      "x": 396.85,
-      "y": 161.01,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 9,
-      "text": "S09",
+      "text": "S09  \u00b7  SOUL",
       "x": 396.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 9,
+      "text": "S09 \u00b7 1 seat",
+      "x": 396.85,
+      "y": 265.04,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 9,
       "text": "Mason",
       "x": 396.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 9,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 396.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Elysium",
+      "x": 406.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "A simple passenger. Deliver by boat move 3.",
-      "x": 396.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 406.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Memory: Road Remembered",
+      "x": 406.49,
+      "y": 340.44,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 398.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 9,
-      "text": "SOUL / ASPHODEL",
-      "x": 36.85,
-      "y": 421.8,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 9,
-      "text": "S10",
+      "text": "S10  \u00b7  SOUL",
       "x": 36.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 9,
+      "text": "S10 \u00b7 1 seat",
+      "x": 36.85,
+      "y": 525.83,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 9,
       "text": "Cook",
       "x": 36.85,
-      "y": 510.24,
+      "y": 535.75,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 9,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 36.85,
-      "y": 532.91,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Asphodel",
+      "x": 46.49,
+      "y": 565.51,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "A simple passenger. Deliver by boat move 3.",
-      "x": 36.85,
-      "y": 552.76,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 46.49,
+      "y": 578.46,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Memory: A Window Lit",
+      "x": 46.49,
+      "y": 601.23,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 38.27,
-      "y": 623.62,
+      "y": 627.87,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 9,
-      "text": "SOUL / TARTARUS",
-      "x": 216.85,
-      "y": 421.8,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 9,
-      "text": "S11",
+      "text": "S11  \u00b7  SOUL",
       "x": 216.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 9,
+      "text": "S11 \u00b7 1 seat",
+      "x": 216.85,
+      "y": 525.83,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 9,
       "text": "Merchant",
       "x": 216.85,
-      "y": 510.24,
+      "y": 535.75,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 9,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 216.85,
-      "y": 532.91,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Tartarus",
+      "x": 226.49,
+      "y": 565.51,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "A simple passenger. Deliver by boat move 3.",
-      "x": 216.85,
-      "y": 552.76,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 226.49,
+      "y": 578.46,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Memory: Unfinished Song",
+      "x": 226.49,
+      "y": 601.23,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 218.27,
-      "y": 623.62,
+      "y": 627.87,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 9,
-      "text": "SOUL / ELYSIUM",
-      "x": 396.85,
-      "y": 421.8,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 9,
-      "text": "S12",
+      "text": "S12  \u00b7  SOUL",
       "x": 396.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 9,
+      "text": "S12 \u00b7 1 seat",
+      "x": 396.85,
+      "y": 525.83,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 9,
       "text": "Musician",
       "x": 396.85,
-      "y": 510.24,
+      "y": 535.75,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 9,
-      "text": "1 SEAT / DELIVER BY MOVE 3",
-      "x": 396.85,
-      "y": 532.91,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Elysium",
+      "x": 406.49,
+      "y": 565.51,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "A simple passenger. Deliver by boat move 3.",
-      "x": 396.85,
-      "y": 552.76,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 406.49,
+      "y": 578.46,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 9,
+      "text": "Memory: A Familiar Path",
+      "x": 406.49,
+      "y": 601.23,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 9,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 398.27,
-      "y": 623.62,
+      "y": 627.87,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
+      "height": 10.56,
+      "fontSize": 8
     },
     {
       "page": 9,
@@ -2144,255 +2252,237 @@
     },
     {
       "page": 10,
-      "text": "SOUL / ASPHODEL",
+      "text": "S13  \u00b7  SOUL",
       "x": 36.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 10,
-      "text": "S13",
+      "text": "S13 \u00b7 1 seat \u00b7 Tainted",
       "x": 36.85,
-      "y": 385.51,
+      "y": 265.04,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 10,
       "text": "Tainted Soul A",
       "x": 36.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 10,
-      "text": "1 SEAT / TAINTED: MOVE 2",
-      "x": 36.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Asphodel",
+      "x": 46.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 10,
       "text": "Tainted: deliver by boat move 2 or become a Ship Wraith.",
-      "x": 36.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 46.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 10,
+      "text": "Memory: A Quiet Apology",
+      "x": 46.49,
+      "y": 340.44,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 10,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 38.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 10,
-      "text": "SOUL / TARTARUS",
-      "x": 216.85,
-      "y": 161.01,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 10,
-      "text": "S14",
+      "text": "S14  \u00b7  SOUL",
       "x": 216.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
+    },
+    {
+      "page": 10,
+      "text": "S14 \u00b7 1 seat \u00b7 Tainted",
+      "x": 216.85,
+      "y": 265.04,
+      "width": 161.57,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 10,
       "text": "Tainted Soul B",
       "x": 216.85,
-      "y": 249.45,
+      "y": 274.96,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 10,
-      "text": "1 SEAT / TAINTED: MOVE 2",
-      "x": 216.85,
-      "y": 272.13,
-      "width": 161.57,
-      "height": 10.3,
+      "text": "Wishes for Tartarus",
+      "x": 226.49,
+      "y": 304.72,
+      "width": 151.94,
+      "height": 9.83,
       "fontSize": 7.8
     },
     {
       "page": 10,
       "text": "Tainted: deliver by boat move 2 or become a Ship Wraith.",
-      "x": 216.85,
-      "y": 291.97,
-      "width": 161.57,
-      "height": 24.8,
-      "fontSize": 10
+      "x": 226.49,
+      "y": 317.67,
+      "width": 151.94,
+      "height": 19.66,
+      "fontSize": 7.8
+    },
+    {
+      "page": 10,
+      "text": "Memory: Last Footstep",
+      "x": 226.49,
+      "y": 340.44,
+      "width": 151.94,
+      "height": 9.83,
+      "fontSize": 7.8
     },
     {
       "page": 10,
       "text": "DEADLINE: ______  (anger +5)",
       "x": 218.27,
-      "y": 362.83,
+      "y": 367.09,
       "width": 158.74,
-      "height": 11.48,
-      "fontSize": 8.7
-    },
-    {
-      "page": 10,
-      "text": "TABLE LABEL",
-      "x": 396.85,
-      "y": 161.01,
-      "width": 161.57,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 10,
-      "text": "L01",
+      "text": "L01  \u00b7  TABLE LABEL",
       "x": 396.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 10,
       "text": "WRAITHS",
       "x": 399.69,
-      "y": 192.76,
+      "y": 181.42,
       "width": 155.91,
-      "height": 23.76,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 10,
       "text": "Put expired waiting souls and Ship Wraiths here. Each adds 1 fog to every later move. No removal action.",
       "x": 399.69,
-      "y": 255.12,
+      "y": 252.28,
       "width": 155.91,
-      "height": 56,
-      "fontSize": 10.5
+      "height": 52,
+      "fontSize": 9.6
     },
     {
       "page": 10,
-      "text": "TABLE LABEL",
+      "text": "L02  \u00b7  TABLE LABEL",
       "x": 36.85,
-      "y": 421.8,
+      "y": 647.43,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 10,
-      "text": "L02",
-      "x": 36.85,
-      "y": 646.3,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 10,
       "text": "DELIVERED",
       "x": 39.69,
-      "y": 453.54,
+      "y": 442.2,
       "width": 155.91,
-      "height": 23.76,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 10,
       "text": "Keep delivered souls here. Count matched wishes with the WISH marker. No soul returns to the supply.",
       "x": 39.69,
-      "y": 515.91,
+      "y": 513.07,
       "width": 155.91,
-      "height": 56,
-      "fontSize": 10.5
+      "height": 52,
+      "fontSize": 9.6
     },
     {
       "page": 10,
-      "text": "TABLE LABEL",
+      "text": "L03  \u00b7  TABLE LABEL",
       "x": 216.85,
-      "y": 421.8,
+      "y": 647.43,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 10,
-      "text": "L03",
-      "x": 216.85,
-      "y": 646.3,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 10,
       "text": "SPENT MEMORIES",
       "x": 219.69,
-      "y": 453.54,
+      "y": 442.2,
       "width": 155.91,
-      "height": 47.52,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 10,
       "text": "Used and overflow Memories leave the night permanently. Do not shuffle or reuse them.",
       "x": 219.69,
-      "y": 515.91,
+      "y": 513.07,
       "width": 155.91,
-      "height": 42,
-      "fontSize": 10.5
+      "height": 39,
+      "fontSize": 9.6
     },
     {
       "page": 10,
-      "text": "TABLE LABEL",
+      "text": "L04  \u00b7  TABLE LABEL",
       "x": 396.85,
-      "y": 421.8,
+      "y": 647.43,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 10,
-      "text": "L04",
-      "x": 396.85,
-      "y": 646.3,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 10,
       "text": "ROUTE DISCARD",
       "x": 399.69,
-      "y": 453.54,
+      "y": 442.2,
       "width": 155.91,
-      "height": 23.76,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 10,
       "text": "Put both offered Routes here after choosing. Retire a chosen Sanctuary separately. Reshuffle only when the draw pile runs out.",
       "x": 399.69,
-      "y": 515.91,
+      "y": 513.07,
       "width": 155.91,
-      "height": 70,
-      "fontSize": 10.5
+      "height": 52,
+      "fontSize": 9.6
     },
     {
       "page": 10,
@@ -2450,381 +2540,327 @@
     },
     {
       "page": 11,
-      "text": "ROUTE / LEAF",
+      "text": "R01  \u00b7  ROUTE",
       "x": 36.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 11,
-      "text": "R01",
-      "x": 36.85,
-      "y": 385.51,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 11,
-      "text": "Elysium",
-      "x": 36.85,
-      "y": 187.09,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 11,
       "text": "Fields of Rest",
       "x": 36.85,
-      "y": 218.27,
+      "y": 260.79,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 11,
-      "text": "1",
+      "text": "Elysium",
       "x": 36.85,
-      "y": 249.45,
+      "y": 270.71,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 11,
-      "text": "BASE FOG",
-      "x": 85.04,
-      "y": 266.46,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 11,
       "text": "Deliver any passengers. Only Elysium wishes match.",
       "x": 36.85,
-      "y": 300.47,
+      "y": 306.14,
       "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
+      "height": 22,
+      "fontSize": 8.6
     },
     {
       "page": 11,
-      "text": "ROUTE / LEAF",
-      "x": 216.85,
-      "y": 161.01,
-      "width": 161.57,
+      "text": "1",
+      "x": 36.85,
+      "y": 351.5,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 70.87,
+      "y": 365.67,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 11,
-      "text": "R02",
+      "text": "R02  \u00b7  ROUTE",
       "x": 216.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 11,
-      "text": "Elysium",
-      "x": 216.85,
-      "y": 187.09,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 11,
       "text": "Garden Landing",
       "x": 216.85,
-      "y": 218.27,
+      "y": 260.79,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 11,
-      "text": "2",
+      "text": "Elysium",
       "x": 216.85,
-      "y": 249.45,
+      "y": 270.71,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 11,
-      "text": "BASE FOG",
-      "x": 265.04,
-      "y": 266.46,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 11,
       "text": "Deliver any passengers. Only Elysium wishes match.",
       "x": 216.85,
-      "y": 300.47,
+      "y": 306.14,
       "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
+      "height": 22,
+      "fontSize": 8.6
     },
     {
       "page": 11,
-      "text": "ROUTE / WAVE",
-      "x": 396.85,
-      "y": 161.01,
-      "width": 161.57,
+      "text": "2",
+      "x": 216.85,
+      "y": 351.5,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 250.87,
+      "y": 365.67,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 11,
-      "text": "R03",
+      "text": "R03  \u00b7  ROUTE",
       "x": 396.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 11,
-      "text": "Asphodel",
-      "x": 396.85,
-      "y": 187.09,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 11,
       "text": "Reed Channel",
       "x": 396.85,
-      "y": 218.27,
+      "y": 260.79,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 11,
-      "text": "1",
+      "text": "Asphodel",
       "x": 396.85,
-      "y": 249.45,
+      "y": 270.71,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 11,
-      "text": "BASE FOG",
-      "x": 445.04,
-      "y": 266.46,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 11,
       "text": "Deliver any passengers. Only Asphodel wishes match.",
       "x": 396.85,
-      "y": 300.47,
+      "y": 306.14,
       "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
+      "height": 22,
+      "fontSize": 8.6
     },
     {
       "page": 11,
-      "text": "ROUTE / WAVE",
-      "x": 36.85,
-      "y": 421.8,
-      "width": 161.57,
+      "text": "1",
+      "x": 396.85,
+      "y": 351.5,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 430.87,
+      "y": 365.67,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 11,
-      "text": "R04",
+      "text": "R04  \u00b7  ROUTE",
       "x": 36.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 11,
-      "text": "Asphodel",
-      "x": 36.85,
-      "y": 447.87,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 11,
       "text": "Grey Meadows",
       "x": 36.85,
-      "y": 479.06,
+      "y": 521.57,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 11,
-      "text": "2",
+      "text": "Asphodel",
       "x": 36.85,
-      "y": 510.24,
+      "y": 531.5,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 11,
-      "text": "BASE FOG",
-      "x": 85.04,
-      "y": 527.24,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 11,
       "text": "Deliver any passengers. Only Asphodel wishes match.",
       "x": 36.85,
-      "y": 561.26,
+      "y": 566.93,
       "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
+      "height": 22,
+      "fontSize": 8.6
     },
     {
       "page": 11,
-      "text": "ROUTE / FIRE",
-      "x": 216.85,
-      "y": 421.8,
-      "width": 161.57,
+      "text": "2",
+      "x": 36.85,
+      "y": 612.28,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 70.87,
+      "y": 626.46,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 11,
-      "text": "R05",
+      "text": "R05  \u00b7  ROUTE",
       "x": 216.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 11,
-      "text": "Tartarus",
-      "x": 216.85,
-      "y": 447.87,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 11,
       "text": "Ashen Gate",
       "x": 216.85,
-      "y": 479.06,
+      "y": 521.57,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
+    },
+    {
+      "page": 11,
+      "text": "Tartarus",
+      "x": 216.85,
+      "y": 531.5,
+      "width": 161.57,
+      "height": 19.8,
+      "fontSize": 15
+    },
+    {
+      "page": 11,
+      "text": "Deliver any passengers. Only Tartarus wishes match.",
+      "x": 216.85,
+      "y": 566.93,
+      "width": 161.57,
+      "height": 22,
+      "fontSize": 8.6
     },
     {
       "page": 11,
       "text": "1",
       "x": 216.85,
-      "y": 510.24,
-      "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
+      "y": 612.28,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
     },
     {
       "page": 11,
       "text": "BASE FOG",
-      "x": 265.04,
-      "y": 527.24,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
-    },
-    {
-      "page": 11,
-      "text": "Deliver any passengers. Only Tartarus wishes match.",
-      "x": 216.85,
-      "y": 561.26,
-      "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
-    },
-    {
-      "page": 11,
-      "text": "ROUTE / FIRE",
-      "x": 396.85,
-      "y": 421.8,
-      "width": 161.57,
+      "x": 250.87,
+      "y": 626.46,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 11,
-      "text": "R06",
+      "text": "R06  \u00b7  ROUTE",
       "x": 396.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 11,
-      "text": "Tartarus",
-      "x": 396.85,
-      "y": 447.87,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 11,
       "text": "Iron Crossing",
       "x": 396.85,
-      "y": 479.06,
+      "y": 521.57,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 11,
-      "text": "2",
+      "text": "Tartarus",
       "x": 396.85,
-      "y": 510.24,
+      "y": 531.5,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 11,
-      "text": "BASE FOG",
-      "x": 445.04,
-      "y": 527.24,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 11,
       "text": "Deliver any passengers. Only Tartarus wishes match.",
       "x": 396.85,
-      "y": 561.26,
+      "y": 566.93,
       "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
+      "height": 22,
+      "fontSize": 8.6
+    },
+    {
+      "page": 11,
+      "text": "2",
+      "x": 396.85,
+      "y": 612.28,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 11,
+      "text": "BASE FOG",
+      "x": 430.87,
+      "y": 626.46,
+      "width": 127.56,
+      "height": 10.56,
+      "fontSize": 8
     },
     {
       "page": 12,
@@ -2873,327 +2909,273 @@
     },
     {
       "page": 12,
-      "text": "ROUTE / STAR",
+      "text": "R07  \u00b7  ROUTE",
       "x": 36.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 12,
-      "text": "R07",
-      "x": 36.85,
-      "y": 385.51,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 12,
-      "text": "Styx",
-      "x": 36.85,
-      "y": 187.09,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 12,
       "text": "River of Oaths",
       "x": 36.85,
-      "y": 218.27,
+      "y": 260.79,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 12,
-      "text": "2",
+      "text": "Styx",
       "x": 36.85,
-      "y": 249.45,
+      "y": 270.71,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 12,
-      "text": "BASE FOG",
-      "x": 85.04,
-      "y": 266.46,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 12,
       "text": "Deliver any passengers. Only Achilles' Styx wish matches.",
       "x": 36.85,
-      "y": 300.47,
+      "y": 306.14,
       "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
+      "height": 22,
+      "fontSize": 8.6
     },
     {
       "page": 12,
-      "text": "ROUTE / LAMP",
-      "x": 216.85,
-      "y": 161.01,
-      "width": 161.57,
+      "text": "2",
+      "x": 36.85,
+      "y": 351.5,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 70.87,
+      "y": 365.67,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 12,
-      "text": "R08",
+      "text": "R08  \u00b7  ROUTE",
       "x": 216.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 12,
-      "text": "Haven",
-      "x": 216.85,
-      "y": 187.09,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 12,
       "text": "Lantern Haven",
       "x": 216.85,
-      "y": 218.27,
+      "y": 260.79,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 12,
-      "text": "0",
+      "text": "Haven",
       "x": 216.85,
-      "y": 249.45,
+      "y": 270.71,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 12,
-      "text": "BASE FOG",
-      "x": 265.04,
-      "y": 266.46,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 12,
       "text": "Deliver nobody. Restore 1 light after fog. All clocks advance; passengers can expire here.",
       "x": 216.85,
-      "y": 300.47,
+      "y": 306.14,
       "width": 161.57,
-      "height": 38.4,
-      "fontSize": 10
+      "height": 33,
+      "fontSize": 8.6
     },
     {
       "page": 12,
-      "text": "ROUTE / DAWN",
-      "x": 396.85,
-      "y": 161.01,
-      "width": 161.57,
+      "text": "0",
+      "x": 216.85,
+      "y": 351.5,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 250.87,
+      "y": 365.67,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 12,
-      "text": "R09",
+      "text": "R09  \u00b7  ROUTE",
       "x": 396.85,
-      "y": 385.51,
+      "y": 386.65,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 12,
-      "text": "Sanctuary",
-      "x": 396.85,
-      "y": 187.09,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 12,
       "text": "Last Sanctuary",
       "x": 396.85,
-      "y": 218.27,
+      "y": 260.79,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 12,
-      "text": "0",
+      "text": "Sanctuary",
       "x": 396.85,
-      "y": 249.45,
+      "y": 270.71,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 12,
-      "text": "BASE FOG",
-      "x": 445.04,
-      "y": 266.46,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 12,
       "text": "All delivered passengers match their wishes. Gain no light or memories here. Retire this route after using it.",
       "x": 396.85,
-      "y": 300.47,
+      "y": 306.14,
       "width": 161.57,
-      "height": 51.2,
-      "fontSize": 10
+      "height": 33,
+      "fontSize": 8.6
     },
     {
       "page": 12,
-      "text": "ROUTE / WAVE",
-      "x": 36.85,
-      "y": 421.8,
-      "width": 161.57,
+      "text": "0",
+      "x": 396.85,
+      "y": 351.5,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 430.87,
+      "y": 365.67,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 12,
-      "text": "R10",
+      "text": "R10  \u00b7  ROUTE",
       "x": 36.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
-    },
-    {
-      "page": 12,
-      "text": "Asphodel",
-      "x": 36.85,
-      "y": 447.87,
-      "width": 161.57,
-      "height": 22.44,
-      "fontSize": 17
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 12,
       "text": "Deep Reeds",
       "x": 36.85,
-      "y": 479.06,
+      "y": 521.57,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 12,
-      "text": "1",
+      "text": "Asphodel",
       "x": 36.85,
-      "y": 510.24,
+      "y": 531.5,
       "width": 161.57,
-      "height": 42.24,
-      "fontSize": 32
-    },
-    {
-      "page": 12,
-      "text": "BASE FOG",
-      "x": 85.04,
-      "y": 527.24,
-      "width": 113.39,
-      "height": 11.88,
-      "fontSize": 9
+      "height": 19.8,
+      "fontSize": 15
     },
     {
       "page": 12,
       "text": "Deliver any passengers. Only Asphodel wishes match.",
       "x": 36.85,
-      "y": 561.26,
+      "y": 566.93,
       "width": 161.57,
-      "height": 25.6,
-      "fontSize": 10
+      "height": 22,
+      "fontSize": 8.6
     },
     {
       "page": 12,
-      "text": "TABLE LABEL",
-      "x": 216.85,
-      "y": 421.8,
-      "width": 161.57,
+      "text": "1",
+      "x": 36.85,
+      "y": 612.28,
+      "width": 39.69,
+      "height": 31.68,
+      "fontSize": 24
+    },
+    {
+      "page": 12,
+      "text": "BASE FOG",
+      "x": 70.87,
+      "y": 626.46,
+      "width": 127.56,
       "height": 10.56,
       "fontSize": 8
     },
     {
       "page": 12,
-      "text": "L05",
+      "text": "L05  \u00b7  TABLE LABEL",
       "x": 216.85,
-      "y": 646.3,
+      "y": 647.43,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 12,
       "text": "RETURN",
       "x": 219.69,
-      "y": 453.54,
+      "y": 442.2,
       "width": 155.91,
-      "height": 23.76,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 12,
       "text": "Not shuffled. Empty boat only. Base fog 0. Pressure and Wraiths apply. One Memory allowed. Advance anger, no light recovery.",
       "x": 219.69,
-      "y": 515.91,
+      "y": 513.07,
       "width": 155.91,
-      "height": 70,
-      "fontSize": 10.5
+      "height": 52,
+      "fontSize": 9.6
     },
     {
       "page": 12,
-      "text": "TABLE LABEL",
+      "text": "L06  \u00b7  TABLE LABEL",
       "x": 396.85,
-      "y": 421.8,
+      "y": 647.43,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 12,
-      "text": "L06",
-      "x": 396.85,
-      "y": 646.3,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 12,
       "text": "LAST CHANCE",
       "x": 399.69,
-      "y": 453.54,
+      "y": 442.2,
       "width": 155.91,
-      "height": 23.76,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 12,
       "text": "After arrival delivery: tainted still aboard at boat move 2 become Wraiths. All others still aboard at move 3 do so. Haven also checks this.",
       "x": 399.69,
-      "y": 515.91,
+      "y": 513.07,
       "width": 155.91,
-      "height": 70,
-      "fontSize": 10.5
+      "height": 65,
+      "fontSize": 9.6
     },
     {
       "page": 13,
@@ -3242,471 +3224,471 @@
     },
     {
       "page": 13,
-      "text": "MEMORY / S01",
+      "text": "M01  \u00b7  MEMORY",
       "x": 36.85,
-      "y": 161.01,
+      "y": 250.58,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 13,
-      "text": "M01",
-      "x": 36.85,
-      "y": 249.45,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "A Mother's Promise",
-      "x": 36.85,
-      "y": 181.42,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 96.38,
+      "y": 167.24,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Mother",
+      "x": 96.38,
+      "y": 194.17,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Add 2 to one waiting soul's deadline.",
-      "x": 36.85,
-      "y": 212.6,
-      "width": 161.57,
-      "height": 24,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S02",
-      "x": 216.85,
-      "y": 161.01,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 96.38,
+      "y": 206.93,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M02",
+      "text": "M02  \u00b7  MEMORY",
       "x": 216.85,
-      "y": 249.45,
+      "y": 250.58,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "Small Warmth",
-      "x": 216.85,
-      "y": 181.42,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 276.38,
+      "y": 167.24,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Child",
+      "x": 276.38,
+      "y": 194.17,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Restore 1 light, up to 6, before this move.",
-      "x": 216.85,
-      "y": 212.6,
-      "width": 161.57,
-      "height": 24,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S03",
-      "x": 396.85,
-      "y": 161.01,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 276.38,
+      "y": 206.93,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M03",
+      "text": "M03  \u00b7  MEMORY",
       "x": 396.85,
-      "y": 249.45,
+      "y": 250.58,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "Red Oath",
-      "x": 396.85,
-      "y": 181.42,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 456.38,
+      "y": 167.24,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Red Soldier",
+      "x": 456.38,
+      "y": 194.17,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 2 fog on this move.",
-      "x": 396.85,
-      "y": 212.6,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S04",
-      "x": 36.85,
-      "y": 285.73,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 456.38,
+      "y": 206.93,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M04",
+      "text": "M04  \u00b7  MEMORY",
       "x": 36.85,
-      "y": 374.17,
+      "y": 375.31,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "Blue Oath",
-      "x": 36.85,
-      "y": 306.14,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 96.38,
+      "y": 291.97,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Blue Soldier",
+      "x": 96.38,
+      "y": 318.9,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 2 fog on this move.",
-      "x": 36.85,
-      "y": 337.32,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S05",
-      "x": 216.85,
-      "y": 285.73,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 96.38,
+      "y": 331.65,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M05",
+      "text": "M05  \u00b7  MEMORY",
       "x": 216.85,
-      "y": 374.17,
+      "y": 375.31,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "Last Confession",
-      "x": 216.85,
-      "y": 306.14,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 276.38,
+      "y": 291.97,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Killer",
+      "x": 276.38,
+      "y": 318.9,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 2 fog on this move.",
-      "x": 216.85,
-      "y": 337.32,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S06",
-      "x": 396.85,
-      "y": 285.73,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 276.38,
+      "y": 331.65,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M06",
+      "text": "M06  \u00b7  MEMORY",
       "x": 396.85,
-      "y": 374.17,
+      "y": 375.31,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "A Fool's Laughter",
-      "x": 396.85,
-      "y": 306.14,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 456.38,
+      "y": 291.97,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Fool",
+      "x": 456.38,
+      "y": 318.9,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Add 2 to one waiting soul's deadline.",
-      "x": 396.85,
-      "y": 337.32,
-      "width": 161.57,
-      "height": 24,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S08",
-      "x": 36.85,
-      "y": 410.46,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 456.38,
+      "y": 331.65,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M08",
+      "text": "M08  \u00b7  MEMORY",
       "x": 36.85,
-      "y": 498.9,
+      "y": 500.03,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "The Hero's Oath",
-      "x": 36.85,
-      "y": 430.87,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 96.38,
+      "y": 416.69,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Achilles",
+      "x": 96.38,
+      "y": 443.62,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 3 fog on this move.",
-      "x": 36.85,
-      "y": 462.05,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S09",
-      "x": 216.85,
-      "y": 410.46,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 96.38,
+      "y": 456.38,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M09",
+      "text": "M09  \u00b7  MEMORY",
       "x": 216.85,
-      "y": 498.9,
+      "y": 500.03,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "Road Remembered",
-      "x": 216.85,
-      "y": 430.87,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 276.38,
+      "y": 416.69,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Mason",
+      "x": 276.38,
+      "y": 443.62,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 1 fog on this move.",
-      "x": 216.85,
-      "y": 462.05,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S10",
-      "x": 396.85,
-      "y": 410.46,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 276.38,
+      "y": 456.38,
+      "width": 102.05,
+      "height": 10,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M10",
+      "text": "M10  \u00b7  MEMORY",
       "x": 396.85,
-      "y": 498.9,
+      "y": 500.03,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "A Window Lit",
-      "x": 396.85,
-      "y": 430.87,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 456.38,
+      "y": 416.69,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Cook",
+      "x": 456.38,
+      "y": 443.62,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Restore 1 light, up to 6, before this move.",
-      "x": 396.85,
-      "y": 462.05,
-      "width": 161.57,
-      "height": 24,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S11",
-      "x": 36.85,
-      "y": 535.18,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 456.38,
+      "y": 456.38,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M11",
+      "text": "M11  \u00b7  MEMORY",
       "x": 36.85,
-      "y": 623.62,
+      "y": 624.76,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "Unfinished Song",
-      "x": 36.85,
-      "y": 555.59,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 96.38,
+      "y": 541.42,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Merchant",
+      "x": 96.38,
+      "y": 568.35,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 1 fog on this move.",
-      "x": 36.85,
-      "y": 586.77,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S12",
-      "x": 216.85,
-      "y": 535.18,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 96.38,
+      "y": 581.1,
+      "width": 102.05,
+      "height": 10,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M12",
+      "text": "M12  \u00b7  MEMORY",
       "x": 216.85,
-      "y": 623.62,
+      "y": 624.76,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "A Familiar Path",
-      "x": 216.85,
-      "y": 555.59,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 276.38,
+      "y": 541.42,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Musician",
+      "x": 276.38,
+      "y": 568.35,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 1 fog on this move.",
-      "x": 216.85,
-      "y": 586.77,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S13",
-      "x": 396.85,
-      "y": 535.18,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 276.38,
+      "y": 581.1,
+      "width": 102.05,
+      "height": 10,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M13",
+      "text": "M13  \u00b7  MEMORY",
       "x": 396.85,
-      "y": 623.62,
+      "y": 624.76,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "A Quiet Apology",
-      "x": 396.85,
-      "y": 555.59,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 456.38,
+      "y": 541.42,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Tainted Soul A",
+      "x": 456.38,
+      "y": 568.35,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Restore 1 light, up to 6, before this move.",
-      "x": 396.85,
-      "y": 586.77,
-      "width": 161.57,
-      "height": 24,
-      "fontSize": 10
-    },
-    {
-      "page": 13,
-      "text": "MEMORY / S14",
-      "x": 36.85,
-      "y": 659.91,
-      "width": 161.57,
-      "height": 10.56,
+      "x": 456.38,
+      "y": 581.1,
+      "width": 102.05,
+      "height": 20,
       "fontSize": 8
     },
     {
       "page": 13,
-      "text": "M14",
+      "text": "M14  \u00b7  MEMORY",
       "x": 36.85,
-      "y": 748.35,
+      "y": 749.48,
       "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 13,
       "text": "Last Footstep",
-      "x": 36.85,
-      "y": 680.31,
-      "width": 161.57,
-      "height": 14.52,
-      "fontSize": 11
+      "x": 96.38,
+      "y": 666.14,
+      "width": 102.05,
+      "height": 13.86,
+      "fontSize": 10.5
+    },
+    {
+      "page": 13,
+      "text": "From Tainted Soul B",
+      "x": 96.38,
+      "y": 693.07,
+      "width": 102.05,
+      "height": 8.98,
+      "fontSize": 6.8
     },
     {
       "page": 13,
       "text": "Prevent 1 fog on this move.",
-      "x": 36.85,
-      "y": 711.5,
-      "width": 161.57,
-      "height": 12,
-      "fontSize": 10
+      "x": 96.38,
+      "y": 705.83,
+      "width": 102.05,
+      "height": 10,
+      "fontSize": 8
     },
     {
       "page": 13,
@@ -3764,435 +3746,327 @@
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A01  \u00b7  ARRIVAL",
       "x": 36.85,
-      "y": 161.01,
+      "y": 250.58,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A01",
-      "x": 36.85,
-      "y": 249.45,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Mother and Child",
       "x": 36.85,
-      "y": 184.25,
+      "y": 219.69,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S01, S02 to the shore.",
       "x": 36.85,
-      "y": 221.1,
+      "y": 235.28,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A02  \u00b7  ARRIVAL",
       "x": 216.85,
-      "y": 161.01,
+      "y": 250.58,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A02",
-      "x": 216.85,
-      "y": 249.45,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Rival Soldiers",
       "x": 216.85,
-      "y": 184.25,
+      "y": 219.69,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S03, S04 to the shore.",
       "x": 216.85,
-      "y": 221.1,
+      "y": 235.28,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A03  \u00b7  ARRIVAL",
       "x": 396.85,
-      "y": 161.01,
+      "y": 250.58,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A03",
-      "x": 396.85,
-      "y": 249.45,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Killer",
       "x": 396.85,
-      "y": 184.25,
+      "y": 219.69,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S05 to the shore.",
       "x": 396.85,
-      "y": 221.1,
+      "y": 235.28,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A04  \u00b7  ARRIVAL",
       "x": 36.85,
-      "y": 285.73,
+      "y": 375.31,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A04",
-      "x": 36.85,
-      "y": 374.17,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Fool",
       "x": 36.85,
-      "y": 308.98,
+      "y": 344.41,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S06 to the shore.",
       "x": 36.85,
-      "y": 345.83,
+      "y": 360.0,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A05  \u00b7  ARRIVAL",
       "x": 216.85,
-      "y": 285.73,
+      "y": 375.31,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A05",
-      "x": 216.85,
-      "y": 374.17,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Po Din",
       "x": 216.85,
-      "y": 308.98,
+      "y": 344.41,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S07 to the shore.",
       "x": 216.85,
-      "y": 345.83,
+      "y": 360.0,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A06  \u00b7  ARRIVAL",
       "x": 396.85,
-      "y": 285.73,
+      "y": 375.31,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A06",
-      "x": 396.85,
-      "y": 374.17,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Achilles",
       "x": 396.85,
-      "y": 308.98,
+      "y": 344.41,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S08 to the shore.",
       "x": 396.85,
-      "y": 345.83,
+      "y": 360.0,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A07  \u00b7  ARRIVAL",
       "x": 36.85,
-      "y": 410.46,
+      "y": 500.03,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A07",
-      "x": 36.85,
-      "y": 498.9,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Mason",
       "x": 36.85,
-      "y": 433.7,
+      "y": 469.13,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S09 to the shore.",
       "x": 36.85,
-      "y": 470.55,
+      "y": 484.72,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A08  \u00b7  ARRIVAL",
       "x": 216.85,
-      "y": 410.46,
+      "y": 500.03,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A08",
-      "x": 216.85,
-      "y": 498.9,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Cook",
       "x": 216.85,
-      "y": 433.7,
+      "y": 469.13,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S10 to the shore.",
       "x": 216.85,
-      "y": 470.55,
+      "y": 484.72,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A09  \u00b7  ARRIVAL",
       "x": 396.85,
-      "y": 410.46,
+      "y": 500.03,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A09",
-      "x": 396.85,
-      "y": 498.9,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Merchant",
       "x": 396.85,
-      "y": 433.7,
+      "y": 469.13,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S11 to the shore.",
       "x": 396.85,
-      "y": 470.55,
+      "y": 484.72,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A10  \u00b7  ARRIVAL",
       "x": 36.85,
-      "y": 535.18,
+      "y": 624.76,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A10",
-      "x": 36.85,
-      "y": 623.62,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Musician",
       "x": 36.85,
-      "y": 558.43,
+      "y": 593.86,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S12 to the shore.",
       "x": 36.85,
-      "y": 595.28,
+      "y": 609.45,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A11  \u00b7  ARRIVAL",
       "x": 216.85,
-      "y": 535.18,
+      "y": 624.76,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A11",
-      "x": 216.85,
-      "y": 623.62,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Tainted Soul A",
       "x": 216.85,
-      "y": 558.43,
+      "y": 593.86,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S13 to the shore.",
       "x": 216.85,
-      "y": 595.28,
+      "y": 609.45,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
-      "text": "ARRIVAL",
+      "text": "A12  \u00b7  ARRIVAL",
       "x": 396.85,
-      "y": 535.18,
+      "y": 624.76,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 14,
-      "text": "A12",
-      "x": 396.85,
-      "y": 623.62,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 14,
       "text": "Tainted Soul B",
       "x": 396.85,
-      "y": 558.43,
+      "y": 593.86,
       "width": 161.57,
-      "height": 15.84,
-      "fontSize": 12
+      "height": 13.86,
+      "fontSize": 10.5
     },
     {
       "page": 14,
       "text": "Bring S14 to the shore.",
       "x": 396.85,
-      "y": 595.28,
+      "y": 609.45,
       "width": 161.57,
-      "height": 13.2,
-      "fontSize": 10
+      "height": 10.3,
+      "fontSize": 7.8
     },
     {
       "page": 14,
@@ -4250,219 +4124,165 @@
     },
     {
       "page": 15,
-      "text": "EVENT",
+      "text": "E01  \u00b7  EVENT",
       "x": 36.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 15,
-      "text": "E01",
-      "x": 36.85,
-      "y": 385.51,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 15,
       "text": "Thickening Mist",
       "x": 36.85,
-      "y": 192.76,
+      "y": 257.95,
       "width": 161.57,
-      "height": 18.48,
-      "fontSize": 14
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 15,
       "text": "This trip's first outward move has +1 fog. Return is unaffected.",
       "x": 36.85,
-      "y": 260.79,
+      "y": 306.14,
       "width": 161.57,
-      "height": 28,
-      "fontSize": 10.5
+      "height": 24,
+      "fontSize": 9
     },
     {
       "page": 15,
-      "text": "EVENT",
+      "text": "E02  \u00b7  EVENT",
       "x": 216.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 15,
-      "text": "E02",
-      "x": 216.85,
-      "y": 385.51,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 15,
       "text": "Restless Shore",
       "x": 216.85,
-      "y": 192.76,
+      "y": 257.95,
       "width": 161.57,
-      "height": 18.48,
-      "fontSize": 14
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 15,
       "text": "Before refilling, subtract 1 from every waiting deadline. Immediately turn any now-due soul into a Wraith. New arrivals are unaffected.",
       "x": 216.85,
-      "y": 260.79,
+      "y": 306.14,
       "width": 161.57,
-      "height": 70,
-      "fontSize": 10.5
+      "height": 48,
+      "fontSize": 9
     },
     {
       "page": 15,
-      "text": "EVENT",
+      "text": "E03  \u00b7  EVENT",
       "x": 396.85,
-      "y": 161.01,
+      "y": 386.65,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 15,
-      "text": "E03",
-      "x": 396.85,
-      "y": 385.51,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 15,
       "text": "Narrow Channel",
       "x": 396.85,
-      "y": 192.76,
+      "y": 257.95,
       "width": 161.57,
-      "height": 18.48,
-      "fontSize": 14
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 15,
       "text": "The boat has only 3 seats for this trip.",
       "x": 396.85,
-      "y": 260.79,
+      "y": 306.14,
       "width": 161.57,
-      "height": 28,
-      "fontSize": 10.5
+      "height": 12,
+      "fontSize": 9
     },
     {
       "page": 15,
-      "text": "EVENT",
+      "text": "E04  \u00b7  EVENT",
       "x": 36.85,
-      "y": 421.8,
+      "y": 647.43,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 15,
-      "text": "E04",
-      "x": 36.85,
-      "y": 646.3,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 15,
       "text": "Merciful Current",
       "x": 36.85,
-      "y": 453.54,
+      "y": 518.74,
       "width": 161.57,
-      "height": 18.48,
-      "fontSize": 14
+      "height": 17.16,
+      "fontSize": 13
     },
     {
       "page": 15,
       "text": "This trip's first outward move has base fog 0. Other fog and Killer drain still apply.",
       "x": 36.85,
-      "y": 521.57,
+      "y": 566.93,
       "width": 161.57,
-      "height": 42,
-      "fontSize": 10.5
+      "height": 36,
+      "fontSize": 9
     },
     {
       "page": 15,
-      "text": "TABLE LABEL",
+      "text": "L07  \u00b7  TABLE LABEL",
       "x": 216.85,
-      "y": 421.8,
+      "y": 647.43,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 15,
-      "text": "L07",
-      "x": 216.85,
-      "y": 646.3,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 15,
       "text": "PASSAGE",
       "x": 219.69,
-      "y": 453.54,
+      "y": 442.2,
       "width": 155.91,
-      "height": 23.76,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 15,
       "text": "Earn once: Mother and Child delivered together, both wishes matched. Before a move, spend to send one waiting soul to its wish. Gain 1 wish only.",
       "x": 219.69,
-      "y": 515.91,
+      "y": 513.07,
       "width": 155.91,
-      "height": 70,
-      "fontSize": 10.5
+      "height": 65,
+      "fontSize": 9.6
     },
     {
       "page": 15,
-      "text": "TABLE LABEL",
+      "text": "L08  \u00b7  TABLE LABEL",
       "x": 396.85,
-      "y": 421.8,
+      "y": 647.43,
       "width": 161.57,
-      "height": 10.56,
-      "fontSize": 8
-    },
-    {
-      "page": 15,
-      "text": "L08",
-      "x": 396.85,
-      "y": 646.3,
-      "width": 161.57,
-      "height": 9.9,
-      "fontSize": 7.5
+      "height": 8.71,
+      "fontSize": 6.6
     },
     {
       "page": 15,
       "text": "START A TRIP",
       "x": 399.69,
-      "y": 453.54,
+      "y": 442.2,
       "width": 155.91,
-      "height": 23.76,
-      "fontSize": 18
+      "height": 21.12,
+      "fontSize": 16
     },
     {
       "page": 15,
       "text": "Reset boat moves. Clear last Event. On trips 2 and 4, reveal and resolve an Event. Refill waiting shore. Reveal two Routes. Then board.",
       "x": 399.69,
-      "y": 515.91,
+      "y": 513.07,
       "width": 155.91,
-      "height": 70,
-      "fontSize": 10.5
+      "height": 65,
+      "fontSize": 9.6
     },
     {
       "page": 16,

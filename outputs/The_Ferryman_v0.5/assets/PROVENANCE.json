@@ -104,6 +104,24 @@
       "modification": "None; original bytes copied."
     },
     {
+      "file": "assets/polong.png",
+      "source": "outputs/The_Ferryman_v0.6/assets/art/polong.png",
+      "sha256": "a5257fa9fa51f8e7879dac230afae1bf945dc88ee43d3dee28fa8a18f3a00f7a",
+      "modification": "None; original bytes copied. Generated for v0.6; see that folder's art/ASSET_MANIFEST.json."
+    },
+    {
+      "file": "assets/acheron.png",
+      "source": "outputs/The_Ferryman_v0.6/assets/art/acheron.png",
+      "sha256": "a6ac50f8f71d7995643971a99236b7b63820c5ca0c217d56a3f2304ea7273998",
+      "modification": "None; original bytes copied. Generated for v0.6; see that folder's art/ASSET_MANIFEST.json."
+    },
+    {
+      "file": "assets/styx.png",
+      "source": "outputs/The_Ferryman_v0.6/assets/art/styx.png",
+      "sha256": "6fc608e95118c4e3c760ff5b61eeed09f9e35d1eb834e5761b70a0ef5526b8d2",
+      "modification": "None; original bytes copied. Generated for v0.6; see that folder's art/ASSET_MANIFEST.json."
+    },
+    {
       "file": "assets/fonts/Vera.ttf",
       "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/Vera.ttf",
       "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d"

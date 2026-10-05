@@ -1,6 +1,6 @@
 """Rebuild browser data and print PDFs from shared source files."""
 from pathlib import Path
-import json, hashlib, shutil, re
+import json, hashlib, shutil, re, io
 from datetime import datetime, timezone
 from xml.sax.saxutils import escape
 from reportlab.pdfgen import canvas
@@ -27,6 +27,9 @@ ART={'mother.png':'S01.png','child.png':'S02.png','red-soldier.png':'S04.png','b
      # Browser scenes and memory cards reused from v0.4 (screen only, not printed).
      'shore.png':'shore-r2.png','elysium.png':'elysium-r2.png','asphodel.png':'asphodel-r2.png','tartarus.png':'tartarus-r2.png','haven.png':'haven-r2.png','wraith.png':'wraith-r2.png',
      'memory-fog.png':'memory-R01.png','memory-light.png':'memory-R02.png','memory-calm.png':'memory-R03.png'}
+# New v0.6 artwork copied unchanged for reuse (PoLong portrait, Acheron and Styx destinations).
+V06=REPO/'outputs/The_Ferryman_v0.6/assets/art'
+V06_ART={'polong.png':'polong.png','acheron.png':'acheron.png','styx.png':'styx.png'}
 provenance=[]
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 previous=json.loads((ASSETS/'PROVENANCE.json').read_text(encoding='utf-8')) if (ASSETS/'PROVENANCE.json').exists() else {'files':[]}
@@ -41,6 +44,9 @@ def reuse(source,destination):
 for target,source in ART.items():
     reuse(SOURCE/source,ASSETS/target)
     provenance.append({'file':'assets/'+target,'source':str((SOURCE/source).relative_to(REPO)).replace('\\','/'),'sha256':digest(ASSETS/target),'modification':'None; original bytes copied.'})
+for target,source in V06_ART.items():
+    reuse(V06/source,ASSETS/target)
+    provenance.append({'file':'assets/'+target,'source':str((V06/source).relative_to(REPO)).replace('\\','/'),'sha256':digest(ASSETS/target),'modification':'None; original bytes copied. Generated for v0.6; see that folder\'s art/ASSET_MANIFEST.json.'})
 font_source=REPO/'outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts'
 for name in ['Vera.ttf','VeraBd.ttf','VeraIt.ttf']:
     reuse(font_source/name,FONT/name)
@@ -103,12 +109,57 @@ def section(title,text,x,y,w,size=11):
     h=para(title,x,y,w,size+1,bold=True,color=GOLDHI)+5
     return h+para(text,x,y+h,w,size=size)+11
 def card_frame(x,y,w,h,band,label,cid):
+    """Website-style card: dark lacquer, bronze cut line, rounded inner frame, accent band in the type colour."""
     rect(x,y,w,h,CARD,GOLD,.8)
-    c.saveState();c.setStrokeColor(HexColor(RULE));c.setLineWidth(.35);c.rect(x+1*mm,H-y-h+1*mm,w-2*mm,h-2*mm,fill=0,stroke=1);c.restoreState()
-    rect(x+1.5*mm,y+1.5*mm,w-3*mm,7*mm,band)
-    para(escape(label),x+3*mm,y+2.8*mm,w-6*mm,8,bold=True,color='#F3EAD5',max_height=5*mm)
-    para(cid,x+3*mm,y+h-6*mm,w-6*mm,7.5,color=MUTE)
+    c.saveState();c.setStrokeColor(HexColor(RULE));c.setLineWidth(.4);c.roundRect(x+1.2*mm,H-y-h+1.2*mm,w-2.4*mm,h-2.4*mm,2.2*mm,fill=0,stroke=1)
+    c.setFillColor(HexColor(band));c.rect(x+1.2*mm,H-y-2.4*mm,w-2.4*mm,1.2*mm,fill=1,stroke=0);c.restoreState()
+    para(cid+'  ·  '+escape(label),x+3*mm,y+h-5.6*mm,w-6*mm,6.6,color=MUTE)
     components.append({'page':page_no,'id':cid,'x_mm':round(x/mm,2),'y_mm':round(y/mm,2),'width_mm':round(w/mm,2),'height_mm':round(h/mm,2)})
+PDF_IMAGES={}
+def pdf_image(file,maxpx=1200):
+    """PDF-only JPEG copy (quality 92, longest side maxpx, about 500 ppi on a card); the original PNG is untouched."""
+    if file not in PDF_IMAGES:
+        from PIL import Image
+        im=Image.open(ASSETS/file).convert('RGB');im.thumbnail((maxpx,maxpx),Image.LANCZOS)
+        b=io.BytesIO();im.save(b,format='JPEG',quality=92,subsampling=0,optimize=True);b.seek(0);PDF_IMAGES[file]=(ImageReader(b),im.size)
+    return PDF_IMAGES[file]
+def arch_art(file,x,y,w,h,focus=.5,tint=None):
+    """Picture inside a temple-doorway arch with a bronze outline and lotus finial; tint fills an arch when there is no art."""
+    c.saveState();clip=archpath(x,y,w,h);c.clipPath(clip,stroke=0,fill=0)
+    if file:
+        rd,(iw,ih)=pdf_image(file);sc=max(w/iw,h/ih);dw,dh=iw*sc,ih*sc
+        c.drawImage(rd,x-(dw-w)/2,H-y-h-(dh-h)*(1-focus),width=dw,height=dh,mask='auto')
+    else:
+        c.setFillColor(HexColor('#0B0907'));c.rect(x,H-y-h,w,h,fill=1,stroke=0)
+        if tint:c.setFillColor(HexColor(tint));c.setFillAlpha(.35);c.rect(x,H-y-h*.45,w,h*.45,fill=1,stroke=0)
+    c.restoreState()
+    c.saveState();o=archpath(x,y,w,h);c.setFillColor(Color(.03,.02,.02,alpha=.16 if file else 0));c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.5);c.drawPath(o,stroke=1,fill=1);c.restoreState()
+    lotus(x+w/2,y-.9*mm,2.6*mm)
+def lotusrule(cx,y,w):
+    """Bronze divider with diamonds and a lotus, as under the website headings."""
+    c.saveState();c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.45);Y=H-y
+    c.line(cx-w/2,Y,cx-4.6*mm,Y);c.line(cx+4.6*mm,Y,cx+w/2,Y)
+    for dx in (-3.2*mm,3.2*mm):
+        P=c.beginPath();P.moveTo(cx+dx-.8*mm,Y);P.lineTo(cx+dx,Y+.6*mm);P.lineTo(cx+dx+.8*mm,Y);P.lineTo(cx+dx,Y-.6*mm);P.close();c.drawPath(P,stroke=1,fill=0)
+    c.restoreState();lotus(cx,y,2.2*mm)
+def facts(items,x,y,w,maxy,size=7.8):
+    """Lotus-bud bullet list like the website card facts. items: (text, colour)."""
+    for t,col in items:
+        P=c.beginPath();cx=x+1.2*mm;cy=H-y-1.55*mm;r=.75*mm
+        P.moveTo(cx,cy+r);P.lineTo(cx+r*.6,cy);P.lineTo(cx,cy-r);P.lineTo(cx-r*.6,cy);P.close()
+        c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.4);c.drawPath(P,stroke=1,fill=0)
+        y+=para(escape(t),x+3.4*mm,y,w-3.4*mm,size,leading=size*1.26,color=col,max_height=maxy-y)+1.1*mm
+    return y
+def mini_portrait(soul,cx,cy,r):
+    """Round portrait or letter emblem, like the website trip panel."""
+    c.saveState();P=c.beginPath();P.circle(cx,H-cy,r);c.clipPath(P,stroke=0,fill=0)
+    if soul['art']:
+        rd,(iw,ih)=pdf_image(soul['art'],500);sc=max(2*r/iw,2*r/ih);dw,dh=iw*sc,ih*sc
+        c.drawImage(rd,cx-dw/2,H-cy-r-(dh-2*r)*.82,width=dw,height=dh,mask='auto')
+    else:
+        c.setFillColor(HexColor('#0B0907'));c.rect(cx-r,H-cy-r,2*r,2*r,fill=1,stroke=0)
+        c.setFillColor(HexColor(GOLDHI));c.setFont('Display',r*.8);c.drawCentredString(cx,H-cy-r*.28,''.join(w[0] for w in soul['name'].split()[:2]))
+    c.restoreState();c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.6);c.circle(cx,H-cy,r,fill=0,stroke=1)
 def archpath(x,y,w,h):
     """Temple-doorway arch (points): elliptical top corners, square bottom."""
     ry=min(7*mm,h*.42);rx=w/2;k=.5523;P=c.beginPath();Y=lambda v:H-v
@@ -131,35 +182,40 @@ def emblem(name,x,y,w,h,color):
     p=c.beginPath();p.moveTo(cx,cy+sz);p.lineTo(cx+sz,cy);p.lineTo(cx,cy-sz);p.lineTo(cx-sz,cy);p.close();c.drawPath(p)
     c.setFillColor(HexColor(GOLDHI));c.setFont('Display',17);c.drawCentredString(cx,cy-5,initials)
 def soul_card(s,i):
-    x,y,w,h=coords(i);dest=D['destinations'][s['wish']];card_frame(x,y,w,h,dest['color'],'SOUL / '+dest['name'].upper(),s['id'])
-    if s['art']:
-        ax,ay,aw,ah=x+3*mm,y+12*mm,w-6*mm,20*mm
-        c.saveState();clip=archpath(ax,ay,aw,ah);c.clipPath(clip,stroke=0,fill=0)
-        iw,ih=ImageReader(str(ASSETS/s['art'])).getSize();dw=aw;dh=dw*ih/iw
-        c.drawImage(str(ASSETS/s['art']),ax,H-ay-ah-(dh-ah)*.87,width=dw,height=dh,mask='auto');c.restoreState()
-        c.saveState();o=archpath(ax,ay,aw,ah);c.setFillColor(Color(.03,.02,.02,alpha=.18));c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.5);c.drawPath(o,stroke=1,fill=1);c.restoreState()
-        lotus(ax+aw/2,ay-.9*mm,2.6*mm)
-    else:emblem(s['name'],x+3*mm,y+12*mm,w-6*mm,20*mm,'#0B0907')
-    para(escape(s['name']),x+3*mm,y+34*mm,w-6*mm,12,bold=True,max_height=11*mm)
-    para(f'{s["seats"]} SEAT'+('S' if s['seats']>1 else '')+' / '+('TAINTED: MOVE 2' if s['tainted'] else 'DELIVER BY MOVE 3'),x+3*mm,y+42*mm,w-6*mm,7.8,bold=True,color=RED if s['tainted'] else MUTE)
+    x,y,w,h=coords(i);dest=D['destinations'][s['wish']];card_frame(x,y,w,h,dest['color'],'SOUL',s['id'])
+    if s['art']:arch_art(s['art'],x+3*mm,y+6*mm,w-6*mm,32*mm,focus=.2)
+    else:
+        arch_art(None,x+3*mm,y+6*mm,w-6*mm,32*mm)
+        cx=x+w/2;cy=H-y-23*mm;sz=8*mm;c.setStrokeColor(HexColor(GOLD));c.setLineWidth(.8)
+        P=c.beginPath();P.moveTo(cx,cy+sz);P.lineTo(cx+sz,cy);P.lineTo(cx,cy-sz);P.lineTo(cx-sz,cy);P.close();c.drawPath(P,stroke=1,fill=0)
+        c.setFillColor(HexColor(GOLDHI));c.setFont('Display',17);c.drawCentredString(cx,cy-6,''.join(w[0] for w in s['name'].split()[:2]))
+    tag=f'{s["id"]} · {s["seats"]} seat'+('s' if s['seats']>1 else '')
+    para(tag+(' · <font color="#D9826C">Tainted</font>' if s['tainted'] else ''),x+3*mm,y+39.5*mm,w-6*mm,6.8,color=GOLDHI)
+    para(escape(s['name']),x+3*mm,y+43*mm,w-6*mm,13,bold=True,max_height=7*mm)
+    lotusrule(x+w/2,y+51.2*mm,w-14*mm)
     text=s['text'].replace(' This is a provisional filler soul.','').replace(' Provisional filler soul.','')
     if s['id']=='S05':text='Aboard: pay 1 light before fog on every move. Deliver by move 2.'
     if s['id']=='S06':text='Waiting deadline: anger +3. Deliver by move 2.'
     if s['id']=='S01':text='Quest: deliver with Child and match both wishes to earn Passage.'
     if s['id']=='S08':text='Wishes for Styx. Other ordinary stops accept Achilles unmatched.'
-    para(escape(text),x+3*mm,y+49*mm,w-6*mm,10,leading=12.4,max_height=24*mm)
-    rect(x+2.5*mm,y+73*mm,w-5*mm,6.2*mm,WRITE,GOLD,.4);para('DEADLINE: ______  (anger +'+str(s['patience'])+')',x+3.5*mm,y+74*mm,w-7*mm,8.7,bold=True,color=WRITEINK)
+    mem=next((m['name'] for m in D['memories'] if m['id']==s['memory']),None)
+    facts([('Wishes for '+dest['name'],GOLDHI),(text,INK),('Memory: '+mem if mem else 'Leaves no memory',MUTE)],x+3*mm,y+53.5*mm,w-6*mm,y+74*mm)
+    rect(x+2.5*mm,y+74.6*mm,w-5*mm,6*mm,WRITE,GOLD,.4);para('DEADLINE: ______  (anger +'+str(s['patience'])+')',x+3.5*mm,y+75.5*mm,w-7*mm,8,bold=True,color=WRITEINK)
+SCENE={'elysium':'elysium.png','asphodel':'asphodel.png','tartarus':'tartarus.png','styx':'styx.png','haven':'haven.png'}
 def route_card(r,i):
-    x,y,w,h=coords(i);d=D['destinations'][r['to']];card_frame(x,y,w,h,d['color'],'ROUTE / '+d['symbol'],r['id'])
-    para(escape(d['name']),x+3*mm,y+12*mm,w-6*mm,17,bold=True)
-    para(escape(r['name']),x+3*mm,y+23*mm,w-6*mm,10,color=MUTE)
-    para(str(r['fog']),x+3*mm,y+34*mm,w-6*mm,32,bold=True)
-    para('BASE FOG',x+20*mm,y+40*mm,w-23*mm,9,bold=True,color=MUTE)
-    para(escape(r['text']),x+3*mm,y+52*mm,w-6*mm,10,leading=12.8,max_height=26*mm)
+    x,y,w,h=coords(i);d=D['destinations'][r['to']];card_frame(x,y,w,h,d['color'],'ROUTE',r['id'])
+    arch_art(SCENE.get(r['to']),x+3*mm,y+6*mm,w-6*mm,30*mm,tint=d['color'])
+    para(escape(r['name']),x+3*mm,y+38*mm,w-6*mm,6.8,color=GOLDHI)
+    para(escape(d['name']),x+3*mm,y+41.5*mm,w-6*mm,15,bold=True,max_height=8*mm)
+    lotusrule(x+w/2,y+51.5*mm,w-14*mm)
+    para(escape(r['text']),x+3*mm,y+54*mm,w-6*mm,8.6,leading=11,color=GOLDHI,max_height=16*mm)
+    para(str(r['fog']),x+3*mm,y+70*mm,14*mm,24,bold=True,color=GOLDHI)
+    para('BASE FOG',x+15*mm,y+75*mm,w-18*mm,8,bold=True,color=MUTE)
 def utility(i,title,text,code):
-    x,y,w,h=coords(i);card_frame(x,y,w,h,'#4A3720','TABLE LABEL',code)
-    para(title,x+4*mm,y+14*mm,w-8*mm,18,bold=True)
-    para(text,x+4*mm,y+36*mm,w-8*mm,10.5,leading=14,max_height=42*mm)
+    x,y,w,h=coords(i);card_frame(x,y,w,h,'#6B4F25','TABLE LABEL',code)
+    para(title,x+4*mm,y+10*mm,w-8*mm,16,bold=True,max_height=16*mm)
+    lotusrule(x+w/2,y+31*mm,w-14*mm)
+    para(text,x+4*mm,y+35*mm,w-8*mm,9.6,leading=13,color=GOLDHI,max_height=42*mm)
 
 page('Print, cut, begin.','COLOR WORKSHOP KIT / ONE COMPLETE SET PER PLAYER')
 y=56*mm
@@ -228,23 +284,30 @@ for k in range(2):
         utility(4,'RETURN','Not shuffled. Empty boat only. Base fog 0. Pressure and Wraiths apply. One Memory allowed. Advance anger, no light recovery.','L05')
         utility(5,'LAST CHANCE','After arrival delivery: tainted still aboard at boat move 2 become Wraiths. All others still aboard at move 3 do so. Haven also checks this.','L06')
 page('Memories','CUT OUTER BORDERS / KEEP IN RESERVE / DO NOT SHUFFLE')
+MEMART={'fog':'memory-fog.png','light':'memory-light.png','calm':'memory-calm.png'}
 for i,m in enumerate(D['memories']):
     x,y,w,h=coords(i,40);source=next(s for s in D['souls'] if s['memory']==m['id'])
-    card_frame(x,y,w,h,'#6B4F25','MEMORY / '+source['id'],m['id'])
-    para(escape(m['name']),x+3*mm,y+10*mm,w-6*mm,11,bold=True,max_height=12*mm)
-    para(escape(m['text']),x+3*mm,y+21*mm,w-6*mm,10,leading=12,max_height=12*mm)
+    card_frame(x,y,w,h,'#6B4F25','MEMORY',m['id'])
+    arch_art(MEMART[m['kind']],x+3*mm,y+5*mm,19*mm,26*mm)
+    para(escape(m['name']),x+24*mm,y+5*mm,w-27*mm,10.5,bold=True,max_height=10*mm)
+    para('From '+escape(source['name']),x+24*mm,y+14.5*mm,w-27*mm,6.8,color=GOLDHI)
+    para(escape(m['text']),x+24*mm,y+19*mm,w-27*mm,8,leading=10,color=INK,max_height=14*mm)
 para('Earn only from matched ordinary deliveries. One Memory per move. Keep at most three. Permanently discard used and excess cards.',10*mm,272*mm,190*mm,9,color=MUTE,max_height=9*mm)
 page('Arrival tickets','CUT OUTER BORDERS / SHUFFLE FACE DOWN / DO NOT RECYCLE')
+SOUL={s['id']:s for s in D['souls']}
 for i,a in enumerate(D['arrivals']):
     x,y,w,h=coords(i,40);card_frame(x,y,w,h,'#4A3720','ARRIVAL',a['id'])
-    para(escape(a['name']),x+3*mm,y+11*mm,w-6*mm,12,bold=True,max_height=12*mm)
-    para('Bring '+', '.join(a['souls'])+' to the shore.',x+3*mm,y+24*mm,w-6*mm,10,max_height=10*mm)
+    for k,sid in enumerate(a['souls']):mini_portrait(SOUL[sid],x+11*mm+k*15*mm,y+15*mm,6.5*mm)
+    para(escape(a['name']),x+3*mm,y+23.5*mm,w-6*mm,10.5,bold=True,max_height=6*mm)
+    para('Bring '+', '.join(a['souls'])+' to the shore.',x+3*mm,y+29*mm,w-6*mm,7.8,color=GOLDHI,max_height=5*mm)
 para('Refill until at least five souls wait or tickets run out. A paired ticket brings both souls and may make six. Write each new deadline using the current anger. Never reuse a ticket this night.',10*mm,239*mm,190*mm,11)
 page('River events','CUT OUTER BORDERS / SHUFFLE FOUR EVENTS / REVEAL ON TRIPS 2 AND 4')
 for i,e in enumerate(D['events']):
     x,y,w,h=coords(i);card_frame(x,y,w,h,'#685375','EVENT',e['id'])
-    para(escape(e['name']),x+3*mm,y+14*mm,w-6*mm,14,bold=True,max_height=20*mm)
-    para(escape(e['text']),x+3*mm,y+38*mm,w-6*mm,10.5,leading=14,max_height=40*mm)
+    arch_art('wraith.png',x+3*mm,y+6*mm,w-6*mm,28*mm,focus=.5)
+    para(escape(e['name']),x+3*mm,y+37*mm,w-6*mm,13,bold=True,max_height=12*mm)
+    lotusrule(x+w/2,y+51*mm,w-14*mm)
+    para(escape(e['text']),x+3*mm,y+54*mm,w-6*mm,9,leading=12,color=GOLDHI,max_height=26*mm)
 utility(4,'PASSAGE','Earn once: Mother and Child delivered together, both wishes matched. Before a move, spend to send one waiting soul to its wish. Gain 1 wish only.','L07')
 utility(5,'START A TRIP','Reset boat moves. Clear last Event. On trips 2 and 4, reveal and resolve an Event. Refill waiting shore. Reveal two Routes. Then board.','L08')
 page('Markers and workshop record','CUT ONLY THE SIX MARKERS / KEEP THE RECORD AREA WHOLE')

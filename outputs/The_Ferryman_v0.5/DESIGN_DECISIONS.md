@@ -53,3 +53,5 @@ These are explicit user requests, not agent-authored balance changes. Rules, num
 
 The A4 print-and-play kit now matches the live browser design: near-black pages, tarnished bronze borders and rules, bone text, Battambang headings and Kantumruy Pro body text (SIL OFL, bundled in `assets/fonts/` with licenses). Portraits sit in a temple-doorway arch with a lotus finial, cards have a bronze cut border and inner frame, and label bands are dark bronze. Deadline lines and the workshop record stay parchment so pencil remains legible. Rules text, card sizes, positions and counts are unchanged. Dark pages use far more ink.
 
+Card faces were then restyled to match the browser cards (user request): a large arched picture with a lotus finial, a small ID and seat line, Battambang title, a lotus divider and a lotus-bud fact list. Routes now show their destination scenes, including the River Styx art reused from v0.6; Sanctuary has no art. Memories show their memory art, arrival tickets show round portraits, and events show the wraith scene. Card sizes, positions and counts are unchanged; all 16 pages stay A4.
+

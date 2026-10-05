@@ -1,6 +1,6 @@
 {
   "scope": "Static artifact checks, not a physical print or human playtest.",
-  "createdAt": "2026-10-05T05:08:20.328716+00:00",
+  "createdAt": "2026-10-05T05:56:40.545382+00:00",
   "counts": {
     "passed": 6,
     "failed": 0
@@ -9,8 +9,8 @@
     "componentCount": 67,
     "masterPages": 16,
     "guidePages": 1,
-    "glyphCount": 21751,
-    "minimumTextPt": 7.5,
+    "glyphCount": 22232,
+    "minimumTextPt": 6.6,
     "embeddedUsedFonts": [
       "AAAAAA+Battambang-Bold",
       "AAAAAA+KantumruyProRoman-Regular",
@@ -53,7 +53,7 @@
     "app.js": "e52af6274a01131d5e158ab292e9f99adcf289a5347e7f291f14aee42612368e",
     "index.html": "f75de2f214a2e4b1c6994556952981af87465829fbd34f79e169b37a80d07f27",
     "styles.css": "387068c057dadff6a658c2aa9f86bff951cba96f321ceda546cd84e5f395ea01",
-    "print/Print_and_Play_v0.5.pdf": "c29e8b3cc5b0d7e6d393e2bd424112effd3137c515d6cbb78a3c51a75d714911",
+    "print/Print_and_Play_v0.5.pdf": "843596ed98ceed3c0eed0efe1412671f94fbb0946cdedd67e268ac27ada21418",
     "print/Player_Guide_v0.5.pdf": "33646a4ab06bb653fb7f507dbe31e33d786e5a9d2ea06200b7d90dce67784fa5"
   }
 }

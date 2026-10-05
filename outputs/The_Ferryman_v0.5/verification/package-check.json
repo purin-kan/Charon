@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-05T05:08:24.647422+00:00",
+  "checkedAt": "2026-10-05T05:56:44.068079+00:00",
   "archive": "The_Ferryman_v0.5.zip",
   "status": "PASS",
   "checks": [
@@ -7,7 +7,7 @@
     "Exact relative file set",
     "Byte-for-byte comparison against current folder"
   ],
-  "fileCount": 64,
-  "manifestSha256": "7ec54844fd6523d942f272bec86c6be8c54414b6b5c56cfb8762aaa75f96ecbe",
+  "fileCount": 67,
+  "manifestSha256": "64400809f7d5db0b3b983e02b058a6f3418800b652c9ffca19aa361e80608d44",
   "note": "Archive hash is omitted to avoid a self-referential report. Final archive is verified again after inserting this report."
 }

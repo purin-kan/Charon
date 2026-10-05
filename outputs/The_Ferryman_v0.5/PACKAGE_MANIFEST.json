@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-10-05T05:08:20.498262+00:00",
+  "createdAt": "2026-10-05T05:56:40.681287+00:00",
   "scope": "Hashes cover every payload file except this manifest and verification/package-check.json, which describe this package.",
   "files": {
     ".gitattributes": {
@@ -7,8 +7,8 @@
       "sha256": "9730cf0bae0f4fe717cc6ae6278628bbce528da3fc9aecdba68917253f9ca08d"
     },
     "DESIGN_DECISIONS.md": {
-      "bytes": 7634,
-      "sha256": "c29886a53d069ef42685d1e055ff11afb2bef3b522409f7cccdcd8aa98d1f730"
+      "bytes": 8124,
+      "sha256": "2666cf0fadd8d5ebfb4cf254bcab5c6b5b6d52c0a3c25940853c881ccc9d5ee5"
     },
     "DESIGN_WORKBOOK.md": {
       "bytes": 5314,
@@ -35,8 +35,12 @@
       "sha256": "e52af6274a01131d5e158ab292e9f99adcf289a5347e7f291f14aee42612368e"
     },
     "assets/PROVENANCE.json": {
-      "bytes": 6250,
-      "sha256": "36c354b5c9f7b57778ca0c967b2bc328c7523c34e2c43b28d990070c642dbcc5"
+      "bytes": 7193,
+      "sha256": "6acc3bb9c9ba655beaeb8fb977756434df146e5bfeffb82a79ac6c1cc1abe706"
+    },
+    "assets/acheron.png": {
+      "bytes": 2822497,
+      "sha256": "a6ac50f8f71d7995643971a99236b7b63820c5ca0c217d56a3f2304ea7273998"
     },
     "assets/asphodel.png": {
       "bytes": 3458462,
@@ -130,6 +134,10 @@
       "bytes": 2912603,
       "sha256": "87a23b020311344705f9b75dcd790b82e34bf3581b6625a1b11c066b47bccca5"
     },
+    "assets/polong.png": {
+      "bytes": 2544109,
+      "sha256": "a5257fa9fa51f8e7879dac230afae1bf945dc88ee43d3dee28fa8a18f3a00f7a"
+    },
     "assets/red-soldier.png": {
       "bytes": 2754376,
       "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0"
@@ -137,6 +145,10 @@
     "assets/shore.png": {
       "bytes": 3067400,
       "sha256": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60"
+    },
+    "assets/styx.png": {
+      "bytes": 2496283,
+      "sha256": "6fc608e95118c4e3c760ff5b61eeed09f9e35d1eb834e5761b70a0ef5526b8d2"
     },
     "assets/tartarus.png": {
       "bytes": 2938877,
@@ -171,8 +183,8 @@
       "sha256": "33646a4ab06bb653fb7f507dbe31e33d786e5a9d2ea06200b7d90dce67784fa5"
     },
     "print/Print_and_Play_v0.5.pdf": {
-      "bytes": 32019192,
-      "sha256": "c29e8b3cc5b0d7e6d393e2bd424112effd3137c515d6cbb78a3c51a75d714911"
+      "bytes": 7944768,
+      "sha256": "843596ed98ceed3c0eed0efe1412671f94fbb0946cdedd67e268ac27ada21418"
     },
     "rules.json": {
       "bytes": 7125,
@@ -195,8 +207,8 @@
       "sha256": "9819f4c6fe0974b61a713b51d9b8f78c6722c822e1b5fe128806ece570ebca08"
     },
     "tools/build.py": {
-      "bytes": 24121,
-      "sha256": "6cfbce36889b54a3b67cf9b9bbfd7808b32de8e7742cda1014aee2c31df2c856"
+      "bytes": 28719,
+      "sha256": "fd490c3d7ed997d9fee8dc8ddc83a2b3dc9a10c00afe76e2f31e53526e695dcb"
     },
     "tools/check_artifacts.py": {
       "bytes": 7836,
@@ -212,15 +224,15 @@
     },
     "verification/build-results.json": {
       "bytes": 800,
-      "sha256": "4d09b8740f8e8504c77bb22f7aa056796fc9a2a762ce04ab052fd3037107d748"
+      "sha256": "ca130c965774d5bcd94197b2247eb41a9ebfee87f2321fc903f774adaa04099a"
     },
     "verification/engine-results.json": {
       "bytes": 4454,
       "sha256": "6be04ec970bf8b61520ebed2c071785a9041321db1ca447fe2f00c3d3bcf344a"
     },
     "verification/layout-bounds.json": {
-      "bytes": 111434,
-      "sha256": "c63c1600ab3e0ee7512e59eba2250b2789b7c1c0b91093c70ea002d3f7e0723e"
+      "bytes": 109490,
+      "sha256": "1950c7b7025831c30cd2d2491525b15ef597218ab2f53f13854f583448bd87b8"
     },
     "verification/navigation-results.json": {
       "bytes": 183,
@@ -244,7 +256,7 @@
     },
     "verification/static-results.json": {
       "bytes": 1862,
-      "sha256": "0a4939b387222a65fea5f30e4dae9391e253a11c51c18213fac0f0de065755bb"
+      "sha256": "8c65e810265e711979b1f89293d2ceb8084ed89390e6738b56b1633e140fc9e4"
     },
     "verification/winning-replay.json": {
       "bytes": 2655,
