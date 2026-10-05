@@ -1,0 +1,9 @@
+{
+  "version": "0.6",
+  "status": "READY",
+  "contentSha256": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+  "missing": [],
+  "masterPages": 31,
+  "cutPieces": 78,
+  "note": "Integrity PASS does not mean submission-ready while dependencies are missing."
+}

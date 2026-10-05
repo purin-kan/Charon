@@ -1,0 +1,246 @@
+{
+  "version": "0.6",
+  "checkedAt": "2026-10-05T01:07:20.426Z",
+  "status": "PASS",
+  "passed": 15,
+  "failed": 0,
+  "browser": "154.0.8037.93",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "isolation": "Fresh browser context, synthetic fixtures, v0.6 QA namespace. No user saves cleared.",
+  "records": [
+    {
+      "name": "Missing facilitator data pauses departure without advancing",
+      "status": "PASS"
+    },
+    {
+      "name": "Route input validation and future concealment",
+      "status": "PASS"
+    },
+    {
+      "name": "Revealed current-cycle offer history survives progress and reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Guided delivery, return, preview, Back and exact reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Voluntary stop and resume without victory",
+      "status": "PASS"
+    },
+    {
+      "name": "Real save download bytes and UI import roundtrip",
+      "status": "PASS"
+    },
+    {
+      "name": "Older save namespace preserved; invalid import keeps active run",
+      "status": "PASS"
+    },
+    {
+      "name": "Fresh repeated memory, overflow choice and overflow reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Foresight exactly three offers, missing-data transaction, reload concealment",
+      "status": "PASS"
+    },
+    {
+      "name": "Passage targeting and empty-return memory lock",
+      "status": "PASS"
+    },
+    {
+      "name": "Lethal confirmation and immediate loss before delivery",
+      "status": "PASS"
+    },
+    {
+      "name": "Destructive New Run confirmation and cancel",
+      "status": "PASS"
+    },
+    {
+      "name": "Desktop and 390px narrow layout, help, image loading",
+      "status": "PASS",
+      "screenshots": [
+        "browser-desktop.png",
+        "browser-narrow.png"
+      ]
+    },
+    {
+      "name": "All 23 integrated original artwork assets load and decode",
+      "status": "PASS",
+      "assets": [
+        {
+          "path": "assets/art/mother.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/child.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/merchant.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/mason.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/cook.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/soldier.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/haven.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/asphodel.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/elysium.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/tartarus.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/memory-fog.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/memory-light.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/memory-calm.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/shore.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/boat.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/poet.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/keeper.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/polong.png",
+          "width": 1024,
+          "height": 1536
+        },
+        {
+          "path": "assets/art/acheron.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/styx.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/memory-foresight.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/memory-guard.png",
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "path": "assets/art/memory-passage.png",
+          "width": 1536,
+          "height": 1024
+        }
+      ]
+    },
+    {
+      "name": "No JavaScript exceptions or failed resource requests",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "limitations": [
+    "Agent browser checks, not human playtesting",
+    "Real phones, Windows and other browsers NOT_RUN",
+    "Team art approval remains a human check"
+  ],
+  "hashes": {
+    "index.html": "66e16c01cd29c324430ac9d9bbac2794988d1d297934ab15ff3e841c60189c49",
+    "app.js": "c178d9e8398730a61a9646cecbc03ed684eeef0a62e1ed5dc19079e48e130733",
+    "engine.js": "25369496b230315457a75f4e5d95569f075a9fd33f145b93167f371be4761a23",
+    "content.js": "743624b3447485146ba7aba21bc484c5c493c59ff47398ededdecd869cf382af",
+    "content.json": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+    "asset-map.js": "3f244d326ecb63d761b9a623cc485bcf7d9e0e7cb6ed7a21011ef0be8bbd3279",
+    "styles.css": "82b4c0a85b1653fd92257ea0907ce8b9c0178f6994cd87ee54c8f31c3a4fa6ef",
+    "tests/browser-check.js": "92966d5e6e82aca116aac931681976a4d3f247ffa0de9736a6dffa362db25618",
+    "assets/art/mother.png": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212",
+    "assets/art/child.png": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2",
+    "assets/art/merchant.png": "c9dc76b122c6c21d16fe7bc9f97868b1adf2c9d0bd9b786da1d0e35b06f90491",
+    "assets/art/mason.png": "37aeae89b4b4aa39e6f9ba7f60dd29b5890a4bcd2b56bf15444413d10ab16deb",
+    "assets/art/cook.png": "de073f0fc55e1dca27a9cd234def57e85dd87fb8a6a7081f58a1c846f7d3f189",
+    "assets/art/soldier.png": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0",
+    "assets/art/haven.png": "c881ecab2c5249a90d6be269a4a7d1b191b4f8e394eead6b7f327f97b000b5c0",
+    "assets/art/asphodel.png": "a97669e9cd13aadb3cab1f3e8c57abf2933e2d74f2c13b3ec186b03ae069b15c",
+    "assets/art/elysium.png": "0ab0336bd71e9ce4250c299ab4901a0c1e3eef1bdca1e71e8711eb98f8e68c38",
+    "assets/art/tartarus.png": "f226518732adfa150d00582c02bc4f53e1d13b8d6e6cdb92741d02166fc99e2f",
+    "assets/art/memory-fog.png": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46",
+    "assets/art/memory-light.png": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9",
+    "assets/art/memory-calm.png": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597",
+    "assets/art/shore.png": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60",
+    "assets/art/boat.png": "98756a61bf5d5b13b939c0d8b63c5f73d01710d91c7138918c32ebdf06377d2e",
+    "assets/art/poet.png": "c8f3629e1da71a6a0218ca5d0c35f267cc089245c614775ac5a7000d0756cfe0",
+    "assets/art/keeper.png": "d3661328f678f1fe8b05ab773d9f43f6f5e99e6c02b21f51944e535b4a4b81aa",
+    "assets/art/polong.png": "a5257fa9fa51f8e7879dac230afae1bf945dc88ee43d3dee28fa8a18f3a00f7a",
+    "assets/art/acheron.png": "a6ac50f8f71d7995643971a99236b7b63820c5ca0c217d56a3f2304ea7273998",
+    "assets/art/styx.png": "6fc608e95118c4e3c760ff5b61eeed09f9e35d1eb834e5761b70a0ef5526b8d2",
+    "assets/art/memory-foresight.png": "835ef3695a1d6b484f37b30da50d31754cd31a0649670eb2717800d6ec6b9afe",
+    "assets/art/memory-guard.png": "90a1eff6c37ad7c5027484e98ff5a654ed37065edd8a9525eed418e2af05eafd",
+    "assets/art/memory-passage.png": "83f2ccb25648f524935bc3af52e03679e9ea6369409ab18c1334a1dff2b97904",
+    "assets/fonts/Vera.ttf": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d",
+    "assets/fonts/VeraBd.ttf": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9"
+  },
+  "contentSha256": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454"
+}

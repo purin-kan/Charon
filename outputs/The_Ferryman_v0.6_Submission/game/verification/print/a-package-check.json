@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "checked_utc": "2026-10-04T21:20:58.603719+00:00",
+  "archive": "print/Handoff_A_v0.6.zip",
+  "archive_file_count": 75,
+  "payload_file_count": 73,
+  "exact_membership": true,
+  "exact_bytes": true,
+  "crc": true,
+  "manifest_hashes": true,
+  "scope": "A-only delivery. Receipt included in ZIP; whole-archive SHA-256 is adjacent to the ZIP to avoid a circular hash."
+}

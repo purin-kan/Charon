@@ -1,8 +1,17 @@
 # Deliverables and version guide
 
-Status checked October 4, 2026. The current workshop iteration is v0.5, with matching single-player browser and paper rules. Earlier versions remain available below and use different rules.
+Status checked October 5, 2026. The current workshop iteration is v0.6, with matching paper/browser endless-survival rules and facilitator-controlled routes. Earlier versions remain available below and use different rules.
 
-## Current v0.5 workshop iteration
+## Current v0.6
+
+- [Complete 31-page print kit](The_Ferryman_v0.6/print/Print_and_Play_v0.6.pdf), [one-page guide](The_Ferryman_v0.6/print/Player_Guide_v0.6.pdf), [inventory](The_Ferryman_v0.6/print/COMPONENT_INVENTORY.md).
+- [Playable browser](The_Ferryman_v0.6/index.html), [rules](The_Ferryman_v0.6/RULES.md), [design workbook](The_Ferryman_v0.6/DESIGN_WORKBOOK.md).
+- [All-files expanded submission](The_Ferryman_v0.6_Submission/), [opening page](The_Ferryman_v0.6_Submission/START_HERE.html), [verification receipt](The_Ferryman_v0.6_Submission_RECEIPT.json).
+- [Current checks and human limitations](The_Ferryman_v0.6/VALIDATION.md), [integration provenance and unidentified remote B branch](The_Ferryman_v0.6/INTEGRATION.md).
+
+All local deliverables are combined. The verified `The_Ferryman_v0.6_Submission.zip` stays local because it exceeds GitHub's regular-Git file limit; the complete expanded folder and rebuild tools are tracked. Actual printing, cutting, opacity, human play, intended-device testing and team art approval remain pending. Original A-only and earlier INCOMPLETE ZIPs are historical, not the final combined package.
+
+## Preserved v0.5 workshop iteration
 
 | Material | Location |
 |---|---|

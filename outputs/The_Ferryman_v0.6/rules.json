@@ -1,0 +1,63 @@
+{
+  "version": "0.6",
+  "contentSha256": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+  "config": {
+    "startLight": 6,
+    "maxLight": 6,
+    "seats": 4,
+    "shoreTarget": 5,
+    "shoreAngerLimit": 2,
+    "shipAngerLimit": 4,
+    "handLimit": 3,
+    "spawnInterval": 3,
+    "polongFogThreshold": 2,
+    "polongFog": 1,
+    "returnLight": 2,
+    "wraithDamage": 1,
+    "foresightForks": 3,
+    "memoriesPerWindow": 1,
+    "endless": true,
+    "questPerRun": 1,
+    "initialShore": [
+      "SOUL-MOTHER",
+      "SOUL-CHILD",
+      "SOUL-MERCHANT",
+      "SOUL-MASON",
+      "SOUL-COOK"
+    ],
+    "initialArrivals": [
+      "SOUL-SOLDIER",
+      "SOUL-POET",
+      "SOUL-KEEPER"
+    ]
+  },
+  "rules": {
+    "objective": "Endless solo survival. Zero Light is immediate loss. Voluntary stop records a session without a victory.",
+    "boarding": "Board at least one ordinary soul, at most four seats. Reverse boarding choices before departure. Soldier uses two seats. PoLong uses no ordinary seat. No other passive abilities apply.",
+    "recycling": "Keep eight unique ordinary souls across arrival pile, shore, boat and resolved discard. Refill to five on return. Only when arrivals run out, shuffle resolved ordinary souls. Never duplicate waiting or aboard souls. Delivered and expired PoLong leave their instance supply.",
+    "memories": "Start with no memories. Play at most one before each outward round or return. Each use consumes that held copy. Every eligible delivery creates a fresh source-labeled memory, including repeats. Unused copies persist. After rewards choose excess cards to discard to three. Used and discarded paper memories return to a reserve; never take a held card to supply a reward.",
+    "quest": "Deliver Child to Haven before Mother to Tartarus, possibly across cycles. Qualifying Mother gives her normal Light memory and one Passage. Mother delivered first, or a required family member expiring before its required delivery, fails the quest for the run. A later recycled Child's fate cannot undo a qualifying Child delivery. Completion and failure survive recycling; Passage is granted at most once per run.",
+    "routes": "The facilitator orders, shuffles and hands out two-destination offers using only the six destination IDs. No generator, repeating map, first-cycle guarantee or map-ending penalty applies. Missing offers pause play without spending a memory or advancing time. Foresight requires the current and next two complete offers; revealed offers remain visible in this cycle.",
+    "passage": "Passage may deliver any onboard soul, including PoLong, with its normal rewards. It causes no fog, anger, outward-round increment or scheduled spawn. If it empties the boat, it spends the immediate return's memory allowance too.",
+    "damage": "Guard prevents only the next one damage point in its round or return and then expires. Fog Shield reduces crossing fog only. Wraiths leave immediately and have no continuing fog. Ordinary delivery and Haven do not heal. Return healing happens only after surviving shore expiry.",
+    "example": "Before global round 6, Light 4, Keeper and Soldier at Ship Anger 3. Play Fog Shield, spawn PoLong at 0, choose Asphodel: pay 1 fog, Light 3. Deliver Keeper for fresh Fog Shield. Soldier expires for 1 Light, leaving Light 2. PoLong advances to anger 1. This is a rule example, not a playtest."
+  },
+  "roundSteps": [
+    "Optionally play one memory; resolve its effect and any rewards or hand overflow.",
+    "If Passage empties the boat, return immediately using the same spent memory allowance.",
+    "Advance the global outward round. On a multiple of three, add a new PoLong at Ship Anger 0.",
+    "Choose one of the facilitator's two destinations. Calculate base fog plus current PoLong fog minus Fog Shield, minimum zero.",
+    "Apply Guard to the next damage point and pay fog. Zero Light ends the run before delivery.",
+    "Optionally deliver any matching passengers and receive fresh fixed memories and any quest reward.",
+    "All remaining passengers gain one Ship Anger, including the new PoLong.",
+    "Each reaching four becomes a wraith, costs one Light subject to Guard, and leaves. Stop immediately at zero Light.",
+    "Choose excess memories to discard down to three. Empty boat: return with a new memory allowance. Otherwise begin the next outward window."
+  ],
+  "returnSteps": [
+    "Return has no travel fog and does not advance the outward round. Optionally play one memory if its allowance is available.",
+    "All waiting ordinary souls gain one Shore Anger. At two, each becomes a wraith, costs one Light subject to Guard, and enters the resolved discard. Stop immediately at zero Light.",
+    "If alive, restore two Light, maximum six, and record a completed cycle.",
+    "Refill shore to five. When the arrival pile is empty, shuffle only resolved ordinary souls into it. New arrivals start at zero Shore Anger.",
+    "Begin the next cycle with facilitator-supplied offers. Boarding resets Ship Anger to zero. Play continues without a cycle or delivery cap."
+  ]
+}

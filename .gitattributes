@@ -1,0 +1,4 @@
+outputs/The_Ferryman_v0.6/** -text
+outputs/The_Ferryman_v0.6_Submission/** -text
+outputs/The_Ferryman_v0.6/print/*.pdf binary
+outputs/The_Ferryman_v0.6_Submission/game/print/*.pdf binary

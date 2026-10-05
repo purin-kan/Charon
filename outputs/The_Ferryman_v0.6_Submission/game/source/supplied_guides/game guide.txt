@@ -1,0 +1,88 @@
+P001 Game Guide Demo
+P002 Premise
+P003 You play Charon's apprentice. Your job is to ferry souls across the river and drop each one off where it wants to go.
+P004 Key terms
+P005 Round: one stop on the river. The river splits into 2 destinations, and you travel to one of them.
+P006 Cycle: one full trip. It starts when you pick up souls at the shore and ends when your boat is empty. Then you return to the shore for new arrivals.
+P007 Light: your health. If light reaches 0, you lose. Start at 6.
+P008 Fog: each destination has a fog value. When you arrive there, you lose that much Light.
+P009 Seats: your boat has 4 seats. Most souls take 1 seat, and some take 2.
+P010 Anger: how long a soul has been kept waiting. Too much Anger turns a soul into a wraith (see Anger below).
+P011 Memory: a card you earn by delivering a soul to its preferred destination. Each memory has a special effect.
+P012 How a cycle plays
+P013 New map. A river map with a set path is randomly generated for this cycle. 
+P014 Choose passengers. At the shore, fill up to 4 seats with souls. Each soul has a preferred destination, and you need to deliver all of them before they turn into wraiths. Souls you don't pick stay on the shore.
+P015 Pick a destination. At the start of each round, choose 1 of 2 destinations. When you arrive, you lose Light equal to that destination's fog.
+P016 Drop off souls (optional). A soul can only be dropped off at its preferred destination. When you drop one off, you get its memory. You can also keep a soul on board and drop it off later, for example to complete a quest in the right order.
+P017 End of round. Every soul still on your boat gains +1 Ship Anger.
+P018 Repeat steps 3–5 until your boat is empty.
+P019 Return to the shore. Every soul still waiting on the shore gains +1 Shore Anger. New souls arrive, and the next cycle starts from step 1.
+P020 
+P021 
+P022 
+P023 
+P024 Anger
+P025 Souls that wait too long turn into wraiths. When a soul becomes a wraith, you lose 1 Light and the soul leaves the game.
+P026 
+P027 Shore Anger
+P028 Ship Anger
+P029 Who
+P030 Souls left waiting on the shore
+P031 Souls on your boat
+P032 Goes up
+P033 +1 every cycle
+P034 +1 every round
+P035 Limit
+P036 Lower (2)
+P037 Higher (4)
+P038 At the limit
+P039 Becomes a wraith: −1 Light, then leaves
+P040 Becomes a wraith: −1 Light, then leaves
+P041 Ship Anger has a higher limit because it goes up much more often: every round instead of every cycle.
+P042 Quests
+P043 Some souls have a quest. Completing it gives you a special memory, which is stronger than a normal one.
+P044 Tainted souls
+P045 Every 3 rounds, a tainted soul is placed on your boat, and you can't refuse it. It carries a debuff that stays active until it leaves your boat. Otherwise it works like any other soul: it has a preferred destination and gains Ship Anger.
+P046 Demo scope
+P047 To keep the demo small, it includes only:
+P048 1 soul of each memory type
+P049 Mother Give light +1
+P050 Child No memory
+P051 Merchant See the future +3
+P052 Soldier Prevent Light Toll +1
+P053 Poet See the future +3
+P054 Cook Prevent anger by 1
+P055 Mason Prevent 1 fog
+P056 Keeper Prevent 1 fog 
+P057 PoLong Tainted Soul Every 3 turns, increase fog by 1 for every 2 rounds it stays in the boat.
+P058 1 quest pair whose quest gives a special memory 
+P059 Quest pair story: The Mother is a horrible person, however she wants her son to go to Haven. Therefore the quest condition is if you send the son to Haven before sending the Mother to Tartarus, you will receive a memory that allows you to select one soul on your ship and send them to their destination instantly.
+P060 A tainted soul every 3 Cycle rounds
+P061 6 destinations for the map pool not including the starting shore: 
+P062 Destination
+P063 Fog
+P064 Why
+P065 Haven
+P066 0
+P067 Safe harbor, a free rest point
+P068 River Styx
+P069 1
+P070 The threshold every soul crosses, so it's the cheap gate
+P071 Acheron
+P072 1
+P073 River of woe, the first taste of the underworld, same shallow depth as Styx
+P074 Asphodel
+P075 2
+P076 The gray middle fields, thick with the fog of forgetting
+P077 Elysium
+P078 3
+P079 Paradise for the worthy, the far edge of the good
+P080 Tartarus
+P081 3
+P082 The deepest pit, the far edge of the bad
+P083 
+P084 Make the printout demo in similar style to the design of the html demo
+P085 Generate missing memory card pictures, characters, and maps.
+P086 
+P087 
+P088 

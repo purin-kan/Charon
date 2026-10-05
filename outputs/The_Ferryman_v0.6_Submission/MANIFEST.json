@@ -1,0 +1,850 @@
+{
+  "version": "0.6",
+  "releaseStatus": "COMPLETE_LOCAL",
+  "excludedSelfReports": [
+    "MANIFEST.json",
+    "PACKAGE_RESULTS.json"
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 826,
+      "sha256": "3f4bbdf834a64ab7ecee75af338832b227ad6dfb59d6345aa167bc8bc92aef4b"
+    },
+    {
+      "path": "RELEASE_NOTES.md",
+      "bytes": 483,
+      "sha256": "9249575a18da7031afb5b9c741708122642719f1dac61aed28c68fed2baaab9e"
+    },
+    {
+      "path": "START_HERE.html",
+      "bytes": 1555,
+      "sha256": "b3960e5d1c711b987016cf4fe050223332c9293a8fb0f0ef9d20df6dbfdfa308"
+    },
+    {
+      "path": "SUBMISSION_INVENTORY.md",
+      "bytes": 8979,
+      "sha256": "f2be3034967fbcb8ee4c48d35d963d50918bb449d469895cdbca00d308dcc8af"
+    },
+    {
+      "path": "game/DESIGN_DECISIONS.md",
+      "bytes": 4770,
+      "sha256": "ac42db317832e255a57364f95750ae1b23357ce2f9a1ba26474410629ed92fe5"
+    },
+    {
+      "path": "game/DESIGN_WORKBOOK.md",
+      "bytes": 2244,
+      "sha256": "af3ffa6205d35b5fd0449b0b83554a2c829435d442923c2c10af2caa154a600b"
+    },
+    {
+      "path": "game/INTEGRATION.md",
+      "bytes": 4801,
+      "sha256": "1a55c24bbbcc6ad43ae8aaa8c07a1ec4313d28bbbd85850aa7e1f8b07e66aa46"
+    },
+    {
+      "path": "game/LICENSES.md",
+      "bytes": 998,
+      "sha256": "e64c2e7355d21eb18af2272f8d024c2d7b74d7d3b400f7a15e24e4f18c132fdc"
+    },
+    {
+      "path": "game/PRINT_TEXT.json",
+      "bytes": 9470,
+      "sha256": "fe5f55d926d5281507b73aa078aa84a7cdb5d7e10409b2f152a18531db635239"
+    },
+    {
+      "path": "game/README.md",
+      "bytes": 3362,
+      "sha256": "efe8957168428167608bae9832083b7cb5a2bad4ae615023be0d86a3e647dc4d"
+    },
+    {
+      "path": "game/REBUILD.md",
+      "bytes": 3446,
+      "sha256": "fa8d27cc6cc2803b85897a3b7c4b34d13b1d0795d8807ae8180ccb32e2a705e8"
+    },
+    {
+      "path": "game/RULES.md",
+      "bytes": 6920,
+      "sha256": "fb888912df400b9f77b227091df9ae4add0c49b7c36e8b4e292e75c5e206e9ca"
+    },
+    {
+      "path": "game/VALIDATION.md",
+      "bytes": 4183,
+      "sha256": "aa3f97eed6c910a26073d61379fb358dc15b816b7c0479ec7e2ee441dc4484d4"
+    },
+    {
+      "path": "game/app.js",
+      "bytes": 25696,
+      "sha256": "c178d9e8398730a61a9646cecbc03ed684eeef0a62e1ed5dc19079e48e130733"
+    },
+    {
+      "path": "game/art/ASSET_MANIFEST.json",
+      "bytes": 16623,
+      "sha256": "3168e7b34c26ea1c0ad6626ce86aa8cb672fb9612c196f2f236f506ee6d92ac1"
+    },
+    {
+      "path": "game/art/GENERATION_RECORDS.json",
+      "bytes": 13408,
+      "sha256": "5b870e2bad5d1cd638477b0aeed67d35420e26ad3e721e7cbca9f5eab4edb364"
+    },
+    {
+      "path": "game/art/INTEGRATION_CONTRACT.md",
+      "bytes": 1372,
+      "sha256": "e5cb3c201bbf7651d2d8a71e7d112994585b380dfcd13b4bbcf07e9021293507"
+    },
+    {
+      "path": "game/art/LICENSES.md",
+      "bytes": 2084,
+      "sha256": "4e504adec5b0e821c9e208030a9d0c48795b462f15f60102ae11a803538b93c4"
+    },
+    {
+      "path": "game/art/source-memory-art-v04.md",
+      "bytes": 20803,
+      "sha256": "f2f9a127052671e9b414c0f3cbec363f75a71c548c08a86d643dabbc863170b8"
+    },
+    {
+      "path": "game/art/source-memory-art-v04.original.txt",
+      "bytes": 20275,
+      "sha256": "2e27c11a32afe7950e6c8028699c931958e73330eb9426d755bef60a039f4edf"
+    },
+    {
+      "path": "game/art/source-provenance-v03-r2.json",
+      "bytes": 25648,
+      "sha256": "0d7ddf24e4385de06096407b09e13d550a1f52e92d316973720777529ad2bf52"
+    },
+    {
+      "path": "game/art/source-provenance-v03.json",
+      "bytes": 34977,
+      "sha256": "b8a0a297ee8b2a434420eaeee4319e790a2a08719b654f44e598a1cb8f732006"
+    },
+    {
+      "path": "game/art/source-provenance-v04.json",
+      "bytes": 4303,
+      "sha256": "57eea352a637645a69c9d5a5ee522a26459d2625d4bf2d962382d7a673eced9b"
+    },
+    {
+      "path": "game/art/source-provenance-v05.json",
+      "bytes": 5310,
+      "sha256": "3b67830048365a47313f9eed90d5c44544eb3a26ddfecc3d7b4d0114e68f35f8"
+    },
+    {
+      "path": "game/asset-map.js",
+      "bytes": 1014,
+      "sha256": "3f244d326ecb63d761b9a623cc485bcf7d9e0e7cb6ed7a21011ef0be8bbd3279"
+    },
+    {
+      "path": "game/assets/REUSED_PROVENANCE.json",
+      "bytes": 9887,
+      "sha256": "fb2b6d058fcdfe394a18dde0d9fc0d4f2cc77a968db3851651035e66ae61c49f"
+    },
+    {
+      "path": "game/assets/art/acheron.png",
+      "bytes": 2822497,
+      "sha256": "a6ac50f8f71d7995643971a99236b7b63820c5ca0c217d56a3f2304ea7273998"
+    },
+    {
+      "path": "game/assets/art/asphodel.png",
+      "bytes": 3458462,
+      "sha256": "a97669e9cd13aadb3cab1f3e8c57abf2933e2d74f2c13b3ec186b03ae069b15c"
+    },
+    {
+      "path": "game/assets/art/boat.png",
+      "bytes": 2611015,
+      "sha256": "98756a61bf5d5b13b939c0d8b63c5f73d01710d91c7138918c32ebdf06377d2e"
+    },
+    {
+      "path": "game/assets/art/child.png",
+      "bytes": 2640040,
+      "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2"
+    },
+    {
+      "path": "game/assets/art/cook.png",
+      "bytes": 2892455,
+      "sha256": "de073f0fc55e1dca27a9cd234def57e85dd87fb8a6a7081f58a1c846f7d3f189"
+    },
+    {
+      "path": "game/assets/art/elysium.png",
+      "bytes": 3829580,
+      "sha256": "0ab0336bd71e9ce4250c299ab4901a0c1e3eef1bdca1e71e8711eb98f8e68c38"
+    },
+    {
+      "path": "game/assets/art/haven.png",
+      "bytes": 3033878,
+      "sha256": "c881ecab2c5249a90d6be269a4a7d1b191b4f8e394eead6b7f327f97b000b5c0"
+    },
+    {
+      "path": "game/assets/art/keeper.png",
+      "bytes": 2797765,
+      "sha256": "d3661328f678f1fe8b05ab773d9f43f6f5e99e6c02b21f51944e535b4a4b81aa"
+    },
+    {
+      "path": "game/assets/art/mason.png",
+      "bytes": 2918204,
+      "sha256": "37aeae89b4b4aa39e6f9ba7f60dd29b5890a4bcd2b56bf15444413d10ab16deb"
+    },
+    {
+      "path": "game/assets/art/memory-calm.png",
+      "bytes": 2500220,
+      "sha256": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597"
+    },
+    {
+      "path": "game/assets/art/memory-fog.png",
+      "bytes": 2619265,
+      "sha256": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46"
+    },
+    {
+      "path": "game/assets/art/memory-foresight.png",
+      "bytes": 2909322,
+      "sha256": "835ef3695a1d6b484f37b30da50d31754cd31a0649670eb2717800d6ec6b9afe"
+    },
+    {
+      "path": "game/assets/art/memory-guard.png",
+      "bytes": 2502979,
+      "sha256": "90a1eff6c37ad7c5027484e98ff5a654ed37065edd8a9525eed418e2af05eafd"
+    },
+    {
+      "path": "game/assets/art/memory-light.png",
+      "bytes": 2321317,
+      "sha256": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9"
+    },
+    {
+      "path": "game/assets/art/memory-passage.png",
+      "bytes": 2552628,
+      "sha256": "83f2ccb25648f524935bc3af52e03679e9ea6369409ab18c1334a1dff2b97904"
+    },
+    {
+      "path": "game/assets/art/merchant.png",
+      "bytes": 2877047,
+      "sha256": "c9dc76b122c6c21d16fe7bc9f97868b1adf2c9d0bd9b786da1d0e35b06f90491"
+    },
+    {
+      "path": "game/assets/art/mother.png",
+      "bytes": 2932143,
+      "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212"
+    },
+    {
+      "path": "game/assets/art/poet.png",
+      "bytes": 2478229,
+      "sha256": "c8f3629e1da71a6a0218ca5d0c35f267cc089245c614775ac5a7000d0756cfe0"
+    },
+    {
+      "path": "game/assets/art/polong.png",
+      "bytes": 2544109,
+      "sha256": "a5257fa9fa51f8e7879dac230afae1bf945dc88ee43d3dee28fa8a18f3a00f7a"
+    },
+    {
+      "path": "game/assets/art/shore.png",
+      "bytes": 3067400,
+      "sha256": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60"
+    },
+    {
+      "path": "game/assets/art/soldier.png",
+      "bytes": 2754376,
+      "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0"
+    },
+    {
+      "path": "game/assets/art/styx.png",
+      "bytes": 2496283,
+      "sha256": "6fc608e95118c4e3c760ff5b61eeed09f9e35d1eb834e5761b70a0ef5526b8d2"
+    },
+    {
+      "path": "game/assets/art/tartarus.png",
+      "bytes": 2938877,
+      "sha256": "f226518732adfa150d00582c02bc4f53e1d13b8d6e6cdb92741d02166fc99e2f"
+    },
+    {
+      "path": "game/assets/fonts/Vera.ttf",
+      "bytes": 65932,
+      "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d"
+    },
+    {
+      "path": "game/assets/fonts/VeraBd.ttf",
+      "bytes": 58716,
+      "sha256": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9"
+    },
+    {
+      "path": "game/assets/fonts/VeraIt.ttf",
+      "bytes": 63684,
+      "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a"
+    },
+    {
+      "path": "game/assets/fonts/bitstream-vera-license.txt",
+      "bytes": 6078,
+      "sha256": "268d8e58c04d3535c21e7ef43b835e1b00ba7e1e714fcc06ff2f5d59ee9ce17f"
+    },
+    {
+      "path": "game/assets/reused/asphodel.png",
+      "bytes": 3458462,
+      "sha256": "a97669e9cd13aadb3cab1f3e8c57abf2933e2d74f2c13b3ec186b03ae069b15c"
+    },
+    {
+      "path": "game/assets/reused/child.png",
+      "bytes": 2640040,
+      "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2"
+    },
+    {
+      "path": "game/assets/reused/cook.png",
+      "bytes": 2892455,
+      "sha256": "de073f0fc55e1dca27a9cd234def57e85dd87fb8a6a7081f58a1c846f7d3f189"
+    },
+    {
+      "path": "game/assets/reused/elysium.png",
+      "bytes": 3829580,
+      "sha256": "0ab0336bd71e9ce4250c299ab4901a0c1e3eef1bdca1e71e8711eb98f8e68c38"
+    },
+    {
+      "path": "game/assets/reused/haven.png",
+      "bytes": 3033878,
+      "sha256": "c881ecab2c5249a90d6be269a4a7d1b191b4f8e394eead6b7f327f97b000b5c0"
+    },
+    {
+      "path": "game/assets/reused/mason.png",
+      "bytes": 2918204,
+      "sha256": "37aeae89b4b4aa39e6f9ba7f60dd29b5890a4bcd2b56bf15444413d10ab16deb"
+    },
+    {
+      "path": "game/assets/reused/memory-calm.png",
+      "bytes": 2500220,
+      "sha256": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597"
+    },
+    {
+      "path": "game/assets/reused/memory-fog.png",
+      "bytes": 2619265,
+      "sha256": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46"
+    },
+    {
+      "path": "game/assets/reused/memory-light.png",
+      "bytes": 2321317,
+      "sha256": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9"
+    },
+    {
+      "path": "game/assets/reused/merchant.png",
+      "bytes": 2877047,
+      "sha256": "c9dc76b122c6c21d16fe7bc9f97868b1adf2c9d0bd9b786da1d0e35b06f90491"
+    },
+    {
+      "path": "game/assets/reused/mother.png",
+      "bytes": 2932143,
+      "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212"
+    },
+    {
+      "path": "game/assets/reused/red-soldier.png",
+      "bytes": 2754376,
+      "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0"
+    },
+    {
+      "path": "game/assets/reused/shore.png",
+      "bytes": 3067400,
+      "sha256": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60"
+    },
+    {
+      "path": "game/assets/reused/tartarus.png",
+      "bytes": 2938877,
+      "sha256": "f226518732adfa150d00582c02bc4f53e1d13b8d6e6cdb92741d02166fc99e2f"
+    },
+    {
+      "path": "game/content.js",
+      "bytes": 10258,
+      "sha256": "743624b3447485146ba7aba21bc484c5c493c59ff47398ededdecd869cf382af"
+    },
+    {
+      "path": "game/content.json",
+      "bytes": 8932,
+      "sha256": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454"
+    },
+    {
+      "path": "game/engine.js",
+      "bytes": 24649,
+      "sha256": "25369496b230315457a75f4e5d95569f075a9fd33f145b93167f371be4761a23"
+    },
+    {
+      "path": "game/index.html",
+      "bytes": 1350,
+      "sha256": "66e16c01cd29c324430ac9d9bbac2794988d1d297934ab15ff3e841c60189c49"
+    },
+    {
+      "path": "game/print/A_DELIVERY_MANIFEST.json",
+      "bytes": 12588,
+      "sha256": "c86924f11452bd038f7660e24f318b605b93d7f3004b62c95856fe51afe92351"
+    },
+    {
+      "path": "game/print/Assembly_and_Setup_v0.6.pdf",
+      "bytes": 4160288,
+      "sha256": "698c10c73e5681f084fda5f5d6924de2515f33290350beb1f17e0eca8f91b2de"
+    },
+    {
+      "path": "game/print/COMPONENT_INVENTORY.json",
+      "bytes": 25816,
+      "sha256": "735513de61293d105bcfea5cb1e3f23dd7293ae8b38290b127b944e779e5c650"
+    },
+    {
+      "path": "game/print/COMPONENT_INVENTORY.md",
+      "bytes": 4542,
+      "sha256": "da79381bd4d00d0a8f5980e6b13613f4d1d95357f08992a272e6dc06173cabb5"
+    },
+    {
+      "path": "game/print/Cutout_Sheets_v0.6.pdf",
+      "bytes": 18300364,
+      "sha256": "8bfabf71c721d1eeed0080dea98d82c5272866b7ca9401c800e0f6497b2403d4"
+    },
+    {
+      "path": "game/print/Full_Rules_v0.6.pdf",
+      "bytes": 5030470,
+      "sha256": "7c46e8eb0f37402dbc162b6232ada4994a4b7327897d7a099a2491ad688efee8"
+    },
+    {
+      "path": "game/print/INTEGRATION_FOR_B.md",
+      "bytes": 6950,
+      "sha256": "e5029a29b3c757a141236817acc82eab72a08f73dffd83c9fd8c0118a4fc0901"
+    },
+    {
+      "path": "game/print/Player_Guide_v0.6.pdf",
+      "bytes": 42631,
+      "sha256": "02bc1f62b508bc064f9703f4eebe4664b67fc6fa76ecfb9736402b18b25edade"
+    },
+    {
+      "path": "game/print/Print_and_Play_v0.6.pdf",
+      "bytes": 20003217,
+      "sha256": "510a72cf4508fadf929574f375275109c1f67f74b5b01ed7655494430786e2a4"
+    },
+    {
+      "path": "game/print/README.md",
+      "bytes": 5552,
+      "sha256": "dde42fde76c13e4420c2c8977c3a8517790531cf200bea4288512f538bff9a22"
+    },
+    {
+      "path": "game/print/VALIDATION.md",
+      "bytes": 8875,
+      "sha256": "29d381e22786a0e6e148250be09f84a3dadb0cbe898b36c5c68650cc007d7606"
+    },
+    {
+      "path": "game/print/Workshop_Record_v0.6.pdf",
+      "bytes": 41957,
+      "sha256": "8e83019129072670cff7a6e35f76f6c94cc628a3364a3661084ec1eb49ee91c2"
+    },
+    {
+      "path": "game/rules.json",
+      "bytes": 5103,
+      "sha256": "508ead01134470e2e9ebd730e149c435990a2a523f485768b9560fcd7231a768"
+    },
+    {
+      "path": "game/source/SHARED_RULES.md",
+      "bytes": 11790,
+      "sha256": "9f2486ed111c3666d2f71910dfac04813678c65d753ec9801a9f1736d0570e15"
+    },
+    {
+      "path": "game/source/SOURCE_DECISIONS.md",
+      "bytes": 7063,
+      "sha256": "fa66b77a6e52156675e166152ea996bca70665c32c6d4f597e6cadbcbef5c7f2"
+    },
+    {
+      "path": "game/source/SOURCE_FRESHNESS.json",
+      "bytes": 4553,
+      "sha256": "98290b7eeb794caad749bff481bfc546f480d2e5211a94ca8c2ad55fbf77cb7d"
+    },
+    {
+      "path": "game/source/supplied_guides/GameDevLeckyohmmechang.docx",
+      "bytes": 13211,
+      "sha256": "09e67c2a056a0b148262cf98e5056a9105644d8f356ba2c81e2e414ff6dfc15f"
+    },
+    {
+      "path": "game/source/supplied_guides/GameDevLeckyohmmechang.txt",
+      "bytes": 8101,
+      "sha256": "4468ebf7723273094d265dc9983aa6435388e3d2e341c2aa1a7e235713af241a"
+    },
+    {
+      "path": "game/source/supplied_guides/USER_CLARIFICATIONS.md",
+      "bytes": 1481,
+      "sha256": "04553de530d04bbdd6432178fb7ba68006fd5612e8af6a2346858b9fbd4ba85d"
+    },
+    {
+      "path": "game/source/supplied_guides/game guide.docx",
+      "bytes": 11140,
+      "sha256": "db9f29d58f6595de7e23ab616848946809038585fb0e552664a483edb15eb152"
+    },
+    {
+      "path": "game/source/supplied_guides/game guide.txt",
+      "bytes": 4401,
+      "sha256": "ec1e4bfadc224be5fa2c6e8a862c60de34b2a8d995e974f598eb842da04e9636"
+    },
+    {
+      "path": "game/styles.css",
+      "bytes": 6901,
+      "sha256": "82b4c0a85b1653fd92257ea0907ce8b9c0178f6994cd87ee54c8f31c3a4fa6ef"
+    },
+    {
+      "path": "game/tests/browser-check.js",
+      "bytes": 12200,
+      "sha256": "92966d5e6e82aca116aac931681976a4d3f247ffa0de9736a6dffa362db25618"
+    },
+    {
+      "path": "game/tests/engine-check.js",
+      "bytes": 23464,
+      "sha256": "421938093d6c3258b6c835168500a028d7541b74ae399c9e14ec499e0ecb4835"
+    },
+    {
+      "path": "game/tests/print-parity-check.js",
+      "bytes": 10659,
+      "sha256": "acfd4b40be7560efbac5e48b35e0c55f499ce596ea223776db5a475a3831c69a"
+    },
+    {
+      "path": "game/tools/package/build-assets.js",
+      "bytes": 1965,
+      "sha256": "d54d2bd794cd735d3540183274f555ab1e00cd7fc856c553481a0f26c0a21c84"
+    },
+    {
+      "path": "game/tools/package/build-content.js",
+      "bytes": 3798,
+      "sha256": "a764488c3594710b91e7fdd9f8a6214f3c9b5fb6ee5095252cd37db496482383"
+    },
+    {
+      "path": "game/tools/package/check-print-integration.py",
+      "bytes": 6844,
+      "sha256": "0be4b10a0e41e17cfe3e1f327c3edc0715747d2b7373e0cf91793a6f291dd330"
+    },
+    {
+      "path": "game/tools/package/package.py",
+      "bytes": 22547,
+      "sha256": "c0e29dd6d33f88dcce72135c35752cddcee4f3c75a484b720c8612e51d1fb022"
+    },
+    {
+      "path": "game/tools/package/project-print-content.js",
+      "bytes": 1940,
+      "sha256": "4fc6170f13b3795f2d509b458bb8f9f5f10497cfc05c184a4ae6dbdcbdfb0f9b"
+    },
+    {
+      "path": "game/tools/package/stamp-browser.js",
+      "bytes": 1148,
+      "sha256": "3f4dc37c7bcc180046fef3f07b1c67b1ccd9bf363905793fb60c0ca7df346c6f"
+    },
+    {
+      "path": "game/tools/print/README.md",
+      "bytes": 2434,
+      "sha256": "0e46f9ba4dc55d903948d694677c8c8afe89ce312c5e70677b73a66369b6de5f"
+    },
+    {
+      "path": "game/tools/print/build.py",
+      "bytes": 37971,
+      "sha256": "2754d9c986f224b3f8312b0b2886b3f1c0eb3ad582c65b187d24b5f240ce557e"
+    },
+    {
+      "path": "game/tools/print/check_b_projection.py",
+      "bytes": 1355,
+      "sha256": "6b42c3a55bd235b301b49eab9696eb6c9fc030c56adb6d10370077f411215118"
+    },
+    {
+      "path": "game/tools/print/check_render_extracts.py",
+      "bytes": 1281,
+      "sha256": "0362c3cdc1644158401467a00bb4976cf3e0beeafed9a70cda780df1fb478323"
+    },
+    {
+      "path": "game/tools/print/fonts/Vera.ttf",
+      "bytes": 65932,
+      "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d"
+    },
+    {
+      "path": "game/tools/print/fonts/VeraBd.ttf",
+      "bytes": 58716,
+      "sha256": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9"
+    },
+    {
+      "path": "game/tools/print/fonts/VeraIt.ttf",
+      "bytes": 63684,
+      "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a"
+    },
+    {
+      "path": "game/tools/print/fonts/bitstream-vera-license.txt",
+      "bytes": 5954,
+      "sha256": "3361d054759a2fc686a2c058be82deaf9c2e6fe549be9004d7935a6c1736315d"
+    },
+    {
+      "path": "game/tools/print/package_a.py",
+      "bytes": 3134,
+      "sha256": "e6381ed5ba1c529954480ae6e4f7ab55e71585477ed308526de174834cac150f"
+    },
+    {
+      "path": "game/tools/print/source-contract/SHARED_RULES.md",
+      "bytes": 11790,
+      "sha256": "9f2486ed111c3666d2f71910dfac04813678c65d753ec9801a9f1736d0570e15"
+    },
+    {
+      "path": "game/tools/print/source-contract/SOURCE_DECISIONS.md",
+      "bytes": 7063,
+      "sha256": "fa66b77a6e52156675e166152ea996bca70665c32c6d4f597e6cadbcbef5c7f2"
+    },
+    {
+      "path": "game/tools/print/source-contract/USER_CLARIFICATIONS.md",
+      "bytes": 1481,
+      "sha256": "04553de530d04bbdd6432178fb7ba68006fd5612e8af6a2346858b9fbd4ba85d"
+    },
+    {
+      "path": "game/tools/print/verify.py",
+      "bytes": 11330,
+      "sha256": "5274d229c7b5af028c526b75a1733d735c2c8d00ec344f0ad44b87aaab584bcd"
+    },
+    {
+      "path": "game/verification/B_CONTENT_PROJECTION.json",
+      "bytes": 3391,
+      "sha256": "7b1bde641cf1a216c33146df3dd794f11d7e15b724a9182fbab93e0d88e9acbc"
+    },
+    {
+      "path": "game/verification/art-integration.json",
+      "bytes": 592,
+      "sha256": "9a30c212917e2c756e2ffbe894460f2a30fa2da89d3af7d6ed23a9a79fbc7521"
+    },
+    {
+      "path": "game/verification/browser-desktop.png",
+      "bytes": 1319938,
+      "sha256": "feb5d773888e8219f0623f60a7c4867fdc9043fbca4971dd32d62bf5b8a6a5d3"
+    },
+    {
+      "path": "game/verification/browser-narrow.png",
+      "bytes": 641467,
+      "sha256": "dfd68e720cb077b0f71b6e6ae5261e0fa61ebfaeee6681411a3c380fef64a376"
+    },
+    {
+      "path": "game/verification/browser-results.json",
+      "bytes": 8410,
+      "sha256": "da7c84ef41ef54e7629663a552ccd73e05d12fe1d3293e3ec3c6e809c369f5b5"
+    },
+    {
+      "path": "game/verification/content-build.json",
+      "bytes": 280,
+      "sha256": "1ed6a00b97877bdb3160e8f08cc11fbf0f29055d9bba8f19ba483fa209620a49"
+    },
+    {
+      "path": "game/verification/engine-results.json",
+      "bytes": 4796,
+      "sha256": "7352db97013ec3fb9ac661ecc8a25a82f735536fe7fa9c63f92576cca526348e"
+    },
+    {
+      "path": "game/verification/extracted-browser-results.json",
+      "bytes": 8769,
+      "sha256": "bbcf0a6598f6a742c6fc28fe7de70f1c71e81c5f2711785e516d6aab860df6c3"
+    },
+    {
+      "path": "game/verification/human-workshop-checklist.md",
+      "bytes": 1559,
+      "sha256": "19cc375fd6baebb7b51ee26253d0675b5586919ca6857512968677af8c9aa43b"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/README.md",
+      "bytes": 412,
+      "sha256": "bb993a4995bc9a7debdfc07916a376733e93a6d588ea1af2db4035ec274673cb"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/a-package-check.json",
+      "bytes": 392,
+      "sha256": "4ae4f49d8b691f5016a8e38e453cd213a4a4d001f9f6d4b364b69b3b44ef0390"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/b-content-comparison.json",
+      "bytes": 488,
+      "sha256": "256b7ef5f28515cb5f6a4e0c6f88f11f5df87bab01fddbb0ce42e5a250032e6e"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/build-result.json",
+      "bytes": 1191,
+      "sha256": "55b69b94399f6ec6a76b0bbe120d6ecb01330a55cec2b7765c7c5ca91da1a2fc"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/delivery-freshness.json",
+      "bytes": 27039,
+      "sha256": "117b6a2f668cd65339f39673cd69205b4a8a2aab7c11b47f1cb2aa19789b9456"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/desk-walkthroughs.json",
+      "bytes": 8013,
+      "sha256": "d13cd7b9331b1a5cf0dbcd1cd089c39a9edc3d22b041a57e1e3bc73bca507c27"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/extracted-render-comparison.json",
+      "bytes": 5532,
+      "sha256": "f9276317d9d058999c26cbd601ece6975177515fcf97d5def825018a414bd2b4"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/human-checks.json",
+      "bytes": 902,
+      "sha256": "aaa93116d4f2be427afbb574e914c7aae66ae7def981d8ebfa2d08e91cff3181"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/layout-ledger.json",
+      "bytes": 214714,
+      "sha256": "1f75f7992e062fe9b495a3d688daf684adc90b04bd4aac69fea65755274ba655"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/portable-rebuild.json",
+      "bytes": 3698,
+      "sha256": "52175ce0557cc3de83e7b4957b0e32bea46e74fb0fdeada7c00df282b0d361d0"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/printed-content-contract.json",
+      "bytes": 3372,
+      "sha256": "9dd764b90f78bfb9eecf061fe50cb9b3ea77d3ad63905b18448ef4133c3d33d1"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/render-receipt.json",
+      "bytes": 5840,
+      "sha256": "93f0b27db90d4212fb417a89c8dadc579c0d7901c420a49e8dc5ccfc432c0774"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/runtime.json",
+      "bytes": 369,
+      "sha256": "9ba41af278992097e1cae50d4e1a0270a44e1286aebd04143135ee808c6954ca"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/source-freshness.json",
+      "bytes": 9050,
+      "sha256": "2eae47c2367f3ce3c58a4ef682ff3aa04f119346f44719377b0ef476434b76f8"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/source-integrity.json",
+      "bytes": 4624,
+      "sha256": "8b140a709d4788345c074ed55b7236a61f5960e672b3a0d7588906539728ad32"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/static-results.json",
+      "bytes": 16443,
+      "sha256": "f9df6b8ff2406ae385138bc064df0fde5d23b7fda67af86d7c9e3ef7893d1849"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/supply-results.json",
+      "bytes": 1074,
+      "sha256": "9bc600147088c6be62c7ac67f73e7c819721be6b07f6566803d2d976f8f85c2e"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/text-ledger.json",
+      "bytes": 77117,
+      "sha256": "f74621f4fba0de75f5a1acb4bd97af73583fb0636b586d737d4a0767800f52a0"
+    },
+    {
+      "path": "game/verification/integration/handoff-a-original/visual-review.json",
+      "bytes": 10757,
+      "sha256": "6320e3b40639e987d4bb6e0e5203d90cce8f204cf4ebace4ca5f88dcaa615d8e"
+    },
+    {
+      "path": "game/verification/integration/portable-print-rebuild.json",
+      "bytes": 1412,
+      "sha256": "61d52faad8c1096086d0c952ec5b2e03714f0463fd1db7e434df7ac574f9e9c0"
+    },
+    {
+      "path": "game/verification/integration/print-delivery.json",
+      "bytes": 11330,
+      "sha256": "d2b43e2ada32ea1646874ea6cbbd0ee2b5e01f3e78107cb5eb604d3aeeb5a41a"
+    },
+    {
+      "path": "game/verification/integration/print-parity-results.json",
+      "bytes": 2584,
+      "sha256": "d14b19779f25db61e5cc20112a21474c72022184f7e83e80da11c1dbcc426064"
+    },
+    {
+      "path": "game/verification/integration/render-comparison.json",
+      "bytes": 11071,
+      "sha256": "c4473adaa89d3bedba4d65facfd7e9733166ee36f4cefd2ee0d62f941a0e3a32"
+    },
+    {
+      "path": "game/verification/integration/visual-review.json",
+      "bytes": 1330,
+      "sha256": "ecf06205e6fb364edcfac124b5a6fbc58c0d0626d191a065c5e1fca7a5e54c1c"
+    },
+    {
+      "path": "game/verification/package-gate-check.json",
+      "bytes": 641,
+      "sha256": "4ffaf8517b0cca91f986ec312daff83960c13296c0ee78f0990d17b79195e61a"
+    },
+    {
+      "path": "game/verification/print/a-package-check.json",
+      "bytes": 392,
+      "sha256": "4ae4f49d8b691f5016a8e38e453cd213a4a4d001f9f6d4b364b69b3b44ef0390"
+    },
+    {
+      "path": "game/verification/print/b-content-comparison.json",
+      "bytes": 291,
+      "sha256": "976e22c004ebb558a3cfcda0853e1a70583607cb6f5c65ee147bc0fa348ac20a"
+    },
+    {
+      "path": "game/verification/print/build-result.json",
+      "bytes": 1191,
+      "sha256": "551afb17229176f8bc85790c37ad92311263e7197754e119f47d20e28cf84669"
+    },
+    {
+      "path": "game/verification/print/delivery-freshness.json",
+      "bytes": 27039,
+      "sha256": "117b6a2f668cd65339f39673cd69205b4a8a2aab7c11b47f1cb2aa19789b9456"
+    },
+    {
+      "path": "game/verification/print/desk-walkthroughs.json",
+      "bytes": 8013,
+      "sha256": "d13cd7b9331b1a5cf0dbcd1cd089c39a9edc3d22b041a57e1e3bc73bca507c27"
+    },
+    {
+      "path": "game/verification/print/extracted-render-comparison.json",
+      "bytes": 5532,
+      "sha256": "f9276317d9d058999c26cbd601ece6975177515fcf97d5def825018a414bd2b4"
+    },
+    {
+      "path": "game/verification/print/human-checks.json",
+      "bytes": 902,
+      "sha256": "aaa93116d4f2be427afbb574e914c7aae66ae7def981d8ebfa2d08e91cff3181"
+    },
+    {
+      "path": "game/verification/print/layout-ledger.json",
+      "bytes": 214714,
+      "sha256": "a3220645616abf78ffa974ee7702814fc32362649b03991f74c33a1e132f170c"
+    },
+    {
+      "path": "game/verification/print/portable-rebuild.json",
+      "bytes": 3698,
+      "sha256": "52175ce0557cc3de83e7b4957b0e32bea46e74fb0fdeada7c00df282b0d361d0"
+    },
+    {
+      "path": "game/verification/print/printed-content-contract.json",
+      "bytes": 3372,
+      "sha256": "9dd764b90f78bfb9eecf061fe50cb9b3ea77d3ad63905b18448ef4133c3d33d1"
+    },
+    {
+      "path": "game/verification/print/render-receipt.json",
+      "bytes": 5840,
+      "sha256": "93f0b27db90d4212fb417a89c8dadc579c0d7901c420a49e8dc5ccfc432c0774"
+    },
+    {
+      "path": "game/verification/print/runtime.json",
+      "bytes": 369,
+      "sha256": "9ba41af278992097e1cae50d4e1a0270a44e1286aebd04143135ee808c6954ca"
+    },
+    {
+      "path": "game/verification/print/source-freshness.json",
+      "bytes": 9050,
+      "sha256": "2eae47c2367f3ce3c58a4ef682ff3aa04f119346f44719377b0ef476434b76f8"
+    },
+    {
+      "path": "game/verification/print/source-integrity.json",
+      "bytes": 4624,
+      "sha256": "8b140a709d4788345c074ed55b7236a61f5960e672b3a0d7588906539728ad32"
+    },
+    {
+      "path": "game/verification/print/static-results.json",
+      "bytes": 16443,
+      "sha256": "f9df6b8ff2406ae385138bc064df0fde5d23b7fda67af86d7c9e3ef7893d1849"
+    },
+    {
+      "path": "game/verification/print/supply-results.json",
+      "bytes": 1074,
+      "sha256": "9bc600147088c6be62c7ac67f73e7c819721be6b07f6566803d2d976f8f85c2e"
+    },
+    {
+      "path": "game/verification/print/text-ledger.json",
+      "bytes": 77117,
+      "sha256": "f74621f4fba0de75f5a1acb4bd97af73583fb0636b586d737d4a0767800f52a0"
+    },
+    {
+      "path": "game/verification/print/visual-review.json",
+      "bytes": 10757,
+      "sha256": "6320e3b40639e987d4bb6e0e5203d90cce8f204cf4ebace4ca5f88dcaa615d8e"
+    },
+    {
+      "path": "game/verification/submission-status.json",
+      "bytes": 279,
+      "sha256": "96393389850100ab4641be192f2212a7d0f2522ac1241ec381f44508f0fc284c"
+    }
+  ]
+}

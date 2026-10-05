@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "page_count": 31,
+  "cut_pieces": 78,
+  "keep_whole_mats": 5,
+  "pdf_files": {
+    "Assembly_and_Setup_v0.6.pdf": {
+      "sha256": "698c10c73e5681f084fda5f5d6924de2515f33290350beb1f17e0eca8f91b2de",
+      "pages": 3,
+      "bytes": 4160288
+    },
+    "Cutout_Sheets_v0.6.pdf": {
+      "sha256": "8bfabf71c721d1eeed0080dea98d82c5272866b7ca9401c800e0f6497b2403d4",
+      "pages": 15,
+      "bytes": 18300364
+    },
+    "Full_Rules_v0.6.pdf": {
+      "sha256": "acdd9d78a9fd48856edc30172a4be71a6915afe462d65ffadde6732996f47f58",
+      "pages": 6,
+      "bytes": 5030468
+    },
+    "Player_Guide_v0.6.pdf": {
+      "sha256": "02bc1f62b508bc064f9703f4eebe4664b67fc6fa76ecfb9736402b18b25edade",
+      "pages": 1,
+      "bytes": 42631
+    },
+    "Print_and_Play_v0.6.pdf": {
+      "sha256": "e7060289ba37fea763789170dd7796ef6601098d6ce14afe4822dfb226345a2a",
+      "pages": 31,
+      "bytes": 20003215
+    },
+    "Workshop_Record_v0.6.pdf": {
+      "sha256": "8e83019129072670cff7a6e35f76f6c94cc628a3364a3661084ec1eb49ee91c2",
+      "pages": 1,
+      "bytes": 41957
+    }
+  },
+  "scope": "Generation completed. Visual, static and supply verification recorded separately."
+}

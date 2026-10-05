@@ -1,0 +1,11 @@
+{
+  "version": "0.6",
+  "scope": "Historical B-only gate test before A was retrieved. Current integration and final package receipts supersede its dependency status.",
+  "check": "Complete-release gate rejects missing A delivery",
+  "command": "python3 tools/package/package.py --complete",
+  "observedExitCode": 1,
+  "observedStatus": "WAITING_FOR_A",
+  "status": "PASS",
+  "meaning": "Correctly refused to create the final submission ZIP. This is a gate test, not a complete release.",
+  "remainingDependencies": "See submission-status.json for exact paths and component IDs. All remaining missing entries are A print/art deliverables."
+}

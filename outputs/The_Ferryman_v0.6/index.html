@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101e20">
+  <title>The Ferryman v0.6 | Endless River</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="content.js"></script>
+  <script defer src="asset-map.js"></script>
+  <script defer src="engine.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="world" aria-hidden="true"></div>
+  <header class="masthead">
+    <button class="brand" id="home">THE FERRYMAN <span>v0.6</span></button>
+    <nav aria-label="Game tools">
+      <button id="facilitator">Facilitator routes</button>
+      <button id="guide">Guide &amp; saves</button>
+    </nav>
+  </header>
+  <div id="status" class="status" aria-label="Run status"></div>
+  <p id="save-warning" class="notice danger" role="status" hidden></p>
+  <p id="error" class="notice danger" role="alert" hidden></p>
+  <main id="stage" tabindex="-1"></main>
+  <footer>Solo endless survival · Local play · Facilitator supplies the routes</footer>
+  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+  <noscript>Enable JavaScript to play this locally bundled browser game.</noscript>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "version": "0.6",
+  "schemaVersion": 1,
+  "contentSha256": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+  "generated": [
+    "content.js",
+    "rules.json",
+    "PRINT_TEXT.json",
+    "RULES.md"
+  ],
+  "command": "node tools/package/build-content.js"
+}

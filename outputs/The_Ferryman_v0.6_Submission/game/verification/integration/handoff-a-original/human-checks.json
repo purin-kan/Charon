@@ -1,0 +1,38 @@
+{
+  "status": "NOT_RUN",
+  "checks": [
+    {
+      "name": "Printer actual-size 50 mm calibration and clipping",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "Color, contrast and dark-art detail on actual stock",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "Scissors cutting and marker fit/handling",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "Opaque identical backs and concealed route offers",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "Shuffling, sorting, setup and reset",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "Unaided rule learning and facilitator interaction",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "Human session duration, pacing, enjoyment and balance",
+      "status": "NOT_RUN"
+    },
+    {
+      "name": "Team approval of final artwork",
+      "status": "NOT_RUN"
+    }
+  ],
+  "record": "print/Workshop_Record_v0.6.pdf"
+}

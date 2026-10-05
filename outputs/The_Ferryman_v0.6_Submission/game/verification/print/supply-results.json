@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "method": "Exhaustive closure of a relaxed finite state graph, including unlimited one-per-outward-round Calm and free removals; all legal games are a subset. Return cannot retain PoLong because the boat must be empty.",
+  "states": 29,
+  "transitions": 364,
+  "max_instances_after_spawn_upper_bound": 3,
+  "max_instances_after_anger_upper_bound": 3,
+  "printed_instance_cards": 4,
+  "additional_reusable_templates": 2,
+  "witness_in_relaxed_graph": {
+    "state": [
+      2,
+      [
+        3,
+        3
+      ]
+    ],
+    "calm_target": null,
+    "after_spawn": [
+      3,
+      3,
+      0
+    ]
+  },
+  "not_claimed": "This upper bound is not a full-game reachability or balance test.",
+  "memory_proof": {
+    "held_hand_limit": 3,
+    "maximum_new_reward_per_source_before_overflow": 1,
+    "copies_per_source": 4,
+    "reason": "Only one active soul per ordinary source, so each source can reward at most once before overflow. 3 held + 1 new = 4. Multiple different sources use different reserves. Spent/discarded cards replenish reserve."
+  }
+}

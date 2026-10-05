@@ -1,0 +1,256 @@
+{
+  "master_sha256": "e7060289ba37fea763789170dd7796ef6601098d6ce14afe4822dfb226345a2a",
+  "status": "RENDERED",
+  "rendered_pages": 31,
+  "page_images": [
+    {
+      "file": "master-01.png",
+      "sha256": "868f374f312f45b7b71efdf00fad717fb5ce9a4a10ac4318d477f4cf780612d7",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-02.png",
+      "sha256": "367a7bf8013a24fc28d58684d06d60598366507c5f804d27d02036f8666b8023",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-03.png",
+      "sha256": "9c8772d5e2b871defcf97187ac70751cb3bf4784e49f6d9990ae5a54bdaa0acb",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-04.png",
+      "sha256": "a9d6d6923536a6d6903f306917961b0946af0f52e43c0a51813d5201b256f04b",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-05.png",
+      "sha256": "a2ad417502a92eba1a0b9ca99bef4620da00c27cc44b3d7e6ca0c8c82ba8a045",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-06.png",
+      "sha256": "b8b7f6af617bffe3622f52a9446d351b240e1058aa7f6551cec60c7a03e0f2b0",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-07.png",
+      "sha256": "7d9fbb24397748b4c1dcfc8822089e87c462793b5bfd5fd2e75f732b985f8e3f",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-08.png",
+      "sha256": "61acd233211bd77f8f1125b627dfc030d4a02e24c581b28e9d8a3376a769023d",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-09.png",
+      "sha256": "b28b76ea7af369e7bebd83c2bf5bb875405901c7d82f543f0996d060aa7f80a4",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-10.png",
+      "sha256": "052877d86c8d5793f2337a99d3b292a9f059e99ffb020dd722e8f2f88086a365",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-11.png",
+      "sha256": "f0d7748fe3fea6d176a7ae71decf836cbdc22137902d29c1ce5afe0e3d4e3625",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-12.png",
+      "sha256": "37e9b0b2f1f86e3800290910a7e659bce927fe8ca17cc15a31e3699e92d05bc9",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-13.png",
+      "sha256": "db72dc72b21dd228a9ea87bcdff39aace648b923b4cc774246e6ba3e6f661060",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-14.png",
+      "sha256": "ebd7f0b5c63d3179f7438365872379c04a1509bbbff9ac7e9d190febb37e2df6",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-15.png",
+      "sha256": "87dc5d5267ca84d0d71040802401a9d11f30f6c011127c892e5b2f72c4007bc4",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-16.png",
+      "sha256": "4dafd9dc9539f1d730e6be53049f5bc9aeeb6e1b364197ea99d1ae72c5fd6a6f",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-17.png",
+      "sha256": "5016e91d0834fa5471f55d9c2bf44837ac2a51e31c892fd8329c446293047df4",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-18.png",
+      "sha256": "a26183e56ab3f9d7a0b9c363890f0f08e9232cd3e1794b176dd8cf9cdc417995",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-19.png",
+      "sha256": "5a4a7d8980d5b8f3a6e98c7b3c3a53c29c99e3df514ce99770d0b835e26905e8",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-20.png",
+      "sha256": "252812700112d89fb51975989031094d836b6cb538723bf6ad5ba144753ff7e2",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-21.png",
+      "sha256": "20486f0fa10903ccb25aad931965af099aacbcd02fffae364e2d38735cda6b74",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-22.png",
+      "sha256": "3840418a36ac3d5d74388181420bc6c1cc5132d244ee91c7e07ede2426856d23",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-23.png",
+      "sha256": "9bdb7de31fc89330f0b905fbd8d9d712be2bf4511e912916b5ebf9de527cc71c",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-24.png",
+      "sha256": "0f3977f0f8b8f17fee5bd8f95d80ecf22d6e62ca8eab49b70dfa141b68b976ac",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-25.png",
+      "sha256": "0237eb2259263678a83e3150c879dd7b2211c623aae60089ae4d83b8835fbb35",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-26.png",
+      "sha256": "f0ab40aa22fbb6d671476a6cf0d036c14cfb343757139709fa6b3446f7758871",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-27.png",
+      "sha256": "45c07602521b8cdeea1bdab99dcc81d07dc54dbbf4211e26924ffb4e27d19136",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-28.png",
+      "sha256": "e8fc0278529155cb9877c0aab50778fa0bd103b773864487f82abad93d4cd7ef",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-29.png",
+      "sha256": "1d63d03a1d8c6de26d40e9ab5daae4e0afffdd4c2da8d1b6d40c44c19c2747c8",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-30.png",
+      "sha256": "ff70648ca8a3b5dc00f882df3b25fb114878942d9f605bcb8f78008dc7dbc884",
+      "pixels": [
+        993,
+        1404
+      ]
+    },
+    {
+      "file": "master-31.png",
+      "sha256": "36caa5901958f6655eac565fee6b1247776b60b4eb70a7361c91755786c3687f",
+      "pixels": [
+        993,
+        1404
+      ]
+    }
+  ],
+  "visual_review": "Recorded separately in visual-review.json; rendering alone is not inspection."
+}

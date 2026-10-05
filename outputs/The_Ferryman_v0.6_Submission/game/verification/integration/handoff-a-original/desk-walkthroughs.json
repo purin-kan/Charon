@@ -1,0 +1,151 @@
+{
+  "method": "Agent desk walkthrough of printed procedures and pieces against the accepted shared rules. State scenarios, not human sessions or browser-engine tests. No duration, enjoyment or balance claim.",
+  "pass_count": 18,
+  "fail_count": 0,
+  "cases": [
+    {
+      "id": "DESK-01",
+      "name": "Setup",
+      "master_pages": "4-5, 12, 15, 17-18",
+      "setup": "Sort all eight ordinary cards; start the five specified shore identities and shuffle the other three.",
+      "status": "PASS",
+      "observation": "Five waiting + three in arrival pile = eight unique ordinary identities. Light 6, round 0, completed cycles 0, quest AVAILABLE, empty hand. No PoLong in either ordinary pile."
+    },
+    {
+      "id": "DESK-02",
+      "name": "First departure",
+      "master_pages": "2, 5-6, 13-14, 17",
+      "setup": "Board Mother, Child, Merchant, Mason (four seats), all reset to Ship Anger 0. First offer includes Haven; no memory.",
+      "status": "PASS",
+      "observation": "Round becomes 1; no spawn; Haven base 0. Deliver Child for no memory and mark CHILD DELIVERED. Other three passengers end at anger 1. Cook stays on shore. No return while passengers remain."
+    },
+    {
+      "id": "DESK-03",
+      "name": "Round-three spawn with full boat",
+      "master_pages": "6, 13-14, 19",
+      "setup": "Four ordinary seats occupied before the third outward round; no Passage ending the boat.",
+      "status": "PASS",
+      "observation": "Round 3 adds a separate zero-seat PoLong before fog. It starts anger 0 and adds zero fog. No passenger is ejected; after retained-passenger anger it is at 1."
+    },
+    {
+      "id": "DESK-04",
+      "name": "Foresight staged",
+      "master_pages": "7, 10, 16, 23, 30",
+      "setup": "Prepare current, next and next+1 pairs on six opaque slips; play Merchant Foresight.",
+      "status": "PASS",
+      "observation": "All six offers become visible. They stay visible for the cycle; already seen choices are copied to an extendable visible ledger before slips are reused. No route order is prescribed."
+    },
+    {
+      "id": "DESK-05",
+      "name": "Foresight missing input",
+      "master_pages": "7, 10, 16",
+      "setup": "Only two pairs are supplied; player proposes Foresight.",
+      "status": "PASS",
+      "observation": "Pause for the facilitator's third pair before consuming the memory or changing the round. No invented map-end penalty."
+    },
+    {
+      "id": "DESK-06",
+      "name": "Optional matching delivery",
+      "master_pages": "5-6, 17-18, 20",
+      "setup": "At River Styx, Merchant and Soldier are matching passengers. Choose Merchant only.",
+      "status": "PASS",
+      "observation": "Merchant enters resolved discard and gives its own Foresight. Soldier may remain, then gains anger. Delivery restores no Light."
+    },
+    {
+      "id": "DESK-07",
+      "name": "Resolved-soul recycling",
+      "master_pages": "8, 10, 12",
+      "setup": "After return, shore has two ordinary souls; arrival pile has one; resolved discard has five. Refill.",
+      "status": "PASS",
+      "observation": "Draw the one arrival, then shuffle resolved ordinary souls and draw two to reach five waiting. Three remain in arrival pile. Active souls are excluded; new arrivals are anger 0 and miss the already-resolved increment."
+    },
+    {
+      "id": "DESK-08",
+      "name": "Repeated reward with older copies held",
+      "master_pages": "7, 9, 23",
+      "setup": "Hand has Merchant memory copies 01-03. Recycled Merchant qualifies again.",
+      "status": "PASS",
+      "observation": "Supply copy 04. Player chooses one excess card to return to that source reserve. No held copy is confiscated before the reward choice. Four copies suffice."
+    },
+    {
+      "id": "DESK-09",
+      "name": "Different-source simultaneous rewards",
+      "master_pages": "7, 23-24",
+      "setup": "Hand has three cards; Merchant and Soldier both deliver at Styx.",
+      "status": "PASS",
+      "observation": "Each has a separate reserve and at most one new reward per source. Choose excess cards to return until hand is three. Neither reserve imposes a game limit."
+    },
+    {
+      "id": "DESK-10",
+      "name": "Calm changes PoLong fog",
+      "master_pages": "6-7, 9, 19, 26",
+      "setup": "Two instances at anger 2 and 3; Calm targets the first; Haven crossing with enough Light.",
+      "status": "PASS",
+      "observation": "Anger becomes 1 and 3 before travel: added fog is 0+1. After crossing they become 2 and 4; the second costs one Light and leaves. No ongoing wraith fog remains."
+    },
+    {
+      "id": "DESK-11",
+      "name": "Simultaneous expiries and Guard",
+      "master_pages": "6-8, 24",
+      "setup": "Light 2; three remaining passengers reach anger 4; Guard still unused because crossing fog was 0.",
+      "status": "PASS",
+      "observation": "Guard prevents the first one-point loss. Second expiry reduces Light to 1. Third reduces it to 0 and ends the run. No later recovery or reward rescue."
+    },
+    {
+      "id": "DESK-12",
+      "name": "Quest success across cycles",
+      "master_pages": "8, 17, 22, 29",
+      "setup": "CHILD DELIVERED was recorded in an earlier cycle. Deliver Mother to Tartarus.",
+      "status": "PASS",
+      "observation": "Receive one Mother Light and one Passage; resolve overflow; mark COMPLETED. Recycled later deliveries give only ordinary fixed rewards. Passage is never re-earned this run."
+    },
+    {
+      "id": "DESK-13",
+      "name": "Quest failure persists",
+      "master_pages": "8, 15, 17",
+      "setup": "Mother delivers before Child qualifies, or a still-required family member expires.",
+      "status": "PASS",
+      "observation": "Mark FAILED. Recycling does not allow another attempt. An already qualifying Child's later recycled loss does not erase CHILD DELIVERED."
+    },
+    {
+      "id": "DESK-14",
+      "name": "Passage empties boat",
+      "master_pages": "7, 9, 15, 25, 29",
+      "setup": "Only Poet aboard; Passage played before a scheduled spawn round.",
+      "status": "PASS",
+      "observation": "Poet instantly delivers, gives Foresight, and empties boat. Round does not advance; no PoLong spawns; return uses the same already-used memory allowance. Newly gained Foresight cannot be used on that immediate return."
+    },
+    {
+      "id": "DESK-15",
+      "name": "Passage targets PoLong",
+      "master_pages": "7, 19, 29",
+      "setup": "PoLong is an onboard target for Passage.",
+      "status": "PASS",
+      "observation": "Remove that instance with no ordinary memory, travel fog, anger advance or round increment. If the boat becomes empty, immediate return uses the spent allowance."
+    },
+    {
+      "id": "DESK-16",
+      "name": "Shore expiry before healing",
+      "master_pages": "8-9, 12, 24",
+      "setup": "Light 1; one waiting soul at Shore Anger 1. Resolve return without Guard, then compare Guard case.",
+      "status": "PASS",
+      "observation": "Without Guard: anger reaches 2, Light reaches 0, run stops before recovery. With Guard: loss prevented, soul resolved, Light then recovers from 1 to 3."
+    },
+    {
+      "id": "DESK-17",
+      "name": "Global cadence across cycles",
+      "master_pages": "6, 8, 15",
+      "setup": "Finish a cycle with global round 2. Return and board again.",
+      "status": "PASS",
+      "observation": "Return and boarding leave total at 2. Next crossing is round 3 and spawns. Written totals extend on paper; no cycle or track endpoint ends play."
+    },
+    {
+      "id": "DESK-18",
+      "name": "Reset and reuse",
+      "master_pages": "3-4, 10, 12, 15, 30-31",
+      "setup": "End voluntarily or at zero Light, record the reason and sort every piece.",
+      "status": "PASS",
+      "observation": "All held/spent memories return to source reserves; ordinary identities return to the prescribed initial shore/arrival split; PoLong state clears; quest AVAILABLE, round 0, completed cycles 0, Light 6. Extra sheets extend logs, not game rules."
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "status": "NOT_RUN",
+  "checked_utc": "2026-10-04T21:15:48.625616+00:00",
+  "reason": "No B-owned shared-content export or browser files present in the v0.6 release directory.",
+  "non_a_files": [],
+  "scope": "Print effects were checked against the accepted shared-rule snapshot. Browser/content parity must be checked by B from actual B content.",
+  "next_step": "Follow print/INTEGRATION_FOR_B.md and run tools/print/check_b_projection.py on a projection derived from B content."
+}

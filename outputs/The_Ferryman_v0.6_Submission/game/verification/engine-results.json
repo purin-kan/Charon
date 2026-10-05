@@ -1,0 +1,148 @@
+{
+  "version": "0.6",
+  "checkedAt": "2026-10-05T00:58:04.597Z",
+  "environment": {
+    "node": "v25.9.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "hashes": {
+    "engine.js": "25369496b230315457a75f4e5d95569f075a9fd33f145b93167f371be4761a23",
+    "content.json": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+    "tests/engine-check.js": "421938093d6c3258b6c835168500a028d7541b74ae399c9e14ec499e0ecb4835"
+  },
+  "passed": 27,
+  "failed": 0,
+  "records": [
+    {
+      "name": "setup, source roster, reversible boarding and Soldier seats",
+      "status": "PASS"
+    },
+    {
+      "name": "missing facilitator offers are transactional; no secret default",
+      "status": "PASS"
+    },
+    {
+      "name": "crossing zero Light stops before last-chance delivery and rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "last-chance delivery precedes ship expiry; optional retention remains legal",
+      "status": "PASS"
+    },
+    {
+      "name": "fresh repeated source memory and explicit full-hand discard",
+      "status": "PASS"
+    },
+    {
+      "name": "Guard absorbs only one point including wraiths; expires at round boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "Fog Shield cannot stop wraith damage; Haven does not heal",
+      "status": "PASS"
+    },
+    {
+      "name": "third global round boards PoLong with a full four-seat ordinary boat",
+      "status": "PASS"
+    },
+    {
+      "name": "additive PoLong fog and Calm immediately reduce current contribution",
+      "status": "PASS"
+    },
+    {
+      "name": "shore expiry at zero halts before healing, refill and cycle increment",
+      "status": "PASS"
+    },
+    {
+      "name": "return Guard blocks next expiry then heals only survivors; new arrivals stay zero",
+      "status": "PASS"
+    },
+    {
+      "name": "family success across cycles grants both rewards; completed quest survives recycling",
+      "status": "PASS"
+    },
+    {
+      "name": "Mother first and required-family expiry fail permanently",
+      "status": "PASS"
+    },
+    {
+      "name": "Passage normal reward, no round or scheduled spawn, empty return uses allowance",
+      "status": "PASS"
+    },
+    {
+      "name": "Passage can target PoLong, no ordinary score, no reward and no anger",
+      "status": "PASS"
+    },
+    {
+      "name": "Foresight exact visibility, missing data spends nothing, hidden replacement preserves reveals",
+      "status": "PASS"
+    },
+    {
+      "name": "save roundtrip in boarding, review, delivery, overflow, return and stopped phases",
+      "status": "PASS",
+      "phases": [
+        "boarding",
+        "window",
+        "review",
+        "delivery",
+        "trim",
+        "window",
+        "window"
+      ]
+    },
+    {
+      "name": "malformed saves rejected without mutation: conservation, identities, counters, quest, visibility, phase",
+      "status": "PASS"
+    },
+    {
+      "name": "decimal counters preserve values beyond JavaScript safe integer range",
+      "status": "PASS"
+    },
+    {
+      "name": "exhaustive relaxed PoLong overlap bound with unlimited Calm, no light constraints",
+      "status": "PASS",
+      "reachableRelaxedStates": 23,
+      "maximumBeforeTravel": 3,
+      "maximumAfterRound": 3,
+      "interpretation": "An upper bound allowing one free Calm every round. Delivering/removing instances cannot increase overlap. Two base pieces plus two spares suffice under current rules; keep reusable slips for handling."
+    },
+    {
+      "name": "revealed offers remain available for the cycle and older v0.6 saves still load",
+      "status": "PASS"
+    },
+    {
+      "name": "scheduled third round spans two survived one-round cycles",
+      "status": "PASS"
+    },
+    {
+      "name": "family recycling cannot regrant Passage after completion or failure",
+      "status": "PASS"
+    },
+    {
+      "name": "multiple quest rewards overflow together; Passage can be discarded by choice",
+      "status": "PASS"
+    },
+    {
+      "name": "Guard fog remainder and return expiry use only the next damage point",
+      "status": "PASS"
+    },
+    {
+      "name": "random legal runs conserve every ordinary soul and preserve save invariants",
+      "status": "PASS",
+      "seeds": 150,
+      "transitions": 1362,
+      "scope": "Agent simulation, not human play or balance evidence"
+    },
+    {
+      "name": "long-run recycling, repeated rewards and no ending cap across 1000 synthetic safe returns",
+      "status": "PASS",
+      "completedCycles": "1000",
+      "deliveries": "1000",
+      "outwardRounds": "1499",
+      "reshuffles": 250,
+      "logEntries": 80,
+      "scope": "Synthetic transition stress test resetting Light and shore anger between cycles, not a reachable survival or balance claim"
+    }
+  ]
+}

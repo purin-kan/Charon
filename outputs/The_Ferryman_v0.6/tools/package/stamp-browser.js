@@ -1,0 +1,15 @@
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+const crypto = require('node:crypto');
+const root = path.resolve(__dirname, '../..');
+const file = path.join(root, process.argv[2] || 'verification/browser-results.json');
+const result = JSON.parse(fs.readFileSync(file));
+if (result.status !== 'PASS') throw new Error('Only a completed passing browser result can be stamped.');
+const runtime = ['index.html', 'app.js', 'engine.js', 'content.js', 'content.json', 'asset-map.js', 'styles.css', 'tests/browser-check.js'];
+const assetMap = JSON.parse(fs.readFileSync(path.join(root, 'asset-map.js'), 'utf8').split(' = ')[1].replace(/;\s*$/, ''));
+const files = [...runtime, ...new Set(Object.values(assetMap)), 'assets/fonts/Vera.ttf', 'assets/fonts/VeraBd.ttf'];
+result.hashes = Object.fromEntries(files.map(relative => [relative, crypto.createHash('sha256').update(fs.readFileSync(path.join(root, relative))).digest('hex')]));
+result.contentSha256 = result.hashes['content.json'];
+fs.writeFileSync(file, JSON.stringify(result, null, 2) + '\n');
+console.log('Stamped current tested bytes: ' + path.relative(root, file));

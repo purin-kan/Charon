@@ -1,0 +1,12 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "win32",
+  "packages": {
+    "reportlab": "4.4.9",
+    "Pillow": "12.3.0",
+    "pypdf": "6.10.0",
+    "pdfplumber": "0.11.9"
+  },
+  "renderer": "Poppler pdftoppm, 120 dpi RGB PNG, bundled Windows runtime",
+  "font_license": "tools/print/fonts/bitstream-vera-license.txt"
+}

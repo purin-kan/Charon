@@ -1,0 +1,138 @@
+{
+  "version": "0.6",
+  "producer": "tools/package/project-print-content.js",
+  "source": "content.json",
+  "sourceSha256": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+  "souls": [
+    {
+      "id": "SOUL-MOTHER",
+      "name": "Mother",
+      "seats": 1,
+      "destination": "DEST-TARTARUS",
+      "memory": "MEM-LIGHT"
+    },
+    {
+      "id": "SOUL-CHILD",
+      "name": "Child",
+      "seats": 1,
+      "destination": "DEST-HAVEN",
+      "memory": null
+    },
+    {
+      "id": "SOUL-MERCHANT",
+      "name": "Merchant",
+      "seats": 1,
+      "destination": "DEST-STYX",
+      "memory": "MEM-FORESIGHT"
+    },
+    {
+      "id": "SOUL-SOLDIER",
+      "name": "Soldier",
+      "seats": 2,
+      "destination": "DEST-STYX",
+      "memory": "MEM-GUARD"
+    },
+    {
+      "id": "SOUL-POET",
+      "name": "Poet",
+      "seats": 1,
+      "destination": "DEST-ELYSIUM",
+      "memory": "MEM-FORESIGHT"
+    },
+    {
+      "id": "SOUL-COOK",
+      "name": "Cook",
+      "seats": 1,
+      "destination": "DEST-ASPHODEL",
+      "memory": "MEM-CALM"
+    },
+    {
+      "id": "SOUL-MASON",
+      "name": "Mason",
+      "seats": 1,
+      "destination": "DEST-ACHERON",
+      "memory": "MEM-FOG"
+    },
+    {
+      "id": "SOUL-KEEPER",
+      "name": "Keeper",
+      "seats": 1,
+      "destination": "DEST-ASPHODEL",
+      "memory": "MEM-FOG"
+    },
+    {
+      "id": "SOUL-POLONG",
+      "name": "PoLong",
+      "seats": 0,
+      "destination": "DEST-TARTARUS",
+      "memory": null
+    }
+  ],
+  "destinations": [
+    {
+      "id": "DEST-HAVEN",
+      "name": "Haven",
+      "fog": 0
+    },
+    {
+      "id": "DEST-STYX",
+      "name": "River Styx",
+      "fog": 1
+    },
+    {
+      "id": "DEST-ACHERON",
+      "name": "Acheron",
+      "fog": 1
+    },
+    {
+      "id": "DEST-ASPHODEL",
+      "name": "Asphodel",
+      "fog": 2
+    },
+    {
+      "id": "DEST-ELYSIUM",
+      "name": "Elysium",
+      "fog": 3
+    },
+    {
+      "id": "DEST-TARTARUS",
+      "name": "Tartarus",
+      "fog": 3
+    }
+  ],
+  "memories": {
+    "MEM-LIGHT": "Restore 1 Light, maximum 6.",
+    "MEM-FORESIGHT": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "MEM-GUARD": "Prevent the next 1 point of Light loss during this outward round or return, including fog or wraith damage. Unused protection expires at that round/return's end.",
+    "MEM-CALM": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul.",
+    "MEM-FOG": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "MEM-PASSAGE": "Instantly deliver one onboard soul to its preferred destination with the ordinary reward for that soul, no fog, no anger advance and no outward-round advance. It may target PoLong."
+  },
+  "constants": {
+    "initialLight": 6,
+    "maxLight": 6,
+    "capacity": 4,
+    "handLimit": 3,
+    "spawnEvery": 3,
+    "shipExpiry": 4,
+    "shoreExpiry": 2,
+    "returnRecovery": 2
+  },
+  "initialShore": [
+    "SOUL-MOTHER",
+    "SOUL-CHILD",
+    "SOUL-MERCHANT",
+    "SOUL-MASON",
+    "SOUL-COOK"
+  ],
+  "initialArrivals": [
+    "SOUL-SOLDIER",
+    "SOUL-POET",
+    "SOUL-KEEPER"
+  ],
+  "endless": true,
+  "ordinaryRecycle": true,
+  "freshMemoryEveryEligibleDelivery": true,
+  "questOncePerRun": true,
+  "facilitatorRoutes": true
+}

@@ -1,0 +1,54 @@
+{
+  "version": "0.6",
+  "checkedAt": "2026-10-05T01:31:44.797547+00:00",
+  "integrityStatus": "PASS",
+  "releaseStatus": "COMPLETE_LOCAL",
+  "contentSha256": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+  "sourceAndExtractedLinks": [
+    104,
+    104
+  ],
+  "manifestFiles": 168,
+  "extractedEngine": {
+    "passed": 27,
+    "failed": 0,
+    "hashes": {
+      "engine.js": "25369496b230315457a75f4e5d95569f075a9fd33f145b93167f371be4761a23",
+      "content.json": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+      "tests/engine-check.js": "421938093d6c3258b6c835168500a028d7541b74ae399c9e14ec499e0ecb4835"
+    }
+  },
+  "bundledDataRebuild": "BYTE_IDENTICAL",
+  "zipChecks": "CRC, exact membership and all bytes verified on candidate and final archive",
+  "missing": [],
+  "masterPages": 31,
+  "cutPieces": 78,
+  "humanChecks": "NOT_RUN; see bundled human checklist",
+  "exclusions": [
+    "MANIFEST.json",
+    "PACKAGE_RESULTS.json"
+  ],
+  "note": "Final archive hash/size live in the external receipt to avoid a self-reference loop.",
+  "originalGuides": "Both DOCX SHA-256 match recorded supplied originals",
+  "extractedPaperParity": {
+    "passed": 19,
+    "failed": 0
+  },
+  "extractedPrint": {
+    "rebuiltPdfs": 6,
+    "pdfBytes": "BYTE_IDENTICAL",
+    "staticChecks": {
+      "pass_count": 18,
+      "fail_count": 0
+    }
+  },
+  "sourceExclusions": [
+    "print/Handoff_A_v0.6.zip",
+    "print/Handoff_A_v0.6.zip.sha256"
+  ],
+  "archive": "The_Ferryman_v0.6_Submission.zip",
+  "archiveBytes": 143643898,
+  "archiveSha256": "c093ddcf648fdae108a769cefb732024faaddd54af2520cf921252cffa16f54d",
+  "zipFiles": 170,
+  "stagingFolder": "The_Ferryman_v0.6_Submission"
+}

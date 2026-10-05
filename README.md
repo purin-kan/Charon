@@ -1,8 +1,19 @@
 # The Ferryman / Charon
 
-**Current workshop iteration: v0.5, One Night on the River.** A strictly single-player game with matching browser and paper rules, based on the supplied Guy feedback. Updated October 4, 2026.
+**Current workshop iteration: v0.6, endless survival.** Matching paper and browser rules with facilitator-controlled routes. Updated October 5, 2026.
 
-## Play or print v0.5
+## Play or print v0.6
+
+- [Complete 31-page print kit](outputs/The_Ferryman_v0.6/print/Print_and_Play_v0.6.pdf), 78 cut pieces and five whole mats. A4 color, single-sided, actual size / 100 percent.
+- [Play the browser game](outputs/The_Ferryman_v0.6/index.html) and [launch/save instructions](outputs/The_Ferryman_v0.6/README.md).
+- [Complete expanded submission](outputs/The_Ferryman_v0.6_Submission/), [opening page](outputs/The_Ferryman_v0.6_Submission/START_HERE.html) and [integrity receipt](outputs/The_Ferryman_v0.6_Submission_RECEIPT.json).
+- [Rules](outputs/The_Ferryman_v0.6/RULES.md), [design workbook](outputs/The_Ferryman_v0.6/DESIGN_WORKBOOK.md), [verification](outputs/The_Ferryman_v0.6/VALIDATION.md) and [integration/source limitations](outputs/The_Ferryman_v0.6/INTEGRATION.md).
+
+The verified `outputs/The_Ferryman_v0.6_Submission.zip` remains local because its 143,643,898 bytes exceed GitHub's 100 MiB regular-Git file limit. The complete expanded package and rebuild tools are tracked instead. See [rebuild instructions](outputs/The_Ferryman_v0.6/REBUILD.md).
+
+Human printing, handling, playtesting, intended-device checks and team art approval remain pending. Repository publication is now user-authorized; no course submission or deployment is authorized. Older releases and saves are preserved; do not mix versions.
+
+## Preserved v0.5
 
 | Material | Open or download |
 |---|---|

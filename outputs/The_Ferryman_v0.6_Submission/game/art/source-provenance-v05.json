@@ -1,0 +1,122 @@
+{
+  "note": "Existing portraits copied unchanged. Letter emblems are provisional vector/text graphics, not AI-generated artwork. No final art approval is claimed.",
+  "files": [
+    {
+      "file": "assets/mother.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S01.png",
+      "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/child.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S02.png",
+      "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/red-soldier.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S04.png",
+      "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/blue-soldier.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S06.png",
+      "sha256": "d905271b8d281d46cee1e8d62bb3b41b6e980d7369eed9c376480fcba4f3903f",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/merchant.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S03.png",
+      "sha256": "c9dc76b122c6c21d16fe7bc9f97868b1adf2c9d0bd9b786da1d0e35b06f90491",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/cook.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S07.png",
+      "sha256": "de073f0fc55e1dca27a9cd234def57e85dd87fb8a6a7081f58a1c846f7d3f189",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/mason.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S08.png",
+      "sha256": "37aeae89b4b4aa39e6f9ba7f60dd29b5890a4bcd2b56bf15444413d10ab16deb",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/musician.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/S11.png",
+      "sha256": "87a23b020311344705f9b75dcd790b82e34bf3581b6625a1b11c066b47bccca5",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/shore.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/shore-r2.png",
+      "sha256": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/elysium.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/elysium-r2.png",
+      "sha256": "0ab0336bd71e9ce4250c299ab4901a0c1e3eef1bdca1e71e8711eb98f8e68c38",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/asphodel.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/asphodel-r2.png",
+      "sha256": "a97669e9cd13aadb3cab1f3e8c57abf2933e2d74f2c13b3ec186b03ae069b15c",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/tartarus.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/tartarus-r2.png",
+      "sha256": "f226518732adfa150d00582c02bc4f53e1d13b8d6e6cdb92741d02166fc99e2f",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/haven.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/haven-r2.png",
+      "sha256": "c881ecab2c5249a90d6be269a4a7d1b191b4f8e394eead6b7f327f97b000b5c0",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/wraith.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/wraith-r2.png",
+      "sha256": "a636ea22b54a4dd0715f83b04820bbd5288fcc28d66a13ae0fe24c35e7fec989",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/memory-fog.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/memory-R01.png",
+      "sha256": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/memory-light.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/memory-R02.png",
+      "sha256": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/memory-calm.png",
+      "source": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/memory-R03.png",
+      "sha256": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597",
+      "modification": "None; original bytes copied."
+    },
+    {
+      "file": "assets/fonts/Vera.ttf",
+      "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/Vera.ttf",
+      "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d"
+    },
+    {
+      "file": "assets/fonts/VeraBd.ttf",
+      "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/VeraBd.ttf",
+      "sha256": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9"
+    },
+    {
+      "file": "assets/fonts/VeraIt.ttf",
+      "source": "outputs/The_Ferryman_Workshop_Kit_v0.3/assets/fonts/VeraIt.ttf",
+      "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a"
+    }
+  ]
+}

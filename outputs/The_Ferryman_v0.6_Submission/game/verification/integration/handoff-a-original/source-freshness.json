@@ -1,0 +1,228 @@
+[
+  {
+    "path": "outputs/The_Ferryman_Digital_Demo_v0.3/assets/art/PROVENANCE.json",
+    "last_commit": "2026-09-27 11:49:58 +0700",
+    "mtime": "2026-09-27T01:03:36.286767+07:00",
+    "sha256": "b8a0a297ee8b2a434420eaeee4319e790a2a08719b654f44e598a1cb8f732006",
+    "possibly_stale": true,
+    "scope": "Historical art provenance only"
+  },
+  {
+    "path": "outputs/The_Ferryman_Digital_Demo_v0.3/assets/art/PROVENANCE_R2.json",
+    "last_commit": "2026-09-27 11:49:58 +0700",
+    "mtime": "2026-09-27T10:44:53.796801+07:00",
+    "sha256": "727e712e39acb78d1ba58fa2e9ce252846e824938426f28c6968df444b30b114",
+    "possibly_stale": true,
+    "scope": "Historical art provenance only"
+  },
+  {
+    "path": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/PROVENANCE.json",
+    "last_commit": "2026-09-29 20:53:47 +0700",
+    "mtime": "2026-09-29T20:40:28.635928+07:00",
+    "sha256": "8b35393cabcbd8639054e4a3ffc4bf33e6c31ed762ac1764d17043467930d439",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_Digital_Demo_v0.4/assets/boat.png",
+    "last_commit": "2026-09-29 20:53:47 +0700",
+    "mtime": "2026-09-29T20:40:28.607937+07:00",
+    "sha256": "98756a61bf5d5b13b939c0d8b63c5f73d01710d91c7138918c32ebdf06377d2e",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_Digital_Demo_v0.4/memory-art.md",
+    "last_commit": "2026-10-01 01:14:46 +0700",
+    "mtime": "2026-10-04T20:38:35.834431+07:00",
+    "sha256": "877bc2f8e9270ccb239d282204321e7ecb451b62398165b4eb370d932f57971a",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/child.png",
+    "last_commit": "2026-10-04 20:32:49 +0700",
+    "mtime": "2026-10-04T20:38:36.429770+07:00",
+    "sha256": "caf49aa00645f3be72a0264a7b9ddc732f343aafe20a0e0ddf6ff688c6e45aa2",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/fonts/Vera.ttf",
+    "last_commit": "2026-10-04 20:32:49 +0700",
+    "mtime": "2026-10-04T20:38:36.430770+07:00",
+    "sha256": "c4c45690b345435b2cba52ecabe275f05e49b389b39fe68ad03afbb551288d3d",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/fonts/VeraBd.ttf",
+    "last_commit": "2026-10-04 20:32:49 +0700",
+    "mtime": "2026-10-04T20:38:36.431774+07:00",
+    "sha256": "cc037385e4d55bfde89b13e03091ee93bf40c0c52ddd391ff031ab276f13b8e9",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/fonts/VeraIt.ttf",
+    "last_commit": "2026-10-04 20:32:49 +0700",
+    "mtime": "2026-10-04T20:38:36.431774+07:00",
+    "sha256": "2adc684d518f45232c4ad1f56522f5a82a6904c31940373e1b7030beee20fb3a",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/fonts/bitstream-vera-license.txt",
+    "last_commit": "2026-10-04 20:32:49 +0700",
+    "mtime": "2026-10-04T20:38:36.432775+07:00",
+    "sha256": "268d8e58c04d3535c21e7ef43b835e1b00ba7e1e714fcc06ff2f5d59ee9ce17f",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/mother.png",
+    "last_commit": "2026-10-04 20:32:49 +0700",
+    "mtime": "2026-10-04T20:38:36.445308+07:00",
+    "sha256": "f28f7043eede01ec8f74ab5ef3fb3f3f042d387e04ade6ba7f51eb2c83c55212",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/red-soldier.png",
+    "last_commit": "2026-10-04 20:32:49 +0700",
+    "mtime": "2026-10-04T20:38:36.457329+07:00",
+    "sha256": "5b1ab830ac160ef2e9be72b5250bb69ae5194c7f633d7904ce3999f91d2fbca0",
+    "possibly_stale": true
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/PROVENANCE.json",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:56.924644+07:00",
+    "sha256": "3b67830048365a47313f9eed90d5c44544eb3a26ddfecc3d7b4d0114e68f35f8",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/asphodel.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:56.942679+07:00",
+    "sha256": "a97669e9cd13aadb3cab1f3e8c57abf2933e2d74f2c13b3ec186b03ae069b15c",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/cook.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:56.956198+07:00",
+    "sha256": "de073f0fc55e1dca27a9cd234def57e85dd87fb8a6a7081f58a1c846f7d3f189",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/elysium.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:56.975998+07:00",
+    "sha256": "0ab0336bd71e9ce4250c299ab4901a0c1e3eef1bdca1e71e8711eb98f8e68c38",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/haven.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:56.989018+07:00",
+    "sha256": "c881ecab2c5249a90d6be269a4a7d1b191b4f8e394eead6b7f327f97b000b5c0",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/mason.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.002541+07:00",
+    "sha256": "37aeae89b4b4aa39e6f9ba7f60dd29b5890a4bcd2b56bf15444413d10ab16deb",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/memory-calm.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.013646+07:00",
+    "sha256": "c465bdba38b5952dbb678f92ced9f54ccae6385d1d150b4bdfd03b15a2d10597",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/memory-fog.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.024669+07:00",
+    "sha256": "096d8f5540d1be5381558ed7f2bed29892d906821e4ba0a48fa5caf66d5c6f46",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/memory-light.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.037264+07:00",
+    "sha256": "30ea7e1c85a2e0b453981ed50824763ea7e56cc061decbe7f2cefd8f7ec7e2a9",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/merchant.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.052291+07:00",
+    "sha256": "c9dc76b122c6c21d16fe7bc9f97868b1adf2c9d0bd9b786da1d0e35b06f90491",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/shore.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.090242+07:00",
+    "sha256": "ebef2ed52f5123a99cf99f52e3b9efc455a794b51455cc7d5540eabb1ae56f60",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/assets/tartarus.png",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.110294+07:00",
+    "sha256": "f226518732adfa150d00582c02bc4f53e1d13b8d6e6cdb92741d02166fc99e2f",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/index.html",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.130826+07:00",
+    "sha256": "f75de2f214a2e4b1c6994556952981af87465829fbd34f79e169b37a80d07f27",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.5/styles.css",
+    "last_commit": "2026-10-04 21:59:01 +0700",
+    "mtime": "2026-10-04T22:40:57.275344+07:00",
+    "sha256": "387068c057dadff6a658c2aa9f86bff951cba96f321ceda546cd84e5f395ea01",
+    "possibly_stale": false
+  },
+  {
+    "path": "AGENT_CONTEXT.md",
+    "last_commit": "2026-10-04 23:32:53 +0700",
+    "mtime": "2026-10-04T23:25:44.110863+07:00",
+    "sha256": "64dc1cbf35e2294cdcadbeb28602d07c48bb54028d65607b5837e1f0475c4b78",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.6_Handoff/HANDOFF_A_PRINT_AND_ART.md",
+    "last_commit": "2026-10-04 23:32:53 +0700",
+    "mtime": "2026-10-04T23:20:53.259794+07:00",
+    "sha256": "d133a85bea01d8d2614ec41be7ab6e3dab880a72866c8b2d60c7b098d442e268",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.6_Handoff/SHARED_RULES.md",
+    "last_commit": "2026-10-04 23:32:53 +0700",
+    "mtime": "2026-10-04T23:17:58.383468+07:00",
+    "sha256": "9f2486ed111c3666d2f71910dfac04813678c65d753ec9801a9f1736d0570e15",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.6_Handoff/SOURCE_DECISIONS.md",
+    "last_commit": "2026-10-04 23:32:53 +0700",
+    "mtime": "2026-10-04T23:22:34.906830+07:00",
+    "sha256": "fa66b77a6e52156675e166152ea996bca70665c32c6d4f597e6cadbcbef5c7f2",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.6_Handoff/START_HERE.md",
+    "last_commit": "2026-10-04 23:32:53 +0700",
+    "mtime": "2026-10-04T23:17:58.382360+07:00",
+    "sha256": "049b087c38ac9732a6ba1ba8d6ea4bf010681c2328ab898c480a51ebf476e077",
+    "possibly_stale": false
+  },
+  {
+    "path": "outputs/The_Ferryman_v0.6_Handoff/sources/USER_CLARIFICATIONS.md",
+    "last_commit": "2026-10-04 23:32:53 +0700",
+    "mtime": "2026-10-04T23:17:58.383468+07:00",
+    "sha256": "04553de530d04bbdd6432178fb7ba68006fd5612e8af6a2346858b9fbd4ba85d",
+    "possibly_stale": false
+  }
+]

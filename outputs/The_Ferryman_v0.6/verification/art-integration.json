@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "missing": [],
+  "finalManifestPresent": true,
+  "mapped": [
+    "SOUL-MOTHER",
+    "SOUL-CHILD",
+    "SOUL-MERCHANT",
+    "SOUL-MASON",
+    "SOUL-COOK",
+    "SOUL-SOLDIER",
+    "DEST-HAVEN",
+    "DEST-ASPHODEL",
+    "DEST-ELYSIUM",
+    "DEST-TARTARUS",
+    "MEM-FOG",
+    "MEM-LIGHT",
+    "MEM-CALM",
+    "MAT-SHORE",
+    "MAT-BOAT",
+    "SOUL-POET",
+    "SOUL-KEEPER",
+    "SOUL-POLONG",
+    "DEST-ACHERON",
+    "DEST-STYX",
+    "MEM-FORESIGHT",
+    "MEM-GUARD",
+    "MEM-PASSAGE"
+  ],
+  "note": "Reused bytes checked; final art and print ownership stays with A."
+}

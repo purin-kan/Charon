@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-05T01:32:32Z",
+  "status": "PASS",
+  "archive": "The_Ferryman_v0.6_Submission.zip",
+  "archiveSha256": "c093ddcf648fdae108a769cefb732024faaddd54af2520cf921252cffa16f54d",
+  "archiveBytes": 143643898,
+  "scope": "Post-build verification of a fresh extraction of the exact final archive. External record avoids self-referential ZIP hashes.",
+  "manifestFilesVerified": 168,
+  "zipCrc": "PASS",
+  "allGamePayloadFilesMatchCurrentSourceBytes": true,
+  "browserSmoke": {
+    "status": "PASS",
+    "packageTitle": "The Ferryman v0.6 submission",
+    "printLink": "game/print/Print_and_Play_v0.6.pdf",
+    "gameTitle": "The Ferryman v0.6 | Endless River",
+    "version": "0.6",
+    "isolation": "Fresh browser context, no existing saves read or changed"
+  },
+  "missingLocalDeliverables": [],
+  "sourceRetrievalLimitation": "A retrieved from origin/main a62f1493; no remote v0.6 B branch found. Complete preserved local B work was integrated, not an unseen B commit.",
+  "humanChecks": "NOT_RUN; see bundled human checklist"
+}

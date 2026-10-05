@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-05T01:14:19.094810+00:00",
+  "scope": "Isolated directory with only bundled A inputs; exact current PDFs, no external project paths.",
+  "pdfs": [
+    {
+      "file": "Assembly_and_Setup_v0.6.pdf",
+      "sha256": "698c10c73e5681f084fda5f5d6924de2515f33290350beb1f17e0eca8f91b2de",
+      "byteIdentical": true
+    },
+    {
+      "file": "Cutout_Sheets_v0.6.pdf",
+      "sha256": "8bfabf71c721d1eeed0080dea98d82c5272866b7ca9401c800e0f6497b2403d4",
+      "byteIdentical": true
+    },
+    {
+      "file": "Full_Rules_v0.6.pdf",
+      "sha256": "7c46e8eb0f37402dbc162b6232ada4994a4b7327897d7a099a2491ad688efee8",
+      "byteIdentical": true
+    },
+    {
+      "file": "Player_Guide_v0.6.pdf",
+      "sha256": "02bc1f62b508bc064f9703f4eebe4664b67fc6fa76ecfb9736402b18b25edade",
+      "byteIdentical": true
+    },
+    {
+      "file": "Print_and_Play_v0.6.pdf",
+      "sha256": "510a72cf4508fadf929574f375275109c1f67f74b5b01ed7655494430786e2a4",
+      "byteIdentical": true
+    },
+    {
+      "file": "Workshop_Record_v0.6.pdf",
+      "sha256": "8e83019129072670cff7a6e35f76f6c94cc628a3364a3661084ec1eb49ee91c2",
+      "byteIdentical": true
+    }
+  ],
+  "identicalPdfCount": 6,
+  "rebuiltStaticCounts": {
+    "pass_count": 18,
+    "fail_count": 0
+  },
+  "runtime": {
+    "reportlab": "4.4.9",
+    "Pillow": "12.3.0",
+    "pypdf": "6.10.0",
+    "pdfplumber": "0.11.9"
+  }
+}

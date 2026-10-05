@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-10-05T01:14:19.250Z",
+  "passed": 19,
+  "failed": 0,
+  "scope": "Agent synthetic engine reproduction of A desk scenarios and printed round-six example. Not human playtesting.",
+  "records": [
+    {
+      "id": "DESK-01",
+      "name": "Setup",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-02",
+      "name": "First departure",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-03",
+      "name": "Round-three spawn with full boat",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-04",
+      "name": "Foresight staged",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-05",
+      "name": "Foresight missing input",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-06",
+      "name": "Optional matching delivery",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-07",
+      "name": "Resolved-soul recycling",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-08",
+      "name": "Repeated reward with older copies held",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-09",
+      "name": "Different-source simultaneous rewards",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-10",
+      "name": "Calm changes PoLong fog",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-11",
+      "name": "Simultaneous expiries and Guard",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-12",
+      "name": "Quest success across cycles",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-13",
+      "name": "Quest failure persists",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-14",
+      "name": "Passage empties boat",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-15",
+      "name": "Passage targets PoLong",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-16",
+      "name": "Shore expiry before healing",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-17",
+      "name": "Global cadence across cycles",
+      "status": "PASS"
+    },
+    {
+      "id": "DESK-18",
+      "name": "Reset and reuse",
+      "status": "PASS"
+    },
+    {
+      "id": "PRINT-ROUND-SIX",
+      "name": "Printed round-six worked example",
+      "status": "PASS"
+    }
+  ],
+  "hashes": {
+    "engine.js": "25369496b230315457a75f4e5d95569f075a9fd33f145b93167f371be4761a23",
+    "content.json": "2f1dc6b5019016196fe447eb20e1248166d95c634c86075175f154630dc43454",
+    "tests/print-parity-check.js": "acfd4b40be7560efbac5e48b35e0c55f499ce596ea223776db5a475a3831c69a",
+    "verification/print/desk-walkthroughs.json": "d13cd7b9331b1a5cf0dbcd1cd089c39a9edc3d22b041a57e1e3bc73bca507c27"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "reviewedAt": "2026-10-05",
+  "method": "Agent opened all 31 master pages at readable 110 dpi using the image viewer. Page 7 was rebuilt with an additional 3 mm section gap and opened again. The integration verifier checks that all other final renders are unchanged and that every extracted page is pixel-identical to its master page.",
+  "masterSha256": "510a72cf4508fadf929574f375275109c1f67f74b5b01ed7655494430786e2a4",
+  "pages": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+  "findings": [
+    "Readable cover, one-page guide, assembly, full rules and blank human record.",
+    "Page 7's final section was visually too close to the Passage paragraph. Added 3 mm without changing text, page count, component IDs or rules; inspected the final page again.",
+    "Five whole mats retain readable counters, four ordinary seats, separate PoLong spaces and concealed-route staging.",
+    "All cut-sheet labels, artwork identities, memory effects, anger tracks, cut borders and small marker labels are visible without clipping.",
+    "No remaining visible text collision, missing glyph, clipped effect or cut-border defect in the final render."
+  ],
+  "limitations": ["Not an actual printer, cutting or handling check", "Not a human playtest or team art approval"]
+}

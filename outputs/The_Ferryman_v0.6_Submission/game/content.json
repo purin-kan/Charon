@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "version": "0.6",
+  "title": "The Ferryman",
+  "config": {
+    "startLight": 6, "maxLight": 6, "seats": 4, "shoreTarget": 5,
+    "shoreAngerLimit": 2, "shipAngerLimit": 4, "handLimit": 3,
+    "spawnInterval": 3, "polongFogThreshold": 2, "polongFog": 1,
+    "returnLight": 2, "wraithDamage": 1, "foresightForks": 3,
+    "memoriesPerWindow": 1, "endless": true, "questPerRun": 1,
+    "initialShore": ["SOUL-MOTHER", "SOUL-CHILD", "SOUL-MERCHANT", "SOUL-MASON", "SOUL-COOK"],
+    "initialArrivals": ["SOUL-SOLDIER", "SOUL-POET", "SOUL-KEEPER"]
+  },
+  "souls": [
+    {"id":"SOUL-MOTHER","name":"Mother","seats":1,"wish":"DEST-TARTARUS","memory":"MEM-LIGHT","ordinary":true,"text":"Deliver to Tartarus. Receive a fresh Light memory. After a qualifying Child delivery, also receive Passage once per run."},
+    {"id":"SOUL-CHILD","name":"Child","seats":1,"wish":"DEST-HAVEN","memory":null,"ordinary":true,"text":"Deliver to Haven. No memory reward. Deliver before Mother to advance the optional family quest."},
+    {"id":"SOUL-MERCHANT","name":"Merchant","seats":1,"wish":"DEST-STYX","memory":"MEM-FORESIGHT","ordinary":true,"text":"Deliver to River Styx. Receive a fresh Foresight memory."},
+    {"id":"SOUL-SOLDIER","name":"Soldier","seats":2,"wish":"DEST-STYX","memory":"MEM-GUARD","ordinary":true,"text":"Uses two ordinary seats. Deliver to River Styx. Receive a fresh Guard memory."},
+    {"id":"SOUL-POET","name":"Poet","seats":1,"wish":"DEST-ELYSIUM","memory":"MEM-FORESIGHT","ordinary":true,"text":"Deliver to Elysium. Receive a fresh Foresight memory."},
+    {"id":"SOUL-COOK","name":"Cook","seats":1,"wish":"DEST-ASPHODEL","memory":"MEM-CALM","ordinary":true,"text":"Deliver to Asphodel. Receive a fresh Calm memory."},
+    {"id":"SOUL-MASON","name":"Mason","seats":1,"wish":"DEST-ACHERON","memory":"MEM-FOG","ordinary":true,"text":"Deliver to Acheron. Receive a fresh Fog Shield memory."},
+    {"id":"SOUL-KEEPER","name":"Keeper","seats":1,"wish":"DEST-ASPHODEL","memory":"MEM-FOG","ordinary":true,"text":"Deliver to Asphodel. Receive a fresh Fog Shield memory."},
+    {"id":"SOUL-POLONG","name":"PoLong","seats":0,"wish":"DEST-TARTARUS","memory":null,"ordinary":false,"text":"Zero ordinary seats. Arrives before travel every third global outward round. Adds 1 fog at Ship Anger 2 or 3. Deliver to Tartarus. No memory reward."}
+  ],
+  "destinations": [
+    {"id":"DEST-HAVEN","name":"Haven","fog":0},
+    {"id":"DEST-STYX","name":"River Styx","fog":1},
+    {"id":"DEST-ACHERON","name":"Acheron","fog":1},
+    {"id":"DEST-ASPHODEL","name":"Asphodel","fog":2},
+    {"id":"DEST-ELYSIUM","name":"Elysium","fog":3},
+    {"id":"DEST-TARTARUS","name":"Tartarus","fog":3}
+  ],
+  "memories": [
+    {"id":"MEM-LIGHT","name":"Light","kind":"light","amount":1,"text":"Restore 1 Light, maximum 6."},
+    {"id":"MEM-FORESIGHT","name":"Foresight","kind":"foresight","amount":3,"text":"Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle."},
+    {"id":"MEM-GUARD","name":"Guard","kind":"guard","amount":1,"text":"Prevent the next 1 point of Light loss during this outward round or return, including fog or wraith damage. Unused protection expires at that round/return's end."},
+    {"id":"MEM-CALM","name":"Calm","kind":"calm","amount":1,"text":"Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul."},
+    {"id":"MEM-FOG","name":"Fog Shield","kind":"fog","amount":1,"text":"Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage."},
+    {"id":"MEM-PASSAGE","name":"Passage","kind":"passage","amount":1,"text":"Instantly deliver one onboard soul to its preferred destination with the ordinary reward for that soul, no fog, no anger advance and no outward-round advance. It may target PoLong."}
+  ],
+  "roundSteps": [
+    "Optionally play one memory; resolve its effect and any rewards or hand overflow.",
+    "If Passage empties the boat, return immediately using the same spent memory allowance.",
+    "Advance the global outward round. On a multiple of three, add a new PoLong at Ship Anger 0.",
+    "Choose one of the facilitator's two destinations. Calculate base fog plus current PoLong fog minus Fog Shield, minimum zero.",
+    "Apply Guard to the next damage point and pay fog. Zero Light ends the run before delivery.",
+    "Optionally deliver any matching passengers and receive fresh fixed memories and any quest reward.",
+    "All remaining passengers gain one Ship Anger, including the new PoLong.",
+    "Each reaching four becomes a wraith, costs one Light subject to Guard, and leaves. Stop immediately at zero Light.",
+    "Choose excess memories to discard down to three. Empty boat: return with a new memory allowance. Otherwise begin the next outward window."
+  ],
+  "returnSteps": [
+    "Return has no travel fog and does not advance the outward round. Optionally play one memory if its allowance is available.",
+    "All waiting ordinary souls gain one Shore Anger. At two, each becomes a wraith, costs one Light subject to Guard, and enters the resolved discard. Stop immediately at zero Light.",
+    "If alive, restore two Light, maximum six, and record a completed cycle.",
+    "Refill shore to five. When the arrival pile is empty, shuffle only resolved ordinary souls into it. New arrivals start at zero Shore Anger.",
+    "Begin the next cycle with facilitator-supplied offers. Boarding resets Ship Anger to zero. Play continues without a cycle or delivery cap."
+  ],
+  "rules": {
+    "objective":"Endless solo survival. Zero Light is immediate loss. Voluntary stop records a session without a victory.",
+    "boarding":"Board at least one ordinary soul, at most four seats. Reverse boarding choices before departure. Soldier uses two seats. PoLong uses no ordinary seat. No other passive abilities apply.",
+    "recycling":"Keep eight unique ordinary souls across arrival pile, shore, boat and resolved discard. Refill to five on return. Only when arrivals run out, shuffle resolved ordinary souls. Never duplicate waiting or aboard souls. Delivered and expired PoLong leave their instance supply.",
+    "memories":"Start with no memories. Play at most one before each outward round or return. Each use consumes that held copy. Every eligible delivery creates a fresh source-labeled memory, including repeats. Unused copies persist. After rewards choose excess cards to discard to three. Used and discarded paper memories return to a reserve; never take a held card to supply a reward.",
+    "quest":"Deliver Child to Haven before Mother to Tartarus, possibly across cycles. Qualifying Mother gives her normal Light memory and one Passage. Mother delivered first, or a required family member expiring before its required delivery, fails the quest for the run. A later recycled Child's fate cannot undo a qualifying Child delivery. Completion and failure survive recycling; Passage is granted at most once per run.",
+    "routes":"The facilitator orders, shuffles and hands out two-destination offers using only the six destination IDs. No generator, repeating map, first-cycle guarantee or map-ending penalty applies. Missing offers pause play without spending a memory or advancing time. Foresight requires the current and next two complete offers; revealed offers remain visible in this cycle.",
+    "passage":"Passage may deliver any onboard soul, including PoLong, with its normal rewards. It causes no fog, anger, outward-round increment or scheduled spawn. If it empties the boat, it spends the immediate return's memory allowance too.",
+    "damage":"Guard prevents only the next one damage point in its round or return and then expires. Fog Shield reduces crossing fog only. Wraiths leave immediately and have no continuing fog. Ordinary delivery and Haven do not heal. Return healing happens only after surviving shore expiry.",
+    "example":"Before global round 6, Light 4, Keeper and Soldier at Ship Anger 3. Play Fog Shield, spawn PoLong at 0, choose Asphodel: pay 1 fog, Light 3. Deliver Keeper for fresh Fog Shield. Soldier expires for 1 Light, leaving Light 2. PoLong advances to anger 1. This is a rule example, not a playtest."
+  },
+  "production": {
+    "ordinaryCopiesEach":1,"polongBaseCopies":2,"polongSpareCopiesMinimum":2,
+    "memoryCopiesPerRewardingSoul":4,"passageCopies":1,
+    "memoryPieceIdPattern":"SOUL-{SOURCE}-MEM-01 through 04; QUEST-PASSAGE-MEM-01",
+    "polongPieceIdPattern":"SOUL-POLONG-01 onward; reusable blank instance template",
+    "supportIds":["MAT-SHORE","MAT-BOAT","MAT-ROUTES","TRACK-LIGHT","TRACK-ANGER","TRACK-ROUND","TRACK-CYCLES","TRACK-QUEST","MARKER-SOLDIER-SEAT"],
+    "note":"Production quantities are supplies, not gameplay caps. A owns final copy IDs, layout and inventory."
+  },
+  "authority": ["SHARED_RULES.md", "SOURCE_DECISIONS.md", "sources/USER_CLARIFICATIONS.md"]
+}

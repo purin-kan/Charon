@@ -1,0 +1,3857 @@
+[
+  {
+    "page": 1,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 1,
+    "text": "Print and play / start here",
+    "font_pt": 14
+  },
+  {
+    "page": 1,
+    "text": "THE FERRYMAN",
+    "font_pt": 27
+  },
+  {
+    "page": 1,
+    "text": "A river that keeps returning",
+    "font_pt": 20
+  },
+  {
+    "page": 1,
+    "text": "Complete illustrated print-and-cut kit. One player station, with facilitator-controlled route offers. Play endless survival as Charon's apprentice.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 1,
+    "text": "Print this PDF once, in full",
+    "font_pt": 13
+  },
+  {
+    "page": 1,
+    "text": "31 A4 pages. Color, single-sided, actual size / 100%. Turn off fit-to-page, booklet and duplex. Print CUT pages on opaque card, or mount them to opaque card after printing. Keep all other pages whole.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 1,
+    "text": "Use a printer, paper or card, scissors, pencil and eraser. Glue is optional for mounting. No phone, internet or app is needed. Check printer scale before printing the remaining sheets.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 1,
+    "text": "This line must measure 50 mm.",
+    "font_pt": 11
+  },
+  {
+    "page": 1,
+    "text": "Replacement PDFs contain pages from this master. Do not print the full kit and the cutout PDF for one ordinary set.",
+    "font_pt": 11
+  },
+  {
+    "page": 1,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 1,
+    "text": "01 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 2,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 2,
+    "text": "Player guide / keep at the table",
+    "font_pt": 14
+  },
+  {
+    "page": 2,
+    "text": "Goal and setup",
+    "font_pt": 13
+  },
+  {
+    "page": 2,
+    "text": "Survive for as long as desired. Light 0 means immediate loss. Start Light 6 (maximum 6), no memories, global round 0, cycle 1. Follow setup on page 4. There is no automatic victory.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 2,
+    "text": "Board at the shore",
+    "font_pt": 13
+  },
+  {
+    "page": 2,
+    "text": "Take at least one ordinary soul, up to 4 seats. Soldier takes 2; each other ordinary soul takes 1. Reset boarded Ship Anger to 0. Choices may be reversed before departure.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 2,
+    "text": "OUTWARD ROUND",
+    "font_pt": 13
+  },
+  {
+    "page": 2,
+    "text": "1. Optional: play 1 memory. Resolve it fully. If it empties the boat, return without starting a round.",
+    "font_pt": 11
+  },
+  {
+    "page": 2,
+    "text": "2. Advance the global round. On every multiple of 3, add a fresh PoLong at Ship Anger 0, even with 4 seats occupied.",
+    "font_pt": 11
+  },
+  {
+    "page": 2,
+    "text": "3. Choose 1 of 2 offered destinations. Fog = base fog + PoLong penalties - Fog Shield, minimum 0. Apply Guard, then lose Light. At 0, stop before delivery.",
+    "font_pt": 11
+  },
+  {
+    "page": 2,
+    "text": "4. Optionally deliver matching souls. Take each fixed memory reward, plus any quest reward. Unmatched souls stay aboard.",
+    "font_pt": 11
+  },
+  {
+    "page": 2,
+    "text": "5. Remaining passengers gain 1 Ship Anger. At 4, each costs 1 Light and leaves. Guard can prevent the next 1 loss. Stop immediately at 0. Keep at most 3 memories.",
+    "font_pt": 11
+  },
+  {
+    "page": 2,
+    "text": "6. Empty boat: return. Otherwise start another outward round.",
+    "font_pt": 11
+  },
+  {
+    "page": 2,
+    "text": "Return, only when the boat is empty",
+    "font_pt": 13
+  },
+  {
+    "page": 2,
+    "text": "Optional 1 memory, unless Passage already used this allowance. Waiting souls gain 1 Shore Anger; at 2, each costs 1 Light and leaves. Stop at 0. If alive, restore 2 Light (max 6), record a completed cycle, refill the shore to 5 and get new route offers.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 2,
+    "text": "PoLong: anger 0-1 adds 0 fog; 2-3 adds 1 each.\nMemories: at most 1 before each outward round or return.\nQuest: Child to Haven, then Mother to Tartarus, once per run.\nFull details, recycling, quest failure and examples: pages 5-10.",
+    "font_pt": 11
+  },
+  {
+    "page": 2,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 2,
+    "text": "02 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 3,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 3,
+    "text": "Assembly and component inventory",
+    "font_pt": 14
+  },
+  {
+    "page": 3,
+    "text": "One station",
+    "font_pt": 13
+  },
+  {
+    "page": 3,
+    "text": "Print the complete master once. Keep pages 1-16 whole. Cut pages 17-31 on their solid outer borders. White gutters are waste. No required shape has a curved cut or fine silhouette.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 3,
+    "text": "Opaque fronts, plain backs",
+    "font_pt": 13
+  },
+  {
+    "page": 3,
+    "text": "Soul cards and offer slips must hide their fronts when face down. Use opaque stock or glue each printed sheet to plain opaque card, let dry, then cut. Backs remain plain and identical within each shuffled or concealed class. No duplex alignment is needed.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 3,
+    "text": "Inventory by sheet",
+    "font_pt": 13
+  },
+  {
+    "page": 3,
+    "text": "Cards are 90 x 112 mm unless a different size is shown below. Card gutters are at least 6 mm. Markers are 15 x 15 mm.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 3,
+    "text": "17-18",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "8 ordinary soul cards, one per identity",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "19",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "4 PoLong cards: 2 base + 2 spare instances",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "20-21",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "6 destination map cards, one per destination",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "22-28",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "28 memories: 4 per rewarding source soul",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "29",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "1 Passage memory (quest reward, once per run)",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "30",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "6 offer slips (90 x 50 mm); 2 reusable PoLong templates (90 x 66 mm)",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "31",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "22 markers (15 mm); Soldier second-seat marker (90 x 24 mm)",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "Keep-whole play aids",
+    "font_pt": 13
+  },
+  {
+    "page": 3,
+    "text": "Pages 12-16: shore, two boat panels, dashboard and route mat. Place boat panels side by side. Rules: pages 5-10. Page 2 is the quick reference. Page 11 is a blank workshop record.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 3,
+    "text": "Spare pieces do not add souls or change spawn timing. Print pages 20-21 again only if the facilitator wants extra destination pictures. Keep extra ordinary identity cards out of play.",
+    "font_pt": 11
+  },
+  {
+    "page": 3,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 3,
+    "text": "03 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "Table setup / one player station",
+    "font_pt": 14
+  },
+  {
+    "page": 4,
+    "text": "An illustrated table arrangement",
+    "font_pt": 18
+  },
+  {
+    "page": 4,
+    "text": "SHORE + PILES",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "BOAT LEFT",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "BOAT RIGHT",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "MEMORY RESERVE",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "ROUTE OFFERS",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "DASHBOARD",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "1  Sort the supplies",
+    "font_pt": 13
+  },
+  {
+    "page": 4,
+    "text": "Separate ordinary souls, PoLong, destination maps and source-labeled memories. Place memories face up in 8 reserve stacks: Mother, Merchant, Soldier, Poet, Cook, Mason, Keeper and Passage. Child and PoLong give no memory.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 4,
+    "text": "2  Prepare the shore",
+    "font_pt": 13
+  },
+  {
+    "page": 4,
+    "text": "Place Mother, Child, Merchant, Mason and Cook waiting at anger 0. Shuffle Soldier, Poet and Keeper face down as the arrival pile. Leave the resolved-soul discard empty. Never mix PoLong into these piles.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 4,
+    "text": "3  Set the dashboard",
+    "font_pt": 13
+  },
+  {
+    "page": 4,
+    "text": "Light 6; completed cycles 0 (current cycle 1); global round 0; ordinary deliveries 0; quest AVAILABLE. Hand empty. Put anger markers at 0 or pencil-mark card tracks.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 4,
+    "text": "4  Stage routes and board",
+    "font_pt": 13
+  },
+  {
+    "page": 4,
+    "text": "The facilitator prepares the current and next two pairs using page 16 and the six offer slips. Keep future pairs face down. Choose at least one ordinary passenger within 4 seats; reset boarded anger to 0. Keep the player guide nearby.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 4,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 4,
+    "text": "04 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 5,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 5,
+    "text": "Full rules / 1. Souls and setup",
+    "font_pt": 14
+  },
+  {
+    "page": 5,
+    "text": "Premise, ending and cycles",
+    "font_pt": 13
+  },
+  {
+    "page": 5,
+    "text": "One player is Charon's apprentice. Choose one of two offered destinations each outward round. Deliveries are optional and only to preferred destinations. A cycle begins with boarding and ends after the empty boat returns. There is no cycle cap, delivery target or automatic win. At zero Light, stop immediately. A voluntary workshop stop is a session stop, not a victory.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 5,
+    "text": "Starting state",
+    "font_pt": 13
+  },
+  {
+    "page": 5,
+    "text": "Light 6, maximum 6; ordinary capacity 4 seats; no memories; cycle 1; global outward round 0; all anger 0. Initial shore: Mother, Child, Merchant, Mason, Cook. Initial shuffled arrival pile: Soldier, Poet, Keeper.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 5,
+    "text": "Soul roster",
+    "font_pt": 14
+  },
+  {
+    "page": 5,
+    "text": "Soul",
+    "font_pt": 10
+  },
+  {
+    "page": 5,
+    "text": "Seats",
+    "font_pt": 10
+  },
+  {
+    "page": 5,
+    "text": "Destination",
+    "font_pt": 10
+  },
+  {
+    "page": 5,
+    "text": "Fixed reward",
+    "font_pt": 10
+  },
+  {
+    "page": 5,
+    "text": "Mother",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "1",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Tartarus",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Light",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Child",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "1",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Haven",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "None",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Merchant",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "1",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "River Styx",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Foresight",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Soldier",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "2",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "River Styx",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Guard",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Poet",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "1",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Elysium",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Foresight",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Cook",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "1",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Asphodel",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Calm",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Mason",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "1",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Acheron",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Fog Shield",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Keeper",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "1",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Asphodel",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Fog Shield",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "PoLong",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "0",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Tartarus",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "None",
+    "font_pt": 11
+  },
+  {
+    "page": 5,
+    "text": "Boarding",
+    "font_pt": 13
+  },
+  {
+    "page": 5,
+    "text": "Board at least one ordinary soul within 4 seats. Soldier occupies 2 seats; place the second-seat marker beside it. Reverse choices freely before departure. Boarding resets Ship Anger to 0, whatever the old Shore Anger. After departure, do not unload back onto the shore. No older-version passive powers apply.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 5,
+    "text": "One active ordinary card per identity. PoLong is a separate zero-seat type whose scheduled arrivals are independent instances. Its spare cards are supplies, not extra scheduled spawns.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 5,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 5,
+    "text": "05 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 6,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 6,
+    "text": "Full rules / 2. Outward sequence",
+    "font_pt": 14
+  },
+  {
+    "page": 6,
+    "text": "1  Optional memory",
+    "font_pt": 13
+  },
+  {
+    "page": 6,
+    "text": "Play at most one memory before the outward round. Consume it from your hand, resolve its effect and any rewards or excess-hand choice. If Passage empties the boat, return immediately; do not advance the global round or spawn.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 6,
+    "text": "2  Advance and spawn",
+    "font_pt": 13
+  },
+  {
+    "page": 6,
+    "text": "Advance the global outward counter. On rounds 3, 6, 9 and every later multiple of 3, add a PoLong at Ship Anger 0. It takes 0 seats. Boarding, returning and Passage do not advance this counter.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 6,
+    "text": "3  Choose and pay",
+    "font_pt": 13
+  },
+  {
+    "page": 6,
+    "text": "Choose one of the two offers. Base fog + current PoLong contributions - a played Fog Shield = payable fog, minimum 0. Each PoLong at anger 0-1 adds 0; at anger 2-3 adds 1. Apply Guard prevention after calculating fog. Pay Light. At 0, lose immediately, before delivery.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 6,
+    "text": "4  Optional delivery",
+    "font_pt": 13
+  },
+  {
+    "page": 6,
+    "text": "Deliver any subset of passengers whose preferred destination matches. Keep the rest aboard. Each eligible ordinary delivery grants its fixed fresh memory, even after that soul recycles. Child and PoLong grant none. Resolve family quest rewards as applicable. Delivery and Haven do not heal Light.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 6,
+    "text": "5  Anger and wraiths",
+    "font_pt": 13
+  },
+  {
+    "page": 6,
+    "text": "Every passenger still aboard gains 1 Ship Anger, including a newly spawned PoLong. Each reaching 4 becomes a wraith: apply 1 Light loss, then remove it. Guard prevents only the next 1 point. Stop immediately at 0. Wraiths do not remain to add fog. Ordinary cards enter the resolved discard; removed PoLong becomes reusable supply.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 6,
+    "text": "6  Continue or return",
+    "font_pt": 13
+  },
+  {
+    "page": 6,
+    "text": "After rewards, choose which excess memories to discard until the hand contains at most 3. If the boat is empty, return. Otherwise another outward round is available. Newly earned memories are usable only before a later round or return; they cannot rescue zero Light.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 6,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 6,
+    "text": "06 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 7,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 7,
+    "text": "Full rules / 3. Memories",
+    "font_pt": 14
+  },
+  {
+    "page": 7,
+    "text": "How to play a memory",
+    "font_pt": 13
+  },
+  {
+    "page": 7,
+    "text": "At most one before each outward round or return. It is single-use: return the used card to its source-labeled reserve. Unused cards persist across cycles. After receiving rewards, choose excess cards to discard to reserve until holding at most 3. Never take a held copy to pay a new reward.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 7,
+    "text": "Light",
+    "font_pt": 12
+  },
+  {
+    "page": 7,
+    "text": "Restore 1 Light, maximum 6.",
+    "font_pt": 11.2
+  },
+  {
+    "page": 7,
+    "text": "Foresight",
+    "font_pt": 12
+  },
+  {
+    "page": 7,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11.2
+  },
+  {
+    "page": 7,
+    "text": "Guard",
+    "font_pt": 12
+  },
+  {
+    "page": 7,
+    "text": "Prevent the next 1 point of Light loss during this outward round or return, including fog or wraith damage. Unused protection expires at that round/return's end.",
+    "font_pt": 11.2
+  },
+  {
+    "page": 7,
+    "text": "Calm",
+    "font_pt": 12
+  },
+  {
+    "page": 7,
+    "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul.",
+    "font_pt": 11.2
+  },
+  {
+    "page": 7,
+    "text": "Fog Shield",
+    "font_pt": 12
+  },
+  {
+    "page": 7,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11.2
+  },
+  {
+    "page": 7,
+    "text": "Passage",
+    "font_pt": 12
+  },
+  {
+    "page": 7,
+    "text": "Instantly deliver one onboard soul to its preferred destination with the ordinary reward for that soul, no fog, no anger advance and no outward-round advance. It may target PoLong. If it empties the boat, this use also occupies the immediate return's memory allowance.",
+    "font_pt": 11.2
+  },
+  {
+    "page": 7,
+    "text": "Fixed rewards, renewable supply",
+    "font_pt": 13
+  },
+  {
+    "page": 7,
+    "text": "Merchant and Poet each give their own source-labeled Foresight. Mason and Keeper each give their own Fog Shield. Four copies per rewarding source support a 3-card held hand plus the next reward. Memory supply is not random. Passage follows the same hand limit and one-memory limit.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 7,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 7,
+    "text": "07 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 8,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 8,
+    "text": "Full rules / 4. Return and quest",
+    "font_pt": 14
+  },
+  {
+    "page": 8,
+    "text": "Return only when the boat is empty",
+    "font_pt": 13
+  },
+  {
+    "page": 8,
+    "text": "Return has no travel fog and does not advance the outward counter. If the memory allowance is available, optionally play one before resolving return. Passage that just emptied the boat already used this allowance.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 8,
+    "text": "1  Waiting anger first",
+    "font_pt": 13
+  },
+  {
+    "page": 8,
+    "text": "Every ordinary soul already waiting gains 1 Shore Anger. At 2, it becomes a wraith: lose 1 Light subject to Guard, then place it in the resolved discard. Stop immediately on zero Light, before recovery.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 8,
+    "text": "2  Recovery and cycle",
+    "font_pt": 13
+  },
+  {
+    "page": 8,
+    "text": "If still alive, restore 2 Light, capped at 6. Record one completed cycle. The next cycle is completed cycles + 1; there is no limit or scheduled final return.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 8,
+    "text": "3  Refill and prepare",
+    "font_pt": 13
+  },
+  {
+    "page": 8,
+    "text": "Refill the shore to 5. Draw from the arrival pile. Whenever it runs out during refill, shuffle only resolved ordinary souls into a new arrival pile. New arrivals start at anger 0 and do not receive this return's increment. The facilitator supplies the next cycle's offers.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 8,
+    "text": "Family quest: once per run",
+    "font_pt": 13
+  },
+  {
+    "page": 8,
+    "text": "Deliver Child to Haven before delivering Mother to Tartarus. These deliveries may occur in different cycles. On that qualifying Mother delivery, take her usual Light memory and one Passage. The quest is optional. Keep its state across cycles and soul recycling.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 8,
+    "text": "AVAILABLE: Neither required delivery has yet qualified.",
+    "font_pt": 11
+  },
+  {
+    "page": 8,
+    "text": "CHILD DELIVERED: Child has qualified; Mother is still required.",
+    "font_pt": 11
+  },
+  {
+    "page": 8,
+    "text": "COMPLETED: Mother qualified after Child. Passage was awarded. Never award it again this run.",
+    "font_pt": 11
+  },
+  {
+    "page": 8,
+    "text": "FAILED: Mother was delivered before Child qualified, or a still-required family member was lost before its required delivery. Recycling gives no retry.",
+    "font_pt": 11
+  },
+  {
+    "page": 8,
+    "text": "A later recycled Child's fate does not undo the recorded qualifying Child delivery. Completed or failed quest state never resets during the run.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 8,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 8,
+    "text": "08 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 9,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 9,
+    "text": "Full rules / 5. Worked examples",
+    "font_pt": 14
+  },
+  {
+    "page": 9,
+    "text": "Outward round 6, from the shared rules",
+    "font_pt": 13
+  },
+  {
+    "page": 9,
+    "text": "Light 4; Keeper and Soldier at Ship Anger 3. Play Fog Shield, then spawn PoLong at 0. Choose Asphodel: 2 - 1 = 1 fog, so Light becomes 3. Deliver Keeper for a fresh Fog Shield. Soldier reaches 4 anger, costs 1 Light and enters the resolved discard. Light is now 2. PoLong reaches 1 anger; the boat is not empty.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 9,
+    "text": "Full boat and a new PoLong",
+    "font_pt": 13
+  },
+  {
+    "page": 9,
+    "text": "Four ordinary seats are occupied before global round 3. Resolve the optional memory, then add PoLong without ejecting anybody. On Haven with no older PoLong penalty, its anger 0 adds no fog. If retained, it becomes anger 1 after delivery.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 9,
+    "text": "Calm and stacked fog",
+    "font_pt": 13
+  },
+  {
+    "page": 9,
+    "text": "Two PoLong instances are at anger 2 and 3. Calm lowers the first to 1. Their contributions are now 0 + 1. Haven's base 0 therefore costs 1 Light. Both remaining instances then gain anger; the second reaches 4 and costs another 1 Light before leaving.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 9,
+    "text": "Returning at low Light",
+    "font_pt": 13
+  },
+  {
+    "page": 9,
+    "text": "Light 1 and one waiting soul at Shore Anger 1. Without protection, it reaches 2 and its wraith damage ends the run. The later 2-Light recovery never happens. With Guard, prevent that 1 loss, remove the soul, then recover to Light 3.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 9,
+    "text": "Renewable reward and overflow",
+    "font_pt": 13
+  },
+  {
+    "page": 9,
+    "text": "Three Merchant Foresight cards remain in hand. Deliver Merchant again: take the fourth copy. Choose any one of the four to discard to Merchant's reserve. Held rewards are never confiscated to supply another reward.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 9,
+    "text": "Passage ends a cycle",
+    "font_pt": 13
+  },
+  {
+    "page": 9,
+    "text": "Only Poet is aboard. Play Passage: deliver Poet for Foresight, without fog, anger or outward-counter change. Return immediately. Passage already used that return's memory allowance; the new Foresight cannot be played during the same return.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 9,
+    "text": "These are worked rule examples and agent desk checks, not records of human play.",
+    "font_pt": 10
+  },
+  {
+    "page": 9,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 9,
+    "text": "09 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 10,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 10,
+    "text": "Full rules / 6. Routes and recycling",
+    "font_pt": 14
+  },
+  {
+    "page": 10,
+    "text": "Facilitator owns the route",
+    "font_pt": 13
+  },
+  {
+    "page": 10,
+    "text": "Provide six distinct destination pictures, excluding the shore. The facilitator chooses, orders, shuffles and hands out offers. There is no prescribed repeating map, guaranteed destination or forced starting order. Each outward round still offers two destinations.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 10,
+    "text": "Stage three forks with six reusable slips",
+    "font_pt": 13
+  },
+  {
+    "page": 10,
+    "text": "Mark exactly one destination on each slip. Put two slips in CURRENT, two in NEXT and two in NEXT + 1. Current offers face up; future offers face down on opaque backs. Put the corresponding picture cards beside the current pair when useful. A slip identifies its destination and fog even when a picture is already used elsewhere. Duplicates in the facilitator's sequence need no extra rule.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 10,
+    "text": "Reveal and retain information",
+    "font_pt": 13
+  },
+  {
+    "page": 10,
+    "text": "Foresight reveals both options in the current fork and the next two forks. Before spending it, make sure the facilitator has supplied all three pairs. If required offers are missing, pause without consuming the card or advancing time. Revealed offers remain visible for the cycle. Before erasing or reusing slips, copy already revealed offers to a visible pencil ledger; add paper as needed.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 10,
+    "text": "Advance the physical queue",
+    "font_pt": 13
+  },
+  {
+    "page": 10,
+    "text": "After a crossing, slide NEXT to CURRENT and NEXT + 1 to NEXT. The facilitator refills the last pair according to their chosen ordering. Reveal the new current pair normally. Do not expose an unrevealed future pair while moving it. A missing next offer is a pause for input, not a penalty or game ending.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 10,
+    "text": "Recycle souls and memories separately",
+    "font_pt": 13
+  },
+  {
+    "page": 10,
+    "text": "Ordinary souls delivered or expired go to the resolved-soul discard. Shuffle that discard only when the arrival pile runs out while refilling. Never include souls aboard or waiting. If both piles are temporarily empty, do not create duplicates. Used and discarded memories return immediately to their own source reserve. PoLong stays outside ordinary piles; erase old anger before reuse.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 10,
+    "text": "Reset after a run",
+    "font_pt": 13
+  },
+  {
+    "page": 10,
+    "text": "Record loss or voluntary stop on page 11. Sort all pieces, recover every held memory to reserve, clear PoLong and anger, set Light 6, round 0, completed cycles 0, deliveries 0 and quest AVAILABLE. Restore the five starting shore souls and shuffle the other three. The facilitator prepares new offers. Add paper when a counter or ledger fills; its edge is never a game cap.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 10,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 10,
+    "text": "10 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 11,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 11,
+    "text": "Workshop record / blank human form",
+    "font_pt": 14
+  },
+  {
+    "page": 11,
+    "text": "Blank human record. No printing or play results have been entered. Use one sheet per session; add paper for an endless run.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 11,
+    "text": "Date / observer / player / station",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "Printer / paper / color / scale setting / measured 50 mm line",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "Cutting, opacity and marker handling observations",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "Setup time / play duration / completed cycles / outward rounds / ordinary deliveries",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "Ending reason: Light reached 0, voluntary stop, or interrupted",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "Unclear rule, exact game state and page/component ID",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "Player comments: learning, decisions, pacing, enjoyment, balance",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "Changes proposed by people, not yet approved rules",
+    "font_pt": 11
+  },
+  {
+    "page": 11,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 11,
+    "text": "11 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 12,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 12,
+    "text": "Shore / boarding and soul supply",
+    "font_pt": 14
+  },
+  {
+    "page": 12,
+    "text": "WAITING SHORE",
+    "font_pt": 17
+  },
+  {
+    "page": 12,
+    "text": "Spread waiting souls above or beside this zone with anger visible. Start: Mother, Child, Merchant, Mason, Cook. On return, anger +1; at 2, lose 1 Light each. Stop at 0. If alive, recover 2 Light, then refill to 5.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 12,
+    "text": "ARRIVAL PILE",
+    "font_pt": 13
+  },
+  {
+    "page": 12,
+    "text": "Face down. Initial: Soldier, Poet, Keeper, shuffled. Draw only for refill. New arrivals start at anger 0.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 12,
+    "text": "RESOLVED SOULS",
+    "font_pt": 13
+  },
+  {
+    "page": 12,
+    "text": "Delivered + expired ordinary souls. Shuffle only when the arrival pile runs out during refill. Never include active souls or PoLong.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 12,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 12,
+    "text": "12 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 13,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 13,
+    "text": "Boat / left panel / seats 1-2",
+    "font_pt": 14
+  },
+  {
+    "page": 13,
+    "text": "Join the two boat pages side by side. Four ordinary seats total.",
+    "font_pt": 11
+  },
+  {
+    "page": 13,
+    "text": "SEAT 1",
+    "font_pt": 18
+  },
+  {
+    "page": 13,
+    "text": "Place a soul here.\nSoldier also blocks one other seat.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 13,
+    "text": "SEAT 2",
+    "font_pt": 18
+  },
+  {
+    "page": 13,
+    "text": "Place a soul here.\nSoldier also blocks one other seat.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 13,
+    "text": "ZERO-SEAT POLONG LANE",
+    "font_pt": 14
+  },
+  {
+    "page": 13,
+    "text": "PoLong instance",
+    "font_pt": 13
+  },
+  {
+    "page": 13,
+    "text": "Place its card here; it may extend over the bottom edge of the mat. Its 0 seats never displace ordinary souls. Keep each anger track visible.",
+    "font_pt": 11
+  },
+  {
+    "page": 13,
+    "text": "PoLong instance",
+    "font_pt": 13
+  },
+  {
+    "page": 13,
+    "text": "Place its card here; it may extend over the bottom edge of the mat. Its 0 seats never displace ordinary souls. Keep each anger track visible.",
+    "font_pt": 11
+  },
+  {
+    "page": 13,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 13,
+    "text": "13 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 14,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 14,
+    "text": "Boat / right panel / seats 3-4",
+    "font_pt": 14
+  },
+  {
+    "page": 14,
+    "text": "Join the two boat pages side by side. Four ordinary seats total.",
+    "font_pt": 11
+  },
+  {
+    "page": 14,
+    "text": "SEAT 3",
+    "font_pt": 18
+  },
+  {
+    "page": 14,
+    "text": "Place a soul here.\nSoldier also blocks one other seat.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 14,
+    "text": "SEAT 4",
+    "font_pt": 18
+  },
+  {
+    "page": 14,
+    "text": "Place a soul here.\nSoldier also blocks one other seat.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 14,
+    "text": "ZERO-SEAT POLONG LANE",
+    "font_pt": 14
+  },
+  {
+    "page": 14,
+    "text": "PoLong instance",
+    "font_pt": 13
+  },
+  {
+    "page": 14,
+    "text": "Place its card here; it may extend over the bottom edge of the mat. Its 0 seats never displace ordinary souls. Keep each anger track visible.",
+    "font_pt": 11
+  },
+  {
+    "page": 14,
+    "text": "PoLong instance",
+    "font_pt": 13
+  },
+  {
+    "page": 14,
+    "text": "Place its card here; it may extend over the bottom edge of the mat. Its 0 seats never displace ordinary souls. Keep each anger track visible.",
+    "font_pt": 11
+  },
+  {
+    "page": 14,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 14,
+    "text": "14 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 15,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 15,
+    "text": "Dashboard / endless counters",
+    "font_pt": 14
+  },
+  {
+    "page": 15,
+    "text": "LIGHT  |  START 6 / MAX 6",
+    "font_pt": 15
+  },
+  {
+    "page": 15,
+    "text": "0",
+    "font_pt": 21
+  },
+  {
+    "page": 15,
+    "text": "1",
+    "font_pt": 21
+  },
+  {
+    "page": 15,
+    "text": "2",
+    "font_pt": 21
+  },
+  {
+    "page": 15,
+    "text": "3",
+    "font_pt": 21
+  },
+  {
+    "page": 15,
+    "text": "4",
+    "font_pt": 21
+  },
+  {
+    "page": 15,
+    "text": "5",
+    "font_pt": 21
+  },
+  {
+    "page": 15,
+    "text": "6",
+    "font_pt": 21
+  },
+  {
+    "page": 15,
+    "text": "0 = immediate loss. Stop before delivery or later recovery.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 15,
+    "text": "Global outward round: __________   Start 0; never reset between cycles.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 15,
+    "text": "Completed cycles: __________   Start 0; current cycle = this + 1.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 15,
+    "text": "Ordinary deliveries: __________   Descriptive count, never a win target.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 15,
+    "text": "NEXT ROUND REMINDER",
+    "font_pt": 13
+  },
+  {
+    "page": 15,
+    "text": "NEXT: no spawn",
+    "font_pt": 10.5
+  },
+  {
+    "page": 15,
+    "text": "NEXT: no spawn",
+    "font_pt": 10.5
+  },
+  {
+    "page": 15,
+    "text": "NEXT: spawn",
+    "font_pt": 10.5
+  },
+  {
+    "page": 15,
+    "text": "At global round 0, start on the first reminder. Move right after each outward round; after spawn, wrap to the first. Keep the written total too.",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "FAMILY QUEST  |  PLACE Q ON THE CURRENT STATE",
+    "font_pt": 12
+  },
+  {
+    "page": 15,
+    "text": "AVAILABLE",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "CHILD DELIVERED",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "COMPLETED",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "FAILED",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "Hand limit 3. Keep held memories beside this mat. Used/discarded memories go back to their source reserve. Keep Passage separate until earned.",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "One memory before an outward round or return. Passage emptying the boat keeps USED for the immediate return. Add writing paper whenever fields fill.",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "READY",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "USED",
+    "font_pt": 11
+  },
+  {
+    "page": 15,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 15,
+    "text": "15 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 16,
+    "text": "KEEP WHOLE  |  WORKSHOP EDITION",
+    "font_pt": 8
+  },
+  {
+    "page": 16,
+    "text": "Route staging / facilitator control",
+    "font_pt": 14
+  },
+  {
+    "page": 16,
+    "text": "CURRENT  |  reveal both options",
+    "font_pt": 12
+  },
+  {
+    "page": 16,
+    "text": "NEXT  |  conceal unless revealed",
+    "font_pt": 12
+  },
+  {
+    "page": 16,
+    "text": "NEXT + 1  |  conceal unless revealed",
+    "font_pt": 12
+  },
+  {
+    "page": 16,
+    "text": "Use one 90 x 50 mm offer slip in each box. Foresight reveals all six. Move the pairs forward after travel. The facilitator supplies the new last pair; no mandatory ordering applies.",
+    "font_pt": 11
+  },
+  {
+    "page": 16,
+    "text": "Revealed-offer ledger: keep on extra writing paper beside this mat. Retain all revealed information for this cycle before reusing slips. Missing inputs pause play without time or memory cost.",
+    "font_pt": 10.5
+  },
+  {
+    "page": 16,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 16,
+    "text": "16 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 17,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 17,
+    "text": "Soul cards / starting travelers",
+    "font_pt": 14
+  },
+  {
+    "page": 17,
+    "text": "Mother",
+    "font_pt": 18
+  },
+  {
+    "page": 17,
+    "text": "To: Tartarus  |  1 seat",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "Memory: Light.",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 17,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 17,
+    "text": "SOUL-MOTHER",
+    "font_pt": 7.5
+  },
+  {
+    "page": 17,
+    "text": "Child",
+    "font_pt": 18
+  },
+  {
+    "page": 17,
+    "text": "To: Haven  |  1 seat",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "Memory: none.",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 17,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 17,
+    "text": "SOUL-CHILD",
+    "font_pt": 7.5
+  },
+  {
+    "page": 17,
+    "text": "Merchant",
+    "font_pt": 18
+  },
+  {
+    "page": 17,
+    "text": "To: River Styx  |  1 seat",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "Memory: Foresight.",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 17,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 17,
+    "text": "SOUL-MERCHANT",
+    "font_pt": 7.5
+  },
+  {
+    "page": 17,
+    "text": "Soldier",
+    "font_pt": 18
+  },
+  {
+    "page": 17,
+    "text": "To: River Styx  |  2 seats",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "Memory: Guard.",
+    "font_pt": 11
+  },
+  {
+    "page": 17,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 17,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 17,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 17,
+    "text": "SOUL-SOLDIER",
+    "font_pt": 7.5
+  },
+  {
+    "page": 17,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 17,
+    "text": "17 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 18,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 18,
+    "text": "Soul cards / river travelers",
+    "font_pt": 14
+  },
+  {
+    "page": 18,
+    "text": "Poet",
+    "font_pt": 18
+  },
+  {
+    "page": 18,
+    "text": "To: Elysium  |  1 seat",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "Memory: Foresight.",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 18,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 18,
+    "text": "SOUL-POET",
+    "font_pt": 7.5
+  },
+  {
+    "page": 18,
+    "text": "Cook",
+    "font_pt": 18
+  },
+  {
+    "page": 18,
+    "text": "To: Asphodel  |  1 seat",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "Memory: Calm.",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 18,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 18,
+    "text": "SOUL-COOK",
+    "font_pt": 7.5
+  },
+  {
+    "page": 18,
+    "text": "Mason",
+    "font_pt": 18
+  },
+  {
+    "page": 18,
+    "text": "To: Acheron  |  1 seat",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "Memory: Fog Shield.",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 18,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 18,
+    "text": "SOUL-MASON",
+    "font_pt": 7.5
+  },
+  {
+    "page": 18,
+    "text": "Keeper",
+    "font_pt": 18
+  },
+  {
+    "page": 18,
+    "text": "To: Asphodel  |  1 seat",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "Memory: Fog Shield.",
+    "font_pt": 11
+  },
+  {
+    "page": 18,
+    "text": "ANGER  |  reset to 0 on boarding",
+    "font_pt": 9
+  },
+  {
+    "page": 18,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 18,
+    "text": "Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 18,
+    "text": "SOUL-KEEPER",
+    "font_pt": 7.5
+  },
+  {
+    "page": 18,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 18,
+    "text": "18 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 19,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 19,
+    "text": "PoLong / 2 base and 2 spare pieces",
+    "font_pt": 14
+  },
+  {
+    "page": 19,
+    "text": "PoLong 01",
+    "font_pt": 18
+  },
+  {
+    "page": 19,
+    "text": "To: Tartarus  |  0 seats",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "No memory. Fog +0 at anger 0-1; +1 at 2-3.",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "SHIP ANGER",
+    "font_pt": 9
+  },
+  {
+    "page": 19,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "At 4: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 19,
+    "text": "SOUL-POLONG-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 19,
+    "text": "PoLong 02",
+    "font_pt": 18
+  },
+  {
+    "page": 19,
+    "text": "To: Tartarus  |  0 seats",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "No memory. Fog +0 at anger 0-1; +1 at 2-3.",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "SHIP ANGER",
+    "font_pt": 9
+  },
+  {
+    "page": 19,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "At 4: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 19,
+    "text": "SOUL-POLONG-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 19,
+    "text": "PoLong 03",
+    "font_pt": 18
+  },
+  {
+    "page": 19,
+    "text": "To: Tartarus  |  0 seats",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "No memory. Fog +0 at anger 0-1; +1 at 2-3.",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "SHIP ANGER",
+    "font_pt": 9
+  },
+  {
+    "page": 19,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "At 4: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 19,
+    "text": "SOUL-POLONG-03 / SPARE",
+    "font_pt": 7.5
+  },
+  {
+    "page": 19,
+    "text": "PoLong 04",
+    "font_pt": 18
+  },
+  {
+    "page": 19,
+    "text": "To: Tartarus  |  0 seats",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "No memory. Fog +0 at anger 0-1; +1 at 2-3.",
+    "font_pt": 11
+  },
+  {
+    "page": 19,
+    "text": "SHIP ANGER",
+    "font_pt": 9
+  },
+  {
+    "page": 19,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 19,
+    "text": "At 4: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 19,
+    "text": "SOUL-POLONG-04 / SPARE",
+    "font_pt": 7.5
+  },
+  {
+    "page": 19,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 19,
+    "text": "19 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 20,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 20,
+    "text": "Destination maps / 1 of 2",
+    "font_pt": 14
+  },
+  {
+    "page": 20,
+    "text": "Haven",
+    "font_pt": 18
+  },
+  {
+    "page": 20,
+    "text": "BASE FOG 0",
+    "font_pt": 19
+  },
+  {
+    "page": 20,
+    "text": "Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.",
+    "font_pt": 11
+  },
+  {
+    "page": 20,
+    "text": "DEST-HAVEN",
+    "font_pt": 7.5
+  },
+  {
+    "page": 20,
+    "text": "River Styx",
+    "font_pt": 18
+  },
+  {
+    "page": 20,
+    "text": "BASE FOG 1",
+    "font_pt": 19
+  },
+  {
+    "page": 20,
+    "text": "Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.",
+    "font_pt": 11
+  },
+  {
+    "page": 20,
+    "text": "DEST-STYX",
+    "font_pt": 7.5
+  },
+  {
+    "page": 20,
+    "text": "Acheron",
+    "font_pt": 18
+  },
+  {
+    "page": 20,
+    "text": "BASE FOG 1",
+    "font_pt": 19
+  },
+  {
+    "page": 20,
+    "text": "Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.",
+    "font_pt": 11
+  },
+  {
+    "page": 20,
+    "text": "DEST-ACHERON",
+    "font_pt": 7.5
+  },
+  {
+    "page": 20,
+    "text": "Asphodel",
+    "font_pt": 18
+  },
+  {
+    "page": 20,
+    "text": "BASE FOG 2",
+    "font_pt": 19
+  },
+  {
+    "page": 20,
+    "text": "Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.",
+    "font_pt": 11
+  },
+  {
+    "page": 20,
+    "text": "DEST-ASPHODEL",
+    "font_pt": 7.5
+  },
+  {
+    "page": 20,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 20,
+    "text": "20 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 21,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 21,
+    "text": "Destination maps / 2 of 2",
+    "font_pt": 14
+  },
+  {
+    "page": 21,
+    "text": "Elysium",
+    "font_pt": 18
+  },
+  {
+    "page": 21,
+    "text": "BASE FOG 3",
+    "font_pt": 19
+  },
+  {
+    "page": 21,
+    "text": "Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.",
+    "font_pt": 11
+  },
+  {
+    "page": 21,
+    "text": "DEST-ELYSIUM",
+    "font_pt": 7.5
+  },
+  {
+    "page": 21,
+    "text": "Tartarus",
+    "font_pt": 18
+  },
+  {
+    "page": 21,
+    "text": "BASE FOG 3",
+    "font_pt": 19
+  },
+  {
+    "page": 21,
+    "text": "Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.",
+    "font_pt": 11
+  },
+  {
+    "page": 21,
+    "text": "DEST-TARTARUS",
+    "font_pt": 7.5
+  },
+  {
+    "page": 21,
+    "text": "Repeat-print option: pages 20-21 supply another picture set if the facilitator wants duplicates. Duplicate pictures do not impose a route pattern. The starting shore is separate.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 21,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 21,
+    "text": "21 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 22,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 22,
+    "text": "Memories / Mother / four copies",
+    "font_pt": 14
+  },
+  {
+    "page": 22,
+    "text": "Light",
+    "font_pt": 18
+  },
+  {
+    "page": 22,
+    "text": "FROM MOTHER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 22,
+    "text": "Restore 1 Light, maximum 6.",
+    "font_pt": 11
+  },
+  {
+    "page": 22,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 22,
+    "text": "SOUL-MOTHER-MEM-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 22,
+    "text": "Light",
+    "font_pt": 18
+  },
+  {
+    "page": 22,
+    "text": "FROM MOTHER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 22,
+    "text": "Restore 1 Light, maximum 6.",
+    "font_pt": 11
+  },
+  {
+    "page": 22,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 22,
+    "text": "SOUL-MOTHER-MEM-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 22,
+    "text": "Light",
+    "font_pt": 18
+  },
+  {
+    "page": 22,
+    "text": "FROM MOTHER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 22,
+    "text": "Restore 1 Light, maximum 6.",
+    "font_pt": 11
+  },
+  {
+    "page": 22,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 22,
+    "text": "SOUL-MOTHER-MEM-03",
+    "font_pt": 7.5
+  },
+  {
+    "page": 22,
+    "text": "Light",
+    "font_pt": 18
+  },
+  {
+    "page": 22,
+    "text": "FROM MOTHER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 22,
+    "text": "Restore 1 Light, maximum 6.",
+    "font_pt": 11
+  },
+  {
+    "page": 22,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 22,
+    "text": "SOUL-MOTHER-MEM-04",
+    "font_pt": 7.5
+  },
+  {
+    "page": 22,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 22,
+    "text": "22 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 23,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 23,
+    "text": "Memories / Merchant / four copies",
+    "font_pt": 14
+  },
+  {
+    "page": 23,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 23,
+    "text": "FROM MERCHANT",
+    "font_pt": 8.5
+  },
+  {
+    "page": 23,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 23,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 23,
+    "text": "SOUL-MERCHANT-MEM-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 23,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 23,
+    "text": "FROM MERCHANT",
+    "font_pt": 8.5
+  },
+  {
+    "page": 23,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 23,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 23,
+    "text": "SOUL-MERCHANT-MEM-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 23,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 23,
+    "text": "FROM MERCHANT",
+    "font_pt": 8.5
+  },
+  {
+    "page": 23,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 23,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 23,
+    "text": "SOUL-MERCHANT-MEM-03",
+    "font_pt": 7.5
+  },
+  {
+    "page": 23,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 23,
+    "text": "FROM MERCHANT",
+    "font_pt": 8.5
+  },
+  {
+    "page": 23,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 23,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 23,
+    "text": "SOUL-MERCHANT-MEM-04",
+    "font_pt": 7.5
+  },
+  {
+    "page": 23,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 23,
+    "text": "23 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 24,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 24,
+    "text": "Memories / Soldier / four copies",
+    "font_pt": 14
+  },
+  {
+    "page": 24,
+    "text": "Guard",
+    "font_pt": 18
+  },
+  {
+    "page": 24,
+    "text": "FROM SOLDIER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 24,
+    "text": "Prevent the next 1 point of Light loss during this outward round or return, including fog or wraith damage. Unused protection expires at that round/return's end.",
+    "font_pt": 11
+  },
+  {
+    "page": 24,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 24,
+    "text": "SOUL-SOLDIER-MEM-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 24,
+    "text": "Guard",
+    "font_pt": 18
+  },
+  {
+    "page": 24,
+    "text": "FROM SOLDIER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 24,
+    "text": "Prevent the next 1 point of Light loss during this outward round or return, including fog or wraith damage. Unused protection expires at that round/return's end.",
+    "font_pt": 11
+  },
+  {
+    "page": 24,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 24,
+    "text": "SOUL-SOLDIER-MEM-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 24,
+    "text": "Guard",
+    "font_pt": 18
+  },
+  {
+    "page": 24,
+    "text": "FROM SOLDIER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 24,
+    "text": "Prevent the next 1 point of Light loss during this outward round or return, including fog or wraith damage. Unused protection expires at that round/return's end.",
+    "font_pt": 11
+  },
+  {
+    "page": 24,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 24,
+    "text": "SOUL-SOLDIER-MEM-03",
+    "font_pt": 7.5
+  },
+  {
+    "page": 24,
+    "text": "Guard",
+    "font_pt": 18
+  },
+  {
+    "page": 24,
+    "text": "FROM SOLDIER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 24,
+    "text": "Prevent the next 1 point of Light loss during this outward round or return, including fog or wraith damage. Unused protection expires at that round/return's end.",
+    "font_pt": 11
+  },
+  {
+    "page": 24,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 24,
+    "text": "SOUL-SOLDIER-MEM-04",
+    "font_pt": 7.5
+  },
+  {
+    "page": 24,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 24,
+    "text": "24 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 25,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 25,
+    "text": "Memories / Poet / four copies",
+    "font_pt": 14
+  },
+  {
+    "page": 25,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 25,
+    "text": "FROM POET",
+    "font_pt": 8.5
+  },
+  {
+    "page": 25,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 25,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 25,
+    "text": "SOUL-POET-MEM-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 25,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 25,
+    "text": "FROM POET",
+    "font_pt": 8.5
+  },
+  {
+    "page": 25,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 25,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 25,
+    "text": "SOUL-POET-MEM-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 25,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 25,
+    "text": "FROM POET",
+    "font_pt": 8.5
+  },
+  {
+    "page": 25,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 25,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 25,
+    "text": "SOUL-POET-MEM-03",
+    "font_pt": 7.5
+  },
+  {
+    "page": 25,
+    "text": "Foresight",
+    "font_pt": 18
+  },
+  {
+    "page": 25,
+    "text": "FROM POET",
+    "font_pt": 8.5
+  },
+  {
+    "page": 25,
+    "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.",
+    "font_pt": 11
+  },
+  {
+    "page": 25,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 25,
+    "text": "SOUL-POET-MEM-04",
+    "font_pt": 7.5
+  },
+  {
+    "page": 25,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 25,
+    "text": "25 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 26,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 26,
+    "text": "Memories / Cook / four copies",
+    "font_pt": 14
+  },
+  {
+    "page": 26,
+    "text": "Calm",
+    "font_pt": 18
+  },
+  {
+    "page": 26,
+    "text": "FROM COOK",
+    "font_pt": 8.5
+  },
+  {
+    "page": 26,
+    "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul.",
+    "font_pt": 11
+  },
+  {
+    "page": 26,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 26,
+    "text": "SOUL-COOK-MEM-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 26,
+    "text": "Calm",
+    "font_pt": 18
+  },
+  {
+    "page": 26,
+    "text": "FROM COOK",
+    "font_pt": 8.5
+  },
+  {
+    "page": 26,
+    "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul.",
+    "font_pt": 11
+  },
+  {
+    "page": 26,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 26,
+    "text": "SOUL-COOK-MEM-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 26,
+    "text": "Calm",
+    "font_pt": 18
+  },
+  {
+    "page": 26,
+    "text": "FROM COOK",
+    "font_pt": 8.5
+  },
+  {
+    "page": 26,
+    "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul.",
+    "font_pt": 11
+  },
+  {
+    "page": 26,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 26,
+    "text": "SOUL-COOK-MEM-03",
+    "font_pt": 7.5
+  },
+  {
+    "page": 26,
+    "text": "Calm",
+    "font_pt": 18
+  },
+  {
+    "page": 26,
+    "text": "FROM COOK",
+    "font_pt": 8.5
+  },
+  {
+    "page": 26,
+    "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul.",
+    "font_pt": 11
+  },
+  {
+    "page": 26,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 26,
+    "text": "SOUL-COOK-MEM-04",
+    "font_pt": 7.5
+  },
+  {
+    "page": 26,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 26,
+    "text": "26 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 27,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 27,
+    "text": "Memories / Mason / four copies",
+    "font_pt": 14
+  },
+  {
+    "page": 27,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 27,
+    "text": "FROM MASON",
+    "font_pt": 8.5
+  },
+  {
+    "page": 27,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 27,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 27,
+    "text": "SOUL-MASON-MEM-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 27,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 27,
+    "text": "FROM MASON",
+    "font_pt": 8.5
+  },
+  {
+    "page": 27,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 27,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 27,
+    "text": "SOUL-MASON-MEM-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 27,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 27,
+    "text": "FROM MASON",
+    "font_pt": 8.5
+  },
+  {
+    "page": 27,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 27,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 27,
+    "text": "SOUL-MASON-MEM-03",
+    "font_pt": 7.5
+  },
+  {
+    "page": 27,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 27,
+    "text": "FROM MASON",
+    "font_pt": 8.5
+  },
+  {
+    "page": 27,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 27,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 27,
+    "text": "SOUL-MASON-MEM-04",
+    "font_pt": 7.5
+  },
+  {
+    "page": 27,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 27,
+    "text": "27 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 28,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 28,
+    "text": "Memories / Keeper / four copies",
+    "font_pt": 14
+  },
+  {
+    "page": 28,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 28,
+    "text": "FROM KEEPER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 28,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 28,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 28,
+    "text": "SOUL-KEEPER-MEM-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 28,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 28,
+    "text": "FROM KEEPER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 28,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 28,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 28,
+    "text": "SOUL-KEEPER-MEM-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 28,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 28,
+    "text": "FROM KEEPER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 28,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 28,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 28,
+    "text": "SOUL-KEEPER-MEM-03",
+    "font_pt": 7.5
+  },
+  {
+    "page": 28,
+    "text": "Fog Shield",
+    "font_pt": 18
+  },
+  {
+    "page": 28,
+    "text": "FROM KEEPER",
+    "font_pt": 8.5
+  },
+  {
+    "page": 28,
+    "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.",
+    "font_pt": 11
+  },
+  {
+    "page": 28,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 28,
+    "text": "SOUL-KEEPER-MEM-04",
+    "font_pt": 7.5
+  },
+  {
+    "page": 28,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 28,
+    "text": "28 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 29,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 29,
+    "text": "Passage / one quest memory",
+    "font_pt": 14
+  },
+  {
+    "page": 29,
+    "text": "Passage",
+    "font_pt": 18
+  },
+  {
+    "page": 29,
+    "text": "FAMILY QUEST / ONCE PER RUN",
+    "font_pt": 8.5
+  },
+  {
+    "page": 29,
+    "text": "Instantly deliver one onboard soul to its preferred destination with the ordinary reward for that soul, no fog, no anger advance and no outward-round advance. It may target PoLong.",
+    "font_pt": 11
+  },
+  {
+    "page": 29,
+    "text": "Empty boat: also uses the return's memory allowance.",
+    "font_pt": 10
+  },
+  {
+    "page": 29,
+    "text": "Use before a round or return.\nOne use; return to reserve.",
+    "font_pt": 10
+  },
+  {
+    "page": 29,
+    "text": "MEM-PASSAGE-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 29,
+    "text": "Passage timing",
+    "font_pt": 16
+  },
+  {
+    "page": 29,
+    "text": "If Passage empties the boat, return immediately. Do not advance the global round or spawn. This use also occupies the immediate return's memory allowance.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 29,
+    "text": "This sheet has one cut piece. The remaining area is explanatory, not extra cards. Quest status persists when souls recycle. Extra copies must not create extra quest rewards.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 29,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 29,
+    "text": "29 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 30,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 30,
+    "text": "Route offer slips and PoLong templates",
+    "font_pt": 14
+  },
+  {
+    "page": 30,
+    "text": "OFFER  |  MARK ONE DESTINATION",
+    "font_pt": 9.5
+  },
+  {
+    "page": 30,
+    "text": "Haven 0",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "River Styx 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Acheron 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Asphodel 2",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Elysium 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Tartarus 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "ROUTE-OFFER-01 / number = base fog",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "OFFER  |  MARK ONE DESTINATION",
+    "font_pt": 9.5
+  },
+  {
+    "page": 30,
+    "text": "Haven 0",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "River Styx 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Acheron 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Asphodel 2",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Elysium 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Tartarus 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "ROUTE-OFFER-02 / number = base fog",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "OFFER  |  MARK ONE DESTINATION",
+    "font_pt": 9.5
+  },
+  {
+    "page": 30,
+    "text": "Haven 0",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "River Styx 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Acheron 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Asphodel 2",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Elysium 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Tartarus 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "ROUTE-OFFER-03 / number = base fog",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "OFFER  |  MARK ONE DESTINATION",
+    "font_pt": 9.5
+  },
+  {
+    "page": 30,
+    "text": "Haven 0",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "River Styx 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Acheron 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Asphodel 2",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Elysium 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Tartarus 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "ROUTE-OFFER-04 / number = base fog",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "OFFER  |  MARK ONE DESTINATION",
+    "font_pt": 9.5
+  },
+  {
+    "page": 30,
+    "text": "Haven 0",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "River Styx 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Acheron 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Asphodel 2",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Elysium 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Tartarus 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "ROUTE-OFFER-05 / number = base fog",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "OFFER  |  MARK ONE DESTINATION",
+    "font_pt": 9.5
+  },
+  {
+    "page": 30,
+    "text": "Haven 0",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "River Styx 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Acheron 1",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Asphodel 2",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Elysium 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "Tartarus 3",
+    "font_pt": 11
+  },
+  {
+    "page": 30,
+    "text": "ROUTE-OFFER-06 / number = base fog",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "PoLong  |  instance: ____",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "0 seats. To Tartarus. No memory. Fog +0 at 0-1 anger; +1 at 2-3.",
+    "font_pt": 10.5
+  },
+  {
+    "page": 30,
+    "text": "SHIP ANGER",
+    "font_pt": 9
+  },
+  {
+    "page": 30,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "At 4: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 30,
+    "text": "POLONG-TEMPLATE-01",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "PoLong  |  instance: ____",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "0 seats. To Tartarus. No memory. Fog +0 at 0-1 anger; +1 at 2-3.",
+    "font_pt": 10.5
+  },
+  {
+    "page": 30,
+    "text": "SHIP ANGER",
+    "font_pt": 9
+  },
+  {
+    "page": 30,
+    "text": "0",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "1",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "2",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "3",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "4",
+    "font_pt": 13
+  },
+  {
+    "page": 30,
+    "text": "At 4: lose 1 Light; remove.",
+    "font_pt": 10
+  },
+  {
+    "page": 30,
+    "text": "POLONG-TEMPLATE-02",
+    "font_pt": 7.5
+  },
+  {
+    "page": 30,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 30,
+    "text": "30 / 31",
+    "font_pt": 8
+  },
+  {
+    "page": 31,
+    "text": "CUT  |  STRAIGHT OUTER BORDERS",
+    "font_pt": 8
+  },
+  {
+    "page": 31,
+    "text": "Markers and Soldier occupancy piece",
+    "font_pt": 14
+  },
+  {
+    "page": 31,
+    "text": "L",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "Q",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "R",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "M",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A01",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A02",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A03",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A04",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A05",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A06",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A07",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A08",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A09",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A10",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A11",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A12",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A13",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A14",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A15",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "A16",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "X1",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "X2",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "SOLDIER'S SECOND SEAT",
+    "font_pt": 12
+  },
+  {
+    "page": 31,
+    "text": "Occupied until Soldier leaves.",
+    "font_pt": 10.5
+  },
+  {
+    "page": 31,
+    "text": "SOLDIER-SECOND-SEAT",
+    "font_pt": 7.5
+  },
+  {
+    "page": 31,
+    "text": "Marker key",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "L: Light. Q: quest. R: spawn reminder. M: memory window. A01-A16: anger, one per active soul. X1-X2 are spare replacements. Pencil marks can replace markers without changing rules.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 31,
+    "text": "Anger handling",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "Use the card's track for its current location. Shore threshold is 2; ship threshold is 4. A red border is a reminder, not a separate effect. Reset to 0 on boarding. Removed instances clear their tracks before reuse.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 31,
+    "text": "Memory window",
+    "font_pt": 13
+  },
+  {
+    "page": 31,
+    "text": "Place M beside READY or USED on the dashboard. Reset READY before the next round or return, except when Passage already used the immediate return allowance.",
+    "font_pt": 11.5
+  },
+  {
+    "page": 31,
+    "text": "THE FERRYMAN / v0.6",
+    "font_pt": 8
+  },
+  {
+    "page": 31,
+    "text": "31 / 31",
+    "font_pt": 8
+  }
+]
