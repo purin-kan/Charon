@@ -5741,7 +5741,7 @@
     "y_mm": 39,
     "width_mm": 82,
     "height_mm": 30,
-    "asset": "assets/art/polong.png",
+    "asset": "assets/art/newpolong.jpg",
     "effective_ppi": 317.190243902439,
     "crop_focus": 0.14
   },
@@ -5910,7 +5910,7 @@
     "y_mm": 39,
     "width_mm": 82,
     "height_mm": 30,
-    "asset": "assets/art/polong.png",
+    "asset": "assets/art/newpolong.jpg",
     "effective_ppi": 317.190243902439,
     "crop_focus": 0.14
   },
@@ -6079,7 +6079,7 @@
     "y_mm": 163,
     "width_mm": 82,
     "height_mm": 30,
-    "asset": "assets/art/polong.png",
+    "asset": "assets/art/newpolong.jpg",
     "effective_ppi": 317.190243902439,
     "crop_focus": 0.14
   },
@@ -6248,7 +6248,7 @@
     "y_mm": 163,
     "width_mm": 82,
     "height_mm": 30,
-    "asset": "assets/art/polong.png",
+    "asset": "assets/art/newpolong.jpg",
     "effective_ppi": 317.190243902439,
     "crop_focus": 0.14
   },

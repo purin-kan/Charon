@@ -1,8 +1,8 @@
 {
   "status": "PASS",
-  "checkedAt": "2026-10-05T04:48:41.706148+00:00",
+  "checkedAt": "2026-10-05T09:33:13.104944+00:00",
   "dpi": 110,
-  "masterSha256": "060027bef9f9c746d56725ea21cb3725e7367caf605500418464aa88774dd0bf",
+  "masterSha256": "153a10f5600d56e5934c292a3a5c5a0f6f46d3edcd0cc07099bdac81f95e4865",
   "masterPages": [
     {
       "page": 1,
@@ -150,7 +150,7 @@
     },
     {
       "page": 19,
-      "sha256": "12fad3fdf010cba99df00651c682ab4c0df15e948b0dcaf1aa95ce6131dfb57a",
+      "sha256": "fec6f2c6d81a30125bd57719735c95792c785b807ddfb34e5dfbfa1c91e5821e",
       "pixels": [
         910,
         1287
@@ -273,7 +273,7 @@
       "page": 3,
       "masterPage": 19,
       "pixelIdentical": true,
-      "renderSha256": "12fad3fdf010cba99df00651c682ab4c0df15e948b0dcaf1aa95ce6131dfb57a"
+      "renderSha256": "fec6f2c6d81a30125bd57719735c95792c785b807ddfb34e5dfbfa1c91e5821e"
     },
     {
       "file": "Cutout_Sheets_v0.6.pdf",

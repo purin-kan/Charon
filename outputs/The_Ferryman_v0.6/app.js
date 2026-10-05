@@ -1,224 +1,452 @@
-(function() {
+/* The Ferryman v0.6 interface in the v0.4 style: one decision per page, picture cards, popups.
+   All rules live in engine.js; this file renders, dispatches actions and deals route offers. */
+(() => {
   'use strict';
-  const game = globalThis.Ferry;
-  const data = game.data;
-  const art = globalThis.FerryArt;
-  const souls = Object.fromEntries(data.souls.map(soul => [soul.id, soul]));
-  const destinations = Object.fromEntries(data.destinations.map(item => [item.id, item]));
-  const memories = Object.fromEntries(data.memories.map(item => [item.id, item]));
-  const query = new URLSearchParams(location.search);
-  const testSuffix = query.get('qa');
-  const namespace = 'the-ferryman:v0.6:' + (testSuffix && /^[a-z0-9_-]{1,60}$/i.test(testSuffix) ? 'qa:' + testSuffix + ':' : 'player:');
-  const stage = document.querySelector('#stage');
-  const status = document.querySelector('#status');
-  const dialog = document.querySelector('#dialog');
-  let state = null;
-  let slot = 1;
-  let screen = 'memory';
-  let deliverySelection = [];
-  const escape = value => String(value).replace(/[&<>"']/g, letter => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[letter]));
-  const button = (label, action, value = '', css = '') => `<button class="${css}" data-action="${action}" data-value="${escape(value)}">${escape(label)}</button>`;
-  const picture = id => art[id] ? `<img src="${escape(art[id])}" alt="${escape((souls[id] || destinations[id] || memories[id])?.name || 'River shore')}" loading="lazy">` : '<div class="art-pending">Artwork integration pending</div>';
-  function read(key) {
-    try { return localStorage.getItem(namespace + key); }
-    catch { return null; }
-  }
+  const game = globalThis.Ferry, data = game.data, C = data.config;
+  const ART = Object.assign({}, globalThis.FerryArt, { 'SOUL-POLONG': 'assets/art/newpolong.jpg' });
+  const SOUL = Object.fromEntries(data.souls.map(s => [s.id, s]));
+  const DEST = Object.fromEntries(data.destinations.map(d => [d.id, d]));
+  const MEM = Object.fromEntries(data.memories.map(m => [m.id, m]));
+  const DEST_IDS = data.destinations.map(d => d.id);
+  const COLOR = { 'DEST-HAVEN': '#957020', 'DEST-STYX': '#6b5285', 'DEST-ACHERON': '#3f6f7a', 'DEST-ASPHODEL': '#486f91', 'DEST-ELYSIUM': '#477455', 'DEST-TARTARUS': '#a84d3d' };
+  const qa = new URLSearchParams(location.search).get('qa');
+  // Same storage namespace as the earlier v0.6 interface, so existing saves appear in their slots.
+  const NS = 'the-ferryman:v0.6:' + (qa && /^[a-z0-9_-]{1,60}$/i.test(qa) ? 'qa:' + qa + ':' : 'player:');
+  const SLOTS = [1, 2, 3], slotKey = n => NS + 'slot-' + n;
+  const stage = document.querySelector('#stage'), status = document.querySelector('#status');
+  const menu = document.querySelector('#menu'), menuContent = document.querySelector('#menu-content'), popup = document.querySelector('#popup');
+  let state = null, slot = 1, slots = {}, broken = {}, selected = new Set(), storageNote = '', popupLocked = false, entered = false;
+  try { entered = sessionStorage.getItem('ferryman-v06-entered') === '1'; } catch {}
+
+  function el(tag, text, cls) { const n = document.createElement(tag); if (text !== undefined && text !== null) n.textContent = text; if (cls) n.className = cls; return n; }
+  function button(text, fn, cls = '', disabled = false, key = '') { const b = el('button', text, cls); b.type = 'button'; b.disabled = disabled; b.addEventListener('click', fn); if (key) b.dataset.focus = key; return b; }
+  function paragraph(parent, text, cls) { const inline = parent.dataset && parent.dataset.inline; const p = el(inline ? 'span' : 'p', text, (inline ? 'line ' : '') + (cls || '')); parent.append(p); return p; }
+  function announce(text) { document.querySelector('#announcement').textContent = text; }
+  function notice(text, danger = false, parent = stage) { paragraph(parent, text, 'notice' + (danger ? ' danger' : '')); }
+  function heading(title, description) { const h = el('h1', title); h.tabIndex = -1; stage.append(h); if (description) paragraph(stage, description, 'intro'); }
+  const soulOf = item => SOUL[item.type];
+  const placeName = id => id ? DEST[id].name : 'Starting Shore';
+  const initials = name => name.split(' ').map(w => w[0]).slice(0, 2).join('');
+  const isPolong = item => item.type === 'SOUL-POLONG';
+  const polongFog = item => isPolong(item) && item.anger >= C.polongFogThreshold ? C.polongFog : 0;
+  const roundsToPolong = () => { const r = Number(BigInt(state.round) % BigInt(C.spawnInterval)); return C.spawnInterval - r; };
+
+  // Khmer-motif line icons.
+  const ICONS = {
+    boat: '<path d="M2 15h20l-3.5 4.5h-13z"/><path d="M6.5 15V10q5.5-4 11 0v5"/><path d="M12 7.5V4"/>',
+    lamp: '<path d="M12 2.5c2.2 2.8 2.2 5 0 7-2.2-2-2.2-4.2 0-7z"/><path d="M5.5 12h13l-2.5 4h-8z"/><path d="M10 16v3.5h4V16M8 20.5h8"/>',
+    lotus: '<path d="M12 20c-2.5-2.6-2.5-8.6 0-13 2.5 4.4 2.5 10.4 0 13z"/><path d="M11 19.6C7 19 4 15.5 4 11c3.3.3 5.6 2.2 7 4.6M13 19.6c4-.6 7-4.1 7-8.6-3.3.3-5.6 2.2-7 4.6"/>',
+    steps: '<path d="M2.5 20.5h19M5 16.5h14M8 12.5h8"/><path d="M12 12.5V5.5"/><path d="M12 5.5c-2 0-3.5 1-4.5 2.5M12 5.5c2 0 3.5 1 4.5 2.5"/>',
+    spirit: '<path d="M7 20.5V11a5 5 0 0 1 10 0v9.5l-2.5-2-2.5 2-2.5-2z"/><path d="M10 11h.01M14 11h.01"/>',
+    fog: '<path d="M3 8.5h10.5a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3 13h15a2.5 2.5 0 1 1-2.5 2.5"/><path d="M3 17.5h7"/>',
+    wheel: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2"/><path d="M12 3.5V10M12 14v6.5M3.5 12H10M14 12h6.5M6 6l4.6 4.6M13.4 13.4 18 18M18 6l-4.6 4.6M10.6 13.4 6 18"/>',
+    flower: '<circle cx="12" cy="12" r="2.2"/><path d="M12 9.8c-1.6-2-1.6-4.6 0-6.8 1.6 2.2 1.6 4.8 0 6.8zM12 14.2c1.6 2 1.6 4.6 0 6.8-1.6-2.2-1.6-4.8 0-6.8zM9.8 12c-2 1.6-4.6 1.6-6.8 0 2.2-1.6 4.8-1.6 6.8 0zM14.2 12c2-1.6 4.6-1.6 6.8 0-2.2 1.6-4.8 1.6-6.8 0z"/>',
+    knot: '<circle cx="9" cy="12" r="4.5"/><circle cx="15" cy="12" r="4.5"/>',
+    check: '<path d="m4.5 12.5 5 5 10-11"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    bud: '<path d="M12 3.5 16.5 12 12 20.5 7.5 12z"/>'
+  };
+  function ico(name) { const i = el('span', null, 'ico ico-' + name); i.setAttribute('aria-hidden', 'true'); i.innerHTML = '<svg viewBox="0 0 24 24">' + ICONS[name] + '</svg>'; return i; }
+  function tagx(text, cls, icon) { const t = el('span', null, 'tagx' + (cls ? ' ' + cls : '')); if (icon) t.append(ico(icon)); t.append(el('span', text)); return t; }
+  function iconLine(parent, pairs, cls = 'hint') { const p = el('p', null, 'icon-line ' + cls); for (const [icon, text] of pairs) { const g = el('span', null, 'icon-pair'); g.append(ico(icon), el('span', text)); p.append(g); } parent.append(p); return p; }
+
+  // The ferryman as a reaper: scythe on the pole, ragged hood with ember eyes, lantern at the bow.
+  const BOAT_SVG = '<svg viewBox="0 0 240 130" aria-hidden="true"><defs><radialGradient id="lg"><stop offset="0" stop-color="#fff0c4"/><stop offset=".3" stop-color="#edc47f" stop-opacity=".6"/><stop offset="1" stop-color="#edc47f" stop-opacity="0"/></radialGradient></defs>'
+    + '<circle class="lantern-glow" cx="182" cy="52" r="46" fill="url(#lg)"/><line class="pole" x1="86" y1="8" x2="132" y2="122"/>'
+    + '<path class="blade" d="M87 10 Q104 -4 131 9 Q121 5.5 110 7 Q98 8.5 89.5 15.5 Z"/>'
+    + '<path class="s robe" d="M118 22 Q108.5 29 106.5 41 Q101 47 100 60 L95.5 97 L101.5 91.5 L106 98.5 L111 91 L116.5 99.5 L121.5 91 L127 98.5 L132 91.5 L140.5 97 L136 60 Q135 47 129.5 41 Q127.5 29 118 22 Z"/>'
+    + '<path class="hood-void" d="M118 30.5 Q111.5 34 111 43.5 Q111.5 51.5 118 53.5 Q124.5 51.5 125 43.5 Q124.5 34 118 30.5 Z"/>'
+    + '<g class="eyes"><circle cx="115" cy="43.5" r="1.3"/><circle cx="121" cy="43.5" r="1.3"/></g><path class="bone" d="M105 60 Q100.5 61.5 99.5 58.5M104.5 63 Q100 65 98.5 62.5"/>'
+    + '<line class="pole" x1="176" y1="96" x2="176" y2="36"/><path class="hook" d="M176 38 Q182 34 182 44"/><rect class="lamp" x="177" y="44" width="10" height="14" rx="2"/>'
+    + '<path class="s hull" d="M18 88 Q120 108 222 86 L208 104 Q120 124 34 104 Z"/><path class="ripple" d="M10 116 Q40 110 70 116 T130 116 T190 116 T250 116"/></svg>';
+  function boat(cls) { const b = el('div', null, 'boat ' + cls); b.innerHTML = BOAT_SVG; return b; }
+
+  // Saves and the automatic route dealer.
   function persist() {
-    try {
-      localStorage.setItem(namespace + 'slot-' + slot, game.exportSave(state));
-      localStorage.setItem(namespace + 'active', String(slot));
-      document.querySelector('#save-warning').hidden = true;
-    } catch (error) {
-      const warning = document.querySelector('#save-warning');
-      warning.textContent = 'Autosave unavailable. Export your save before closing this page. ' + error.message;
-      warning.hidden = false;
+    slots[slot] = state; broken[slot] = false;
+    try { localStorage.setItem(slotKey(slot), game.exportSave(state)); localStorage.setItem(NS + 'active', String(slot)); storageNote = ''; }
+    catch { storageNote = 'This browser cannot save locally. Export JSON to keep your run.'; }
+  }
+  try { for (const n of SLOTS) { const raw = localStorage.getItem(slotKey(n)); if (raw) { try { slots[n] = game.importSave(raw); } catch { broken[n] = true; } } } }
+  catch { storageNote = 'Local saving is unavailable. Export JSON to keep your run.'; }
+  const rand = n => crypto.getRandomValues(new Uint32Array(1))[0] % n;
+  // The guideline's facilitator shuffles and hands out the maps; online, the river deals two different destinations per fork.
+  function dealRoutes() {
+    if (!state || state.phase === 'ended' || state.paused) return;
+    const missing = C.foresightForks - state.routes.offers.length; if (missing <= 0) return;
+    const offers = []; for (let i = 0; i < missing; i++) { const a = rand(6); let b = rand(5); if (b >= a) b++; offers.push([DEST_IDS[a], DEST_IDS[b]]); }
+    state = game.transition(state, { type: 'APPEND_ROUTES', offers });
+  }
+  function begin(n = slot, seed = crypto.getRandomValues(new Uint32Array(1))[0]) {
+    if (slots[n] && !window.confirm('Start a new run in Save ' + n + '? This replaces that save. Export it first if you want to keep it.')) return false;
+    slot = n; state = game.create(seed); dealRoutes(); selected = new Set(); persist(); render(); return true;
+  }
+  function erase(n) {
+    if (!window.confirm('Erase Save ' + n + '? This cannot be undone. Export it first if you want to keep it.')) return;
+    try { localStorage.removeItem(slotKey(n)); } catch {}
+    slots[n] = null; broken[n] = false; render();
+  }
+  function newLines(before, after) {
+    const last = before.log[before.log.length - 1];
+    let i = last ? after.log.findIndex(e => e.round === last.round && e.cycle === last.cycle && e.text === last.text) : -1;
+    if (i < 0) i = Math.max(-1, after.log.length - 7);
+    return after.log.slice(i + 1).map(e => e.text);
+  }
+  function send(action, after) {
+    const before = state; let next;
+    try { next = game.transition(state, action); } catch (e) { announce(e.message); showNote('Not possible yet', [e.message]); return; }
+    state = next; dealRoutes(); persist(); render();
+    const lines = newLines(before, state);
+    if (after) after(lines, before);
+  }
+
+  function summary() {
+    status.replaceChildren();
+    if (!state) { status.hidden = true; return; }
+    status.hidden = false;
+    const at = state.phase === 'boarding' || (state.phase === 'window' && state.window.kind === 'return' && !state.destination) ? 'Starting Shore' : placeName(state.destination);
+    for (const [label, value] of [['Light', state.light + ' / ' + C.maxLight], ['Cycle', state.cycle], ['Round', state.round], ['Boat', game.seats(state) + ' / ' + C.seats + ' seats'], ['At', at]]) {
+      const item = el('span', label + ' '); item.append(el('strong', String(value))); status.append(item);
     }
   }
-  function showError(error, inDialog = false) {
-    const output = inDialog ? dialog.querySelector('.dialog-error') : document.querySelector('#error');
-    output.textContent = error.message || String(error);
-    output.hidden = false;
+  function currentStep() {
+    if (state.phase === 'boarding') return 'boarding';
+    if (state.phase === 'review') return 'review';
+    if (state.phase === 'delivery' || state.phase === 'trim') return 'delivery';
+    return memoryPageNow() ? 'memory' : 'route';
   }
-  function apply(action) {
-    state = game.transition(state, action);
-    deliverySelection = [];
-    screen = state.uiStep;
-    persist();
-    render();
-  }
-  function modal(title, html) {
-    dialog.innerHTML = `<div class="dialog-top"><h2 id="dialog-title">${escape(title)}</h2><button data-action="close">Close</button></div>${html}<p class="dialog-error" role="alert"></p>`;
-    if (!dialog.open) dialog.showModal();
-  }
-  function confirmReplacement(title, text, confirm) {
-    modal(title, `<p>${escape(text)}</p><div class="toolbar">${button('Cancel', 'close')}<button id="accept-replacement" class="primary">Confirm replacement</button></div>`);
-    dialog.querySelector('#accept-replacement').onclick = () => { dialog.close(); confirm(); };
-  }
-  function newRun(number) {
-    const start = () => { slot = number; state = game.create(crypto.getRandomValues(new Uint32Array(1))[0]); screen = 'memory'; persist(); render(); };
-    if (read('slot-' + number)) confirmReplacement('Replace slot ' + number + '?', 'This replaces only this v0.6 slot. Export it first if you want to keep this run.', start);
-    else start();
-  }
-  function load(number) {
-    const saved = read('slot-' + number);
-    if (!saved) throw new Error('This slot is empty.');
-    const loaded = game.importSave(saved);
-    slot = number;
-    state = loaded;
-    screen = state.uiStep;
-    persist();
-    render();
-  }
-  function soulCard(soul, action = null) {
-    const definition = souls[soul.type];
-    const selected = state.selected.includes(soul.id);
-    return `<article class="card${selected ? ' selected' : ''}">${picture(soul.type)}<div class="card-body"><h3>${escape(definition.name)}</h3><p class="key">${definition.seats} seat${definition.seats === 1 ? '' : 's'} · ${escape(destinations[definition.wish].name)}</p><p>${escape(definition.text)}</p><p class="anger">${state.shore.includes(soul) ? 'Shore' : 'Ship'} Anger ${soul.anger} / ${state.shore.includes(soul) ? data.config.shoreAngerLimit : data.config.shipAngerLimit}</p><small>${escape(soul.id)}</small>${action === 'board' ? button(selected ? 'Unselect ' + definition.name : 'Board ' + definition.name, 'board', soul.id, selected ? 'primary' : '') : ''}${action === 'delivery' ? `<label class="delivery-label"><input type="checkbox" data-deliver="${escape(soul.id)}" ${deliverySelection.includes(soul.id) ? 'checked' : ''}>Deliver ${escape(definition.name)}</label>` : ''}</div></article>`;
-  }
-  function revealed() {
-    const visible = game.offers(state);
-    if (!visible.length) return '<div class="notice">Facilitator input needed. Add a two-destination offer to continue.</div>';
-    return `<div class="reveals"><strong>Revealed route offers</strong>${visible.map((pair, index) => `<p>${index ? 'Ahead ' + index : 'Current'}: ${pair.map(id => escape(destinations[id].name)).join(' / ')}</p>`).join('')}<p class="hint">Further prepared offers remain concealed. The next cycle uses a new facilitator queue.</p></div>`;
-  }
-  function memoryCard(memory, discard = false) {
-    const definition = memories[memory.type];
-    return `<article class="card">${picture(memory.type)}<div class="card-body"><h3>${escape(definition.name)}</h3><p>${escape(definition.text)}</p><small>From ${escape(souls[memory.source]?.name || 'Family quest')} · ${escape(memory.id)}</small>${button(discard ? 'Discard ' + definition.name : 'Choose ' + definition.name, discard ? 'discard' : 'memory', memory.id)}</div></article>`;
-  }
-  function routeLedger() {
-    const history = state.routes.history || [];
-    const unavailable = state.routes.historyStart || state.routes.used;
-    return `<details class="route-ledger"><summary>Revealed offers this cycle</summary>${BigInt(unavailable) > 0n ? '<p class="hint">This older save predates the route ledger. Earlier consumed offers were not stored; newly revealed offers remain recorded.</p>' : ''}${history.map((entry, index) => `<p>Crossing ${escape((BigInt(unavailable) + BigInt(index) + 1n).toString())}: ${entry.offer.map(id => escape(destinations[id].name)).join(' / ')}. Chosen: ${escape(destinations[entry.chosen].name)}.</p>`).join('')}${game.offers(state).map((pair, index) => `<p>${index ? 'Ahead ' + index : 'Current'}: ${pair.map(id => escape(destinations[id].name)).join(' / ')}</p>`).join('')}${!history.length && !game.offers(state).length ? '<p>No route offers recorded in this cycle.</p>' : ''}</details>`;
-  }
-  function render() {
-    document.querySelector('#error').hidden = true;
-    document.querySelector('#facilitator').disabled = !state || state.phase === 'ended' || state.paused;
-    status.innerHTML = state ? `<span>Light <strong>${state.light} / ${data.config.maxLight}</strong></span><span>Cycle <strong>${escape(state.cycle)}</strong></span><span>Outward rounds <strong>${escape(state.round)}</strong></span><span>Seats <strong>${game.seats(state)} / ${data.config.seats}</strong></span><span>Memories <strong>${state.hand.length} / ${data.config.handLimit}</strong></span><span>Quest <strong>${escape(state.quest.replaceAll('-', ' '))}</strong></span><div class="boatline">Aboard: ${state.boat.length ? state.boat.map(soul => escape(souls[soul.type].name) + ' (' + soul.anger + ')').join(' · ') : 'empty'} · Next PoLong: round ${escape((BigInt(state.round) / 3n * 3n + 3n).toString())} · Slot ${slot}</div>` : '';
-    if (!state) {
-      stage.innerHTML = `<section class="hero"><svg class="lantern" viewBox="0 0 80 100" aria-hidden="true"><path d="M30 20V12a10 10 0 0 1 20 0v8M18 28h44l-5 55H23zM23 22h34M20 90h40M33 35v40M47 35v40" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="40" cy="57" r="8" fill="currentColor"/></svg><p class="eyebrow">One lantern. An endless river.</p><h1>The Ferryman</h1><p class="subtitle">Keep their passage. Keep your light.</p><p class="intro">Carry souls to their destinations, spend the memories they leave, and survive the return. The facilitator prepares the route choices. Every new cycle is another chance to endure.</p><p class="hint">v0.6 · No fixed victory target · Stop and save whenever the workshop ends</p><div class="slots">${[1, 2, 3].map(number => { let description = 'Empty slot'; try { const saved = read('slot-' + number); if (saved) { const run = game.importSave(saved); description = `Cycle ${run.cycle} · Light ${run.light} · ${run.paused ? 'Session stopped' : run.phase}`; } } catch { description = 'Unreadable save. Export raw slot data from Guide & saves before replacing.'; } return `<article><h2>Slot ${number}</h2><p>${escape(description)}</p>${read('slot-' + number) ? button('Resume slot ' + number, 'load', number) : ''}${button('New run in slot ' + number, 'new', number, 'primary')}</article>`; }).join('')}</div></section>`;
-      return;
+  function flow() {
+    const cur = currentStep(), nav = el('div', null, 'flow'); nav.setAttribute('aria-label', 'Round steps');
+    for (const [key, label] of [['boarding', 'Passengers'], ['memory', 'Memory'], ['route', 'Route'], ['review', 'Review'], ['delivery', 'Delivery']]) {
+      const s = el('span', label, key === cur ? 'active' : ''); if (key === cur) s.setAttribute('aria-current', 'step'); nav.append(s);
     }
-    let body = '';
-    if (state.paused) body = `<section class="review"><p class="eyebrow">Session recorded</p><h1>Stopped and saved</h1><p>This voluntary stop is not a victory. Resume the same run or export it for another session.</p>${statistics()}<div class="toolbar">${button('Resume this session', 'resume', '', 'primary')}${button('Export save', 'export')}</div></section>`;
-    else if (state.phase === 'ended') body = `<section class="review"><p class="eyebrow">The river falls quiet</p><h1>The lantern went out</h1><p>${escape(state.ending)}</p>${statistics()}<div class="toolbar">${button('Export run record', 'export')}${button('New run', 'new', slot, 'primary')}</div></section>`;
-    else if (state.phase === 'boarding') body = `<p class="eyebrow">01 · At the shore</p><h1>Choose who comes aboard</h1><p class="intro">${escape(data.rules.boarding)}</p>${revealed()}<div class="grid soul-grid">${state.shore.map(soul => soulCard(soul, 'board')).join('')}</div><div class="toolbar">${button('Depart with selected souls', 'depart', '', 'primary')}</div><p class="hint">Boarding choices can be reversed here. Shore Anger resets to zero Ship Anger on departure.</p>`;
-    else if (state.phase === 'review') body = review();
-    else if (state.phase === 'delivery') {
-      const matches = state.boat.filter(soul => souls[soul.type].wish === state.destination);
-      body = `<p class="eyebrow">04 · Arrival</p><h1>${escape(destinations[state.destination].name)}</h1><p class="intro">Choose any matching passengers to deliver, or retain them. Afterwards every passenger left aboard gains one Ship Anger. At four, each expires for one Light.</p><div class="grid soul-grid">${state.boat.map(soul => soulCard(soul, matches.includes(soul) ? 'delivery' : null)).join('')}</div><div class="toolbar">${button('Resolve selected deliveries', 'deliver', '', 'primary')}</div><p class="hint">No selection means retain all. This can cause expiry. Ordinary deliveries do not heal.</p>`;
-    } else if (state.phase === 'trim') body = `<p class="eyebrow">Choose the memories to carry</p><h1>Keep up to three</h1><p class="intro">${state.hand.length} memories received or held. Discard ${state.hand.length - data.config.handLimit} more. Each copy is separate; keep an earlier or a newly earned copy as you prefer.</p><div class="grid">${state.hand.map(memory => memoryCard(memory, true)).join('')}</div>`;
-    else if (state.phase === 'window') {
-      const returning = state.window.kind === 'return';
-      if (!state.window.used && screen === 'memory') body = `<p class="eyebrow">02 · Before ${returning ? 'the return' : 'the crossing'}</p><h1>A memory for the journey?</h1><p class="intro">One memory may be played in this window. Unused cards stay in your hand.</p>${!returning ? revealed() : ''}${state.hand.length ? `<div class="grid">${state.hand.map(memory => memoryCard(memory)).join('')}</div>` : '<p class="empty">No memories held. Eligible deliveries grant a fresh memory each time.</p>'}<div class="toolbar">${button('Continue without a memory', 'skip', '', 'primary')}</div>`;
-      else if (returning) body = `<p class="eyebrow">05 · Empty boat</p><h1>Return to the shore</h1><p class="intro">${escape(data.returnSteps[1])}</p><p>Then restore ${data.config.returnLight} Light, capped at ${data.config.maxLight}, and refill the shore.</p>${state.window.used ? '<div class="notice">The memory allowance is already used for this return.</div>' : ''}<div class="grid soul-grid">${state.shore.map(soul => soulCard(soul)).join('')}</div><div class="toolbar">${!state.window.used ? button('Back to memories', 'memory-back') : ''}${button('Review return', 'return-plan', '', 'primary')}</div>`;
-      else body = `<p class="eyebrow">03 · Choose your crossing</p><h1>Where will the river lead?</h1><p class="intro">${state.window.used ? 'Your memory has resolved. Choose a destination.' : 'Choose one of the current destinations, or go back to choose a memory.'}</p>${revealed()}<div class="grid">${(game.offers(state)[0] || []).map(id => { const forecast = game.preview(state, id); return `<article class="card">${picture(id)}<div class="card-body"><h3>${escape(destinations[id].name)}</h3><p class="key">Pay ${forecast.payment} Light</p><p>Base ${forecast.base} + PoLong ${forecast.tainted} − Fog Shield ${forecast.shield}. Guard prevents up to ${forecast.guard}.</p>${forecast.lethal ? '<p class="damage">Zero Light: this crossing ends the run before delivery.</p>' : `<p>Light after crossing: ${forecast.remaining}</p>`}${forecast.spawn ? '<p>A new PoLong boards before travel at anger 0.</p>' : ''}${button('Review ' + destinations[id].name, 'route-plan', id)}</div></article>`; }).join('')}</div><div class="toolbar">${!state.window.used ? button('Back to memories', 'memory-back') : ''}${button('Add facilitator offers', 'routes')}</div>`;
+    stage.append(nav);
+  }
+  let cardCount = 0;
+  function choiceCard(o) {
+    const b = el('button', null, 'choice' + (o.pressed ? ' selected' : '') + (o.cls ? ' ' + o.cls : '')); b.type = 'button'; b.disabled = !!o.disabled;
+    b.setAttribute('aria-label', o.label); if (o.pressed !== undefined) b.setAttribute('aria-pressed', String(!!o.pressed));
+    if (o.focusKey) b.dataset.focus = o.focusKey;
+    for (const [k, v] of Object.entries(o.data || {})) b.dataset[k] = v;
+    if (o.dest) b.style.setProperty('--dest', o.dest);
+    if (o.onPick) b.addEventListener('click', o.onPick);
+    if (o.art) { const img = el('img'); img.src = o.art; img.alt = ''; b.append(img); }
+    else if (o.sigil) { const s = el('span', o.sigil, 'sigil'); s.setAttribute('aria-hidden', 'true'); b.append(s); }
+    if (o.badge && o.pressed) { const bd = el('span', null, 'badge'); bd.append(ico('check'), el('span', o.badge)); b.append(bd); }
+    const body = el('span', null, 'card-body'); body.dataset.inline = '1'; body.id = 'choice-' + (++cardCount);
+    b.setAttribute('aria-describedby', body.id); b.append(body);
+    return { b, body };
+  }
+  function fact(list, text, cls = '') { const row = el('span', null, 'fact' + (cls ? ' ' + cls : '')), ic = ico('bud'); ic.classList.add('ic'); row.append(ic, el('span', text)); list.append(row); return row; }
+  function soulFacts(list, item, where) {
+    const s = soulOf(item);
+    fact(list, 'Wishes for ' + DEST[s.wish].name, 'wish');
+    if (isPolong(item)) fact(list, 'Tainted: cannot be refused. Adds 1 fog to every crossing while its Ship Anger is 2 or 3.', 'clash');
+    if (item.type === 'SOUL-MOTHER') fact(list, 'Quest: deliver Child to Haven first, then Mother to Tartarus, to earn Passage.', 'ability');
+    if (item.type === 'SOUL-CHILD') fact(list, 'Quest: Child to Haven before Mother reaches Tartarus.', 'ability');
+    fact(list, s.memory ? 'Memory: ' + MEM[s.memory].name : 'Leaves no memory');
+    if (where === 'shore') { const soon = item.anger + 1 >= C.shoreAngerLimit; fact(list, 'Shore Anger ' + item.anger + ' / ' + C.shoreAngerLimit + (soon ? ': becomes a wraith on the next return' : ''), 'deadline' + (soon ? ' urgent' : '')); }
+    if (where === 'boat') { const soon = item.anger + 1 >= C.shipAngerLimit; fact(list, 'Ship Anger ' + item.anger + ' / ' + C.shipAngerLimit + (soon ? ': becomes a wraith after this round' : ''), 'deadline' + (soon ? ' urgent' : '')); }
+  }
+  function soulCard(item, mode) {
+    const s = soulOf(item), chosen = mode === 'boarding' ? state.selected.includes(item.id) : mode === 'delivery' ? selected.has(item.id) : undefined;
+    const matching = mode === 'delivery' && s.wish === state.destination;
+    const full = mode === 'boarding' && !chosen && game.seats(state) + s.seats > C.seats;
+    const label = mode === 'boarding' ? (chosen ? 'Leave ' + s.name + ' ashore' : 'Board ' + s.name) : mode === 'delivery' ? (chosen ? 'Keep aboard: ' : 'Select: ') + s.name : s.name;
+    const pick = mode === 'boarding' ? () => send({ type: 'BOARD', id: item.id }) : mode === 'delivery' ? () => { if (chosen) selected.delete(item.id); else selected.add(item.id); render(); } : null;
+    const { b, body } = choiceCard({ art: ART[item.type] || null, sigil: ART[item.type] ? null : initials(s.name), label, pressed: chosen, disabled: full || (mode === 'delivery' && !matching), focusKey: item.id, badge: mode === 'delivery' ? 'Disembarks' : 'Aboard', onPick: pick, data: { soul: item.id } });
+    paragraph(body, (isPolong(item) ? item.id.replace('POLONG-', 'PoLong #') : s.name) + ' · ' + s.seats + (s.seats === 1 ? ' seat' : ' seats'), 'tag');
+    if (isPolong(item)) paragraph(body, 'Tainted', 'tag tainted');
+    paragraph(body, s.name, 'title');
+    const list = el('span', null, 'facts'); body.append(list);
+    soulFacts(list, item, mode === 'boarding' ? 'shore' : 'boat');
+    if (mode === 'delivery' && !matching) paragraph(body, 'Not here: wishes for ' + DEST[s.wish].name + '.', 'warning');
+    if (full) paragraph(body, 'Needs ' + s.seats + ' free seats.', 'warning');
+    return b;
+  }
+  function routeCard(id, onPick, note) {
+    const d = DEST[id];
+    const { b, body } = choiceCard({ art: ART[id], dest: COLOR[id], cls: 'route-card', label: (onPick ? 'Travel to ' : 'Route: ') + d.name, onPick, data: onPick ? { route: id } : {} });
+    paragraph(body, d.name, 'title'); paragraph(body, 'Base fog ' + d.fog, 'key');
+    if (note) paragraph(body, note.text, 'fog-brief' + (note.warn ? ' warning' : ''));
+    if (!onPick) b.tabIndex = -1;
+    return b;
+  }
+  function backLink(label, fn) { const row = el('div', null, 'back-row'); row.append(button(label, fn, 'text-button')); stage.append(row); }
+  function toolbar(backFn, mainLabel, mainFn, disabled = false, chip = '') {
+    const bar = el('div', null, 'toolbar'); if (chip) bar.append(el('span', chip, 'chip'));
+    const actions = el('div', null, 'actions'); if (backFn) actions.append(button('Back', backFn));
+    actions.append(button(mainLabel, mainFn, 'primary', disabled)); bar.append(actions); stage.append(bar);
+  }
+  function previewFor(dest) { try { return game.preview(Object.assign(game.clone(state), { phase: 'window' }), dest); } catch { return null; } }
+  const memoryPageNow = () => state.phase === 'window' && state.uiStep === 'memory' && !state.window.used && state.hand.length > 0;
+
+  function renderBoarding() {
+    heading('Who will you carry?', 'Tap a soul to bring them aboard. Up to ' + C.seats + ' seats; the Soldier takes two. Souls left on the shore gain anger each return, and at ' + C.shoreAngerLimit + ' they become wraiths.');
+    const grid = el('div', null, 'grid soul-grid'); state.shore.forEach(item => grid.append(soulCard(item, 'boarding'))); stage.append(grid);
+    toolbar(null, 'Set out', () => send({ type: 'DEPART' }), !state.selected.length, game.seats(state) + ' / ' + C.seats + ' seats filled');
+    const first = game.offers(state)[0];
+    if (first) {
+      const offers = el('section', null, 'offers'); offers.append(el('h2', 'The first fork'));
+      paragraph(offers, 'The river offers these two destinations on the first round of this cycle.', 'hint');
+      const og = el('div', null, 'grid'); for (const id of first) og.append(routeCard(id)); offers.append(og); stage.append(offers);
     }
-    stage.innerHTML = body + routeLedger() + (state.paused ? '' : `<details><summary>Boat, waiting souls & recent record</summary><p class="hint">Anger is shown after each name. Arrival supply ${state.arrivals.length}; resolved ordinary discard ${state.discard.length}. Memory hand ${state.hand.map(memory => escape(memories[memory.type].name)).join(', ') || 'empty'}.</p><p>Waiting: ${state.shore.map(soul => escape(souls[soul.type].name) + ' (' + soul.anger + ')').join(', ') || 'none'}.</p><ol class="log">${state.log.slice(-16).map(entry => `<li>Round ${escape(entry.round)}: ${escape(entry.text)}</li>`).join('')}</ol></details>`);
-    const heading = stage.querySelector('h1');
-    if (heading) { heading.tabIndex = -1; heading.focus({preventScroll: true}); }
   }
-  function statistics() {
-    return `<div class="stats"><span><strong>${escape(state.completed)}</strong>cycles survived</span><span><strong>${escape(state.round)}</strong>outward rounds</span><span><strong>${escape(state.deliveries)}</strong>ordinary deliveries</span></div>`;
+  function renderMemory() {
+    const ret = state.window.kind === 'return';
+    heading('What will you remember?', 'Play one memory before this ' + (ret ? 'return' : 'round') + ', or keep them all. Each memory is used once.');
+    const grid = el('div', null, 'grid');
+    const keep = choiceCard({ label: 'Use no memory', data: { memory: 'none' }, onPick: () => send({ type: 'SET_VIEW', screen: 'route' }) });
+    paragraph(keep.body, 'Keep your memories', 'title'); paragraph(keep.body, 'Save every card for a later round.', 'key'); grid.append(keep.b);
+    for (const held of state.hand) {
+      const m = MEM[held.type], needs = m.kind === 'calm' ? [...state.shore, ...state.boat] : m.kind === 'passage' ? state.boat : null;
+      const { b, body } = choiceCard({ art: ART[held.type], label: 'Play ' + m.name + ' ' + held.id, data: { memory: held.id }, disabled: !!needs && !needs.length,
+        onPick: () => { if (needs) pickTarget(held, needs); else playMemory(held, null); } });
+      paragraph(body, m.name, 'title'); paragraph(body, m.text, 'key');
+      paragraph(body, 'From ' + (SOUL[held.source] ? SOUL[held.source].name : 'the family quest'), 'hint');
+      if (needs) paragraph(body, needs.length ? 'Next: choose a soul.' : 'No soul to target.', 'hint');
+      grid.append(b);
+    }
+    stage.append(grid);
   }
-  function review() {
-    const pending = state.pending;
-    let detail;
-    if (pending.type === 'CROSS') {
-      const forecast = game.preview({...state, phase: 'window'}, pending.destination);
-      detail = `<h1>Cross to ${escape(destinations[pending.destination].name)}?</h1><p>Fog ${forecast.fog}; Guard prevents up to ${forecast.guard}. Pay ${forecast.payment} Light, leaving ${forecast.remaining}.</p>${forecast.lethal ? '<p class="notice danger">This will extinguish the lantern before any delivery or reward.</p>' : ''}<p>${forecast.spawn ? 'A scheduled PoLong will board before travel. ' : ''}Deliver matching passengers after surviving the crossing. Then remaining passengers gain anger.</p>`;
-    } else if (pending.type === 'PLAY_MEMORY') {
-      const memory = state.hand.find(item => item.id === pending.id);
-      detail = `<h1>Play ${escape(memories[memory.type].name)}?</h1><p>${escape(memories[memory.type].text)}</p>${pending.target ? `<p>Target: ${escape(souls[[...state.shore, ...state.boat].find(soul => soul.id === pending.target).type].name)} (${escape(pending.target)})</p>` : ''}<p>Confirm consumes this copy and this window's memory allowance.</p>`;
+  function playMemory(held, target) {
+    send({ type: 'PLAY_MEMORY', id: held.id, target }, lines => showNote(MEM[held.type].name, lines, ART[held.type]));
+  }
+  function pickTarget(held, targets) {
+    const m = MEM[held.type];
+    openPopup({ title: m.kind === 'calm' ? 'Calm a soul' : 'Send a soul by Passage', lines: [m.text], wide: true, build: pop => {
+      const grid = el('div', null, 'grid soul-grid');
+      for (const item of targets) {
+        const s = soulOf(item), aboard = state.boat.some(x => x.id === item.id);
+        const { b, body } = choiceCard({ art: ART[item.type] || null, sigil: ART[item.type] ? null : initials(s.name), label: 'Choose ' + s.name, data: { target: item.id }, onPick: () => { closePopup(); playMemory(held, item.id); } });
+        paragraph(body, s.name, 'title'); paragraph(body, (aboard ? 'Ship Anger ' : 'Shore Anger ') + item.anger, 'anger'); grid.append(b);
+      }
+      pop.append(grid); const actions = el('div', null, 'actions'); actions.append(button('Cancel', closePopup, 'text-button')); pop.append(actions);
+    } });
+  }
+  function renderRoute() {
+    if (state.window.kind === 'return') {
+      heading('Time to return', 'The boat is empty. Return to the Starting Shore: waiting souls gain anger, then you recover ' + C.returnLight + ' Light.');
+      const grid = el('div', null, 'grid');
+      const { b, body } = choiceCard({ art: ART['MAT-SHORE'], label: 'Return to the Starting Shore', data: { route: 'return' }, onPick: () => send({ type: 'PLAN', action: { type: 'RETURN' } }) });
+      paragraph(body, 'Starting Shore', 'title'); paragraph(body, 'No travel fog. Not an outward round.', 'key'); grid.append(b); stage.append(grid);
     } else {
-      const due = state.shore.filter(soul => soul.anger + 1 >= data.config.shoreAngerLimit).length;
-      const cost = Math.max(0, due - state.window.guard);
-      detail = `<h1>Resolve the return?</h1><p>${due} waiting soul${due === 1 ? '' : 's'} will expire. Expected damage ${cost} after Guard. ${cost >= state.light ? 'The lantern will go out before healing.' : 'Then restore two Light, capped at six.'}</p><p>No outward round or PoLong spawn occurs. The next cycle begins with a fresh facilitator queue.</p>`;
+      heading('Where next?', 'Choose one of the two destinations. Fog totals include PoLong and any Fog Shield or Guard in play.');
+      const forks = game.offers(state), grid = el('div', null, 'grid');
+      for (const id of forks[0] || []) { const p = previewFor(id); grid.append(routeCard(id, () => send({ type: 'PLAN', action: { type: 'CROSS', destination: id } }), p && { text: p.payment + ' Light · ' + (p.lethal ? 'puts out your lantern' : p.remaining + ' Light left'), warn: p.lethal })); }
+      stage.append(grid);
+      if (forks.length > 1) {
+        const ahead = el('section', null, 'offers'); ahead.append(el('h2', 'Foresight: the forks ahead'));
+        const g = el('div', null, 'grid'); forks.slice(1).forEach((pair, i) => pair.forEach(id => g.append(routeCard(id, null, { text: 'Fork ' + (i + 2) })))); ahead.append(g); stage.append(ahead);
+      }
     }
-    return `<section class="review"><p class="eyebrow">Review before confirming</p>${detail}<div class="toolbar">${button('Back', 'back')}${button('Confirm action', 'confirm', '', 'primary')}</div></section>`;
+    if (!state.window.used && state.hand.length) backLink('Back to memories', () => send({ type: 'SET_VIEW', screen: 'memory' }));
   }
-  function chooseMemory(id) {
-    const held = state.hand.find(memory => memory.id === id);
-    const definition = memories[held.type];
-    if (['calm', 'passage'].includes(definition.kind)) {
-      const targets = definition.kind === 'calm' ? [...state.shore, ...state.boat] : state.boat;
-      if (!targets.length) throw new Error('This memory needs an active target.');
-      modal('Choose a target', `<p>${escape(definition.text)}</p><label for="memory-target">Target soul</label><select id="memory-target">${targets.map(soul => `<option value="${escape(soul.id)}">${escape(souls[soul.type].name)} · ${state.shore.includes(soul) ? 'shore' : 'boat'} · anger ${soul.anger} · ${escape(soul.id)}</option>`).join('')}</select>${button('Review memory', 'target-memory', id, 'primary')}`);
-    } else apply({type: 'PLAN', action: {type: 'PLAY_MEMORY', id}});
-  }
-  function showRoutes() {
-    if (!state) throw new Error('Start or resume a run first.');
-    modal('Facilitator route input', `<p>Prepare pairs while the player looks away. Future offers stay out of the player view until progress or Foresight reveals them.</p><p class="hint">This local shared screen is not an access-control boundary. Save JSON contains concealed offers for faithful reload.</p><details><summary>Destination IDs</summary><ul>${data.destinations.map(item => `<li><code>${escape(item.id)}</code>: ${escape(item.name)}, fog ${item.fog}</li>`).join('')}</ul></details><label for="route-input">Route queue JSON: an array of two-ID pairs</label><textarea id="route-input" rows="7" placeholder='[["DEST-STYX","DEST-HAVEN"]]'></textarea><label for="route-file">Or read a local route JSON file</label><input id="route-file" type="file" accept="application/json,.json"><div class="toolbar">${button('Append offers', 'append-routes', '', 'primary')}${button('Replace concealed offers', 'replace-routes')}</div><p class="hint">Currently ${state.routes.offers.length} offers pending, ${state.routes.revealed} revealed. Replace preserves all revealed offers. Each new cycle starts an empty queue; unused offers from the prior cycle are cleared.</p>${button('Insert sample into editor', 'sample-routes')}<p class="hint">The sample is only an editable example, never the official ordering method. Insert does not apply it.</p>`);
-    dialog.querySelector('#route-file').onchange = async event => {
-      try { const file = event.target.files[0]; if (file.size > 5000000) throw new Error('Route file must be under 5 MB.'); dialog.querySelector('#route-input').value = await file.text(); } catch (error) { showError(error, true); }
-    };
-  }
-  function guide() {
-    modal('Guide & saves', `<p>${escape(data.rules.objective)}</p><details open><summary>Round sequence</summary><ol>${data.roundSteps.map(step => `<li>${escape(step)}</li>`).join('')}</ol></details><details><summary>Return sequence</summary><ol>${data.returnSteps.map(step => `<li>${escape(step)}</li>`).join('')}</ol></details>${Object.entries(data.rules).filter(([key]) => key !== 'objective').map(([key, text]) => `<details><summary>${escape(key[0].toUpperCase() + key.slice(1))}</summary><p>${escape(text)}</p></details>`).join('')}<details><summary>All memory effects</summary>${data.memories.map(memory => `<p><strong>${escape(memory.name)}</strong>: ${escape(memory.text)}</p>`).join('')}</details><div class="toolbar">${state ? button('Export save', 'export') + button('Stop and save session', 'stop') : ''}${button('Show save import', 'import-form')}${button('Export raw slot data', 'raw-export')}</div><p class="hint">Autosave uses three v0.6 slots only. Older versions keep their own saves. JSON imports are checked before a replacement confirmation. Export regularly, especially when playing from a file URL.</p>`);
-  }
-  function exportText(text, filename) {
-    const address = URL.createObjectURL(new Blob([text], {type: 'application/json'}));
-    const link = document.createElement('a');
-    link.href = address; link.download = filename;
-    document.body.append(link); link.click(); link.remove();
-    setTimeout(() => URL.revokeObjectURL(address), 1000);
-  }
-  function importForm() {
-    modal('Import a v0.6 save', `<label for="save-input">Paste save JSON</label><textarea id="save-input" rows="9"></textarea><label for="save-file">Or choose a saved JSON file</label><input id="save-file" type="file" accept="application/json,.json"><label for="save-slot">Destination slot</label><select id="save-slot">${[1, 2, 3].map(number => `<option value="${number}" ${number === slot ? 'selected' : ''}>Slot ${number}</option>`).join('')}</select>${button('Validate and import', 'import-save', '', 'primary')}`);
-    dialog.querySelector('#save-file').onchange = async event => {
-      try { const file = event.target.files[0]; if (file.size > 5000000) throw new Error('Save must be under 5 MB.'); dialog.querySelector('#save-input').value = await file.text(); } catch (error) { showError(error, true); }
-    };
-  }
-  function handle(action, value) {
-    if (action === 'close') dialog.close();
-    else if (action === 'new') newRun(Number(value));
-    else if (action === 'load') load(Number(value));
-    else if (action === 'board') apply({type: 'BOARD', id: value});
-    else if (action === 'depart') apply({type: 'DEPART'});
-    else if (action === 'skip') apply({type: 'SET_VIEW', screen: 'route'});
-    else if (action === 'memory-back') apply({type: 'SET_VIEW', screen: 'memory'});
-    else if (action === 'route-plan') apply({type: 'PLAN', action: {type: 'CROSS', destination: value}});
-    else if (action === 'return-plan') apply({type: 'PLAN', action: {type: 'RETURN'}});
-    else if (action === 'memory') chooseMemory(value);
-    else if (action === 'target-memory') { const target = dialog.querySelector('#memory-target').value; apply({type: 'PLAN', action: {type: 'PLAY_MEMORY', id: value, target}}); dialog.close(); }
-    else if (action === 'back') apply({type: 'BACK'});
-    else if (action === 'confirm') apply({type: 'CONFIRM'});
-    else if (action === 'deliver') apply({type: 'DELIVER', ids: deliverySelection});
-    else if (action === 'discard') apply({type: 'DISCARD_MEMORY', id: value});
-    else if (action === 'resume') apply({type: 'RESUME'});
-    else if (action === 'stop') { apply({type: 'STOP'}); dialog.close(); }
-    else if (action === 'routes') showRoutes();
-    else if (action === 'append-routes' || action === 'replace-routes') {
-      const parsed = JSON.parse(dialog.querySelector('#route-input').value);
-      const offers = Array.isArray(parsed) ? parsed : parsed.offers;
-      apply({type: action === 'append-routes' ? 'APPEND_ROUTES' : 'REPLACE_HIDDEN_ROUTES', offers});
-      dialog.close();
-    } else if (action === 'sample-routes') dialog.querySelector('#route-input').value = JSON.stringify([['DEST-STYX','DEST-ACHERON'], ['DEST-ASPHODEL','DEST-ELYSIUM'], ['DEST-TARTARUS','DEST-HAVEN']], null, 2);
-    else if (action === 'export') exportText(game.exportSave(state), 'The_Ferryman_v0.6_slot-' + slot + '.json');
-    else if (action === 'raw-export') exportText(JSON.stringify({version: '0.6', slots: [1, 2, 3].map(number => ({slot: number, raw: read('slot-' + number)}))}, null, 2), 'The_Ferryman_v0.6_raw-slots.json');
-    else if (action === 'import-form') importForm();
-    else if (action === 'import-save') {
-      const imported = game.importSave(dialog.querySelector('#save-input').value);
-      const number = Number(dialog.querySelector('#save-slot').value);
-      const accept = () => { state = imported; slot = number; screen = state.uiStep; persist(); render(); dialog.close(); };
-      if (read('slot-' + number)) confirmReplacement('Replace slot ' + number + '?', 'The imported save is valid. Confirm replacing this v0.6 slot.', accept);
-      else accept();
+  function renderReview() {
+    const pending = state.pending;
+    heading('One crossing at a time', 'Review your choice. Back lets you change it.');
+    const box = el('div', null, 'review');
+    if (pending.type === 'CROSS') {
+      const p = previewFor(pending.destination); box.append(el('h2', placeName(state.destination) + ' → ' + DEST[pending.destination].name));
+      const img = el('img', null, 'result-art'); img.src = ART[pending.destination]; img.alt = ''; box.append(img);
+      paragraph(box, p.payment + ' Light · ' + (p.lethal ? 'puts out your lantern' : p.remaining + ' Light left'), 'numbers' + (p.lethal ? ' warning' : ''));
+      paragraph(box, 'Base ' + p.base + ' + PoLong ' + p.tainted + ' − Fog Shield ' + p.shield + ' = ' + p.fog + ' fog. Guard prevents ' + Math.min(p.guard, p.fog) + '.', 'hint');
+      if (p.spawn) notice('A PoLong boards at the start of this round (round ' + (Number(state.round) + 1) + '). It takes no seat and cannot be refused.', false, box);
+      if (p.lethal) notice('This crossing puts out your lantern. The run ends before delivery.', true, box);
+      stage.append(box); toolbar(() => send({ type: 'BACK' }), p.lethal ? 'Accept and cross' : 'Confirm crossing', () => send({ type: 'CONFIRM' }, showArrival));
+    } else if (pending.type === 'RETURN') {
+      box.append(el('h2', 'Return to the Starting Shore'));
+      const due = state.shore.filter(x => x.anger + 1 >= C.shoreAngerLimit), cost = Math.max(0, due.length * C.wraithDamage - state.window.guard);
+      paragraph(box, due.length ? due.map(x => soulOf(x).name).join(', ') + ' will become ' + (due.length > 1 ? 'wraiths' : 'a wraith') + ': −' + cost + ' Light after Guard.' : 'No waiting soul reaches its limit.', 'numbers' + (cost >= state.light ? ' warning' : ''));
+      paragraph(box, 'Then, if your lantern still burns, recover ' + C.returnLight + ' Light (max ' + C.maxLight + ') and new souls arrive.', 'hint');
+      if (cost >= state.light) notice('The lantern goes out before you can recover.', true, box);
+      stage.append(box); toolbar(() => send({ type: 'BACK' }), 'Confirm return', () => send({ type: 'CONFIRM' }, showReturn));
     }
   }
-  document.addEventListener('click', event => {
-    const target = event.target.closest('[data-action]');
-    if (!target) return;
-    try { handle(target.dataset.action, target.dataset.value); } catch (error) { showError(error, dialog.open); }
-  });
-  document.addEventListener('change', event => {
-    if (event.target.matches('[data-deliver]')) {
-      const id = event.target.dataset.deliver;
-      deliverySelection = event.target.checked ? [...deliverySelection, id] : deliverySelection.filter(item => item !== id);
+  function renderDelivery() {
+    heading('Who disembarks here?', 'Only souls who wish for ' + DEST[state.destination].name + ' can leave the boat. Each ordinary delivery gives its memory. Everyone still aboard then gains 1 Ship Anger.');
+    const grid = el('div', null, 'grid soul-grid'); state.boat.forEach(item => grid.append(soulCard(item, 'delivery'))); stage.append(grid);
+    const matches = state.boat.filter(x => soulOf(x).wish === state.destination);
+    if (matches.length && selected.size < matches.length) backLink('Select everyone who wishes for ' + DEST[state.destination].name, () => { selected = new Set(matches.map(x => x.id)); render(); });
+    const ids = [...selected].filter(id => matches.some(x => x.id === id));
+    const doomed = state.boat.filter(x => !ids.includes(x.id) && x.anger + 1 >= C.shipAngerLimit);
+    if (doomed.length) notice(doomed.map(x => soulOf(x).name).join(', ') + ' will become ' + (doomed.length > 1 ? 'wraiths' : 'a wraith') + ' after this round if kept aboard: −1 Light each.', true);
+    toolbar(null, ids.length ? 'Deliver ' + ids.length + ' soul' + (ids.length === 1 ? '' : 's') : 'Keep everyone aboard', () => { const go = ids; selected = new Set(); send({ type: 'DELIVER', ids: go }, lines => { if (lines.length) showNote('End of the round', lines); }); });
+  }
+  function renderTrim() {
+    heading('Keep up to ' + C.handLimit + ' memories', 'You hold ' + state.hand.length + '. Tap a memory to discard it.');
+    const grid = el('div', null, 'grid');
+    for (const held of state.hand) { const m = MEM[held.type], { b, body } = choiceCard({ art: ART[held.type], label: 'Discard ' + m.name, data: { discard: held.id }, onPick: () => send({ type: 'DISCARD_MEMORY', id: held.id }) }); paragraph(body, m.name, 'title'); paragraph(body, m.text, 'key'); paragraph(body, 'Tap to discard', 'hint'); grid.append(b); }
+    stage.append(grid);
+  }
+  function renderEnded() {
+    const hero = el('div', null, 'ending'); hero.append(boat('docked dark'));
+    paragraph(hero, 'Journey’s end · cycle ' + state.cycle + ' · round ' + state.round, 'eyebrow'); stage.append(hero);
+    heading('The river remembers', state.ending);
+    const stats = el('dl', null, 'end-stats five');
+    for (const [n, label, sub] of [[state.completed, 'Cycles survived'], [state.round, 'Rounds travelled'], [state.deliveries, 'Souls delivered'], [state.hand.length, 'Memories held'], [state.quest === 'completed' ? 'Yes' : 'No', 'Family quest', state.quest]]) {
+      const tile = el('div', null, 'end-stat'); tile.append(el('dd', String(n)), el('dt', label)); if (sub) tile.append(el('span', sub, 'end-sub')); stats.append(tile);
     }
-  });
-  document.querySelector('#home').onclick = () => { state = null; render(); };
-  document.querySelector('#guide').onclick = guide;
-  document.querySelector('#facilitator').onclick = () => { try { showRoutes(); } catch (error) { showError(error); } };
-  globalThis.FerryUI = Object.freeze({snapshot: () => state ? game.clone(state) : null, storageNamespace: namespace});
-  const active = Number(read('active'));
-  if ([1, 2, 3].includes(active) && read('slot-' + active)) {
-    try { load(active); } catch (error) { render(); showError(error); }
-  } else render();
+    stage.append(stats);
+    const go = el('div', null, 'end-go'); go.append(button('Start a new run', () => begin(slot), 'primary')); stage.append(go);
+  }
+
+  // Trip panel: portraits, anger pips and what comes next.
+  function pips(value, max) { const s = el('span', null, 'pips'); s.setAttribute('aria-hidden', 'true'); for (let i = 1; i <= max; i++) s.append(el('i', null, i <= value ? (i === max - 1 && value === max - 1 ? 'new' : 'on') : '')); return s; }
+  function mini(item, said, icons, cls = '') {
+    const s = soulOf(item), row = el('li', null, 'mini' + (cls ? ' ' + cls : ''));
+    if (ART[item.type]) { const img = el('img'); img.src = ART[item.type]; img.alt = ''; row.append(img); } else { const sg = el('span', initials(s.name), 'mini-sigil'); sg.setAttribute('aria-hidden', 'true'); row.append(sg); }
+    const t = el('div'); t.append(el('strong', s.name)); const meta = el('span', null, 'meta'); meta.setAttribute('aria-hidden', 'true');
+    meta.append(...icons); t.append(meta, el('span', said, 'sr-only')); row.append(t); return row;
+  }
+  function tripColumn(icon, title, count, empty) {
+    const col = el('div', null, 'trip-col'), h = el('h3'), ic = ico(icon); ic.classList.add('icon');
+    h.append(ic, el('span', title)); if (count !== null) h.append(el('span', String(count), 'count'));
+    col.append(h); const list = el('ul', null, 'minis'); col.append(list); if (empty) paragraph(col, empty, 'trip-empty');
+    return { col, list };
+  }
+  function tactics() {
+    const box = el('section', null, 'trip'); box.setAttribute('aria-label', 'This cycle');
+    const head = el('div', null, 'trip-head'); head.append(el('h2', 'This cycle'));
+    const stops = el('div', null, 'stops'), k = roundsToPolong();
+    for (const [t, on] of [['Round ' + state.round, false], [k === 1 ? 'PoLong boards next round' : 'PoLong in ' + k + ' rounds', k === 1], ['Quest: ' + state.quest.replace('-', ' '), state.quest === 'completed']]) stops.append(el('span', t, 'stop' + (on ? ' done' : '')));
+    head.append(stops); box.append(head);
+    const fog = state.boat.reduce((t, x) => t + polongFog(x), 0);
+    iconLine(box, [['fog', 'PoLong fog now +' + fog + '. Ship Anger limit ' + C.shipAngerLimit + ', Shore Anger limit ' + C.shoreAngerLimit + '. Each wraith costs 1 Light.']], 'trip-note');
+    const cols = el('div', null, 'trip-cols');
+    const onBoat = tripColumn('boat', 'On the boat', game.seats(state) + '/' + C.seats, state.boat.length ? '' : (state.phase === 'boarding' ? 'Choose passengers above.' : 'Empty.'));
+    for (const item of state.boat) { const s = soulOf(item), soon = item.anger + 1 >= C.shipAngerLimit; onBoat.list.append(mini(item, s.name + ': Ship Anger ' + item.anger + ' of ' + C.shipAngerLimit + ', wishes for ' + DEST[s.wish].name + '.', [pips(item.anger, C.shipAngerLimit), tagx(DEST[s.wish].name, isPolong(item) ? 'bad tainted' : '', 'lotus')], soon ? 'doomed' : '')); }
+    cols.append(onBoat.col);
+    const shore = tripColumn('steps', 'Waiting on shore', state.shore.length, state.shore.length ? '' : 'No one is waiting.');
+    for (const item of state.shore) { const s = soulOf(item), soon = item.anger + 1 >= C.shoreAngerLimit; shore.list.append(mini(item, s.name + ': Shore Anger ' + item.anger + ' of ' + C.shoreAngerLimit + '.', [pips(item.anger, C.shoreAngerLimit), el('span', 'Anger ' + item.anger + '/' + C.shoreAngerLimit, 'anger-change')], soon ? 'doomed' : '')); }
+    cols.append(shore.col);
+    const mems = tripColumn('flower', 'Memories', state.hand.length + '/' + C.handLimit, state.hand.length ? '' : 'None yet. Deliver souls to earn them.');
+    for (const held of state.hand) { const li = el('li', null, 'mini'); const img = el('img'); img.src = ART[held.type]; img.alt = ''; const t = el('div'); t.append(el('strong', MEM[held.type].name)); const meta = el('span', SOUL[held.source] ? 'From ' + SOUL[held.source].name : 'Quest reward', 'meta'); t.append(meta); li.append(img, t); mems.list.append(li); }
+    cols.append(mems.col); box.append(cols);
+    const j = el('details', null, 'journal'); j.append(el('summary', 'River journal')); const ol = el('ol');
+    for (const x of state.log.slice().reverse()) { const li = el('li'); li.append(el('span', 'Cycle ' + x.cycle + ' · round ' + x.round), document.createTextNode(x.text)); ol.append(li); }
+    j.append(ol); box.append(j); stage.append(box);
+  }
+
+  // Popups after a move.
+  function showArrival(lines) {
+    const dest = state.destination, ended = state.phase === 'ended';
+    openPopup({ art: ART[dest], eyebrow: ended ? '' : 'You made it across', title: ended ? 'The lantern goes out' : 'Welcome to ' + DEST[dest].name, lines, locked: true, build: closeButton });
+  }
+  function showReturn(lines) {
+    const ended = state.phase === 'ended';
+    openPopup({ art: ART['MAT-SHORE'], eyebrow: ended ? '' : 'Cycle ' + state.completed + ' survived', title: ended ? 'The lantern goes out' : 'Welcome back to the Starting Shore', lines, locked: true, build: closeButton });
+  }
+  function showNote(title, lines, art) { openPopup({ art, title, lines, build: closeButton }); }
+  function closeButton(pop) { const actions = el('div', null, 'actions'); actions.append(button('Continue', closePopup, 'primary')); pop.append(actions); }
+  function openPopup(o) {
+    popup.replaceChildren(); popupLocked = !!o.locked; popup.className = 'popup' + (o.wide ? ' wide' : '');
+    if (o.art) { const img = el('img', null, 'popup-art'); img.src = o.art; img.alt = ''; popup.append(img); }
+    if (o.eyebrow) paragraph(popup, o.eyebrow, 'eyebrow');
+    const h = el('h2', o.title); h.id = 'popup-title'; popup.append(h);
+    for (const line of o.lines || []) paragraph(popup, line);
+    if (o.build) o.build(popup);
+    if (!popup.open) popup.showModal();
+  }
+  function closePopup() { popupLocked = false; if (popup.open) popup.close(); }
+
+  function renderSplash() {
+    const sp = el('div', null, 'splash'), text = el('div', null, 'splash-text');
+    paragraph(text, 'The river is calling…', 'eyebrow calling');
+    const h = el('h1', null, 'splash-title'); h.tabIndex = -1;
+    'Welcome to The Ferryman'.split(' ').forEach((w, i) => { const s = el('span', w + ' '); s.style.animationDelay = (0.4 + i * 0.28) + 's'; h.append(s); });
+    text.append(h); paragraph(text, 'One lantern. An endless river.', 'splash-sub');
+    const river = el('div', null, 'river'); river.append(boat('arriving'));
+    const go = el('div', null, 'splash-go'), enter = button('Enter', () => {
+      enter.disabled = true; sp.classList.add('sailing');
+      const done = () => { entered = true; try { sessionStorage.setItem('ferryman-v06-entered', '1'); } catch {} render('slot1'); };
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) done(); else setTimeout(done, 1500);
+    }, 'primary enter', false, 'enter');
+    go.append(enter); sp.append(text, river, go); stage.append(sp);
+  }
+  function renderTitle() {
+    const hero = el('div', null, 'hero'); hero.append(boat('docked')); hero.append(el('h1', 'Welcome to The Ferryman'));
+    paragraph(hero, 'You are Charon’s apprentice. Carry souls to the destinations they wish for, spend the memories they leave, and survive every return. The river never ends; how long can your lantern last?', 'intro');
+    iconLine(hero, [['boat', C.seats + ' seats'], ['lamp', C.startLight + ' Light'], ['spirit', 'PoLong every ' + C.spawnInterval + ' rounds'], ['wheel', 'Endless cycles']]); stage.append(hero);
+    stage.append(el('h2', 'Choose a save', 'slots-title'));
+    const grid = el('div', null, 'grid slot-grid');
+    for (const n of SLOTS) {
+      const s = slots[n], cell = el('div', null, 'slot');
+      if (broken[n]) { const { b, body } = choiceCard({ label: 'Save ' + n + ': unreadable', disabled: true }); paragraph(body, 'Save ' + n, 'title'); paragraph(body, 'This save could not be read.', 'warning'); cell.append(b); }
+      else if (s) {
+        const { b, body } = choiceCard({ art: ART['MAT-SHORE'], label: s.phase === 'ended' ? 'Save ' + n + ': view ended run' : 'Save ' + n + ': continue cycle ' + s.cycle, focusKey: 'slot' + n, onPick: () => { slot = n; state = s; dealRoutes(); selected = new Set(); persist(); render(); } });
+        paragraph(body, 'Save ' + n, 'title'); paragraph(body, s.phase === 'ended' ? 'Run ended' : 'Continue', 'key');
+        iconLine(body, [['wheel', 'Cycle ' + s.cycle], ['lotus', 'Round ' + s.round]], 'line');
+        iconLine(body, [['lamp', 'Light ' + s.light + '/' + C.maxLight], ['flower', s.deliveries + ' delivered']], 'line');
+        cell.append(b);
+      } else {
+        const { b, body } = choiceCard({ label: 'Save ' + n + ': begin a run', focusKey: 'slot' + n, onPick: () => begin(n) }); b.classList.add('empty-slot');
+        paragraph(body, 'Save ' + n, 'title'); iconLine(body, [['plus', 'New run']], 'key'); paragraph(body, 'Empty slot. Start fresh at the shore.'); cell.append(b);
+      }
+      if (s || broken[n]) { const row = el('div', null, 'slot-actions'); if (s) row.append(button('New run', () => begin(n), 'text-button')); row.append(button('Erase', () => erase(n), 'text-button')); cell.append(row); }
+      grid.append(cell);
+    }
+    stage.append(grid);
+  }
+
+  const PAGES = { boarding: renderBoarding, review: renderReview, delivery: renderDelivery, trim: renderTrim, ended: renderEnded, window: () => memoryPageNow() ? renderMemory() : renderRoute() };
+  function render(focusKey) {
+    if (!popupLocked) closePopup();
+    stage.replaceChildren(); summary();
+    const scene = state && state.destination && state.phase !== 'boarding' ? ART[state.destination] : ART['MAT-SHORE'];
+    document.querySelector('.world').style.backgroundImage = 'url("' + scene + '")';
+    if (storageNote) notice(storageNote, true);
+    document.body.classList.toggle('splash-on', !state && !entered);
+    if (!state) { if (entered) renderTitle(); else renderSplash(); }
+    else { if (state.phase !== 'ended') flow(); PAGES[state.phase](); if (state.phase !== 'ended') tactics(); }
+    const key = focusKey || (!state && !entered ? 'enter' : '');
+    const target = key && [...stage.querySelectorAll('[data-focus]')].find(n => n.dataset.focus === key);
+    if (target) target.focus(); else { stage.focus(); window.scrollTo(0, 0); }
+    announce(state ? state.phase + ' step. Light ' + state.light + '.' : 'Choose a new run or resume.');
+  }
+
+  function exportSave() {
+    const current = state || slots[slot]; if (!current) return;
+    const url = URL.createObjectURL(new Blob([game.exportSave(current)], { type: 'application/json' }));
+    const a = el('a'); a.href = url; a.download = 'ferryman-v06-cycle-' + current.cycle + '.json'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  let message;
+  function importSave(text) {
+    let next; try { next = game.importSave(text); } catch (e) { message.textContent = 'Import rejected: ' + e.message + ' Your current run is unchanged.'; return; }
+    if ((state || slots[slot]) && !window.confirm('Replace Save ' + slot + ' with this v0.6 save?')) return;
+    state = next; dealRoutes(); selected = new Set(); persist(); menu.close(); render();
+  }
+  function openMenu() {
+    menuContent.replaceChildren();
+    paragraph(menuContent, data.rules.objective);
+    const r = el('details'); r.open = true; r.append(el('summary', 'Each round')); const ol = el('ol'); data.roundSteps.forEach(t => ol.append(el('li', t))); r.append(ol); menuContent.append(r);
+    const t = el('details'); t.append(el('summary', 'Returning to the shore')); const ol2 = el('ol'); data.returnSteps.forEach(x => ol2.append(el('li', x))); t.append(ol2); menuContent.append(t);
+    for (const [k, label] of [['boarding', 'Boarding'], ['memories', 'Memories'], ['quest', 'Mother and Child quest']]) { if (!data.rules[k]) continue; const d = el('details'); d.append(el('summary', label)); paragraph(d, data.rules[k]); menuContent.append(d); }
+    paragraph(menuContent, 'Online, the river deals each fork from the six destinations at random. At a table, a facilitator hands out the route cards instead.', 'hint');
+    const links = el('p');
+    for (const [href, label] of [['print/Print_and_Play_v0.6.pdf', 'Print kit (PDF)'], ['print/Player_Guide_v0.6.pdf', 'Player guide (PDF)'], ['RULES.md', 'Full rules']]) { const a = el('a', label); a.href = href; a.target = '_blank'; a.rel = 'noopener'; links.append(a, document.createTextNode(' · ')); }
+    menuContent.append(links);
+    paragraph(menuContent, storageNote || 'Progress saves automatically in this browser after every move. Export before moving or clearing files.', 'hint');
+    const seedLabel = el('label', 'River seed for a new run (optional, 0 to 4294967295)'); seedLabel.htmlFor = 'seed';
+    const seed = el('input'); seed.id = 'seed'; seed.type = 'number'; seed.min = '0'; seed.max = '4294967295'; seed.step = '1'; seed.placeholder = 'Random run';
+    const row = el('div', null, 'seed-row'); row.append(seed); menuContent.append(seedLabel, row);
+    const actions = el('div', null, 'menu-actions');
+    actions.append(button('Export JSON', exportSave, '', !(state || slots[slot])),
+      button('New run', () => { const raw = seed.value, n = raw === '' ? crypto.getRandomValues(new Uint32Array(1))[0] : Number(raw); if (!Number.isInteger(n) || n < 0 || n > 4294967295) { message.textContent = 'Seed must be a whole number from 0 to 4294967295.'; return; } if (begin(slot, n)) menu.close(); }, '', false, 'new-run'),
+      button('Save slots', () => { state = null; menu.close(); render(); }, '', !state));
+    menuContent.append(actions);
+    const label = el('label', 'Import a v0.6 JSON file'); label.htmlFor = 'import-file';
+    const input = el('input'); input.type = 'file'; input.accept = '.json,application/json'; input.id = 'import-file';
+    input.addEventListener('change', async () => { const file = input.files[0]; if (!file) return; if (file.size > 5000000) { message.textContent = 'Import rejected: file exceeds 5 MB. Current run unchanged.'; return; } try { importSave(await file.text()); } catch { message.textContent = 'Could not read that file. Current run unchanged.'; } });
+    menuContent.append(label, input);
+    message = el('p'); message.setAttribute('role', 'status'); menuContent.append(message);
+    if (!menu.open) menu.showModal();
+  }
+  document.querySelector('.brand').addEventListener('click', e => { e.preventDefault(); if (menu.open) menu.close(); state = null; selected = new Set(); entered = false; render(); });
+  document.querySelector('#menu-button').addEventListener('click', openMenu);
+  document.querySelector('#close-menu').addEventListener('click', () => menu.close());
+  menu.addEventListener('close', () => document.querySelector('#menu-button').focus());
+  popup.addEventListener('cancel', e => { if (popupLocked) e.preventDefault(); });
+  popup.addEventListener('close', () => { if (popupLocked) popup.showModal(); });
+  render();
 })();

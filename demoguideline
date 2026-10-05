@@ -1,0 +1,279 @@
+This is a Paper Demo Guideline
+1. Objective and ending
+Single player.
+Play up to 3 cycles.
+Lose immediately when Light reaches 0, including during fog payment or wraith conversion.
+The Mother and Child quest is optional. Its reward helps the player, but completing it is not required to win.
+Win condition: Endless survival. Souls will never run out, always shuffled back when run out.
+2. Setup, arrivals and character values
+Start with 6 Light, 4 ordinary passenger seats, 0 memories, and all anger counters at 0.
+The initial shore contains Mother, Child, Merchant, Mason and Cook. Shuffle Soldier, Poet and Keeper into the arrival supply.
+After each return, resolve Shore Anger first. Then draw ordinary souls until 5 are waiting, or the supply is empty. Delivered ordinary souls and ordinary souls that become wraiths never return.
+Soul
+Seats
+Preferred destination
+Delivery memory
+Mother
+1
+Tartarus
+Restore 1 Light
+Child
+1
+Haven
+None
+Merchant
+1
+River Styx
+Foresight
+Soldier
+2
+River Styx
+Guard
+Poet
+1
+Elysium
+Foresight
+Cook
+1
+Asphodel
+Calm
+Mason
+1
+Acheron
+Fog Shield
+Keeper
+1
+Asphodel
+Fog Shield
+PoLong
+0
+Tartarus
+None
+
+Use one card for each ordinary soul and 2 reusable PoLong cards for overlapping tainted arrivals. Each arriving PoLong is a new instance with fresh counters.
+Before leaving the shore, board at least 1 ordinary soul, using no more than 4 seats. Boarding choices can be changed until departure. These characters have no additional passive abilities beyond the rules listed here.
+3. Map generation, visibility and unreachable destinations
+I will order, shuffle, and handout the maps on my own. Dont worry about order. Just get me 6 maps excluding the starting shore.
+Destination
+Base fog
+Haven
+0
+River Styx
+1
+Acheron
+1
+Asphodel
+2
+Elysium
+3
+Tartarus
+3
+
+4. Forced tainted arrivals and full boats
+A PoLong boards at the start of global outward rounds 3, 6, 9, 12, and so on.
+The round counter continues across cycles. Boarding, returning and instant delivery do not advance it.
+Resolve the optional memory first, then add the scheduled PoLong before travel. If an instant delivery empties the boat, return immediately instead of starting that outward round.
+PoLong uses 0 seats, so it can attach to a full boat without removing another passenger. It cannot be refused. It follows ordinary preferred-destination and Ship Anger rules, with its additional fog effect.
+5. PoLong’s exact debuff
+Use Ship Anger as PoLong’s timer instead of adding a separate counter.
+PoLong’s current Ship Anger
+Added fog
+0 or 1
+0
+2 or 3
++1
+Reaches 4
+Becomes a wraith and leaves
+
+Calculate the penalty before crossing. An anger increase at the end of a round affects later crossings, not the crossing just completed.
+Penalties from multiple PoLongs add together. Delivering or removing a PoLong immediately removes its contribution.
+Calm can lower PoLong’s Ship Anger and therefore lower its fog penalty. Remove the separate “every 3 turns” wording from its ability, since that interval controls arrivals.
+6. Memory rules and exact effects
+Start with no memories.
+Play at most 1 memory before each outward round or return.
+Each memory is single-use and leaves the game after use.
+Unused memories persist between cycles.
+Hold at most 3 memories. After receiving rewards,choose to discard any when excess.
+A newly earned memory becomes usable before a later round or return.
+Rewards cannot rescue a player who already reached 0 Light while arriving.
+Memory
+Exact effect
+Restore Light
+Restore 1 Light, up to the maximum of 6.
+Foresight
+Reveal both options at the current fork and the next 2 forks. They remain visible this cycle.
+Guard
+Prevent the next 1 point of Light loss during this outward round or return. It can prevent fog or wraith damage. Any unused protection expires when that round or return ends.
+Calm
+Reduce one living soul’s current anger by 1, to a minimum of 0. Target Shore Anger for a waiting soul or Ship Anger for a passenger.
+Fog Shield
+Reduce the total fog of this crossing by 1, to a minimum of 0. It also works against fog added by PoLong. It does not prevent wraith damage.
+
+Merchant and Poet each award their own Foresight card. Mason and Keeper each award their own Fog Shield card.
+7. Anger and resolution order
+Ordinary arrivals start at 0 Shore Anger. Boarding starts their separate Ship Anger at 0, regardless of prior Shore Anger. Souls cannot be unloaded back onto the shore after departure.
+Resolve each outward round in this order:
+Optionally play one memory.
+If the boat is empty, return immediately.
+Advance the global round counter and add any scheduled PoLong at Ship Anger 0.
+Choose a destination and calculate fog, including current PoLong penalties.
+Pay Light. If it reaches 0, lose immediately.
+Optionally deliver any matching passengers and receive their rewards.
+Every passenger still aboard gains 1 Ship Anger, including a PoLong that arrived this round.
+Each passenger reaching 4 Ship Anger becomes a wraith: lose 1 Light, then remove it.
+Enforce the memory hand limit. If the boat is empty, return.
+On return, each soul already waiting gains 1 Shore Anger. At 2, it becomes a wraith: lose 1 Light, then remove it. Resolve this before adding new arrivals.
+Wraiths leave permanently and have no continuing fog effect.
+8. Mother and Child quest
+Deliver Child to Haven before delivering Mother to Tartarus. The deliveries may happen in different cycles.
+When Mother is delivered after Child, receive both:
+Mother’s normal Restore Light memory.
+One special Passage memory.
+Passage counts toward the hand limit and the one-memory use limit. It instantly delivers one soul currently aboard, including PoLong, to its preferred destination.
+That delivery gives its normal reward and counts toward the winning target if it is an ordinary soul. It costs no fog and advances no anger or round counter.
+If Passage empties the boat, return immediately. Passage has already used the memory allowance for that return.
+Delivering Mother first, or losing either family member to a wraith before their required delivery, makes the quest unavailable. The quest awards Passage only once.
+9. Light, Haven and returning
+Starting Light: 6.
+Maximum Light: 6.
+Return travel costs 0 Light and is not an outward round.
+Resolve waiting souls’ Shore Anger and wraith losses first.
+If still alive, recover 2 Light, capped at 6.
+Record the completed cycle and check whether the game ends.
+If another cycle remains, refill the shore and generate its map.
+Ordinary deliveries do not automatically restore Light. Mother’s memory provides recovery when played.
+Haven has 0 base fog, but does not heal. PoLong can still add fog there. Replace “free rest point” with “zero-base-fog destination.”
+Wording and example
+Use “round” consistently for outward travel and “cycle” for a complete trip. Replace “one soul of each memory type” with “one of each listed ordinary soul.” State that Child and PoLong give no memory.
+Example: Before global round 6, Light is 4, Keeper and Soldier each have Ship Anger 3, and the player holds a Fog Shield. Play it, then add the scheduled PoLong at anger 0. Choose Asphodel: base fog 2, minus 1 protection, leaves Light 3. Deliver Keeper and receive its memory. Soldier reaches anger 4, becomes a wraith, and reduces Light to 2. PoLong reaches anger 1 and remains aboard, so the cycle continues.
+
+Game Guide Demo
+This is a Paper Demo Guideline. 
+Premise
+You play Charon's apprentice. Your job is to ferry souls across the river and drop each one off where it wants to go.
+Key terms
+Round: one stop on the river. The river splits into 2 destinations, and you travel to one of them.
+Cycle: one full trip. It starts when you pick up souls at the shore and ends when your boat is empty. Then you return to the shore for new arrivals.
+Light: your health. If light reaches 0, you lose. Start at 6.
+Fog: each destination has a fog value. When you arrive there, you lose that much Light.
+Seats: your boat has 4 seats. Most souls take 1 seat, and some take 2.
+Anger: how long a soul has been kept waiting. Too much Anger turns a soul into a wraith (see Anger below).
+Memory: a card you earn by delivering a soul to its preferred destination. Each memory has a special effect.
+How a cycle plays
+New map. A river map with a set path is randomly generated for this cycle. 
+Choose passengers. At the shore, fill up to 4 seats with souls. Each soul has a preferred destination, and you need to deliver all of them before they turn into wraiths. Souls you don't pick stay on the shore.
+Pick a destination. At the start of each round, choose 1 of 2 destinations. When you arrive, you lose Light equal to that destination's fog.
+Drop off souls (optional). A soul can only be dropped off at its preferred destination. When you drop one off, you get its memory. You can also keep a soul on board and drop it off later, for example to complete a quest in the right order.
+End of round. Every soul still on your boat gains +1 Ship Anger.
+Repeat steps 3–5 until your boat is empty.
+Return to the shore. Every soul still waiting on the shore gains +1 Shore Anger. New souls arrive, and the next cycle starts from step 1.
+
+
+
+
+
+
+Anger
+Souls that wait too long turn into wraiths. When a soul becomes a wraith, you lose 1 Light and the soul leaves the game.
+
+
+Shore Anger
+Ship Anger
+Who
+Souls left waiting on the shore
+Souls on your boat
+Goes up
++1 every cycle
++1 every round
+Limit
+Lower (2)
+Higher (4)
+At the limit
+Becomes a wraith: −1 Light, then leaves
+Becomes a wraith: −1 Light, then leaves
+
+Ship Anger has a higher limit because it goes up much more often: every round instead of every cycle.
+Quests
+Some souls have a quest. Completing it gives you a special memory, which is stronger than a normal one.
+Tainted souls
+Every 3 rounds, a tainted soul is placed on your boat, and you can't refuse it. It carries a debuff that stays active until it leaves your boat. Otherwise it works like any other soul: it has a preferred destination and gains Ship Anger.
+Demo scope
+To keep the demo small, it includes only:
+1 soul of each memory type
+Mother Give light +1
+Child No memory
+Merchant See the future +3
+Soldier Prevent Light Toll +1
+Poet See the future +3
+Cook Prevent anger by 1
+Mason Prevent 1 fog
+Keeper Prevent 1 fog 
+PoLong Tainted Soul Every 3 turns, increase fog by 1 for every 2 rounds it stays in the boat.
+1 quest pair whose quest gives a special memory 
+Quest pair story: The Mother is a horrible person, however she wants her son to go to Haven. Therefore the quest condition is if you send the son to Haven before sending the Mother to Tartarus, you will receive a memory that allows you to select one soul on your ship and send them to their destination instantly.
+A tainted soul every 3 Cycle rounds
+6 destinations for the map pool not including the starting shore: 
+Destination
+Fog
+Why
+Haven
+0
+Safe harbor, a free rest point
+River Styx
+1
+The threshold every soul crosses, so it's the cheap gate
+Acheron
+1
+River of woe, the first taste of the underworld, same shallow depth as Styx
+Asphodel
+2
+The gray middle fields, thick with the fog of forgetting
+Elysium
+3
+Paradise for the worthy, the far edge of the good
+Tartarus
+3
+The deepest pit, the far edge of the bad
+
+
+
+
+
+
+Make the printout demo in similar style to the design of the html demo
+Generate missing memory card pictures, characters, and maps.
+
+
+
+
+I reviewed C:/Users/purin/Downloads/game guide.docx. The core loop is understandable, but several rules need clarification before implementation. I have not changed the guide or started the next version.
+The guide was modified October 4 at 22:39 and has no Git revision history. References below use its section names and card entries.
+No winning condition or ending.
+Key terms; How a cycle plays: losing at 0 Light is defined, but winning is not. Specify whether this is endless survival, a fixed number of cycles, or a delivery target. Also define what happens when no souls remain.
+Setup and soul information are incomplete.
+Choose passengers; Demo scope: specify initial shore population, new arrivals per cycle, whether delivered souls return, and each character’s seat cost and destination. The quest establishes Child → Haven and Mother → Tartarus, but the remaining destinations are unspecified.
+The map can leave passengers without a delivery route.
+New map; Drop off souls: delivery is allowed only at a preferred destination. Define map length, repeated destinations, whether required destinations are guaranteed, and what happens when the map ends with passengers aboard. Also specify how much of the map is visible before boarding, especially because foresight memories depend on hidden information.
+Forced tainted arrivals conflict with boat capacity.
+Seats; Tainted souls: the boat holds 4 seats, yet a tainted soul must board every 3 rounds. There is no rule for a full boat. Specify arrival timing and whether the three-round counter continues across cycles or resets.
+PoLong’s effect mixes different timers.
+Demo scope, PoLong: “Every 3 turns” and “for every 2 rounds it stays” could describe spawning and escalation, but that distinction is unclear. Separate its arrival rule from its debuff. Define when fog increases, whether increases accumulate, and how multiple PoLongs interact.
+Memory effects need exact playable wording.
+Memory; Demo scope: define when memories can be played, whether they are consumed, how many can be used together, and whether they persist between cycles. In particular:
+“See the future +3”: reveal three rounds, destinations, or something else?
+“Prevent Light Toll +1”: “Light Toll” is not defined. Does this block fog, wraith damage, or both?
+“Prevent anger by 1”: which soul, which anger counter, and does it reduce existing anger or prevent an increase?
+“Prevent 1 fog”: one crossing or a longer duration? Can effects stack?
+Anger needs initialization and boarding rules.
+Anger table: the limits of 2 Shore Anger and 4 Ship Anger are clear. Specify starting values and whether boarding resets anger, transfers it, or starts a separate Ship Anger counter. A newly forced passenger’s first anger increase also needs a defined timing.
+The quest reward has unresolved interactions.
+Quest pair story: clarify whether Child and Mother must be delivered in the same cycle, whether the special memory replaces or supplements Mother’s normal memory, and whether instant delivery earns the target’s ordinary memory or completes another quest.
+Light recovery and return costs need explicit wording.
+Light; Return to the shore; Haven row: starting Light is 6, but maximum Light is unspecified. State whether returning costs Light or counts as a round. Haven’s “free rest point” wording may suggest healing, although its listed effect only establishes fog 0.
+Smaller corrections:
+Replace “every 3 Cycle rounds” with the intended unit, and use round consistently instead of alternating with turn.
+“1 soul of each memory type” conflicts with repeated effects: Merchant/Poet and Mason/Keeper. If intended, write “one of each listed soul.”
+Add “except Child” to the general memory reward rule.
+Add one worked round showing memory use, fog payment, delivery, tainted effects, and anger resolution.
+The highest-priority decisions are the ending, map reachability, forced boarding, and memory definitions. This was a text and rules review; page layout and gameplay balance remain unverified.
+

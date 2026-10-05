@@ -27,3 +27,5 @@ Neither configured remote exposed the separately mentioned B branch. The local c
 Direct-file launch is NOT_RUN_TOOL_BLOCKED: the approved navigator blocks file URLs. No alternate route bypassed that restriction. Local HTTP was tested. Windows, other browser families, actual phones, printer calibration/cutting/opacity, handling, human learning, duration, enjoyment, balance and team art approval remain NOT_RUN. Use the [human checklist](verification/human-workshop-checklist.md) and blank workshop PDF.
 
 No external deployment, push, upload, institutional acceptance or submission receipt is claimed.
+
+October 5, 2026 interface rebuild: earlier browser evidence covers the previous interface. On the new v0.4-style page, an agent bot played four runs in headless Chromium on macOS (1280 and 390 px) through boarding, memory play, routes, review, delivery, return, cycle 2 and two PoLong arrivals, with no page errors, no broken images and no sideways scrolling. Engine checks 27/0. Print kit rebuilt with the new PoLong portrait: print static 18/0 and integration check READY. Human play remains NOT_RUN.

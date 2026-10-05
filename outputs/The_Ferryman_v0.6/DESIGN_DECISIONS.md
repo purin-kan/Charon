@@ -30,3 +30,11 @@ A owns the original print/art delivery. The user's subsequent integration author
 
 The user asked for every printed card and page to match the live browser design, fully dark. All 31 pages now use the Khmer night theme: near-black background, tarnished bronze borders and lines, bone text, Battambang headings and Kantumruy Pro body text. Card art sits in a temple-doorway arch with a lotus finial, cut cards have a bronze cut border and inner frame, and the cover carries the reaper ferryman from the browser. Writing areas (workshop record, dashboard counters, offer-slip checkboxes) are parchment so pencil stays legible. Rules text, card geometry, component counts and artwork are unchanged. Dark full-page printing uses much more ink.
 
+## October 5, 2026: demo guideline, browser restyle and new PoLong art (user requests)
+
+The user supplied `demoguideline` (repository root) as the game rules for the live site. This engine already implements it: the same nine souls, seats, destinations and fog, PoLong boarding on rounds 3, 6, 9 with +1 fog at Ship Anger 2-3, the five memories plus Passage, the anger order and the Mother and Child quest. The guideline says both "play up to 3 cycles" and "endless survival"; the user chose endless survival, so the engine is unchanged.
+
+The browser was rebuilt in the v0.4 interface style used on the live site: intro, three save slots, one decision per page, picture cards, result popups, side status and trip panels, Khmer night theme and the reaper ferryman. Saves keep the same storage keys. For online solo play the interface deals each fork as two different random destinations, keeping three forks queued so Foresight works; at a table a facilitator hands out route cards as the guideline says. The engine is unchanged.
+
+PoLong uses the user's portrait `assets/art/newpolong.jpg` in the browser and on the print kit's PoLong cards. The generated `polong.png` stays in the art manifest.
+

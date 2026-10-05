@@ -2,8 +2,8 @@
   "status": "PASS",
   "reviewer": "Claude agent visual inspection",
   "checked_utc": "2026-10-05T04:44:16.330630+00:00",
-  "master_sha256": "060027bef9f9c746d56725ea21cb3725e7367caf605500418464aa88774dd0bf",
-  "method": "Dark Khmer-theme redesign (user request). Every final master page rendered at 120 dpi and inspected in tool output at readable size in groups of four. Supporting PDFs are exact extractions verified by verify.py.",
+  "master_sha256": "153a10f5600d56e5934c292a3a5c5a0f6f46d3edcd0cc07099bdac81f95e4865",
+  "method": "Dark Khmer-theme redesign (user request). Every final master page rendered at 120 dpi and inspected in tool output at readable size in groups of four. Supporting PDFs are exact extractions verified by verify.py. Page 19 PoLong cards now use the user-supplied portrait (assets/art/newpolong.jpg); page 19 re-rendered at 90 dpi and inspected. All other pages are unchanged from the prior inspected build.",
   "reviewed_master_pages": 31,
   "pages": [
     {
@@ -137,7 +137,7 @@
       "title": "PoLong / 2 base and 2 spare pieces",
       "render_sha256": "55cd1cc16220ccb64f1caab9dc5a9f4ac2fe516cb6086eb9b8f126fc66649d8a",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "PoLong cards with the user-supplied portrait in the bronze arch; text, IDs and anger tracks readable."
     },
     {
       "page": 20,

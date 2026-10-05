@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "checkedAt": "2026-10-05T04:48:41.706148+00:00",
+  "checkedAt": "2026-10-05T09:33:13.104944+00:00",
   "scope": "Isolated directory with only bundled A inputs; exact current PDFs, no external project paths.",
   "pdfs": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "file": "Cutout_Sheets_v0.6.pdf",
-      "sha256": "4961f312c272596380e9c7d9f6354a9d3b81017dedcc88b8fb05b1ccee2e03c1",
+      "sha256": "ea474518bb309c7f052ddb69e6e7a7c2d70c40cb8ab26df18dcb5eabd8e4bc8d",
       "byteIdentical": true
     },
     {
@@ -25,7 +25,7 @@
     },
     {
       "file": "Print_and_Play_v0.6.pdf",
-      "sha256": "060027bef9f9c746d56725ea21cb3725e7367caf605500418464aa88774dd0bf",
+      "sha256": "153a10f5600d56e5934c292a3a5c5a0f6f46d3edcd0cc07099bdac81f95e4865",
       "byteIdentical": true
     },
     {

@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#101e20">
+  <meta name="theme-color" content="#050807">
   <title>The Ferryman v0.6 | Endless River</title>
-  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700;900&family=Kantumruy+Pro:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="styles.css">
   <script defer src="content.js"></script>
   <script defer src="asset-map.js"></script>
@@ -15,19 +17,19 @@
 </head>
 <body>
   <div class="world" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
   <header class="masthead">
-    <button class="brand" id="home">THE FERRYMAN <span>v0.6</span></button>
-    <nav aria-label="Game tools">
-      <button id="facilitator">Facilitator routes</button>
-      <button id="guide">Guide &amp; saves</button>
-    </nav>
+    <a class="brand home" href="index.html" aria-label="Home: back to the title screen"><svg class="home-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 13.2 5h-2.4z"/><path d="M9.8 9h4.4l-1-4h-2.4z"/><path d="M8 14h8l-1.8-5H9.8z"/><path d="M5.5 20.5h13L16 14H8z"/><path d="M10.5 20.5v-3h3v3"/></svg>Home</a>
+    <button id="menu-button" class="quiet" type="button">Guide &amp; save</button>
   </header>
-  <div id="status" class="status" aria-label="Run status"></div>
-  <p id="save-warning" class="notice danger" role="status" hidden></p>
-  <p id="error" class="notice danger" role="alert" hidden></p>
+  <div id="status" class="status" aria-label="Run summary"></div>
   <main id="stage" tabindex="-1"></main>
-  <footer>Solo endless survival · Local play · Facilitator supplies the routes</footer>
-  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
-  <noscript>Enable JavaScript to play this locally bundled browser game.</noscript>
+  <dialog id="popup" class="popup" aria-labelledby="popup-title"></dialog>
+  <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+  <dialog id="menu" aria-labelledby="menu-title">
+    <div class="dialog-top"><h2 id="menu-title">Your river</h2><button id="close-menu" type="button">Close</button></div>
+    <div id="menu-content"></div>
+  </dialog>
+  <noscript>This local game needs JavaScript enabled in your browser.</noscript>
 </body>
 </html>

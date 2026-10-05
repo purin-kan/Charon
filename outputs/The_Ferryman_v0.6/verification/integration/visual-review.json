@@ -2,7 +2,7 @@
   "status": "PASS",
   "reviewedAt": "2026-10-05",
   "method": "Dark Khmer-theme redesign of every page (user request: match the live browser design). Agent rendered all 31 master pages at 120 dpi and inspected them at readable size in groups of four; the 40 dpi overview of all pages was also reviewed. The integration verifier checks that every extracted page is pixel-identical to its master page.",
-  "masterSha256": "060027bef9f9c746d56725ea21cb3725e7367caf605500418464aa88774dd0bf",
+  "masterSha256": "153a10f5600d56e5934c292a3a5c5a0f6f46d3edcd0cc07099bdac81f95e4865",
   "pages": [
     1,
     2,
@@ -37,6 +37,7 @@
     31
   ],
   "findings": [
+    "Page 19 PoLong cards now use the user-supplied portrait (assets/art/newpolong.jpg); page 19 re-rendered at 90 dpi and inspected. All other pages are unchanged from the prior inspected build.",
     "All pages use the near-black background, bronze frames and lines, bone text, Battambang headings and Kantumruy Pro body text.",
     "Cut cards: dark lacquer, bronze cut border with inner frame, art in a temple-arch frame with a lotus finial; identities, IDs and gameplay text unchanged and readable.",
     "Writing areas (workshop record fields, dashboard counters, offer-slip checkboxes) are parchment so pencil stays legible.",
@@ -50,8 +51,8 @@
   "previousReview": {
     "status": "PASS",
     "reviewedAt": "2026-10-05",
-    "method": "Agent opened all 31 master pages at readable 110 dpi using the image viewer. Page 7 was rebuilt with an additional 3 mm section gap and opened again. The integration verifier checks that all other final renders are unchanged and that every extracted page is pixel-identical to its master page.",
-    "masterSha256": "510a72cf4508fadf929574f375275109c1f67f74b5b01ed7655494430786e2a4",
+    "method": "Dark Khmer-theme redesign of every page (user request: match the live browser design). Agent rendered all 31 master pages at 120 dpi and inspected them at readable size in groups of four; the 40 dpi overview of all pages was also reviewed. The integration verifier checks that every extracted page is pixel-identical to its master page.",
+    "masterSha256": "060027bef9f9c746d56725ea21cb3725e7367caf605500418464aa88774dd0bf",
     "pages": [
       1,
       2,
@@ -86,15 +87,15 @@
       31
     ],
     "findings": [
-      "Readable cover, one-page guide, assembly, full rules and blank human record.",
-      "Page 7's final section was visually too close to the Passage paragraph. Added 3 mm without changing text, page count, component IDs or rules; inspected the final page again.",
-      "Five whole mats retain readable counters, four ordinary seats, separate PoLong spaces and concealed-route staging.",
-      "All cut-sheet labels, artwork identities, memory effects, anger tracks, cut borders and small marker labels are visible without clipping.",
-      "No remaining visible text collision, missing glyph, clipped effect or cut-border defect in the final render."
+      "All pages use the near-black background, bronze frames and lines, bone text, Battambang headings and Kantumruy Pro body text.",
+      "Cut cards: dark lacquer, bronze cut border with inner frame, art in a temple-arch frame with a lotus finial; identities, IDs and gameplay text unchanged and readable.",
+      "Writing areas (workshop record fields, dashboard counters, offer-slip checkboxes) are parchment so pencil stays legible.",
+      "Cover adds the reaper ferryman vector from the browser and a lotus rule; the 50 mm calibration line is unchanged.",
+      "Minor: the \"instance: ____\" blank on the two PoLong templates is on dark card, so pencil there is low contrast."
     ],
     "limitations": [
-      "Not an actual printer, cutting or handling check",
-      "Not a human playtest or team art approval"
+      "Digital inspection only; dark full-page printing uses heavy ink, and printed color, dark-art detail, scale and handling need a person.",
+      "Rules text, card geometry and component counts were not changed."
     ]
   }
 }

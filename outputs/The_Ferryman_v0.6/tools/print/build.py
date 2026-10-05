@@ -37,6 +37,8 @@ for line in src.splitlines():
 NAMES={'MEM-LIGHT':'Light','MEM-FORESIGHT':'Foresight','MEM-GUARD':'Guard','MEM-CALM':'Calm','MEM-FOG':'Fog Shield','MEM-PASSAGE':'Passage'}
 ASSETS=json.loads((BASE/'art/ASSET_MANIFEST.json').read_text(encoding='utf-8'))['assets']
 ART={cid:a['path'] for a in ASSETS for cid in a['component_ids']}
+# User-supplied PoLong portrait (October 5, 2026) replaces the generated one on PoLong cards; the original stays in the manifest.
+ART['SOUL-POLONG']='assets/art/newpolong.jpg'
 DEST={d['id']:d for d in destinations}
 CONTRACT=dict(version='0.6',authority='tools/print/source-contract/SHARED_RULES.md',authority_sha256=hashlib.sha256(src.encode()).hexdigest(),souls=souls,destinations=destinations,memories=memories,constants=dict(initialLight=6,maxLight=6,capacity=4,handLimit=3,spawnEvery=3,shipExpiry=4,shoreExpiry=2,returnRecovery=2),initialShore=['SOUL-MOTHER','SOUL-CHILD','SOUL-MERCHANT','SOUL-MASON','SOUL-COOK'],initialArrivals=['SOUL-SOLDIER','SOUL-POET','SOUL-KEEPER'],endless=True,ordinaryRecycle=True,freshMemoryEveryEligibleDelivery=True,questOncePerRun=True,facilitatorRoutes=True)
 def save(path,obj): path.write_text(json.dumps(obj,indent=2,ensure_ascii=False),encoding='utf-8')
