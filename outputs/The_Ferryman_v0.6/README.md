@@ -2,7 +2,7 @@
 
 [Play locally](index.html) · [Full rules](RULES.md) · [Rebuild](REBUILD.md) · [Verification](VALIDATION.md) · [A/B integration status](INTEGRATION.md)
 
-The combined v0.6 delivery includes [the complete 31-page print kit](print/Print_and_Play_v0.6.pdf), its five supporting PDFs, 78 cut pieces, five whole mats, all 23 original artwork assets and the matching browser. See the current package receipt and [integration record](INTEGRATION.md), including the unidentified remote B branch limitation.
+The combined v0.6 delivery includes [the complete 24-page print kit](print/Print_and_Play_v0.6.pdf), its five supporting PDFs, 78 cut pieces, five whole mats, all 23 original artwork assets and the matching browser. See the current package receipt and [integration record](INTEGRATION.md), including the unidentified remote B branch limitation.
 
 ## Play
 

@@ -1,6 +1,6 @@
 # The Ferryman v0.6: complete physical workshop kit
 
-Start with [the complete print kit](Print_and_Play_v0.6.pdf). Print all 31 pages once per player station, color A4, single-sided, actual size / 100 percent. Disable fit-to-page and booklet printing. Measure the first page's 50 mm line before printing the rest. Keep pages 1-16 whole; cut the marked outer borders on pages 17-31. Do not also print the replacement cutout PDF for a normal single set.
+Start with [the complete print kit](Print_and_Play_v0.6.pdf). Print all 24 pages once per player station, color A4, single-sided, actual size / 100 percent. Disable fit-to-page and booklet printing. Measure the first page's 50 mm line before printing the rest. Keep pages 1-16 whole; cut the marked outer borders on pages 17-31. Do not also print the replacement cutout PDF for a normal single set.
 
 This Handoff A build follows the accepted v0.6 shared rules and recorded user clarifications. It supports endless play, recycled ordinary souls, fresh memories on every eligible delivery, a once-per-run family quest and facilitator-controlled route offers. The kit needs basic stationery and a person supplying route offers. No app, account or internet connection is needed to play.
 
@@ -9,7 +9,7 @@ This Handoff A build follows the accepted v0.6 shared rules and recorded user cl
 | Deliverable | Pages | Use |
 |---|---:|---|
 | [Complete kit](Print_and_Play_v0.6.pdf) | 31 | Print this entire file for one station |
-| [Cutout sheets](Cutout_Sheets_v0.6.pdf) | 15 | Replacement set, identical to master pages 17-31 |
+| [Cutout sheets](Cutout_Sheets_v0.6.pdf) | 8 | Replacement set, identical to master pages 17-24 |
 | [Player guide](Player_Guide_v0.6.pdf) | 1 | Extra table reference, master page 2 |
 | [Assembly and setup](Assembly_and_Setup_v0.6.pdf) | 3 | Master pages 1, 3 and 4 |
 | [Full rules](Full_Rules_v0.6.pdf) | 6 | Master pages 5-10, including worked examples |
@@ -25,7 +25,7 @@ The master supplies 78 cut pieces and five keep-whole A4 play mats. The cut piec
 
 Bring a color printer, A4 paper or opaque card, scissors, pencil, eraser, extra writing paper and optional glue for mounting. Use cardstock supported by the printer, or mount paper on opaque card. Concealed offers and shuffled souls need indistinguishable plain opaque backs. No precise duplex alignment is needed. Place the two boat sheets side by side, with the PoLong lane below the ordinary seats. Keep the shore and memory reserves separate.
 
-Soul, destination and memory cards are 90 x 112 mm. Route slips are 90 x 50 mm. PoLong templates are 90 x 66 mm. Markers are 15 x 15 mm. The Soldier occupancy marker is 90 x 24 mm. Mat bounds in the inventory describe their printed area; retain each full 210 x 297 mm sheet.
+Soul, destination and memory cards are poker size, 63 x 88 mm, nine per sheet with shared cut lines. Route slips are 90 x 50 mm. PoLong templates are 90 x 66 mm. Markers are 15 x 15 mm. The Soldier occupancy marker is 90 x 24 mm. Mat bounds in the inventory describe their printed area; retain each full 210 x 297 mm sheet.
 
 Four memories per rewarding source allow three earlier copies to remain held when a new reward is earned. Used and discarded memories return to that source's reserve. Passage is one separate quest reward per run. Extra PoLong pieces do not create extra arrivals or impose a gameplay limit. Each instance keeps its own anger track. Written global-round and cycle counters can continue on extra paper without a game-ending cap. The supply proof is recorded in [supply-results.json](../verification/print/supply-results.json).
 

@@ -10,7 +10,7 @@
       "name": "A4 page size",
       "status": "PASS",
       "detail": {
-        "pages": 31,
+        "pages": 24,
         "width_mm": 210,
         "height_mm": 297
       }
@@ -39,7 +39,7 @@
       "name": "Recorded content inside 10 mm safe margins",
       "status": "PASS",
       "detail": {
-        "records": 1184,
+        "records": 1090,
         "minimum_margin_mm": 10
       }
     },
@@ -70,14 +70,7 @@
             21,
             22,
             23,
-            24,
-            25,
-            26,
-            27,
-            28,
-            29,
-            30,
-            31
+            24
           ],
           "content_stream_and_text_equal": true
         },
@@ -122,7 +115,7 @@
       "name": "All used PDF fonts embedded",
       "status": "PASS",
       "detail": {
-        "used_font_records": 93,
+        "used_font_records": 72,
         "unembedded": []
       }
     },
@@ -130,7 +123,7 @@
       "name": "No replacement glyph or em dash in extracted text",
       "status": "PASS",
       "detail": {
-        "minimum_font_pt_including_ids": 7.5,
+        "minimum_font_pt_including_ids": 6.5,
         "bad_glyphs": []
       }
     },
@@ -160,372 +153,372 @@
         },
         {
           "id": "SOUL-POET",
-          "page": 18,
+          "page": 17,
           "matches": true
         },
         {
           "id": "SOUL-COOK",
-          "page": 18,
+          "page": 17,
           "matches": true
         },
         {
           "id": "SOUL-MASON",
-          "page": 18,
+          "page": 17,
           "matches": true
         },
         {
           "id": "SOUL-KEEPER",
-          "page": 18,
+          "page": 17,
           "matches": true
         },
         {
           "id": "SOUL-POLONG-01",
-          "page": 19,
+          "page": 17,
           "matches": true
         },
         {
           "id": "SOUL-POLONG-02",
-          "page": 19,
+          "page": 18,
           "matches": true
         },
         {
           "id": "SOUL-POLONG-03",
-          "page": 19,
+          "page": 18,
           "matches": true
         },
         {
           "id": "SOUL-POLONG-04",
-          "page": 19,
+          "page": 18,
           "matches": true
         },
         {
           "id": "DEST-HAVEN",
-          "page": 20,
+          "page": 18,
           "matches": true
         },
         {
           "id": "DEST-STYX",
-          "page": 20,
+          "page": 18,
           "matches": true
         },
         {
           "id": "DEST-ACHERON",
-          "page": 20,
+          "page": 18,
           "matches": true
         },
         {
           "id": "DEST-ASPHODEL",
-          "page": 20,
+          "page": 18,
           "matches": true
         },
         {
           "id": "DEST-ELYSIUM",
-          "page": 21,
+          "page": 18,
           "matches": true
         },
         {
           "id": "DEST-TARTARUS",
-          "page": 21,
+          "page": 18,
           "matches": true
         },
         {
           "id": "SOUL-MOTHER-MEM-01",
-          "page": 22,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-MOTHER-MEM-02",
-          "page": 22,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-MOTHER-MEM-03",
-          "page": 22,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-MOTHER-MEM-04",
-          "page": 22,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-MERCHANT-MEM-01",
-          "page": 23,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-MERCHANT-MEM-02",
-          "page": 23,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-MERCHANT-MEM-03",
-          "page": 23,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-MERCHANT-MEM-04",
-          "page": 23,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-SOLDIER-MEM-01",
-          "page": 24,
+          "page": 19,
           "matches": true
         },
         {
           "id": "SOUL-SOLDIER-MEM-02",
-          "page": 24,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-SOLDIER-MEM-03",
-          "page": 24,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-SOLDIER-MEM-04",
-          "page": 24,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-POET-MEM-01",
-          "page": 25,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-POET-MEM-02",
-          "page": 25,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-POET-MEM-03",
-          "page": 25,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-POET-MEM-04",
-          "page": 25,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-COOK-MEM-01",
-          "page": 26,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-COOK-MEM-02",
-          "page": 26,
+          "page": 20,
           "matches": true
         },
         {
           "id": "SOUL-COOK-MEM-03",
-          "page": 26,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-COOK-MEM-04",
-          "page": 26,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-MASON-MEM-01",
-          "page": 27,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-MASON-MEM-02",
-          "page": 27,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-MASON-MEM-03",
-          "page": 27,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-MASON-MEM-04",
-          "page": 27,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-KEEPER-MEM-01",
-          "page": 28,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-KEEPER-MEM-02",
-          "page": 28,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-KEEPER-MEM-03",
-          "page": 28,
+          "page": 21,
           "matches": true
         },
         {
           "id": "SOUL-KEEPER-MEM-04",
-          "page": 28,
+          "page": 22,
           "matches": true
         },
         {
           "id": "MEM-PASSAGE-01",
-          "page": 29,
+          "page": 22,
           "matches": true
         },
         {
           "id": "ROUTE-OFFER-01",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "ROUTE-OFFER-02",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "ROUTE-OFFER-03",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "ROUTE-OFFER-04",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "ROUTE-OFFER-05",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "ROUTE-OFFER-06",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "POLONG-TEMPLATE-01",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "POLONG-TEMPLATE-02",
-          "page": 30,
+          "page": 23,
           "matches": true
         },
         {
           "id": "L",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "Q",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "R",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "M",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A01",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A02",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A03",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A04",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A05",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A06",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A07",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A08",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A09",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A10",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A11",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A12",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A13",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A14",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A15",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "A16",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "X1",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "X2",
-          "page": 31,
+          "page": 24,
           "matches": true
         },
         {
           "id": "SOLDIER-SECOND-SEAT",
-          "page": 31,
+          "page": 24,
           "matches": true
         }
       ]
@@ -534,14 +527,14 @@
       "name": "Actual PDF glyphs inside safe page margins",
       "status": "PASS",
       "detail": {
-        "minimum_mm": 10.444
+        "minimum_mm": 10.0
       }
     },
     {
       "name": "Large cut-piece text inset at least 3 mm",
       "status": "PASS",
       "detail": {
-        "minimum_mm": 3.666,
+        "minimum_mm": 4.0,
         "excludes": "15 mm small markers, whose letter labels are separately reviewed"
       }
     },
@@ -734,7 +727,7 @@
       "name": "Card artwork approximately 300 ppi or better",
       "status": "PASS",
       "detail": {
-        "minimum_card_ppi": 317.2,
+        "minimum_card_ppi": 456.3,
         "minimum_decorative_banner_ppi": 209.8,
         "note": "Large decorative shore banner may be below 300 ppi; card art checked separately."
       }

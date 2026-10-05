@@ -2,7 +2,7 @@
 
 **Historical A-only handoff record.** The results and original master hash below describe A's delivery at commit a62f1493. Integration subsequently increased one section gap on page 7, rebuilt all six PDFs and completed browser parity. Use [current combined validation](../VALIDATION.md) and [current exact-hash receipt](../verification/integration/print-delivery.json). A's unchanged original evidence is retained under `verification/integration/handoff-a-original/`; no human result has been added.
 
-The complete physical kit is digitally built and checked against the accepted shared rules. The master has 31 A4 pages, 78 cut pieces and five keep-whole mats. All six PDFs rebuilt byte-for-byte identically from an unrelated folder containing only A's local inputs. Browser-to-paper comparison awaits B's actual content export. Physical printing and human play checks remain NOT_RUN.
+The complete physical kit is digitally built and checked against the accepted shared rules. The master has 24 A4 pages, 78 cut pieces and five keep-whole mats. All six PDFs rebuilt byte-for-byte identically from an unrelated folder containing only A's local inputs. Browser-to-paper comparison awaits B's actual content export. Physical printing and human play checks remain NOT_RUN.
 
 ## Digital results
 
@@ -10,7 +10,7 @@ The complete physical kit is digitally built and checked against the accepted sh
 |---|---|---|
 | Build and quantities | PASS: 31 master pages, 78 cut pieces, five mats, six PDFs | [build-result.json](../verification/print/build-result.json), `page_count`, `cut_pieces`, `keep_whole_mats`, `pdf_files`; [inventory](COMPONENT_INVENTORY.json) |
 | PDF/file checks | PASS: 18 checks, zero failures | [static-results.json](../verification/print/static-results.json), `counts` and `checks` |
-| Every final master page | PASS: all 31 pages rendered at 120 dpi and opened for readable visual inspection; no unresolved clipping, overlap, missing glyphs or cut-border defects | [visual-review.json](../verification/print/visual-review.json), `pages`; [render-receipt.json](../verification/print/render-receipt.json), hashes |
+| Every final master page | PASS: all 24 pages rendered at 120 dpi and opened for readable visual inspection; no unresolved clipping, overlap, missing glyphs or cut-border defects | [visual-review.json](../verification/print/visual-review.json), `pages`; [render-receipt.json](../verification/print/render-receipt.json), hashes |
 | Supporting PDFs | PASS: all 26 extracted pages independently rendered and pixel-identical to their reviewed master pages; PDF content/text also equal | [extracted-render-comparison.json](../verification/print/extracted-render-comparison.json); static extraction check |
 | Printed components | PASS: all 78 individual cut pieces checked by cropped-page text for IDs and applicable seats, destinations, fog and memory effects | Static `Each individual cut piece matches identity and gameplay fields` check |
 | Rules desk walkthroughs | PASS: 18 agent scenarios, zero failures; not browser-engine tests or human sessions | [desk-walkthroughs.json](../verification/print/desk-walkthroughs.json), `cases`, `pass_count`, `fail_count` |
@@ -27,7 +27,7 @@ The reviewed master SHA-256 is `e7060289ba37fea763789170dd7796ef6601098d6ce14afe
 
 Actual PDF page dimensions are 210 x 297 mm. Recorded layout objects remain within the 10 mm safe region. The minimum measured text-to-page-edge distance is 10.5 mm; the minimum text inset inside large cut pieces is 3.719 mm. Small 15 mm markers were separately reviewed. Main memory effects are 11 pt, soul details 10-11 pt, and secondary IDs are 7.5 pt. All used fonts are embedded. The first page carries a 50 mm calibration line. These measurements trace to the static check details and [text ledger](../verification/print/text-ledger.json).
 
-Soul, memory and destination cards are 90 x 112 mm. Main card gutters are 6 mm horizontally and 12 mm vertically. Markers are 15 x 15 mm with 4 mm gutters; card anger spaces are also 15 mm across. Cut-piece coordinates and sizes are in the inventory and [layout ledger](../verification/print/layout-ledger.json). Keep-whole mat size entries describe printed-area bounds; the physical sheet remains full A4.
+Soul, memory and destination cards are 63 x 88 mm, nine per sheet; neighbouring cards share cut lines (0.5 mm horizontal, 1 mm vertical gaps). Markers are 15 x 15 mm with 4 mm gutters; card anger spaces are also 15 mm across. Cut-piece coordinates and sizes are in the inventory and [layout ledger](../verification/print/layout-ledger.json). Keep-whole mat size entries describe printed-area bounds; the physical sheet remains full A4.
 
 Minimum effective card-art resolution is 295.6 pixels per inch. The lowest decorative banner resolution is 209.8 pixels per inch; it is a larger shore illustration, not gameplay text. Original PNGs retain their full resolution and bytes. PDF illustrations use high-quality embedded compression with clear text drawn separately. No PDF is a flattened page screenshot.
 

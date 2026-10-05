@@ -24,7 +24,7 @@ for name,file in [('Body','KantumruyPro-Regular.ttf'),('BodyBold','KantumruyPro-
 pdfmetrics.registerFontFamily('Body',normal='Body',bold='BodyBold',italic='Body',boldItalic='BodyBold')
 pdfmetrics.registerFontFamily('Display',normal='Display',bold='Display',italic='Display',boldItalic='Display')
 INK='#DCD1B8'; GOLD='#B8914F'; GOLDHI='#D9B573'; PAPER='#15100C'; PALE='#1A130E'; RED='#D9826C'; WHITE='#120D0A'
-BG='#080605'; BAR='#0F0B08'; LINE='#8A6B3A'; RULE='#3A2D20'; WRITE='#EFE4C8'; WRITEINK='#1A120B'; MUTED='#9C9180'
+BG='#FFFFFF'; BAR='#0F0B08'; LINE='#8A6B3A'; RULE='#3A2D20'; WRITE='#EFE4C8'; WRITEINK='#1A120B'; MUTED='#9C9180'
 W,H=210,297
 src=(HERE/'source-contract/SHARED_RULES.md').read_text(encoding='utf-8-sig')
 souls=[]; destinations=[]; memories={}
@@ -48,12 +48,18 @@ PAGES=[]; INV=[]; LEDGER=[]; TEXT=[]; CURRENT=0; C=None; PDF_IMAGES={}
 def rec(kind,x,y,w,h,**extra):
     assert x>=9.99 and y>=9.99 and x+w<=200.01 and y+h<=287.01,(CURRENT,kind,x,y,w,h)
     LEDGER.append(dict(page=CURRENT,kind=kind,x_mm=x,y_mm=y,width_mm=w,height_mm=h,**extra))
+BONE='#DCD1B9'
+PAGE_COLOR={INK:'#1F1610',GOLDHI:'#7A5A1E',MUTED:'#6B6153',RED:'#9C3B2B',PALE:'#F3ECDF',PAPER:'#FBF7EF',WHITE:'#FFFDF8'}
+def oncard(x,y):
+    """True when (x,y) mm lies on a cut piece of the current page: those keep the dark browser-card colours."""
+    return any(a['page']==CURRENT and a['status']=='cut' and a['x_mm']-.01<=x<=a['x_mm']+a['width_mm'] and a['y_mm']-.01<=y<=a['y_mm']+a['height_mm'] for a in INV)
+def pc(color,x,y): return color if oncard(x,y) else PAGE_COLOR.get(color,color)
 def box(x,y,w,h,fill=PAPER,stroke=LINE,lw=.6):
-    rec('box',x,y,w,h); C.setFillColor(HexColor(fill));C.setStrokeColor(HexColor(stroke));C.setLineWidth(lw);C.rect(x*mm,(H-y-h)*mm,w*mm,h*mm,fill=1,stroke=1)
+    rec('box',x,y,w,h); C.setFillColor(HexColor(pc(fill,x+.02,y+.02)));C.setStrokeColor(HexColor(pc(stroke,x+.02,y+.02)));C.setLineWidth(lw);C.rect(x*mm,(H-y-h)*mm,w*mm,h*mm,fill=1,stroke=1)
 def line(x,y,x2,y2,color=INK,lw=.5):
-    rec('line',min(x,x2),min(y,y2),abs(x2-x),abs(y2-y));C.setStrokeColor(HexColor(color));C.setLineWidth(lw);C.line(x*mm,(H-y)*mm,x2*mm,(H-y2)*mm)
+    rec('line',min(x,x2),min(y,y2),abs(x2-x),abs(y2-y));C.setStrokeColor(HexColor(pc(color,x,y)));C.setLineWidth(lw);C.line(x*mm,(H-y)*mm,x2*mm,(H-y2)*mm)
 def text(t,x,y,w,size=11,bold=False,color=INK,maxh=None,leading=None):
-    style=ParagraphStyle('p',fontName=('Display' if size>=12 else 'BodyBold') if bold else 'Body',fontSize=size,leading=leading or size*1.32,textColor=HexColor(color),spaceAfter=0)
+    style=ParagraphStyle('p',fontName=('Display' if size>=12 else 'BodyBold') if bold else 'Body',fontSize=size,leading=leading or size*1.32,textColor=HexColor(pc(color,x,y)),spaceAfter=0)
     para=Paragraph(t.replace('\n','<br/>'),style);pw,ph=para.wrap(w*mm,1000*mm);height=ph/mm
     if maxh is not None: assert height<=maxh+.1,('TEXT OVERFLOW',CURRENT,t,height,maxh)
     rec('text',x,y,w,height,font_pt=size,text=re.sub('<[^>]+>','',t));para.drawOn(C,x*mm,(H-y)*mm-ph)
@@ -77,7 +83,7 @@ def art(cid,x,y,w,h,focus=.5,arch=False):
     # Dim the picture slightly, as the browser does until a card is chosen, then outline it in bronze.
     C.saveState();shade=archpath(x,y,w,h) if arch else C.beginPath()
     if not arch: shade.rect(x*mm,(H-y-h)*mm,w*mm,h*mm)
-    C.setFillColor(Color(0.03,0.02,0.02,alpha=.18));C.setStrokeColor(HexColor(GOLD));C.setLineWidth(.5);C.drawPath(shade,stroke=1,fill=1);C.restoreState()
+    C.setFillColor(Color(0,0,0,alpha=0));C.setStrokeColor(HexColor(GOLD));C.setLineWidth(.5);C.drawPath(shade,stroke=1,fill=1);C.restoreState()
     if arch: lotus(x+w/2,y-1.2,3.4)
 def archpath(x,y,w,h):
     """Temple-doorway arch: elliptical top corners (like CSS 50%/34px), square bottom."""
@@ -103,18 +109,22 @@ def lotusrule(cx,y,w):
 def component(cid,label,page,x,y,w,h,kind='cut',role='play',copy=1):
     INV.append(dict(id=cid,label=label,quantity=1,copy=copy,page=page,width_mm=w,height_mm=h,x_mm=x,y_mm=y,status=kind,role=role))
 def cutbox(cid,label,x,y,w,h,role='play',copy=1):
-    box(x,y,w,h,WHITE,GOLD,.8);component(cid,label,CURRENT,x,y,w,h,role=role,copy=copy)
+    component(cid,label,CURRENT,x,y,w,h,role=role,copy=copy);box(x,y,w,h,WHITE,GOLD,.8)
     if w>=30 and h>=30:
         C.saveState();C.setStrokeColor(HexColor(RULE));C.setLineWidth(.35);C.rect((x+1.6)*mm,(H-y-h+1.6)*mm,(w-3.2)*mm,(h-3.2)*mm,fill=0,stroke=1);C.restoreState()
-def add(name,fn,cut=False,group='reference'): PAGES.append(dict(title=name,fn=fn,cut=cut,group=group))
+def add(name,fn,cut=False,group='reference',compact=False): PAGES.append(dict(title=name,fn=fn,cut=cut,group=group,compact=compact))
 def footer():
     line(12,281,198,281,LINE,.5);text('THE FERRYMAN / v0.6',12,283,125,8,color=MUTED);text(f'{CURRENT:02d} / {len(PAGES):02d}',180,283,18,8,True,color=GOLDHI)
 def header(name,cut):
-    box(10,10,190,17,BAR,LINE);line(10,27,200,27,GOLD,.7);text('CUT  |  STRAIGHT OUTER BORDERS' if cut else 'KEEP WHOLE  |  WORKSHOP EDITION',14,12,180,8,True,color=GOLDHI);text(name,14,17,180,14,True,color=INK)
+    box(10,10,190,17,BAR,LINE);line(10,27,200,27,GOLD,.7);text('CUT  |  STRAIGHT OUTER BORDERS' if cut else 'KEEP WHOLE  |  WORKSHOP EDITION',14,12,180,8,True,color='#D9B574');text(name,14,17,180,14,True,color=BONE)
+def compact_header(name):
+    box(10,10,190,7.5,BAR,LINE);text(name+'  |  CUT ON BRONZE LINES',13,11.6,150,8,True,color='#D9B574');text(f'{CURRENT:02d} / {len(PAGES):02d}',180,11.6,18,8,True,color='#D9B574')
 def makepage(i,p):
     global CURRENT;CURRENT=i
     C.setFillColor(HexColor(BG));C.rect(0,0,W*mm,H*mm,fill=1,stroke=0)
-    header(p['title'],p['cut']);p['fn']();footer();C.showPage()
+    if p.get('compact'): compact_header(p['title']);p['fn']()
+    else: header(p['title'],p['cut']);p['fn']();footer()
+    C.showPage()
 
 # The reaper ferryman from the browser game (same drawing, 240 x 130 units), drawn as vector paths.
 REAPER=[('s','M18 88 L222 86 L208 104 L34 104 Z','#261B12',GOLD),
@@ -147,7 +157,7 @@ def reaper(x0,y0,w):
 
 def cover():
     art('MAT-SHORE',12,34,186,85)
-    box(20,86,170,25,BAR,LINE);text('THE FERRYMAN',26,91,158,27,True,color=INK)
+    box(20,86,170,25,BAR,LINE);text('THE FERRYMAN',26,91,158,27,True,color=BONE)
     y=title('A river that keeps returning',128)
     y=para('Complete illustrated print-and-cut kit. One player station, with facilitator-controlled route offers. Play endless survival as Charon\'s apprentice.',y)
     y=section('Print this PDF once, in full',f'{len(PAGES)} A4 pages. Color, single-sided, actual size / 100%. Turn off fit-to-page, booklet and duplex. Print CUT pages on opaque card, or mount them to opaque card after printing. Keep all other pages whole.',y)
@@ -172,21 +182,21 @@ def guide():
     text('PoLong: anger 0-1 adds 0 fog; 2-3 adds 1 each.\nMemories: at most 1 before each outward round or return.\nQuest: Child to Haven, then Mother to Tartarus, once per run.\nFull details, recycling, quest failure and examples: pages 5-10.',12,y,186,11,maxh=39)
 
 def assembly():
-    cutpages=[str(i+1) for i,p in enumerate(PAGES) if p['cut']]
-    y=section('One station','Print the complete master once. Keep pages 1-16 whole. Cut pages 17-31 on their solid outer borders. White gutters are waste. No required shape has a curved cut or fine silhouette.',34)
+    cut=[i+1 for i,p in enumerate(PAGES) if p['cut']];first,last=cut[0],cut[-1];sheets=[i+1 for i,p in enumerate(PAGES) if p.get('compact')]
+    y=section('One station',f'Print the complete master once. Keep pages 1-{first-1} whole. Cut pages {first}-{last} along the bronze card borders. Neighbouring cards share a cut line, so one cut separates two cards. No required shape has a curved cut or fine silhouette.',34)
     y=section('Opaque fronts, plain backs','Soul cards and offer slips must hide their fronts when face down. Use opaque stock or glue each printed sheet to plain opaque card, let dry, then cut. Backs remain plain and identical within each shuffled or concealed class. No duplex alignment is needed.',y)
-    y=section('Inventory by sheet', 'Cards are 90 x 112 mm unless a different size is shown below. Card gutters are at least 6 mm. Markers are 15 x 15 mm.',y)
-    rows=[('17-18','8 ordinary soul cards, one per identity'),('19','4 PoLong cards: 2 base + 2 spare instances'),('20-21','6 destination map cards, one per destination'),('22-28','28 memories: 4 per rewarding source soul'),('29','1 Passage memory (quest reward, once per run)'),('30','6 offer slips (90 x 50 mm); 2 reusable PoLong templates (90 x 66 mm)'),('31','22 markers (15 mm); Soldier second-seat marker (90 x 24 mm)')]
+    y=section('Inventory by sheet','Cards are poker size, 63 x 88 mm, nine per sheet. Offer slips are 90 x 50 mm. Markers are 15 x 15 mm.',y)
+    rows=[(str(sheets[0]),'8 ordinary soul cards, one per identity, and PoLong 01'),(str(sheets[1]),'PoLong 02-04 (01-02 base, 03-04 spare) and 6 destination map cards'),(f'{sheets[2]}-{sheets[-1]}','28 memories, 4 per rewarding source soul, and 1 Passage (quest reward, once per run)'),(str(last-1),'6 offer slips (90 x 50 mm); 2 reusable PoLong templates (90 x 66 mm)'),(str(last),'22 markers (15 mm); Soldier second-seat marker (90 x 24 mm)')]
     for pg,t in rows:
         text(pg,14,y,23,11,True); yy=text(t,40,y,155,11);line(12,yy+2,198,yy+2,RULE);y=yy+5
     y=section('Keep-whole play aids','Pages 12-16: shore, two boat panels, dashboard and route mat. Place boat panels side by side. Rules: pages 5-10. Page 2 is the quick reference. Page 11 is a blank workshop record.',y)
-    text('Spare pieces do not add souls or change spawn timing. Print pages 20-21 again only if the facilitator wants extra destination pictures. Keep extra ordinary identity cards out of play.',12,y,186,11,maxh=24)
+    text(f'Spare pieces do not add souls or change spawn timing. Print page {sheets[1]} again only if the facilitator wants extra destination pictures. Keep extra ordinary identity cards out of play.',12,y,186,11,maxh=24)
 
 def setup():
     text('An illustrated table arrangement',12,34,186,18,True)
     # Diagram is a placement guide, not a printed-size template.
     for x,y,w,h,cid,label in [(12,49,58,40,'MAT-SHORE','SHORE + PILES'),(76,49,58,40,'MAT-BOAT','BOAT LEFT'),(140,49,58,40,'MAT-BOAT','BOAT RIGHT'),(12,99,58,34,'MEM-LIGHT','MEMORY RESERVE'),(76,99,58,34,'MEM-FORESIGHT','ROUTE OFFERS'),(140,99,58,34,'MEM-PASSAGE','DASHBOARD')]:
-        art(cid,x,y,w,h);box(x,y+h-8,w,8,BAR,LINE);text(label,x+2,y+h-6,w-4,8,True,color=INK)
+        art(cid,x,y,w,h);box(x,y+h-8,w,8,BAR,LINE);text(label,x+2,y+h-6,w-4,8,True,color=BONE)
     y=145
     for head,body in [
         ('1  Sort the supplies','Separate ordinary souls, PoLong, destination maps and source-labeled memories. Place memories face up in 8 reserve stacks: Mother, Merchant, Soldier, Poet, Cook, Mason, Keeper and Passage. Child and PoLong give no memory.'),
@@ -309,52 +319,46 @@ def routemat():
     text('Use one 90 x 50 mm offer slip in each box. Foresight reveals all six. Move the pairs forward after travel. The facilitator supplies the new last pair; no mandatory ordering applies.',12,230,186,11,maxh=26)
     text('Revealed-offer ledger: keep on extra writing paper beside this mat. Retain all revealed information for this cycle before reusing slips. Missing inputs pause play without time or memory cost.',12,258,186,10.5,maxh=21)
 
-CARDW,CARDH=90,112
-POS=[(12,34),(108,34),(12,158),(108,158)]
-def idlabel(cid,x,y,w=82):text(cid,x,y,w,7.5)
+CARDW,CARDH=63,88
+POS=[(10+c*63.5,19+r*89) for r in range(3) for c in range(3)]
+def idlabel(cid,x,y,w=57):text(cid,x,y,w,6.5)
 def anger(x,y,polong=False):
-    text('SHIP ANGER' if polong else 'ANGER  |  reset to 0 on boarding',x,y,82,9,True)
+    text('SHIP ANGER  |  4 = wraith' if polong else 'ANGER  |  shore 2 / ship 4',x,y,57,6.5,True)
     for n in range(5):
-        xx=x+n*16;box(xx,y+6,15,15,WHITE,RED if n in ([4] if polong else [2,4]) else INK);text(str(n),xx+5,y+9.5,8,13,True)
+        xx=x+n*11.4;box(xx,y+3.6,10.4,7.6,WHITE,RED if n in ([4] if polong else [2,4]) else INK);text(str(n),xx+3.7,y+4.9,6,10,True)
 def soulcard(s,x,y,idx=None):
     cid=s['id'] if idx is None else f'SOUL-POLONG-{idx:02d}';role='spare instance' if idx and idx>2 else 'play'
     cutbox(cid,s['name'],x,y,CARDW,CARDH,role=role,copy=idx or 1)
-    art(s['id'],x+4,y+5,82,30,focus=.14,arch=True)
-    text(s['name']+(f' {idx:02d}' if idx else ''),x+4,y+37,82,18,True)
-    text(f"To: {DEST[s['destination']]['name']}  |  {s['seats']} seat"+('s' if s['seats']!=1 else ''),x+4,y+46,82,11,True)
-    if idx:
-        text('No memory. Fog +0 at anger 0-1; +1 at 2-3.',x+4,y+54,82,11,maxh=15)
-    else:text('Memory: '+NAMES.get(s['memory'],'none')+'.',x+4,y+54,82,11,maxh=15)
-    anger(x+4,y+69,idx is not None)
-    text('At 4: lose 1 Light; remove.' if idx else 'Shore: expire at 2. Ship: at 4.\nEach expiry: lose 1 Light; remove.',x+4,y+94,82,10,maxh=13)
-    idlabel(cid+(' / SPARE' if role=='spare instance' else ''),x+4,y+105)
-def soulpage(group):
-    for s,(x,y) in zip(group,POS):soulcard(s,x,y)
-def polongpage():
-    for i,(x,y) in enumerate(POS,1):soulcard(souls[-1],x,y,i)
-def destpage(ds):
-    for d,(x,y) in zip(ds,POS):
-        cutbox(d['id'],d['name'],x,y,90,112);art(d['id'],x+4,y+5,82,48,arch=True)
-        text(d['name'],x+4,y+57,82,18,True);text(f"BASE FOG {d['fog']}",x+4,y+69,82,19,True)
-        text('Add PoLong fog. Resolve any played memory, then pay Light. At 0, stop. Optional matching delivery.',x+4,y+82,82,11,maxh=22);idlabel(d['id'],x+4,y+105)
-    if len(ds)==2:text('Repeat-print option: pages 20-21 supply another picture set if the facilitator wants duplicates. Duplicate pictures do not impose a route pattern. The starting shore is separate.',12,171,186,11.5,maxh=45)
+    art(s['id'],x+3,y+5,57,48,focus=.12,arch=True)
+    text(s['name']+(f' {idx:02d}' if idx else ''),x+3,y+55,57,13,True)
+    text(f"To: {DEST[s['destination']]['name']}  |  {s['seats']} seat"+('s' if s['seats']!=1 else ''),x+3,y+61.2,57,7.6,True)
+    text('No memory. Fog +1 at anger 2-3.' if idx else 'Memory: '+NAMES.get(s['memory'],'none')+'.',x+3,y+65.4,57,7.6,maxh=4)
+    anger(x+3,y+70,idx is not None)
+    idlabel(cid+(' / SPARE' if role=='spare instance' else ''),x+3,y+83.2)
+def destcard(d,x,y):
+    cutbox(d['id'],d['name'],x,y,CARDW,CARDH);art(d['id'],x+3,y+5,57,48,arch=True)
+    text(d['name'],x+3,y+55,57,14,True);text(f"BASE FOG {d['fog']}",x+3,y+62.5,57,11,True)
+    text('Add PoLong fog, apply any memory, then pay Light. At 0, stop. Optional matching delivery.',x+3,y+69,57,7.4,maxh=13);idlabel(d['id'],x+3,y+83.2)
 def memorycard(mid,source,idx,x,y):
     cid=f'{source}-MEM-{idx:02d}' if source else 'MEM-PASSAGE-01'
-    cutbox(cid,NAMES[mid]+' / '+(source or 'quest'),x,y,90,112,copy=idx)
-    art(mid,x+4,y+5,82,30,arch=True);text(NAMES[mid],x+4,y+38,82,18,True)
-    text('FROM '+source.removeprefix('SOUL-') if source else 'FAMILY QUEST / ONCE PER RUN',x+4,y+48,82,8.5,True,color=GOLD)
-    effect=memories[mid]
-    # Exact shared rule effects. Paragraphs are kept at 11 pt.
-    text(effect,x+4,y+55,82,11,maxh=34)
-    if mid=='MEM-PASSAGE':text('Empty boat: also uses the return\'s memory allowance.',x+4,y+82,82,10,maxh=10)
-    text('Use before a round or return.\nOne use; return to reserve.',x+4,y+94,82,10,maxh=10)
-    idlabel(cid,x+4,y+105)
-def memorypage(s):
-    for i,(x,y) in enumerate(POS,1):memorycard(s['memory'],s['id'],i,x,y)
-def passagepage():
-    memorycard('MEM-PASSAGE',None,1,*POS[0])
-    text('Passage timing',111,37,84,16,True);text('If Passage empties the boat, return immediately. Do not advance the global round or spawn. This use also occupies the immediate return\'s memory allowance.',111,52,84,11.5,maxh=75)
-    text('This sheet has one cut piece. The remaining area is explanatory, not extra cards. Quest status persists when souls recycle. Extra copies must not create extra quest rewards.',12,171,186,11.5,maxh=40)
+    cutbox(cid,NAMES[mid]+' / '+(source or 'quest'),x,y,CARDW,CARDH,copy=idx)
+    art(mid,x+3,y+5,57,34,arch=True);text(NAMES[mid],x+3,y+41,57,13,True)
+    text('FROM '+source.removeprefix('SOUL-') if source else 'FAMILY QUEST / ONCE PER RUN',x+3,y+46.8,57,6.8,True,color=GOLD)
+    text(memories[mid],x+3,y+50.6,57,7.4 if mid=='MEM-PASSAGE' else 7.6,maxh=25.4)
+    text('Use before a round or return. One use; return to reserve.',x+3,y+76.4,57,6.6,maxh=6.6)
+    idlabel(cid,x+3,y+83.2)
+SHEETS=[]
+def place(items):
+    for (fn,args),(x,y) in zip(items,POS):fn(*args,x,y)
+def cardsheets():
+    """Group every card into sheets of nine: souls and PoLong, destinations, then memories with Passage."""
+    cards=[(soulcard,(s,)) for s in souls[:8]]+[(lambda s,i,x,y:soulcard(s,x,y,i),(souls[-1],i)) for i in range(1,5)]+[(destcard,(d,)) for d in destinations]
+    mems=[(memorycard,(s['memory'],s['id'],i)) for s in souls[:8] if s['memory'] for i in range(1,5)]+[(memorycard,('MEM-PASSAGE',None,1))]
+    out=[cards[i:i+9] for i in range(0,len(cards),9)]+[mems[i:i+9] for i in range(0,len(mems),9)]
+    return out
+def passage_note():
+    text('Passage timing',10,120,190,13,True)
+    text('If Passage empties the boat, return immediately. Do not advance the global round or spawn. This use also occupies the immediate return\'s memory allowance. Quest status persists when souls recycle; extra copies must not create extra quest rewards.',10,127,190,10.5,maxh=30)
 def slips():
     for i in range(6):
         x=12+(i%2)*96;y=34+(i//2)*56;cid=f'ROUTE-OFFER-{i+1:02d}';cutbox(cid,'Reusable route offer',x,y,90,50)
@@ -391,18 +395,13 @@ add('Boat / left panel / seats 1-2',lambda:boat('LEFT'),group='mat')
 add('Boat / right panel / seats 3-4',lambda:boat('RIGHT'),group='mat')
 add('Dashboard / endless counters',dashboard,group='mat')
 add('Route staging / facilitator control',routemat,group='mat')
-add('Soul cards / starting travelers',lambda:soulpage(souls[:4]),True,'cut')
-add('Soul cards / river travelers',lambda:soulpage(souls[4:8]),True,'cut')
-add('PoLong / 2 base and 2 spare pieces',polongpage,True,'cut')
-add('Destination maps / 1 of 2',lambda:destpage(destinations[:4]),True,'cut')
-add('Destination maps / 2 of 2',lambda:destpage(destinations[4:]),True,'cut')
-for s in souls[:8]:
-    if s['memory']:add('Memories / '+s['name']+' / four copies',lambda s=s:memorypage(s),True,'cut')
-add('Passage / one quest memory',passagepage,True,'cut')
+for k,sheet in enumerate(cardsheets(),1):
+    last=k==len(cardsheets())
+    add(f'Card sheet {k}',(lambda sheet=sheet,last=last:(place(sheet),passage_note() if last else None)),True,'cut',compact=True)
 add('Route offer slips and PoLong templates',slips,True,'cut')
 add('Markers and Soldier occupancy piece',markers,True,'cut')
 
-assert len(PAGES)==31
+assert len(PAGES)==24, len(PAGES)
 C=canvas.Canvas(str(OUT/'Print_and_Play_v0.6.pdf'),pagesize=(210*mm,297*mm),pageCompression=1,invariant=1,initialFontName='Vera',initialFontSize=11)
 C.setTitle('The Ferryman v0.6 | Complete Print and Play');C.setAuthor('The Ferryman project');C.setSubject('Single-sided color A4 workshop kit; agent-checked digital build')
 for i,p in enumerate(PAGES,1):makepage(i,p)

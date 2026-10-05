@@ -1,239 +1,190 @@
 {
   "status": "PASS",
   "reviewer": "Claude agent visual inspection",
-  "checked_utc": "2026-10-05T04:44:16.330630+00:00",
-  "master_sha256": "153a10f5600d56e5934c292a3a5c5a0f6f46d3edcd0cc07099bdac81f95e4865",
-  "method": "Dark Khmer-theme redesign (user request). Every final master page rendered at 120 dpi and inspected in tool output at readable size in groups of four. Supporting PDFs are exact extractions verified by verify.py. Page 19 PoLong cards now use the user-supplied portrait (assets/art/newpolong.jpg); page 19 re-rendered at 90 dpi and inspected. All other pages are unchanged from the prior inspected build.",
-  "reviewed_master_pages": 31,
+  "checked_utc": "2026-10-05T10:55:52.394693+00:00",
+  "master_sha256": "ba29889922acbc6a2260777bc1cc48f32bc443a7fe6d117a69c948cfd29e29f3",
+  "method": "White page backgrounds with dark lacquer cards; cards resized to poker size (63 x 88 mm), nine per sheet with shared cut lines, larger undimmed character art (user request). Agent inspected the 80 dpi overview of all 24 pages and 110 dpi renders of card sheets 17, 22, 23 and 24 plus reference, mat and dashboard pages.",
+  "reviewed_master_pages": 24,
   "pages": [
     {
       "page": 1,
       "title": "Print and play / start here",
-      "render_sha256": "da024cb2c6de47cdde7c11a8e3016a91561b5f71f4befe750075bb8848fb21ee",
+      "render_sha256": "db2ae6522765cbb6e9a14b6d6a5eef1c27661bfac75ab48eb7a75a5a74cf7d95",
       "status": "PASS",
-      "observation": "Dark cover with river art, title panel, reaper ferryman vector and lotus rule above an intact 50 mm calibration line; no overlap."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 2,
       "title": "Player guide / keep at the table",
-      "render_sha256": "8387b3405f6fc75503e8e773a811cca860e107d9cfb17a6b902559875073aaa3",
+      "render_sha256": "dd534700b8bf1e50c59924eace18db56244fd04604c672ea946d29f313098e34",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 3,
       "title": "Assembly and component inventory",
-      "render_sha256": "ce44c1724732029bf74e357e871cc5a1d47e5a589c7e83eeaa01b7ea2ed4cd5d",
+      "render_sha256": "90a6d3516dd61ccddda42e8eb16fcc7aa571c23c7ec29989dc0af30f6224466d",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 4,
       "title": "Table setup / one player station",
-      "render_sha256": "dc65f3d0586888d35420b64dd017e80c9335564d458b98dc19209ad4a8cccf8b",
+      "render_sha256": "b6a8d3760e4fe3b2bc7d519038f9a21bffc73193a30218608d620d7224e135a7",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 5,
       "title": "Full rules / 1. Souls and setup",
-      "render_sha256": "e45f3ee055292ecaf13d3d9a618292bbb5b580e7a1e8f9c59727c3792568c5bb",
+      "render_sha256": "0858ef8b462ff5f632bb971172cdfcf498ee5fa866eb257ea13a5bed6e546a48",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 6,
       "title": "Full rules / 2. Outward sequence",
-      "render_sha256": "ae3c083b474a3045175b3384052137db7d87189fcbb8150ab42952a989094cc4",
+      "render_sha256": "28ce473dae347b708798e12cbf95edb4ddbfdbe439ef7a938ff2b97eb2e4932b",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 7,
       "title": "Full rules / 3. Memories",
-      "render_sha256": "f98546b37478443ddfbef5a1f67413186c936c080fcb562bca65c092bdf601fd",
+      "render_sha256": "511ce5b601483b123ec15ba9058610a0944dd6635e4fc651217e7c58173b827b",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 8,
       "title": "Full rules / 4. Return and quest",
-      "render_sha256": "5e58eaafa96b90d806c01c1694fd09735f9df79112314ab6db63aafabd276fc2",
+      "render_sha256": "3ee6ae7a2277150d05f3f585f88412f23860a17d6f5a26c6f45ec66af0221c01",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 9,
       "title": "Full rules / 5. Worked examples",
-      "render_sha256": "266fc57141877838d7e590d327fbb304e5f60a44894fb94e22b6c841444f93f6",
+      "render_sha256": "e43b4156089ac5cd62c8d1a5a958c93bea40d05c2699ab6e2a3f1e0eb703bc6a",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 10,
       "title": "Full rules / 6. Routes and recycling",
-      "render_sha256": "ad6c3146437c26427822e7d9483641f85efdb2bf354b6f22b405c94744e76d7d",
+      "render_sha256": "13a6a2d4d91c82080d739e78d7e4f616d954e05863fe30195b2cd133bbdc7236",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 11,
       "title": "Workshop record / blank human form",
-      "render_sha256": "94b3068dab704b1fe8f46f7909c8a36243c3bf1d050d8152c220c01dba8205d9",
+      "render_sha256": "0c50a14379ab41e25ad3126a05e6d3be87bf897a0497ee60f51896352ef18757",
       "status": "PASS",
-      "observation": "Dark page with parchment writing panels for every field so pencil remains legible."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 12,
       "title": "Shore / boarding and soul supply",
-      "render_sha256": "448acc17c1de8447b994f9ddba558f1db71c70e24538bfde9a5daf6823155149",
+      "render_sha256": "5ccda5586ea847bcdafd774987ff65b95db5265b3386f0d1e46033d62dec7cb7",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 13,
       "title": "Boat / left panel / seats 1-2",
-      "render_sha256": "4cb531f2b876acb964491dccf13ed6d75e2a6cb719f8ba47f326cdf07e385d26",
+      "render_sha256": "b299fcf74464d54144d7eb3504185451636e80c76f970aff99f08da23e4763b1",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 14,
       "title": "Boat / right panel / seats 3-4",
-      "render_sha256": "b1e443c7ebdbdae7f141aa82257c009fefb858257bd99ab4ccf81c85d140b57f",
+      "render_sha256": "5dece4d1b99297940517978ac13f06ef2b49ef43f86b93e8a6bf022b520d7808",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 15,
       "title": "Dashboard / endless counters",
-      "render_sha256": "51252d5aa89edb925396abb949c9a5ec99d766a836c84d75aa41af05b9715886",
+      "render_sha256": "39553f06fe196f7c0a11c81744a6028411ea269198d678cd19690b00b1ad3bd0",
       "status": "PASS",
-      "observation": "Light track, parchment counter strips for pencil, quest and memory-window boxes; all readable."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 16,
       "title": "Route staging / facilitator control",
-      "render_sha256": "65f1194fe49c2b37491f8fb6dbeb12a0d363e42b9588d41e617dc19dae534173",
+      "render_sha256": "3ceb57c3a40b1f4662ecdb2c52d96cd4ca1fd8635e015fa95ca241c4df9d0e65",
       "status": "PASS",
-      "observation": "Khmer night theme: near-black background, bronze frames, Battambang/Kantumruy Pro text readable; no clipping, overlap or missing glyphs."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 17,
-      "title": "Soul cards / starting travelers",
-      "render_sha256": "c05861ef5bb2d7147d6e5b02328af926f164123b4f6aa1e95ebd218e9e8d5ff1",
+      "title": "Card sheet 1",
+      "render_sha256": "e629cf815ea7e810b9ae949c030c05f46552e797e5d892e5c7d942bc1ce49869",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 18,
-      "title": "Soul cards / river travelers",
-      "render_sha256": "146a5ecec3c9898b821971d56f0a818f57f3d04ceb20992fdd83976c1cb94820",
+      "title": "Card sheet 2",
+      "render_sha256": "9a05744d78a22bdbe890a24cc4b1c9666f7736d19a83138ff5dd289b2676391b",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 19,
-      "title": "PoLong / 2 base and 2 spare pieces",
-      "render_sha256": "55cd1cc16220ccb64f1caab9dc5a9f4ac2fe516cb6086eb9b8f126fc66649d8a",
+      "title": "Card sheet 3",
+      "render_sha256": "a26998122faeaede7c1c26a1c6a63f181d1bedd96a71fb845b00bea284a9964c",
       "status": "PASS",
-      "observation": "PoLong cards with the user-supplied portrait in the bronze arch; text, IDs and anger tracks readable."
+      "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 20,
-      "title": "Destination maps / 1 of 2",
-      "render_sha256": "230e7c0e756f0518af6a31402800e929bfaba94fbf83a241e9f098b279bb68d7",
+      "title": "Card sheet 4",
+      "render_sha256": "cb52d85a526ee0a5b6131db26340931b92c2d4651c0f2ab1456d19f56e3c05c2",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 21,
-      "title": "Destination maps / 2 of 2",
-      "render_sha256": "25c1e1a3a518c8977cf10e2d7af5c2fc124ec8bc9f07872b39836e300d8e8c53",
+      "title": "Card sheet 5",
+      "render_sha256": "d60bdebfe4e23206b0f9ebd5778e03b24f17d3e4124554de966bd5266f00c9c4",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 22,
-      "title": "Memories / Mother / four copies",
-      "render_sha256": "9f4a2371184d92d7736e17a8f819abc101bc652390ba4549c4e87774a54714c6",
+      "title": "Card sheet 6",
+      "render_sha256": "3b599f483f72cf59f8393574d3e8e1b655520a98d9fc3cf7e866a32afe787f57",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "Nine poker-size dark cards with large arched character or scene art on a white page; text, IDs and anger tracks readable."
     },
     {
       "page": 23,
-      "title": "Memories / Merchant / four copies",
-      "render_sha256": "029709dac795e8c6ace4d05903acff06a55bc42e718954852731acae56afcc30",
+      "title": "Route offer slips and PoLong templates",
+      "render_sha256": "f4d7385be5a7cae2cb8f9e8e126731a7c5dacc1cadb6faa49d309d360e0c7855",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     },
     {
       "page": 24,
-      "title": "Memories / Soldier / four copies",
-      "render_sha256": "a2d248d4bb79e067f4d1963e0316caa8cf79e30a8e6d054d31d165d5de4a3a75",
-      "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
-    },
-    {
-      "page": 25,
-      "title": "Memories / Poet / four copies",
-      "render_sha256": "372f3142d3de4f3e44ed752168842bda739c01eb4fda6b25c5b3cdc2289eb423",
-      "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
-    },
-    {
-      "page": 26,
-      "title": "Memories / Cook / four copies",
-      "render_sha256": "569196ccbe7a92cc24136c3e08640a750e42bbbe615f15e0362afd54810b4fc3",
-      "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
-    },
-    {
-      "page": 27,
-      "title": "Memories / Mason / four copies",
-      "render_sha256": "bd87ebcae6845cd360eaa829157defe308db95c5df7501ebafa6c3c3b0be8f6e",
-      "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
-    },
-    {
-      "page": 28,
-      "title": "Memories / Keeper / four copies",
-      "render_sha256": "6e2b65ac96792fa39e0a60637ba44a0f392553e0f92e4205030f3d3cb617cd55",
-      "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
-    },
-    {
-      "page": 29,
-      "title": "Passage / one quest memory",
-      "render_sha256": "a09ccf61e409a290c0c3d13379ac251a6ca3fb317480d2ea1e71e9dac7957a87",
-      "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
-    },
-    {
-      "page": 30,
-      "title": "Route offer slips and PoLong templates",
-      "render_sha256": "eeffcb8c34e14faf76a2f690ff356e00b876d7db284d7b030e5a61cef3731048",
-      "status": "PASS",
-      "observation": "Offer slips with parchment checkboxes; PoLong templates readable. The \"instance: ____\" blank sits on dark card, so pencil there is low contrast (noted, not a layout defect)."
-    },
-    {
-      "page": 31,
       "title": "Markers and Soldier occupancy piece",
-      "render_sha256": "465c2091e6b26267577ae3d7404fed039c95e8d3381b81ed164022a20dfe039e",
+      "render_sha256": "8dd0b5e75f681fd042f6800c72395db346b1d96e2eda4a0a86713e523d5098db",
       "status": "PASS",
-      "observation": "Cut cards in dark lacquer with bronze cut border, inner frame, arched art with lotus finial; IDs and gameplay text readable and inset; no clipping or overlap."
+      "observation": "White page, dark text and bronze accents; readable with no clipping or overlap."
     }
   ],
   "unresolved_visual_defects": [],
-  "limits": "Digital visual inspection only. Dark full-page printing uses heavy ink; actual printer color, dark-art detail, scale, opacity and handling require a person. Renders are kept outside the repository; hashes permit reproducibility checks.",
+  "limits": "Digital inspection only; printed color, cutting along shared lines and handling need a person.",
   "previousReview": {
     "status": "PASS",
-    "reviewer": "Codex agent visual inspection",
-    "checked_utc": "2026-10-04T21:15:48.612911+00:00",
-    "master_sha256": "e7060289ba37fea763789170dd7796ef6601098d6ce14afe4822dfb226345a2a",
-    "method": "Every final master page opened as a readable 120 dpi PNG and visually inspected. Supporting PDF pages were independently rendered and matched pixel-for-pixel to reviewed master pages.",
+    "reviewer": "Claude agent visual inspection",
+    "checked_utc": "2026-10-05T04:44:16.330630+00:00",
+    "master_sha256": "153a10f5600d56e5934c292a3a5c5a0f6f46d3edcd0cc07099bdac81f95e4865",
+    "method": "Dark Khmer-theme redesign (user request). Every final master page rendered at 120 dpi and inspected in tool output at readable size in groups of four. Supporting PDFs are exact extractions verified by verify.py. Page 19 PoLong cards now use the user-supplied portrait (assets/art/newpolong.jpg); page 19 re-rendered at 90 dpi and inspected. All other pages are unchanged from the prior inspected build.",
     "reviewed_master_pages": 31,
     "unresolved_visual_defects": [],
-    "limits": "Digital visual inspection only. Actual printer color, scale, opacity and handling require a person. Full-size PNGs are retained locally in work/v06-print/renders; render hashes permit reproducibility checks."
+    "limits": "Digital visual inspection only. Dark full-page printing uses heavy ink; actual printer color, dark-art detail, scale, opacity and handling require a person. Renders are kept outside the repository; hashes permit reproducibility checks."
   }
 }

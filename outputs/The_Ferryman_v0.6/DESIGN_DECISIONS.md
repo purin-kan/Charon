@@ -38,3 +38,5 @@ The browser was rebuilt in the v0.4 interface style used on the live site: intro
 
 PoLong uses the user's portrait `assets/art/newpolong.jpg` in the browser and on the print kit's PoLong cards. The generated `polong.png` stays in the art manifest.
 
+Later the same day (user request): print page backgrounds are white while cards keep the dark lacquer style; mats and writing areas use light parchment with dark text. Cards are now poker size, 63 x 88 mm, nine per A4 sheet with shared cut lines, and character pictures fill most of each card without the dimming veil. The kit is 24 pages instead of 31; rules text and the 78 pieces are unchanged.
+
