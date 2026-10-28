@@ -6,6 +6,7 @@ Discussion and decision history live here. The current implementation authority 
 |---|---|
 | [Decisions and team plan](Decisions_and_Team_Plan.md) | Current decision summary, attribution to the user or ChatGPT, followed by historical discussion and the dated team plan |
 | [Categorized team ideas](categorized%20team%20ideas.md) | Ideas grouped by topic; a proposal inventory, not an approved ruleset |
+| [Engine and platform comparison](Engine_Platform_Comparison.md) | October 25, 2026 comparison of engine options for D12, with the user's provisional decision, pending confirmation: Phaser + Electron |
 
 The original collectiveThoughts.md referenced by the idea inventory is not present in this checkout. Preserve that provenance note; do not invent or recreate the missing source from the summary.
 
