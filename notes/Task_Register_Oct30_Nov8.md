@@ -19,7 +19,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 |---|---|---|---|---|---|---|---|---|---|
 | T-01 | Blockers | 2026-10-31 | M1 | All | | Process | Must | In progress | Open blockers resolved and recorded |
 | T-02 | Repo setup | 2026-10-31 | Purin | M1 | | Process | Must | Not started | `.gitattributes` `-text` rule for the new folder and v0.7 folder, and `.gitignore` entries for `out/`, `dist/`, `.vite/`, committed |
-| T-03 | Lock art pipeline | 2026-10-31 | M2 | M3 | | Game | Must | Not started | Sprite resolution and naming convention written; one test character cut out and committed |
+| T-03 | Lock art pipeline | 2026-10-31 | M2 | | | Game | Must | Not started | Sprite resolution and naming convention written; one test character cut out and committed |
 | T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | M2 | Purin | T-03, T-05 | Game | Must | Not started | The test sprite renders in the dev window through the preloader |
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | Purin | | | Game | Must | Not started | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
 | T-06 | Scene architecture design | 2026-10-31 | M4 | M5 | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
@@ -32,10 +32,10 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 |---|---|---|---|---|---|---|---|---|---|
 | T-08 | Scaffold B: packaged build | 2026-11-02 | Purin | | T-05 | .exe | Must | Not started | A test `.exe` runs and loads assets from the `.asar` package |
 | T-09 | Soul sprites | 2026-11-02 | M2 | | T-03 | Game | Must | Not started | Cut-outs for Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted) committed; the other five ordinary souls stay letter placeholders unless art is approved |
-| T-10 | Polong, boat and shore sprites | 2026-11-02 | M3 | | T-03 | Game | Must | Not started | Cut-outs for Polong, boat and shore committed |
-| T-11 | TitleScene, single save and optional seed | 2026-11-02 | M5 | | T-05 | Game | Must | Not started | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
+| T-10 | Polong, boat and shore sprites | 2026-11-02 | M2 | | T-03 | Game | Must | Not started | Cut-outs for Polong, boat and shore committed |
+| T-11 | TitleScene, single save and optional seed | 2026-11-02 | M3 | M5 | T-05 | Game | Must | Not started | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
 | T-12 | BoardingScene | 2026-11-02 | M5 | | T-05 | Game | Must | Not started | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
-| T-13 | Developer tuning panel | 2026-11-02 | M5 | M4 | T-05 | Game | Should | Not started | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
+| T-13 | Developer tuning panel | 2026-11-02 | M3 | M5 | T-05 | Game | Should | Not started | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
 | T-14 | Early `.exe` and SmartScreen test | 2026-11-02 | M6 | Purin | T-08 | .exe | Must | Not started | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
 | T-15 | Base BGM and SFX | 2026-11-02 | M6 | | T-07 | Game | Should | Not started | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
 | T-16 | Memory UI overlay | 2026-11-02 | M4 | | T-05 | Game | Must | Not started | Hand display, play-before-crossing flow and discard prompt work against fixture states |
@@ -51,10 +51,10 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-21 | ReturnScene | 2026-11-05 | M4 | | T-05 | Game | Must | Not started | Return resolves anger, wraith conversion and Light restoration, then starts the next cycle |
 | T-22 | Route UI | 2026-11-05 | M4 | | T-05 | Game | Must | Not started | Fork display, review and Foresight preview work as a component for CrossingScene |
 | T-23 | Tuning and pacing calibration | 2026-11-05 | M6 | M2, M3 | T-13, T-19 | Game | Should | Not started | Crossing speed, snap feel and wraith pacing tuned; `tuning.json` committed by one person |
-| T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | M3 | | T-03 | Game | Should | Not started | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
+| T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | M2 | | T-03 | Game | Should | Not started | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
 | T-25 | Wraith transformation frames | 2026-11-05 | M2 | | T-03 | Game | Should | Not started | Animation frames committed with naming convention |
 | T-26 | Pitch script draft | 2026-11-05 | M1 | | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
-| T-27 | Scene text | 2026-11-05 | M1 | M5 | T-05 | Game | Should | Not started | Button, help and ending text collected into a data file the scenes read |
+| T-27 | Scene text | 2026-11-05 | M3 | M1 | T-05 | Game | Should | Not started | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | M6 | | T-15 | Game | Should | Not started | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
 
 ## Phase 4: Feature & Asset Freeze
@@ -74,9 +74,9 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-34 | `.exe` testing | 2026-11-07 | M6 | M1 | T-32 | .exe | Must | Not started | Release candidate tested on a second Windows machine; SmartScreen, asset pathing, memory stability and save persistence recorded; untested items marked `NOT_RUN` |
 | T-35 | Balance tuning | 2026-11-07 | M6 | | T-33 | Game | Should | Not started | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun |
 | T-36 | Bug fixes | 2026-11-07 | M4 | M5 | T-34 | Game | Must | Not started | Issues from M6's test log fixed, each owner fixing their own scenes |
-| T-37 | Visual polish | 2026-11-07 | M5 | | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty |
+| T-37 | Visual polish | 2026-11-07 | M3 | M5 | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty |
 | T-38 | Slides finalize | 2026-11-07 | M1 | | T-26 | Presentation | Must | Not started | Final slides cover all three required parts |
-| T-39 | Art polish | 2026-11-07 | M3 | M2 | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized |
+| T-39 | Art polish | 2026-11-07 | M2 | | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized |
 
 ## Phase 6: Build, Export & Rehearsal
 
