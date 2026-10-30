@@ -1,8 +1,12 @@
 # The Ferryman / Charon
 
-**Current workshop iteration: v0.6, endless survival.** Matching paper and browser rules with facilitator-controlled routes. Updated October 5, 2026.
+**Current browser prototype: v0.7 quest trial.** Updated October 30, 2026.
 
-## Play or print v0.6
+- [Play v0.7](outputs/The_Ferryman_v0.7/index.html), [instructions](outputs/The_Ferryman_v0.7/README.md), [rules](outputs/The_Ferryman_v0.7/RULES.md) and [implementation status](outputs/The_Ferryman_v0.7/IMPLEMENTATION_STATUS.md).
+- Eight quests and five Polong variants. Scale progression awaits team direction. Drug Dealer, Fool and Killer are included roster entries with playable rules TBA.
+- Spreadsheet catalogs stay local and gitignored. Older paper kits describe their own versions.
+
+## Preserved v0.6 paper and browser release
 
 - [Complete 31-page print kit](outputs/The_Ferryman_v0.6/print/Print_and_Play_v0.6.pdf), 78 cut pieces and five whole mats. A4 color, single-sided, actual size / 100 percent.
 - [Play the browser game](outputs/The_Ferryman_v0.6/index.html) and [launch/save instructions](outputs/The_Ferryman_v0.6/README.md).

@@ -1,8 +1,12 @@
 # Deliverables and version guide
 
-Status checked October 5, 2026. The current workshop iteration is v0.6, with matching paper/browser endless-survival rules and facilitator-controlled routes. Earlier versions remain available below and use different rules.
+Updated October 30, 2026. v0.7 is the current browser prototype. Older versions remain below with their own paper and browser rules.
 
-## Current v0.6
+## Current browser prototype: v0.7
+
+[Play](The_Ferryman_v0.7/index.html), [instructions](The_Ferryman_v0.7/README.md), [rules](The_Ferryman_v0.7/RULES.md), [status and limitations](The_Ferryman_v0.7/IMPLEMENTATION_STATUS.md). Scale is pending team direction. Spreadsheet catalogs remain local.
+
+## Preserved v0.6
 
 - [Complete 31-page print kit](The_Ferryman_v0.6/print/Print_and_Play_v0.6.pdf), [one-page guide](The_Ferryman_v0.6/print/Player_Guide_v0.6.pdf), [inventory](The_Ferryman_v0.6/print/COMPONENT_INVENTORY.md).
 - [Playable browser](The_Ferryman_v0.6/index.html), [rules](The_Ferryman_v0.6/RULES.md), [design workbook](The_Ferryman_v0.6/DESIGN_WORKBOOK.md).
