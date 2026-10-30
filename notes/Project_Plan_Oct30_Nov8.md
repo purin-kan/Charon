@@ -32,25 +32,30 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 
 | Seat | Role | Tasks | Member |
 |---|---|---|---|
-| M1 | PM: Production & Presentation Lead | 7 | bosthanapatw |
+| M1 | Production & Presentation Lead | 7 | bosthanapatw |
 | M2 | Art (characters, environment, interface) | 7 | Kanyakorn-goya |
 | M3 | Gameplay support & UI | 4 | Tinpatpun |
 | M4 | Gameplay Dev & UI; co-PM | 6 | Jaoguya |
 | M5 | Gameplay Dev | 4 | SupaOhm |
-| M6 | Audio, QA & Game Balance | 8 | VarisPah |
+| M6 | Audio, QA & Game Balance; PM | 8 | VarisPah |
 | Purin | Scaffold & builds | 7 | Purin |
 
-**Decisions go to the PM (M1).** Jaoguya (M4) is the co-PM.
+**Decisions go to the PM (M6, VarisPah).** Jaoguya (M4) is the co-PM.
 
-**Help for the PM.** When M1's own tasks are done, someone joins M1. The most likely helper is M3 (Tinpatpun): 4 tasks, tied with M5 but lighter ones (M5 holds the three large core-loop scenes), with the core ones finishing by Nov 5 (T-11 and T-13 on Nov 2, T-27 on Nov 5) and only polish left on Nov 7 (priority Nice). M2 (Kanyakorn-goya) is the second choice once the Nov 5 art is delivered. The PM confirms the helper; M3 also supports M5, so M5's load should be checked first.
+**Help for M1.** When M1's (bosthanapatw's) own tasks are done, someone helps them. Candidates, from the register:
+* **Purin:** no tasks due Nov 3 to 5 or Nov 7 (tasks fall on Oct 31, Nov 2, Nov 6 and Nov 8), and knows the engine, so a good fit for the Algorithmic Implementation slides in T-26. Caveats: Purin answers scaffold questions from the team, and Nov 6 has three tasks (T-30, T-31, T-32).
+* **M3 (Tinpatpun):** 4 tasks, lighter ones than M5's, with the core ones finishing by Nov 5 (T-11 and T-13 on Nov 2, T-27 on Nov 5) and only polish left on Nov 7 (priority Nice). M3 also supports M5, so M5's load should be checked first.
+* **M2 (Kanyakorn-goya):** a possible third choice once the Nov 5 art is delivered, for slide visuals.
+
+The PM confirms the helper.
 
 * **Scaffold owner (Purin):** Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
-* **Member 1 (PM, Production & Presentation Lead):** Receives team decisions. Presentation (script, slides, demo video), reviewing the task register (owners update their own rows), the README and credits notes, and a second tester on the built `.exe`.
+* **Member 1 (Production & Presentation Lead):** Presentation (script, slides, demo video), reviewing the task register (owners update their own rows), the README and credits notes, and a second tester on the built `.exe`.
 * **Member 2 (Art):** All art in one seat: cut-out soul, Polong, boat and shore sprites, destination backgrounds, memory placeholders, wraith transformation frames and art polish. Peak load is Nov 2 (14 cut-outs); a background-removal tool can speed this up, and the results still need a visual check.
 * **Member 3 (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (M5). Owns TitleScene with the single save, the developer tuning panel, scene text data and visual polish, and supports M5 on the scene work.
 * **Member 4 (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on Purin's scaffold. Shares scene architecture design with M5.
 * **Member 5 (Gameplay Dev):** BoardingScene (drag-and-drop), CrossingScene (boat river crossing) and DeliveryScene, the three core-loop scenes. Integrates `engine.js` as the rules authority and owns tweens, visual effects and scene transitions.
-* **Member 6 (Audio, QA, & Game Balance):** BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
+* **Member 6 (Audio, QA, & Game Balance; PM):** Receives team decisions. BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
 
 ## 3. Master Project Schedule (Oct 30 - Nov 8)
 
