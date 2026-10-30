@@ -23,7 +23,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | M2 | Purin | T-03, T-05 | Game | Must | Not started | The test sprite renders in the dev window through the preloader |
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | Purin | | | Game | Must | Not started | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
 | T-06 | Scene architecture design | 2026-10-31 | M4 | M5 | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
-| T-07 | Audio asset strategy | 2026-10-31 | M6 | | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
+| T-07 | Audio asset strategy | 2026-10-31 | M6 | M1 | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
 | T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | M5 | M1 | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the `.gitignore` entry that keeps the spreadsheet folder local is changed in that pull request |
 
 ## Phase 2: Engine Prep & Base Build
@@ -31,8 +31,8 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
 | T-08 | Scaffold B: packaged build | 2026-11-02 | Purin | | T-05 | .exe | Must | Not started | A test `.exe` runs and loads assets from the `.asar` package |
-| T-09 | Soul sprites | 2026-11-02 | M2 | | T-03 | Game | Must | Not started | Cut-outs for Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted) committed; the other five ordinary souls stay letter placeholders unless art is approved |
-| T-10 | Polong, boat and shore sprites | 2026-11-02 | M2 | | T-03 | Game | Must | Not started | Cut-outs for Polong, boat and shore committed |
+| T-09 | Soul sprites | 2026-11-02 | M2 | M1 | T-03 | Game | Must | Not started | Cut-outs for Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted) committed; the other five ordinary souls stay letter placeholders unless art is approved |
+| T-10 | Polong, boat and shore sprites | 2026-11-02 | M2 | M1 | T-03 | Game | Must | Not started | Cut-outs for Polong, boat and shore committed |
 | T-11 | TitleScene, single save and optional seed | 2026-11-02 | M3 | M5 | T-05 | Game | Must | Not started | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
 | T-12 | BoardingScene | 2026-11-02 | M5 | | T-05 | Game | Must | Not started | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
 | T-13 | Developer tuning panel | 2026-11-02 | M3 | M5 | T-05 | Game | Should | Not started | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
@@ -53,7 +53,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-23 | Tuning and pacing calibration | 2026-11-05 | M6 | M2, M3 | T-13, T-19 | Game | Should | Not started | Crossing speed, snap feel and wraith pacing tuned; `tuning.json` committed by one person |
 | T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | M2 | | T-03 | Game | Should | Not started | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
 | T-25 | Wraith transformation frames | 2026-11-05 | M2 | | T-03 | Game | Should | Not started | Animation frames committed with naming convention |
-| T-26 | Pitch script draft | 2026-11-05 | M1 | | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
+| T-26 | Pitch script draft | 2026-11-05 | M1 | Purin | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
 | T-27 | Scene text | 2026-11-05 | M3 | M1 | T-05 | Game | Should | Not started | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | M6 | | T-15 | Game | Should | Not started | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
 
@@ -75,7 +75,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-35 | Balance tuning | 2026-11-07 | M6 | | T-33 | Game | Should | Not started | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun |
 | T-36 | Bug fixes | 2026-11-07 | M4 | M5 | T-34 | Game | Must | Not started | Issues from M6's test log fixed, each owner fixing their own scenes |
 | T-37 | Visual polish | 2026-11-07 | M3 | M5 | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty |
-| T-38 | Slides finalize | 2026-11-07 | M1 | | T-26 | Presentation | Must | Not started | Final slides cover all three required parts |
+| T-38 | Slides finalize | 2026-11-07 | M1 | Purin | T-26 | Presentation | Must | Not started | Final slides cover all three required parts |
 | T-39 | Art polish | 2026-11-07 | M2 | | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized |
 
 ## Phase 6: Build, Export & Rehearsal

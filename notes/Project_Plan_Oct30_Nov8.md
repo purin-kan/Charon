@@ -42,12 +42,11 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 
 **Decisions go to the PM (M6, VarisPah).** Jaoguya (M4) is the co-PM.
 
-**Help for M1.** When M1's (bosthanapatw's) own tasks are done, someone helps them. Candidates, from the register:
-* **Purin:** no tasks due Nov 3 to 5 or Nov 7 (tasks fall on Oct 31, Nov 2, Nov 6 and Nov 8), and knows the engine, so a good fit for the Algorithmic Implementation slides in T-26. Caveats: Purin answers scaffold questions from the team, and Nov 6 has three tasks (T-30, T-31, T-32).
-* **M3 (Tinpatpun):** 4 tasks, lighter ones than M5's, with the core ones finishing by Nov 5 (T-11 and T-13 on Nov 2, T-27 on Nov 5) and only polish left on Nov 7 (priority Nice). M3 also supports M5, so M5's load should be checked first.
-* **M2 (Kanyakorn-goya):** a possible third choice once the Nov 5 art is delivered, for slide visuals.
+**Help for M1.** Purin helps M1 (bosthanapatw) with the presentation: Purin is listed as support on the pitch script (T-26) and the slides (T-38), and knows the engine for the Algorithmic Implementation slides. Purin's own tasks fall on Oct 31, Nov 2, Nov 6 and Nov 8, with scaffold questions from the team in between, and Nov 6 has three tasks (T-30, T-31, T-32).
 
-The PM confirms the helper.
+**M1's early capacity.** M1's work depends on the frozen rules and the built game, so it starts late: only the blockers list (Oct 31) and the presentation outline (Nov 2) come early, and the script, freeze, slides, video and rehearsal fall on Nov 5 to 8. From now to about Nov 4, M1 can help others. Proposed, for the PM (Varis) to confirm:
+* **M2 (Kanyakorn-goya):** the biggest crunch is Nov 2 (about 14 cut-outs, T-09 and T-10). M1 is listed as support on both and can run the background-removal pass and the visual checks.
+* **M6 (VarisPah):** audio sourcing and the licence and credits record (T-07). M1 is listed as support.
 
 * **Scaffold owner (Purin):** Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
 * **Member 1 (Production & Presentation Lead):** Presentation (script, slides, demo video), reviewing the task register (owners update their own rows), the README and credits notes, and a second tester on the built `.exe`.
