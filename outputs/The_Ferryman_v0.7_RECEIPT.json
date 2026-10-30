@@ -1,0 +1,20 @@
+{
+  "version": "0.7-trial",
+  "status": "PROTOTYPE_FOR_TEAM_REVIEW",
+  "engine_groups_passed": 22,
+  "scale": "Deferred for team direction; existing temporary configuration retained",
+  "pending_playable_souls": [
+    "Drug Dealer",
+    "Fool",
+    "Killer"
+  ],
+  "spreadsheets": "Local and gitignored; not included",
+  "human_playtest": "Not performed",
+  "browser_evidence": "Earlier native Chrome/macOS smoke check of v0.7 gameplay. No new mobile/Windows or current TBA-panel browser check claimed.",
+  "archive": "The_Ferryman_v0.7.zip",
+  "bytes": 74417798,
+  "sha256": "e19c48b87ab45aca131ff34d72878c940f673bfc64ef43f07e0571fb8563a93b",
+  "payload_files": 52,
+  "zip_entries": 53,
+  "all_payload_hashes_verified": true
+}
