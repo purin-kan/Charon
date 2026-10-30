@@ -77,11 +77,12 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-37 | Visual polish | 2026-11-07 | Tinpatpun | SupaOhm | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty |
 | T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | Not started | Final slides cover all three required parts |
 | T-39 | Art polish | 2026-11-07 | Kanyakorn-goya | | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized |
+| T-44 | Re-test after fixes | 2026-11-07 (end of day) | bosthanapatw | VarisPah, purin-kan | T-35, T-36 | .exe | Must | Not started | A build made after the Nov 7 bug fixes and balance values is tested on a second Windows machine; results recorded, untested items marked `NOT_RUN`; purin-kan makes the build |
 
 ## Phase 6: Build, Export & Rehearsal
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-40 | Final `.exe` compile and project files | 2026-11-08 | purin-kan | | T-35, T-36, T-37, T-39 | .exe | Must | Not started | Clean build with no console errors; README written; project files and `.exe` collected for submission |
+| T-40 | Final `.exe` compile and project files | 2026-11-08 | purin-kan | | T-44 (and T-37, T-39 unless Cut) | .exe | Must | Not started | Clean build with no console errors; README written; project files and `.exe` collected for submission |
 | T-41 | Demo video recording | 2026-11-08 | bosthanapatw | VarisPah | T-40 | Presentation | Must | Not started | Video recorded from the final `.exe` with a fixed seed |
 | T-42 | Presentation rehearsal | 2026-11-08 | bosthanapatw | All | T-38, T-41 | Presentation | Must | Not started | Full run-through of Description, Algorithmic Implementation and Demo play, with live demo and Q&A |

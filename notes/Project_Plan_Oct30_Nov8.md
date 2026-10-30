@@ -32,7 +32,7 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 
 | Member | Role | Tasks |
 |---|---|---|
-| bosthanapatw | Production & Presentation Lead | 6 |
+| bosthanapatw | Production & Presentation Lead | 7 |
 | Kanyakorn-goya | Art (characters, environment, interface) | 7 |
 | Tinpatpun | Gameplay support & UI | 4 |
 | Jaoguya | Gameplay Dev & UI; co-PM | 6 |
@@ -129,12 +129,13 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 | Visual polish | Scene transitions and screen shake first. Particle effects (fog, wraith transformation, Light glow) only once the bug list is empty. | Tinpatpun |
 | Slides finalize | Final slide edits. | bosthanapatw |
 | Art polish | Touch up any placeholder sprites. Finalize UI elements. | Kanyakorn-goya |
+| Re-test after fixes | Test a build made after the Nov 7 bug fixes and balance values on a second Windows machine (the release candidate tested earlier does not contain them). purin-kan makes the build. Record results; untested items stay `NOT_RUN`. | bosthanapatw |
 
 ### Phase 6: Build, Export & Rehearsal (Nov 8)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build). Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | purin-kan |
+| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build), after the re-test passes. Optional polish tasks that are Cut no longer block this build. Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | purin-kan |
 | Demo video recording | Record the demo video from the final `.exe` with a fixed seed. | bosthanapatw, VarisPah |
 | Presentation rehearsal | Full team run-through of the presentation (Description, Algorithmic Implementation, Demo play) with the live demo and Q&A. | All |
 
