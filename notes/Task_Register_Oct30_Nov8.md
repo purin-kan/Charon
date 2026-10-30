@@ -24,7 +24,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | purin-kan | | | Game | Must | Not started | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
 | T-06 | Scene architecture design | 2026-10-31 | Jaoguya | SupaOhm | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
 | T-07 | Audio asset strategy | 2026-10-31 | VarisPah | bosthanapatw | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
-| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | SupaOhm | bosthanapatw | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the `.gitignore` entry that keeps the spreadsheet folder local is changed in that pull request |
+| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | SupaOhm | bosthanapatw | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the spreadsheet goes in a path that `.gitignore` does not cover (the entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in the repository checkout) |
 
 ## Phase 2: Engine Prep & Base Build
 
