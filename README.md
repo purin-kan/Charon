@@ -3,7 +3,7 @@
 **Current browser prototype: v0.7 quest trial.** Updated October 30, 2026.
 
 - [Play v0.7](outputs/The_Ferryman_v0.7/index.html), [instructions](outputs/The_Ferryman_v0.7/README.md), [rules](outputs/The_Ferryman_v0.7/RULES.md) and [implementation status](outputs/The_Ferryman_v0.7/IMPLEMENTATION_STATUS.md).
-- Eight quests and five Polong variants. Scale progression awaits team direction. Drug Dealer, Fool and Killer are included roster entries with playable rules TBA.
+- Eight quests and five Polong variants. Scale progression awaits team direction. Drug Dealer, Fool and Killer are scrapped, pending PM confirmation (see the [blockers note](notes/Blockers_Resolved_2026-10-31.md)).
 - The [public entity catalog](notes/Charon_Entity_Catalog_Public_2026-10-31.xlsx) is text only; the full spreadsheets with art stay local and gitignored. Older paper kits describe their own versions.
 
 ## Preserved v0.6 paper and browser release
