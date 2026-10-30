@@ -1,5 +1,9 @@
 # The Ferryman / Charon: agent context
 
+## October 30, 2026: user-authorized main push
+
+The user explicitly said “lets push it,” superseding the earlier no-push boundary for this operation. Game commit `95b44c60c18f18369710a3506615dcbd06dc4159` was pushed normally to `origin/main` and verified with `ls-remote`. No force-push or spreadsheet publication occurred. The remote reports its canonical URL as `https://github.com/purin-kan/Charon.git`. The public `https://the-ferryman-one.vercel.app` still returned the v0.6 page after this push; no v0.7 deployment is verified and no Vercel settings were changed. A future deployment task must inspect the project's linked repository/root directory rather than assume a main push changes its entry point.
+
 ## October 30, 2026: v0.7 browser prototype on main
 
 The user requested the synchronized game in main and spreadsheet catalogs kept local. Current browser source is `outputs/The_Ferryman_v0.7/`, linked from root `START_HERE.html`, `README.md` and `outputs/README.md`. v0.6 and its paper/submission packages are historical and unchanged. Current prototype rules, implementation status, tests and package builder live beside the game. Rebuild its own copied ZIP with `python3 tools/package.py` after contained changes. Do not use the old paper kit as v0.7 instructions.
