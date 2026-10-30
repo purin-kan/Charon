@@ -4,7 +4,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 ## How to use it
 
-* **Owner:** one accountable person per task. Shared plan rows are split into separate tasks. Purin is one of the seven members; the member number is still open, so Purin's tasks are listed under the name Purin.
+* **Owner:** one accountable person per task. Where a plan row named two owners, the register picks one Owner and lists the other under Support, except the sprite and destination or effect art rows, which are split into separate tasks. Purin is one of the seven members; the member number is still open, so Purin's tasks are listed under the name Purin.
 * **Support:** people who help or review.
 * **Depends on:** task IDs that must be done first. T-05 (Scaffold A) is the only gate that blocks other work; see "How the work runs in parallel" in the plan.
 * **Deliverable:** Game (code, art and audio built into the `.exe` and included in the project files), `.exe` (build and test steps), Presentation, or Process (repo and admin work).
@@ -21,7 +21,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-02 | Repo setup | 2026-10-31 | Purin | M1 | | Process | Must | Not started | `.gitattributes` `-text` rule for the new folder and v0.7 folder, and `.gitignore` entries for `out/`, `dist/`, `.vite/`, committed | |
 | T-03 | Lock art pipeline | 2026-10-31 | M2 | M3 | | Game | Must | Not started | Sprite resolution and naming convention written; one test character cut out and committed | |
 | T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | M2 | Purin | T-03, T-05 | Game | Must | Not started | The test sprite renders in the dev window through the preloader | |
-| T-05 | Scaffold A: dev environment | 2026-10-31 (midnight) | Purin | | | Game | Must | Not started | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced | |
+| T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | Purin | | | Game | Must | Not started | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced | |
 | T-06 | Scene architecture design | 2026-10-31 | M4 | M5, M6 | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs | |
 | T-07 | Audio asset strategy | 2026-10-31 | M7 | | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded | |
 
@@ -60,10 +60,10 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when | Evidence |
 |---|---|---|---|---|---|---|---|---|---|---|
-| T-29 | Hard freeze | 2026-11-06 | M1 | All | T-19, T-20, T-21 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play | |
-| T-30 | Integration check | 2026-11-06 | Purin | M7 | T-19, T-20, T-21, T-17 | .exe | Must | Not started | Full playthrough boot to game over across multiple cycles; save and load confirmed | |
+| T-29 | Hard freeze | 2026-11-06 | M1 | All | T-31 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play | |
+| T-30 | Integration check | 2026-11-06 | Purin | M7 | T-08, T-11, T-12, T-16, T-17, T-19, T-20, T-21, T-22 | .exe | Must | Not started | Full playthrough boot to game over across multiple cycles; save and load confirmed | |
 | T-31 | Scope-cut triage | 2026-11-06 | Purin | M5, M6 | T-30 | Game | Should | Not started | Unstable hero encounters or Polong variants cut or kept; any engine change followed by `build-content.js` and `quest-check.js` reruns | |
-| T-32 | Release candidate build | 2026-11-06 | Purin | | T-29, T-30 | .exe | Must | Not started | Release candidate `.exe` built and handed to M7 and M1 | |
+| T-32 | Release candidate build | 2026-11-06 | Purin | | T-29 | .exe | Must | Not started | Release candidate `.exe` built and handed to M7 and M1 | |
 | T-33 | Balance playtests | 2026-11-06 | M7 | | T-30 | Game | Should | Not started | Observations of Light, anger and fog logged in the status file; proposed `content.json` changes sent to the group | |
 
 ## Phase 5: QA, Balance & Polish
@@ -73,14 +73,14 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-34 | `.exe` testing | 2026-11-07 | M7 | M1 | T-32 | .exe | Must | Not started | Release candidate tested on a second Windows machine; SmartScreen, asset pathing, memory stability and save persistence recorded; untested items marked `NOT_RUN` | |
 | T-35 | Balance tuning | 2026-11-07 | M7 | | T-33 | Game | Should | Not started | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun | |
 | T-36 | Bug fixes | 2026-11-07 | M4 | M5, M6 | T-34 | Game | Must | Not started | Issues from M7's test log fixed, each owner fixing their own scenes | |
-| T-37 | Visual polish | 2026-11-07 | M5 | M6 | T-36 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty | |
+| T-37 | Visual polish | 2026-11-07 | M5 | M6 | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty | |
 | T-38 | Slides finalize | 2026-11-07 | M1 | | T-26 | Presentation | Must | Not started | Final slides cover all three required parts | |
-| T-39 | Art polish | 2026-11-07 | M3 | M2 | T-36 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized | |
+| T-39 | Art polish | 2026-11-07 | M3 | M2 | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized | |
 
 ## Phase 6: Build, Export & Rehearsal
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when | Evidence |
 |---|---|---|---|---|---|---|---|---|---|---|
-| T-40 | Final `.exe` compile and project files | 2026-11-08 | Purin | | T-36 | .exe | Must | Not started | Clean build with no console errors; README written; project files and `.exe` collected for submission | |
+| T-40 | Final `.exe` compile and project files | 2026-11-08 | Purin | | T-35, T-36, T-37, T-39 | .exe | Must | Not started | Clean build with no console errors; README written; project files and `.exe` collected for submission | |
 | T-41 | Demo video recording | 2026-11-08 | M1 | M7 | T-40 | Presentation | Must | Not started | Video recorded from the final `.exe` with a fixed seed | |
 | T-42 | Presentation rehearsal | 2026-11-08 | M1 | All | T-38, T-41 | Presentation | Must | Not started | Full run-through of Description, Algorithmic Implementation and Demo play, with live demo and Q&A | |
