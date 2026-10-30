@@ -10,7 +10,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 * **Deliverable:** Game (code, art and audio built into the `.exe` and included in the project files), `.exe` (build and test steps), Presentation, or Process (repo and admin work).
 * **Priority:** Must (the submission fails without it), Should (the game or pitch is weaker without it), Nice (cut first when time is short).
 * **Status:** Not started, In progress, Blocked, Done, Cut. Each owner updates their own Status; purin-kan manages the register and keeps it in step with the plan.
-* **Tracking:** each task is a GitHub issue with its ID in the title, and the work lands through a pull request that closes the issue. Anything not run is marked `NOT_RUN` in the pull request. Agent or team smoke tests are not human playtests.
+* **Tracking:** work lands through a pull request that has the task ID in its title. Anything not run is marked `NOT_RUN` in the pull request. Agent or team smoke tests are not human playtests.
 * **Due:** the end of the phase unless the task says otherwise.
 
 ## Phase 1: Scaffolding & Early Design
@@ -61,7 +61,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-29 | Hard freeze | 2026-11-06 | bosthanapatw | All | T-31 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play |
+| T-29 | Hard freeze | 2026-11-06 | VarisPah | All | T-31 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play |
 | T-30 | Integration check | 2026-11-06 | purin-kan | VarisPah | T-08, T-11, T-12, T-16, T-17, T-19, T-20, T-21, T-22 | .exe | Must | Not started | Full playthrough boot to game over across multiple cycles; save and load confirmed |
 | T-31 | Scope-cut triage | 2026-11-06 | purin-kan | SupaOhm | T-30 | Game | Should | Not started | Unstable hero encounters or Polong variants cut or kept; any engine change followed by `build-content.js` and `quest-check.js` reruns |
 | T-32 | Release candidate build | 2026-11-06 | purin-kan | | T-29 | .exe | Must | Not started | Release candidate `.exe` built and handed to VarisPah and bosthanapatw |
