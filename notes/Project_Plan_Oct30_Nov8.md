@@ -40,14 +40,14 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 | VarisPah | Audio, QA & Game Balance; PM | 8 |
 | purin-kan | Scaffold & builds | 7 |
 
-**Decisions go to the PM (VarisPah).** Jaoguya is the co-PM.
+**Game decisions** are handled by the PM (VarisPah) and the co-PM (Jaoguya); bring them to either. **Task management** (the task register, its GitHub issues and the schedule) is handled by purin-kan.
 
 **Help for bosthanapatw.** purin-kan helps bosthanapatw with the presentation: purin-kan is listed as support on the pitch script (T-26) and the slides (T-38), and knows the engine for the Algorithmic Implementation slides. purin-kan's own tasks fall on Oct 31, Nov 2, Nov 6 and Nov 8, with scaffold questions from the team in between, and Nov 6 has three tasks (T-30, T-31, T-32).
 
 **bosthanapatw's early capacity.** bosthanapatw's work depends on the frozen rules and the built game, so it starts late: only the blockers list (Oct 31) and the presentation outline (Nov 2) come early, and the script, freeze, slides, video and rehearsal fall on Nov 5 to 8. From now to about Nov 4, bosthanapatw helps VarisPah with the audio: listed as support on T-07, T-15 and T-28. If time remains, the Nov 2 cut-outs (about 14 images, T-09 and T-10) are the next place to help, for the PM (VarisPah) to confirm.
 
-* **purin-kan (scaffold owner):** Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
-* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), reviewing the task register (owners update their own rows), the README and credits notes, and a second tester on the built `.exe`.
+* **purin-kan (scaffold owner, task management):** Keeps the task register and its GitHub issues in step with this plan. Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
+* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, and a second tester on the built `.exe`.
 * **Kanyakorn-goya (Art):** All art in one seat: cut-out soul, Polong, boat and shore sprites, destination backgrounds, memory placeholders, wraith transformation frames and art polish. Peak load is Nov 2 (14 cut-outs); a background-removal tool can speed this up, and the results still need a visual check.
 * **Tinpatpun (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (SupaOhm). Owns TitleScene with the single save, the developer tuning panel, scene text data and visual polish, and supports SupaOhm on the scene work.
 * **Jaoguya (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on purin-kan's scaffold. Shares scene architecture design with SupaOhm.

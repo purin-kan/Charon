@@ -9,7 +9,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 * **Depends on:** task IDs that must be done first. T-05 (Scaffold A) is the only gate that blocks other work; see "How the work runs in parallel" in the plan.
 * **Deliverable:** Game (code, art and audio built into the `.exe` and included in the project files), `.exe` (build and test steps), Presentation, or Process (repo and admin work).
 * **Priority:** Must (the submission fails without it), Should (the game or pitch is weaker without it), Nice (cut first when time is short).
-* **Status:** Not started, In progress, Blocked, Done, Cut. Each owner updates their own Status; bosthanapatw reviews the register and keeps it in step with the plan.
+* **Status:** Not started, In progress, Blocked, Done, Cut. Each owner updates their own Status; purin-kan manages the register and keeps it in step with the plan.
 * **Tracking:** each task is a GitHub issue with its ID in the title, and the work lands through a pull request that closes the issue. Anything not run is marked `NOT_RUN` in the pull request. Agent or team smoke tests are not human playtests.
 * **Due:** the end of the phase unless the task says otherwise.
 
