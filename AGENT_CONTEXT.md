@@ -1,5 +1,9 @@
 # The Ferryman / Charon: agent context
 
+## October 31, 2026: team seats recorded
+
+Members chose seats as comments on pull request 5 (`plan-and-task-register`). M1 bosthanapatw (production and presentation), M2 Kanyakorn-goya (art), M3 Tinpatpun (gameplay support and UI), M4 Jaoguya (gameplay dev and UI; co-PM), M5 SupaOhm (gameplay dev), M6 VarisPah (audio, QA, balance; PM), Purin (scaffold and builds). The user said game decisions are handled by the PM, Varis, and the co-PM, Jaoguya, and that the user (purin-kan) handles task management. Purin will help M1 with the presentation. The user said M1's work can only start late, so M1 has early capacity and will help M6 (VarisPah) with the audio (support on T-07, T-15, T-28). The plan and register now use GitHub usernames instead of member numbers. SupaOhm (previously "Ohm") owns T-43. Engine is Phaser + Electron per the user on October 30; the plan is `notes/Project_Plan_Oct30_Nov8.md`, the tasks `notes/Task_Register_Oct30_Nov8.md`. Rules, balance and art stay provisional; Phaser desktop build not started.
+
 ## October 30, 2026: user-authorized main push
 
 The user explicitly said “lets push it,” superseding the earlier no-push boundary for this operation. Game commit `95b44c60c18f18369710a3506615dcbd06dc4159` was pushed normally to `origin/main` and verified with `ls-remote`. No force-push or spreadsheet publication occurred. The remote reports its canonical URL as `https://github.com/purin-kan/Charon.git`. The public `https://the-ferryman-one.vercel.app` still returned the v0.6 page after this push; no v0.7 deployment is verified and no Vercel settings were changed. A future deployment task must inspect the project's linked repository/root directory rather than assume a main push changes its entry point.
