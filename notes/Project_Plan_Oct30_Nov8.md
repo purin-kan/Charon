@@ -19,8 +19,8 @@ Revised October 30, 2026 to match the repository's file formats and working conv
 
 Only three items are submitted: the project files, the `.exe` and a presentation. Anything else in this plan exists only to produce those three.
 
-1. **Project files (M4):** the desktop project folder under `outputs/`: source, assets, `package.json` and lockfile, and a short README on how to run and build. No hash manifests or receipts.
-2. **`.exe` (M4, tested by M7):** the final Windows build from Electron Forge.
+1. **Project files (the user):** the desktop project folder under `outputs/`: source, assets, `package.json` and lockfile, and a short README on how to run and build. No hash manifests or receipts.
+2. **`.exe` (the user, tested by M7):** the final Windows build from Electron Forge.
 3. **Presentation (M1 coordinates):** must include three parts.
    * **Description:** game rules, gameplay mechanics and narrative, taken from the frozen rules.
    * **Algorithmic Implementation:** where game informatics, procedural content generation (PCG), AI logic or random systems are used. In the v0.7 snapshot these are: a seeded pseudo-random generator (`draw`, `engine.js` line 30), a Fisher-Yates shuffle (line 31), route forks drawn at random from eligible destinations (`deal`, line 37), random wishes (`randomWish`, line 138), a Polong spawn every `spawnInterval` rounds with a tiered random pick (`drawPolong`, line 49), random hero offers (`offerHero`, line 50) and Cerberus frightening two random souls (`heroicArrival`, line 150). Fog is a deterministic calculation (`fog`, line 111). AI logic is not claimed: the game has no computer-controlled opponent, and Polong spawning is listed above as a random system, not AI (confirm after the rules freeze). Line numbers belong to the v0.7 snapshot and will move. The group makes the design decisions (what is random and why); the AI writes the implementation, and the presentation says so.
@@ -28,50 +28,65 @@ Only three items are submitted: the project files, the `.exe` and a presentation
 
 ## 2. Team Roles & Responsibilities
 
-* **Member 1 (Production & Presentation Lead):** Pitch script, slides, demo video, keeping this plan's task list current, and UI text/dialogue JSON data entry.
-* **Members 2 & 3 (Art & Level Design):** Cut-out sprites from existing solid-background portraits. New animations (boarding, crossing, delivery, wraith transformation). UI elements, destination backgrounds.
-* **Member 4 (Lead Dev & Architecture):** Electron Forge configuration, Vite bundler, Phaser scene state machine, developer tuning panel, and `.exe` compilation. Owns the project scaffold and folder structure.
-* **Members 5 & 6 (Gameplay Devs):** Phaser scene implementations: drag-and-drop boarding, route choice, boat river crossing, delivery, return. Integrate existing `engine.js` as the rules authority. Player input, tweens, visual effects, and scene transitions.
-* **Member 7 (Audio, QA, & Game Balance):** BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables.
+* **Scaffold owner (the user):** Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
+* **Member 1 (Production & Presentation Lead):** Presentation (script, slides, demo video), keeping this plan's task list current, the README and credits notes, UI text data entry, and a second tester on the built `.exe`.
+* **Members 2 & 3 (Art & Level Design):** M2 owns character art: cut-out soul sprites and wraith transformation frames. M3 owns environment and interface art: Polong, boat and shore sprites, destination backgrounds, UI elements. Both share tuning calibration and art polish.
+* **Member 4 (Gameplay Dev & UI):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on the user's scaffold. Shares scene architecture design with M5 and M6.
+* **Members 5 & 6 (Gameplay Devs):** M5 owns BoardingScene (drag-and-drop) and CrossingScene (boat river crossing). M6 owns TitleScene with the save, DeliveryScene and the developer tuning panel. Both integrate `engine.js` as the rules authority and share tweens, visual effects, scene transitions and bug fixes.
+* **Member 7 (Audio, QA, & Game Balance):** BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
 
 ## 3. Master Project Schedule (Oct 30 - Nov 8)
+
+### How the work runs in parallel
+
+The user scaffolds the engine (Scaffold A below) so the others can start from a working base. Only Scaffold A blocks other work, so it is kept minimal and targeted for midday Oct 31. Everything after it runs side by side:
+
+* **One file per scene or component.** Each owner edits only their own files. The scene list, `package.json`, lockfile and `tuning.json` are changed only by the scaffold owner; others send a one-line request.
+* **Scenes never call each other.** Every scene reads `state` and dispatches `Ferry.transition`; a router picks the scene from `state.phase`. No scene waits for another.
+* **Scenes are built standalone.** The dev launcher from Scaffold A opens any scene with a saved engine state for its phase, so Delivery, Return, Memory UI and the rest can be built and viewed before Crossing exists.
+* **Code never waits for assets.** Art and audio are added by dropping files named per the convention from "Lock art pipeline". The preloader falls back to a letter emblem (art) or silence (audio) when a file is missing, and nobody edits a shared manifest.
+* **Art, audio and presentation have no code dependency** before the freeze beyond file naming, so M1, M2, M3 and M7 can work from Oct 30.
+* **Before Scaffold A lands**, M4, M5 and M6 write their scene files against the engine API (`Ferry.transition`, the phases listed in Scene architecture design) and run them once the scaffold is pushed.
+* **Packaging is separate.** Scaffold B (packaged `.exe`, `.asar` and SmartScreen checks) runs alongside scene work and blocks nobody.
 
 ### Phase 1: Scaffolding & Early Design (Oct 30 - Oct 31)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
 | Blockers | Open blockers are being worked on and must be resolved by Oct 31. | All |
-| Repo setup | This plan is the task list; no separate board. Add `.gitattributes` `-text` for the new folder and for `outputs/The_Ferryman_v0.7/` (only v0.6 has it; `core.autocrlf=true` otherwise changes `content.json` bytes and breaks the recorded hashes). Adding the rule to the committed v0.7 folder makes its files show as modified on Windows until each person checks out again. Extend `.gitignore` with `out/`, `dist/` and `.vite/` (`node_modules/` is already ignored). | M1, M4 |
+| Repo setup | This plan is the task list; no separate board. Add `.gitattributes` `-text` for the new folder and for `outputs/The_Ferryman_v0.7/` (only v0.6 has it; `core.autocrlf=true` otherwise changes `content.json` bytes and breaks the recorded hashes). Adding the rule to the committed v0.7 folder makes its files show as modified on Windows until each person checks out again. Extend `.gitignore` with `out/`, `dist/` and `.vite/` (`node_modules/` is already ignored). | M1, User |
 | Lock art pipeline | Decide sprite resolution and naming convention (extend the existing flat lowercase names in `assets/art/` and the `asset-map.js` ID keys; keep original solid-background files untouched and add cut-outs as new files, since the v0.7 browser and its recorded hashes use the originals). Cut one test character from solid-background PNG to transparent sprite. Confirm Phaser import. | M2, M3 |
-| Phaser + Electron scaffold | Create the folder, `npm init`, install Phaser (comparison source lists v4.2.1, `notes/Engine_Platform_Comparison.md` line 62), Electron Forge, Vite. Pin versions in `package.json` and lockfile. Build a hello-world `.exe` that opens a Phaser canvas. Import `content.js`, then `engine.js`, from the chosen rules source (starting snapshot: v0.7; wrapper, no edits to `engine.js` for loading) and verify `globalThis.Ferry.create(1)` returns a valid state inside the bundled app. | M4 |
-| Scene architecture design | Design the Phaser scene graph on paper. Scenes follow `state.phase` from the engine, not their own rules: `boarding` (BOARD, DEPART, ACCEPT_HERO, DECLINE_HERO), `window` (PLAY_MEMORY, MEAL, PURIFY, START_CROSSING, PLAN), `review` (CONFIRM, BACK), `delivery` (DELIVER), `choice` (CHOOSE), `trim` (DISCARD_MEMORY), `ended`; `window` of kind `return` ends with RETURN. Proposed scenes: `BootScene` -> `TitleScene` -> `BoardingScene` -> `CrossingScene` (memories, route fork, review, travel) -> `DeliveryScene` -> `ReturnScene` -> `GameOverScene`, with choice and memory-trim as overlays. Map each scene's entry and exit to `Ferry.transition(state, action)` calls. | M4, M5, M6 |
+| Scaffold A: dev environment | Target midday Oct 31. Create the folder, `npm init`, install Phaser (comparison source lists v4.2.1, `notes/Engine_Platform_Comparison.md` line 62), Electron Forge, Vite. Pin versions in `package.json` and lockfile. Run a Phaser canvas in the Electron dev window (the packaged `.exe` is Scaffold B). Import `content.js`, then `engine.js`, from the chosen rules source (starting snapshot: v0.7; wrapper, no edits to `engine.js` for loading) and verify `globalThis.Ferry.create(1)` returns a valid state. Also add: one stub file per proposed scene, registered in a scene list; a router that picks the scene from `state.phase`; a dev launcher that opens any scene with a saved engine state for its phase (fixture states generated by a script from the engine); an asset preloader that reads files by the naming convention and falls back to a letter emblem or silence when a file is missing; an empty `tuning.json`; and a short README on how to add a scene. Push and tell the team. | User |
+| Scene architecture design | Design the Phaser scene graph on paper. Not blocking: Scaffold A uses the proposed scene list below, and this task only refines it. Scenes follow `state.phase` from the engine, not their own rules: `boarding` (BOARD, DEPART, ACCEPT_HERO, DECLINE_HERO), `window` (PLAY_MEMORY, MEAL, PURIFY, START_CROSSING, PLAN), `review` (CONFIRM, BACK), `delivery` (DELIVER), `choice` (CHOOSE), `trim` (DISCARD_MEMORY), `ended`; `window` of kind `return` ends with RETURN. Proposed scenes: `BootScene` -> `TitleScene` -> `BoardingScene` -> `CrossingScene` (memories, route fork, review, travel) -> `DeliveryScene` -> `ReturnScene` -> `GameOverScene`, with choice and memory-trim as overlays. Map each scene's entry and exit to `Ferry.transition(state, action)` calls. | M4, M5, M6 |
 | Audio asset strategy | Identify needed tracks (menu BGM, crossing BGM, delivery jingle, wraith SFX, UI clicks). Produce or source a placeholder menu loop. Record the source and licence of every audio file (the repo records rights and never assigns an invented licence), as `ARTWORK_NOTES.md` does for art. | M7 |
 
 ### Phase 2: Engine Prep & Base Build (Nov 1 - Nov 2)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Asset preloader | Implement `BootScene`: load all sprites, audio and the generated content. Verify asset pathing survives Electron's `.asar` packaging on a test `.exe`. | M4 |
-| Core sprites delivery | Transparent cut-outs from existing art: Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted), Polong (`newpolong.jpg`, a JPG), boat and shore. Red Soldier, Blue Soldier, Messenger, Musician and Listener have no image mapped in `asset-map.js`; they stay letter-initial placeholders (as `ARTWORK_NOTES.md` says) unless the team approves new art. Push into the locked `assets/` folders. | M2, M3 |
-| TitleScene + save UI | Title screen with Continue and New game over a single save slot. Rebuild the save logic from `app.js` (it is replaced, so it cannot be reused as is) on top of `Ferry.exportSave` / `importSave` validation, with a new namespace such as `the-ferryman:desktop:player:` and a QA launch flag or separate QA namespace (a packaged app has no URL for `?qa=`) so player saves are never touched by tests. No JSON export/import. Never read or write `the-ferryman:v0.7-trial:` or v0.6 keys. | M5 or M6 |
-| BoardingScene prototype | Render shore souls as interactive sprites. Implement Phaser drag-and-drop (`setInteractive({ draggable: true })`) with snap drop zones on boat seats. A drop dispatches `BOARD` (it toggles selection, so a second drag off the boat is also `BOARD`; there is no `unboard`); validate with the exported `Ferry.seats`, `capacity` and `actorSeats`; `DEPART` commits. Show the hero offer, Light and seat counters. | M5, M6 |
-| Developer tuning panel | Build an in-game debug/tuning overlay (e.g. using lil-gui, pinned) so M2, M3, and M7 can adjust boat travel duration, tween easing, animation speeds, drop-zone snap radii, and river paths. It must save to a committed presentation-only data file (proposed `assets/tuning.json`), separate from `content.json`, so tuned values reach the repo as data and gameplay balance is never mixed with animation timing. The engine never reads it. | M4 |
-| Early `.exe` & SmartScreen test | Export initial test `.exe` via Electron Forge. Verify asset pathing and check Windows SmartScreen behavior on a second PC. | M4, M7 |
+| Scaffold B: packaged build | The preloader already exists from Scaffold A. Package a test `.exe` and verify asset pathing survives Electron's `.asar` packaging. Blocks nobody. | User |
+| Core sprites delivery | Transparent cut-outs from existing art: Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted), Polong (`newpolong.jpg`, a JPG), boat and shore. Red Soldier, Blue Soldier, Messenger, Musician and Listener have no image mapped in `asset-map.js`; they stay letter-initial placeholders (as `ARTWORK_NOTES.md` says) unless the team approves new art. M2 delivers the soul sprites; M3 delivers Polong, boat and shore. Push into the locked `assets/` folders. | M2, M3 |
+| TitleScene + save UI | Title screen with Continue and New game over a single save slot. Rebuild the save logic from `app.js` (it is replaced, so it cannot be reused as is) on top of `Ferry.exportSave` / `importSave` validation, with a new namespace such as `the-ferryman:desktop:player:` and a QA launch flag or separate QA namespace (a packaged app has no URL for `?qa=`) so player saves are never touched by tests. No JSON export/import. Never read or write `the-ferryman:v0.7-trial:` or v0.6 keys. | M6 |
+| BoardingScene prototype | Render shore souls as interactive sprites. Implement Phaser drag-and-drop (`setInteractive({ draggable: true })`) with snap drop zones on boat seats. A drop dispatches `BOARD` (it toggles selection, so a second drag off the boat is also `BOARD`; there is no `unboard`); validate with the exported `Ferry.seats`, `capacity` and `actorSeats`; `DEPART` commits. Show the hero offer, Light and seat counters. | M5 |
+| Developer tuning panel | Build an in-game debug/tuning overlay (e.g. using lil-gui, pinned) so M2, M3, and M7 can adjust boat travel duration, tween easing, animation speeds, drop-zone snap radii, and river paths. It must save to a committed presentation-only data file (proposed `assets/tuning.json`), separate from `content.json`, so tuned values reach the repo as data and gameplay balance is never mixed with animation timing. The engine never reads it. The empty `tuning.json` comes from Scaffold A. | M6 |
+| Early `.exe` & SmartScreen test | Export initial test `.exe` via Electron Forge. Verify asset pathing and check Windows SmartScreen behavior on a second PC. | User, M7 |
 | Base BGM & SFX | Menu BGM loop. One crossing ambient track. Board and unboard click SFX. Push to `/assets/audio/`. | M7 |
+| Memory UI overlay | Functional version with placeholder art. Hand display (up to `config.handLimit`, 3). Play-before-crossing flow via `Ferry.memoryTargets`. `DISCARD_MEMORY` prompt in the `trim` phase. M5 plugs it into CrossingScene in Phase 3. | M4 |
+| GameOverScene | Display run summary from state (`cycle`, `completed`, `deliveries`, quest statuses, `ending`). The game is endless, so there is no win screen. Offer restart. | M4 |
+| Presentation outline | Slide structure for Description, Algorithmic Implementation and Demo play. Draft the Description from the generated `RULES.md` as it stands (provisional until the freeze). Start the README and a credits note collecting art and audio sources. | M1 |
 
 ### Phase 3: Core Loop & Content (Nov 3 - Nov 5)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| CrossingScene | Memory window (`PLAY_MEMORY`, `MEAL`, `PURIFY`), `START_CROSSING` to reveal the two engine-drawn route options, `PLAN` / `CONFIRM` / `BACK` review, then `CROSS`. Animate the boat along a path (Phaser PathFollower or tweens) between departure shore and destination. Show the fog calculation from `Ferry.routeView` / `preview` (tileSprite or alpha tweens). Visualize Light loss. | M5, M6 |
-| DeliveryScene | Destination arrival. Show matching-wish feedback from `Ferry.deliveryReason`. `DELIVER` via engine. Animate soul departure. Show memory reward. Handle `choice` phase (hero and memory-theft choices) as an overlay. | M5, M6 |
-| ReturnScene | `RETURN` with an empty boat: shore anger resolution, wraith conversion, Light restoration, shore refill. Transition to next cycle's `BoardingScene`. | M5, M6 |
-| GameOverScene | Display run summary from state (`cycle`, `completed`, `deliveries`, quest statuses, `ending`). The game is endless, so there is no win screen. Offer restart. | M5 or M6 |
-| Memory UI overlay | Hand display (up to `config.handLimit`, 3). Play-before-crossing flow via `Ferry.memoryTargets`. `DISCARD_MEMORY` prompt in the `trim` phase. | M5, M6 |
+| CrossingScene | Memory window (`PLAY_MEMORY`, `MEAL`, `PURIFY`), `START_CROSSING` to reveal the two engine-drawn route options, `PLAN` / `CONFIRM` / `BACK` review, then `CROSS`. Animate the boat along a path (Phaser PathFollower or tweens) between departure shore and destination. Show the fog calculation from `Ferry.routeView` / `preview` (tileSprite or alpha tweens). Visualize Light loss. Route display comes from M4's route UI task and the memory overlay from Phase 2. | M5 |
+| DeliveryScene | Destination arrival. Show matching-wish feedback from `Ferry.deliveryReason`. `DELIVER` via engine. Animate soul departure. Show memory reward. Handle `choice` phase (hero and memory-theft choices) as an overlay. | M6 |
+| ReturnScene | `RETURN` with an empty boat: shore anger resolution, wraith conversion, Light restoration, shore refill. Transition to next cycle's `BoardingScene`. | M4 |
 | Tuning & pacing calibration | M2, M3, and M7 use the developer tuning panel to adjust boat crossing speed, soul drag-snap feel, and wraith animation pacing. | M2, M3, M7 |
-| Destination & effect art | Destination backgrounds/cards: 6 of 7 locations exist (Haven, Styx, Acheron, Asphodel, Elysium, Tartarus); Heaven has none. Memory art: 6 of 15 memory types exist (Light, Foresight, Guard, Calm, Fog, Passage); the other 9 use placeholders unless the team approves new art. Wraith transformation animation frames. | M2, M3 |
-| Route UI | No facilitator input is needed: v0.7 already draws routes in the engine (`startPairs`, random route draws). Implement only the fork display, review and Foresight preview. | M5 or M6 |
+| Destination & effect art | Destination backgrounds/cards: 6 of 7 locations exist (Haven, Styx, Acheron, Asphodel, Elysium, Tartarus); Heaven has none. Memory art: 6 of 15 memory types exist (Light, Foresight, Guard, Calm, Fog, Passage); the other 9 use placeholders unless the team approves new art. M3 delivers backgrounds and memory placeholders; M2 delivers wraith transformation animation frames. | M2, M3 |
+| Route UI | No facilitator input is needed: v0.7 already draws routes in the engine (`startPairs`, random route draws). Implement only the fork display, review and Foresight preview, as a component M5 uses in CrossingScene. | M4 |
 | Pitch script draft | Write presentation script covering Description, Algorithmic Implementation and Demo play (see Submission Deliverables). Begin slide deck. Capture early gameplay footage for demo video. The group supplies the design decisions for the Algorithmic Implementation slides; M1 drafts them from the list in Submission Deliverables. | M1 |
+| Scene text | Collect button labels, help text and ending text for the scenes from `app.js` and `content.json` into a data file the scenes read. | M1 |
 | Crossing & delivery audio | Crossing ambient variants. Delivery success jingle. Wraith SFX. Fog ambiance. | M7 |
 
 ### Phase 4: Feature & Asset Freeze (Nov 6)
@@ -79,30 +94,33 @@ Only three items are submitted: the project files, the `.exe` and a presentation
 | Task | Description | Assigned |
 | --- | --- | --- |
 | Hard freeze | No new mechanics, quest types or major art after this date. Balance values in `content.json` may still change on Nov 7. All scenes merged. Drug Dealer, Fool and Killer have no playable rules (`pendingSouls` in `content.json`); they stay out of play and are not given invented effects. | All |
-| Integration check | Full playthrough of the `.exe`: boot -> title -> boarding -> crossing -> delivery -> return -> multiple cycles -> game over. Confirm save/load. | M4, M7 |
-| Scope-cut triage | There is no content flag to switch off hero encounters or Polong variants: they are rules inside `engine.js`. If hero encounters or advanced Polong variants are not stable, cut them and ship the core loop at minimum. Cutting them is an `engine.js` change plus reruns of `node tools/build-content.js` and `node tests/quest-check.js`, made before the Nov 6 freeze. | M4, M5, M6 |
+| Integration check | Full playthrough of the `.exe`: boot -> title -> boarding -> crossing -> delivery -> return -> multiple cycles -> game over. Confirm save/load. | User, M7 |
+| Scope-cut triage | There is no content flag to switch off hero encounters or Polong variants: they are rules inside `engine.js`. If hero encounters or advanced Polong variants are not stable, cut them and ship the core loop at minimum. Cutting them is an `engine.js` change plus reruns of `node tools/build-content.js` and `node tests/quest-check.js`, made before the Nov 6 freeze. | User, M5, M6 |
+| Release candidate build | Build the `.exe` after the freeze so M7 and M1 test a real build on Nov 7. | User |
+| Balance playtests | Play the core loop from the integration build and log observations of Light, anger and fog in the status file. Propose `content.json` changes to the group; final adjustments follow on Nov 7. | M7 |
 
 ### Phase 5: QA, Balance & Polish (Nov 7)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| `.exe` testing | M7 tests the compiled build on a second Windows machine. Check SmartScreen warning, asset pathing, memory stability, save persistence. Record results in the status file; untested items stay `NOT_RUN`. | M7 |
-| Balance tuning | Adjust values in the desktop build's `content.json` (the chosen rules source): `config.startLight`, `returnLight`, `shoreAngerLimit`, `shipAngerLimit`, `spawnInterval`, `polongFogThreshold`, `polongFog`, and each destination's `fog`. The cycle 6 / 12 fog escalation is hard-coded at `engine.js` line 112 and is not tunable from `content.json`. After each edit run `node tools/build-content.js` and `node tests/quest-check.js`. Log each change and its reason; these are team-set values, not validated balance. | M7 |
+| `.exe` testing | M7, with M1 as second tester, tests the release candidate on a second Windows machine. Check SmartScreen warning, asset pathing, memory stability, save persistence. Record results in the status file; untested items stay `NOT_RUN`. | M7, M1 |
+| Balance tuning | Final adjustments, building on the Nov 6 playtests. Adjust values in the desktop build's `content.json` (the chosen rules source): `config.startLight`, `returnLight`, `shoreAngerLimit`, `shipAngerLimit`, `spawnInterval`, `polongFogThreshold`, `polongFog`, and each destination's `fog`. The cycle 6 / 12 fog escalation is hard-coded at `engine.js` line 112 and is not tunable from `content.json`. After each edit run `node tools/build-content.js` and `node tests/quest-check.js`. Log each change and its reason; these are team-set values, not validated balance. | M7 |
 | Bug fixes | Address issues from M7's test log. | M4, M5, M6 |
-| Visual polish | Screen shake, particle effects (fog, wraith transformation, Light glow). Scene transitions. | M5, M6 |
-| Pitch & video finalize | Final slide edits. Record/edit demo video from a polished build. | M1 |
+| Visual polish | Scene transitions and screen shake first. Particle effects (fog, wraith transformation, Light glow) only once the bug list is empty. | M5, M6 |
+| Slides finalize | Final slide edits. | M1 |
 | Art polish | Touch up any placeholder sprites. Finalize UI elements. | M2, M3 |
 
 ### Phase 6: Build, Export & Rehearsal (Nov 8)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Final `.exe` compile | Clean build. Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | M4 |
+| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build). Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | User |
+| Demo video recording | Record the demo video from the final `.exe` with a fixed seed. | M1, M7 |
 | Presentation rehearsal | Full team run-through of the presentation (Description, Algorithmic Implementation, Demo play) with the live demo and Q&A. | All |
 
 ## 4. Technical & Workflow Guidelines
 
-* **Directory Architecture:** M4 defines the exact folder structure by Oct 31 inside the new `outputs/` folder. Template (rules files `engine.js`, `content.json`, `tools/build-content.js` and `tests/` sit in this folder if the chosen rules source is an own copy of the v0.7 snapshot):
+* **Directory Architecture:** The user defines the exact folder structure by Oct 31 inside the new `outputs/` folder. Template (rules files `engine.js`, `content.json`, `tools/build-content.js` and `tests/` sit in this folder if the chosen rules source is an own copy of the v0.7 snapshot):
   ```
   outputs/The_Ferryman_Desktop_v0.8/     # name to be confirmed
     package.json, lockfile
