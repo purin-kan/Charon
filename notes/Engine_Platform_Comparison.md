@@ -2,13 +2,13 @@
 
 Agent-prepared October 25, 2026 (Godot vs Phaser sections added October 28) for decision D12 ([Decisions_and_Team_Plan.md](Decisions_and_Team_Plan.md), line 199).
 
-**Provisional decision, pending the user's confirmation:** Phaser + Electron. AI writes most of the code from team prompts, and an AI-built tuning panel lets the team adjust animation speed, timing and paths. Not final; no tooling is planned until it is confirmed. It would settle engine and platform only, not controls, art or audio.
+**Decision, confirmed by the user on October 30, 2026:** Phaser + Electron. AI writes most of the code from team prompts, and an AI-built tuning panel lets the team adjust animation speed, timing and paths. It settles engine and platform only, not controls, art or audio. The build plan is [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md); the comparison below is the October 25 analysis behind the choice.
 
 **Constraints:** seven-person team with no engine experience; Windows download; due in 2 weeks (about November 8, 2026); 2D, not card-based; turn-based crossing with animation, with souls dragged onto a boat that travels the river.
 
 ## Comparison
 
-| Engine | Cost | Editor / language | Reuses v0.6 rules code | Strength | Weakness | 2-week fit |
+| Engine | Cost | Editor / language | Reuses v0.7 rules code | Strength | Weakness | 2-week fit |
 |---|---|---|---|---|---|---|
 | **Phaser + Electron** (provisional pick) | Free | Code only / JavaScript | Yes, unchanged | Existing rules and tests; strongest AI support | No visual editor; Electron is one more tool and a larger download | **High** if AI writes the code |
 | **Godot 4.7.2** | Free | Visual / GDScript | Port needed | 2D-first editor; built-in Windows export | Rules port; Godot 3 material breaks in Godot 4 | **High** |
@@ -22,7 +22,7 @@ Agent-prepared October 25, 2026 (Godot vs Phaser sections added October 28) for 
 | RPG Maker | Paid | Visual / JavaScript plugins | Not directly | Fast tile-based RPGs | Wrong genre | Low |
 | Unreal | Free to start | Visual / C++, Blueprints | Port needed | Top-end 3D | Very large; 3D-oriented | Low |
 
-Strengths, weaknesses and fit are agent judgments, not measured results. **High:** a beginner team can plausibly ship the core loop in 2 weeks. **Medium:** only with scope cuts. **Low:** unlikely. "v0.6 rules code" is [engine.js](../outputs/The_Ferryman_v0.6/engine.js) (363 lines) and [content.json](../outputs/The_Ferryman_v0.6/content.json).
+Strengths, weaknesses and fit are agent judgments, not measured results. **High:** a beginner team can plausibly ship the core loop in 2 weeks. **Medium:** only with scope cuts. **Low:** unlikely. "v0.7 rules code" is [engine.js](../outputs/The_Ferryman_v0.7/engine.js) (400 lines) and [content.json](../outputs/The_Ferryman_v0.7/content.json). The October 25 text cited the v0.6 files (363 lines); updated October 31, 2026.
 
 ## Godot vs Phaser + Electron
 
@@ -61,4 +61,4 @@ Export size and performance are general estimates, not measured on this project.
 
 Accessed October 25, 2026: [Godot download](https://godotengine.org/download/windows/) (4.7.2), [Godot Windows export](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_windows.html), [Phaser download](https://phaser.io/download/stable) (v4.2.1), [GameMaker licence](https://gamemaker.io/en/help/articles/how-to-upgrade-your-gamemaker-licence), [GDevelop pricing](https://gdevelop.io/pricing), [Unity plans](https://unity.com/runtime-fee), [Construct 3 purchase page](https://www.construct.net/en/make-games/buy-construct).
 
-Repository files used were last committed before the newest results commit (67619b5, October 5, 18:04) and are POSSIBLY STALE by the project's freshness rule. engine.js and content.json have no commits after October 5, 08:45, so they are the current code.
+Repository files used were last committed before the newest results commit (67619b5, October 5, 18:04) and are POSSIBLY STALE by the project's freshness rule. The October 25 text cited the v0.6 engine.js and content.json, which had no commits after October 5, 08:45. The current rules code is the v0.7 folder (last commit October 30, 17:27).

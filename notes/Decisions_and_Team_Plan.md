@@ -196,7 +196,7 @@ These are agent/browser checks and deterministic experiments. They do not establ
 | D09: River information | How do discovery records persist under no-carryover D11? | Hidden conditional events; reveal event and trigger after occurrence. | Direction selected; persistence conflict open |
 | D10: Destination wishes | What bonus and award limit apply? | Advisory preference; small bonus for matching, no penalty otherwise. | Direction selected; bonus unspecified |
 | D11: Progression and forgetting | How does no carryover coexist with event discoveries? | No upgrades, memory removal, forgetting or between-run unlocks; later ideas deferred. | Latest choice replaces unlock progression; persistence conflict open |
-| D12: Production scope | Final engine, platform, controls, production art and audio? | Defer final production choices. Use existing paper materials and digital test demo. | [open] |
+| D12: Production scope | Final engine, platform, controls, production art and audio? | Defer final production choices. Use existing paper materials and digital test demo. | Engine and platform decided October 30, 2026: Phaser + Electron ([comparison](Engine_Platform_Comparison.md)); controls, production art and audio still open |
 
 Together with D01, D02 and D04 in list 1, this covers all twelve major decisions in the workbook. Record what is temporary and what remains open; do not silently convert a trial setting into a final approval.
 

@@ -37,22 +37,22 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 | Tinpatpun | Gameplay support & UI | 4 |
 | Jaoguya | Gameplay Dev & UI; co-PM | 6 |
 | SupaOhm | Gameplay Dev | 4 |
-| VarisPah | Audio, QA & Game Balance; PM | 8 |
+| VarisPah | Audio, QA & Game Balance; PM | 9 |
 | purin-kan | Scaffold & builds | 7 |
 
-**Game decisions** are handled by the PM (VarisPah) and the co-PM (Jaoguya); bring them to either. **Task management** (the task register, its GitHub issues and the schedule) is handled by purin-kan.
+**Game decisions** are handled by the PM (VarisPah) and the co-PM (Jaoguya); bring them to either. **Task management** (the task register and the schedule) is handled by purin-kan.
 
 **Help for bosthanapatw.** purin-kan helps bosthanapatw with the presentation: purin-kan is listed as support on the pitch script (T-26) and the slides (T-38), and knows the engine for the Algorithmic Implementation slides. purin-kan's own tasks fall on Oct 31, Nov 2, Nov 6 and Nov 8, with scaffold questions from the team in between, and Nov 6 has three tasks (T-30, T-31, T-32).
 
 **bosthanapatw's early capacity.** bosthanapatw's work depends on the frozen rules and the built game, so it starts late: only the blockers list (Oct 31) and the presentation outline (Nov 2) come early, and the script, freeze, slides, video and rehearsal fall on Nov 5 to 8. From now to about Nov 4, bosthanapatw helps VarisPah with the audio: listed as support on T-07, T-15 and T-28. If time remains, the Nov 2 cut-outs (about 14 images, T-09 and T-10) are the next place to help, for the PM (VarisPah) to confirm.
 
-* **purin-kan (scaffold owner, task management):** Keeps the task register and its GitHub issues in step with this plan. Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
+* **purin-kan (scaffold owner, task management):** Keeps the task register in step with this plan. Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
 * **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, and a second tester on the built `.exe`.
 * **Kanyakorn-goya (Art):** All art in one seat: cut-out soul, Polong, boat and shore sprites, destination backgrounds, memory placeholders, wraith transformation frames and art polish. Peak load is Nov 2 (14 cut-outs); a background-removal tool can speed this up, and the results still need a visual check.
 * **Tinpatpun (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (SupaOhm). Owns TitleScene with the single save, the developer tuning panel, scene text data and visual polish, and supports SupaOhm on the scene work.
 * **Jaoguya (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on purin-kan's scaffold. Shares scene architecture design with SupaOhm.
 * **SupaOhm (Gameplay Dev):** BoardingScene (drag-and-drop), CrossingScene (boat river crossing) and DeliveryScene, the three core-loop scenes. Integrates `engine.js` as the rules authority and owns tweens, visual effects and scene transitions.
-* **VarisPah (Audio, QA, & Game Balance; PM):** Receives team decisions. BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
+* **VarisPah (Audio, QA, & Game Balance; PM):** Receives team decisions and calls the Nov 6 hard freeze. BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
 
 ## 3. Master Project Schedule (Oct 30 - Nov 8)
 
@@ -73,7 +73,7 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 | Task | Description | Assigned |
 | --- | --- | --- |
 | Blockers | Open blockers are being worked on and must be resolved by Oct 31. | All |
-| Publish spreadsheet and blockers | SupaOhm pushes the consolidated spreadsheet and the resolved blockers to the repo through a pull request once both are done. If the spreadsheet sits in the folder that `.gitignore` keeps local (`/outputs/charon-game-database-2026-10-25/`), the pull request changes that entry. | SupaOhm |
+| Publish spreadsheet and blockers | SupaOhm pushes the consolidated spreadsheet and the resolved blockers to the repo through a pull request once both are done. The spreadsheet goes in a path that `.gitignore` does not cover: the entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in the repository checkout, and if the file must live there, the pull request replaces that entry with an exact exception for the file. | SupaOhm |
 | Repo setup | The task register is the task list; no separate board. Add `.gitattributes` `-text` for the new folder and for `outputs/The_Ferryman_v0.7/` (only v0.6 has it; `core.autocrlf=true` otherwise changes `content.json` bytes and breaks the recorded hashes). Adding the rule to the committed v0.7 folder makes its files show as modified on Windows until each person checks out again. Extend `.gitignore` with `out/`, `dist/` and `.vite/` (`node_modules/` is already ignored). | bosthanapatw, purin-kan |
 | Lock art pipeline | Decide sprite resolution and naming convention (extend the existing flat lowercase names in `assets/art/` and the `asset-map.js` ID keys; keep original solid-background files untouched and add cut-outs as new files, since the v0.7 browser and its recorded hashes use the originals). Cut one test character from solid-background PNG to transparent sprite. Confirm Phaser import. | Kanyakorn-goya |
 | Scaffold A: dev environment | Target midnight at the end of Oct 31. Create the folder, `npm init`, install Phaser (comparison source lists v4.2.1, `notes/Engine_Platform_Comparison.md` line 62), Electron Forge, Vite. Pin versions in `package.json` and lockfile. Run a Phaser canvas in the Electron dev window (the packaged `.exe` is Scaffold B). Import `content.js`, then `engine.js`, from the chosen rules source (starting snapshot: v0.7; wrapper, no edits to `engine.js` for loading) and verify `globalThis.Ferry.create(1)` returns a valid state. Also add: one stub file per proposed scene, registered in a scene list; a router that picks the scene from `state.phase` and switches only after the current scene reports its exit animation done (`CROSS` moves the state to `delivery` at once, so a plain phase switch would cut the boat animation); a dev launcher that opens any scene with a saved engine state for its phase (fixture states generated by a script from the engine); an asset preloader that reads files by the naming convention and falls back to a letter emblem or silence when a file is missing; an empty `tuning.json`; and a short README on how to add a scene. Push and tell the team. | purin-kan |
@@ -113,7 +113,7 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Hard freeze | No new mechanics, quest types or major art after this date. Balance values in `content.json` may still change on Nov 7. All scenes merged. Drug Dealer, Fool and Killer have no playable rules (`pendingSouls` in `content.json`); they stay out of play and are not given invented effects. | All |
+| Hard freeze | No new mechanics, quest types or major art after this date. Balance values in `content.json` may still change on Nov 7. All scenes merged. Drug Dealer, Fool and Killer have no playable rules (`pendingSouls` in `content.json`); they stay out of play and are not given invented effects. | VarisPah (all contribute) |
 | Integration check | Full playthrough of the `.exe`: boot -> title -> boarding -> crossing -> delivery -> return -> multiple cycles -> game over. Confirm save/load. | purin-kan, VarisPah |
 | Scope-cut triage | There is no content flag to switch off hero encounters or Polong variants: they are rules inside `engine.js`. If hero encounters or advanced Polong variants are not stable, cut them and ship the core loop at minimum. Cutting them is an `engine.js` change plus reruns of `node tools/build-content.js` and `node tests/quest-check.js`, made before the Nov 6 freeze. | purin-kan, SupaOhm |
 | Release candidate build | Build the `.exe` after the freeze so VarisPah and bosthanapatw test a real build on Nov 7. | purin-kan |
@@ -129,12 +129,13 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 | Visual polish | Scene transitions and screen shake first. Particle effects (fog, wraith transformation, Light glow) only once the bug list is empty. | Tinpatpun |
 | Slides finalize | Final slide edits. | bosthanapatw |
 | Art polish | Touch up any placeholder sprites. Finalize UI elements. | Kanyakorn-goya |
+| Re-test after fixes | Test a build made after the Nov 7 bug fixes and balance values on a second Windows machine (the release candidate tested earlier does not contain them). purin-kan makes the build. Record results; untested items stay `NOT_RUN`. | bosthanapatw |
 
 ### Phase 6: Build, Export & Rehearsal (Nov 8)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build). Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | purin-kan |
+| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build), after the re-test passes. Optional polish tasks that are Cut no longer block this build. Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | purin-kan |
 | Demo video recording | Record the demo video from the final `.exe` with a fixed seed. | bosthanapatw, VarisPah |
 | Presentation rehearsal | Full team run-through of the presentation (Description, Algorithmic Implementation, Demo play) with the live demo and Q&A. | All |
 
@@ -159,7 +160,7 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 * **Engine as Authority:** Developers must not duplicate game rules in scene code. All state transitions go through `Ferry.transition(state, action)`. Scenes read `state` and render it, as `app.js` does today ("this file renders and dispatches actions").
 * **Balance File:** The desktop build's `content.json` is the single gameplay configuration source, and the rules in it are provisional until the freeze. `content.js`, `rules.json` and `RULES.md` are generated by `tools/build-content.js` and are never edited by hand. VarisPah edits `content.json` only. No gameplay constants in scene code.
 * **Relative Pathing:** Use Vite path resolution to ensure assets survive Electron's `.asar` packaging. Test on a built `.exe`, not just `npm run dev`.
-* **Git Sync Protocol:** Non-developers pushing art assets must `git pull` before staging and committing. Keep commits small and file-scoped to avoid merge conflicts. Work is tracked as one GitHub issue per register task (ID in the title) and lands through a pull request that closes it. Team members push their own work; AI agents in this repo never push and hand publishing back to the user.
+* **Git Sync Protocol:** Non-developers pushing art assets must `git pull` before staging and committing. Keep commits small and file-scoped to avoid merge conflicts. Work lands through a pull request that has the register task ID in its title. Team members push their own work; AI agents in this repo never push and hand publishing back to the user.
 * **Sprite Preparation:** Existing art has opaque backgrounds (24 images in v0.6 `assets/art/`, 28 files in v0.7). Kanyakorn-goya creates transparent-background versions as new files, keep the originals, and record sources in a short art credits note. Team art approval is a human decision; a copy of existing art does not assert a new licence. See `notes/Engine_Platform_Comparison.md` line 57.
 * **SmartScreen:** An unsigned `.exe` triggers a Windows SmartScreen warning. Test on a second PC early (Nov 2). See `notes/Engine_Platform_Comparison.md` line 58.
 * **Package Size:** Electron bundled with Chromium produces an export around 100+ MB (an unmeasured estimate, `notes/Engine_Platform_Comparison.md` line 35). GitHub rejects regular files over 100 MiB and Git LFS is not installed (`AGENT_CONTEXT.md`, October 5 push entry). Never commit `out/`, `dist/`, installers or the ZIP; keep them gitignored locally, like `/outputs/The_Ferryman_v0.7.zip`, and share the `.exe` directly or through a GitHub release uploaded by the user.

@@ -6,7 +6,7 @@ Discussion and decision history live here. The current implementation authority 
 |---|---|
 | [Decisions and team plan](Decisions_and_Team_Plan.md) | Current decision summary, attribution to the user or ChatGPT, followed by historical discussion and the dated team plan |
 | [Categorized team ideas](categorized%20team%20ideas.md) | Ideas grouped by topic; a proposal inventory, not an approved ruleset |
-| [Engine and platform comparison](Engine_Platform_Comparison.md) | October 25, 2026 comparison of engine options for D12, with the user's provisional decision, pending confirmation: Phaser + Electron |
+| [Engine and platform comparison](Engine_Platform_Comparison.md) | October 25, 2026 comparison of engine options for D12, with the decision confirmed on October 30, 2026: Phaser + Electron |
 | [Project plan Oct 30 - Nov 8](Project_Plan_Oct30_Nov8.md) | Phaser + Electron build plan: deliverables, roles, parallel-work rules and schedule |
 | [Task register Oct 30 - Nov 8](Task_Register_Oct30_Nov8.md) | Per-task owner, due date, dependencies and status, derived from the plan |
 | [Blockers resolved Oct 31](Blockers_Resolved_2026-10-31.md) | Team answers to the open blockers for T-43, pending PM and co-PM confirmation; not applied to the rules |

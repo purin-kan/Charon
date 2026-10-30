@@ -10,7 +10,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 * **Deliverable:** Game (code, art and audio built into the `.exe` and included in the project files), `.exe` (build and test steps), Presentation, or Process (repo and admin work).
 * **Priority:** Must (the submission fails without it), Should (the game or pitch is weaker without it), Nice (cut first when time is short).
 * **Status:** Not started, In progress, Blocked, Done, Cut. Each owner updates their own Status; purin-kan manages the register and keeps it in step with the plan.
-* **Tracking:** each task is a GitHub issue with its ID in the title, and the work lands through a pull request that closes the issue. Anything not run is marked `NOT_RUN` in the pull request. Agent or team smoke tests are not human playtests.
+* **Tracking:** work lands through a pull request that has the task ID in its title. Anything not run is marked `NOT_RUN` in the pull request. Agent or team smoke tests are not human playtests.
 * **Due:** the end of the phase unless the task says otherwise.
 
 ## Phase 1: Scaffolding & Early Design
@@ -24,7 +24,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | purin-kan | | | Game | Must | Not started | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
 | T-06 | Scene architecture design | 2026-10-31 | Jaoguya | SupaOhm | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
 | T-07 | Audio asset strategy | 2026-10-31 | VarisPah | bosthanapatw | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
-| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | SupaOhm | bosthanapatw | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the `.gitignore` entry that keeps the spreadsheet folder local is changed in that pull request |
+| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | SupaOhm | bosthanapatw | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the spreadsheet goes in a path that `.gitignore` does not cover (the entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in the repository checkout) |
 
 ## Phase 2: Engine Prep & Base Build
 
@@ -61,7 +61,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-29 | Hard freeze | 2026-11-06 | bosthanapatw | All | T-31 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play |
+| T-29 | Hard freeze | 2026-11-06 | VarisPah | All | T-31 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play |
 | T-30 | Integration check | 2026-11-06 | purin-kan | VarisPah | T-08, T-11, T-12, T-16, T-17, T-19, T-20, T-21, T-22 | .exe | Must | Not started | Full playthrough boot to game over across multiple cycles; save and load confirmed |
 | T-31 | Scope-cut triage | 2026-11-06 | purin-kan | SupaOhm | T-30 | Game | Should | Not started | Unstable hero encounters or Polong variants cut or kept; any engine change followed by `build-content.js` and `quest-check.js` reruns |
 | T-32 | Release candidate build | 2026-11-06 | purin-kan | | T-29 | .exe | Must | Not started | Release candidate `.exe` built and handed to VarisPah and bosthanapatw |
@@ -77,11 +77,12 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-37 | Visual polish | 2026-11-07 | Tinpatpun | SupaOhm | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty |
 | T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | Not started | Final slides cover all three required parts |
 | T-39 | Art polish | 2026-11-07 | Kanyakorn-goya | | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized |
+| T-44 | Re-test after fixes | 2026-11-07 (end of day) | bosthanapatw | VarisPah, purin-kan | T-35, T-36 | .exe | Must | Not started | A build made after the Nov 7 bug fixes and balance values is tested on a second Windows machine; results recorded, untested items marked `NOT_RUN`; purin-kan makes the build |
 
 ## Phase 6: Build, Export & Rehearsal
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-40 | Final `.exe` compile and project files | 2026-11-08 | purin-kan | | T-35, T-36, T-37, T-39 | .exe | Must | Not started | Clean build with no console errors; README written; project files and `.exe` collected for submission |
+| T-40 | Final `.exe` compile and project files | 2026-11-08 | purin-kan | | T-44 (and T-37, T-39 unless Cut) | .exe | Must | Not started | Clean build with no console errors; README written; project files and `.exe` collected for submission |
 | T-41 | Demo video recording | 2026-11-08 | bosthanapatw | VarisPah | T-40 | Presentation | Must | Not started | Video recorded from the final `.exe` with a fixed seed |
 | T-42 | Presentation rehearsal | 2026-11-08 | bosthanapatw | All | T-38, T-41 | Presentation | Must | Not started | Full run-through of Description, Algorithmic Implementation and Demo play, with live demo and Q&A |

@@ -2,6 +2,8 @@
 
 ## Current project
 
+**Status, October 31, 2026:** current work is the v0.7 browser quest prototype (`outputs/The_Ferryman_v0.7/`) and the Phaser + Electron desktop build planned in `notes/Project_Plan_Oct30_Nov8.md`, with tasks in `notes/Task_Register_Oct30_Nov8.md`. Read AGENT_CONTEXT.md first. The v0.5 description below is historical.
+
 The current workshop iteration is v0.5, "One Night on the River": a strictly single-player game with matching browser and paper rules, based only on the supplied [game_feedback.md](game_feedback.md). Read [AGENT_CONTEXT.md](AGENT_CONTEXT.md) first, then [AGENTS.md](AGENTS.md). Status refreshed October 4, 2026 after merging `codex/guyidea-paper-v05` into `main`.
 
 Current authority is [v0.5 RULES.md](outputs/The_Ferryman_v0.5/RULES.md), with [DESIGN_DECISIONS.md](outputs/The_Ferryman_v0.5/DESIGN_DECISIONS.md) separating the feedback from agent-authored details needed for play. Four trips, eight wishes, a final return and the 20-30-minute duration are provisional targets, not human-validated balance. Exact added abilities and values are not final team approval.
