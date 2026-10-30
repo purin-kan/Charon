@@ -13,7 +13,18 @@ Revised October 30, 2026 to match the repository's file formats and working conv
 * **Buffer Strategy:** Buffer time is built into daily estimates; no dedicated buffer days.
 * **Version Control:** Hosted on GitHub. Code-driven integration mitigates scene-merge conflicts. Pin dependencies in `package.json` and lockfile, and pin the Node version (this machine runs Node v25.1.0; confirm which version Electron Forge supports before committing the lockfile).
 * **Asset Pipeline:** Assets are committed as PNGs and JSONs, matching the existing repo. No source files (`.psd`, `.blend`). Existing art is in `outputs/The_Ferryman_v0.7/assets/art/` (28 files) and is mapped by ID in `asset-map.js` (`FerryArt`). Sprites need transparent cut-outs, but coverage is partial (see Section 4, Sprite Preparation).
-* **Evidence and honesty:** Record results in the new folder's `verification/` JSON and an `IMPLEMENTATION_STATUS.md`, as v0.7 does. Anything not run is `NOT_RUN`. Agent or team smoke tests are not human playtests, and balance changes are team-set values, not validated balance.
+* **Evidence and honesty:** Record test results in one short status file for the team (not a submission item). Anything not run is marked `NOT_RUN`. Agent or team smoke tests are not human playtests, and balance changes are team-set values, not validated balance.
+
+## Submission Deliverables
+
+Only three items are submitted: the project files, the `.exe` and a presentation. Anything else in this plan exists only to produce those three.
+
+1. **Project files (M4):** the desktop project folder under `outputs/`: source, assets, `package.json` and lockfile, and a short README on how to run and build. No hash manifests or receipts.
+2. **`.exe` (M4, tested by M7):** the final Windows build from Electron Forge.
+3. **Presentation (M1 coordinates):** must include three parts.
+   * **Description:** game rules, gameplay mechanics and narrative, taken from the frozen rules.
+   * **Algorithmic Implementation:** where game informatics, procedural content generation (PCG), AI logic or random systems are used. In the v0.7 snapshot these are: a seeded pseudo-random generator (`draw`, `engine.js` line 30), a Fisher-Yates shuffle (line 31), route forks drawn at random from eligible destinations (`deal`, line 37), random wishes (`randomWish`, line 138), a Polong spawn every `spawnInterval` rounds with a tiered random pick (`drawPolong`, line 49), random hero offers (`offerHero`, line 50) and Cerberus frightening two random souls (`heroicArrival`, line 150). Fog is a deterministic calculation (`fog`, line 111). `engine.js` has no AI opponent: Polong, wraiths and heroes follow fixed rules (confirm after the rules freeze). Line numbers belong to the v0.7 snapshot and will move. Because AI writes the code, M4, M5 and M6 read these functions and prepare to explain them in Q&A.
+   * **Demo play:** a live demo and a recorded video of the built `.exe`. Use a fixed seed (`Ferry.create(seed)`) so the demo's routes and encounters repeat.
 
 ## 2. Team Roles & Responsibilities
 
@@ -60,7 +71,7 @@ Revised October 30, 2026 to match the repository's file formats and working conv
 | Tuning & pacing calibration | M2, M3, and M7 use the developer tuning panel to adjust boat crossing speed, soul drag-snap feel, and wraith animation pacing. | M2, M3, M7 |
 | Destination & effect art | Destination backgrounds/cards: 6 of 7 locations exist (Haven, Styx, Acheron, Asphodel, Elysium, Tartarus); Heaven has none. Memory art: 6 of 15 memory types exist (Light, Foresight, Guard, Calm, Fog, Passage); the other 9 use placeholders unless the team approves new art. Wraith transformation animation frames. | M2, M3 |
 | Route UI | No facilitator input is needed: v0.7 already draws routes in the engine (`startPairs`, random route draws). Implement only the fork display, review and Foresight preview. | M5 or M6 |
-| Pitch script draft | Write presentation script. Begin slide deck. Capture early gameplay footage for demo video. | M1 |
+| Pitch script draft | Write presentation script covering Description, Algorithmic Implementation and Demo play (see Submission Deliverables). Begin slide deck. Capture early gameplay footage for demo video. M4, M5 and M6 draft the Algorithmic Implementation slides from the engine code. | M1, M4, M5, M6 |
 | Crossing & delivery audio | Crossing ambient variants. Delivery success jingle. Wraith SFX. Fog ambiance. | M7 |
 
 ### Phase 4: Feature & Asset Freeze (Nov 6)
@@ -75,7 +86,7 @@ Revised October 30, 2026 to match the repository's file formats and working conv
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| `.exe` testing | M7 tests the compiled build on a second Windows machine. Check SmartScreen warning, asset pathing, memory stability, save persistence. Record results in `verification/` JSON; untested items stay `NOT_RUN`. | M7 |
+| `.exe` testing | M7 tests the compiled build on a second Windows machine. Check SmartScreen warning, asset pathing, memory stability, save persistence. Record results in the status file; untested items stay `NOT_RUN`. | M7 |
 | Balance tuning | Adjust values in the desktop build's `content.json` (the chosen rules source): `config.startLight`, `returnLight`, `shoreAngerLimit`, `shipAngerLimit`, `spawnInterval`, `polongFogThreshold`, `polongFog`, and each destination's `fog`. The cycle 6 / 12 fog escalation is hard-coded at `engine.js` line 112 and is not tunable from `content.json`. After each edit run `node tools/build-content.js` and `node tests/quest-check.js`. Log each change and its reason; these are team-set values, not validated balance. | M7 |
 | Bug fixes | Address issues from M7's test log. | M4, M5, M6 |
 | Visual polish | Screen shake, particle effects (fog, wraith transformation, Light glow). Scene transitions. | M5, M6 |
@@ -86,8 +97,8 @@ Revised October 30, 2026 to match the repository's file formats and working conv
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Final `.exe` compile | Clean build. Validate asset pathing, memory stability, no console errors. Write the folder's README, `IMPLEMENTATION_STATUS.md` and `verification/` receipt. Build the ZIP with a `package.py` modelled on v0.7's (hash manifest, receipt JSON with SHA-256 and size). The ZIP and installer are not committed (see Package Size). | M4 |
-| Presentation rehearsal | Full team run-through of the pitch, live demo and Q&A. | All |
+| Final `.exe` compile | Clean build. Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | M4 |
+| Presentation rehearsal | Full team run-through of the presentation (Description, Algorithmic Implementation, Demo play) with the live demo and Q&A. | All |
 
 ## 4. Technical & Workflow Guidelines
 
@@ -95,7 +106,7 @@ Revised October 30, 2026 to match the repository's file formats and working conv
   ```
   outputs/The_Ferryman_Desktop_v0.8/     # name to be confirmed
     package.json, lockfile
-    README.md, IMPLEMENTATION_STATUS.md
+    README.md, STATUS.md   # run/build notes; test log
     src/
       scenes/            # Phaser scenes (one file per scene)
       ui/                # reusable UI components
@@ -105,14 +116,12 @@ Revised October 30, 2026 to match the repository's file formats and working conv
       audio/             # BGM and SFX
       fonts/             # bundled fonts (Vera exists in v0.7 assets/fonts)
       tuning.json        # presentation timings from the tuning panel
-    tools/package.py     # ZIP + receipt
-    verification/        # JSON results; NOT_RUN where untested
   ```
 * **Developer Tuning Panel:** Because Phaser has no visual editor, the AI-built in-game tuning panel gives non-programmers (M2, M3, M7) an interactive overlay to adjust animation durations, tweens, drop-zone radii, and river path coordinates without touching code, and writes them to `tuning.json`.
 * **Engine as Authority:** Developers must not duplicate game rules in scene code. All state transitions go through `Ferry.transition(state, action)`. Scenes read `state` and render it, as `app.js` does today ("this file renders and dispatches actions").
 * **Balance File:** The desktop build's `content.json` is the single gameplay configuration source, and the rules in it are provisional until the freeze. `content.js`, `rules.json` and `RULES.md` are generated by `tools/build-content.js` and are never edited by hand. M7 edits `content.json` only. No gameplay constants in scene code.
 * **Relative Pathing:** Use Vite path resolution to ensure assets survive Electron's `.asar` packaging. Test on a built `.exe`, not just `npm run dev`.
 * **Git Sync Protocol:** Non-developers pushing art assets must `git pull` before staging and committing. Keep commits small and file-scoped to avoid merge conflicts. Team members push their own work; AI agents in this repo never push and hand publishing back to the user.
-* **Sprite Preparation:** Existing art has opaque backgrounds (24 images in v0.6 `assets/art/`, 28 files in v0.7). M2/M3 create transparent-background versions as new files, keep the originals, and record sources and hashes in an `ARTWORK_NOTES.md` / `verification/artwork.json` style record. Team art approval is a human decision; a copy of existing art does not assert a new licence. See `notes/Engine_Platform_Comparison.md` line 57.
+* **Sprite Preparation:** Existing art has opaque backgrounds (24 images in v0.6 `assets/art/`, 28 files in v0.7). M2/M3 create transparent-background versions as new files, keep the originals, and record sources in a short art credits note. Team art approval is a human decision; a copy of existing art does not assert a new licence. See `notes/Engine_Platform_Comparison.md` line 57.
 * **SmartScreen:** An unsigned `.exe` triggers a Windows SmartScreen warning. Test on a second PC early (Nov 2). See `notes/Engine_Platform_Comparison.md` line 58.
 * **Package Size:** Electron bundled with Chromium produces an export around 100+ MB (an unmeasured estimate, `notes/Engine_Platform_Comparison.md` line 35). GitHub rejects regular files over 100 MiB and Git LFS is not installed (`AGENT_CONTEXT.md`, October 5 push entry). Never commit `out/`, `dist/`, installers or the ZIP; keep them gitignored locally, like `/outputs/The_Ferryman_v0.7.zip`, and share the `.exe` directly or through a GitHub release uploaded by the user.
