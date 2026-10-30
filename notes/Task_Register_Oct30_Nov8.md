@@ -36,7 +36,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-11 | TitleScene, single save and optional seed | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Must | Not started | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
 | T-12 | BoardingScene | 2026-11-02 | SupaOhm | | T-05 | Game | Must | Not started | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
 | T-13 | Developer tuning panel | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Should | Not started | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
-| T-14 | Early `.exe` and SmartScreen test | 2026-11-02 (afternoon) | bosthanapatw | VarisPah, purin-kan | T-08 | .exe | Must | Not started | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
+| T-14 | Early `.exe` and SmartScreen test | 2026-11-02 (afternoon) | VarisPah | purin-kan | T-08 | .exe | Must | Not started | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
 | T-15 | Base BGM and SFX | 2026-11-02 | VarisPah | bosthanapatw | T-07 | Game | Should | Not started | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
 | T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Hand display, play-before-crossing flow and discard prompt work against fixture states |
 | T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Run summary shown from state; restart works |
