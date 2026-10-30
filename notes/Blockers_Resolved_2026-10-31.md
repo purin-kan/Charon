@@ -6,7 +6,7 @@ The entity side of these answers is in `notes/Charon_Entity_Catalog_Public_2026-
 
 ## Decide first
 
-These answers disagree with each other, so the PM or co-PM needs to pick one.
+These answers disagree with each other, so the PM or co-PM needs to pick one. They are tracked in [issue 6](https://github.com/purin-kan/Charon/issues/6).
 
 | # | Issue | Why it matters |
 |---|---|---|
@@ -18,8 +18,15 @@ These answers disagree with each other, so the PM or co-PM needs to pick one.
 | 6 | **Personal names.** The answer says they are decided in the Soul tabs, but the supplied table only has the example "Penelope the Mother". | Names stay open. |
 | 7 | **Protecting the Merchant.** One answer says it is just a storyline; the quest says Blacksmith must protect him until he reaches his wish. v0.7 makes it a real rule: Blacksmith blocks Anger on the Merchant. | Decides whether this needs any game logic. |
 
+## Needs an owner
+
+| # | Issue | Why it matters |
+|---|---|---|
+| 8 | **Applying the rule answers.** None of the 44 register tasks changes the game rules to match these answers: T-35 only sets balance values and T-31 only cuts features. See "Differences from v0.7" below. | Needs a task and an owner from task management (purin-kan). The boarding and memory rules affect T-12 and T-19. |
+
 ## Still unanswered
 
+* Whether the desktop build copies the rules or uses the v0.7 folder.
 * When tainted arrivals happen within a cycle.
 * Adaptive route probabilities are a yes, but weights, limits and performance conditions are not given.
 * The order of encounters, deliveries, quest effects, Anger, Wraith expiry and rewards.
@@ -28,6 +35,7 @@ These answers disagree with each other, so the PM or co-PM needs to pick one.
 * Whether quest participants other than Mother and Child are protected from spread.
 * Bard and Listener: whether only outward crossings count, whether Anger carries over, and whether a transformed Listener can coexist with the Poet.
 * Heracles' toll: whether the selected shore soul becomes a Wraith, and whether it costs Light.
+* Cerberus' Anger.
 * Backstories for the old Soldier, Po Din and Achilles.
 * The old Soldier concept, the owner-less memories (Steadiness, Vigil, Recollection, Accord, Joined Memory, Faint memory), Full fog protection, Styx being used by both Achilles and Po Mued, final appearance, final inclusion of locations, and missing artwork.
 
