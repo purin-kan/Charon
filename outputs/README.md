@@ -4,7 +4,7 @@ Updated October 30, 2026. v0.7 is the current browser prototype. Older versions 
 
 ## Current browser prototype: v0.7
 
-[Play](The_Ferryman_v0.7/index.html), [instructions](The_Ferryman_v0.7/README.md), [rules](The_Ferryman_v0.7/RULES.md), [status and limitations](The_Ferryman_v0.7/IMPLEMENTATION_STATUS.md). Scale is pending team direction. Spreadsheet catalogs remain local.
+[Play](The_Ferryman_v0.7/index.html), [instructions](The_Ferryman_v0.7/README.md), [rules](The_Ferryman_v0.7/RULES.md), [status and limitations](The_Ferryman_v0.7/IMPLEMENTATION_STATUS.md). Scale is pending team direction. The [public entity catalog](../notes/Charon_Entity_Catalog_Public_2026-10-31.xlsx) is text only; full spreadsheets with art remain local.
 
 ## Preserved v0.6
 

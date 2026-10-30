@@ -2,7 +2,7 @@
 
 Team answers to the open blockers, collected by SupaOhm for T-43. **Not final:** game decisions belong to the PM (VarisPah) and co-PM (Jaoguya). Nothing here has been applied to `engine.js` or `content.json`, and nothing has been playtested.
 
-The entity side of these answers is in `outputs/charon-game-database-2026-10-25/Charon_Entity_Catalog_Normalized_Slim_2026-10-31.xlsx`: see the last Entities column, and the `Changes 2026-10-31` sheet for every changed cell. Rule numbers are kept here too because the catalog's scope excludes mechanics and balance.
+The entity side of these answers is in `notes/Charon_Entity_Catalog_Public_2026-10-31.xlsx`: see the last Entities column, and the `Changes 2026-10-31` sheet for every changed cell. Rule numbers are kept here too because the catalog's scope excludes mechanics and balance.
 
 ## Decide first
 

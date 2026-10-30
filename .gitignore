@@ -17,9 +17,7 @@ work/
 /outputs/The_Ferryman_v0.6_Submission.zip
 /outputs/The_Ferryman_v0.6_Submission_INCOMPLETE.zip
 /outputs/The_Ferryman_v0.6_Submission_INCOMPLETE_RECEIPT.json
-# Full catalogs embed 72 MB of art each; only the text-only slim copy is versioned
-/outputs/charon-game-database-2026-10-25/*
-!/outputs/charon-game-database-2026-10-25/Charon_Entity_Catalog_Normalized_Slim_2026-10-31.xlsx
+/outputs/charon-game-database-2026-10-25/
 
 # Portable v0.7 archive; expanded game source is versioned
 /outputs/The_Ferryman_v0.7.zip
