@@ -28,23 +28,27 @@ Only three items are submitted: the project files, the `.exe` and a presentation
 
 ## 2. Team Roles & Responsibilities
 
-**Choose your seat.** Each member claims one seat by writing their name in the table, in the pull request that adds this plan. Task counts are from the [task register](Task_Register_Oct30_Nov8.md) and are counts, not effort.
+Seats were chosen by the members as comments on pull request 5 (recorded October 31, 2026). Members are shown by GitHub name. Task counts are from the [task register](Task_Register_Oct30_Nov8.md) and are counts, not effort.
 
 | Seat | Role | Tasks | Member |
 |---|---|---|---|
-| M1 | Production & Presentation Lead | 7 | |
-| M2 | Art (characters, environment, interface) | 7 | |
-| M3 | Gameplay support & UI | 4 | |
-| M4 | Gameplay Dev & UI | 6 | |
-| M5 | Gameplay Dev | 3 | |
-| M6 | Audio, QA & Game Balance | 8 | |
+| M1 | PM: Production & Presentation Lead | 7 | bosthanapatw |
+| M2 | Art (characters, environment, interface) | 7 | Kanyakorn-goya |
+| M3 | Gameplay support & UI | 4 | Tinpatpun |
+| M4 | Gameplay Dev & UI; co-PM | 6 | Jaoguya |
+| M5 | Gameplay Dev | 4 | SupaOhm |
+| M6 | Audio, QA & Game Balance | 8 | VarisPah |
 | Purin | Scaffold & builds | 7 | Purin |
 
+**Decisions go to the PM (M1).** Jaoguya (M4) is the co-PM.
+
+**Help for the PM.** When M1's own tasks are done, someone joins M1. The most likely helper is M3 (Tinpatpun): 4 tasks, tied with M5 but lighter ones (M5 holds the three large core-loop scenes), with the core ones finishing by Nov 5 (T-11 and T-13 on Nov 2, T-27 on Nov 5) and only polish left on Nov 7 (priority Nice). M2 (Kanyakorn-goya) is the second choice once the Nov 5 art is delivered. The PM confirms the helper; M3 also supports M5, so M5's load should be checked first.
+
 * **Scaffold owner (Purin):** Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
-* **Member 1 (Production & Presentation Lead):** Presentation (script, slides, demo video), reviewing the task register (owners update their own rows), the README and credits notes, and a second tester on the built `.exe`.
+* **Member 1 (PM, Production & Presentation Lead):** Receives team decisions. Presentation (script, slides, demo video), reviewing the task register (owners update their own rows), the README and credits notes, and a second tester on the built `.exe`.
 * **Member 2 (Art):** All art in one seat: cut-out soul, Polong, boat and shore sprites, destination backgrounds, memory placeholders, wraith transformation frames and art polish. Peak load is Nov 2 (14 cut-outs); a background-removal tool can speed this up, and the results still need a visual check.
 * **Member 3 (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (M5). Owns TitleScene with the single save, the developer tuning panel, scene text data and visual polish, and supports M5 on the scene work.
-* **Member 4 (Gameplay Dev & UI):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on Purin's scaffold. Shares scene architecture design with M5.
+* **Member 4 (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on Purin's scaffold. Shares scene architecture design with M5.
 * **Member 5 (Gameplay Dev):** BoardingScene (drag-and-drop), CrossingScene (boat river crossing) and DeliveryScene, the three core-loop scenes. Integrates `engine.js` as the rules authority and owns tweens, visual effects and scene transitions.
 * **Member 6 (Audio, QA, & Game Balance):** BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
 
@@ -67,7 +71,7 @@ Purin scaffolds the engine (Scaffold A below) so the others can start from a wor
 | Task | Description | Assigned |
 | --- | --- | --- |
 | Blockers | Open blockers are being worked on and must be resolved by Oct 31. | All |
-| Publish spreadsheet and blockers | Ohm pushes the consolidated spreadsheet and the resolved blockers to the repo through a pull request once both are done. If the spreadsheet sits in the folder that `.gitignore` keeps local (`/outputs/charon-game-database-2026-10-25/`), the pull request changes that entry. | Ohm |
+| Publish spreadsheet and blockers | M5 (SupaOhm) pushes the consolidated spreadsheet and the resolved blockers to the repo through a pull request once both are done. If the spreadsheet sits in the folder that `.gitignore` keeps local (`/outputs/charon-game-database-2026-10-25/`), the pull request changes that entry. | M5 |
 | Repo setup | The task register is the task list; no separate board. Add `.gitattributes` `-text` for the new folder and for `outputs/The_Ferryman_v0.7/` (only v0.6 has it; `core.autocrlf=true` otherwise changes `content.json` bytes and breaks the recorded hashes). Adding the rule to the committed v0.7 folder makes its files show as modified on Windows until each person checks out again. Extend `.gitignore` with `out/`, `dist/` and `.vite/` (`node_modules/` is already ignored). | M1, Purin |
 | Lock art pipeline | Decide sprite resolution and naming convention (extend the existing flat lowercase names in `assets/art/` and the `asset-map.js` ID keys; keep original solid-background files untouched and add cut-outs as new files, since the v0.7 browser and its recorded hashes use the originals). Cut one test character from solid-background PNG to transparent sprite. Confirm Phaser import. | M2 |
 | Scaffold A: dev environment | Target midnight at the end of Oct 31. Create the folder, `npm init`, install Phaser (comparison source lists v4.2.1, `notes/Engine_Platform_Comparison.md` line 62), Electron Forge, Vite. Pin versions in `package.json` and lockfile. Run a Phaser canvas in the Electron dev window (the packaged `.exe` is Scaffold B). Import `content.js`, then `engine.js`, from the chosen rules source (starting snapshot: v0.7; wrapper, no edits to `engine.js` for loading) and verify `globalThis.Ferry.create(1)` returns a valid state. Also add: one stub file per proposed scene, registered in a scene list; a router that picks the scene from `state.phase` and switches only after the current scene reports its exit animation done (`CROSS` moves the state to `delivery` at once, so a plain phase switch would cut the boat animation); a dev launcher that opens any scene with a saved engine state for its phase (fixture states generated by a script from the engine); an asset preloader that reads files by the naming convention and falls back to a letter emblem or silence when a file is missing; an empty `tuning.json`; and a short README on how to add a scene. Push and tell the team. | Purin |

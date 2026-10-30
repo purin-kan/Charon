@@ -4,7 +4,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 ## How to use it
 
-* **Owner:** one accountable person per task. Where a plan row named two owners, the register picks one Owner and lists the other under Support, except the sprite and destination or effect art rows, which are split into separate tasks. The seven members are M1 to M6 and Purin, who owns the scaffold and builds. Ohm's task is listed under the name Ohm.
+* **Owner:** one accountable person per task. Where a plan row named two owners, the register picks one Owner and lists the other under Support, except the sprite and destination or effect art rows, which are split into separate tasks. The seven members are M1 to M6 and Purin, who owns the scaffold and builds.
 * **Support:** people who help or review.
 * **Depends on:** task IDs that must be done first. T-05 (Scaffold A) is the only gate that blocks other work; see "How the work runs in parallel" in the plan.
 * **Deliverable:** Game (code, art and audio built into the `.exe` and included in the project files), `.exe` (build and test steps), Presentation, or Process (repo and admin work).
@@ -24,7 +24,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | Purin | | | Game | Must | Not started | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
 | T-06 | Scene architecture design | 2026-10-31 | M4 | M5 | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
 | T-07 | Audio asset strategy | 2026-10-31 | M6 | | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
-| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | Ohm | M1 | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the `.gitignore` entry that keeps the spreadsheet folder local is changed in that pull request |
+| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | M5 | M1 | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the `.gitignore` entry that keeps the spreadsheet folder local is changed in that pull request |
 
 ## Phase 2: Engine Prep & Base Build
 
