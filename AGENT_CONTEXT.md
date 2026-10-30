@@ -1,5 +1,9 @@
 # The Ferryman / Charon: agent context
 
+## October 31, 2026: schedule and workload proposal (branch only)
+
+Branch `worktree-schedule-rebalance` proposes time slots (morning, midday, afternoon, end of day) for same-day dependent tasks on Nov 2, 6, 7 and 8, rolling integration from Nov 3, T-22 due Nov 4, T-23 due Nov 6 midday, bug fixes starting Nov 6, polish merged before the re-test build or Cut, and a no-change final rebuild so the demo video records alongside it. Proposed owner moves: T-14 to bosthanapatw, T-23 and T-34 to Tinpatpun, T-31 to SupaOhm with co-PM sign-off. These are proposals: VarisPah (PM) and the members affected have not agreed, and nobody has confirmed that bosthanapatw or Tinpatpun has a second Windows PC for T-14 and T-34. Not merged or pushed.
+
 ## October 31, 2026: engine confirmed, docs aligned
 
 The user confirmed Phaser + Electron on October 30, 2026. That settles the engine and platform part of D12 only; controls, production art and audio stay open. The October 25 entry below that calls the choice provisional is history. `notes/Engine_Platform_Comparison.md`, `notes/README.md`, the D12 row of `notes/Decisions_and_Team_Plan.md` and `CLAUDE.md` were updated to match, and the comparison now cites the v0.7 rules code. Still open: whether the desktop build copies the rules or uses the v0.7 folder, and the desktop folder name. Task T-43: SupaOhm pushes the consolidated spreadsheet. The `.gitignore` entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in this checkout, so the spreadsheet should go in a path that is not ignored. The earlier note that spreadsheet deliverables stay local is superseded for that file only.
