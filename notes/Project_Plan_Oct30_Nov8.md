@@ -19,8 +19,8 @@ Revised October 30, 2026 to match the repository's file formats and working conv
 
 Only three items are submitted: the project files, the `.exe` and a presentation. Anything else in this plan exists only to produce those three.
 
-1. **Project files (the user):** the desktop project folder under `outputs/`: source, assets, `package.json` and lockfile, and a short README on how to run and build. No hash manifests or receipts.
-2. **`.exe` (the user, tested by M7):** the final Windows build from Electron Forge.
+1. **Project files (Purin):** the desktop project folder under `outputs/`: source, assets, `package.json` and lockfile, and a short README on how to run and build. No hash manifests or receipts.
+2. **`.exe` (Purin, tested by M7):** the final Windows build from Electron Forge.
 3. **Presentation (M1 coordinates):** must include three parts.
    * **Description:** game rules, gameplay mechanics and narrative, taken from the frozen rules.
    * **Algorithmic Implementation:** where game informatics, procedural content generation (PCG), AI logic or random systems are used. In the v0.7 snapshot these are: a seeded pseudo-random generator (`draw`, `engine.js` line 30), a Fisher-Yates shuffle (line 31), route forks drawn at random from eligible destinations (`deal`, line 37), random wishes (`randomWish`, line 138), a Polong spawn every `spawnInterval` rounds with a tiered random pick (`drawPolong`, line 49), random hero offers (`offerHero`, line 50) and Cerberus frightening two random souls (`heroicArrival`, line 150). Fog is a deterministic calculation (`fog`, line 111). AI logic is not claimed: the game has no computer-controlled opponent, and Polong spawning is listed above as a random system, not AI (confirm after the rules freeze). Line numbers belong to the v0.7 snapshot and will move. The group makes the design decisions (what is random and why); the AI writes the implementation, and the presentation says so.
@@ -28,10 +28,10 @@ Only three items are submitted: the project files, the `.exe` and a presentation
 
 ## 2. Team Roles & Responsibilities
 
-* **Scaffold owner (the user):** Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
+* **Scaffold owner (Purin):** Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
 * **Member 1 (Production & Presentation Lead):** Presentation (script, slides, demo video), keeping this plan's task list current, the README and credits notes, UI text data entry, and a second tester on the built `.exe`.
 * **Members 2 & 3 (Art & Level Design):** M2 owns character art: cut-out soul sprites and wraith transformation frames. M3 owns environment and interface art: Polong, boat and shore sprites, destination backgrounds, UI elements. Both share tuning calibration and art polish.
-* **Member 4 (Gameplay Dev & UI):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on the user's scaffold. Shares scene architecture design with M5 and M6.
+* **Member 4 (Gameplay Dev & UI):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on Purin's scaffold. Shares scene architecture design with M5 and M6.
 * **Members 5 & 6 (Gameplay Devs):** M5 owns BoardingScene (drag-and-drop) and CrossingScene (boat river crossing). M6 owns TitleScene with the save, DeliveryScene and the developer tuning panel. Both integrate `engine.js` as the rules authority and share tweens, visual effects, scene transitions and bug fixes.
 * **Member 7 (Audio, QA, & Game Balance):** BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
 
@@ -39,7 +39,7 @@ Only three items are submitted: the project files, the `.exe` and a presentation
 
 ### How the work runs in parallel
 
-The user scaffolds the engine (Scaffold A below) so the others can start from a working base. Only Scaffold A blocks other work, so it is kept minimal and targeted for midday Oct 31. Everything after it runs side by side:
+Purin scaffolds the engine (Scaffold A below) so the others can start from a working base. Only Scaffold A blocks other work, so it is kept minimal and targeted for midnight at the end of Oct 31. Everything after it runs side by side:
 
 * **One file per scene or component.** Each owner edits only their own files. The scene list, `package.json`, lockfile and `tuning.json` are changed only by the scaffold owner; others send a one-line request.
 * **Scenes never call each other.** Every scene reads `state` and dispatches `Ferry.transition`; a router picks the scene from `state.phase`. No scene waits for another.
@@ -54,9 +54,9 @@ The user scaffolds the engine (Scaffold A below) so the others can start from a 
 | Task | Description | Assigned |
 | --- | --- | --- |
 | Blockers | Open blockers are being worked on and must be resolved by Oct 31. | All |
-| Repo setup | This plan is the task list; no separate board. Add `.gitattributes` `-text` for the new folder and for `outputs/The_Ferryman_v0.7/` (only v0.6 has it; `core.autocrlf=true` otherwise changes `content.json` bytes and breaks the recorded hashes). Adding the rule to the committed v0.7 folder makes its files show as modified on Windows until each person checks out again. Extend `.gitignore` with `out/`, `dist/` and `.vite/` (`node_modules/` is already ignored). | M1, User |
+| Repo setup | This plan is the task list; no separate board. Add `.gitattributes` `-text` for the new folder and for `outputs/The_Ferryman_v0.7/` (only v0.6 has it; `core.autocrlf=true` otherwise changes `content.json` bytes and breaks the recorded hashes). Adding the rule to the committed v0.7 folder makes its files show as modified on Windows until each person checks out again. Extend `.gitignore` with `out/`, `dist/` and `.vite/` (`node_modules/` is already ignored). | M1, Purin |
 | Lock art pipeline | Decide sprite resolution and naming convention (extend the existing flat lowercase names in `assets/art/` and the `asset-map.js` ID keys; keep original solid-background files untouched and add cut-outs as new files, since the v0.7 browser and its recorded hashes use the originals). Cut one test character from solid-background PNG to transparent sprite. Confirm Phaser import. | M2, M3 |
-| Scaffold A: dev environment | Target midday Oct 31. Create the folder, `npm init`, install Phaser (comparison source lists v4.2.1, `notes/Engine_Platform_Comparison.md` line 62), Electron Forge, Vite. Pin versions in `package.json` and lockfile. Run a Phaser canvas in the Electron dev window (the packaged `.exe` is Scaffold B). Import `content.js`, then `engine.js`, from the chosen rules source (starting snapshot: v0.7; wrapper, no edits to `engine.js` for loading) and verify `globalThis.Ferry.create(1)` returns a valid state. Also add: one stub file per proposed scene, registered in a scene list; a router that picks the scene from `state.phase`; a dev launcher that opens any scene with a saved engine state for its phase (fixture states generated by a script from the engine); an asset preloader that reads files by the naming convention and falls back to a letter emblem or silence when a file is missing; an empty `tuning.json`; and a short README on how to add a scene. Push and tell the team. | User |
+| Scaffold A: dev environment | Target midnight at the end of Oct 31. Create the folder, `npm init`, install Phaser (comparison source lists v4.2.1, `notes/Engine_Platform_Comparison.md` line 62), Electron Forge, Vite. Pin versions in `package.json` and lockfile. Run a Phaser canvas in the Electron dev window (the packaged `.exe` is Scaffold B). Import `content.js`, then `engine.js`, from the chosen rules source (starting snapshot: v0.7; wrapper, no edits to `engine.js` for loading) and verify `globalThis.Ferry.create(1)` returns a valid state. Also add: one stub file per proposed scene, registered in a scene list; a router that picks the scene from `state.phase`; a dev launcher that opens any scene with a saved engine state for its phase (fixture states generated by a script from the engine); an asset preloader that reads files by the naming convention and falls back to a letter emblem or silence when a file is missing; an empty `tuning.json`; and a short README on how to add a scene. Push and tell the team. | Purin |
 | Scene architecture design | Design the Phaser scene graph on paper. Not blocking: Scaffold A uses the proposed scene list below, and this task only refines it. Scenes follow `state.phase` from the engine, not their own rules: `boarding` (BOARD, DEPART, ACCEPT_HERO, DECLINE_HERO), `window` (PLAY_MEMORY, MEAL, PURIFY, START_CROSSING, PLAN), `review` (CONFIRM, BACK), `delivery` (DELIVER), `choice` (CHOOSE), `trim` (DISCARD_MEMORY), `ended`; `window` of kind `return` ends with RETURN. Proposed scenes: `BootScene` -> `TitleScene` -> `BoardingScene` -> `CrossingScene` (memories, route fork, review, travel) -> `DeliveryScene` -> `ReturnScene` -> `GameOverScene`, with choice and memory-trim as overlays. Map each scene's entry and exit to `Ferry.transition(state, action)` calls. | M4, M5, M6 |
 | Audio asset strategy | Identify needed tracks (menu BGM, crossing BGM, delivery jingle, wraith SFX, UI clicks). Produce or source a placeholder menu loop. Record the source and licence of every audio file (the repo records rights and never assigns an invented licence), as `ARTWORK_NOTES.md` does for art. | M7 |
 
@@ -64,12 +64,12 @@ The user scaffolds the engine (Scaffold A below) so the others can start from a 
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Scaffold B: packaged build | The preloader already exists from Scaffold A. Package a test `.exe` and verify asset pathing survives Electron's `.asar` packaging. Blocks nobody. | User |
+| Scaffold B: packaged build | The preloader already exists from Scaffold A. Package a test `.exe` and verify asset pathing survives Electron's `.asar` packaging. Blocks nobody. | Purin |
 | Core sprites delivery | Transparent cut-outs from existing art: Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted), Polong (`newpolong.jpg`, a JPG), boat and shore. Red Soldier, Blue Soldier, Messenger, Musician and Listener have no image mapped in `asset-map.js`; they stay letter-initial placeholders (as `ARTWORK_NOTES.md` says) unless the team approves new art. M2 delivers the soul sprites; M3 delivers Polong, boat and shore. Push into the locked `assets/` folders. | M2, M3 |
 | TitleScene + save UI | Title screen with Continue and New game over a single save slot. Rebuild the save logic from `app.js` (it is replaced, so it cannot be reused as is) on top of `Ferry.exportSave` / `importSave` validation, with a new namespace such as `the-ferryman:desktop:player:` and a QA launch flag or separate QA namespace (a packaged app has no URL for `?qa=`) so player saves are never touched by tests. No JSON export/import. Never read or write `the-ferryman:v0.7-trial:` or v0.6 keys. | M6 |
 | BoardingScene prototype | Render shore souls as interactive sprites. Implement Phaser drag-and-drop (`setInteractive({ draggable: true })`) with snap drop zones on boat seats. A drop dispatches `BOARD` (it toggles selection, so a second drag off the boat is also `BOARD`; there is no `unboard`); validate with the exported `Ferry.seats`, `capacity` and `actorSeats`; `DEPART` commits. Show the hero offer, Light and seat counters. | M5 |
 | Developer tuning panel | Build an in-game debug/tuning overlay (e.g. using lil-gui, pinned) so M2, M3, and M7 can adjust boat travel duration, tween easing, animation speeds, drop-zone snap radii, and river paths. It must save to a committed presentation-only data file (proposed `assets/tuning.json`), separate from `content.json`, so tuned values reach the repo as data and gameplay balance is never mixed with animation timing. The engine never reads it. The empty `tuning.json` comes from Scaffold A. | M6 |
-| Early `.exe` & SmartScreen test | Export initial test `.exe` via Electron Forge. Verify asset pathing and check Windows SmartScreen behavior on a second PC. | User, M7 |
+| Early `.exe` & SmartScreen test | Export initial test `.exe` via Electron Forge. Verify asset pathing and check Windows SmartScreen behavior on a second PC. | Purin, M7 |
 | Base BGM & SFX | Menu BGM loop. One crossing ambient track. Board and unboard click SFX. Push to `/assets/audio/`. | M7 |
 | Memory UI overlay | Functional version with placeholder art. Hand display (up to `config.handLimit`, 3). Play-before-crossing flow via `Ferry.memoryTargets`. `DISCARD_MEMORY` prompt in the `trim` phase. M5 plugs it into CrossingScene in Phase 3. | M4 |
 | GameOverScene | Display run summary from state (`cycle`, `completed`, `deliveries`, quest statuses, `ending`). The game is endless, so there is no win screen. Offer restart. | M4 |
@@ -94,9 +94,9 @@ The user scaffolds the engine (Scaffold A below) so the others can start from a 
 | Task | Description | Assigned |
 | --- | --- | --- |
 | Hard freeze | No new mechanics, quest types or major art after this date. Balance values in `content.json` may still change on Nov 7. All scenes merged. Drug Dealer, Fool and Killer have no playable rules (`pendingSouls` in `content.json`); they stay out of play and are not given invented effects. | All |
-| Integration check | Full playthrough of the `.exe`: boot -> title -> boarding -> crossing -> delivery -> return -> multiple cycles -> game over. Confirm save/load. | User, M7 |
-| Scope-cut triage | There is no content flag to switch off hero encounters or Polong variants: they are rules inside `engine.js`. If hero encounters or advanced Polong variants are not stable, cut them and ship the core loop at minimum. Cutting them is an `engine.js` change plus reruns of `node tools/build-content.js` and `node tests/quest-check.js`, made before the Nov 6 freeze. | User, M5, M6 |
-| Release candidate build | Build the `.exe` after the freeze so M7 and M1 test a real build on Nov 7. | User |
+| Integration check | Full playthrough of the `.exe`: boot -> title -> boarding -> crossing -> delivery -> return -> multiple cycles -> game over. Confirm save/load. | Purin, M7 |
+| Scope-cut triage | There is no content flag to switch off hero encounters or Polong variants: they are rules inside `engine.js`. If hero encounters or advanced Polong variants are not stable, cut them and ship the core loop at minimum. Cutting them is an `engine.js` change plus reruns of `node tools/build-content.js` and `node tests/quest-check.js`, made before the Nov 6 freeze. | Purin, M5, M6 |
+| Release candidate build | Build the `.exe` after the freeze so M7 and M1 test a real build on Nov 7. | Purin |
 | Balance playtests | Play the core loop from the integration build and log observations of Light, anger and fog in the status file. Propose `content.json` changes to the group; final adjustments follow on Nov 7. | M7 |
 
 ### Phase 5: QA, Balance & Polish (Nov 7)
@@ -114,13 +114,13 @@ The user scaffolds the engine (Scaffold A below) so the others can start from a 
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build). Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | User |
+| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build). Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | Purin |
 | Demo video recording | Record the demo video from the final `.exe` with a fixed seed. | M1, M7 |
 | Presentation rehearsal | Full team run-through of the presentation (Description, Algorithmic Implementation, Demo play) with the live demo and Q&A. | All |
 
 ## 4. Technical & Workflow Guidelines
 
-* **Directory Architecture:** The user defines the exact folder structure by Oct 31 inside the new `outputs/` folder. Template (rules files `engine.js`, `content.json`, `tools/build-content.js` and `tests/` sit in this folder if the chosen rules source is an own copy of the v0.7 snapshot):
+* **Directory Architecture:** Purin defines the exact folder structure by Oct 31 inside the new `outputs/` folder. Template (rules files `engine.js`, `content.json`, `tools/build-content.js` and `tests/` sit in this folder if the chosen rules source is an own copy of the v0.7 snapshot):
   ```
   outputs/The_Ferryman_Desktop_v0.8/     # name to be confirmed
     package.json, lockfile
