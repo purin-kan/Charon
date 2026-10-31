@@ -171,5 +171,5 @@ check('128 seeded all-system runs: deterministic replay, immutable transitions a
  return {runs:128,transitions,choices,humanPlaytest:false};
 });
 const hashes=Object.fromEntries(['engine.js','content.json','tests/quest-check.js'].map(name=>[name,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,name))).digest('hex')]));
-const receipt={version:g.data.version,checkedAt:new Date().toISOString(),passed:records.filter(x=>x.status==='PASS').length,failed:records.filter(x=>x.status==='FAIL').length,hashes,records,limitation:'Agent automated scenarios and seeded runs. Not human playtesting or balance evidence.'};
+const receipt={version:g.data.version,passed:records.filter(x=>x.status==='PASS').length,failed:records.filter(x=>x.status==='FAIL').length,hashes,records,limitation:'Agent automated scenarios and seeded runs. Not human playtesting or balance evidence.'};
 fs.writeFileSync(path.join(root,'verification/quest-results.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt,null,2));if(receipt.failed)process.exitCode=1;

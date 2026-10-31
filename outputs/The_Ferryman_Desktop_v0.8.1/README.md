@@ -35,7 +35,8 @@ Other commands:
 | --- | --- |
 | `npm run fixtures` | Regenerates `src/dev/fixtures/*.json` from rules/engine.js |
 | `npm run check` | Node checks: engine loads, `Ferry.create(1)` has a phase, phase to scene mapping on all fixtures |
-| `npm run package` | Forge package (Scaffold B territory, not verified here) |
+| `npm run package` | Builds `out/The Ferryman-win32-x64/The Ferryman.exe` (folder of about 359 MB; never commit `out/`) |
+| `npm run make` | Zips the packaged app for win32 (no installer) |
 
 ## Rules source
 
