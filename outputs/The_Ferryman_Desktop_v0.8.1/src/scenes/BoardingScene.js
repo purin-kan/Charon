@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { addArt, queueAssets } from '../preloader.js';
-import { SLOT, TOKEN, dropAction, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
+import { SLOT, TOKEN, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
 
 const SNAP_MS = 160;
 const MESSAGE_MS = 2000;
@@ -24,6 +24,7 @@ export class BoardingScene extends Phaser.Scene {
     this.tokens = new Map();
     this.entries = new Map();
     this.boatParts = [];
+    this.tollMode = false;
 
     this.drawBoat(layoutBoarding(state, Ferry).slots);
     this.drawHud();
@@ -40,6 +41,7 @@ export class BoardingScene extends Phaser.Scene {
       if (action) this.act(action);
       else this.render(this.registry.get('state'));
     });
+    this.input.on('gameobjectdown', (_pointer, obj) => this.pickToll(obj));
 
     this.onState = (s) => this.render(s);
     this.game.events.on('ferry-state', this.onState);
@@ -63,6 +65,10 @@ export class BoardingScene extends Phaser.Scene {
     this.add.text(40, 68, 'Shore', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.add.text(640, 160, 'Boat', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.message = this.add.text(640, 610, '', { fontFamily: FONT, fontSize: '20px', color: '#e8c27f' }).setOrigin(0.5);
+    this.heroText = this.add.text(40, 650, '', { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' });
+    this.acceptBtn = this.button(560, 664, 'Accept', () => this.acceptHero());
+    this.declineBtn = this.button(680, 664, 'Decline', () => this.act({ type: 'DECLINE_HERO' }));
+    this.cancelBtn = this.button(560, 664, 'Cancel', () => this.setTollMode(false));
     this.departBtn = this.button(1160, 664, 'Depart', () => this.act({ type: 'DEPART' }));
   }
 
@@ -83,6 +89,8 @@ export class BoardingScene extends Phaser.Scene {
       this.render(state);
       return false;
     }
+    this.tollMode = false;
+    this.say('');
     // Outside the try: dispatch emits ferry-state, and a render bug must not look like a rule error.
     this.router.dispatch(action);
     return true;
@@ -92,6 +100,34 @@ export class BoardingScene extends Phaser.Scene {
     this.message.setText(text);
     this.messageTimer?.remove();
     this.messageTimer = this.time.delayedCall(MESSAGE_MS, () => this.message.setText(''));
+  }
+
+  syncHero(state) {
+    const hero = heroPrompt(state, Ferry);
+    if (!hero) this.tollMode = false;
+    const prompt = this.tollMode ? 'Choose a shore soul as the toll.' : `${hero?.name} asks to board.`;
+    this.heroText.setText(hero ? prompt : '');
+    this.acceptBtn.setVisible(!!hero && !this.tollMode);
+    this.declineBtn.setVisible(!!hero && !this.tollMode);
+    this.cancelBtn.setVisible(this.tollMode);
+  }
+
+  setTollMode(on) {
+    this.tollMode = on;
+    this.render(this.registry.get('state'));
+  }
+
+  acceptHero() {
+    const hero = heroPrompt(this.registry.get('state'), Ferry);
+    if (hero?.needsToll) this.setTollMode(true);
+    else this.act({ type: 'ACCEPT_HERO' });
+  }
+
+  /** In toll mode, a click on any soul still on the shore pays the toll. */
+  pickToll(obj) {
+    if (!this.tollMode) return;
+    const entry = this.entries.get(obj.getData('id'));
+    if (entry?.draggable) this.act({ type: 'ACCEPT_HERO', target: entry.id });
   }
 
   /** Brings the screen in line with the state. Tokens are keyed by actor id, so they glide. */
@@ -108,6 +144,7 @@ export class BoardingScene extends Phaser.Scene {
       const token = this.tokens.get(entry.id) ?? this.addToken(entry);
       this.updateToken(token, entry);
     }
+    this.syncHero(state);
   }
 
   addToken(entry) {
@@ -115,7 +152,7 @@ export class BoardingScene extends Phaser.Scene {
     const panel = this.add.rectangle(0, 0, w, h, 0x1d2c38).setStrokeStyle(1, 0x7fa6c0);
     const art = addArt(this, 0, -34, entry.actor.type, 64);
     const small = { fontFamily: FONT, fontSize: '13px', color: '#cfe3f0', align: 'center', wordWrap: { width: w - 6 } };
-    const name = this.add.text(0, 12, '', small).setOrigin(0.5);
+    const name = this.add.text(0, 16, '', small).setOrigin(0.5);
     const wish = this.add.text(0, 40, '', small).setOrigin(0.5);
     const anger = this.add.text(0, 58, '', small).setOrigin(0.5);
     const token = this.add.container(entry.x, entry.y, [panel, art, name, wish, anger]);
@@ -128,7 +165,7 @@ export class BoardingScene extends Phaser.Scene {
   }
 
   updateToken(token, entry) {
-    this.input.setDraggable(token, entry.draggable);
+    this.input.setDraggable(token, entry.draggable && !this.tollMode);
     token.setAlpha(entry.draggable ? 1 : 0.75);
     const labels = tokenLabels(entry, Ferry);
     token.getData('name').setText(labels.name);
