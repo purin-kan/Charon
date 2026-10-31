@@ -87,7 +87,7 @@ When the first file lands, create `assets/audio/AUDIO_NOTES.md` (same idea as `a
 ## 7. T-07 checklist
 
 - [x] Track list written (section 2)
-- [ ] Placeholder `bgm-menu.ogg` sourced or made
-- [ ] Its source and licence recorded in `AUDIO_NOTES.md`
+- [x] Placeholder `bgm-menu.ogg` sourced (RPG - Underworld Theme - Loop, Joseph Collard, CC-BY 4.0)
+- [x] Its source and licence recorded in `assets/audio/AUDIO_NOTES.md`; CC-BY credit needed in README and presentation
 - [ ] Team OK on the names (or changed to match T-03 when it merges)
 - [ ] Tell the scene owners the ids in section 2
