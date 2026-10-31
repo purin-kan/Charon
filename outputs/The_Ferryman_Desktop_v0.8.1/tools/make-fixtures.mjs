@@ -14,6 +14,7 @@ mkdirSync(outDir, { recursive: true });
 // Fixture name -> predicate. "return" is the window/review of kind return.
 const WANTED = {
   boarding: (s) => s.phase === 'boarding',
+  'boarding-heracles': (s) => s.phase === 'boarding' && s.heroOffer?.type === 'SOUL-HERACLES' && !s.heroOffer.resolved && s.shore.length > 3,
   window: (s) => s.phase === 'window' && s.window.kind === 'outward' && !s.travelPrepared,
   fork: (s) => s.phase === 'window' && s.window.kind === 'outward' && s.travelPrepared,
   review: (s) => s.phase === 'review' && s.window.kind === 'outward',

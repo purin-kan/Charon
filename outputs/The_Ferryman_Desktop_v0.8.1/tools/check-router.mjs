@@ -6,7 +6,7 @@ import { sceneFor } from '../src/phase-map.js';
 
 const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'src', 'dev', 'fixtures');
 const expected = {
-  boarding: 'BoardingScene', window: 'CrossingScene', fork: 'CrossingScene', review: 'CrossingScene',
+  boarding: 'BoardingScene', 'boarding-heracles': 'BoardingScene', window: 'CrossingScene', fork: 'CrossingScene', review: 'CrossingScene',
   delivery: 'DeliveryScene', choice: 'ChoiceOverlay', trim: 'TrimOverlay', return: 'ReturnScene',
   'review-return': 'ReturnScene', ended: 'GameOverScene',
 };
