@@ -1,7 +1,0 @@
-{
-  "status": "PASS",
-  "source": "verification/B_CONTENT_PROJECTION.json",
-  "source_sha256": "7b1bde641cf1a216c33146df3dd794f11d7e15b724a9182fbab93e0d88e9acbc",
-  "differences": [],
-  "scope": "Normalized content equality only. Does not verify runtime sequence or replace browser tests."
-}

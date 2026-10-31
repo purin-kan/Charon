@@ -8,8 +8,8 @@
 - Do not spawn or delegate to other agents unless the user explicitly requests it for that task.
 - Ground explanations in actual files and results. Check git log and modification dates before relying on documents. Cite file paths and line numbers or result fields. Flag stale evidence; do not treat a file copy date as a new playtest.
 - Separate agent/browser/automated checks from human playtests. Do not claim enjoyment, balance, real-device coverage or submission completion without evidence.
-- Keep the workbook, game rules, paper pieces and playguide consistent after approved rule changes. The copied demo ZIP must be rebuilt if its contained game changes.
+- After approved rule changes, edit `rules/content.json` in the desktop folder, rebuild with `node tools/build-content.js` and rerun `node tests/quest-check.js` and `npm run check`.
 - Write plainly. Do not use em dashes. Keep slide bullets short and avoid 'we' in slide text. Numeric claims must trace to recorded results.
 - On Windows use PowerShell with literal paths and UTF-8. Avoid shell heredocs and cross-shell deletion. Verify destinations before recursive file operations; report locked-directory deletion failures instead of repeatedly retrying.
-- No dependency installation, hosting or account access is necessary to play the existing demo. Use the approved browser tools and respect their restrictions when testing.
+- The desktop build needs Node and `npm install` in its folder. Use the approved browser tools and respect their restrictions when testing.
 - Record current decisions, important limitations and remaining work in AGENT_CONTEXT.md at handoff.

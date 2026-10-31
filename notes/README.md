@@ -1,6 +1,6 @@
 # Project notes
 
-Discussion and decision history live here. The current implementation authority is the [v0.3 decided rules](../outputs/The_Ferryman_v0.3_Decided_Rules.md), not an older suggestion in these notes.
+Discussion and decision history live here. The current rules authority is [`rules/RULES.md`](../outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md) in the desktop folder, generated from `rules/content.json`, not an older suggestion in these notes.
 
 | File | Purpose |
 |---|---|
@@ -12,4 +12,4 @@ Discussion and decision history live here. The current implementation authority 
 
 The original collectiveThoughts.md referenced by the idea inventory is not present in this checkout. Preserve that provenance note; do not invent or recreate the missing source from the summary.
 
-The [v0.3 game and workshop kit](../outputs/README.md) are delivered. The [handoff pack](../history/handoffs/v0.3_handoffs/README.md) preserves their production history. The September team schedule and unchecked planning boxes are historical, not a current delivery checklist. Use the kit's validation checklist for remaining physical work. Scratch notes in work/ or temp/ are not authoritative.
+Older versions were removed from the working tree on October 31, 2026 (see [outputs/README.md](../outputs/README.md)). The September team schedule and unchecked planning boxes are historical, not a current delivery checklist. Scratch notes in work/ or temp/ are not authoritative.
