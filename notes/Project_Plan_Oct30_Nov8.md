@@ -32,7 +32,7 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 
 | Member | Role | Tasks |
 |---|---|---|
-| bosthanapatw | Production & Presentation Lead | 7 |
+| bosthanapatw | Production & Presentation Lead | 8 |
 | Kanyakorn-goya | Art (characters, environment, interface) | 7 |
 | Tinpatpun | Gameplay support & UI | 6 |
 | Jaoguya | Gameplay Dev & UI; co-PM | 7 |
@@ -49,7 +49,7 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 **bosthanapatw's early capacity.** bosthanapatw's work depends on the frozen rules and the built game, so it starts late: only the blockers list (Oct 31) and the presentation outline (Nov 2) come early, and the script, freeze, slides, video and rehearsal fall on Nov 5 to 8. From now to about Nov 4, bosthanapatw helps VarisPah with the audio: listed as support on T-07, T-15 and T-28. If time remains, the Nov 2 cut-outs (about 14 images, T-09 and T-10) are the next place to help, for the PM (VarisPah) to confirm.
 
 * **purin-kan (scaffold owner, task management):** Keeps the task register in step with this plan. Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
-* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, and the re-test on Nov 7.
+* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, applying the decided rules to the game data (Nov 3 to 4, with his early capacity), and the re-test on Nov 7.
 * **Kanyakorn-goya (Art):** All art in one seat: cut-out soul, Polong, boat and shore sprites, destination backgrounds, memory placeholders, wraith transformation frames and art polish. Peak load is Nov 2 (14 cut-outs); a background-removal tool can speed this up, and the results still need a visual check.
 * **Tinpatpun (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (SupaOhm). Owns TitleScene with the single save, the developer tuning panel and the tuning calibration that uses it, scene text data, release candidate testing on Nov 7 and visual polish, and supports SupaOhm on the scene work.
 * **Jaoguya (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on purin-kan's scaffold. Shares scene architecture design with SupaOhm. Runs the Nov 6 scope-cut triage: makes the call with VarisPah, has the `engine.js` edit made, and runs the two checks.
@@ -111,6 +111,7 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 | Pitch script draft | Write presentation script covering Description, Algorithmic Implementation and Demo play (see Submission Deliverables). Begin slide deck. Capture early gameplay footage for demo video. The group supplies the design decisions for the Algorithmic Implementation slides; bosthanapatw drafts them from the list in Submission Deliverables. | bosthanapatw |
 | Scene text | Collect button labels, help text and ending text for the scenes from `app.js` and `content.json` into a data file the scenes read. | Tinpatpun |
 | Crossing & delivery audio | Crossing ambient variants. Delivery success jingle. Wraith SFX. Fog ambiance. | VarisPah |
+| Apply decided rules | Enter the decisions from issue 6 in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits), then rerun `node tools/build-content.js` and `node tests/quest-check.js`. VarisPah and Jaoguya decide issue 6 items 1 to 3 by Nov 2 (proposed), since the scenes use the destination and soul lists. Write a short change note listing each rule changed. Drug Dealer, Fool and Killer stay out of play. | bosthanapatw |
 
 ### Phase 4: Feature & Asset Freeze (Nov 6)
 
