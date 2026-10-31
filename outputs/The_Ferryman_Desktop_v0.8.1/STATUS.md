@@ -24,11 +24,12 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 | Live scene switch | one interactive `npm start` session (a person clicked Next) | `TitleScene: Next pressed, starting a new run (seed 1)` then `BoardingScene shown (phase boarding)` |
 | Dev launcher | `FERRY_QUERY=?scene=ReturnScene&fixture=review-return` | `ReturnScene shown (phase review)`, router maps fixture to ReturnScene |
 | Packaged app | `npm run package`, then run `out/The Ferryman-win32-x64/The Ferryman.exe` for 40 s | packaged with asar (359 MB `out/`); exe stdout showed Phaser booted, `Ferry.create(1) -> boarding`, `TitleScene shown`, so the CommonJS fallback in `src/ferry.js` works in production |
+| Assets inside `.asar` (T-08, Nov 1) | temporary local test: placeholder `assets/art/t08-test.png` (copy of `source-art/mother.png`, 2.9 MB), `assets/backgrounds/t08-test-bg.png` (copy of `shore.png`), `assets/audio/t08-test.ogg` (3 s ffmpeg tone, 8 KB, above Vite's 4 KB inline limit), TitleScene calling `queueAssets`, `addArt` and `playSound` for those ids plus a missing id; clean `npm run package`; exe run for 40 s | `asar list` shows all three as hashed files under `.vite/renderer/main_window/assets/` and none loose on disk. Exe log: page at `.../resources/app.asar/.vite/renderer/main_window/index.html`; Phaser `filecomplete` for all three, no `loaderror`; `addArt` returned an Image (1024x1536 texture) for art and background and a letter-emblem Container for the missing id; `playSound` returned a playing sound for the OGG and `null` for the missing id. The test edits and files were removed afterwards and not committed |
 
 ## Not verified
 
 - `router.dispatch` from a scene and `exitDone()` gating with a real exit animation; the 5 s timeout.
-- Preloader with a real file (asset folders are empty); emblem fallback code not exercised, `addArt` unused by the stubs. Asset paths inside the `.asar` are untested for the same reason.
+- Preloader in the dev window (`npm start`) with a real file: the T-08 test ran only in the packaged exe. That the sound is audible is not checked: the machine logs an AudioContext device error (see notes), although the OGG loaded and decoded into the cache.
 - Dev menu (top-right selector) not clicked.
 - `npm run make` (win32 zip), SmartScreen, a second PC.
 - Fixture play: seed 1 and 34 only; no human playtest.

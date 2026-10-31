@@ -17,7 +17,7 @@ All paths below are under `outputs/The_Ferryman_Desktop_v0.8.1/`. The folder is 
 
 ## Launch and verification
 
-From the desktop folder: `npm install`, then `npm start` (Electron Forge dev window). `npm run check` runs the engine, fixture-mapping and dispatch checks; `npm run fixtures` regenerates `src/dev/fixtures/`. From `rules/`: `node tools/build-content.js` and `node tests/quest-check.js` (writes `rules/verification/quest-results.json`). Record results in `STATUS.md`. Packaging (`npm run package`, `.exe`) is Scaffold B and not yet verified. Do not replace NOT_RUN entries with inferred results.
+From the desktop folder: `npm install`, then `npm start` (Electron Forge dev window). `npm run check` runs the engine, fixture-mapping and dispatch checks; `npm run fixtures` regenerates `src/dev/fixtures/`. From `rules/`: `node tools/build-content.js` and `node tests/quest-check.js` (writes `rules/verification/quest-results.json`). Record results in `STATUS.md`. Packaging (`npm run package`, `.exe`) is Scaffold B: verified Nov 1 that the exe boots and loads art, background and audio files from the `.asar` (see `STATUS.md`); SmartScreen on a second PC is T-14. Do not replace NOT_RUN entries with inferred results.
 
 ## Repository layout
 
