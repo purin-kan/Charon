@@ -9,6 +9,7 @@ Discussion and decision history live here. The current rules authority is [`rule
 | [Engine and platform comparison](Engine_Platform_Comparison.md) | October 25, 2026 comparison of engine options for D12, with the decision confirmed on October 30, 2026: Phaser + Electron |
 | [Project plan Oct 30 - Nov 8](Project_Plan_Oct30_Nov8.md) | Phaser + Electron build plan: deliverables, roles, parallel-work rules and schedule |
 | [Task register Oct 30 - Nov 8](Task_Register_Oct30_Nov8.md) | Per-task owner, due date, dependencies and status, derived from the plan |
+| [T-07 audio plan](T-07_AUDIO_PLAN.md) | Draft audio file rules, track list, sourcing and rights record for T-07; proposals, not team approval |
 
 The original collectiveThoughts.md referenced by the idea inventory is not present in this checkout. Preserve that provenance note; do not invent or recreate the missing source from the summary.
 
