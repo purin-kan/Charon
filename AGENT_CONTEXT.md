@@ -2,7 +2,7 @@
 
 ## October 31, 2026: schedule and workload proposal (branch only)
 
-Branch `worktree-schedule-rebalance` proposes time slots (morning, midday, afternoon, end of day) for same-day dependent tasks on Nov 2, 6, 7 and 8, rolling integration from Nov 3, T-22 due Nov 4, T-23 due Nov 6 midday, bug fixes starting Nov 6, polish merged before the re-test build or Cut, and a no-change final rebuild so the demo video records alongside it. The user (task manager) kept T-14 with VarisPah and moved T-23 and T-34 to Tinpatpun; Tinpatpun has not yet agreed or confirmed a second Windows PC for T-34. T-31 to SupaOhm with co-PM sign-off is still a proposal awaiting the user's decision. Not merged or pushed.
+Branch `worktree-schedule-rebalance` proposes time slots (morning, midday, afternoon, end of day) for same-day dependent tasks on Nov 2, 6, 7 and 8, rolling integration from Nov 3, T-22 due Nov 4, T-23 due Nov 6 midday, bug fixes starting Nov 6, polish merged before the re-test build or Cut, and a no-change final rebuild so the demo video records alongside it. The user (task manager) kept T-14 with VarisPah and moved T-23 and T-34 to Tinpatpun; Tinpatpun has not yet agreed or confirmed a second Windows PC for T-34. The user moved T-31 (scope-cut triage) to Jaoguya (co-PM), with VarisPah agreeing to any cut and purin-kan as support, because the decision is the PMs' and the checks are quick (`quest-check.js`: 22 groups in 0.6 s; the recorded `verification/quest-results.json` was restored after that timing run). Not merged or pushed.
 
 ## October 31, 2026: engine confirmed, docs aligned
 
