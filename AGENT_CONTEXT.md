@@ -1,5 +1,9 @@
 # The Ferryman / Charon: agent context
 
+## October 31, 2026: T-02 and T-05 Scaffold A built (branch `worktree-scaffold-a`, unpushed)
+
+T-02: `.gitattributes` adds `-text` for `outputs/The_Ferryman_v0.7/**` and `outputs/The_Ferryman_Desktop_v0.8/**`; `.gitignore` adds `out/`, `dist/`, `.vite/`. On Windows 21 v0.7 working files are CRLF and will show as modified until re-checked out. T-05: `outputs/The_Ferryman_Desktop_v0.8/` (proposed name, not team-confirmed) with Phaser 4.2.1, Electron 45.2.1, Forge 8.0.1, Vite 8.3.5 pinned. Rules source stays in v0.7 (assumption, not team-confirmed); `src/ferry.js` loads `content.js` then `engine.js` unedited and falls back to the CommonJS export because a production Vite build never sets `globalThis.Ferry`. Verified: `npm run check` (engine, 10 fixture mappings, one dispatch), renderer build, `npm start` boot log. NOT_RUN: scene clicks, exitDone gating, preloader fallback, dev menu, packaged `.exe`. See the folder's `STATUS.md`. Neither task is marked Done in the register: both need push and announcement.
+
 ## October 31, 2026: engine confirmed, docs aligned
 
 The user confirmed Phaser + Electron on October 30, 2026. That settles the engine and platform part of D12 only; controls, production art and audio stay open. The October 25 entry below that calls the choice provisional is history. `notes/Engine_Platform_Comparison.md`, `notes/README.md`, the D12 row of `notes/Decisions_and_Team_Plan.md` and `CLAUDE.md` were updated to match, and the comparison now cites the v0.7 rules code. Still open: whether the desktop build copies the rules or uses the v0.7 folder, and the desktop folder name. Task T-43: SupaOhm pushes the consolidated spreadsheet. The `.gitignore` entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in this checkout, so the spreadsheet should go in a path that is not ignored. The earlier note that spreadsheet deliverables stay local is superseded for that file only.

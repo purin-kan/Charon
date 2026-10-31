@@ -1,6 +1,6 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
-Machine: Windows 11, Node v25.1.0, npm 11.6.2. Not committed or pushed.
+Machine: Windows 11, Node v25.1.0, npm 11.6.2. Committed on branch `worktree-scaffold-a`, not pushed.
 
 ## Pinned versions (package.json, exact)
 
@@ -15,7 +15,8 @@ plugin-fuses 8.0.1, plugin-auto-unpack-natives 8.0.1, maker-squirrel 8.0.1, make
 | --- | --- | --- |
 | Fixtures | `node tools/make-fixtures.mjs` | 10 files saved; 9 from engine runs (seeds 1 and 34), `trim` synthetic |
 | Engine loads under Node | `node tools/check-engine.mjs` | `OK Ferry.create(1) -> phase = boarding \| shore = 5 \| light = 6` |
-| Phase to scene map | `node tools/check-router.mjs` | 10 of 10 fixtures map to the expected scene |
+| Phase to scene map | `node tools/check-router.mjs` | 10 of 10 fixtures map to the expected scene; one `BOARD` from `create(1)` returns a state that maps to BoardingScene (the contract `router.dispatch` relies on) |
+| Production loader | `npx vite build -c vite.renderer.config.mjs`, then read the bundle | Vite wraps `engine.js` as CommonJS, so `globalThis.Ferry` is not set; `src/ferry.js` falls back to the module export (compiled code checked, not run in a packaged app) |
 | Renderer bundle | `npx vite build -c vite.renderer.config.mjs` | built, 1,444.80 kB JS |
 | Electron app | `npm start`, ~25 s, killed afterwards | stdout showed Phaser 4.2.1 WEBGL booted, `Ferry.create(1) -> state.phase = boarding`, `TitleScene shown` |
 | Dev launcher | `FERRY_QUERY=?scene=ReturnScene&fixture=review-return` | `ReturnScene shown (phase review)`, router maps fixture to ReturnScene |
@@ -38,4 +39,5 @@ plugin-fuses 8.0.1, plugin-auto-unpack-natives 8.0.1, maker-squirrel 8.0.1, make
 - Forge template makers for deb/rpm and oxlint/oxfmt were removed. MakerZIP is still darwin-only; Scaffold B decides makers.
 - `npm audit` reports advisories from the Forge toolchain; not addressed.
 - Electron prints a CSP warning in dev; no CSP is set yet.
+- One `npm start` run logged "The AudioContext encountered an error from the audio device" (likely no audio device in that session; not investigated).
 - Fonts are not bundled yet (`assets/fonts/` is empty; Vera is in `outputs/The_Ferryman_v0.7/assets/fonts`).
