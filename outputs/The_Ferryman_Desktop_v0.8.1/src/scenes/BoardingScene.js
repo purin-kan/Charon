@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { addArt, queueAssets } from '../preloader.js';
-import { SLOT, TOKEN, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
+import { SLOT, TOKEN, dropAction, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
 
 const SNAP_MS = 160;
+const MESSAGE_MS = 2000;
 const FONT = 'sans-serif';
 
 export class BoardingScene extends Phaser.Scene {
@@ -28,6 +29,18 @@ export class BoardingScene extends Phaser.Scene {
     this.drawHud();
     this.render(state);
 
+    this.input.on('drag', (_pointer, token, x, y) => token.setPosition(x, y));
+    this.input.on('dragstart', (_pointer, token) => {
+      this.tweens.killTweensOf(token);
+      token.setDepth(2);
+    });
+    this.input.on('dragend', (_pointer, token, dropped) => {
+      token.setDepth(1);
+      const action = dropAction(this.entries.get(token.getData('id')), dropped);
+      if (action) this.act(action);
+      else this.render(this.registry.get('state'));
+    });
+
     this.onState = (s) => this.render(s);
     this.game.events.on('ferry-state', this.onState);
     this.events.once('shutdown', () => this.game.events.off('ferry-state', this.onState));
@@ -41,6 +54,7 @@ export class BoardingScene extends Phaser.Scene {
     for (const slot of slots) {
       const seat = this.add.rectangle(slot.x, slot.y, slot.w, slot.h, 0x16232e).setStrokeStyle(2, 0x3d5566);
       this.boatParts.push(seat);
+      this.add.zone(slot.x, slot.y, slot.w, slot.h).setRectangleDropZone(slot.w, slot.h);
     }
   }
 
@@ -49,6 +63,7 @@ export class BoardingScene extends Phaser.Scene {
     this.add.text(40, 68, 'Shore', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.add.text(640, 160, 'Boat', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.message = this.add.text(640, 610, '', { fontFamily: FONT, fontSize: '20px', color: '#e8c27f' }).setOrigin(0.5);
+    this.departBtn = this.button(1160, 664, 'Depart', () => this.act({ type: 'DEPART' }));
   }
 
   button(x, y, label, onPress) {
@@ -56,6 +71,27 @@ export class BoardingScene extends Phaser.Scene {
     const btn = this.add.text(x, y, label, style).setOrigin(0.5).setInteractive({ useHandCursor: true });
     btn.on('pointerdown', onPress);
     return btn;
+  }
+
+  /** Applies an action. A rejected one changes nothing: tokens snap back and the engine's reason shows. */
+  act(action) {
+    const state = this.registry.get('state');
+    try {
+      Ferry.transition(state, action);
+    } catch (err) {
+      this.say(err.message);
+      this.render(state);
+      return false;
+    }
+    // Outside the try: dispatch emits ferry-state, and a render bug must not look like a rule error.
+    this.router.dispatch(action);
+    return true;
+  }
+
+  say(text) {
+    this.message.setText(text);
+    this.messageTimer?.remove();
+    this.messageTimer = this.time.delayedCall(MESSAGE_MS, () => this.message.setText(''));
   }
 
   /** Brings the screen in line with the state. Tokens are keyed by actor id, so they glide. */
@@ -83,6 +119,8 @@ export class BoardingScene extends Phaser.Scene {
     const wish = this.add.text(0, 40, '', small).setOrigin(0.5);
     const anger = this.add.text(0, 58, '', small).setOrigin(0.5);
     const token = this.add.container(entry.x, entry.y, [panel, art, name, wish, anger]);
+    // A container with no size is centred on (0, 0), so the hit area is too.
+    token.setInteractive(new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), Phaser.Geom.Rectangle.Contains);
     token.setDepth(1);
     token.setData({ id: entry.id, name, wish, anger });
     this.tokens.set(entry.id, token);
@@ -90,6 +128,8 @@ export class BoardingScene extends Phaser.Scene {
   }
 
   updateToken(token, entry) {
+    this.input.setDraggable(token, entry.draggable);
+    token.setAlpha(entry.draggable ? 1 : 0.75);
     const labels = tokenLabels(entry, Ferry);
     token.getData('name').setText(labels.name);
     token.getData('wish').setText(labels.wish);
