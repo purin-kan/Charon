@@ -5,6 +5,8 @@ import { SLOT, TOKEN, dropAction, heroPrompt, layoutBoarding, statusLine, tokenL
 
 const SNAP_MS = 160;
 const MESSAGE_MS = 2000;
+const EXIT_MS = 600;
+const EXIT_DISTANCE = 900;
 const FONT = 'sans-serif';
 
 export class BoardingScene extends Phaser.Scene {
@@ -25,6 +27,7 @@ export class BoardingScene extends Phaser.Scene {
     this.entries = new Map();
     this.boatParts = [];
     this.tollMode = false;
+    this.leaving = false;
 
     this.drawBoat(layoutBoarding(state, Ferry).slots);
     this.drawHud();
@@ -43,7 +46,10 @@ export class BoardingScene extends Phaser.Scene {
     });
     this.input.on('gameobjectdown', (_pointer, obj) => this.pickToll(obj));
 
-    this.onState = (s) => this.render(s);
+    this.onState = (s) => {
+      if (this.router.willLeave(this.scene.key)) this.startExit(s);
+      else this.render(s);
+    };
     this.game.events.on('ferry-state', this.onState);
     this.events.once('shutdown', () => this.game.events.off('ferry-state', this.onState));
   }
@@ -128,6 +134,25 @@ export class BoardingScene extends Phaser.Scene {
     if (!this.tollMode) return;
     const entry = this.entries.get(obj.getData('id'));
     if (entry?.draggable) this.act({ type: 'ACCEPT_HERO', target: entry.id });
+  }
+
+  /** The boat sails off with its passengers. Heracles' toll can end the run, which has no boat to sail. */
+  startExit(state) {
+    if (this.leaving) return;
+    this.leaving = true;
+    this.input.enabled = false;
+    if (state.phase !== 'window') {
+      this.router.exitDone();
+      return;
+    }
+    const seated = [...this.entries.values()].filter((e) => e.area === 'seat').map((e) => this.tokens.get(e.id));
+    this.tweens.add({
+      targets: [...this.boatParts, ...seated],
+      x: `+=${EXIT_DISTANCE}`,
+      duration: EXIT_MS,
+      ease: 'Cubic.In',
+      onComplete: () => this.router.exitDone(),
+    });
   }
 
   /** Brings the screen in line with the state. Tokens are keyed by actor id, so they glide. */
