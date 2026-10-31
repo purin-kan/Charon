@@ -22,7 +22,7 @@ for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
 // Router.dispatch relies on Ferry.transition returning the next state (it throws on an illegal
 // action). Check that contract with one legal action from a fresh run.
 import { createRequire } from 'node:module';
-const Ferry = createRequire(import.meta.url)('../../The_Ferryman_v0.7/engine.js');
+const Ferry = createRequire(import.meta.url)('../rules/engine.js');
 const s0 = Ferry.create(1);
 const s1 = Ferry.transition(s0, { type: 'BOARD', id: s0.shore[0].id });
 Ferry.validate(s1);

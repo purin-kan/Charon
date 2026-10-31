@@ -1,0 +1,556 @@
+globalThis.FerryData = {
+  "schemaVersion": 3,
+  "version": "0.7-trial",
+  "title": "The Ferryman",
+  "config": {
+    "startLight": 6,
+    "maxLight": 6,
+    "seats": 4,
+    "shoreTarget": 5,
+    "shoreAngerLimit": 2,
+    "shipAngerLimit": 4,
+    "handLimit": 3,
+    "spawnInterval": 3,
+    "polongFogThreshold": 2,
+    "polongFog": 1,
+    "returnLight": 1,
+    "wraithDamage": 1,
+    "foresightForks": 3,
+    "memoriesPerWindow": null,
+    "endless": true,
+    "initialShore": [
+      "SOUL-MOTHER",
+      "SOUL-CHILD",
+      "SOUL-MERCHANT",
+      "SOUL-MASON",
+      "SOUL-COOK"
+    ],
+    "initialArrivals": [
+      "SOUL-POET",
+      "SOUL-KEEPER",
+      "SOUL-RED-SOLDIER",
+      "SOUL-BLUE-SOLDIER",
+      "SOUL-MESSENGER",
+      "SOUL-MUSICIAN",
+      "SOUL-LISTENER",
+      "SOUL-FARMER",
+      "SOUL-BLACKSMITH",
+      "SOUL-PRIEST"
+    ]
+  },
+  "souls": [
+    {
+      "id": "SOUL-MOTHER",
+      "name": "Mother",
+      "seats": 1,
+      "wish": "DEST-TARTARUS",
+      "memory": "MEM-LIGHT",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-CHILD",
+      "name": "Child",
+      "seats": 1,
+      "wish": "DEST-HEAVEN",
+      "memory": null,
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-MERCHANT",
+      "name": "Merchant",
+      "seats": 1,
+      "wish": "DEST-STYX",
+      "memory": "MEM-FORESIGHT",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-POET",
+      "name": "Poet",
+      "seats": 1,
+      "wish": "DEST-ELYSIUM",
+      "memory": "MEM-FORESIGHT",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-COOK",
+      "name": "Cook",
+      "seats": 1,
+      "wish": "DEST-ASPHODEL",
+      "memory": "MEM-CALM",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-MASON",
+      "name": "Mason",
+      "seats": 1,
+      "wish": "DEST-ACHERON",
+      "memory": "MEM-FOG",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-KEEPER",
+      "name": "Keeper",
+      "seats": 1,
+      "wish": "DEST-ASPHODEL",
+      "memory": "MEM-FOG",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-POLONG",
+      "name": "PoLong",
+      "seats": 0,
+      "wish": "DEST-TARTARUS",
+      "memory": null,
+      "ordinary": false,
+      "tainted": true,
+      "text": "Adds 1 fog at Anger 2–3; empowered starts at Anger 1."
+    },
+    {
+      "id": "SOUL-RED-SOLDIER",
+      "name": "Red Soldier",
+      "seats": 1,
+      "wish": "DEST-STYX",
+      "memory": "MEM-ALL-FOG",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-BLUE-SOLDIER",
+      "name": "Blue Soldier",
+      "seats": 1,
+      "wish": "DEST-STYX",
+      "memory": "MEM-ALL-FOG",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-MESSENGER",
+      "name": "Messenger",
+      "seats": 1,
+      "wish": "DEST-STYX",
+      "memory": "MEM-FORESIGHT",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-MUSICIAN",
+      "name": "Bard",
+      "seats": 1,
+      "wish": "DEST-ELYSIUM",
+      "memory": "MEM-CALM",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-LISTENER",
+      "name": "Listener",
+      "seats": 1,
+      "wish": "DEST-ELYSIUM",
+      "memory": null,
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-FARMER",
+      "name": "Farmer",
+      "seats": 1,
+      "wish": "DEST-ASPHODEL",
+      "memory": "MEM-SHARED-HARVEST",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-BLACKSMITH",
+      "name": "Blacksmith",
+      "seats": 1,
+      "wish": "DEST-HEAVEN",
+      "memory": null,
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-PRIEST",
+      "name": "Priest",
+      "seats": 1,
+      "wish": "DEST-HEAVEN",
+      "memory": "MEM-LAST-PRAYER",
+      "ordinary": true,
+      "tainted": false
+    },
+    {
+      "id": "SOUL-PO-LUEM",
+      "name": "Po Luem",
+      "seats": 0,
+      "wish": "DEST-ASPHODEL",
+      "memory": null,
+      "ordinary": false,
+      "tainted": true,
+      "text": "After its boarding round, takes one memory each round. Empowered chooses randomly."
+    },
+    {
+      "id": "SOUL-PO-NAK",
+      "name": "Po Nak",
+      "seats": 0,
+      "wish": "DEST-ACHERON",
+      "memory": null,
+      "ordinary": false,
+      "tainted": true,
+      "text": "Uses one seat, or two when empowered. Over capacity adds 1 total fog."
+    },
+    {
+      "id": "SOUL-PO-MUED",
+      "name": "Po Mued",
+      "seats": 0,
+      "wish": "DEST-STYX",
+      "memory": null,
+      "ordinary": false,
+      "tainted": true,
+      "text": "Conceals one route option, or both when empowered. Foresight reveals them."
+    },
+    {
+      "id": "SOUL-PO-DUE",
+      "name": "Po Due",
+      "seats": 0,
+      "wish": "DEST-HAVEN",
+      "memory": null,
+      "ordinary": false,
+      "tainted": true,
+      "text": "Will only leave at Anger 2 or 3. Empowered delivery costs 1 Light."
+    },
+    {
+      "id": "SOUL-HERACLES",
+      "name": "Hercules the traveler",
+      "seats": 1,
+      "wish": "DEST-HAVEN",
+      "memory": null,
+      "ordinary": false,
+      "tainted": false,
+      "hero": true
+    },
+    {
+      "id": "SOUL-ODYSSEUS",
+      "name": "Odysseus the traveler",
+      "seats": 1,
+      "wish": "DEST-HAVEN",
+      "memory": null,
+      "ordinary": false,
+      "tainted": false,
+      "hero": true
+    },
+    {
+      "id": "CHAR-CERBERUS",
+      "name": "Cerberus",
+      "seats": 1,
+      "wish": "DEST-HAVEN",
+      "memory": null,
+      "ordinary": false,
+      "tainted": false,
+      "hero": true
+    }
+  ],
+  "destinations": [
+    {
+      "id": "DEST-HAVEN",
+      "name": "Haven",
+      "fog": 0
+    },
+    {
+      "id": "DEST-STYX",
+      "name": "River Styx",
+      "fog": 1
+    },
+    {
+      "id": "DEST-ACHERON",
+      "name": "Acheron",
+      "fog": 1
+    },
+    {
+      "id": "DEST-ASPHODEL",
+      "name": "Asphodel",
+      "fog": 2
+    },
+    {
+      "id": "DEST-ELYSIUM",
+      "name": "Elysium",
+      "fog": 3
+    },
+    {
+      "id": "DEST-TARTARUS",
+      "name": "Tartarus",
+      "fog": 3
+    },
+    {
+      "id": "DEST-HEAVEN",
+      "name": "Heaven",
+      "fog": 2
+    }
+  ],
+  "memories": [
+    {
+      "id": "MEM-LIGHT",
+      "name": "Light",
+      "kind": "light",
+      "amount": 1,
+      "text": "Restore 1 Light, up to your current maximum."
+    },
+    {
+      "id": "MEM-FORESIGHT",
+      "name": "Foresight",
+      "kind": "foresight",
+      "amount": 3,
+      "text": "Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle."
+    },
+    {
+      "id": "MEM-GUARD",
+      "name": "Guard",
+      "kind": "guard",
+      "amount": 1,
+      "text": "Prevent the next 1 point of damage this outward round or return. Does not stack."
+    },
+    {
+      "id": "MEM-CALM",
+      "name": "Calm",
+      "kind": "calm",
+      "amount": 1,
+      "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul."
+    },
+    {
+      "id": "MEM-FOG",
+      "name": "Fog Shield",
+      "kind": "fog",
+      "amount": 1,
+      "text": "Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage."
+    },
+    {
+      "id": "MEM-PASSAGE",
+      "name": "Passenger",
+      "kind": "passage",
+      "amount": 1,
+      "text": "Deliver one eligible onboard passenger directly to its wish. No travel fog, route count or scheduled arrival; delivery restrictions and quest consequences still apply."
+    },
+    {
+      "id": "MEM-LAST-PRAYER",
+      "name": "Last Prayer",
+      "kind": "light",
+      "amount": 1,
+      "text": "Restore 1 Light up to your current maximum."
+    },
+    {
+      "id": "MEM-SHARED-HARVEST",
+      "name": "Shared Harvest",
+      "kind": "calm",
+      "amount": 1,
+      "text": "Reduce one active soul’s Anger by 1, minimum zero."
+    },
+    {
+      "id": "MEM-ALL-FOG",
+      "name": "Full Fog Protection",
+      "kind": "all-fog",
+      "amount": 0,
+      "text": "Prevent all fog on this crossing. Does not prevent Wraith damage."
+    },
+    {
+      "id": "MEM-LAST-MASTERWORK",
+      "name": "Sword",
+      "kind": "sword",
+      "amount": 0,
+      "text": "Remove one tainted passenger. No reward, Wraith damage or spread."
+    },
+    {
+      "id": "MEM-SOLDIER-PEACE",
+      "name": "Soldiers’ Peace",
+      "kind": "calm",
+      "amount": 3,
+      "text": "Reduce one active soul’s Anger by 3, minimum zero."
+    },
+    {
+      "id": "MEM-BOAT-SPACE",
+      "name": "Boat Space",
+      "kind": "capacity",
+      "amount": 1,
+      "text": "One extra seat until the next return. Does not stack."
+    },
+    {
+      "id": "MEM-GOLDEN-APPLE",
+      "name": "Golden Apple",
+      "kind": "apple",
+      "amount": 1,
+      "text": "Increase maximum Light by 1 for this run and restore Light to that maximum."
+    },
+    {
+      "id": "MEM-MOLY",
+      "name": "Moly of Hermes",
+      "kind": "moly",
+      "amount": 0,
+      "text": "Prevent future scheduled Polong arrivals until the next return. Existing passengers remain."
+    },
+    {
+      "id": "MEM-NOBODY",
+      "name": "Nobody",
+      "kind": "nobody",
+      "amount": 0,
+      "text": "Prevent all crossing fog until the next return. Other damage still applies."
+    }
+  ],
+  "roundSteps": [
+    "Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
+    "Approach the fork: advance the outward round and board a scheduled Polong unless Moly suppresses it. Its level/effects apply immediately.",
+    "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
+    "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
+    "Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls. Blacksmith protects Merchant from Anger increases.",
+    "Resolve Wraith damage, removals and eligible spread. Po Luem takes memories; choose excess memories to discard to three.",
+    "Begin the next memory window, or return if the boat is empty."
+  ],
+  "returnSteps": [
+    "With an empty boat, play held memories if desired.",
+    "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
+    "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
+  ],
+  "rules": {
+    "scope": "Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
+    "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Polong is shown before departure.",
+    "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
+    "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
+    "routes": "All seven destinations are open for this trial. Heaven is separate, with base fog 2. Hero wishes draw from the six older destinations. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
+    "polongs": "Every third outward round brings the shown Polong unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five variants, concealment, Restless River, memory theft, overload, refusal and spread.",
+    "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
+    "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
+    "damage": "Fog protection does not prevent Wraith or toll damage. Original Po Long delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Polongs grant no Light or memory."
+  },
+  "authority": [
+    "TRIAL_RULES_DRAFT.md",
+    "IMPLEMENTATION_STATUS.md"
+  ],
+  "trial": {
+    "stage": "All-quest local trial",
+    "notice": "Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
+    "sourceModifiedTime": "2026-10-29T19:37:27.386Z",
+    "pending": [
+      "Team direction on Scale unlocks and adaptive routes",
+      "Drug Dealer, Fool and Killer playable rules",
+      "Human playtesting and balance",
+      "Final engine and artwork"
+    ],
+    "approvedRules": "TRIAL_RULES_DRAFT.md",
+    "rosterSynced": "2026-10-30"
+  },
+  "quests": [
+    {
+      "id": "QUEST-FAMILY",
+      "name": "Mother and Child",
+      "roles": [
+        "SOUL-MOTHER",
+        "SOUL-CHILD"
+      ],
+      "reward": "MEM-PASSAGE",
+      "description": "Depart together. Deliver Child to Heaven, then Mother to Tartarus."
+    },
+    {
+      "id": "QUEST-SOLDIERS",
+      "name": "The two soldiers",
+      "roles": [
+        "SOUL-RED-SOLDIER",
+        "SOUL-BLUE-SOLDIER"
+      ],
+      "reward": "MEM-SOLDIER-PEACE",
+      "description": "Others gain +1 Anger every second shared crossing. Deliver both soldiers."
+    },
+    {
+      "id": "QUEST-LISTENER",
+      "name": "A poet awakens",
+      "roles": [
+        "SOUL-MUSICIAN",
+        "SOUL-LISTENER"
+      ],
+      "reward": null,
+      "description": "Keep Bard and Listener together for three completed crossings; Listener becomes Poet."
+    },
+    {
+      "id": "QUEST-MEAL",
+      "name": "A shared meal",
+      "roles": [
+        "SOUL-FARMER",
+        "SOUL-COOK"
+      ],
+      "reward": null,
+      "description": "Prepare a meal once per boarding: everyone −1 Anger, then Cook +2."
+    },
+    {
+      "id": "QUEST-SWORD",
+      "name": "The last masterwork",
+      "roles": [
+        "SOUL-MERCHANT",
+        "SOUL-BLACKSMITH"
+      ],
+      "reward": "MEM-LAST-MASTERWORK",
+      "description": "Blacksmith prevents Merchant’s Anger increases. Deliver Merchant, then Blacksmith."
+    },
+    {
+      "id": "QUEST-BOAT",
+      "name": "Room for one more",
+      "roles": [
+        "SOUL-MERCHANT",
+        "SOUL-MASON"
+      ],
+      "reward": "MEM-BOAT-SPACE",
+      "description": "Deliver Merchant, then Mason as the last passenger."
+    },
+    {
+      "id": "QUEST-HERACLES",
+      "name": "Hercules the traveler and Cerberus",
+      "roles": [
+        "SOUL-HERACLES"
+      ],
+      "reward": "MEM-GOLDEN-APPLE",
+      "description": "Pay Hades’ toll, reach Hercules’ first wish, then deliver both Hercules and Cerberus."
+    },
+    {
+      "id": "QUEST-ODYSSEUS",
+      "name": "Odysseus the traveler and Tiresias",
+      "roles": [
+        "SOUL-ODYSSEUS"
+      ],
+      "reward": null,
+      "description": "Reach Odysseus’ wish and choose Charybdis or Zilla."
+    }
+  ],
+  "pendingSouls": [
+    {
+      "id": "SOUL-DRUG-DEALER",
+      "name": "Drug Dealer",
+      "wish": null,
+      "memory": null,
+      "ability": null,
+      "status": "Rules TBA",
+      "description": "Included roster entry. Wish, memory and ability have not been specified."
+    },
+    {
+      "id": "SOUL-FOOL",
+      "name": "Fool",
+      "wish": null,
+      "memory": null,
+      "ability": null,
+      "status": "Rules TBA",
+      "description": "Included roster entry. Wish, memory and ability have not been specified."
+    },
+    {
+      "id": "SOUL-KILLER",
+      "name": "Killer",
+      "wish": null,
+      "memory": null,
+      "ability": null,
+      "status": "Rules TBA",
+      "description": "Included roster entry. Wish, memory and ability have not been specified."
+    }
+  ],
+  "contentSha256": "a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3"
+}
+;

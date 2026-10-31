@@ -1,7 +1,7 @@
-// Sanity check: the v0.7 engine loads under Node and Ferry.create(1) returns a valid state.
+// Sanity check: the rules engine (rules/engine.js) loads under Node and Ferry.create(1) returns a valid state.
 import { createRequire } from 'node:module';
 
-const Ferry = createRequire(import.meta.url)('../../The_Ferryman_v0.7/engine.js');
+const Ferry = createRequire(import.meta.url)('../rules/engine.js');
 const s = Ferry.create(1);
 if (!s || typeof s.phase !== 'string') {
   console.error('FAIL: Ferry.create(1) returned no phase');

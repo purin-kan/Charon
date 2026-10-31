@@ -1,0 +1,9 @@
+{
+  "version": "0.7-trial",
+  "contentSha256": "a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3",
+  "generated": [
+    "content.js",
+    "rules.json",
+    "RULES.md"
+  ]
+}

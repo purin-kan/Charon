@@ -1,4 +1,4 @@
-// Drives seeded v0.7 games with a random legal-action policy and saves the first
+// Drives seeded games with a random legal-action policy and saves the first
 // state seen per phase into src/dev/fixtures/<name>.json. Run: npm run fixtures
 import { createRequire } from 'node:module';
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -7,7 +7,7 @@ import path from 'node:path';
 
 const require = createRequire(import.meta.url);
 const here = path.dirname(fileURLToPath(import.meta.url));
-const Ferry = require('../../The_Ferryman_v0.7/engine.js'); // under Node it reads content.json itself
+const Ferry = require('../rules/engine.js'); // under Node it reads content.json itself
 const outDir = path.join(here, '..', 'src', 'dev', 'fixtures');
 mkdirSync(outDir, { recursive: true });
 

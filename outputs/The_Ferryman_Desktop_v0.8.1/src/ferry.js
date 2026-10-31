@@ -1,11 +1,11 @@
-// Loads the v0.7 rules source WITHOUT editing it. Order matters: content.js sets
+// Loads the rules source in rules/ without editing it. Order matters: content.js sets
 // globalThis.FerryData, then engine.js (UMD) reads it.
 // Dev (npm start) serves engine.js as a plain script: it publishes globalThis.Ferry and has no exports.
 // A production Vite build wraps engine.js as CommonJS: it takes its module.exports branch and
 // never sets globalThis.Ferry, so fall back to the module export. The source stays in
-// ../The_Ferryman_v0.7/ and is never copied or edited.
-import '../../The_Ferryman_v0.7/content.js';
-import * as engineModule from '../../The_Ferryman_v0.7/engine.js';
+// rules/ (copied from the v0.7 snapshot) and is edited only for rule changes.
+import '../rules/content.js';
+import * as engineModule from '../rules/engine.js';
 
 export const Ferry = globalThis.Ferry ?? engineModule.default ?? null;
 if (!Ferry || typeof Ferry.create !== 'function') {

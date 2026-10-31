@@ -40,4 +40,4 @@ plugin-fuses 8.0.1, plugin-auto-unpack-natives 8.0.1, maker-squirrel 8.0.1, make
 - `npm audit` reports advisories from the Forge toolchain; not addressed.
 - Electron prints a CSP warning in dev; no CSP is set yet.
 - One `npm start` run logged "The AudioContext encountered an error from the audio device" (likely no audio device in that session; not investigated).
-- Fonts are not bundled yet (`assets/fonts/` is empty; Vera is in `outputs/The_Ferryman_v0.7/assets/fonts`).
+- Vera fonts copied into `assets/fonts/` (with licence); not yet loaded by any scene.

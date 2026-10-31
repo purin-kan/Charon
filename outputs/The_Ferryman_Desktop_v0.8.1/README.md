@@ -1,4 +1,4 @@
-# The Ferryman, desktop build (v0.8 scaffold)
+# The Ferryman, desktop build (v0.8.1 scaffold)
 
 Phaser 4 inside Electron, bundled with Vite through Electron Forge. This is Scaffold A: a minimal
 base that teammates build scenes on. Packaging (`.exe`) is Scaffold B.
@@ -8,7 +8,7 @@ base that teammates build scenes on. Packaging (`.exe`) is Scaffold B.
 Needs Node >= 22.13.0 (Electron Forge 8 requirement; developed on Node 25.1.0, npm 11.6.2).
 
 ```powershell
-cd outputs\The_Ferryman_Desktop_v0.8
+cd outputs\The_Ferryman_Desktop_v0.8.1
 npm install
 ```
 
@@ -33,17 +33,24 @@ Other commands:
 
 | Command | What it does |
 | --- | --- |
-| `npm run fixtures` | Regenerates `src/dev/fixtures/*.json` from the v0.7 engine |
+| `npm run fixtures` | Regenerates `src/dev/fixtures/*.json` from rules/engine.js |
 | `npm run check` | Node checks: engine loads, `Ferry.create(1)` has a phase, phase to scene mapping on all fixtures |
 | `npm run package` | Forge package (Scaffold B territory, not verified here) |
 
 ## Rules source
 
-Rules are NOT copied. `src/ferry.js` imports `../The_Ferryman_v0.7/content.js` first (sets
-`globalThis.FerryData`), then `../The_Ferryman_v0.7/engine.js` (publishes `globalThis.Ferry`).
-Never edit those files to fix loading; wrap them. Vite is allowed to read the parent folder
-through `server.fs.allow` in `vite.renderer.config.mjs`. The submitted project must include
-`outputs/The_Ferryman_v0.7/` too.
+The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`). This
+folder depends on no other folder. `src/ferry.js` imports `rules/content.js` first (sets
+`globalThis.FerryData`), then `rules/engine.js` (publishes `globalThis.Ferry`, or its CommonJS
+export in a production build). Never edit `engine.js` to fix loading; wrap it.
+
+To change rules: edit `rules/content.json`, then from `rules/` run:
+
+```powershell
+node tools/build-content.js   # regenerates content.js, rules.json, RULES.md
+node tests/quest-check.js     # writes verification/quest-results.json
+cd ..; npm run fixtures; npm run check
+```
 
 Scenes import the engine with `import { Ferry } from '../ferry.js'`. Scenes never duplicate rules:
 read `state`, act through `this.game.router.dispatch(action)`.

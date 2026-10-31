@@ -1,0 +1,79 @@
+{
+  "version": "0.7-trial",
+  "contentSha256": "a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3",
+  "trial": {
+    "stage": "All-quest local trial",
+    "notice": "Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
+    "sourceModifiedTime": "2026-10-29T19:37:27.386Z",
+    "pending": [
+      "Team direction on Scale unlocks and adaptive routes",
+      "Drug Dealer, Fool and Killer playable rules",
+      "Human playtesting and balance",
+      "Final engine and artwork"
+    ],
+    "approvedRules": "TRIAL_RULES_DRAFT.md",
+    "rosterSynced": "2026-10-30"
+  },
+  "config": {
+    "startLight": 6,
+    "maxLight": 6,
+    "seats": 4,
+    "shoreTarget": 5,
+    "shoreAngerLimit": 2,
+    "shipAngerLimit": 4,
+    "handLimit": 3,
+    "spawnInterval": 3,
+    "polongFogThreshold": 2,
+    "polongFog": 1,
+    "returnLight": 1,
+    "wraithDamage": 1,
+    "foresightForks": 3,
+    "memoriesPerWindow": null,
+    "endless": true,
+    "initialShore": [
+      "SOUL-MOTHER",
+      "SOUL-CHILD",
+      "SOUL-MERCHANT",
+      "SOUL-MASON",
+      "SOUL-COOK"
+    ],
+    "initialArrivals": [
+      "SOUL-POET",
+      "SOUL-KEEPER",
+      "SOUL-RED-SOLDIER",
+      "SOUL-BLUE-SOLDIER",
+      "SOUL-MESSENGER",
+      "SOUL-MUSICIAN",
+      "SOUL-LISTENER",
+      "SOUL-FARMER",
+      "SOUL-BLACKSMITH",
+      "SOUL-PRIEST"
+    ]
+  },
+  "rules": {
+    "scope": "Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
+    "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Polong is shown before departure.",
+    "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
+    "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
+    "routes": "All seven destinations are open for this trial. Heaven is separate, with base fog 2. Hero wishes draw from the six older destinations. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
+    "polongs": "Every third outward round brings the shown Polong unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five variants, concealment, Restless River, memory theft, overload, refusal and spread.",
+    "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
+    "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
+    "damage": "Fog protection does not prevent Wraith or toll damage. Original Po Long delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Polongs grant no Light or memory."
+  },
+  "roundSteps": [
+    "Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
+    "Approach the fork: advance the outward round and board a scheduled Polong unless Moly suppresses it. Its level/effects apply immediately.",
+    "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
+    "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
+    "Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls. Blacksmith protects Merchant from Anger increases.",
+    "Resolve Wraith damage, removals and eligible spread. Po Luem takes memories; choose excess memories to discard to three.",
+    "Begin the next memory window, or return if the boat is empty."
+  ],
+  "returnSteps": [
+    "With an empty boat, play held memories if desired.",
+    "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
+    "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
+  ]
+}
