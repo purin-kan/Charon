@@ -22,11 +22,10 @@ These answers disagree with each other, so the PM or co-PM needs to pick one. Th
 
 | # | Issue | Why it matters |
 |---|---|---|
-| 8 | **Applying the rule answers.** None of the 44 register tasks changes the game rules to match these answers: T-35 only sets balance values and T-31 only cuts features. See "Differences from v0.7" below. | Needs a task and an owner from task management (purin-kan). The boarding and memory rules affect T-12 and T-19. |
+| 8 | **Applying the rule answers.** None of the 44 register tasks changes the game rules to match these answers: T-35 only sets balance values and T-31 only cuts features. See "Differences from v0.7" below. | [Pull request 9](https://github.com/purin-kan/Charon/pull/9) proposes T-45 for this, with bosthanapatw as owner; not yet agreed. The boarding and memory rules affect T-12 and T-19. |
 
 ## Still unanswered
 
-* Whether the desktop build copies the rules or uses the v0.7 folder.
 * When tainted arrivals happen within a cycle.
 * Adaptive route probabilities are a yes, but weights, limits and performance conditions are not given.
 * The order of encounters, deliveries, quest effects, Anger, Wraith expiry and rewards.
@@ -148,7 +147,7 @@ Heroic souls arrive in the form of the Traveler, with a brief description of whi
 
 ## Differences from v0.7
 
-The answers above change these v0.7 behaviours. All 15 ordinary souls' wishes and memories were compared with `content.json`; the other rows come from a check of `engine.js` and `RULES.md`, so hero arrival timing and similar details may differ too.
+The v0.7 folder is no longer in the tree, but `engine.js`, `content.json` and `RULES.md` in the desktop build's `rules/` folder are identical copies, so these differences still apply. The answers above change these v0.7 behaviours. All 15 ordinary souls' wishes and memories were compared with `content.json`; the other rows come from a check of `engine.js` and `RULES.md`, so hero arrival timing and similar details may differ too.
 
 | Topic | v0.7 today | Answer |
 |---|---|---|
