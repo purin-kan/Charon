@@ -20,7 +20,7 @@ Revised October 30, 2026 to match the repository's file formats and working conv
 Only three items are submitted: the project files, the `.exe` and a presentation. Anything else in this plan exists only to produce those three.
 
 1. **Project files (purin-kan):** the desktop project folder under `outputs/`: source, assets, `package.json` and lockfile, and a short README on how to run and build. No hash manifests or receipts.
-2. **`.exe` (purin-kan, tested by VarisPah):** the final Windows build from Electron Forge.
+2. **`.exe` (purin-kan, tested by VarisPah, Tinpatpun and bosthanapatw):** the final Windows build from Electron Forge.
 3. **Presentation (bosthanapatw coordinates):** must include three parts.
    * **Description:** game rules, gameplay mechanics and narrative, taken from the frozen rules.
    * **Algorithmic Implementation:** where game informatics, procedural content generation (PCG), AI logic or random systems are used. In the v0.7 snapshot these are: a seeded pseudo-random generator (`draw`, `engine.js` line 30), a Fisher-Yates shuffle (line 31), route forks drawn at random from eligible destinations (`deal`, line 37), random wishes (`randomWish`, line 138), a Polong spawn every `spawnInterval` rounds with a tiered random pick (`drawPolong`, line 49), random hero offers (`offerHero`, line 50) and Cerberus frightening two random souls (`heroicArrival`, line 150). Fog is a deterministic calculation (`fog`, line 111). AI logic is not claimed: the game has no computer-controlled opponent, and Polong spawning is listed above as a random system, not AI (confirm after the rules freeze). Line numbers belong to the v0.7 snapshot and will move. The group makes the design decisions (what is random and why); the AI writes the implementation, and the presentation says so.
@@ -34,25 +34,26 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 |---|---|---|
 | bosthanapatw | Production & Presentation Lead | 7 |
 | Kanyakorn-goya | Art (characters, environment, interface) | 7 |
-| Tinpatpun | Gameplay support & UI | 4 |
-| Jaoguya | Gameplay Dev & UI; co-PM | 6 |
+| Tinpatpun | Gameplay support & UI | 6 |
+| Jaoguya | Gameplay Dev & UI; co-PM | 7 |
 | SupaOhm | Gameplay Dev | 4 |
-| VarisPah | Audio, QA & Game Balance; PM | 9 |
-| purin-kan | Scaffold & builds | 7 |
+| VarisPah | Audio, QA & Game Balance; PM | 7 |
+| purin-kan | Scaffold & builds | 6 |
+
+**Rebalanced October 31.** Two tasks moved from VarisPah (the PM) and one from purin-kan (task management), to lighten their Nov 6 and 7: tuning calibration (T-23) and release candidate testing (T-34) to Tinpatpun, who builds the tuning panel; scope-cut triage (T-31) to the co-PM (Jaoguya), since a cut is a game decision and the checks after it take under a second (`quest-check.js` ran its 22 scenario groups in 0.6 s on October 31); VarisPah agrees to any cut. VarisPah keeps the early `.exe` test (T-14). Counts fall, but effort does not fall evenly: purin-kan gains the rolling integration on Nov 3 to 5, and Tinpatpun tests the release candidate on Nov 7 morning before visual polish (Nice), which is the first thing Cut if time runs short. These moves are proposals until VarisPah (the PM) and the members affected agree; T-34 also needs Tinpatpun to have a second Windows PC.
 
 **Game decisions** are handled by the PM (VarisPah) and the co-PM (Jaoguya); bring them to either. **Task management** (the task register and the schedule) is handled by purin-kan.
 
-**Help for bosthanapatw.** purin-kan helps bosthanapatw with the presentation: purin-kan is listed as support on the pitch script (T-26) and the slides (T-38), and knows the engine for the Algorithmic Implementation slides. purin-kan's own tasks fall on Oct 31, Nov 2, Nov 6 and Nov 8, with scaffold questions from the team in between, and Nov 6 has three tasks (T-30, T-31, T-32).
+**Help for bosthanapatw.** purin-kan helps bosthanapatw with the presentation: purin-kan is listed as support on the pitch script (T-26) and the slides (T-38), and knows the engine for the Algorithmic Implementation slides. purin-kan's own tasks fall on Oct 31, Nov 2, Nov 6 and Nov 8, with rolling integration on Nov 3 to 5 (part of T-30) and scaffold questions from the team in between. Nov 6 has two tasks (T-30, T-32).
 
 **bosthanapatw's early capacity.** bosthanapatw's work depends on the frozen rules and the built game, so it starts late: only the blockers list (Oct 31) and the presentation outline (Nov 2) come early, and the script, freeze, slides, video and rehearsal fall on Nov 5 to 8. From now to about Nov 4, bosthanapatw helps VarisPah with the audio: listed as support on T-07, T-15 and T-28. If time remains, the Nov 2 cut-outs (about 14 images, T-09 and T-10) are the next place to help, for the PM (VarisPah) to confirm.
 
 * **purin-kan (scaffold owner, task management):** Keeps the task register in step with this plan. Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
-* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, and a second tester on the built `.exe`.
+* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, and the re-test on Nov 7.
 * **Kanyakorn-goya (Art):** All art in one seat: cut-out soul, Polong, boat and shore sprites, destination backgrounds, memory placeholders, wraith transformation frames and art polish. Peak load is Nov 2 (14 cut-outs); a background-removal tool can speed this up, and the results still need a visual check.
-* **Tinpatpun (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (SupaOhm). Owns TitleScene with the single save, the developer tuning panel, scene text data and visual polish, and supports SupaOhm on the scene work.
-* **Jaoguya (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on purin-kan's scaffold. Shares scene architecture design with SupaOhm.
-* **SupaOhm (Gameplay Dev):** BoardingScene (drag-and-drop), CrossingScene (boat river crossing) and DeliveryScene, the three core-loop scenes. Integrates `engine.js` as the rules authority and owns tweens, visual effects and scene transitions.
-* **VarisPah (Audio, QA, & Game Balance; PM):** Receives team decisions and calls the Nov 6 hard freeze. BGM and SFX. Tests compiled `.exe` builds on secondary Windows PCs. Uses the developer tuning panel and `content.json` to calibrate animation timing and game balance variables, starting balance playtests on Nov 6 rather than Nov 7.
+* **Tinpatpun (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (SupaOhm). Owns TitleScene with the single save, the developer tuning panel and the tuning calibration that uses it, scene text data, release candidate testing on Nov 7 and visual polish, and supports SupaOhm on the scene work.
+* **Jaoguya (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on purin-kan's scaffold. Shares scene architecture design with SupaOhm. Runs the Nov 6 scope-cut triage: makes the call with VarisPah, has the `engine.js` edit made, and runs the two checks.
+* **SupaOhm (Gameplay Dev):** BoardingScene (drag-and-drop), CrossingScene (boat river crossing) and DeliveryScene, the three core-loop scenes. Integrates `engine.js` as the rules authority and owns tweens, visual effects and scene transitions.* **VarisPah (Audio, QA, & Game Balance; PM):** Receives team decisions and calls the Nov 6 hard freeze. BGM and SFX. Runs the early `.exe` test on a second Windows PC on Nov 2 and supports the later tests that Tinpatpun and bosthanapatw run. Uses `content.json` to set game balance variables, starting balance playtests on Nov 6 rather than Nov 7, and supports Tinpatpun on animation timing.
 
 ## 3. Master Project Schedule (Oct 30 - Nov 8)
 
@@ -67,6 +68,8 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 * **Art, audio and presentation have no code dependency** before the freeze beyond file naming, so bosthanapatw, Kanyakorn-goya and VarisPah can work from Oct 30.
 * **Before Scaffold A lands**, Tinpatpun, Jaoguya and SupaOhm write draft scene code against the engine API (`Ferry.transition`, the phases listed in Scene architecture design) and paste it into the stub files once the scaffold is pushed.
 * **Packaging is separate.** Scaffold B (packaged `.exe`, `.asar` and SmartScreen checks) runs alongside scene work and blocks nobody.
+* **Integration is rolling.** From Nov 3, purin-kan merges each scene pull request as it lands and reports breaks to its owner, so the Nov 6 integration check confirms a build that already runs instead of assembling one.
+* **Same-day hand-offs are time-boxed.** Where dependent tasks share a day (Nov 2, 6, 7 and 8), the register gives each one a slot: Nov 2 Scaffold B (morning), early `.exe` test (afternoon); Nov 6 integration check (morning), scope-cut triage and tuning (midday), freeze (afternoon), release candidate (end of day); Nov 7 `.exe` test (morning), fixes, balance values and polish merged (midday), re-test build and re-test (end of day); Nov 8 demo video alongside the final build (morning), rehearsal after. Work that misses its slot is Cut or waits; it does not push the next hand-off back.
 
 ### Phase 1: Scaffolding & Early Design (Oct 30 - Oct 31)
 
@@ -84,12 +87,12 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Scaffold B: packaged build | The preloader already exists from Scaffold A. Package a test `.exe` and verify asset pathing survives Electron's `.asar` packaging. Blocks nobody. | purin-kan |
+| Scaffold B: packaged build | Due Nov 2 morning, so the early `.exe` test can run that afternoon. The preloader already exists from Scaffold A. Package a test `.exe` and verify asset pathing survives Electron's `.asar` packaging. Blocks nobody. | purin-kan |
 | Core sprites delivery | Transparent cut-outs from existing art: Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted), Polong (`newpolong.jpg`, a JPG), boat and shore. Red Soldier, Blue Soldier, Messenger, Musician and Listener have no image mapped in `asset-map.js`; they stay letter-initial placeholders (as `ARTWORK_NOTES.md` says) unless the team approves new art. Kanyakorn-goya delivers all of these sprites. Push into the locked `assets/` folders. | Kanyakorn-goya |
 | TitleScene + save UI | Title screen with Continue and New game over a single save slot. New game accepts an optional seed, so the demo can use a fixed one. Rebuild the save logic from `app.js` (it is replaced, so it cannot be reused as is) on top of `Ferry.exportSave` / `importSave` validation, with a new namespace such as `the-ferryman:desktop:player:` and a QA launch flag or separate QA namespace (a packaged app has no URL for `?qa=`) so player saves are never touched by tests. No JSON export/import. Never read or write `the-ferryman:v0.7-trial:` or v0.6 keys. | Tinpatpun |
 | BoardingScene prototype | Render shore souls as interactive sprites. Implement Phaser drag-and-drop (`setInteractive({ draggable: true })`) with snap drop zones on boat seats. A drop dispatches `BOARD` (it toggles selection, so a second drag off the boat is also `BOARD`; there is no `unboard`); validate with the exported `Ferry.seats`, `capacity` and `actorSeats`; `DEPART` commits. Show the hero offer, Light and seat counters. | SupaOhm |
 | Developer tuning panel | Build an in-game debug/tuning overlay (e.g. using lil-gui, pinned) so Kanyakorn-goya and VarisPah can adjust boat travel duration, tween easing, animation speeds, drop-zone snap radii, and river paths. It must save to a committed presentation-only data file (proposed `assets/tuning.json`), separate from `content.json`, so tuned values reach the repo as data and gameplay balance is never mixed with animation timing. The engine never reads it. The empty `tuning.json` comes from Scaffold A. The panel saves from the dev build (`npm run dev`); a packaged `.exe` cannot write into its own files, so Kanyakorn-goya and VarisPah need the repo and Node set up to tune. | Tinpatpun |
-| Early `.exe` & SmartScreen test | VarisPah runs Scaffold B's test `.exe` on a second PC and checks Windows SmartScreen behavior and asset pathing. | VarisPah, purin-kan |
+| Early `.exe` & SmartScreen test | Afternoon. VarisPah runs Scaffold B's test `.exe` on a second PC and checks Windows SmartScreen behavior and asset pathing. | VarisPah, purin-kan |
 | Base BGM & SFX | Menu BGM loop. One crossing ambient track. Board and unboard click SFX. Push to `/assets/audio/`. | VarisPah |
 | Memory UI overlay | Functional version with placeholder art. Hand display (up to `config.handLimit`, 3). Play-before-crossing flow via `Ferry.memoryTargets`. `DISCARD_MEMORY` prompt in the `trim` phase. SupaOhm plugs it into CrossingScene in Phase 3. | Jaoguya |
 | GameOverScene | Display run summary from state (`cycle`, `completed`, `deliveries`, quest statuses, `ending`). The game is endless, so there is no win screen. Offer restart. | Jaoguya |
@@ -102,9 +105,9 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 | CrossingScene | Memory window (`PLAY_MEMORY`, `MEAL`, `PURIFY`), `START_CROSSING` to reveal the two engine-drawn route options, `PLAN` / `CONFIRM` / `BACK` review, then `CROSS`. Animate the boat along a path (Phaser PathFollower or tweens) between departure shore and destination. Show the fog calculation from `Ferry.routeView` / `preview` (tileSprite or alpha tweens). Visualize Light loss. Route display comes from Jaoguya's route UI task and the memory overlay from Phase 2. | SupaOhm |
 | DeliveryScene | Destination arrival. Show matching-wish feedback from `Ferry.deliveryReason`. `DELIVER` via engine. Animate soul departure. Show memory reward. Handle `choice` phase (hero and memory-theft choices) as an overlay. | SupaOhm |
 | ReturnScene | `RETURN` with an empty boat: shore anger resolution, wraith conversion, Light restoration, shore refill. Transition to next cycle's `BoardingScene`. | Jaoguya |
-| Tuning & pacing calibration | Kanyakorn-goya, Tinpatpun, and VarisPah use the developer tuning panel to adjust boat crossing speed, soul drag-snap feel, and wraith animation pacing. | Kanyakorn-goya, Tinpatpun, VarisPah |
+| Tuning & pacing calibration | Due Nov 6 midday, since it needs CrossingScene (due Nov 5); `tuning.json` is committed before the freeze so the release candidate carries it. Tinpatpun leads; Kanyakorn-goya and VarisPah join. Use the developer tuning panel to adjust boat crossing speed, soul drag-snap feel, and wraith animation pacing. | Tinpatpun, Kanyakorn-goya, VarisPah |
 | Destination & effect art | Destination backgrounds/cards: 6 of 7 locations exist (Haven, Styx, Acheron, Asphodel, Elysium, Tartarus); Heaven has none. Memory art: 6 of 15 memory types exist (Light, Foresight, Guard, Calm, Fog, Passage); the other 9 use placeholders unless the team approves new art. Kanyakorn-goya delivers backgrounds, memory placeholders and wraith transformation animation frames. | Kanyakorn-goya |
-| Route UI | No facilitator input is needed: v0.7 already draws routes in the engine (`startPairs`, random route draws). Implement only the fork display, review and Foresight preview, as a component SupaOhm uses in CrossingScene. | Jaoguya |
+| Route UI | Due Nov 4, so SupaOhm can integrate it into CrossingScene on Nov 5. No facilitator input is needed: v0.7 already draws routes in the engine (`startPairs`, random route draws). Implement only the fork display, review and Foresight preview, as a component SupaOhm uses in CrossingScene. | Jaoguya |
 | Pitch script draft | Write presentation script covering Description, Algorithmic Implementation and Demo play (see Submission Deliverables). Begin slide deck. Capture early gameplay footage for demo video. The group supplies the design decisions for the Algorithmic Implementation slides; bosthanapatw drafts them from the list in Submission Deliverables. | bosthanapatw |
 | Scene text | Collect button labels, help text and ending text for the scenes from `app.js` and `content.json` into a data file the scenes read. | Tinpatpun |
 | Crossing & delivery audio | Crossing ambient variants. Delivery success jingle. Wraith SFX. Fog ambiance. | VarisPah |
@@ -113,30 +116,30 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Hard freeze | No new mechanics, quest types or major art after this date. Balance values in `content.json` may still change on Nov 7. All scenes merged. Drug Dealer, Fool and Killer have no playable rules (`pendingSouls` in `content.json`); they stay out of play and are not given invented effects. | VarisPah (all contribute) |
-| Integration check | Full playthrough of the `.exe`: boot -> title -> boarding -> crossing -> delivery -> return -> multiple cycles -> game over. Confirm save/load. | purin-kan, VarisPah |
-| Scope-cut triage | There is no content flag to switch off hero encounters or Polong variants: they are rules inside `engine.js`. If hero encounters or advanced Polong variants are not stable, cut them and ship the core loop at minimum. Cutting them is an `engine.js` change plus reruns of `node tools/build-content.js` and `node tests/quest-check.js`, made before the Nov 6 freeze. | purin-kan, SupaOhm |
-| Release candidate build | Build the `.exe` after the freeze so VarisPah and bosthanapatw test a real build on Nov 7. | purin-kan |
+| Hard freeze | Afternoon. No new mechanics, quest types or major art after this date. Balance values in `content.json` may still change on Nov 7. All scenes merged. Drug Dealer, Fool and Killer have no playable rules (`pendingSouls` in `content.json`); they stay out of play and are not given invented effects. | VarisPah (all contribute) |
+| Integration check | Rolling from Nov 3 (see "Integration is rolling"); the Nov 6 morning step is a full playthrough of the `.exe`: boot -> title -> boarding -> crossing -> delivery -> return -> multiple cycles -> game over. Confirm save/load. | purin-kan, VarisPah |
+| Scope-cut triage | There is no content flag to switch off hero encounters or Polong variants: they are rules inside `engine.js`. If hero encounters or advanced Polong variants are not stable, cut them and ship the core loop at minimum. Cutting them is an `engine.js` change plus reruns of `node tools/build-content.js` and `node tests/quest-check.js`, made before the Nov 6 freeze. Cut candidates are flagged by Nov 5 from the rolling integration, so the midday decision is a confirmation. The two checks take under a second; the effort is the `engine.js` edit (hero and Polong code is spread across it) and any scenario in `quest-check.js` that the cut breaks. The co-PM (Jaoguya) runs it and VarisPah agrees to any cut; purin-kan rebuilds if `engine.js` changes. | Jaoguya, VarisPah, purin-kan |
+| Release candidate build | End of day. Build the `.exe` after the freeze so Tinpatpun and VarisPah test a real build on Nov 7. | purin-kan |
 | Balance playtests | Play the core loop from the integration build and log observations of Light, anger and fog in the status file. Propose `content.json` changes to the group; final adjustments follow on Nov 7. | VarisPah |
 
 ### Phase 5: QA, Balance & Polish (Nov 7)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| `.exe` testing | VarisPah, with bosthanapatw as second tester, tests the release candidate on a second Windows machine. Check SmartScreen warning, asset pathing, memory stability, save persistence. Record results in the status file; untested items stay `NOT_RUN`. | VarisPah, bosthanapatw |
-| Balance tuning | Final adjustments, building on the Nov 6 playtests. Adjust values in the desktop build's `content.json` (the chosen rules source): `config.startLight`, `returnLight`, `shoreAngerLimit`, `shipAngerLimit`, `spawnInterval`, `polongFogThreshold`, `polongFog`, and each destination's `fog`. The cycle 6 / 12 fog escalation is hard-coded at `engine.js` line 112 and is not tunable from `content.json`. After each edit run `node tools/build-content.js` and `node tests/quest-check.js`. Log each change and its reason; these are team-set values, not validated balance. | VarisPah |
-| Bug fixes | Address issues from VarisPah's test log. | Jaoguya, SupaOhm |
-| Visual polish | Scene transitions and screen shake first. Particle effects (fog, wraith transformation, Light glow) only once the bug list is empty. | Tinpatpun |
+| `.exe` testing | Morning. Tinpatpun, with VarisPah, tests the release candidate on a second Windows machine. Check SmartScreen warning, asset pathing, memory stability, save persistence. Record results in the status file; untested items stay `NOT_RUN`. | Tinpatpun, VarisPah |
+| Balance tuning | Values in by midday. Final adjustments, building on the Nov 6 playtests. Adjust values in the desktop build's `content.json` (the chosen rules source): `config.startLight`, `returnLight`, `shoreAngerLimit`, `shipAngerLimit`, `spawnInterval`, `polongFogThreshold`, `polongFog`, and each destination's `fog`. The cycle 6 / 12 fog escalation is hard-coded at `engine.js` line 112 and is not tunable from `content.json`. After each edit run `node tools/build-content.js` and `node tests/quest-check.js`. Log each change and its reason; these are team-set values, not validated balance. | VarisPah |
+| Bug fixes | Start on Nov 6 from the integration check findings, then add issues from the Nov 7 morning test log. Merged by midday. | Jaoguya, SupaOhm |
+| Visual polish | Merged by midday or Cut. Scene transitions and screen shake first. Particle effects (fog, wraith transformation, Light glow) only once the bug list is empty. | Tinpatpun |
 | Slides finalize | Final slide edits. | bosthanapatw |
-| Art polish | Touch up any placeholder sprites. Finalize UI elements. | Kanyakorn-goya |
-| Re-test after fixes | Test a build made after the Nov 7 bug fixes and balance values on a second Windows machine (the release candidate tested earlier does not contain them). purin-kan makes the build. Record results; untested items stay `NOT_RUN`. | bosthanapatw |
+| Art polish | Merged by midday or Cut. Touch up any placeholder sprites. Finalize UI elements. | Kanyakorn-goya |
+| Re-test after fixes | End of day. Test a build made after the Nov 7 midday merges (bug fixes, balance values and any polish) on a second Windows machine (the release candidate tested earlier does not contain them). purin-kan makes the build. Record results; untested items stay `NOT_RUN`. | bosthanapatw |
 
 ### Phase 6: Build, Export & Rehearsal (Nov 8)
 
 | Task | Description | Assigned |
 | --- | --- | --- |
-| Final `.exe` compile | Rebuild the release candidate with the Nov 7 fixes (a clean build), after the re-test passes. Optional polish tasks that are Cut no longer block this build. Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | purin-kan |
-| Demo video recording | Record the demo video from the final `.exe` with a fixed seed. | bosthanapatw, VarisPah |
+| Final `.exe` compile | A clean rebuild of the commit that passed the re-test, with no code changes, so the submitted build is the tested one. Polish not merged before the re-test build was Cut on Nov 7. Validate asset pathing, memory stability, no console errors. Write the short README (how to run and build). Collect the project files and the `.exe` for submission. The installer and any ZIP are not committed (see Package Size). | purin-kan |
+| Demo video recording | Morning, alongside the final compile. Record the demo video with a fixed seed from the build that passed the re-test; it has the same source as the final `.exe`, so the video does not wait for the final compile. | bosthanapatw, VarisPah |
 | Presentation rehearsal | Full team run-through of the presentation (Description, Algorithmic Implementation, Demo play) with the live demo and Q&A. | All |
 
 ## 4. Technical & Workflow Guidelines
