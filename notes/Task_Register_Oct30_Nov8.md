@@ -40,7 +40,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-15 | Base BGM and SFX | 2026-11-02 | VarisPah | bosthanapatw | T-07 | Game | Should | Not started | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
 | T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Hand display, play-before-crossing flow and discard prompt work against fixture states |
 | T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Run summary shown from state; restart works |
-| T-18 | Presentation outline | 2026-11-02 | bosthanapatw | | | Presentation | Must | Not started | Slide structure for Description, Algorithmic Implementation and Demo play; Description drafted from the generated `RULES.md`; README and credits note started |
+| T-18 | Presentation outline | 2026-11-02 | bosthanapatw | | | Presentation | Must | In progress | Slide structure for Description, Algorithmic Implementation and Demo play; Description drafted from the generated `RULES.md`; README and credits note started |
 
 ## Phase 3: Core Loop & Content
 

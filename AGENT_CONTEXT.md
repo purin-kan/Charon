@@ -1,5 +1,9 @@
 # The Ferryman / Charon: agent context
 
+## November 2, 2026: T-18 presentation outline drafted (bosthanapatw)
+
+`notes/T-18_Presentation_Outline.md` has 16 slides across Description (from `RULES.md` plus the issue 6 decisions, provisional until the Nov 6 freeze), Algorithmic Implementation (random systems by `engine.js` function name; AI logic not claimed) and Demo play. `outputs/The_Ferryman_Desktop_v0.8.1/CREDITS.md` started from the asset provenance notes, with the required CC-BY music credit; the desktop README links it. Open: presentation time limit, demo seed, recheck after T-45 merges.
+
 ## November 1, 2026: PRs merged, check runner, art ids, T-45 to purin-kan
 
 Merged on Nov 1: #10 (T-03 art pipeline, which also meets T-04's done-when: the test sprite rendered through the preloader in the dev window), #15 (T-27 scene text), #16 (T-11 TitleScene and save), #14 (T-12 BoardingScene), #17 (T-13 tuning panel), #13 (T-07 audio plan with the CC-BY placeholder `bgm-menu.ogg`, credit required), #7 (schedule rebalance, PM-approved; main merged into its branch to resolve conflicts) and #9 (T-45). `npm run check` now runs `tools/run-checks.mjs`, which runs every `tools/check-*.mjs`. `src/asset-names.js` maps engine ids to art-pipeline files (`SOUL-`/`CHAR-` to `sprite-`, `MEM-` to `memory-`, `DEST-` to `bg-`), checked by `tools/check-art.mjs` and live in the dev window with two v4 handoff images (not committed). The five Polong variants have no mapping to the `sprite-long-*` art until the team decides; they show emblems. BootScene audio ids follow T-07. purin-kan took T-45 on Nov 1 (bosthanapatw had not accepted and items 1 to 3 are needed Nov 2); bosthanapatw supports with the change note. Open: #18 (Jaoguya) conflicts with main.

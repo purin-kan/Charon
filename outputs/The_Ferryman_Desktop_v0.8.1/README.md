@@ -186,3 +186,7 @@ screen gets its headings from `scene-text.json` and its bodies from the `rules` 
    `package.json` change.
 
 Only the scaffold owner edits `scenes/index.js`, `package.json` and the lockfile; send a one-line request.
+
+## Credits
+
+Art, audio, font and software credits are collected in [CREDITS.md](CREDITS.md). The menu music is CC-BY 4.0: "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop.
