@@ -1,9 +1,207 @@
-import { StubScene } from './StubScene.js';
+import Phaser from 'phaser';
+import { Ferry } from '../ferry.js';
+import { addArt, queueAssets } from '../preloader.js';
+import { SLOT, TOKEN, boatZone, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
 
-// STUB: replace with the real scene (extend Phaser.Scene). Read state from this.registry.get('state'),
-// act through this.game.router.dispatch(action), call this.game.router.exitDone() when the exit animation ends.
-export class BoardingScene extends StubScene {
+const DRAG_START_PX = 6;
+const SNAP_MS = 160;
+const MESSAGE_MS = 2000;
+const EXIT_MS = 600;
+const EXIT_DISTANCE = 900;
+const FONT = 'sans-serif';
+
+export class BoardingScene extends Phaser.Scene {
   constructor() {
     super('BoardingScene');
+  }
+
+  get router() { return this.game.router; }
+
+  preload() {
+    queueAssets(this, { art: Ferry.data.souls.map((s) => s.id) });
+  }
+
+  create() {
+    const state = this.registry.get('state');
+    console.log(`[ferry] ${this.scene.key} shown (phase ${state?.phase ?? 'none'})`);
+    this.tokens = new Map();
+    this.entries = new Map();
+    this.boatParts = [];
+    this.tollMode = false;
+    this.leaving = false;
+
+    this.drawBoat(layoutBoarding(state, Ferry).slots);
+    this.drawHud();
+    this.render(state);
+
+    // Without a threshold a click counts as a drag that ends off the boat, which unboards the soul.
+    this.input.dragDistanceThreshold = DRAG_START_PX;
+    this.input.on('drag', (_pointer, token, x, y) => token.setPosition(x, y));
+    this.input.on('dragstart', (_pointer, token) => {
+      this.tweens.killTweensOf(token);
+      token.setDepth(2);
+    });
+    this.input.on('dragend', (_pointer, token, dropped) => {
+      token.setDepth(1);
+      const action = dropAction(this.entries.get(token.getData('id')), dropped);
+      if (action) this.act(action);
+      else this.render(this.registry.get('state'));
+    });
+    this.input.on('gameobjectdown', (_pointer, obj) => this.pickToll(obj));
+
+    this.onState = (s) => {
+      if (this.router.willLeave(this.scene.key)) this.startExit(s);
+      else this.render(s);
+    };
+    this.game.events.on('ferry-state', this.onState);
+    this.events.once('shutdown', () => this.game.events.off('ferry-state', this.onState));
+  }
+
+  drawBoat(slots) {
+    const hull = boatZone(slots);
+    this.boatParts.push(this.add.rectangle(hull.x, hull.y, hull.w, hull.h, 0x2a3b49));
+    this.add.zone(hull.x, hull.y, hull.w, hull.h).setRectangleDropZone(hull.w, hull.h);
+    for (const slot of slots) {
+      const seat = this.add.rectangle(slot.x, slot.y, slot.w, slot.h, 0x16232e).setStrokeStyle(2, 0x3d5566);
+      this.boatParts.push(seat);
+    }
+  }
+
+  drawHud() {
+    this.status = this.add.text(40, 24, '', { fontFamily: FONT, fontSize: '24px', color: '#e8f1f7' });
+    this.add.text(40, 68, 'Shore', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
+    this.add.text(640, 160, 'Boat', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
+    this.message = this.add.text(640, 610, '', { fontFamily: FONT, fontSize: '20px', color: '#e8c27f' }).setOrigin(0.5);
+    this.heroText = this.add.text(40, 650, '', { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' });
+    this.acceptBtn = this.button(560, 664, 'Accept', () => this.acceptHero());
+    this.declineBtn = this.button(680, 664, 'Decline', () => this.act({ type: 'DECLINE_HERO' }));
+    this.cancelBtn = this.button(560, 664, 'Cancel', () => this.setTollMode(false));
+    this.departBtn = this.button(1160, 664, 'Depart', () => this.act({ type: 'DEPART' }));
+  }
+
+  button(x, y, label, onPress) {
+    const style = { fontFamily: FONT, fontSize: '24px', color: '#0b1117', backgroundColor: '#7fa6c0', padding: { x: 12, y: 6 } };
+    const btn = this.add.text(x, y, label, style).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    btn.on('pointerdown', onPress);
+    return btn;
+  }
+
+  /** Applies an action. A rejected one changes nothing: tokens snap back and the engine's reason shows. */
+  act(action) {
+    const state = this.registry.get('state');
+    try {
+      Ferry.transition(state, action);
+    } catch (err) {
+      this.say(err.message);
+      this.render(state);
+      return false;
+    }
+    this.tollMode = false;
+    this.say('');
+    // Outside the try: dispatch emits ferry-state, and a render bug must not look like a rule error.
+    this.router.dispatch(action);
+    return true;
+  }
+
+  say(text) {
+    this.message.setText(text);
+    this.messageTimer?.remove();
+    this.messageTimer = this.time.delayedCall(MESSAGE_MS, () => this.message.setText(''));
+  }
+
+  syncHero(state) {
+    const hero = heroPrompt(state, Ferry);
+    if (!hero) this.tollMode = false;
+    const asks = hero ? `${hero.name} asks to board.` : '';
+    this.heroText.setText(this.tollMode ? 'Choose a shore soul as the toll.' : asks);
+    this.acceptBtn.setVisible(!!hero && !this.tollMode);
+    this.declineBtn.setVisible(!!hero && !this.tollMode);
+    this.cancelBtn.setVisible(this.tollMode);
+  }
+
+  setTollMode(on) {
+    this.tollMode = on;
+    this.render(this.registry.get('state'));
+  }
+
+  acceptHero() {
+    const hero = heroPrompt(this.registry.get('state'), Ferry);
+    if (hero?.needsToll) this.setTollMode(true);
+    else this.act({ type: 'ACCEPT_HERO' });
+  }
+
+  /** In toll mode, a click on any soul still on the shore pays the toll. */
+  pickToll(obj) {
+    if (!this.tollMode) return;
+    const entry = this.entries.get(obj.getData('id'));
+    if (entry?.draggable) this.act({ type: 'ACCEPT_HERO', target: entry.id });
+  }
+
+  /** The boat sails off with its passengers. Heracles' toll can end the run, which has no boat to sail. */
+  startExit(state) {
+    if (this.leaving) return;
+    this.leaving = true;
+    this.input.enabled = false;
+    if (state.phase !== 'window') {
+      this.router.exitDone();
+      return;
+    }
+    const seated = [...this.entries.values()].filter((e) => e.area === 'seat');
+    const tokens = seated.map((e) => this.tokens.get(e.id));
+    // A soul can still be gliding to its seat, and that tween would fight this one.
+    this.tweens.killTweensOf(tokens);
+    seated.forEach((e, i) => tokens[i].setPosition(e.x, e.y));
+    this.tweens.add({
+      targets: [...this.boatParts, ...tokens],
+      x: `+=${EXIT_DISTANCE}`,
+      duration: EXIT_MS,
+      ease: 'Cubic.In',
+      onComplete: () => this.router.exitDone(),
+    });
+  }
+
+  /** Brings the screen in line with the state. Tokens are keyed by actor id, so they glide. */
+  render(state) {
+    const { entries } = layoutBoarding(state, Ferry);
+    this.status.setText(statusLine(state, Ferry));
+    this.entries = new Map(entries.map((e) => [e.id, e]));
+    for (const [id, token] of this.tokens) {
+      if (this.entries.has(id)) continue;
+      token.destroy();
+      this.tokens.delete(id);
+    }
+    for (const entry of entries) {
+      const token = this.tokens.get(entry.id) ?? this.addToken(entry);
+      this.updateToken(token, entry);
+    }
+    this.syncHero(state);
+  }
+
+  addToken(entry) {
+    const { w, h } = TOKEN;
+    const panel = this.add.rectangle(0, 0, w, h, 0x1d2c38).setStrokeStyle(1, 0x7fa6c0);
+    const art = addArt(this, 0, -34, entry.actor.type, 64);
+    const small = { fontFamily: FONT, fontSize: '13px', color: '#cfe3f0', align: 'center', wordWrap: { width: w - 6 } };
+    const name = this.add.text(0, 16, '', small).setOrigin(0.5);
+    const wish = this.add.text(0, 40, '', small).setOrigin(0.5);
+    const anger = this.add.text(0, 58, '', small).setOrigin(0.5);
+    const token = this.add.container(entry.x, entry.y, [panel, art, name, wish, anger]);
+    // A container with no size is centred on (0, 0), so the hit area is too.
+    token.setInteractive(new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), Phaser.Geom.Rectangle.Contains);
+    token.setDepth(1);
+    token.setData({ id: entry.id, name, wish, anger });
+    this.tokens.set(entry.id, token);
+    return token;
+  }
+
+  updateToken(token, entry) {
+    this.input.setDraggable(token, entry.draggable && !this.tollMode);
+    token.setAlpha(entry.draggable ? 1 : 0.75);
+    const labels = tokenLabels(entry, Ferry);
+    token.getData('name').setText(labels.name);
+    token.getData('wish').setText(labels.wish);
+    token.getData('anger').setText(labels.anger);
+    this.tweens.killTweensOf(token);
+    this.tweens.add({ targets: token, x: entry.x, y: entry.y, duration: SNAP_MS, ease: 'Cubic.Out' });
   }
 }
