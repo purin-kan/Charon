@@ -54,7 +54,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Not started | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
 | T-25 | Wraith transformation frames | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Not started | Animation frames committed with naming convention |
 | T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
-| T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Not started | Button, help and ending text collected into a data file the scenes read |
+| T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Done | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | VarisPah | bosthanapatw | T-15 | Game | Should | Not started | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
 
 ## Phase 4: Feature & Asset Freeze
