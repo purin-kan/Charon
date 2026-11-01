@@ -16,12 +16,17 @@ const createWindow = () => {
     console.log(`[renderer] ${message}`);
   });
 
+  // FERRY_QA=<name> gives tests their own save (src/save.js reads ?qa=), also in a packaged app.
+  const qa = process.env.FERRY_QA;
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     // Dev only: FERRY_QUERY="?scene=DeliveryScene&fixture=delivery" opens one scene with a fixture.
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL + (process.env.FERRY_QUERY ?? ''));
+    const params = new URLSearchParams((process.env.FERRY_QUERY ?? '').replace(/^\?/, ''));
+    if (qa) params.set('qa', qa);
+    const search = params.toString();
+    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL + (search ? '?' + search : ''));
     if (process.env.FERRY_DEVTOOLS) mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`), qa ? { query: { qa } } : {});
   }
 };
 

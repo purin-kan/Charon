@@ -107,6 +107,28 @@ Drop files in; no manifest to edit:
 
 The id naming convention is decided in the art pipeline task. The code accepts any id.
 
+## Title screen and save
+
+`TitleScene` offers Continue and New game over one save slot (`src/save.js`). New game takes an
+optional seed: click the seed line, type digits, press Enter (blank means random). A fixed seed
+replays the same routes and encounters, for the demo video. Starting a new game over an existing
+save asks first.
+
+Saves are written after every state change once a run starts from the title screen, through
+`Ferry.exportSave`, and read back through `Ferry.importSave`, so the engine validates them. A save
+the engine rejects (for example after a rules version change) is reported as unreadable and is
+replaced by the next new game. Keys:
+
+| Save | localStorage key |
+| --- | --- |
+| Player | `the-ferryman:desktop:player:save` |
+| QA | `the-ferryman:desktop:qa:<name>:save` |
+
+v0.6 and v0.7-trial keys are never read or written. For tests, give the run its own save so the
+player's is never touched: `$env:FERRY_QA = 'smoke'` before `npm start` or before starting the
+packaged `.exe` (`src/main.js` adds `?qa=smoke` to the page address; a yellow badge shows it).
+The dev launcher skips the title screen and never saves, so fixtures cannot overwrite a save.
+
 ## Scene text
 
 Buttons, help and ending text live in `src/data/scene-text.json`, grouped by scene. In a scene:
