@@ -107,6 +107,21 @@ Drop files in; no manifest to edit:
 
 The id naming convention is decided in the art pipeline task. The code accepts any id.
 
+## Scene text
+
+Buttons, help and ending text live in `src/data/scene-text.json`, grouped by scene. In a scene:
+
+```js
+import { t } from '../text.js';
+this.add.text(x, y, t('delivery.heading', { place: 'Styx' })); // "Who disembarks at Styx?"
+```
+
+A missing key shows the key itself and warns once in the console; it never throws. Soul,
+destination, memory and quest names are not copied there: read them from `Ferry.data`. The help
+screen gets its headings from `scene-text.json` and its bodies from the `rules` section of
+`rules/content.json` (`helpSections(Ferry.data)`). `node tools/check-text.mjs` checks that every
+`t('...')` key used in `src/` exists.
+
 ## Add a scene
 
 1. Create `src/scenes/MyScene.js`: a class extending `Phaser.Scene`, constructor `super('MyScene')`.
