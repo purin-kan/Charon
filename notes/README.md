@@ -11,6 +11,7 @@ Discussion and decision history live here. The current rules authority is [`rule
 | [Task register Oct 30 - Nov 8](Task_Register_Oct30_Nov8.md) | Per-task owner, due date, dependencies and status, derived from the plan |
 | [Blockers resolved Oct 31](Blockers_Resolved_2026-10-31.md) | Team answers to the open blockers for T-43, pending PM and co-PM confirmation; not applied to the rules |
 | [Public entity catalog](Charon_Entity_Catalog_Public_2026-10-31.xlsx) | Text-only spreadsheet of souls, memories, locations and links, with the Oct 31 team answers and a change log |
+| [T-07 audio plan](T-07_AUDIO_PLAN.md) | Draft audio file rules, track list, sourcing and rights record for T-07; proposals, not team approval |
 
 The original collectiveThoughts.md referenced by the idea inventory is not present in this checkout. Preserve that provenance note; do not invent or recreate the missing source from the summary.
 
