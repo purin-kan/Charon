@@ -3,7 +3,7 @@
 // (Ferry.transition on a copy of the state) and the engine's own reason is shown when it refuses.
 // Shared by MemoryHand (BoardingScene, CrossingScene, ReturnScene) and TrimOverlay.
 
-// Wording follows the keys in Tinpatpun's src/data/scene-text.json (T-27, PR 17). Switch these to
+// Wording follows the keys in Tinpatpun's src/data/scene-text.json (T-27, PR 15). Switch these to
 // t('memory.play', ...) etc. once that file is on main.
 export const TEXT = {
   heading: 'Memories', // crossing.prepHeading is the panel title the host scene shows

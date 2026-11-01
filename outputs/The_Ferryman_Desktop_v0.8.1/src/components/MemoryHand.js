@@ -13,6 +13,7 @@ import { TEXT, memoryHand, playAction } from './memory-layout.js';
 
 const FONT = 'sans-serif';
 export const CARD = { w: 200, h: 230, gap: 20, lift: 16 };
+const BODY_LINES = 4;
 const COLOR = {
   card: 0x1d2c38, cardStroke: 0x7fa6c0, picked: 0x2c4a51, gold: 0xedc47f,
   name: '#e8f1f7', body: '#cfe3f0', muted: '#9fb6c6', goldText: '#edc47f', message: '#e8c27f',
@@ -27,19 +28,29 @@ export function drawCard(scene, x, y, card, look = {}) {
   const { w, h } = CARD;
   const panel = scene.add.rectangle(0, 0, w, h, look.picked ? COLOR.picked : COLOR.card)
     .setStrokeStyle(look.picked ? 2 : 1, look.picked ? COLOR.gold : COLOR.cardStroke);
+  const inner = w - 28;
+  // One line for the name: long names ("Full Fog Protection") shrink instead of wrapping into the art.
   const name = scene.add.text(-w / 2 + 14, -h / 2 + 12, card.name, {
-    fontFamily: FONT, fontSize: '22px', color: look.picked ? COLOR.goldText : COLOR.name, wordWrap: { width: w - 28 },
+    fontFamily: FONT, fontSize: '22px', color: look.picked ? COLOR.goldText : COLOR.name,
   });
-  const art = addArt(scene, 0, -h / 2 + 82, card.type, 56);
-  const body = scene.add.text(-w / 2 + 14, -h / 2 + 118, card.text, {
-    fontFamily: FONT, fontSize: '14px', color: COLOR.body, wordWrap: { width: w - 28 }, lineSpacing: 2,
+  for (let size = 20; name.width > inner && size >= 14; size -= 2) name.setFontSize(size);
+  const art = addArt(scene, 0, -h / 2 + 76, card.type, 56);
+  // Four lines of rule text at most; longer texts end with an ellipsis (full text in rules/content.json).
+  const body = scene.add.text(-w / 2 + 14, -h / 2 + 112, '', {
+    fontFamily: FONT, fontSize: '14px', color: COLOR.body, wordWrap: { width: inner }, lineSpacing: 2,
   });
-  // Long engine texts are cut to the card; the full text stays in rules/content.json.
-  body.setCrop(0, 0, w - 28, 72);
+  const lines = body.getWrappedText(card.text);
+  if (lines.length > BODY_LINES) {
+    lines.length = BODY_LINES;
+    // Drop the last word for room, and any punctuation left before the ellipsis ("PoLong.…").
+    lines[BODY_LINES - 1] = lines[BODY_LINES - 1].replace(/\s*\S*\s*$/, '').replace(/[\s.,;:]+$/, '') + '…';
+  }
+  body.setText(lines);
+  // The footer grows upwards from the bottom edge, so a two-line prompt stays inside the card.
   const footerText = look.footer ?? TEXT.from(card.source);
-  const footer = scene.add.text(-w / 2 + 14, h / 2 - 28, footerText, {
-    fontFamily: FONT, fontSize: '14px', color: look.picked ? COLOR.goldText : COLOR.muted, wordWrap: { width: w - 28 },
-  });
+  const footer = scene.add.text(-w / 2 + 14, h / 2 - 10, footerText, {
+    fontFamily: FONT, fontSize: '14px', color: look.picked ? COLOR.goldText : COLOR.muted, wordWrap: { width: inner },
+  }).setOrigin(0, 1);
   const box = scene.add.container(x, y, [panel, name, art, body, footer]);
   box.setSize(w, h);
   box.setAlpha(look.dim ? 0.5 : 1);
@@ -112,7 +123,7 @@ export class MemoryHand {
     if (!card.needsTarget) return this.play(playAction(card));
     this.picked = card;
     this.onTargets(card.targets);
-    this.say(TEXT.chooseTarget(card.name), false);
+    this.say('', false); // the picked card itself shows "Choose a target for ..."
     this.render(this.router.state);
   }
 
