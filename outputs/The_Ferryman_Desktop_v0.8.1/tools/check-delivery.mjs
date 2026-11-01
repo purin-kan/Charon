@@ -68,6 +68,9 @@ const deckSpot = riderSpots.find((e) => e.span === 0);
 check('a deck spot is the boat', dropArea(deckSpot.x, deckSpot.y, slots) === 'boat');
 check('the gap between hull and deck is the boat', dropArea(slots[0].x, hull.y + hull.h / 2 + 4, slots) === 'boat');
 check('water past the deck is nothing', dropArea(slots[0].x, 620, slots) === null);
+const crowd = structuredClone(none);
+crowd.boat = Array.from({ length: 6 }, (_, i) => ({ ...none.boat[0], id: `ACTOR-${90 + i}`, type: 'SOUL-POLONG' }));
+check('every deck soul can drop back on its own spot', layoutDelivery(crowd, [], Ferry).entries.every((e) => dropArea(e.x, e.y, slots) === 'boat'));
 
 // Marking.
 const before = JSON.stringify(match);
@@ -125,11 +128,23 @@ check('a run that stops partway only departs who left', arrivalOutcome(match, st
 check('an ordinary delivery loses nothing', outcome.lost.length === 0 && outcome.stolenRewards === 0);
 check('an ordinary delivery has no loss lines', lossLines(outcome, t).length === 0);
 const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
-const robbed = arrivalOutcome({ hand: held, nextMemory: '3' }, { boat: [], hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, [], Ferry);
+const robbed = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, [], Ferry);
 check('a theft of a held memory is reported', robbed.lost.length === 1 && robbed.lost[0].id === 'MEMORY-2' && robbed.stolenRewards === 0 && robbed.rewards.length === 1);
 check('the theft names the memory', lossLines(robbed, t)[0] === 'Po Luem took Fog Shield.');
-const snatched = arrivalOutcome({ hand: held, nextMemory: '3' }, { boat: [], hand: held, nextMemory: '4' }, [], Ferry);
+const snatched = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: held, nextMemory: '4' }, [], Ferry);
 check('a theft of the new reward is reported', snatched.rewards.length === 0 && snatched.stolenRewards === 1 && lossLines(snatched, t).length === 1);
+const angry = structuredClone(none);
+angry.boat[0].anger = 3;
+const wraithName = entryOf(layoutDelivery(angry, [], Ferry), angry.boat[0].id).labels.name;
+const expired = arrivalOutcome(angry, Ferry.transition(angry, deliverAction([])), [], Ferry);
+check('a Wraith is named', expired.wraiths.length === 1 && expired.wraiths[0] === wraithName);
+check('the Light it cost is reported', expired.lightLost > 0 && expired.lightLost === angry.light - Ferry.transition(angry, deliverAction([])).light);
+check('the Wraith reads as lines', lossLines(expired, t).join(' ') === `${wraithName} became a Wraith. Lost ${expired.lightLost} Light.`);
+const lethal = structuredClone(angry);
+lethal.light = 1;
+const lethalNext = Ferry.transition(lethal, deliverAction([]));
+const lethalOutcome = arrivalOutcome(lethal, lethalNext, [], Ferry);
+check('a lethal Wraith is named too', lethalNext.phase === 'ended' && lethalOutcome.wraiths[0] === wraithName && lethalOutcome.lightLost === 1);
 const rowOfFive = rewardSpots(5);
 check('five rewards fit the screen', rowOfFive[0].x > 0 && rowOfFive[4].x < 1280);
 

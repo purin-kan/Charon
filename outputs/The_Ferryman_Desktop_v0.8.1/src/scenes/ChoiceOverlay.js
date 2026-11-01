@@ -71,7 +71,7 @@ export class ChoiceOverlay extends Phaser.Scene {
       const { x, y, w } = spots[i];
       const name = this.add.text(x, y, row.name, { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' });
       const body = this.add.text(x, y + 26, row.text, {
-        fontFamily: FONT, fontSize: '14px', color: '#cfe3f0', wordWrap: { width: w - 270 },
+        fontFamily: FONT, fontSize: '14px', color: '#cfe3f0', wordWrap: { width: w - 270 }, maxLines: 3,
       });
       this.parts.push(name, body, this.button(x + w - 130, y + 26, row.label, row.action));
     });

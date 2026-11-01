@@ -2,13 +2,13 @@
 // DELIVER takes every chosen soul at once and each is checked after the one before, so eligibility
 // comes from test-running the whole list, not from deliveryReason on the current state.
 // Text comes in as t: src/text.js imports JSON, so a Node tool could not load this file otherwise.
-import { SLOT, TOKEN, boatZone, layoutBoarding, tokenLabels } from './boarding-layout.js';
+import { SLOT, TOKEN, boatZone, destinationName, layoutBoarding, soulName, tokenLabels } from './boarding-layout.js';
 
 export const DOCK = { x: 300, y: 345, w: 520, h: 430 };
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
 const DOCK_SPOT = { x: 130, y: 240, cellW: 130, cellH: 150, cols: 3 }; // the first row clears the Dock label
-const DECK = { y: 470, width: 448 }; // souls with no seat ride here
+const DECK = { y: 470, width: 336 }; // souls with no seat ride here, inside the width of a four-seat hull
 const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, perCol: 5 };
 
 const dockSpot = (i) => ({
@@ -87,10 +87,7 @@ export function applyDrop(state, marked, entry, area, Ferry) {
   return { marked, reason: null };
 }
 
-export function headingText(state, Ferry, t) {
-  const place = Ferry.data.destinations.find((d) => d.id === state.destination)?.name ?? '?';
-  return t('delivery.heading', { place });
-}
+export const headingText = (state, Ferry, t) => t('delivery.heading', { place: destinationName(state.destination, Ferry) });
 
 export const introText = (state, t) => t(state.boat.length ? 'delivery.intro' : 'delivery.emptyBoat');
 
@@ -106,6 +103,7 @@ const memoryView = (m, Ferry) => {
 
 /**
  * What to play before dispatching. A lethal DELIVER stops partway, so departed can be shorter than marked.
+ * Passengers who stay can turn into Wraiths inside DELIVER. A lethal one ends the run before leaving the boat.
  * A Po Luem at level 3 steals inside DELIVER with no choice to show, from any memory, even one just received.
  */
 export function arrivalOutcome(state, next, marked, Ferry) {
@@ -113,15 +111,23 @@ export function arrivalOutcome(state, next, marked, Ferry) {
   const held = new Set(state.hand.map((m) => m.id));
   const kept = new Set(next.hand.map((m) => m.id));
   const rewards = next.hand.filter((m) => !held.has(m.id)).map((m) => memoryView(m, Ferry));
+  const expired = [
+    ...state.boat.filter((x) => !aboard.has(x.id) && !marked.includes(x.id)),
+    ...next.boat.filter((x) => x.anger >= Ferry.data.config.shipAngerLimit),
+  ];
   return {
     departed: marked.filter((id) => !aboard.has(id)),
     rewards,
+    wraiths: expired.map((x) => soulName(x.type, Ferry)),
+    lightLost: Math.max(0, state.light - next.light),
     lost: state.hand.filter((m) => !kept.has(m.id)).map((m) => memoryView(m, Ferry)),
     stolenRewards: Number(next.nextMemory) - Number(state.nextMemory) - rewards.length,
   };
 }
 
-export const lossLines = ({ lost, stolenRewards }, t) => [
+export const lossLines = ({ wraiths, lightLost, lost, stolenRewards }, t) => [
+  ...wraiths.map((name) => t('delivery.wraith', { name })),
+  ...(lightLost ? [t('delivery.lightLost', { amount: lightLost })] : []),
   ...lost.map(({ name }) => t('delivery.lost', { name })),
   ...Array.from({ length: stolenRewards }, () => t('delivery.lostReward')),
 ];

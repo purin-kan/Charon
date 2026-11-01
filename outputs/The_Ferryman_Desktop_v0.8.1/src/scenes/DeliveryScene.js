@@ -58,10 +58,11 @@ export class DeliveryScene extends Phaser.Scene {
       this.drop(token, dropArea(pointer.worldX, pointer.worldY, this.slots));
     });
 
-    // A trim or choice overlay can open after DELIVER. It closes on a state this handler then leaves from.
+    // A trim or choice overlay can open after DELIVER, over this scene, so the board stays current
+    // behind it. The overlay closes on a state this handler then leaves from.
     this.onState = (s) => {
       if (this.router.willLeave(this.scene.key)) this.router.exitDone();
-      else if (s.phase === 'delivery') this.render(s);
+      else this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
     this.events.once('shutdown', () => this.game.events.off('ferry-state', this.onState));
@@ -153,8 +154,9 @@ export class DeliveryScene extends Phaser.Scene {
     if (rewards.length) {
       parts.push(this.add.text(640, REWARD.y - 120, t('delivery.received'), { fontFamily: FONT, fontSize: '26px', color: '#edc47f' }).setOrigin(0.5).setDepth(4));
     }
+    const lossTop = rewards.length ? REWARD.y + 110 : REWARD.y - 14 * (losses.length - 1);
     losses.forEach((line, i) => {
-      parts.push(this.add.text(640, REWARD.y + 110 + i * 28, line, { fontFamily: FONT, fontSize: '20px', color: '#ff9f8a' }).setOrigin(0.5).setDepth(4));
+      parts.push(this.add.text(640, lossTop + i * 28, line, { fontFamily: FONT, fontSize: '20px', color: '#ff9f8a' }).setOrigin(0.5).setDepth(4));
     });
     rewards.forEach((memory, i) => {
       const { x, y } = spots[i];
@@ -173,7 +175,8 @@ export class DeliveryScene extends Phaser.Scene {
       done();
     };
     this.time.delayedCall(tune('delivery.rewardMs'), finish);
-    this.input.once('pointerdown', finish);
+    // Armed a frame later: with nobody departing this runs inside the confirm click, which would skip it.
+    this.time.delayedCall(0, () => this.input.once('pointerdown', finish));
   }
 
   /** Brings the screen in line with the state and the marked list. */
@@ -183,6 +186,11 @@ export class DeliveryScene extends Phaser.Scene {
     this.intro.setText(introText(state, t));
     this.confirmBtn.setText(confirmLabel(state, this.marked, t));
     this.entries = new Map(entries.map((e) => [e.id, e]));
+    for (const [id, token] of this.tokens) {
+      if (this.entries.has(id)) continue;
+      token.destroy();
+      this.tokens.delete(id);
+    }
     for (const entry of entries) {
       const token = this.tokens.get(entry.id) ?? this.addToken(entry);
       this.updateToken(token, entry);

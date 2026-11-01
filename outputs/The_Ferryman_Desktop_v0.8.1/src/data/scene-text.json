@@ -106,6 +106,8 @@
     "finishRound": "Finish round",
     "dock": "Dock",
     "received": "Received",
+    "wraith": "{name} became a Wraith.",
+    "lightLost": "Lost {amount} Light.",
     "lost": "Po Luem took {name}.",
     "lostReward": "Po Luem took a memory you had just received."
   },
