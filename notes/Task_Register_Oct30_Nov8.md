@@ -33,7 +33,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-08 | Scaffold B: packaged build | 2026-11-02 | purin-kan | | T-05 | .exe | Must | Done | A test `.exe` runs and loads assets from the `.asar` package |
 | T-09 | Soul sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | Not started | Cut-outs for Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted) committed; the other five ordinary souls stay letter placeholders unless art is approved |
 | T-10 | Polong, boat and shore sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | Not started | Cut-outs for Polong, boat and shore committed |
-| T-11 | TitleScene, single save and optional seed | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Must | Not started | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
+| T-11 | TitleScene, single save and optional seed | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Must | Done | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
 | T-12 | BoardingScene | 2026-11-02 | SupaOhm | | T-05 | Game | Must | Not started | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
 | T-13 | Developer tuning panel | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Should | Not started | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
 | T-14 | Early `.exe` and SmartScreen test | 2026-11-02 | VarisPah | purin-kan | T-08 | .exe | Must | Not started | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
