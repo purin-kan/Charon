@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3`.
+Generated from content.json. SHA-256: `55f1026ee08d5bc4b2d4af7bc671eac882c5030d86938369f8480e1900f153fe`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -16,31 +16,31 @@ Arrival pool: Poet, Keeper, Red Soldier, Blue Soldier, Messenger, Bard, Listener
 
 ## Active baseline souls
 
-| ID | Name | Seats | Wish | Memory |
-|---|---|---:|---|---|
-| SOUL-MOTHER | Mother | 1 | Tartarus | Light |
-| SOUL-CHILD | Child | 1 | Heaven | None |
-| SOUL-MERCHANT | Merchant | 1 | River Styx | Foresight |
-| SOUL-POET | Poet | 1 | Elysium | Foresight |
-| SOUL-COOK | Cook | 1 | Asphodel | Calm |
-| SOUL-MASON | Mason | 1 | Acheron | Fog Shield |
-| SOUL-KEEPER | Keeper | 1 | Asphodel | Fog Shield |
-| SOUL-POLONG | PoLong | 0 | Tartarus | None |
-| SOUL-RED-SOLDIER | Red Soldier | 1 | River Styx | Full Fog Protection |
-| SOUL-BLUE-SOLDIER | Blue Soldier | 1 | River Styx | Full Fog Protection |
-| SOUL-MESSENGER | Messenger | 1 | River Styx | Foresight |
-| SOUL-MUSICIAN | Bard | 1 | Elysium | Calm |
-| SOUL-LISTENER | Listener | 1 | Elysium | None |
-| SOUL-FARMER | Farmer | 1 | Asphodel | Shared Harvest |
-| SOUL-BLACKSMITH | Blacksmith | 1 | Heaven | None |
-| SOUL-PRIEST | Priest | 1 | Heaven | Last Prayer |
-| SOUL-PO-LUEM | Po Luem | 0 | Asphodel | None |
-| SOUL-PO-NAK | Po Nak | 0 | Acheron | None |
-| SOUL-PO-MUED | Po Mued | 0 | River Styx | None |
-| SOUL-PO-DUE | Po Due | 0 | Haven | None |
-| SOUL-HERACLES | Hercules the traveler | 1 | Haven | None |
-| SOUL-ODYSSEUS | Odysseus the traveler | 1 | Haven | None |
-| CHAR-CERBERUS | Cerberus | 1 | Haven | None |
+| ID | Name | Personal name | Seats | Wish | Memory |
+|---|---|---|---:|---|---|
+| SOUL-MOTHER | Mother | Penelope | 1 | Tartarus | Light |
+| SOUL-CHILD | Child | Theo | 1 | Haven | None |
+| SOUL-MERCHANT | Merchant | Hermon | 1 | River Styx | Foresight |
+| SOUL-POET | Poet | Sappho | 1 | Elysium | Foresight |
+| SOUL-COOK | Cook | Sikon | 1 | Asphodel | Calm |
+| SOUL-MASON | Mason | Petros | 1 | Acheron | Fog Shield |
+| SOUL-KEEPER | Keeper | Hero | 1 | Asphodel | Fog Shield |
+| SOUL-POLONG | PoLong |  | 0 | Tartarus | None |
+| SOUL-RED-SOLDIER | Red Soldier | Phoenix | 1 | River Styx | Full Fog Protection |
+| SOUL-BLUE-SOLDIER | Blue Soldier | Glaukos | 1 | River Styx | Full Fog Protection |
+| SOUL-MESSENGER | Messenger | Nikos | 1 | River Styx | Foresight |
+| SOUL-MUSICIAN | Bard | Homer | 1 | Elysium | Calm |
+| SOUL-LISTENER | Listener | Echo | 1 | Elysium | None |
+| SOUL-FARMER | Farmer | Georgios | 1 | Asphodel | Shared Harvest |
+| SOUL-BLACKSMITH | Blacksmith | Chalkon | 1 | Acheron | None |
+| SOUL-PRIEST | Priest | Elias | 1 | Haven | Last Prayer |
+| SOUL-PO-LUEM | Po Luem |  | 0 | Asphodel | None |
+| SOUL-PO-NAK | Po Nak |  | 0 | Acheron | None |
+| SOUL-PO-MUED | Po Mued |  | 0 | River Styx | None |
+| SOUL-PO-DUE | Po Due |  | 0 | Haven | None |
+| SOUL-HERACLES | Hercules the traveler |  | 1 | Haven | None |
+| SOUL-ODYSSEUS | Odysseus the traveler |  | 1 | Haven | None |
+| CHAR-CERBERUS | Cerberus |  | 1 | Haven | None |
 
 ## scope
 
@@ -64,7 +64,7 @@ All eight quests are active. Pair attempts bind to characters that depart togeth
 
 ## routes
 
-All seven destinations are open for this trial. Heaven is separate, with base fog 2. Hero wishes draw from the six older destinations. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
+All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
 
 ## polongs
 
@@ -106,7 +106,7 @@ Fog protection does not prevent Wraith or toll damage. Original Po Long delivere
 2. Approach the fork: advance the outward round and board a scheduled Polong unless Moly suppresses it. Its level/effects apply immediately.
 3. Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.
 4. Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.
-5. Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls. Blacksmith protects Merchant from Anger increases.
+5. Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls.
 6. Resolve Wraith damage, removals and eligible spread. Po Luem takes memories; choose excess memories to discard to three.
 7. Begin the next memory window, or return if the boat is empty.
 

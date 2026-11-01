@@ -28,24 +28,26 @@ function memory(s,type,character){
 }
 const quest=(s,id)=>s.quests.find(q=>q.definitionId===id&&q.status==='active')||s.quests.find(q=>q.definitionId===id);
 
-check('Included roster, explicit TBA entries, separate Heaven and all quest definitions',()=>{
- const s=g.create(42);assert.equal(g.data.destinations.length,7);assert.equal(g.data.destinations.find(d=>d.id==='DEST-HEAVEN').fog,2);
+check('Included roster, explicit TBA entries, six destinations without Heaven and all quest definitions',()=>{
+ const s=g.create(42);assert.equal(g.data.destinations.length,6);assert.ok(!g.data.destinations.some(d=>d.id==='DEST-HEAVEN'));
+ assert.ok(g.data.souls.every(x=>g.data.destinations.some(d=>d.id===x.wish)));assert.equal(def('SOUL-PRIEST').wish,'DEST-HAVEN');assert.equal(def('SOUL-CHILD').wish,'DEST-HAVEN');
+ assert.equal(g.data.souls.filter(x=>x.name==='Bard').length,1);assert.equal(def('SOUL-MUSICIAN').memory,'MEM-CALM');assert.ok(g.data.souls.filter(x=>x.ordinary).every(x=>x.personalName));
  assert.equal(g.data.quests.length,8);assert.equal(g.data.souls.filter(x=>x.ordinary).length,15);
  for(const id of ['SOUL-SOLDIER','SOUL-DRUG-DEALER','SOUL-FOOL','SOUL-KILLER','SOUL-TAGRID','SOUL-POZEUS'])assert.ok(!g.data.souls.some(x=>x.id===id));
  assert.ok(g.data.souls.some(x=>x.id==='SOUL-PO-NAK'));
  assert.deepEqual(g.data.pendingSouls.map(x=>x.id),['SOUL-DRUG-DEALER','SOUL-FOOL','SOUL-KILLER']);
  assert.ok(g.data.pendingSouls.every(x=>x.wish===null&&x.memory===null&&x.ability===null));rt(s);
 });
-check('Family binds same departure, respects new Heaven/order, grants distinct rewards',()=>{
+check('Family binds same departure, respects Haven/order, grants distinct rewards',()=>{
  let s=boat(['SOUL-MOTHER','SOUL-CHILD']);const ids=s.boat.map(x=>x.id);
- s=step(s,'DEST-HEAVEN',['SOUL-CHILD']);assert.equal(quest(s,'QUEST-FAMILY').stage,'child-delivered');
+ s=step(s,'DEST-HAVEN',['SOUL-CHILD']);assert.equal(quest(s,'QUEST-FAMILY').stage,'child-delivered');
  s=step(s,'DEST-TARTARUS',['SOUL-MOTHER']);assert.equal(quest(s,'QUEST-FAMILY').status,'completed');
  assert.deepEqual(s.hand.map(m=>m.type),['MEM-PASSAGE','MEM-LIGHT']);assert.deepEqual(quest(s,'QUEST-FAMILY').participants,ids);rt(s);
  let reversed=boat(['SOUL-MOTHER','SOUL-CHILD']);reversed=step(reversed,'DEST-TARTARUS',['SOUL-MOTHER']);assert.equal(quest(reversed,'QUEST-FAMILY').status,'failed');
  assert.ok(!boat(['SOUL-CHILD']).quests.some(q=>q.definitionId==='QUEST-FAMILY'));
 });
 check('Fresh returned character instances start a new quest without reusing rewards',()=>{
- let s=boat(['SOUL-MOTHER','SOUL-CHILD']);s=step(s,'DEST-HEAVEN',['SOUL-CHILD']);s=step(s,'DEST-TARTARUS',['SOUL-MOTHER']);const old=quest(s,'QUEST-FAMILY');s=act(s,'RETURN');
+ let s=boat(['SOUL-MOTHER','SOUL-CHILD']);s=step(s,'DEST-HAVEN',['SOUL-CHILD']);s=step(s,'DEST-TARTARUS',['SOUL-MOTHER']);const old=quest(s,'QUEST-FAMILY');s=act(s,'RETURN');
  // Fixture advances these resolved roster origins to the next arrival, preserving conservation.
  for(const type of ['SOUL-MOTHER','SOUL-CHILD']){s.shore=s.shore.filter(x=>x.origin!==type);s.arrivals=s.arrivals.filter(id=>id!==type);s.discard=s.discard.filter(id=>id!==type);s.shore.push(actor(s,type));}
  for(const type of ['SOUL-MOTHER','SOUL-CHILD'])s=act(s,'BOARD',{id:find(s,type).id});s=act(s,'DEPART');
@@ -67,10 +69,12 @@ check('Meal is once per shared boarding, includes Cook reduction and can expire 
  const q=quest(s,'QUEST-MEAL');s=act(s,'MEAL',{questId:q.id});assert.equal(find(s,'SOUL-COOK').anger,3);assert.equal(find(s,'SOUL-FARMER').anger,1);assert.throws(()=>act(s,'MEAL',{questId:q.id}));
  let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=3;const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
 });
-check('Blacksmith protects Merchant Anger, enforces order and grants only one Sword',()=>{
- let s=boat(['SOUL-MERCHANT','SOUL-BLACKSMITH']);s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-MERCHANT').anger,0);assert.equal(find(s,'SOUL-BLACKSMITH').anger,1);
- assert.match(g.deliveryReason({...s,destination:'DEST-HEAVEN'},find(s,'SOUL-BLACKSMITH')),/Merchant/);
- s=step(s,'DEST-STYX',['SOUL-MERCHANT']);s=step(s,'DEST-HEAVEN',['SOUL-BLACKSMITH']);assert.equal(quest(s,'QUEST-SWORD').status,'completed');assert.equal(s.hand.filter(m=>m.type==='MEM-LAST-MASTERWORK').length,1);
+check('Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith',()=>{
+ let s=boat(['SOUL-MERCHANT','SOUL-BLACKSMITH']);s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-MERCHANT').anger,1);assert.equal(find(s,'SOUL-BLACKSMITH').anger,1);
+ assert.equal(g.deliveryReason({...s,destination:'DEST-ACHERON'},find(s,'SOUL-BLACKSMITH')),null);
+ s=step(s,'DEST-STYX',['SOUL-MERCHANT']);s=step(s,'DEST-ACHERON',['SOUL-BLACKSMITH']);assert.equal(quest(s,'QUEST-SWORD').status,'completed');assert.equal(s.hand.filter(m=>m.type==='MEM-LAST-MASTERWORK').length,1);rt(s);
+ let reversed=boat(['SOUL-MERCHANT','SOUL-BLACKSMITH']);reversed=step(reversed,'DEST-ACHERON',['SOUL-BLACKSMITH']);assert.equal(quest(reversed,'QUEST-SWORD').status,'failed');
+ reversed=step(reversed,'DEST-STYX',['SOUL-MERCHANT']);assert.ok(!reversed.hand.some(m=>m.type==='MEM-LAST-MASTERWORK'));
  let clash=shore(['SOUL-MERCHANT','SOUL-BLACKSMITH','SOUL-MASON']);for(const x of clash.shore)clash=act(clash,'BOARD',{id:x.id});assert.throws(()=>act(clash,'DEPART'),/both/);
 });
 check('Mason leaves last including Polongs; capacity can be used before boarding and expires',()=>{
@@ -85,16 +89,16 @@ check('Mason leaves last including Polongs; capacity can be used before boarding
 check('Priest +1 memory or purification trade-off, once per boarding and save/reload',()=>{
  let s=boat(['SOUL-PRIEST','SOUL-COOK']);const priest=find(s,'SOUL-PRIEST'),cook=find(s,'SOUL-COOK');cook.anger=3;
  s=act(s,'PURIFY',{actorId:priest.id,target:cook.id});assert.equal(find(s,'SOUL-COOK').anger,0);assert.equal(find(s,'SOUL-PRIEST').exhausted,true);rt(s);assert.throws(()=>act(s,'PURIFY',{actorId:priest.id,target:cook.id}));
- s=step(s,'DEST-HEAVEN',['SOUL-PRIEST']);assert.ok(!s.hand.some(m=>m.type==='MEM-LAST-PRAYER'));
- let normal=boat(['SOUL-PRIEST']);normal=step(normal,'DEST-HEAVEN',['SOUL-PRIEST']);normal.light=3;normal=act(normal,'PLAY_MEMORY',{id:normal.hand[0].id});assert.equal(normal.light,4);
+ s=step(s,'DEST-HAVEN',['SOUL-PRIEST']);assert.ok(!s.hand.some(m=>m.type==='MEM-LAST-PRAYER'));
+ let normal=boat(['SOUL-PRIEST']);normal=step(normal,'DEST-HAVEN',['SOUL-PRIEST']);normal.light=3;normal=act(normal,'PLAY_MEMORY',{id:normal.hand[0].id});assert.equal(normal.light,4);
 });
-check('Heracles toll, Cerberus encounter, second-stage wishes and Golden Apple stacking',()=>{
+check('Heracles toll, Cerberus encounter, shared second-stage wish and Golden Apple stacking',()=>{
  let s=shore(['SOUL-MOTHER','SOUL-CHILD','SOUL-MERCHANT','SOUL-COOK','SOUL-MASON']);s.heroOffer={type:'SOUL-HERACLES',resolved:false};
  const toll=s.shore[0].id;s=act(s,'ACCEPT_HERO',{target:toll});assert.equal(s.light,29);assert.ok(s.discard.includes('SOUL-MOTHER'));
  for(const x of s.shore.slice(0,3))s=act(s,'BOARD',{id:x.id});s=act(s,'DEPART');s.effects.moly=true;
  const first=find(s,'SOUL-HERACLES').wish;s=cross(s,first);assert.ok(find(s,'CHAR-CERBERUS'));assert.equal(s.boat.filter(x=>x.origin).length,1);
  assert.match(g.deliveryReason(s,find(s,'SOUL-HERACLES'),'passage'),/later/);s=act(s,'DELIVER',{ids:[]});
- for(const type of ['SOUL-HERACLES','CHAR-CERBERUS']){const x=find(s,type);s=step(s,x.wish,[type]);}
+ const wish=find(s,'SOUL-HERACLES').wish;assert.equal(find(s,'CHAR-CERBERUS').wish,wish);s=step(s,wish,['SOUL-HERACLES','CHAR-CERBERUS']);
  assert.equal(quest(s,'QUEST-HERACLES').status,'completed');const apple=s.hand.find(m=>m.type==='MEM-GOLDEN-APPLE');const old=s.maxLight;s=act(s,'PLAY_MEMORY',{id:apple.id});assert.equal(s.maxLight,old+1);assert.equal(s.light,s.maxLight);
  memory(s,'MEM-GOLDEN-APPLE');s=act(s,'PLAY_MEMORY',{id:s.hand.at(-1).id});assert.equal(s.maxLight,old+2);rt(s);
 });
@@ -127,7 +131,7 @@ check('Po Mued concealment hides route/cost through review, Foresight overrides 
  let visible=boat(['SOUL-MERCHANT']);polong(visible,'SOUL-PO-MUED',3);const id=memory(visible,'MEM-FORESIGHT','SOUL-MERCHANT');visible=act(visible,'PLAY_MEMORY',{id});visible=act(visible,'START_CROSSING');assert.equal(g.routeView(visible).length,3);assert.ok(g.routeView(visible).flat().every(x=>!x.hidden));
 });
 check('Po Due timing and Haven guarantee preserve already visible offers',()=>{
- let s=boat(['SOUL-COOK']);const due=polong(s,'SOUL-PO-DUE',3,1);s.routes.offers=[['DEST-STYX','DEST-ACHERON'],['DEST-HEAVEN','DEST-TARTARUS'],['DEST-ASPHODEL','DEST-ELYSIUM']];
+ let s=boat(['SOUL-COOK']);const due=polong(s,'SOUL-PO-DUE',3,1);s.routes.offers=[['DEST-STYX','DEST-ACHERON'],['DEST-ASPHODEL','DEST-TARTARUS'],['DEST-ASPHODEL','DEST-ELYSIUM']];
  assert.match(g.deliveryReason(s,due,'passage'),/Anger 2/);s=act(s,'START_CROSSING');assert.deepEqual(s.routes.offers[0],['DEST-STYX','DEST-ACHERON']);assert.ok(s.routes.offers[1].includes('DEST-HAVEN'));
  s=act(s,'CROSS',{option:0});s=act(s,'DELIVER',{ids:[]});assert.equal(find(s,'SOUL-PO-DUE').anger,2);const before=s.light;s=step(s,'DEST-HAVEN',['SOUL-PO-DUE']);assert.equal(s.light,before-1);
 });

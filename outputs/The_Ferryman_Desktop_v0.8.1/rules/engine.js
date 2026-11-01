@@ -60,7 +60,7 @@
       routes:{offers:[],masks:[],foresight:0,history:[]},nextPolong:null,heroOffer:null,destination:null,
       pending:null,choice:null,theftQueue:[],trimNext:null,ending:null,log:[]};
     s.shore=C.initialShore.map(type=>fresh(s,type));s.arrivals=shuffle(s,C.initialArrivals);s.nextPolong=drawPolong(s);deal(s);offerHero(s);
-    record(s,'All-quest trial begins. Heaven is a separate destination.');validate(s);return s;
+    record(s,'All-quest trial begins.');validate(s);return s;
   }
   function end(s,why) {s.phase='ended';s.ending=why;s.pending=null;s.choice=null;s.trimNext=null;s.theftQueue=[];record(s,why);}
   function damage(s,n,why) {
@@ -94,8 +94,7 @@
       if(actors.every(Boolean))newQuest(s,def.id,actors);
     }
   }
-  function protectedMerchant(s,x) {return x.type==='SOUL-MERCHANT'&&activeQuests(s).some(q=>q.definitionId==='QUEST-SWORD'&&q.participants.includes(x.id)&&participant(s,q,'SOUL-BLACKSMITH'));}
-  function anger(s,x,n) {if(n>0&&protectedMerchant(s,x)){record(s,'Blacksmith protects Merchant from '+n+' Anger.');return;}x.anger=Math.max(0,x.anger+n);}
+  function anger(s,x,n) {x.anger=Math.max(0,x.anger+n);}
   function expire(s) {
     for(const x of s.boat.slice()){
       if(x.anger<C.shipAngerLimit)continue;
@@ -135,7 +134,7 @@
     }
     deal(s);
   }
-  function randomWish(s) {const ids=eligibleDestinations(s).filter(id=>id!=='DEST-HEAVEN');return ids[draw(s,ids.length)];}
+  function randomWish(s) {const ids=eligibleDestinations(s);return ids[draw(s,ids.length)];}
   function acceptHero(s,target) {
     need(s.phase==='boarding'&&s.heroOffer&&!s.heroOffer.resolved,'No hero offer is available.');
     const type=s.heroOffer.type;
@@ -154,12 +153,12 @@
         const cerberus=fresh(s,'CHAR-CERBERUS',null);cerberus.boardingId=hero.boardingId;s.boat.push(cerberus);q.participants.push(cerberus.id);
         const frightened=shuffle(s,s.boat.filter(x=>x.origin&&!isTainted(x))).slice(0,2);
         for(const x of frightened)remove(s,x,'frightened by Cerberus');
-        hero.wish=randomWish(s);cerberus.wish=randomWish(s);q.stage='cerberus';q.data.battleRound=s.round;
-        record(s,'Cerberus boards. New wishes: Heracles → '+DEST[hero.wish].name+', Cerberus → '+DEST[cerberus.wish].name+'.');
+        hero.wish=randomWish(s);cerberus.wish=hero.wish;q.stage='cerberus';q.data.battleRound=s.round;
+        record(s,'Cerberus boards. Heracles and Cerberus now wish for '+DEST[hero.wish].name+'.');
       }
       if(q.definitionId==='QUEST-ODYSSEUS'&&q.stage==='active'){
         const hero=participant(s,q,'SOUL-ODYSSEUS');if(!hero||hero.wish!==s.destination)continue;
-        remove(s,hero,'delivery');q.delivered.push(hero.id);q.stage='tiresias';s.choice={kind:'odysseus',questId:q.id};s.phase='choice';record(s,'Tiresias offers Charybdis or Zilla.');return;
+        remove(s,hero,'delivery');q.delivered.push(hero.id);q.stage='tiresias';s.choice={kind:'odysseus',questId:q.id};s.phase='choice';record(s,'Tiresias offers Charybdis or Scylla.');return;
       }
     }
   }
@@ -174,10 +173,6 @@
     if(via==='normal'&&x.wish!==s.destination)return 'Wishes for '+DEST[x.wish].name+'.';
     if(x.type==='SOUL-PO-DUE'&&x.anger<2)return 'Po Due will not leave below Anger 2.';
     for(const q of activeQuests(s).filter(q=>q.participants.includes(x.id))){
-      if(q.definitionId==='QUEST-SWORD'&&x.type==='SOUL-BLACKSMITH'){
-        if(q.stage!=='merchant-delivered')return 'Deliver Merchant first.';
-        if(via==='normal'&&q.data.merchantRound===s.round)return 'Blacksmith leaves on a later crossing, or by Passenger.';
-      }
       if(q.definitionId==='QUEST-BOAT'&&x.type==='SOUL-MASON'&&(q.stage!=='merchant-delivered'||s.boat.length!==1))return 'Deliver Merchant first. Mason must be the last passenger.';
       if(q.definitionId==='QUEST-HERACLES'&&(q.stage!=='cerberus'||q.data.battleRound===s.round))return 'Complete the Cerberus encounter, then deliver on a later arrival.';
       if(q.definitionId==='QUEST-ODYSSEUS')return 'Odysseus disembarks through his Tiresias encounter.';
@@ -191,7 +186,9 @@
         if(x.type==='SOUL-CHILD')q.stage='child-delivered';
         else if(q.stage==='child-delivered')complete(s,q);else fail(s,q,'Mother delivered before Child');
       }else if(q.definitionId==='QUEST-SOLDIERS'&&q.delivered.length===2)complete(s,q);
-      else if(['QUEST-SWORD','QUEST-BOAT'].includes(q.definitionId)){
+      else if(q.definitionId==='QUEST-SWORD'){
+        if(x.type==='SOUL-MERCHANT')q.stage='merchant-delivered';else if(q.stage==='merchant-delivered')complete(s,q);else fail(s,q,'Blacksmith delivered before Merchant');
+      }else if(q.definitionId==='QUEST-BOAT'){
         if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}else complete(s,q);
       }else if(q.definitionId==='QUEST-HERACLES'&&q.delivered.length===2)complete(s,q);
       else if(['QUEST-LISTENER','QUEST-MEAL'].includes(q.definitionId))fail(s,q,'participant delivered before interaction');
@@ -234,14 +231,14 @@
     if(s.choice.kind==='memory-loss'){
       const m=s.hand.find(x=>x.id===action.id);need(m,'Choose a held memory to lose.');s.hand=s.hand.filter(x=>x.id!==m.id);record(s,'Po Luem takes '+MEM[m.type].name+'.');s.choice=null;thefts(s);return;
     }
-    need(['charybdis','zilla'].includes(action.branch),'Choose Charybdis or Zilla.');
+    need(['charybdis','zilla'].includes(action.branch),'Choose Charybdis or Scylla.');
     const q=s.quests.find(q=>q.id===s.choice.questId);s.choice=null;s.phase='delivery';
     if(action.branch==='charybdis'){
       if(s.hand.length){const i=draw(s,s.hand.length);record(s,'Charybdis takes '+MEM[s.hand[i].type].name+'.');s.hand.splice(i,1);}else record(s,'Charybdis finds no memory to take.');
       complete(s,q,'MEM-MOLY');
     }else{
       const candidates=s.boat.filter(x=>x.origin&&!isTainted(x));
-      if(candidates.length){const x=candidates[draw(s,candidates.length)];damage(s,1,'Zilla turns '+named(x)+' into a Wraith');remove(s,x,'Zilla Wraith');}else record(s,'Zilla finds no ordinary passenger.');
+      if(candidates.length){const x=candidates[draw(s,candidates.length)];damage(s,1,'Scylla turns '+named(x)+' into a Wraith');remove(s,x,'Scylla Wraith');}else record(s,'Scylla finds no ordinary passenger.');
       if(s.phase!=='ended')complete(s,q,'MEM-NOBODY');
     }
   }

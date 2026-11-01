@@ -22,7 +22,7 @@
       "id": "ACTOR-2",
       "type": "SOUL-CHILD",
       "origin": "SOUL-CHILD",
-      "wish": "DEST-HEAVEN",
+      "wish": "DEST-HAVEN",
       "anger": 0,
       "boardingId": null,
       "bornRound": "0",
@@ -129,7 +129,7 @@
         "DEST-HAVEN"
       ],
       [
-        "DEST-ACHERON",
+        "DEST-STYX",
         "DEST-HAVEN"
       ]
     ],
@@ -155,10 +155,10 @@
       },
       {
         "offer": [
-          "DEST-HEAVEN",
+          "DEST-TARTARUS",
           "DEST-STYX"
         ],
-        "chosen": "DEST-HEAVEN"
+        "chosen": "DEST-TARTARUS"
       }
     ]
   },
@@ -167,17 +167,17 @@
     "type": "SOUL-ODYSSEUS",
     "resolved": true
   },
-  "destination": "DEST-HEAVEN",
+  "destination": "DEST-TARTARUS",
   "pending": null,
   "choice": null,
   "theftQueue": [],
   "trimNext": null,
-  "ending": "The lantern went out: crossing to Heaven.",
+  "ending": "The lantern went out: crossing to Tartarus.",
   "log": [
     {
       "round": "0",
       "cycle": "1",
-      "text": "All-quest trial begins. Heaven is a separate destination."
+      "text": "All-quest trial begins."
     },
     {
       "round": "1",
@@ -197,12 +197,12 @@
     {
       "round": "3",
       "cycle": "1",
-      "text": "crossing to Heaven: 1 Light lost."
+      "text": "crossing to Tartarus: 1 Light lost."
     },
     {
       "round": "3",
       "cycle": "1",
-      "text": "The lantern went out: crossing to Heaven."
+      "text": "The lantern went out: crossing to Tartarus."
     }
   ]
 }

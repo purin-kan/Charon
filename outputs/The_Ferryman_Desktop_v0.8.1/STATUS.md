@@ -19,6 +19,7 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 | Engine loads under Node | `node tools/check-engine.mjs` | `OK Ferry.create(1) -> phase = boarding \| shore = 5 \| light = 6` |
 | Phase to scene map | `node tools/check-router.mjs` | 10 of 10 fixtures map to the expected scene; one `BOARD` from `create(1)` returns a state that maps to BoardingScene (the contract `router.dispatch` relies on) |
 | Rules test | `node rules/tests/quest-check.js` | 22 passed, 0 failed; rerunning leaves `quest-results.json` unchanged (no timestamp) |
+| T-45 rules update (Nov 2, macOS, Node 26.8.2) | `node tools/build-content.js`, `node tests/quest-check.js` from `rules/`, then `npm run fixtures` and `npm run check` | content `55f1026e...`; quest-check 22 passed, 0 failed; fixtures regenerated; see `notes/T-45_Rule_Changes.md`. `npm start` and the exe NOT_RUN for this change |
 | Fresh clone | clone of main at `af7dcb8`, `npm ci`, `npm run check`, `npm start` | installs and boots; 12 of 12 checks OK |
 | Electron app | `npm start`, killed afterwards | stdout showed Phaser 4.2.1 WEBGL booted, `Ferry.create(1) -> state.phase = boarding`, `TitleScene shown`. When the window was hidden, scenes did not start until it was visible (Phaser runs on animation frames) |
 | Live scene switch | one interactive `npm start` session (a person clicked Next) | `TitleScene: Next pressed, starting a new run (seed 1)` then `BoardingScene shown (phase boarding)` |

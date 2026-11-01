@@ -42,6 +42,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-MOTHER",
       "name": "Mother",
+      "personalName": "Penelope",
       "seats": 1,
       "wish": "DEST-TARTARUS",
       "memory": "MEM-LIGHT",
@@ -51,8 +52,9 @@ globalThis.FerryData = {
     {
       "id": "SOUL-CHILD",
       "name": "Child",
+      "personalName": "Theo",
       "seats": 1,
-      "wish": "DEST-HEAVEN",
+      "wish": "DEST-HAVEN",
       "memory": null,
       "ordinary": true,
       "tainted": false
@@ -60,6 +62,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-MERCHANT",
       "name": "Merchant",
+      "personalName": "Hermon",
       "seats": 1,
       "wish": "DEST-STYX",
       "memory": "MEM-FORESIGHT",
@@ -69,6 +72,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-POET",
       "name": "Poet",
+      "personalName": "Sappho",
       "seats": 1,
       "wish": "DEST-ELYSIUM",
       "memory": "MEM-FORESIGHT",
@@ -78,6 +82,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-COOK",
       "name": "Cook",
+      "personalName": "Sikon",
       "seats": 1,
       "wish": "DEST-ASPHODEL",
       "memory": "MEM-CALM",
@@ -87,6 +92,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-MASON",
       "name": "Mason",
+      "personalName": "Petros",
       "seats": 1,
       "wish": "DEST-ACHERON",
       "memory": "MEM-FOG",
@@ -96,6 +102,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-KEEPER",
       "name": "Keeper",
+      "personalName": "Hero",
       "seats": 1,
       "wish": "DEST-ASPHODEL",
       "memory": "MEM-FOG",
@@ -115,6 +122,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-RED-SOLDIER",
       "name": "Red Soldier",
+      "personalName": "Phoenix",
       "seats": 1,
       "wish": "DEST-STYX",
       "memory": "MEM-ALL-FOG",
@@ -124,6 +132,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-BLUE-SOLDIER",
       "name": "Blue Soldier",
+      "personalName": "Glaukos",
       "seats": 1,
       "wish": "DEST-STYX",
       "memory": "MEM-ALL-FOG",
@@ -133,6 +142,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-MESSENGER",
       "name": "Messenger",
+      "personalName": "Nikos",
       "seats": 1,
       "wish": "DEST-STYX",
       "memory": "MEM-FORESIGHT",
@@ -142,6 +152,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-MUSICIAN",
       "name": "Bard",
+      "personalName": "Homer",
       "seats": 1,
       "wish": "DEST-ELYSIUM",
       "memory": "MEM-CALM",
@@ -151,6 +162,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-LISTENER",
       "name": "Listener",
+      "personalName": "Echo",
       "seats": 1,
       "wish": "DEST-ELYSIUM",
       "memory": null,
@@ -160,6 +172,7 @@ globalThis.FerryData = {
     {
       "id": "SOUL-FARMER",
       "name": "Farmer",
+      "personalName": "Georgios",
       "seats": 1,
       "wish": "DEST-ASPHODEL",
       "memory": "MEM-SHARED-HARVEST",
@@ -169,8 +182,9 @@ globalThis.FerryData = {
     {
       "id": "SOUL-BLACKSMITH",
       "name": "Blacksmith",
+      "personalName": "Chalkon",
       "seats": 1,
-      "wish": "DEST-HEAVEN",
+      "wish": "DEST-ACHERON",
       "memory": null,
       "ordinary": true,
       "tainted": false
@@ -178,8 +192,9 @@ globalThis.FerryData = {
     {
       "id": "SOUL-PRIEST",
       "name": "Priest",
+      "personalName": "Elias",
       "seats": 1,
-      "wish": "DEST-HEAVEN",
+      "wish": "DEST-HAVEN",
       "memory": "MEM-LAST-PRAYER",
       "ordinary": true,
       "tainted": false
@@ -285,11 +300,6 @@ globalThis.FerryData = {
       "id": "DEST-TARTARUS",
       "name": "Tartarus",
       "fog": 3
-    },
-    {
-      "id": "DEST-HEAVEN",
-      "name": "Heaven",
-      "fog": 2
     }
   ],
   "memories": [
@@ -404,7 +414,7 @@ globalThis.FerryData = {
     "Approach the fork: advance the outward round and board a scheduled Polong unless Moly suppresses it. Its level/effects apply immediately.",
     "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
     "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
-    "Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls. Blacksmith protects Merchant from Anger increases.",
+    "Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls.",
     "Resolve Wraith damage, removals and eligible spread. Po Luem takes memories; choose excess memories to discard to three.",
     "Begin the next memory window, or return if the boat is empty."
   ],
@@ -419,7 +429,7 @@ globalThis.FerryData = {
     "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Polong is shown before departure.",
     "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
-    "routes": "All seven destinations are open for this trial. Heaven is separate, with base fog 2. Hero wishes draw from the six older destinations. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
+    "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
     "polongs": "Every third outward round brings the shown Polong unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five variants, concealment, Restless River, memory theft, overload, refusal and spread.",
     "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
     "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
@@ -451,7 +461,7 @@ globalThis.FerryData = {
         "SOUL-CHILD"
       ],
       "reward": "MEM-PASSAGE",
-      "description": "Depart together. Deliver Child to Heaven, then Mother to Tartarus."
+      "description": "Depart together. Deliver Child to Haven, then Mother to Tartarus."
     },
     {
       "id": "QUEST-SOLDIERS",
@@ -491,7 +501,7 @@ globalThis.FerryData = {
         "SOUL-BLACKSMITH"
       ],
       "reward": "MEM-LAST-MASTERWORK",
-      "description": "Blacksmith prevents Merchant’s Anger increases. Deliver Merchant, then Blacksmith."
+      "description": "Blacksmith guards Merchant in the story only. Deliver Merchant before Blacksmith to earn the Sword; any other order gives no Sword."
     },
     {
       "id": "QUEST-BOAT",
@@ -519,7 +529,7 @@ globalThis.FerryData = {
         "SOUL-ODYSSEUS"
       ],
       "reward": null,
-      "description": "Reach Odysseus’ wish and choose Charybdis or Zilla."
+      "description": "Reach Odysseus’ wish and choose Charybdis or Scylla."
     }
   ],
   "pendingSouls": [
@@ -551,6 +561,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3"
+  "contentSha256": "55f1026ee08d5bc4b2d4af7bc671eac882c5030d86938369f8480e1900f153fe"
 }
 ;

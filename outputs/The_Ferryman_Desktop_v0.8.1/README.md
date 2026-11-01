@@ -40,7 +40,7 @@ Other commands:
 
 ## Rules source
 
-The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`). This
+The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`) and since edited for T-45; the current hash is in `rules/verification/content-build.json`. This
 folder depends on no other folder. `src/ferry.js` imports `rules/content.js` first (sets
 `globalThis.FerryData`), then `rules/engine.js` (publishes `globalThis.Ferry`, or its CommonJS
 export in a production build). Never edit `engine.js` to fix loading; wrap it.

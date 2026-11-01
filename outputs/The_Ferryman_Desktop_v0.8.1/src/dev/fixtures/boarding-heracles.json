@@ -34,7 +34,7 @@
       "id": "ACTOR-2",
       "type": "SOUL-CHILD",
       "origin": "SOUL-CHILD",
-      "wish": "DEST-HEAVEN",
+      "wish": "DEST-HAVEN",
       "anger": 0,
       "boardingId": null,
       "bornRound": "0",
@@ -116,12 +116,12 @@
         "DEST-HAVEN"
       ],
       [
-        "DEST-TARTARUS",
+        "DEST-ELYSIUM",
         "DEST-ACHERON"
       ],
       [
         "DEST-HAVEN",
-        "DEST-ASPHODEL"
+        "DEST-ACHERON"
       ]
     ],
     "masks": [
@@ -147,7 +147,7 @@
     {
       "round": "0",
       "cycle": "1",
-      "text": "All-quest trial begins. Heaven is a separate destination."
+      "text": "All-quest trial begins."
     }
   ]
 }
