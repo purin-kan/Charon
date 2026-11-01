@@ -25,6 +25,20 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 | Dev launcher | `FERRY_QUERY=?scene=ReturnScene&fixture=review-return` | `ReturnScene shown (phase review)`, router maps fixture to ReturnScene |
 | Packaged app | `npm run package`, then run `out/The Ferryman-win32-x64/The Ferryman.exe` for 40 s | packaged with asar (359 MB `out/`); exe stdout showed Phaser booted, `Ferry.create(1) -> boarding`, `TitleScene shown`, so the CommonJS fallback in `src/ferry.js` works in production |
 
+## Verified: T-16 memory UI and T-17 GameOverScene (Jaoguya, Nov 1, 2026)
+
+Machine: Windows 10 Pro, Node v24.22.1, npm 11.19.1.
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Memory hand view model | `node tools/check-memory.mjs` | 15 of 15 OK: playable cards and Calm targets in the outward window, Light with no target, hand locked after `START_CROSSING` with the engine's reason, Light refused during boarding, hand usable in the return window, empty hand note, trim fixture 4 held / 1 excess, one `DISCARD_MEMORY` returns to `window` |
+| Game-over view model | `node tools/check-gameover.mjs` | 10 of 10 OK on the `ended` fixture plus synthetic quest lists (names, Done/Failed/Unfinished, failure reason, 8-row cap) |
+| Existing checks | `npm run check` | 12 of 12 OK (unchanged) |
+| TrimOverlay in Electron | `FERRY_QUERY=?scene=TrimOverlay&fixture=trim`, a person clicked Discard | `TrimOverlay shown (phase trim, hand 4)` then `CrossingScene shown (phase window)`: `router.dispatch` from a scene and the overlay close both work |
+| GameOverScene in Electron | `FERRY_QUERY=?scene=GameOverScene&fixture=ended`, a person clicked Start a new run | `GameOverScene shown (...)`, `back to title for a new run`, `TitleScene shown`, then a new run reached `BoardingScene` |
+
+Not verified for T-16 / T-17: the memory hand inside a real scene (no scene mounts `MemoryHand` yet), card and target picking by mouse, the failure-reason hover on GameOverScene, more than 5 cards in TrimOverlay. `check-memory.mjs` and `check-gameover.mjs` are not in `npm run check` (that needs a `package.json` change by purin-kan).
+
 ## Not verified
 
 - `router.dispatch` from a scene and `exitDone()` gating with a real exit animation; the 5 s timeout.

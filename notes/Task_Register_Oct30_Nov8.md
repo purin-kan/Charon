@@ -22,7 +22,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-03 | Lock art pipeline | 2026-10-31 | Kanyakorn-goya | | | Game | Must | Not started | Sprite resolution and naming convention written; one test character cut out and committed |
 | T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | Kanyakorn-goya | purin-kan | T-03, T-05 | Game | Must | Not started | The test sprite renders in the dev window through the preloader |
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | purin-kan | | | Game | Must | Done | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
-| T-06 | Scene architecture design | 2026-10-31 | Jaoguya | SupaOhm | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
+| T-06 | Scene architecture design | 2026-10-31 | Jaoguya | SupaOhm | | Process | Should | In progress | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
 | T-07 | Audio asset strategy | 2026-10-31 | VarisPah | bosthanapatw | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
 | T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | SupaOhm | bosthanapatw | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the spreadsheet goes in a path that `.gitignore` does not cover (the entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in the repository checkout) |
 
@@ -38,8 +38,8 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-13 | Developer tuning panel | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Should | Not started | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
 | T-14 | Early `.exe` and SmartScreen test | 2026-11-02 | VarisPah | purin-kan | T-08 | .exe | Must | Not started | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
 | T-15 | Base BGM and SFX | 2026-11-02 | VarisPah | bosthanapatw | T-07 | Game | Should | Not started | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
-| T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Hand display, play-before-crossing flow and discard prompt work against fixture states |
-| T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Run summary shown from state; restart works |
+| T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Done | Hand display, play-before-crossing flow and discard prompt work against fixture states |
+| T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Done | Run summary shown from state; restart works |
 | T-18 | Presentation outline | 2026-11-02 | bosthanapatw | | | Presentation | Must | Not started | Slide structure for Description, Algorithmic Implementation and Demo play; Description drafted from the generated `RULES.md`; README and credits note started |
 
 ## Phase 3: Core Loop & Content
