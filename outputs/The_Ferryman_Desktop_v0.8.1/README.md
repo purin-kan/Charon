@@ -127,7 +127,14 @@ Drop files in; no manifest to edit:
 - Draw with `addArt(this, x, y, id, size)`: a missing image shows a letter emblem. A missing sound
   makes `playSound(this, id)` a silent no-op.
 
-The id naming convention is decided in the art pipeline task. The code accepts any id.
+File names follow the art pipeline (`notes/T-03_ART_PIPELINE.md`) and the audio plan
+(`notes/T-07_AUDIO_PLAN.md`). Scenes can ask by engine id and the preloader finds the art file:
+`SOUL-MOTHER` and `CHAR-CERBERUS` load `art/sprite-mother.png` and `art/sprite-cerberus.png`,
+`MEM-MOLY` loads `art/memory-moly.png`, `DEST-STYX` loads `backgrounds/bg-styx.png`. A file named
+exactly after the id wins; names that do not follow the pattern go in `ALIASES` in
+`src/asset-names.js` (the five Polong variants wait there for the team to match them to the
+`sprite-long-*` art). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
+`node tools/check-art.mjs` tests these rules and lists which engine ids still show an emblem.
 
 ## Title screen and save
 

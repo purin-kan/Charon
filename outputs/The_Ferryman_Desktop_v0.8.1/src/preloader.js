@@ -3,7 +3,9 @@
 //   assets/backgrounds/<id>.png  destination and shore backgrounds
 //   assets/audio/<id>.ogg        BGM and SFX
 // and ask for the id. A missing image becomes a drawn letter emblem, a missing sound is silence.
-// (Id naming convention is still being locked by the art pipeline task; this code does not care.)
+// Engine ids find art-pipeline file names (SOUL-MOTHER -> sprite-mother.png, DEST-STYX -> bg-styx.png,
+// MEM-MOLY -> memory-moly.png); see src/asset-names.js for the rules and the alias table.
+import { fileIdFor } from './asset-names.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
 const found = {
@@ -12,9 +14,17 @@ const found = {
   audio: import.meta.glob('../assets/audio/*.ogg', { eager: true, query: '?url', import: 'default' }),
 };
 
+// File id (name without extension) -> url, per kind.
+const files = Object.fromEntries(
+  Object.entries(found).map(([kind, map]) => [
+    kind,
+    new Map(Object.entries(map).map(([path, url]) => [path.slice(path.lastIndexOf('/') + 1).replace(/\.[^.]+$/, ''), url])),
+  ]),
+);
+
 function urlFor(kind, id) {
-  const ext = kind === 'audio' ? 'ogg' : 'png';
-  return found[kind][`../assets/${kind}/${id}.${ext}`] ?? null;
+  const fileId = fileIdFor(kind, id, new Set(files[kind].keys()));
+  return fileId ? files[kind].get(fileId) : null;
 }
 
 /** Letter shown on an emblem: first letter of the id, ignoring a leading "SOUL-" style prefix. */

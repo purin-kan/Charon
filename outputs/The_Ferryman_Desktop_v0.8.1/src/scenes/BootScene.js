@@ -12,7 +12,7 @@ export class BootScene extends Phaser.Scene {
   preload() {
     // Ids come from the engine data; files are optional. Convention: assets/art/<id>.png, etc.
     queueAssets(this, {
-      art: Ferry.data.souls.map((s) => s.id),
+      art: [...Ferry.data.souls.map((s) => s.id), ...Ferry.data.memories.map((m) => m.id)],
       backgrounds: Ferry.data.destinations.map((d) => d.id),
       // Audio ids follow notes/T-07_AUDIO_PLAN.md (bgm-, amb-, sfx- prefixes).
       audio: ['bgm-menu', 'amb-crossing', 'sfx-board', 'sfx-unboard', 'sfx-ui-click', 'sfx-delivery-success', 'sfx-wraith'],
