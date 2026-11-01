@@ -56,7 +56,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
 | T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Done | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | VarisPah | bosthanapatw | T-15 | Game | Should | Not started | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
-| T-45 | Apply decided rules to the game data | 2026-11-04 (end of day) | bosthanapatw | SupaOhm, Jaoguya, VarisPah | Decisions on issue 6 (VarisPah and Jaoguya; items 1 to 3 needed by Nov 2) | Game | Must | Not started | The decisions are entered in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits); `build-content.js` and `quest-check.js` rerun and passing; a short change note lists each rule changed; Drug Dealer, Fool and Killer stay out of play |
+| T-45 | Apply decided rules to the game data | 2026-11-04 (end of day) | purin-kan | bosthanapatw, Jaoguya, VarisPah, SupaOhm | Decisions on issue 6 (VarisPah and Jaoguya; items 1 to 3 needed by Nov 2) | Game | Must | Not started | The decisions are entered in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits); `build-content.js` and `quest-check.js` rerun and passing; a short change note lists each rule changed; Drug Dealer, Fool and Killer stay out of play |
 
 ## Phase 4: Feature & Asset Freeze
 

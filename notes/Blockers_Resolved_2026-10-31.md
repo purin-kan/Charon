@@ -22,7 +22,7 @@ These answers disagree with each other, so the PM or co-PM needs to pick one. Th
 
 | # | Issue | Why it matters |
 |---|---|---|
-| 8 | **Applying the rule answers.** None of the 44 register tasks changes the game rules to match these answers: T-35 only sets balance values and T-31 only cuts features. See "Differences from v0.7" below. | [Pull request 9](https://github.com/purin-kan/Charon/pull/9) proposes T-45 for this, with bosthanapatw as owner; not yet agreed. The boarding and memory rules affect T-12 and T-19. |
+| 8 | **Applying the rule answers.** None of the 44 register tasks changes the game rules to match these answers: T-35 only sets balance values and T-31 only cuts features. See "Differences from v0.7" below. | T-45 covers this ([pull request 9](https://github.com/purin-kan/Charon/pull/9), merged Nov 1); owner purin-kan from Nov 1, with bosthanapatw supporting. The boarding and memory rules affect T-12 and T-19. |
 
 ## Still unanswered
 

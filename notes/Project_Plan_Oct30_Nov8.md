@@ -32,13 +32,13 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 
 | Member | Role | Tasks |
 |---|---|---|
-| bosthanapatw | Production & Presentation Lead | 8 |
+| bosthanapatw | Production & Presentation Lead | 7 |
 | Kanyakorn-goya | Art (characters, environment, interface) | 7 |
 | Tinpatpun | Gameplay support & UI | 6 |
 | Jaoguya | Gameplay Dev & UI; co-PM | 7 |
 | SupaOhm | Gameplay Dev | 4 |
 | VarisPah | Audio, QA & Game Balance; PM | 7 |
-| purin-kan | Scaffold & builds | 6 |
+| purin-kan | Scaffold & builds | 7 |
 
 **Rebalanced October 31.** Two tasks moved from VarisPah (the PM) and one from purin-kan (task management), to lighten their Nov 6 and 7: tuning calibration (T-23) and release candidate testing (T-34) to Tinpatpun, who builds the tuning panel; scope-cut triage (T-31) to the co-PM (Jaoguya), since a cut is a game decision and the checks after it take under a second (`quest-check.js` ran its 22 scenario groups in 0.6 s on October 31); VarisPah agrees to any cut. VarisPah keeps the early `.exe` test (T-14). Counts fall, but effort does not fall evenly: purin-kan gains the rolling integration on Nov 3 to 5, and Tinpatpun tests the release candidate on Nov 7 morning before visual polish (Nice), which is the first thing Cut if time runs short. These moves are proposals until VarisPah (the PM) and the members affected agree; T-34 also needs Tinpatpun to have a second Windows PC.
 
@@ -48,8 +48,8 @@ Seats were chosen by the members as comments on pull request 5 (recorded October
 
 **bosthanapatw's early capacity.** bosthanapatw's work depends on the frozen rules and the built game, so it starts late: only the blockers list (Oct 31) and the presentation outline (Nov 2) come early, and the script, freeze, slides, video and rehearsal fall on Nov 5 to 8. From now to about Nov 4, bosthanapatw helps VarisPah with the audio: listed as support on T-07, T-15 and T-28. If time remains, the Nov 2 cut-outs (about 14 images, T-09 and T-10) are the next place to help, for the PM (VarisPah) to confirm.
 
-* **purin-kan (scaffold owner, task management):** Keeps the task register in step with this plan. Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final).
-* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, applying the decided rules to the game data (Nov 3 to 4, with his early capacity), and the re-test on Nov 7.
+* **purin-kan (scaffold owner, task management):** Keeps the task register in step with this plan. Project scaffold and folder structure, Electron Forge and Vite configuration, `engine.js` loading, the scene router and dev launcher, and the `.exe` builds (early, release candidate and final). Applying the decided rules to the game data (T-45, from Nov 2, items 1 to 3 first), taken over from bosthanapatw on Nov 1 because the Nov 2 items were unclaimed and T-30 depends on it.
+* **bosthanapatw (Production & Presentation Lead):** Presentation (script, slides, demo video), the README and credits notes, the change note for the rules update (support on T-45), and the re-test on Nov 7.
 * **Kanyakorn-goya (Art):** All art in one seat: cut-out soul, Polong, boat and shore sprites, destination backgrounds, memory placeholders, wraith transformation frames and art polish. Peak load is Nov 2 (14 cut-outs); a background-removal tool can speed this up, and the results still need a visual check.
 * **Tinpatpun (Gameplay support & UI):** The extra hand freed by combining the art seats, placed where the load was heaviest (SupaOhm). Owns TitleScene with the single save, the developer tuning panel and the tuning calibration that uses it, scene text data, release candidate testing on Nov 7 and visual polish, and supports SupaOhm on the scene work.
 * **Jaoguya (Gameplay Dev & UI; co-PM):** Memory UI overlay, GameOverScene, ReturnScene and route display, built on purin-kan's scaffold. Shares scene architecture design with SupaOhm. Runs the Nov 6 scope-cut triage: makes the call with VarisPah, has the `engine.js` edit made, and runs the two checks.
@@ -111,7 +111,7 @@ purin-kan scaffolds the engine (Scaffold A below) so the others can start from a
 | Pitch script draft | Write presentation script covering Description, Algorithmic Implementation and Demo play (see Submission Deliverables). Begin slide deck. Capture early gameplay footage for demo video. The group supplies the design decisions for the Algorithmic Implementation slides; bosthanapatw drafts them from the list in Submission Deliverables. | bosthanapatw |
 | Scene text | Collect button labels, help text and ending text for the scenes from `app.js` and `content.json` into a data file the scenes read. | Tinpatpun |
 | Crossing & delivery audio | Crossing ambient variants. Delivery success jingle. Wraith SFX. Fog ambiance. | VarisPah |
-| Apply decided rules | Enter the decisions from issue 6 in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits), then rerun `node tools/build-content.js` and `node tests/quest-check.js`. VarisPah and Jaoguya decide issue 6 items 1 to 3 by Nov 2 (proposed), since the scenes use the destination and soul lists. Write a short change note listing each rule changed. Drug Dealer, Fool and Killer stay out of play. | bosthanapatw |
+| Apply decided rules | Enter the decisions from issue 6 in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits), then rerun `node tools/build-content.js` and `node tests/quest-check.js`. VarisPah and Jaoguya decide issue 6 items 1 to 3 by Nov 2 (proposed), since the scenes use the destination and soul lists. Write a short change note listing each rule changed. Drug Dealer, Fool and Killer stay out of play. | purin-kan (bosthanapatw supports with the change note) |
 
 ### Phase 4: Feature & Asset Freeze (Nov 6)
 
