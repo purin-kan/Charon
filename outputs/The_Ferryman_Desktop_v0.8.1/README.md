@@ -34,7 +34,7 @@ Other commands:
 | Command | What it does |
 | --- | --- |
 | `npm run fixtures` | Regenerates `src/dev/fixtures/*.json` from rules/engine.js |
-| `npm run check` | Node checks: engine loads, `Ferry.create(1)` has a phase, phase to scene mapping on all fixtures |
+| `npm run check` | Runs `tools/run-checks.mjs`: `check-engine` and `check-router` first, then every other `tools/check-*.mjs`. Exits 1 if any fails |
 | `npm run package` | Builds `out/The Ferryman-win32-x64/The Ferryman.exe` (folder of about 359 MB; never commit `out/`) |
 | `npm run make` | Zips the packaged app for win32 (no installer) |
 
@@ -115,6 +115,8 @@ The id naming convention is decided in the art pipeline task. The code accepts a
    Remove listeners on `this.events.once('shutdown', ...)`.
 2. Register it: import it in `src/scenes/index.js` and add it to `SCENES`.
 3. Route it: add a rule in `src/phase-map.js` (`sceneFor`). For an overlay, also add its key to `OVERLAYS`.
-4. Check: `npm run check`, then open it with `?scene=MyScene&fixture=<name>`.
+4. Check: `npm run check`, then open it with `?scene=MyScene&fixture=<name>`. To add your own Node check,
+   create `tools/check-<name>.mjs` that exits non-zero on failure; `npm run check` picks it up with no
+   `package.json` change.
 
 Only the scaffold owner edits `scenes/index.js`, `package.json` and the lockfile; send a one-line request.
