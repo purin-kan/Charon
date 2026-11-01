@@ -1,9 +1,10 @@
-// Pure layout for BoardingScene: state in, positions and labels out. No Phaser and no game rules.
+// Pure layout for BoardingScene: state in, positions and labels out. No Phaser.
 // The engine has no seat numbers, so seats fill in order: state.boat, then state.selected.
 export const TOKEN = { w: 100, h: 140 };
 export const SLOT = { w: 104, h: 150, gap: 8 };
 
 const BOAT = { x: 700, y: 300 }; // centre of the first seat
+const HULL_PAD = 16;
 const SHORE = { x: 100, y: 170, cellW: 130, cellH: 150, cols: 4 };
 
 const slotX = (i) => BOAT.x + i * (SLOT.w + SLOT.gap);
@@ -40,6 +41,13 @@ export function layoutBoarding(state, Ferry) {
   return { entries, slots };
 }
 
+/** The hull, which is also the one drop zone: seats fill in order, so where a soul lands on it does not matter. */
+export function boatZone(slots) {
+  const left = slots[0].x - SLOT.w / 2 - HULL_PAD;
+  const right = slots[slots.length - 1].x + SLOT.w / 2 + HULL_PAD;
+  return { x: (left + right) / 2, y: slots[0].y, w: right - left, h: SLOT.h + HULL_PAD * 2 };
+}
+
 /** The action for a finished drag, or null if the soul should just snap back. */
 export function dropAction(entry, dropped) {
   const crossesBoatEdge = entry.area === 'shore' ? dropped : !dropped;
@@ -69,7 +77,7 @@ export function statusLine(state, Ferry) {
   return `Light ${state.light}/${Ferry.maxLight(state)}   Cycle ${state.cycle}   Seats ${Ferry.seats(state)}/${Ferry.capacity(state)}   Next Polong: ${next}`;
 }
 
-/** The unresolved hero offer in display form, or null. */
+/** The unresolved hero offer in display form, or null. needsToll mirrors the engine, which has no data field for it. */
 export function heroPrompt(state, Ferry) {
   const offer = state.heroOffer;
   if (!offer || offer.resolved) return null;

@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { addArt, queueAssets } from '../preloader.js';
-import { SLOT, TOKEN, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
+import { SLOT, TOKEN, boatZone, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
 
+const DRAG_START_PX = 6;
 const SNAP_MS = 160;
 const MESSAGE_MS = 2000;
 const EXIT_MS = 600;
@@ -33,6 +34,8 @@ export class BoardingScene extends Phaser.Scene {
     this.drawHud();
     this.render(state);
 
+    // Without a threshold a click counts as a drag that ends off the boat, which unboards the soul.
+    this.input.dragDistanceThreshold = DRAG_START_PX;
     this.input.on('drag', (_pointer, token, x, y) => token.setPosition(x, y));
     this.input.on('dragstart', (_pointer, token) => {
       this.tweens.killTweensOf(token);
@@ -55,14 +58,12 @@ export class BoardingScene extends Phaser.Scene {
   }
 
   drawBoat(slots) {
-    const left = slots[0].x - SLOT.w / 2 - 16;
-    const right = slots[slots.length - 1].x + SLOT.w / 2 + 16;
-    const { y } = slots[0];
-    this.boatParts.push(this.add.rectangle((left + right) / 2, y, right - left, SLOT.h + 32, 0x2a3b49));
+    const hull = boatZone(slots);
+    this.boatParts.push(this.add.rectangle(hull.x, hull.y, hull.w, hull.h, 0x2a3b49));
+    this.add.zone(hull.x, hull.y, hull.w, hull.h).setRectangleDropZone(hull.w, hull.h);
     for (const slot of slots) {
       const seat = this.add.rectangle(slot.x, slot.y, slot.w, slot.h, 0x16232e).setStrokeStyle(2, 0x3d5566);
       this.boatParts.push(seat);
-      this.add.zone(slot.x, slot.y, slot.w, slot.h).setRectangleDropZone(slot.w, slot.h);
     }
   }
 
@@ -111,8 +112,8 @@ export class BoardingScene extends Phaser.Scene {
   syncHero(state) {
     const hero = heroPrompt(state, Ferry);
     if (!hero) this.tollMode = false;
-    const prompt = this.tollMode ? 'Choose a shore soul as the toll.' : `${hero?.name} asks to board.`;
-    this.heroText.setText(hero ? prompt : '');
+    const asks = hero ? `${hero.name} asks to board.` : '';
+    this.heroText.setText(this.tollMode ? 'Choose a shore soul as the toll.' : asks);
     this.acceptBtn.setVisible(!!hero && !this.tollMode);
     this.declineBtn.setVisible(!!hero && !this.tollMode);
     this.cancelBtn.setVisible(this.tollMode);
@@ -145,9 +146,13 @@ export class BoardingScene extends Phaser.Scene {
       this.router.exitDone();
       return;
     }
-    const seated = [...this.entries.values()].filter((e) => e.area === 'seat').map((e) => this.tokens.get(e.id));
+    const seated = [...this.entries.values()].filter((e) => e.area === 'seat');
+    const tokens = seated.map((e) => this.tokens.get(e.id));
+    // A soul can still be gliding to its seat, and that tween would fight this one.
+    this.tweens.killTweensOf(tokens);
+    seated.forEach((e, i) => tokens[i].setPosition(e.x, e.y));
     this.tweens.add({
-      targets: [...this.boatParts, ...seated],
+      targets: [...this.boatParts, ...tokens],
       x: `+=${EXIT_DISTANCE}`,
       duration: EXIT_MS,
       ease: 'Cubic.In',

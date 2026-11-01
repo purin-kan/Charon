@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { dropAction, heroPrompt, layoutBoarding, soulName, statusLine, tokenLabels } from '../src/scenes/boarding-layout.js';
+import { boatZone, dropAction, heroPrompt, layoutBoarding, soulName, statusLine, tokenLabels } from '../src/scenes/boarding-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
 const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'src', 'dev', 'fixtures');
@@ -74,6 +74,16 @@ check('shore soul dropped on the boat boards', dropAction(onShore, true)?.type =
 check('shore soul dropped elsewhere does nothing', dropAction(onShore, false) === null);
 check('selected soul dropped off the boat unboards', dropAction(inSeat, false)?.id === 'B');
 check('selected soul dropped on the boat does nothing', dropAction(inSeat, true) === null);
+
+// The drop zone is the whole boat, so the gaps and the hull count as on board.
+const zone = boatZone(slots);
+const inZone = (x, y) => Math.abs(x - zone.x) <= zone.w / 2 && Math.abs(y - zone.y) <= zone.h / 2;
+check('every seat is in the drop zone', slots.every((s) => inZone(s.x, s.y)));
+check('gap between seats is in the drop zone', inZone((slots[0].x + slots[1].x) / 2, slots[0].y));
+check('hull edge is in the drop zone', inZone(slots[1].x, slots[1].y - slots[1].h / 2 - 10));
+check('open water is outside the drop zone', !inZone(300, 560) && !inZone(600, 300));
+const fiveSeats = layoutBoarding(bigger, Ferry).slots;
+check('drop zone grows with capacity', boatZone(fiveSeats).w > zone.w);
 
 // Labels.
 const labels = tokenLabels(spot(layoutBoarding(base, Ferry), firstId), Ferry);
