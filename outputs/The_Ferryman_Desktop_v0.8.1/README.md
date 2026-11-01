@@ -73,9 +73,10 @@ tools/               make-fixtures.mjs, check-engine.mjs, check-router.mjs
 
 ## Dev launcher (open any scene with a saved state)
 
-Fixtures live in `src/dev/fixtures/<name>.json`: boarding, window, fork, review, delivery, choice,
+Fixtures live in `src/dev/fixtures/<name>.json`: boarding, boarding-heracles, window, fork, review, delivery, delivery-match, choice, choice-odysseus,
 trim, return, review-return, ended. All come from engine runs except `trim`, which is the `window`
-state with a 4-memory hand (random play rarely reaches the hand limit).
+state with a 4-memory hand (random play rarely reaches the hand limit), and `choice-odysseus`, a
+scripted run (random play never accepts a hero).
 
 In `npm start` windows a small menu at the top right picks a scene and fixture. To start directly:
 
