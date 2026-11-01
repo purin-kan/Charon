@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import { SCENES } from './scenes/index.js';
 import { Router } from './router.js';
 import { mountDevMenu } from './dev/launcher.js';
+import { mountTuningPanel } from './dev/tuning-panel.js';
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -15,4 +16,7 @@ const game = new Phaser.Game({
 });
 
 new Router(game); // sets game.router
-game.events.once('ready', () => mountDevMenu(game, Object.keys(game.scene.keys)));
+game.events.once('ready', () => {
+  mountDevMenu(game, Object.keys(game.scene.keys));
+  mountTuningPanel(game); // dev server only; F2 opens it
+});

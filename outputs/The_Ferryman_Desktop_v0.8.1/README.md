@@ -86,6 +86,28 @@ npm start
 
 Omit `fixture` to use the scene's default. Set `$env:FERRY_DEVTOOLS = '1'` to open DevTools.
 
+## Tuning panel (animation timing, easing, snap sizes, river paths)
+
+In `npm start`, press F2 or click **Tuning (F2)** at the bottom right. Changes apply while the game
+runs. **Save to tuning.json** writes `assets/tuning.json`; commit that file when you are done, one
+tuner at a time. Values that differ from the saved file are marked with `*`. A path value such as
+`crossing.riverPath` has **Edit on screen**: drag the points, click empty space to add one at the
+end, right-click a point to remove it. The packaged `.exe` uses the committed values but cannot
+save (no dev server). The rules engine never reads `tuning.json`; gameplay balance stays in
+`rules/content.json`.
+
+In a scene, read a value at the moment you use it, so panel changes apply at once:
+
+```js
+import { tune, defineTuning } from '../tuning.js';
+this.tweens.add({ targets: boat, duration: tune('crossing.travelMs'), ease: tune('crossing.travelEase') });
+defineTuning({ 'delivery.glowMs': { type: 'number', default: 400, min: 0, max: 2000, step: 10 } }); // your own value
+```
+
+Types: `number` (min, max, step), `ease` (Phaser ease name), `bool`, `points` (`[[x, y], ...]` in
+1280 x 720 game coordinates). The starting keys are listed at the bottom of `src/tuning.js`; their
+defaults match the scene constants where one exists.
+
 ## Router and exit animations
 
 `CROSS` moves the engine to `delivery` at once, so the router never switches scenes on its own.
