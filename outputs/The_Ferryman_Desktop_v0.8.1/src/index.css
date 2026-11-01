@@ -1,0 +1,5 @@
+html, body { margin: 0; height: 100%; background: #0b1117; color: #cfd8dc; font-family: system-ui, sans-serif; }
+#game { width: 100vw; height: 100vh; }
+#game canvas { display: block; }
+#dev-menu { position: fixed; top: 4px; right: 4px; z-index: 10; font-size: 12px; opacity: 0.85; }
+#dev-menu select, #dev-menu button { font-size: 12px; }

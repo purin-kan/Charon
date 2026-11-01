@@ -21,3 +21,11 @@ work/
 
 # Portable v0.7 archive; expanded game source is versioned
 /outputs/The_Ferryman_v0.7.zip
+
+# Desktop build outputs (Electron Forge / Vite)
+out/
+dist/
+.vite/
+
+# Local superpowers specs and plans
+/docs/superpowers/

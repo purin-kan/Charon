@@ -1,0 +1,208 @@
+{
+  "format": "the-ferryman-save",
+  "version": "0.7-trial",
+  "schemaVersion": 3,
+  "seed": 1,
+  "rng": 2503481014,
+  "phase": "ended",
+  "paused": false,
+  "light": 0,
+  "maxLight": 6,
+  "round": "3",
+  "cycle": "1",
+  "completed": "0",
+  "deliveries": "0",
+  "nextActor": "7",
+  "nextBoarding": "2",
+  "nextMemory": "1",
+  "nextQuest": "1",
+  "encounters": "1",
+  "shore": [
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HEAVEN",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-1",
+      "type": "SOUL-MOTHER",
+      "origin": "SOUL-MOTHER",
+      "wish": "DEST-TARTARUS",
+      "anger": 2,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-4",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
+      "anger": 2,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-6",
+      "type": "SOUL-PO-LUEM",
+      "origin": null,
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "3",
+      "level": 1,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "arrivals": [
+    "SOUL-PRIEST",
+    "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
+    "SOUL-FARMER",
+    "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
+    "SOUL-RED-SOLDIER"
+  ],
+  "discard": [],
+  "selected": [],
+  "hand": [],
+  "quests": [],
+  "effects": {
+    "capacity": false,
+    "moly": false,
+    "nobody": false
+  },
+  "window": {
+    "kind": "outward",
+    "uses": 0,
+    "guard": 0,
+    "shield": 0,
+    "allFog": false
+  },
+  "travelPrepared": true,
+  "routes": {
+    "offers": [
+      [
+        "DEST-STYX",
+        "DEST-HAVEN"
+      ],
+      [
+        "DEST-ACHERON",
+        "DEST-HAVEN"
+      ]
+    ],
+    "masks": [
+      0,
+      1
+    ],
+    "foresight": 0,
+    "history": [
+      {
+        "offer": [
+          "DEST-STYX",
+          "DEST-ASPHODEL"
+        ],
+        "chosen": "DEST-ASPHODEL"
+      },
+      {
+        "offer": [
+          "DEST-TARTARUS",
+          "DEST-STYX"
+        ],
+        "chosen": "DEST-TARTARUS"
+      },
+      {
+        "offer": [
+          "DEST-HEAVEN",
+          "DEST-STYX"
+        ],
+        "chosen": "DEST-HEAVEN"
+      }
+    ]
+  },
+  "nextPolong": "SOUL-PO-LUEM",
+  "heroOffer": {
+    "type": "SOUL-ODYSSEUS",
+    "resolved": true
+  },
+  "destination": "DEST-HEAVEN",
+  "pending": null,
+  "choice": null,
+  "theftQueue": [],
+  "trimNext": null,
+  "ending": "The lantern went out: crossing to Heaven.",
+  "log": [
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "All-quest trial begins. Heaven is a separate destination."
+    },
+    {
+      "round": "1",
+      "cycle": "1",
+      "text": "crossing to Asphodel: 2 Light lost."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "crossing to Tartarus: 3 Light lost."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "Po Luem boards at level 1."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "crossing to Heaven: 1 Light lost."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "The lantern went out: crossing to Heaven."
+    }
+  ]
+}

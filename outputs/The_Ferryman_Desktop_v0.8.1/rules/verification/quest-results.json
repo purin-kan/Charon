@@ -1,0 +1,105 @@
+{
+  "version": "0.7-trial",
+  "passed": 22,
+  "failed": 0,
+  "hashes": {
+    "engine.js": "001478d904bc3e48430f3040fb77ff58518091dbf2a79e4191bc91b59b398884",
+    "content.json": "a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3",
+    "tests/quest-check.js": "ede0da6390b5f35ea87fcc1031f17cd0cf189380bacf15ba98eb12e2367cf79e"
+  },
+  "records": [
+    {
+      "name": "Included roster, explicit TBA entries, separate Heaven and all quest definitions",
+      "status": "PASS"
+    },
+    {
+      "name": "Family binds same departure, respects new Heaven/order, grants distinct rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Fresh returned character instances start a new quest without reusing rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Soldier penalty every second retained shared crossing, separate pair reward",
+      "status": "PASS"
+    },
+    {
+      "name": "Listener transforms on third shared crossing, keeps origin and coexists with Poet",
+      "status": "PASS"
+    },
+    {
+      "name": "Meal is once per shared boarding, includes Cook reduction and can expire Cook",
+      "status": "PASS"
+    },
+    {
+      "name": "Blacksmith protects Merchant Anger, enforces order and grants only one Sword",
+      "status": "PASS"
+    },
+    {
+      "name": "Mason leaves last including Polongs; capacity can be used before boarding and expires",
+      "status": "PASS"
+    },
+    {
+      "name": "Priest +1 memory or purification trade-off, once per boarding and save/reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Heracles toll, Cerberus encounter, second-stage wishes and Golden Apple stacking",
+      "status": "PASS"
+    },
+    {
+      "name": "Odysseus branches commit once, preserve pending choice on load, handle empty hand/boat",
+      "status": "PASS"
+    },
+    {
+      "name": "Sword removal has no expiry damage, spread, memory or fare reward",
+      "status": "PASS"
+    },
+    {
+      "name": "Unlimited memories, overflow cannot be spent, full fog does not block Wraiths",
+      "status": "PASS"
+    },
+    {
+      "name": "Moly suppresses scheduled arrivals without increasing level; Nobody blocks fog only",
+      "status": "PASS"
+    },
+    {
+      "name": "Polong encounter levels, next variant and forced Po Nak overload",
+      "status": "PASS"
+    },
+    {
+      "name": "Po Mued concealment hides route/cost through review, Foresight overrides it",
+      "status": "PASS"
+    },
+    {
+      "name": "Po Due timing and Haven guarantee preserve already visible offers",
+      "status": "PASS"
+    },
+    {
+      "name": "Po Luem skips boarding round then creates a saved discard choice; empowered loss is deterministic",
+      "status": "PASS"
+    },
+    {
+      "name": "Level-five spread conserves origin, spares family and fails participant quests",
+      "status": "PASS"
+    },
+    {
+      "name": "Only original normally delivered Po Long pays Light; fatal damage stops rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Save validation rejects old versions, broken origins, duplicated IDs and wrong pending choices",
+      "status": "PASS"
+    },
+    {
+      "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
+      "status": "PASS",
+      "runs": 128,
+      "transitions": 2112,
+      "choices": 19,
+      "humanPlaytest": false
+    }
+  ],
+  "limitation": "Agent automated scenarios and seeded runs. Not human playtesting or balance evidence."
+}
