@@ -3,17 +3,17 @@
   "passed": 22,
   "failed": 0,
   "hashes": {
-    "engine.js": "001478d904bc3e48430f3040fb77ff58518091dbf2a79e4191bc91b59b398884",
-    "content.json": "a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3",
-    "tests/quest-check.js": "ede0da6390b5f35ea87fcc1031f17cd0cf189380bacf15ba98eb12e2367cf79e"
+    "engine.js": "eccb31931ce380967190e83077ed840d91c05d8b5ce324f363b2ed0e588c7a2f",
+    "content.json": "55f1026ee08d5bc4b2d4af7bc671eac882c5030d86938369f8480e1900f153fe",
+    "tests/quest-check.js": "222d6412fdd2e6cb5a4969ddbbc7d97cbf082cc91b38e6767f1a5e2778bf34c0"
   },
   "records": [
     {
-      "name": "Included roster, explicit TBA entries, separate Heaven and all quest definitions",
+      "name": "Included roster, explicit TBA entries, six destinations without Heaven and all quest definitions",
       "status": "PASS"
     },
     {
-      "name": "Family binds same departure, respects new Heaven/order, grants distinct rewards",
+      "name": "Family binds same departure, respects Haven/order, grants distinct rewards",
       "status": "PASS"
     },
     {
@@ -33,7 +33,7 @@
       "status": "PASS"
     },
     {
-      "name": "Blacksmith protects Merchant Anger, enforces order and grants only one Sword",
+      "name": "Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith",
       "status": "PASS"
     },
     {
@@ -45,7 +45,7 @@
       "status": "PASS"
     },
     {
-      "name": "Heracles toll, Cerberus encounter, second-stage wishes and Golden Apple stacking",
+      "name": "Heracles toll, Cerberus encounter, shared second-stage wish and Golden Apple stacking",
       "status": "PASS"
     },
     {
@@ -96,8 +96,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2112,
-      "choices": 19,
+      "transitions": 2460,
+      "choices": 25,
       "humanPlaytest": false
     }
   ],

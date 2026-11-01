@@ -34,7 +34,7 @@
       "id": "ACTOR-2",
       "type": "SOUL-CHILD",
       "origin": "SOUL-CHILD",
-      "wish": "DEST-HEAVEN",
+      "wish": "DEST-HAVEN",
       "anger": 1,
       "boardingId": null,
       "bornRound": "0",
@@ -136,12 +136,12 @@
   "routes": {
     "offers": [
       [
-        "DEST-HEAVEN",
-        "DEST-ASPHODEL"
+        "DEST-TARTARUS",
+        "DEST-ACHERON"
       ],
       [
         "DEST-HAVEN",
-        "DEST-ELYSIUM"
+        "DEST-ASPHODEL"
       ],
       [
         "DEST-HAVEN",
@@ -165,9 +165,9 @@
       {
         "offer": [
           "DEST-ACHERON",
-          "DEST-TARTARUS"
+          "DEST-ELYSIUM"
         ],
-        "chosen": "DEST-TARTARUS"
+        "chosen": "DEST-ELYSIUM"
       },
       {
         "offer": [
@@ -196,7 +196,7 @@
     {
       "round": "0",
       "cycle": "1",
-      "text": "All-quest trial begins. Heaven is a separate destination."
+      "text": "All-quest trial begins."
     },
     {
       "round": "1",
@@ -236,7 +236,7 @@
     {
       "round": "3",
       "cycle": "2",
-      "text": "crossing to Tartarus: 3 Light lost."
+      "text": "crossing to Elysium: 3 Light lost."
     },
     {
       "round": "4",
