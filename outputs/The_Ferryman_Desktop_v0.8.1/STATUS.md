@@ -37,6 +37,17 @@ Machine: Windows 10 Pro, Node v24.22.1, npm 11.19.1.
 | TrimOverlay in Electron | `FERRY_QUERY=?scene=TrimOverlay&fixture=trim`, a person clicked Discard | `TrimOverlay shown (phase trim, hand 4)` then `CrossingScene shown (phase window)`: `router.dispatch` from a scene and the overlay close both work |
 | GameOverScene in Electron | `FERRY_QUERY=?scene=GameOverScene&fixture=ended`, a person clicked Start a new run | `GameOverScene shown (...)`, `back to title for a new run`, `TitleScene shown`, then a new run reached `BoardingScene` |
 
+## Verified: T-21 ReturnScene and T-22 Route UI (Jaoguya, Nov 1, 2026)
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Return view model | `node tools/check-return.mjs` | 16 of 16 OK: every shore soul gains Anger, a soul at the limit becomes a Wraith with the engine's "shore expiry: 1 Light lost" line, Light before and after, lethal warning, review mode with Confirm and Back, Confirm reaches the next cycle in BoardingScene, Back returns to the window, log diff with a full 80-entry log |
+| Route view model | `node tools/check-route.mjs` | 17 of 17 OK: hidden before the fork, Foresight rows from `Ferry.routeView`, option fog and Light from `Ferry.preview`, PLAN CROSS to review, review numbers match, Back keeps the same fork, Confirm pays the previewed Light, lethal flag, Po Mued concealment (view model only), hidden in return windows |
+| ReturnScene in Electron | `FERRY_QUERY=?scene=ReturnScene&fixture=return`, a person clicked Review return and Confirm (3 runs) | `ReturnScene shown`, `rowing back to the Starting Shore`, `BoardingScene shown (phase boarding)`; with the `fork` fixture the panel showed the engine's "Return with an empty boat." without an error |
+| Screenshots | temporary snapshot hooks, removed after | ReturnScene prepare (Wraith style, Calm targets on shore souls, memory hand mounted) and review (Back / Confirm, hand locked with the engine's reason); route UI review (two option cards, review panel). One fix found: a Wraith-bound soul hid its gold target outline |
+
+Not verified for T-21 / T-22: playing Calm on a shore soul by mouse; the route UI inside CrossingScene (SupaOhm mounts it in T-19), its option clicks in the window and the Foresight rows on screen; Po Mued concealment with a valid save.
+
 Not verified for T-16 / T-17: the memory hand inside a real scene (no scene mounts `MemoryHand` yet), card and target picking by mouse, the failure-reason hover on GameOverScene, more than 5 cards in TrimOverlay. `check-memory.mjs` and `check-gameover.mjs` are not in `npm run check` (that needs a `package.json` change by purin-kan).
 
 ## Not verified
