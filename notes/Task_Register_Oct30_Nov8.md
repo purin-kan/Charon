@@ -56,13 +56,14 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
 | T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Done | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | VarisPah | bosthanapatw | T-15 | Game | Should | Not started | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
+| T-45 | Apply decided rules to the game data | 2026-11-04 (end of day) | bosthanapatw | SupaOhm, Jaoguya, VarisPah | Decisions on issue 6 (VarisPah and Jaoguya; items 1 to 3 needed by Nov 2) | Game | Must | Not started | The decisions are entered in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits); `build-content.js` and `quest-check.js` rerun and passing; a short change note lists each rule changed; Drug Dealer, Fool and Killer stay out of play |
 
 ## Phase 4: Feature & Asset Freeze
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
 | T-29 | Hard freeze | 2026-11-06 (afternoon) | VarisPah | All | T-31 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play |
-| T-30 | Integration check | 2026-11-06 (morning) | purin-kan | VarisPah | T-08, T-11, T-12, T-16, T-17, T-19, T-20, T-21, T-22 | .exe | Must | Not started | From Nov 3, scene pull requests merged as they land and breaks reported to their owners; on Nov 6, a full playthrough boot to game over across multiple cycles; save and load confirmed |
+| T-30 | Integration check | 2026-11-06 (morning) | purin-kan | VarisPah | T-08, T-11, T-12, T-16, T-17, T-19, T-20, T-21, T-22, T-45 | .exe | Must | Not started | From Nov 3, scene pull requests merged as they land and breaks reported to their owners; on Nov 6, a full playthrough boot to game over across multiple cycles; save and load confirmed |
 | T-31 | Scope-cut triage | 2026-11-06 (midday) | Jaoguya | VarisPah, purin-kan | T-30 | Game | Should | Not started | Cut candidates flagged by Nov 5 from the rolling integration; unstable hero encounters or Polong variants cut or kept, with VarisPah agreeing to any cut; any `engine.js` change (and any test it breaks) followed by `build-content.js` and `quest-check.js` reruns, both passing |
 | T-32 | Release candidate build | 2026-11-06 (end of day) | purin-kan | | T-29 | .exe | Must | Not started | Release candidate `.exe` built and handed to VarisPah and bosthanapatw |
 | T-33 | Balance playtests | 2026-11-06 (end of day) | VarisPah | | T-30 | Game | Should | Not started | Observations of Light, anger and fog logged in the status file; proposed `content.json` changes sent to the group |
