@@ -146,16 +146,18 @@ export class DeliveryScene extends Phaser.Scene {
       return;
     }
     const spots = rewardSpots(rewards.length);
+    const { width, height } = this.scale;
     const parts = [
-      this.add.text(640, REWARD.y - 120, t('delivery.received'), { fontFamily: FONT, fontSize: '26px', color: '#edc47f' }).setOrigin(0.5).setDepth(3),
+      this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6).setDepth(3),
+      this.add.text(640, REWARD.y - 120, t('delivery.received'), { fontFamily: FONT, fontSize: '26px', color: '#edc47f' }).setOrigin(0.5).setDepth(4),
     ];
     rewards.forEach((memory, i) => {
       const { x, y } = spots[i];
-      const panel = this.add.rectangle(x, y, REWARD.w, REWARD.h, 0x1d2c38).setStrokeStyle(2, GOLD).setDepth(3);
-      const name = this.add.text(x, y - 52, memory.name, { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' }).setOrigin(0.5).setDepth(3);
+      const panel = this.add.rectangle(x, y, REWARD.w, REWARD.h, 0x1d2c38).setStrokeStyle(2, GOLD).setDepth(4);
+      const name = this.add.text(x, y - 52, memory.name, { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' }).setOrigin(0.5).setDepth(4);
       const body = this.add.text(x, y + 14, memory.text, {
         fontFamily: FONT, fontSize: '14px', color: '#cfe3f0', align: 'center', wordWrap: { width: REWARD.w - 24 },
-      }).setOrigin(0.5).setDepth(3);
+      }).setOrigin(0.5).setDepth(4);
       parts.push(panel, name, body);
     });
     let finished = false;

@@ -7,9 +7,9 @@ import { SLOT, boatZone, layoutBoarding, tokenLabels } from './boarding-layout.j
 export const DOCK = { x: 300, y: 345, w: 520, h: 430 };
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
-const DOCK_SPOT = { x: 130, y: 220, cellW: 130, cellH: 150, cols: 3 };
+const DOCK_SPOT = { x: 130, y: 240, cellW: 130, cellH: 150, cols: 3 }; // the first row clears the Dock label
 const DECK = { y: 470, width: 448 }; // souls with no seat ride here
-const ROWS = { left: 60, width: 1160, top: 210, rowH: 76, perCol: 5 };
+const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, perCol: 5 };
 
 const dockSpot = (i) => ({
   x: DOCK_SPOT.x + (i % DOCK_SPOT.cols) * DOCK_SPOT.cellW,
