@@ -105,7 +105,9 @@
     "keepAboard": "Keep aboard: {name}",
     "finishRound": "Finish round",
     "dock": "Dock",
-    "received": "Received"
+    "received": "Received",
+    "lost": "Po Luem took {name}.",
+    "lostReward": "Po Luem took a memory you had just received."
   },
 
   "return": {

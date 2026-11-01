@@ -6,7 +6,7 @@ import { defineTuning, tune } from '../tuning.js';
 import { boatZone, statusLine } from './boarding-layout.js';
 import {
   DOCK, REWARD, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText,
-  introText, layoutDelivery, rewardSpots,
+  introText, layoutDelivery, lossLines, rewardSpots,
 } from './delivery-layout.js';
 import { addSoulToken, setTokenLabels } from './soul-token.js';
 
@@ -117,8 +117,8 @@ export class DeliveryScene extends Phaser.Scene {
     this.leaving = true;
     for (const token of this.tokens.values()) this.input.setDraggable(token, false);
     this.confirmBtn.setVisible(false).disableInteractive();
-    const { departed, rewards } = arrivalOutcome(state, next, this.marked, Ferry);
-    this.playDeparture(departed, () => this.showRewards(rewards, () => this.router.dispatch(action)));
+    const outcome = arrivalOutcome(state, next, this.marked, Ferry);
+    this.playDeparture(outcome.departed, () => this.showRewards(outcome, () => this.router.dispatch(action)));
   }
 
   playDeparture(ids, done) {
@@ -140,17 +140,22 @@ export class DeliveryScene extends Phaser.Scene {
     });
   }
 
-  showRewards(rewards, done) {
-    if (!rewards.length) {
+  showRewards(outcome, done) {
+    const { rewards } = outcome;
+    const losses = lossLines(outcome, t);
+    if (!rewards.length && !losses.length) {
       done();
       return;
     }
     const spots = rewardSpots(rewards.length);
     const { width, height } = this.scale;
-    const parts = [
-      this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6).setDepth(3),
-      this.add.text(640, REWARD.y - 120, t('delivery.received'), { fontFamily: FONT, fontSize: '26px', color: '#edc47f' }).setOrigin(0.5).setDepth(4),
-    ];
+    const parts = [this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6).setDepth(3)];
+    if (rewards.length) {
+      parts.push(this.add.text(640, REWARD.y - 120, t('delivery.received'), { fontFamily: FONT, fontSize: '26px', color: '#edc47f' }).setOrigin(0.5).setDepth(4));
+    }
+    losses.forEach((line, i) => {
+      parts.push(this.add.text(640, REWARD.y + 110 + i * 28, line, { fontFamily: FONT, fontSize: '20px', color: '#ff9f8a' }).setOrigin(0.5).setDepth(4));
+    });
     rewards.forEach((memory, i) => {
       const { x, y } = spots[i];
       const panel = this.add.rectangle(x, y, REWARD.w, REWARD.h, 0x1d2c38).setStrokeStyle(2, GOLD).setDepth(4);

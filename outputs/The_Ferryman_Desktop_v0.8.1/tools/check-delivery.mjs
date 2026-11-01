@@ -7,7 +7,7 @@ import path from 'node:path';
 import { boatZone } from '../src/scenes/boarding-layout.js';
 import {
   DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, headingText,
-  introText, layoutDelivery, memoryRowSpots, refusal, rewardSpots,
+  introText, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
 } from '../src/scenes/delivery-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -64,6 +64,10 @@ const { slots } = open;
 check('the dock centre is the dock', dropArea(DOCK.x, DOCK.y, slots) === 'dock');
 check('a seat is the boat', dropArea(slots[0].x, slots[0].y, slots) === 'boat');
 check('open water is nothing', dropArea(600, 650, slots) === null);
+const deckSpot = riderSpots.find((e) => e.span === 0);
+check('a deck spot is the boat', dropArea(deckSpot.x, deckSpot.y, slots) === 'boat');
+check('the gap between hull and deck is the boat', dropArea(slots[0].x, hull.y + hull.h / 2 + 4, slots) === 'boat');
+check('water past the deck is nothing', dropArea(slots[0].x, 620, slots) === null);
 
 // Marking.
 const before = JSON.stringify(match);
@@ -97,6 +101,7 @@ check('Mason behind the other soul is accepted', refusal(boatQuest, [other.id, m
 const quest = layoutDelivery(boatQuest, [other.id, mason.id], Ferry);
 const afterUndo = applyDrop(boatQuest, [other.id, mason.id], entryOf(quest, other.id), 'boat', Ferry);
 check('undoing the soul ahead also sends Mason back', afterUndo.marked.length === 0);
+check('the player is told why Mason went back', afterUndo.reason === refusal(boatQuest, [mason.id], Ferry));
 
 // Button and heading.
 check('confirm reads Keep everyone with nobody marked', confirmLabel(match, [], t) === 'Keep everyone / finish round');
@@ -117,6 +122,14 @@ check('keeping everyone has no departure', arrivalOutcome(match, kept, [], Ferry
 const stopped = { ...match, boat: [leaver], hand: match.hand };
 check('a run that stops partway only departs who left', arrivalOutcome(match, stopped, [stayer.id, leaver.id], Ferry).departed[0] === stayer.id
   && arrivalOutcome(match, stopped, [stayer.id, leaver.id], Ferry).departed.length === 1);
+check('an ordinary delivery loses nothing', outcome.lost.length === 0 && outcome.stolenRewards === 0);
+check('an ordinary delivery has no loss lines', lossLines(outcome, t).length === 0);
+const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
+const robbed = arrivalOutcome({ hand: held, nextMemory: '3' }, { boat: [], hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, [], Ferry);
+check('a theft of a held memory is reported', robbed.lost.length === 1 && robbed.lost[0].id === 'MEMORY-2' && robbed.stolenRewards === 0 && robbed.rewards.length === 1);
+check('the theft names the memory', lossLines(robbed, t)[0] === 'Po Luem took Fog Shield.');
+const snatched = arrivalOutcome({ hand: held, nextMemory: '3' }, { boat: [], hand: held, nextMemory: '4' }, [], Ferry);
+check('a theft of the new reward is reported', snatched.rewards.length === 0 && snatched.stolenRewards === 1 && lossLines(snatched, t).length === 1);
 const rowOfFive = rewardSpots(5);
 check('five rewards fit the screen', rowOfFive[0].x > 0 && rowOfFive[4].x < 1280);
 

@@ -2,7 +2,7 @@
 // DELIVER takes every chosen soul at once and each is checked after the one before, so eligibility
 // comes from test-running the whole list, not from deliveryReason on the current state.
 // Text comes in as t: src/text.js imports JSON, so a Node tool could not load this file otherwise.
-import { SLOT, boatZone, layoutBoarding, tokenLabels } from './boarding-layout.js';
+import { SLOT, TOKEN, boatZone, layoutBoarding, tokenLabels } from './boarding-layout.js';
 
 export const DOCK = { x: 300, y: 345, w: 520, h: 430 };
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
@@ -45,9 +45,13 @@ export function layoutDelivery(state, marked, Ferry) {
 
 const inside = (r, x, y) => Math.abs(x - r.x) <= r.w / 2 && Math.abs(y - r.y) <= r.h / 2;
 
+/** The boat is the hull and the deck row below it, so a soul can go back to either. */
 export function dropArea(x, y, slots) {
   if (inside(DOCK, x, y)) return 'dock';
-  return inside(boatZone(slots), x, y) ? 'boat' : null;
+  const hull = boatZone(slots);
+  const top = hull.y - hull.h / 2;
+  const bottom = DECK.y + TOKEN.h / 2;
+  return inside({ x: hull.x, y: (top + bottom) / 2, w: hull.w, h: bottom - top }, x, y) ? 'boat' : null;
 }
 
 export const deliverAction = (marked) => ({ type: 'DELIVER', ids: marked });
@@ -62,7 +66,7 @@ export function refusal(state, ids, Ferry) {
   }
 }
 
-/** What a finished drag does to the marked list. Unmarking rechecks the rest, in order. */
+/** What a finished drag does to the marked list. Unmarking rechecks the rest, in order, and says why a soul went back. */
 export function applyDrop(state, marked, entry, area, Ferry) {
   if (entry.area === 'seat' && area === 'dock') {
     const ids = [...marked, entry.id];
@@ -71,8 +75,14 @@ export function applyDrop(state, marked, entry, area, Ferry) {
   }
   if (entry.area === 'dock' && area === 'boat') {
     const kept = [];
-    for (const id of marked) if (id !== entry.id && !refusal(state, [...kept, id], Ferry)) kept.push(id);
-    return { marked: kept, reason: null };
+    let reason = null;
+    for (const id of marked) {
+      if (id === entry.id) continue;
+      const refused = refusal(state, [...kept, id], Ferry);
+      if (refused) reason ??= refused;
+      else kept.push(id);
+    }
+    return { marked: kept, reason };
   }
   return { marked, reason: null };
 }
@@ -94,15 +104,27 @@ const memoryView = (m, Ferry) => {
   return { id: m.id, type: m.type, name: def?.name ?? m.type, text: def?.text ?? '' };
 };
 
-/** What to play before dispatching. A lethal DELIVER stops partway, so departed can be shorter than marked. */
+/**
+ * What to play before dispatching. A lethal DELIVER stops partway, so departed can be shorter than marked.
+ * A Po Luem at level 3 steals inside DELIVER with no choice to show, from any memory, even one just received.
+ */
 export function arrivalOutcome(state, next, marked, Ferry) {
   const aboard = new Set(next.boat.map((x) => x.id));
   const held = new Set(state.hand.map((m) => m.id));
+  const kept = new Set(next.hand.map((m) => m.id));
+  const rewards = next.hand.filter((m) => !held.has(m.id)).map((m) => memoryView(m, Ferry));
   return {
     departed: marked.filter((id) => !aboard.has(id)),
-    rewards: next.hand.filter((m) => !held.has(m.id)).map((m) => memoryView(m, Ferry)),
+    rewards,
+    lost: state.hand.filter((m) => !kept.has(m.id)).map((m) => memoryView(m, Ferry)),
+    stolenRewards: Number(next.nextMemory) - Number(state.nextMemory) - rewards.length,
   };
 }
+
+export const lossLines = ({ lost, stolenRewards }, t) => [
+  ...lost.map(({ name }) => t('delivery.lost', { name })),
+  ...Array.from({ length: stolenRewards }, () => t('delivery.lostReward')),
+];
 
 /** A centred row of reward cards. */
 export function rewardSpots(n) {

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { t } from '../text.js';
+import { defineTuning, tune } from '../tuning.js';
 import { choiceView, memoryRowSpots } from './delivery-layout.js';
 
 // Choice prompt (T-20): opens over the running scene in phase 'choice'. That is DeliveryScene for
@@ -10,6 +11,10 @@ import { choiceView, memoryRowSpots } from './delivery-layout.js';
 const FONT = 'sans-serif';
 const GOLD = '#edc47f';
 const PANEL = { w: 1200, h: 590 };
+
+defineTuning({
+  'choice.inputDelayMs': { type: 'number', default: 300, min: 0, max: 1500, step: 50, help: 'Clicks ignored after a choice appears, so a double-click cannot lose a memory' },
+});
 
 export class ChoiceOverlay extends Phaser.Scene {
   constructor() {
@@ -34,6 +39,7 @@ export class ChoiceOverlay extends Phaser.Scene {
 
   render(state) {
     for (const p of this.parts) p.destroy();
+    this.readyAt = this.game.loop.time + tune('choice.inputDelayMs');
     const { width, height } = this.scale;
     const view = choiceView(state, Ferry, t);
     const top = height / 2 - PANEL.h / 2;
@@ -78,11 +84,16 @@ export class ChoiceOverlay extends Phaser.Scene {
     return btn;
   }
 
+  /** A choice can't be undone, so a click from the screen before it must not land here. */
   choose(action) {
+    if (this.game.loop.time < this.readyAt) return;
     try {
-      this.router.dispatch(action);
+      Ferry.transition(this.registry.get('state'), action);
     } catch (err) {
       this.message.setText(err.message);
+      return;
     }
+    // Outside the try: dispatch emits ferry-state, and a render bug must not look like a rule error.
+    this.router.dispatch(action);
   }
 }
