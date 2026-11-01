@@ -14,7 +14,8 @@ export class BootScene extends Phaser.Scene {
     queueAssets(this, {
       art: Ferry.data.souls.map((s) => s.id),
       backgrounds: Ferry.data.destinations.map((d) => d.id),
-      audio: ['menu-bgm', 'crossing-bgm', 'delivery-jingle', 'wraith-sfx', 'ui-click'],
+      // Audio ids follow notes/T-07_AUDIO_PLAN.md (bgm-, amb-, sfx- prefixes).
+      audio: ['bgm-menu', 'amb-crossing', 'sfx-board', 'sfx-unboard', 'sfx-ui-click', 'sfx-delivery-success', 'sfx-wraith'],
     });
   }
 
