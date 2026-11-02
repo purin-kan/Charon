@@ -1,6 +1,6 @@
 globalThis.FerryData = {
   "schemaVersion": 3,
-  "version": "0.7-trial",
+  "version": "0.8-t45",
   "title": "The Ferryman",
   "config": {
     "startLight": 6,
@@ -111,7 +111,7 @@ globalThis.FerryData = {
     },
     {
       "id": "SOUL-POLONG",
-      "name": "PoLong",
+      "name": "Long Mist",
       "seats": 0,
       "wish": "DEST-TARTARUS",
       "memory": null,
@@ -201,7 +201,7 @@ globalThis.FerryData = {
     },
     {
       "id": "SOUL-PO-LUEM",
-      "name": "Po Luem",
+      "name": "Long Hollow",
       "seats": 0,
       "wish": "DEST-ASPHODEL",
       "memory": null,
@@ -211,7 +211,7 @@ globalThis.FerryData = {
     },
     {
       "id": "SOUL-PO-NAK",
-      "name": "Po Nak",
+      "name": "Long Burden",
       "seats": 0,
       "wish": "DEST-ACHERON",
       "memory": null,
@@ -221,7 +221,7 @@ globalThis.FerryData = {
     },
     {
       "id": "SOUL-PO-MUED",
-      "name": "Po Mued",
+      "name": "Long Veil",
       "seats": 0,
       "wish": "DEST-STYX",
       "memory": null,
@@ -231,7 +231,7 @@ globalThis.FerryData = {
     },
     {
       "id": "SOUL-PO-DUE",
-      "name": "Po Due",
+      "name": "Long Grasp",
       "seats": 0,
       "wish": "DEST-HAVEN",
       "memory": null,
@@ -329,7 +329,7 @@ globalThis.FerryData = {
       "name": "Calm",
       "kind": "calm",
       "amount": 1,
-      "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul."
+      "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target a Long. It cannot revive a removed soul."
     },
     {
       "id": "MEM-FOG",
@@ -399,7 +399,7 @@ globalThis.FerryData = {
       "name": "Moly of Hermes",
       "kind": "moly",
       "amount": 0,
-      "text": "Prevent future scheduled Polong arrivals until the next return. Existing passengers remain."
+      "text": "Prevent future scheduled Long arrivals until the next return. Existing passengers remain."
     },
     {
       "id": "MEM-NOBODY",
@@ -411,11 +411,11 @@ globalThis.FerryData = {
   ],
   "roundSteps": [
     "Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
-    "Approach the fork: advance the outward round and board a scheduled Polong unless Moly suppresses it. Its level/effects apply immediately.",
+    "Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.",
     "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
     "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
     "Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls.",
-    "Resolve Wraith damage, removals and eligible spread. Po Luem takes memories; choose excess memories to discard to three.",
+    "Resolve Wraith damage, removals and eligible spread. Long Hollow takes memories; choose excess memories to discard to three.",
     "Begin the next memory window, or return if the boat is empty."
   ],
   "returnSteps": [
@@ -424,16 +424,16 @@ globalThis.FerryData = {
     "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ],
   "rules": {
-    "scope": "Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
+    "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
-    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Polong is shown before departure.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
     "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
-    "polongs": "Every third outward round brings the shown Polong unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five variants, concealment, Restless River, memory theft, overload, refusal and spread.",
+    "polongs": "Every third outward round brings the shown Long unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
     "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
     "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
-    "damage": "Fog protection does not prevent Wraith or toll damage. Original Po Long delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Polongs grant no Light or memory."
+    "damage": "Fog protection does not prevent Wraith or toll damage. Long Mist delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Longs grant no Light or memory."
   },
   "authority": [
     "TRIAL_RULES_DRAFT.md",
@@ -441,7 +441,7 @@ globalThis.FerryData = {
   ],
   "trial": {
     "stage": "All-quest local trial",
-    "notice": "Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
+    "notice": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "sourceModifiedTime": "2026-10-29T19:37:27.386Z",
     "pending": [
       "Team direction on Scale unlocks and adaptive routes",
@@ -561,6 +561,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "55f1026ee08d5bc4b2d4af7bc671eac882c5030d86938369f8480e1900f153fe"
+  "contentSha256": "acac57d0be0ab222d0ea649a7ebb84a869209c10cb5d94edbb7c3c4aeca7fe5d"
 }
 ;

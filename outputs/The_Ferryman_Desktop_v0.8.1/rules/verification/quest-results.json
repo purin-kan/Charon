@@ -1,10 +1,10 @@
 {
-  "version": "0.7-trial",
+  "version": "0.8-t45",
   "passed": 22,
   "failed": 0,
   "hashes": {
     "engine.js": "eccb31931ce380967190e83077ed840d91c05d8b5ce324f363b2ed0e588c7a2f",
-    "content.json": "55f1026ee08d5bc4b2d4af7bc671eac882c5030d86938369f8480e1900f153fe",
+    "content.json": "acac57d0be0ab222d0ea649a7ebb84a869209c10cb5d94edbb7c3c4aeca7fe5d",
     "tests/quest-check.js": "222d6412fdd2e6cb5a4969ddbbc7d97cbf082cc91b38e6767f1a5e2778bf34c0"
   },
   "records": [

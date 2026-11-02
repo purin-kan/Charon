@@ -132,8 +132,8 @@ File names follow the art pipeline (`notes/T-03_ART_PIPELINE.md`) and the audio 
 `SOUL-MOTHER` and `CHAR-CERBERUS` load `art/sprite-mother.png` and `art/sprite-cerberus.png`,
 `MEM-MOLY` loads `art/memory-moly.png`, `DEST-STYX` loads `backgrounds/bg-styx.png`. A file named
 exactly after the id wins; names that do not follow the pattern go in `ALIASES` in
-`src/asset-names.js` (the five Polong variants wait there for the team to match them to the
-`sprite-long-*` art). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
+`src/asset-names.js` (for example `SOUL-PO-LUEM` loads `art/sprite-long-hollow.png`, shown as Long
+Hollow). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
 `node tools/check-art.mjs` tests these rules and lists which engine ids still show an emblem.
 
 ## Title screen and save

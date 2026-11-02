@@ -18,6 +18,9 @@ All paths are under `outputs/The_Ferryman_Desktop_v0.8.1/`.
 | 7 | Protecting the Merchant is story only; Sword only if Merchant is delivered before Blacksmith | Blacksmith no longer blocks the Merchant's Anger. Nothing blocks the Blacksmith's delivery (the "deliver Merchant first" and "later crossing" checks are gone). Delivering the Blacksmith first fails the quest, so no Sword. Merchant then Blacksmith, even at the same stop, gives the Sword. Quest and round-step text updated. | `rules/content.json`, `rules/engine.js` |
 | - | Scylla replaces Zilla (blockers note, "World and story") | Player-facing text only: quest text, engine log and error messages, and the `choice.zilla` label in scene text. The internal branch id `zilla` and the `zilla*` text keys stay, so scenes and saves keep working. | `rules/content.json`, `rules/engine.js`, `src/data/scene-text.json` |
 
+| - | Polongs are shown as Longs (VarisPah on PR 21, November 2, from Kanyakorn-goya's request on issue 11) | Display names: PoLong to Long Mist, Po Luem to Long Hollow, Po Nak to Long Burden, Po Mued to Long Veil, Po Due to Long Grasp. Rules, help and memory text say "Long" and "Longs". Engine ids (`SOUL-POLONG`, `SOUL-PO-*`) and the `polong*` setting and text keys stay. `ALIASES` maps each id to its `sprite-long-*` art. Not yet changed: three engine strings ("Po Due will not leave below Anger 2.", "Po Due delivery", "Po Luem takes ...") wait for the engine review, and the scene text waits for Tinpatpun. | `rules/content.json`, `src/asset-names.js`, `tools/check-boarding.mjs` |
+| - | Save version (owner call, purin-kan) | `version` `0.7-trial` to `0.8-t45`. `importSave` rejects any other version, so older saves show as unreadable on the title screen. | `rules/content.json` |
+
 Drug Dealer, Fool and Killer stay out of play (still in `pendingSouls` only).
 
 ## Checks (agent, automated)
@@ -27,8 +30,11 @@ Drug Dealer, Fool and Killer stay out of play (still in `pendingSouls` only).
 * `npm run fixtures`: all fixtures regenerated, since the old ones held Heaven wishes.
 * `npm run check`: 5 of 5 checks passed (engine, router, art, boarding, text), after rebasing on `main` at `e9358e5`.
 * Not run: `npm start`, the packaged `.exe` and any human playtest.
+* After the Long names and version bump (Windows 11, Node 25.1.0, purin-kan): content `acac57d0...`; quest-check 22 passed, 0 failed; fixtures regenerated (only `version` and the "Long Hollow boards" log line changed); `npm run check` 5 of 5 passed; `npm start` opened BoardingScene on version `0.8-t45` with no errors. The exe and a human playtest NOT_RUN.
 
 ## Needs confirmation (VarisPah, Jaoguya)
+
+VarisPah answered on PR 21 (November 2): 1 Acheron, 2 ship anger -1 (every soul aboard, engine change for Jaoguya to review), 3 owner call (bumped, see above), 4 to be applied before the November 6 freeze (scope with purin-kan), 5 "Longs" in the tagline (Tinpatpun).
 
 1. **Blacksmith's wish:** Acheron (catalog and soul table) or Haven (a literal "every Heaven becomes Haven")?
 2. **Calm:** decision 3 describes Calm as "ship anger -1". The engine still applies Calm to one chosen soul. Changing it to every soul aboard is a rule change, and it also affects Cook and Farmer, so it was not made here.

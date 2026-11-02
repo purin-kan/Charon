@@ -1,6 +1,6 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.7-trial",
+  "version": "0.8-t45",
   "schemaVersion": 3,
   "seed": 34,
   "rng": 3174170238,
@@ -231,7 +231,7 @@
     {
       "round": "3",
       "cycle": "2",
-      "text": "Po Luem boards at level 1."
+      "text": "Long Hollow boards at level 1."
     },
     {
       "round": "3",
