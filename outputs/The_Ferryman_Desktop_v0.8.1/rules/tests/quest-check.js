@@ -147,6 +147,12 @@ check('Only original normally delivered Po Long pays Light; fatal damage stops r
  let s=boat(['SOUL-COOK']);polong(s,'SOUL-POLONG',1);const before=s.light;s=step(s,'DEST-TARTARUS',['SOUL-POLONG']);assert.equal(s.light,before-2);
  let fatal=boat(['SOUL-MERCHANT']);fatal.light=1;fatal=cross(fatal,'DEST-STYX');assert.equal(fatal.phase,'ended');assert.equal(fatal.hand.length,0);rt(fatal);
 });
+check('Calm and Soldiers Peace lower every soul on the boat, not the shore, with no target',()=>{
+ let s=shore(['SOUL-MOTHER','SOUL-MUSICIAN','SOUL-COOK']);for(const t of ['SOUL-MOTHER','SOUL-MUSICIAN'])s=act(s,'BOARD',{id:find(s,t).id});s=act(s,'DEPART');s.effects.moly=true;polong(s,'SOUL-PO-DUE',1,2);const cook=find(s,'SOUL-COOK');for(const x of s.boat)x.anger=2;cook.anger=1;
+ const calm=memory(s,'MEM-CALM','SOUL-MUSICIAN');assert.equal(g.memoryTargets(s,'MEM-CALM'),null);assert.throws(()=>act(s,'PLAY_MEMORY',{id:calm,target:s.boat[0].id}));
+ s=act(s,'PLAY_MEMORY',{id:calm});assert.deepEqual(s.boat.map(x=>x.anger),[1,1,1]);assert.equal(s.shore.find(x=>x.id===cook.id).anger,1);
+ const peace=memory(s,'MEM-SOLDIER-PEACE');s=act(s,'PLAY_MEMORY',{id:peace});assert.ok(s.boat.every(x=>x.anger===0));assert.equal(s.shore.find(x=>x.id===cook.id).anger,1);rt(s);
+});
 check('Save validation rejects old versions, broken origins, duplicated IDs and wrong pending choices',()=>{
  const base=g.create();for(const edit of [s=>s.version='0.6',s=>s.shore[0].origin='SOUL-KILLER',s=>s.shore[0].id=s.shore[1].id,s=>s.routes.offers[0][0]='UNKNOWN',s=>s.choice={kind:'odysseus',questId:'missing'},s=>s.effects.moly='yes']){const bad=copy(base);edit(bad);assert.throws(()=>g.importSave(JSON.stringify(bad)));}rt(base);
 });

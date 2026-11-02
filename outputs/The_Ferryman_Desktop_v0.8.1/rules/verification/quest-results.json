@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45",
-  "passed": 22,
+  "passed": 23,
   "failed": 0,
   "hashes": {
-    "engine.js": "eccb31931ce380967190e83077ed840d91c05d8b5ce324f363b2ed0e588c7a2f",
-    "content.json": "acac57d0be0ab222d0ea649a7ebb84a869209c10cb5d94edbb7c3c4aeca7fe5d",
-    "tests/quest-check.js": "222d6412fdd2e6cb5a4969ddbbc7d97cbf082cc91b38e6767f1a5e2778bf34c0"
+    "engine.js": "0266b00b96f6801223c37f905ade2cc71249f3b460472c3b3d62f3c864f88abb",
+    "content.json": "2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6",
+    "tests/quest-check.js": "68a6069ffa557cecf85bceeec03fa80a7b3256b75969f6cae4954023b65b5c12"
   },
   "records": [
     {
@@ -89,6 +89,10 @@
       "status": "PASS"
     },
     {
+      "name": "Calm and Soldiers Peace lower every soul on the boat, not the shore, with no target",
+      "status": "PASS"
+    },
+    {
       "name": "Save validation rejects old versions, broken origins, duplicated IDs and wrong pending choices",
       "status": "PASS"
     },
@@ -96,8 +100,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2460,
-      "choices": 25,
+      "transitions": 2473,
+      "choices": 26,
       "humanPlaytest": false
     }
   ],

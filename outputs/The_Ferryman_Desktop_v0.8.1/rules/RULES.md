@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `acac57d0be0ab222d0ea649a7ebb84a869209c10cb5d94edbb7c3c4aeca7fe5d`.
+Generated from content.json. SHA-256: `2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -87,14 +87,14 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 - **Light:** Restore 1 Light, up to your current maximum.
 - **Foresight:** Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.
 - **Guard:** Prevent the next 1 point of damage this outward round or return. Does not stack.
-- **Calm:** Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target a Long. It cannot revive a removed soul.
+- **Calm:** Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected.
 - **Fog Shield:** Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.
 - **Passenger:** Deliver one eligible onboard passenger directly to its wish. No travel fog, route count or scheduled arrival; delivery restrictions and quest consequences still apply.
 - **Last Prayer:** Restore 1 Light up to your current maximum.
-- **Shared Harvest:** Reduce one active soul’s Anger by 1, minimum zero.
+- **Shared Harvest:** Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected.
 - **Full Fog Protection:** Prevent all fog on this crossing. Does not prevent Wraith damage.
 - **Sword:** Remove one tainted passenger. No reward, Wraith damage or spread.
-- **Soldiers’ Peace:** Reduce one active soul’s Anger by 3, minimum zero.
+- **Soldiers’ Peace:** Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected.
 - **Boat Space:** One extra seat until the next return. Does not stack.
 - **Golden Apple:** Increase maximum Light by 1 for this run and restore Light to that maximum.
 - **Moly of Hermes:** Prevent future scheduled Long arrivals until the next return. Existing passengers remain.

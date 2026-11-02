@@ -329,7 +329,7 @@ globalThis.FerryData = {
       "name": "Calm",
       "kind": "calm",
       "amount": 1,
-      "text": "Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target a Long. It cannot revive a removed soul."
+      "text": "Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected."
     },
     {
       "id": "MEM-FOG",
@@ -357,7 +357,7 @@ globalThis.FerryData = {
       "name": "Shared Harvest",
       "kind": "calm",
       "amount": 1,
-      "text": "Reduce one active soul’s Anger by 1, minimum zero."
+      "text": "Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected."
     },
     {
       "id": "MEM-ALL-FOG",
@@ -378,7 +378,7 @@ globalThis.FerryData = {
       "name": "Soldiers’ Peace",
       "kind": "calm",
       "amount": 3,
-      "text": "Reduce one active soul’s Anger by 3, minimum zero."
+      "text": "Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected."
     },
     {
       "id": "MEM-BOAT-SPACE",
@@ -561,6 +561,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "acac57d0be0ab222d0ea649a7ebb84a869209c10cb5d94edbb7c3c4aeca7fe5d"
+  "contentSha256": "2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6"
 }
 ;

@@ -171,7 +171,7 @@
   function deliveryReason(s,x,via='normal') {
     if(!s.boat.some(a=>a.id===x.id))return 'Not aboard.';
     if(via==='normal'&&x.wish!==s.destination)return 'Wishes for '+DEST[x.wish].name+'.';
-    if(x.type==='SOUL-PO-DUE'&&x.anger<2)return 'Po Due will not leave below Anger 2.';
+    if(x.type==='SOUL-PO-DUE'&&x.anger<2)return 'Long Grasp will not leave below Anger 2.';
     for(const q of activeQuests(s).filter(q=>q.participants.includes(x.id))){
       if(q.definitionId==='QUEST-BOAT'&&x.type==='SOUL-MASON'&&(q.stage!=='merchant-delivered'||s.boat.length!==1))return 'Deliver Merchant first. Mason must be the last passenger.';
       if(q.definitionId==='QUEST-HERACLES'&&(q.stage!=='cerberus'||q.data.battleRound===s.round))return 'Complete the Cerberus encounter, then deliver on a later arrival.';
@@ -196,7 +196,7 @@
   }
   function deliver(s,x,via='normal') {
     need(!deliveryReason(s,x,via),deliveryReason(s,x,via));
-    if(x.type==='SOUL-PO-DUE'&&x.level>=3){damage(s,1,'Po Due delivery');if(s.phase==='ended')return;}
+    if(x.type==='SOUL-PO-DUE'&&x.level>=3){damage(s,1,'Long Grasp delivery');if(s.phase==='ended')return;}
     deliveredQuests(s,x);
     if(x.origin&&!isTainted(x))s.deliveries=inc(s.deliveries);
     const memory=SOUL[x.type].memory;
@@ -229,7 +229,7 @@
   function resolveChoice(s,action) {
     need(s.phase==='choice'&&s.choice,'No pending choice.');
     if(s.choice.kind==='memory-loss'){
-      const m=s.hand.find(x=>x.id===action.id);need(m,'Choose a held memory to lose.');s.hand=s.hand.filter(x=>x.id!==m.id);record(s,'Po Luem takes '+MEM[m.type].name+'.');s.choice=null;thefts(s);return;
+      const m=s.hand.find(x=>x.id===action.id);need(m,'Choose a held memory to lose.');s.hand=s.hand.filter(x=>x.id!==m.id);record(s,'Long Hollow takes '+MEM[m.type].name+'.');s.choice=null;thefts(s);return;
     }
     need(['charybdis','zilla'].includes(action.branch),'Choose Charybdis or Scylla.');
     const q=s.quests.find(q=>q.id===s.choice.questId);s.choice=null;s.phase='delivery';
@@ -244,7 +244,6 @@
   }
   function memoryTargets(s,type) {
     const kind=MEM[type]?.kind;
-    if(kind==='calm')return [...s.shore,...s.boat];
     if(kind==='passage')return s.boat.filter(x=>!deliveryReason(s,x,'passage'));
     if(kind==='sword')return s.boat.filter(isTainted);
     return null;
@@ -265,7 +264,7 @@
     if(m.kind==='fog')s.window.shield+=m.amount;
     if(m.kind==='all-fog')s.window.allFog=true;
     if(m.kind==='foresight')s.routes.foresight=C.foresightForks;
-    if(m.kind==='calm'){const x=[...s.shore,...s.boat].find(x=>x.id===target);x.anger=Math.max(0,x.anger-m.amount);}
+    if(m.kind==='calm')for(const x of s.boat)x.anger=Math.max(0,x.anger-m.amount);
     if(m.kind==='apple'){s.maxLight++;s.light=s.maxLight;}
     if(['capacity','moly','nobody'].includes(m.kind))s.effects[m.kind]=true;
     if(m.kind==='sword')remove(s,s.boat.find(x=>x.id===target),'Sword');

@@ -19,6 +19,7 @@ All paths are under `outputs/The_Ferryman_Desktop_v0.8.1/`.
 | - | Scylla replaces Zilla (blockers note, "World and story") | Player-facing text only: quest text, engine log and error messages, and the `choice.zilla` label in scene text. The internal branch id `zilla` and the `zilla*` text keys stay, so scenes and saves keep working. | `rules/content.json`, `rules/engine.js`, `src/data/scene-text.json` |
 
 | - | Polongs are shown as Longs (VarisPah on PR 21, November 2, from Kanyakorn-goya's request on issue 11) | Display names: PoLong to Long Mist, Po Luem to Long Hollow, Po Nak to Long Burden, Po Mued to Long Veil, Po Due to Long Grasp. Rules, help and memory text say "Long" and "Longs". Engine ids (`SOUL-POLONG`, `SOUL-PO-*`) and the `polong*` setting and text keys stay. `ALIASES` maps each id to its `sprite-long-*` art. Not yet changed: three engine strings ("Po Due will not leave below Anger 2.", "Po Due delivery", "Po Luem takes ...") wait for the engine review, and the scene text waits for Tinpatpun. | `rules/content.json`, `src/asset-names.js`, `tools/check-boarding.mjs` |
+| 3 | Calm is "ship anger -1" (VarisPah on PR 21: every soul aboard, not one chosen soul); White flag is "boat anger -3" (blockers note) | Every memory of kind `calm` now lowers the Anger of every soul on the boat by its amount, Longs included, and takes no target; shore souls are not affected. This covers Calm (Bard, Cook, 1), Shared Harvest (Farmer, 1) and Soldiers' Peace (the White flag, the Soldiers' quest reward, 3). The three engine strings now say Long Grasp and Long Hollow. Engine review: Jaoguya. The memory UI in #18 must not ask for a target for these. | `rules/engine.js`, `rules/content.json`, `rules/tests/quest-check.js` |
 | - | Save version (owner call, purin-kan) | `version` `0.7-trial` to `0.8-t45`. `importSave` rejects any other version, so older saves show as unreadable on the title screen. | `rules/content.json` |
 
 Drug Dealer, Fool and Killer stay out of play (still in `pendingSouls` only).
@@ -31,6 +32,7 @@ Drug Dealer, Fool and Killer stay out of play (still in `pendingSouls` only).
 * `npm run check`: 5 of 5 checks passed (engine, router, art, boarding, text), after rebasing on `main` at `e9358e5`.
 * Not run: `npm start`, the packaged `.exe` and any human playtest.
 * After the Long names and version bump (Windows 11, Node 25.1.0, purin-kan): content `acac57d0...`; quest-check 22 passed, 0 failed; fixtures regenerated (only `version` and the "Long Hollow boards" log line changed); `npm run check` 5 of 5 passed; `npm start` opened BoardingScene on version `0.8-t45` with no errors. The exe and a human playtest NOT_RUN.
+* After Calm (Windows 11, Node 25.1.0, purin-kan): content `2c13c429...`; quest-check 23 passed, 0 failed (new test: Calm and Soldiers' Peace lower every soul on the boat, leave the shore alone and refuse a target); fixtures regenerated with no change; `npm run check` 5 of 5 passed; `npm start` opened BoardingScene on `0.8-t45` with no errors.
 
 ## Needs confirmation (VarisPah, Jaoguya)
 
