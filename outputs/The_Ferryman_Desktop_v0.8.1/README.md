@@ -40,7 +40,7 @@ Other commands:
 
 ## Rules source
 
-The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`). This
+The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`) and since edited for T-45; the current hash is in `rules/verification/content-build.json`. This
 folder depends on no other folder. `src/ferry.js` imports `rules/content.js` first (sets
 `globalThis.FerryData`), then `rules/engine.js` (publishes `globalThis.Ferry`, or its CommonJS
 export in a production build). Never edit `engine.js` to fix loading; wrap it.
@@ -132,8 +132,8 @@ File names follow the art pipeline (`notes/T-03_ART_PIPELINE.md`) and the audio 
 `SOUL-MOTHER` and `CHAR-CERBERUS` load `art/sprite-mother.png` and `art/sprite-cerberus.png`,
 `MEM-MOLY` loads `art/memory-moly.png`, `DEST-STYX` loads `backgrounds/bg-styx.png`. A file named
 exactly after the id wins; names that do not follow the pattern go in `ALIASES` in
-`src/asset-names.js` (the five Polong variants wait there for the team to match them to the
-`sprite-long-*` art). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
+`src/asset-names.js` (for example `SOUL-PO-LUEM` loads `art/sprite-long-hollow.png`, shown as Long
+Hollow). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
 `node tools/check-art.mjs` tests these rules and lists which engine ids still show an emblem.
 
 ## Title screen and save
