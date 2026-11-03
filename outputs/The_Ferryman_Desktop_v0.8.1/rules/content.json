@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "version": "0.8-t45",
+  "version": "0.8-t45b",
   "title": "The Ferryman",
   "config": {
     "startLight": 6,
@@ -16,7 +16,7 @@
     "returnLight": 1,
     "wraithDamage": 1,
     "foresightForks": 3,
-    "memoriesPerWindow": null,
+    "memoriesPerWindow": 1,
     "endless": true,
     "initialShore": [
       "SOUL-MOTHER",
@@ -175,7 +175,7 @@
       "personalName": "Georgios",
       "seats": 1,
       "wish": "DEST-ASPHODEL",
-      "memory": "MEM-SHARED-HARVEST",
+      "memory": null,
       "ordinary": true,
       "tainted": false
     },
@@ -353,13 +353,6 @@
       "text": "Restore 1 Light up to your current maximum."
     },
     {
-      "id": "MEM-SHARED-HARVEST",
-      "name": "Shared Harvest",
-      "kind": "calm",
-      "amount": 1,
-      "text": "Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected."
-    },
-    {
       "id": "MEM-ALL-FOG",
       "name": "Full Fog Protection",
       "kind": "all-fog",
@@ -379,13 +372,6 @@
       "kind": "calm",
       "amount": 3,
       "text": "Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected."
-    },
-    {
-      "id": "MEM-BOAT-SPACE",
-      "name": "Boat Space",
-      "kind": "capacity",
-      "amount": 1,
-      "text": "One extra seat until the next return. Does not stack."
     },
     {
       "id": "MEM-GOLDEN-APPLE",
@@ -410,7 +396,7 @@
     }
   ],
   "roundSteps": [
-    "Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
+    "Play up to one held memory and any available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
     "Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.",
     "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
     "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
@@ -419,7 +405,7 @@
     "Begin the next memory window, or return if the boat is empty."
   ],
   "returnSteps": [
-    "With an empty boat, play held memories if desired.",
+    "With an empty boat, return to the Starting Shore. No memories are played on the return trip.",
     "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
     "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ],
@@ -427,11 +413,11 @@
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
     "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
-    "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
+    "memories": "One memory per round (one crossing to a new route), played before approaching the fork. No memories during boarding or on the return trip. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
     "polongs": "Every third outward round brings the shown Long unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
-    "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
+    "effects": "Moly and Nobody expire at the next return. Effect duration does not stack. The Room for one more seat applies to the whole next cycle only and does not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
     "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
     "damage": "Fog protection does not prevent Wraith or toll damage. Long Mist delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Longs grant no Light or memory."
   },
@@ -491,7 +477,7 @@
         "SOUL-COOK"
       ],
       "reward": null,
-      "description": "Prepare a meal once per boarding: everyone −1 Anger, then Cook +2."
+      "description": "Prepare a meal once per boarding, before the fork: every other soul on the boat −1 Anger, Longs included; Cook does not eat and is stressed, +3 Anger."
     },
     {
       "id": "QUEST-SWORD",
@@ -510,8 +496,8 @@
         "SOUL-MERCHANT",
         "SOUL-MASON"
       ],
-      "reward": "MEM-BOAT-SPACE",
-      "description": "Deliver Merchant, then Mason as the last passenger."
+      "reward": null,
+      "description": "Deliver Merchant, then Mason as the last passenger. The next cycle starts with +1 seat; back to normal at the end of that cycle. Does not stack."
     },
     {
       "id": "QUEST-HERACLES",

@@ -51,7 +51,6 @@
     "acceptHero": "Accept {name}",
     "declineHero": "Decline this trip",
     "chooseToll": "Choose Hades' toll",
-    "boatSpace": "Use Boat Space (+1 seat this trip)",
     "alreadyAboard": "Already aboard: {list}",
     "clash": "Merchant cannot depart with both Blacksmith and Mason.",
     "notEnoughSeats": "Not enough seats.",
@@ -110,7 +109,7 @@
     "reviewReturn": "Review return",
     "heading": "Return to the Starting Shore",
     "cost": "{loss} Light from waiting souls expiring, then +1 Light if alive.",
-    "expire": "Boat Space, Moly and Nobody expire on this return.",
+    "expire": "Moly and Nobody expire on this return. A Room for one more seat ends with this cycle.",
     "lethal": "The lantern goes out before healing."
   },
 

@@ -1,11 +1,11 @@
 {
-  "version": "0.8-t45",
+  "version": "0.8-t45b",
   "passed": 23,
   "failed": 0,
   "hashes": {
-    "engine.js": "0266b00b96f6801223c37f905ade2cc71249f3b460472c3b3d62f3c864f88abb",
-    "content.json": "2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6",
-    "tests/quest-check.js": "68a6069ffa557cecf85bceeec03fa80a7b3256b75969f6cae4954023b65b5c12"
+    "engine.js": "8a2e462df435758a36b81524da5caefe8ff2231e161a67476ba62142270b879c",
+    "content.json": "fd348c0e98b8187a80d274f253f8c343f5a78845d530d7efa5388a4f18d534b6",
+    "tests/quest-check.js": "3e6a54e89385cdd29fe033dc13bc244c019c1797caa4e89e449569504515086f"
   },
   "records": [
     {
@@ -29,7 +29,7 @@
       "status": "PASS"
     },
     {
-      "name": "Meal is once per shared boarding, includes Cook reduction and can expire Cook",
+      "name": "Meal is once per shared boarding; others and Longs -1, Cook does not eat and gains 3, can expire Cook; Farmer gives no memory",
       "status": "PASS"
     },
     {
@@ -37,7 +37,7 @@
       "status": "PASS"
     },
     {
-      "name": "Mason leaves last including Polongs; capacity can be used before boarding and expires",
+      "name": "Mason leaves last including Polongs; the next cycle gets +1 seat, which ends with that cycle and does not stack",
       "status": "PASS"
     },
     {
@@ -57,7 +57,7 @@
       "status": "PASS"
     },
     {
-      "name": "Unlimited memories, overflow cannot be spent, full fog does not block Wraiths",
+      "name": "One memory per round, none in boarding or on the return trip; overflow cannot be spent; full fog does not block Wraiths",
       "status": "PASS"
     },
     {
@@ -100,8 +100,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2473,
-      "choices": 26,
+      "transitions": 2389,
+      "choices": 25,
       "humanPlaytest": false
     }
   ],
