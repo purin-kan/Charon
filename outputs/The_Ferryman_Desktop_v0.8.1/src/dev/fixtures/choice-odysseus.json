@@ -1,6 +1,6 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.7-trial",
+  "version": "0.8-t45",
   "schemaVersion": 3,
   "seed": 1,
   "rng": 1369582169,
@@ -34,7 +34,7 @@
       "id": "ACTOR-2",
       "type": "SOUL-CHILD",
       "origin": "SOUL-CHILD",
-      "wish": "DEST-HEAVEN",
+      "wish": "DEST-HAVEN",
       "anger": 0,
       "boardingId": null,
       "bornRound": "0",
@@ -135,7 +135,7 @@
         "DEST-STYX"
       ],
       [
-        "DEST-HEAVEN",
+        "DEST-TARTARUS",
         "DEST-STYX"
       ],
       [
@@ -177,7 +177,7 @@
     {
       "round": "0",
       "cycle": "1",
-      "text": "All-quest trial begins. Heaven is a separate destination."
+      "text": "All-quest trial begins."
     },
     {
       "round": "0",
@@ -202,7 +202,7 @@
     {
       "round": "1",
       "cycle": "1",
-      "text": "Tiresias offers Charybdis or Zilla."
+      "text": "Tiresias offers Charybdis or Scylla."
     }
   ]
 }

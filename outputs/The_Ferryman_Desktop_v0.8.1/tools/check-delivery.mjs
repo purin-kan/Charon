@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { boatZone } from '../src/scenes/boarding-layout.js';
+import { boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
   DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, headingText,
   introText, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
@@ -130,7 +130,7 @@ check('an ordinary delivery has no loss lines', lossLines(outcome, t, Ferry).len
 const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
 const robbed = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, deliverAction([]), Ferry);
 check('a theft of a held memory is reported', robbed.lost.length === 1 && robbed.lost[0].id === 'MEMORY-2' && robbed.stolenRewards === 0 && robbed.rewards.length === 1);
-check('the theft names the memory', lossLines(robbed, t, Ferry)[0] === 'Po Luem took Fog Shield.');
+check('the theft names the memory', lossLines(robbed, t, Ferry)[0] === `${soulName('SOUL-PO-LUEM', Ferry)} took Fog Shield.`);
 const snatched = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: held, nextMemory: '4' }, deliverAction([]), Ferry);
 check('a theft of the new reward is reported', snatched.rewards.length === 0 && snatched.stolenRewards === 1 && lossLines(snatched, t, Ferry).length === 1);
 const angry = structuredClone(none);
