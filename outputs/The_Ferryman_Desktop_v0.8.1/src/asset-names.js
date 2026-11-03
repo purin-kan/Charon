@@ -13,12 +13,17 @@
 
 /**
  * Engine id -> file id, only where the pattern above does not give the right name.
- * The five Polong variants are drawn as sprite-long-mist, -hollow, -burden, -veil and -grasp, but which
- * Long is which SOUL-PO-* is not decided yet (issue 11). Until it is, they show letter emblems.
- * Add a line here once the team decides, e.g. 'SOUL-PO-LUEM': 'sprite-long-mist'.
+ * The five Longs keep their old engine ids (SOUL-POLONG, SOUL-PO-*); the pairing with the
+ * sprite-long-* art was decided by VarisPah on PR 21 (Nov 2).
  */
 export const ALIASES = {
-  art: {},
+  art: {
+    'SOUL-POLONG': 'sprite-long-mist',
+    'SOUL-PO-LUEM': 'sprite-long-hollow',
+    'SOUL-PO-NAK': 'sprite-long-burden',
+    'SOUL-PO-MUED': 'sprite-long-veil',
+    'SOUL-PO-DUE': 'sprite-long-grasp',
+  },
   backgrounds: {},
   audio: {},
 };

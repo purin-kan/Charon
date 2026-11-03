@@ -26,8 +26,8 @@ const lines = [
   'Initial shore: ' + data.config.initialShore.map(id => souls[id].name).join(', ') + '.', '',
   'Arrival pool: ' + data.config.initialArrivals.map(id => souls[id].name).join(', ') + '.', '',
   '## Active baseline souls', '',
-  '| ID | Name | Seats | Wish | Memory |', '|---|---|---:|---|---|',
-  ...data.souls.map(s => `| ${s.id} | ${s.name} | ${s.seats} | ${destinations[s.wish].name} | ${memories[s.memory]?.name || 'None'} |`),
+  '| ID | Name | Personal name | Seats | Wish | Memory |', '|---|---|---|---:|---|---|',
+  ...data.souls.map(s => `| ${s.id} | ${s.name} | ${s.personalName || ''} | ${s.seats} | ${destinations[s.wish].name} | ${memories[s.memory]?.name || 'None'} |`),
 ];
 for (const [key, value] of Object.entries(data.rules)) lines.push('', '## ' + key, '', value);
 lines.push('', '## Memories', '');

@@ -96,7 +96,7 @@ check('unknown type falls back to its id', soulName('SOUL-NOPE', Ferry) === 'SOU
 // Status line.
 const status = statusLine(one, Ferry);
 check('status shows Light and seats', status.includes('Light 6/6') && status.includes('Seats 1/4'));
-check('status shows the next Polong', status.includes('Next Polong: Po Luem'));
+check('status shows the next Long by its data name', status.includes(soulName(one.nextPolong, Ferry)) && soulName(one.nextPolong, Ferry) === 'Long Hollow');
 
 // Hero offers.
 const odysseus = heroPrompt(base, Ferry);
