@@ -33,6 +33,31 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 | T-20 played by hand (Nov 2) | SupaOhm, `npm start` on macOS with `delivery-match`, then `choice-odysseus` and `choice` from the dev menu | passed: Mother to the dock and back, Mason refused with "Wishes for Acheron.", delivery with departure and reward, both Odysseus options, the Po Luem choice. Played by the task owner, not a playtest |
 | T-20 after purin-kan's review (Nov 3) | `npm run check` on macOS; `npm start` with `choice-odysseus`, `delivery-match` and `choice`, scripted real mouse input, screenshots read | all 6 checks pass; `check-delivery` 70 OK, 0 FAIL. New checks against the real engine: a lethal Wraith names only itself; a soul marked after a Po Due that ends the run is refused with its own reason, and the Po Due itself may still be marked; a Po Due below Anger 2 is not outlined though its wish matches; a Po Long fare beside a Wraith shows Lost 1 and Gained 1 Light; Charybdis and Zilla with a held memory and a Farmer aboard list the memory taken, the Wraith and the Light; the memory picked for Po Luem is not listed as lost. Each new check failed with its fix turned off. In the window: Charybdis and Zilla show Moly and Nobody before DeliveryScene opens, the delivery reward still shows, a Po Luem pick goes straight on. The costly Odysseus branches were not seen in the window |
 
+## Verified: T-16 memory UI and T-17 GameOverScene (Jaoguya, Nov 1, 2026)
+
+Machine: Windows 10 Pro, Node v24.22.1, npm 11.19.1.
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Memory hand view model | `node tools/check-memory.mjs` | 15 of 15 OK: playable cards and Calm targets in the outward window, Light with no target, hand locked after `START_CROSSING` with the engine's reason, Light refused during boarding, hand usable in the return window, empty hand note, trim fixture 4 held / 1 excess, one `DISCARD_MEMORY` returns to `window` |
+| Game-over view model | `node tools/check-gameover.mjs` | 10 of 10 OK on the `ended` fixture plus synthetic quest lists (names, Done/Failed/Unfinished, failure reason, 8-row cap) |
+| Existing checks | `npm run check` | 12 of 12 OK (unchanged) |
+| TrimOverlay in Electron | `FERRY_QUERY=?scene=TrimOverlay&fixture=trim`, a person clicked Discard | `TrimOverlay shown (phase trim, hand 4)` then `CrossingScene shown (phase window)`: `router.dispatch` from a scene and the overlay close both work |
+| GameOverScene in Electron | `FERRY_QUERY=?scene=GameOverScene&fixture=ended`, a person clicked Start a new run | `GameOverScene shown (...)`, `back to title for a new run`, `TitleScene shown`, then a new run reached `BoardingScene` |
+
+## Verified: T-21 ReturnScene and T-22 Route UI (Jaoguya, Nov 1, 2026)
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Return view model | `node tools/check-return.mjs` | 16 of 16 OK: every shore soul gains Anger, a soul at the limit becomes a Wraith with the engine's "shore expiry: 1 Light lost" line, Light before and after, lethal warning, review mode with Confirm and Back, Confirm reaches the next cycle in BoardingScene, Back returns to the window, log diff with a full 80-entry log |
+| Route view model | `node tools/check-route.mjs` | 17 of 17 OK: hidden before the fork, Foresight rows from `Ferry.routeView`, option fog and Light from `Ferry.preview`, PLAN CROSS to review, review numbers match, Back keeps the same fork, Confirm pays the previewed Light, lethal flag, Po Mued concealment (view model only), hidden in return windows |
+| ReturnScene in Electron | `FERRY_QUERY=?scene=ReturnScene&fixture=return`, a person clicked Review return and Confirm (3 runs) | `ReturnScene shown`, `rowing back to the Starting Shore`, `BoardingScene shown (phase boarding)`; with the `fork` fixture the panel showed the engine's "Return with an empty boat." without an error |
+| Screenshots | temporary snapshot hooks, removed after | ReturnScene prepare (Wraith style, Calm targets on shore souls, memory hand mounted) and review (Back / Confirm, hand locked with the engine's reason); route UI review (two option cards, review panel). One fix found: a Wraith-bound soul hid its gold target outline |
+
+Not verified for T-21 / T-22: playing Calm on a shore soul by mouse; the route UI inside CrossingScene (SupaOhm mounts it in T-19), its option clicks in the window and the Foresight rows on screen; Po Mued concealment with a valid save.
+
+Not verified for T-16 / T-17: the memory hand inside a real scene (no scene mounts `MemoryHand` yet), card and target picking by mouse, the failure-reason hover on GameOverScene, more than 5 cards in TrimOverlay. `check-memory.mjs` and `check-gameover.mjs` are not in `npm run check` (that needs a `package.json` change by purin-kan).
+
 ## Not verified
 
 - T-20: a playtest by someone other than the owner; ChoiceOverlay over a real CrossingScene (Odysseus's choice fires on arrival, over CrossingScene, so T-19 must handle the boat animation being covered); DeliveryScene re-entry from a real CrossingScene; TrimOverlay itself after a delivery (only its stub is on main); a delivery that ends the run partway through a list of souls, in the window or against the engine (`check-delivery` uses a hand-built next state; a lethal Wraith is covered by both); a level 5 Polong corrupting another soul shows no line; a real destination background and real sprites; Windows; packaged `.exe`.
