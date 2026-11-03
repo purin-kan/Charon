@@ -58,7 +58,7 @@ export function soulName(type, Ferry) {
   return Ferry.data.souls.find((s) => s.id === type)?.name ?? type;
 }
 
-function destinationName(id, Ferry) {
+export function destinationName(id, Ferry) {
   return Ferry.data.destinations.find((d) => d.id === id)?.name ?? '?';
 }
 

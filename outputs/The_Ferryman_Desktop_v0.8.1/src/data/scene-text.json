@@ -101,7 +101,16 @@
     "deliverSelected": "Deliver selected passengers",
     "keepEveryone": "Keep everyone / finish round",
     "deliver": "Deliver {name}",
-    "keepAboard": "Keep aboard: {name}"
+    "keepAboard": "Keep aboard: {name}",
+    "finishRound": "Finish round",
+    "dock": "Dock",
+    "received": "Received",
+    "wraith": "{name} became a Wraith.",
+    "lightLost": "Lost {amount} Light.",
+    "lightGained": "Gained {amount} Light.",
+    "lost": "{thief} took {name}.",
+    "lostReward": "{thief} took a memory you had just received.",
+    "runEnds": "The lantern goes out before this soul can leave."
   },
 
   "return": {
