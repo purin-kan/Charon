@@ -108,8 +108,10 @@
     "received": "Received",
     "wraith": "{name} became a Wraith.",
     "lightLost": "Lost {amount} Light.",
-    "lost": "Po Luem took {name}.",
-    "lostReward": "Po Luem took a memory you had just received."
+    "lightGained": "Gained {amount} Light.",
+    "lost": "{thief} took {name}.",
+    "lostReward": "{thief} took a memory you had just received.",
+    "runEnds": "The lantern goes out before this soul can leave."
   },
 
   "return": {

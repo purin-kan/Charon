@@ -5,9 +5,9 @@ import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { boatZone, statusLine } from './boarding-layout.js';
 import {
-  DOCK, REWARD, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText,
-  introText, layoutDelivery, lossLines, rewardSpots,
+  DOCK, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText, introText, layoutDelivery,
 } from './delivery-layout.js';
+import { showOutcome } from './outcome-panel.js';
 import { addSoulToken, setTokenLabels } from './soul-token.js';
 
 const DRAG_START_PX = 6;
@@ -17,7 +17,6 @@ const STROKE = 0x7fa6c0;
 
 defineTuning({
   'delivery.departDistance': { type: 'number', default: 120, min: 0, max: 400, step: 10, help: 'How far a soul walks off the dock' },
-  'delivery.rewardMs': { type: 'number', default: 1600, min: 200, max: 6000, step: 100, help: 'How long a memory reward stays' },
 });
 
 export class DeliveryScene extends Phaser.Scene {
@@ -97,7 +96,7 @@ export class DeliveryScene extends Phaser.Scene {
   /** Applies a finished drag to the marked list. Nothing reaches the engine until confirm. */
   drop(token, area) {
     const state = this.registry.get('state');
-    const { marked, reason } = applyDrop(state, this.marked, this.entries.get(token.getData('id')), area, Ferry);
+    const { marked, reason } = applyDrop(state, this.marked, this.entries.get(token.getData('id')), area, Ferry, t);
     this.marked = marked;
     if (reason) this.say(reason);
     this.render(state);
@@ -118,8 +117,8 @@ export class DeliveryScene extends Phaser.Scene {
     this.leaving = true;
     for (const token of this.tokens.values()) this.input.setDraggable(token, false);
     this.confirmBtn.setVisible(false).disableInteractive();
-    const outcome = arrivalOutcome(state, next, this.marked, Ferry);
-    this.playDeparture(outcome.departed, () => this.showRewards(outcome, () => this.router.dispatch(action)));
+    const outcome = arrivalOutcome(state, next, action, Ferry);
+    this.playDeparture(outcome.departed, () => showOutcome(this, outcome, () => this.router.dispatch(action)));
   }
 
   playDeparture(ids, done) {
@@ -139,44 +138,6 @@ export class DeliveryScene extends Phaser.Scene {
       ease: tune('delivery.departEase'),
       onComplete: done,
     });
-  }
-
-  showRewards(outcome, done) {
-    const { rewards } = outcome;
-    const losses = lossLines(outcome, t);
-    if (!rewards.length && !losses.length) {
-      done();
-      return;
-    }
-    const spots = rewardSpots(rewards.length);
-    const { width, height } = this.scale;
-    const parts = [this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6).setDepth(3)];
-    if (rewards.length) {
-      parts.push(this.add.text(640, REWARD.y - 120, t('delivery.received'), { fontFamily: FONT, fontSize: '26px', color: '#edc47f' }).setOrigin(0.5).setDepth(4));
-    }
-    const lossTop = rewards.length ? REWARD.y + 110 : REWARD.y - 14 * (losses.length - 1);
-    losses.forEach((line, i) => {
-      parts.push(this.add.text(640, lossTop + i * 28, line, { fontFamily: FONT, fontSize: '20px', color: '#ff9f8a' }).setOrigin(0.5).setDepth(4));
-    });
-    rewards.forEach((memory, i) => {
-      const { x, y } = spots[i];
-      const panel = this.add.rectangle(x, y, REWARD.w, REWARD.h, 0x1d2c38).setStrokeStyle(2, GOLD).setDepth(4);
-      const name = this.add.text(x, y - 52, memory.name, { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' }).setOrigin(0.5).setDepth(4);
-      const body = this.add.text(x, y + 14, memory.text, {
-        fontFamily: FONT, fontSize: '14px', color: '#cfe3f0', align: 'center', wordWrap: { width: REWARD.w - 24 },
-      }).setOrigin(0.5).setDepth(4);
-      parts.push(panel, name, body);
-    });
-    let finished = false;
-    const finish = () => {
-      if (finished) return;
-      finished = true;
-      for (const part of parts) part.destroy();
-      done();
-    };
-    this.time.delayedCall(tune('delivery.rewardMs'), finish);
-    // Armed a frame later: with nobody departing this runs inside the confirm click, which would skip it.
-    this.time.delayedCall(0, () => this.input.once('pointerdown', finish));
   }
 
   /** Brings the screen in line with the state and the marked list. */
@@ -206,8 +167,8 @@ export class DeliveryScene extends Phaser.Scene {
 
   updateToken(token, entry) {
     setTokenLabels(token, entry.labels);
-    token.getData('panel').setStrokeStyle(entry.matches ? 3 : 1, entry.matches ? GOLD : STROKE);
-    token.setAlpha(entry.matches ? 1 : 0.6);
+    token.getData('panel').setStrokeStyle(entry.canLeave ? 3 : 1, entry.canLeave ? GOLD : STROKE);
+    token.setAlpha(entry.canLeave ? 1 : 0.6);
     this.tweens.killTweensOf(token);
     this.tweens.add({ targets: token, x: entry.x, y: entry.y, duration: tune('boarding.snapMs'), ease: tune('boarding.snapEase') });
   }

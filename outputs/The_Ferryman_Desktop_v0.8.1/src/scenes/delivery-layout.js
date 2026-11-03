@@ -16,7 +16,7 @@ const dockSpot = (i) => ({
   y: DOCK_SPOT.y + Math.floor(i / DOCK_SPOT.cols) * DOCK_SPOT.cellH,
 });
 
-/** Every passenger with its spot. Seats fill in order; souls with no seat ride on the deck. */
+/** Every passenger with its spot. Seats fill in order; souls with no seat ride on the deck. canLeave is the engine's answer for that soul joining the marked list. */
 export function layoutDelivery(state, marked, Ferry) {
   const { slots } = layoutBoarding(state, Ferry);
   const seatX = (i) => slots[0].x + i * (SLOT.w + SLOT.gap);
@@ -36,7 +36,7 @@ export function layoutDelivery(state, marked, Ferry) {
       area: i >= 0 ? 'dock' : 'seat',
       ...(i >= 0 ? dockSpot(i) : aboard),
       span,
-      matches: Ferry.wish(actor) === state.destination,
+      canLeave: i >= 0 || testRun(state, [...marked, actor.id], Ferry).ok,
       labels: tokenLabels({ actor, draggable: false }, Ferry), // draggable false picks the ship limit
     };
   });
@@ -56,21 +56,34 @@ export function dropArea(x, y, slots) {
 
 export const deliverAction = (marked) => ({ type: 'DELIVER', ids: marked });
 
-/** The engine's reason this list of souls can't leave, or null if it can. */
-export function refusal(state, ids, Ferry) {
+// A soul that ends the run stops DELIVER there, so the engine never judges the souls after it.
+// The last soul is unreached when it is still aboard and the run already ends without it; a soul
+// that ends the run itself stays allowed, as the engine allows it.
+function testRun(state, ids, Ferry) {
   try {
-    Ferry.transition(state, deliverAction(ids));
-    return null;
+    const next = Ferry.transition(state, deliverAction(ids));
+    const stopped = next.phase === 'ended' && next.boat.some((x) => x.id === ids[ids.length - 1]);
+    const unreached = stopped && ids.length > 1 && Ferry.transition(state, deliverAction(ids.slice(0, -1))).phase === 'ended';
+    return { ok: !unreached, unreached };
   } catch (err) {
-    return err.message;
+    return { ok: false, reason: err.message };
   }
 }
 
+/** The engine's reason the last soul of this list can't leave, or null if it can. */
+export function refusal(state, ids, Ferry, t) {
+  const { ok, reason, unreached } = testRun(state, ids, Ferry);
+  if (ok) return null;
+  if (!unreached) return reason;
+  const last = state.boat.find((x) => x.id === ids[ids.length - 1]);
+  return Ferry.deliveryReason(state, last) ?? t('delivery.runEnds');
+}
+
 /** What a finished drag does to the marked list. Unmarking rechecks the rest, in order, and says why a soul went back. */
-export function applyDrop(state, marked, entry, area, Ferry) {
+export function applyDrop(state, marked, entry, area, Ferry, t) {
   if (entry.area === 'seat' && area === 'dock') {
     const ids = [...marked, entry.id];
-    const reason = refusal(state, ids, Ferry);
+    const reason = refusal(state, ids, Ferry, t);
     return reason ? { marked, reason } : { marked: ids, reason: null };
   }
   if (entry.area === 'dock' && area === 'boat') {
@@ -78,7 +91,7 @@ export function applyDrop(state, marked, entry, area, Ferry) {
     let reason = null;
     for (const id of marked) {
       if (id === entry.id) continue;
-      const refused = refusal(state, [...kept, id], Ferry);
+      const refused = refusal(state, [...kept, id], Ferry, t);
       if (refused) reason ??= refused;
       else kept.push(id);
     }
@@ -102,35 +115,53 @@ const memoryView = (m, Ferry) => {
 };
 
 /**
- * What to play before dispatching. A lethal DELIVER stops partway, so departed can be shorter than marked.
- * Passengers who stay can turn into Wraiths inside DELIVER. A lethal one ends the run before leaving the boat.
+ * What to play before dispatching action (DELIVER, or CHOOSE from ChoiceOverlay). A lethal DELIVER stops partway,
+ * so departed can be shorter than marked.
+ * Passengers who stay can turn into Wraiths inside DELIVER. A lethal one ends the run, and souls after it stay aboard unchanged.
  * A Po Luem at level 3 steals inside DELIVER with no choice to show, from any memory, even one just received.
+ * The memory the player picks for a Po Luem is not listed as lost; Charybdis's pick is.
  */
-export function arrivalOutcome(state, next, marked, Ferry) {
+export function arrivalOutcome(state, next, action, Ferry) {
+  const marked = action.ids ?? [];
   const aboard = new Set(next.boat.map((x) => x.id));
   const held = new Set(state.hand.map((m) => m.id));
   const kept = new Set(next.hand.map((m) => m.id));
   const rewards = next.hand.filter((m) => !held.has(m.id)).map((m) => memoryView(m, Ferry));
-  const expired = [
-    ...state.boat.filter((x) => !aboard.has(x.id) && !marked.includes(x.id)),
-    ...next.boat.filter((x) => x.anger >= Ferry.data.config.shipAngerLimit),
-  ];
+  const expired = state.boat.filter((x) => !aboard.has(x.id) && !marked.includes(x.id));
+  const departed = marked.filter((id) => !aboard.has(id));
   return {
-    departed: marked.filter((id) => !aboard.has(id)),
+    departed,
     rewards,
     wraiths: expired.map((x) => soulName(x.type, Ferry)),
-    lightLost: Math.max(0, state.light - next.light),
-    lost: state.hand.filter((m) => !kept.has(m.id)).map((m) => memoryView(m, Ferry)),
+    ...lightChange(state, next, action, departed, Ferry),
+    lost: state.hand.filter((m) => !kept.has(m.id) && m.id !== action.id).map((m) => memoryView(m, Ferry)),
+    takenBy: action.branch === 'charybdis' ? 'charybdis' : 'SOUL-PO-LUEM',
     stolenRewards: Number(next.nextMemory) - Number(state.nextMemory) - rewards.length,
   };
 }
 
-export const lossLines = ({ wraiths, lightLost, lost, stolenRewards }, t) => [
-  ...wraiths.map((name) => t('delivery.wraith', { name })),
-  ...(lightLost ? [t('delivery.lightLost', { amount: lightLost })] : []),
-  ...lost.map(({ name }) => t('delivery.lost', { name })),
-  ...Array.from({ length: stolenRewards }, () => t('delivery.lostReward')),
-];
+// The net change would let a Po Long's +1 hide a Wraith's -1 at the same stop. Light is only gained here by a
+// delivery, so with someone departed the same action is run again with the lantern full, where a gain has no
+// room, and only what it cost shows. A run that ends spent all the Light there was.
+function lightChange(state, next, action, departed, Ferry) {
+  if (next.phase === 'ended') return { lightLost: state.light, lightGained: 0 };
+  if (!departed.length) return { lightLost: Math.max(0, state.light - next.light), lightGained: 0 };
+  const full = Ferry.transition({ ...state, light: state.maxLight }, action);
+  const lightLost = state.maxLight - full.light;
+  return { lightLost, lightGained: next.light - state.light + lightLost };
+}
+
+/** Wraiths and Light first, then memories. A gain shows only beside a loss, which it would otherwise hide. */
+export function lossLines({ wraiths, lightLost, lightGained, lost, takenBy, stolenRewards }, t, Ferry) {
+  const thief = takenBy === 'charybdis' ? t('choice.charybdis') : soulName(takenBy, Ferry);
+  return [
+    ...wraiths.map((name) => t('delivery.wraith', { name })),
+    ...(lightLost ? [t('delivery.lightLost', { amount: lightLost })] : []),
+    ...(lightLost && lightGained ? [t('delivery.lightGained', { amount: lightGained })] : []),
+    ...lost.map(({ name }) => t('delivery.lost', { thief, name })),
+    ...Array.from({ length: stolenRewards }, () => t('delivery.lostReward', { thief })),
+  ];
+}
 
 /** A centred row of reward cards. */
 export function rewardSpots(n) {

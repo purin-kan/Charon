@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
-import { choiceView, memoryRowSpots } from './delivery-layout.js';
+import { arrivalOutcome, choiceView, memoryRowSpots } from './delivery-layout.js';
+import { showOutcome } from './outcome-panel.js';
 
 // Choice prompt (T-20): opens over the running scene in phase 'choice'. That is DeliveryScene for
 // Po Luem, but Odysseus's choice fires on arrival, over CrossingScene. The router closes this
@@ -39,6 +40,7 @@ export class ChoiceOverlay extends Phaser.Scene {
 
   render(state) {
     for (const p of this.parts) p.destroy();
+    this.choosing = false;
     this.readyAt = this.game.loop.time + tune('choice.inputDelayMs');
     const { width, height } = this.scale;
     const view = choiceView(state, Ferry, t);
@@ -84,16 +86,19 @@ export class ChoiceOverlay extends Phaser.Scene {
     return btn;
   }
 
-  /** A choice can't be undone, so a click from the screen before it must not land here. */
+  /** A choice can't be undone, so a click from the screen before it must not land here. Shows what it cost, then dispatches. */
   choose(action) {
-    if (this.game.loop.time < this.readyAt) return;
+    if (this.choosing || this.game.loop.time < this.readyAt) return;
+    const state = this.registry.get('state');
+    let next;
     try {
-      Ferry.transition(this.registry.get('state'), action);
+      next = Ferry.transition(state, action);
     } catch (err) {
       this.message.setText(err.message);
       return;
     }
+    this.choosing = true;
     // Outside the try: dispatch emits ferry-state, and a render bug must not look like a rule error.
-    this.router.dispatch(action);
+    showOutcome(this, arrivalOutcome(state, next, action, Ferry), () => this.router.dispatch(action));
   }
 }
