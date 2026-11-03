@@ -61,7 +61,7 @@
 
   "crossing": {
     "prepHeading": "Memories and passenger abilities",
-    "prepIntro": "Use held memories as needed, then continue. Each copy is consumed; there is no use cap.",
+    "prepIntro": "You may use one memory this round, before the fork. Each copy is consumed.",
     "overLimit": "Excess rewards cannot be played. Finish this round and choose what to keep.",
     "meal": "Prepare the shared meal",
     "purify": "Priest: purify a passenger",

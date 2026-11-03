@@ -190,20 +190,20 @@ const charybdis = Ferry.transition(tiresias, heroView.options[0].action);
 check('the Charybdis action resolves', charybdis.phase === 'delivery' && charybdis.boat.length === 0);
 check('the Zilla action resolves', Ferry.transition(tiresias, heroView.options[1].action).phase === 'delivery');
 check('an empty boat finishes the round', Ferry.transition(charybdis, deliverAction([])).phase === 'window');
-// Odysseus with a Farmer aboard and the Farmer's memory held, so both branches cost something.
+// Odysseus with a Poet aboard and the Poet's memory held (the Farmer gives no memory), so both branches cost something.
 const costly = structuredClone(tiresias);
-costly.arrivals.splice(costly.arrivals.indexOf('SOUL-FARMER'), 1);
-costly.boat.push({ id: `ACTOR-${costly.nextActor}`, type: 'SOUL-FARMER', origin: 'SOUL-FARMER', wish: 'DEST-ELYSIUM', anger: 0, boardingId: '1', bornRound: '0', level: 0, spread: false, exhausted: false });
+costly.arrivals.splice(costly.arrivals.indexOf('SOUL-POET'), 1);
+costly.boat.push({ id: `ACTOR-${costly.nextActor}`, type: 'SOUL-POET', origin: 'SOUL-POET', wish: 'DEST-ELYSIUM', anger: 0, boardingId: '1', bornRound: '0', level: 0, spread: false, exhausted: false });
 costly.nextActor = String(Number(costly.nextActor) + 1);
-const harvest = { id: `MEMORY-${costly.nextMemory}`, type: Ferry.data.souls.find((d) => d.id === 'SOUL-FARMER').memory, sourceRef: { kind: 'character', definitionId: 'SOUL-FARMER', instanceId: 'ACTOR-1' } };
-costly.hand.push(harvest);
+const poetMemory = { id: `MEMORY-${costly.nextMemory}`, type: Ferry.data.souls.find((d) => d.id === 'SOUL-POET').memory, sourceRef: { kind: 'character', definitionId: 'SOUL-POET', instanceId: 'ACTOR-1' } };
+costly.hand.push(poetMemory);
 costly.nextMemory = String(Number(costly.nextMemory) + 1);
 const outcomeOf = (state, action) => arrivalOutcome(state, Ferry.transition(state, action), action, Ferry);
 const charybdisOutcome = outcomeOf(costly, heroView.options[0].action);
 check('Charybdis shows the memory it took and Moly', lossLines(charybdisOutcome, t, Ferry).join() === `Charybdis took ${charybdisOutcome.lost[0]?.name}.`
-  && charybdisOutcome.lost[0].id === harvest.id && charybdisOutcome.rewards.map((m) => m.type).join() === 'MEM-MOLY');
+  && charybdisOutcome.lost[0].id === poetMemory.id && charybdisOutcome.rewards.map((m) => m.type).join() === 'MEM-MOLY');
 const zillaOutcome = outcomeOf(costly, heroView.options[1].action);
-check('Zilla shows the Wraith, the Light and Nobody', lossLines(zillaOutcome, t, Ferry).join(' ') === 'Farmer became a Wraith. Lost 1 Light.'
+check('Zilla shows the Wraith, the Light and Nobody', lossLines(zillaOutcome, t, Ferry).join(' ') === 'Poet became a Wraith. Lost 1 Light.'
   && zillaOutcome.rewards.map((m) => m.type).join() === 'MEM-NOBODY');
 check('the memory picked for Po Luem is not listed as lost', outcomeOf(theft, theftView.rows[0].action).lost.every((m) => m.id !== theft.hand[0].id));
 const twelve = memoryRowSpots(12);
