@@ -1,19 +1,19 @@
 {
-  "version": "0.7-trial",
-  "passed": 23,
+  "version": "0.8-t45",
+  "passed": 24,
   "failed": 0,
   "hashes": {
-    "engine.js": "e70141c2d56672226dca76e44dace0e20fc5f3c0c4756a3ad68b000ceb204fd5",
-    "content.json": "6acddee665aa4334c59d43d78777cc7e2a1343df38d1f3c66ce8cd83df140788",
-    "tests/quest-check.js": "770e61b2b2a4ea58ff727865596a282bc9785bc7a67e4d024e96385ab8f7eaef"
+    "engine.js": "95c1f86978c776aed8d2baabc0ed1782d70d1709d20465f176e3d7c13a446624",
+    "content.json": "245d1b8407750f80c6f8ed8cddfa6b3e3fbafc9b31637afd62a6d8dbc2d3941d",
+    "tests/quest-check.js": "2ffc1414711079238223ff83da055b2b3af66411c5c80fd2e0cea6523dfbe3c1"
   },
   "records": [
     {
-      "name": "Included roster, explicit TBA entries, separate Heaven and all quest definitions",
+      "name": "Included roster, explicit TBA entries, six destinations without Heaven and all quest definitions",
       "status": "PASS"
     },
     {
-      "name": "Family binds same departure, respects new Heaven/order, grants distinct rewards",
+      "name": "Family binds same departure, respects Haven/order, grants distinct rewards",
       "status": "PASS"
     },
     {
@@ -33,7 +33,7 @@
       "status": "PASS"
     },
     {
-      "name": "Blacksmith protects Merchant Anger, enforces order and grants only one Sword",
+      "name": "Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith",
       "status": "PASS"
     },
     {
@@ -45,7 +45,7 @@
       "status": "PASS"
     },
     {
-      "name": "Heracles toll, Cerberus encounter, second-stage wishes and Golden Apple stacking",
+      "name": "Heracles toll, Cerberus encounter, shared second-stage wish and Golden Apple stacking",
       "status": "PASS"
     },
     {
@@ -93,6 +93,10 @@
       "status": "PASS"
     },
     {
+      "name": "Calm and Soldiers Peace lower every soul on the boat, not the shore, with no target",
+      "status": "PASS"
+    },
+    {
       "name": "Save validation rejects old versions, broken origins, duplicated IDs and wrong pending choices",
       "status": "PASS"
     },
@@ -100,8 +104,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2176,
-      "choices": 20,
+      "transitions": 2556,
+      "choices": 28,
       "humanPlaytest": false
     }
   ],

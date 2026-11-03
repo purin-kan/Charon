@@ -20,7 +20,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-01 | Blockers | 2026-10-31 | bosthanapatw | All | | Process | Must | In progress | Open blockers resolved and recorded |
 | T-02 | Repo setup | 2026-10-31 | purin-kan | bosthanapatw | | Process | Must | Done | `.gitattributes` `-text` rule for the new folder and v0.7 folder, and `.gitignore` entries for `out/`, `dist/`, `.vite/`, committed |
 | T-03 | Lock art pipeline | 2026-10-31 | Kanyakorn-goya | | | Game | Must | Not started | Sprite resolution and naming convention written; one test character cut out and committed |
-| T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | Kanyakorn-goya | purin-kan | T-03, T-05 | Game | Must | Not started | The test sprite renders in the dev window through the preloader |
+| T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | Kanyakorn-goya | purin-kan | T-03, T-05 | Game | Must | Done | The test sprite renders in the dev window through the preloader |
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | purin-kan | | | Game | Must | Done | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
 | T-06 | Scene architecture design | 2026-10-31 | Jaoguya | SupaOhm | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
 | T-07 | Audio asset strategy | 2026-10-31 | VarisPah | bosthanapatw | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
@@ -36,7 +36,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-11 | TitleScene, single save and optional seed | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Must | Done | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
 | T-12 | BoardingScene | 2026-11-02 | SupaOhm | | T-05 | Game | Must | Not started | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
 | T-13 | Developer tuning panel | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Should | Done | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
-| T-14 | Early `.exe` and SmartScreen test | 2026-11-02 (afternoon) | VarisPah | purin-kan | T-08 | .exe | Must | Not started | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
+| T-14 | Early `.exe` and SmartScreen test | 2026-11-02 (afternoon) | VarisPah | purin-kan | T-08 | .exe | Must | In progress | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
 | T-15 | Base BGM and SFX | 2026-11-02 | VarisPah | bosthanapatw | T-07 | Game | Should | Not started | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
 | T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Hand display, play-before-crossing flow and discard prompt work against fixture states |
 | T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Run summary shown from state; restart works |
@@ -47,7 +47,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
 | T-19 | CrossingScene | 2026-11-05 | SupaOhm | Jaoguya | T-05; integrates T-16 and T-22 | Game | Must | Not started | Memory window, route choice, review and boat animation work; fog and Light loss shown |
-| T-20 | DeliveryScene | 2026-11-05 | SupaOhm | | T-05 | Game | Must | Not started | Matching-wish feedback, delivery, soul departure, memory reward and choice overlay work |
+| T-20 | DeliveryScene | 2026-11-05 | SupaOhm | | T-05 | Game | Must | Done | Matching-wish feedback, delivery, soul departure, memory reward and choice overlay work |
 | T-21 | ReturnScene | 2026-11-05 | Jaoguya | | T-05 | Game | Must | Not started | Return resolves anger, wraith conversion and Light restoration, then starts the next cycle |
 | T-22 | Route UI | 2026-11-04 | Jaoguya | | T-05 | Game | Must | Not started | Fork display, review and Foresight preview work as a component for CrossingScene |
 | T-23 | Tuning and pacing calibration | 2026-11-06 (midday) | Tinpatpun | VarisPah, Kanyakorn-goya | T-13, T-19 | Game | Should | Not started | Crossing speed, snap feel and wraith pacing tuned; `tuning.json` committed by one person |
@@ -56,7 +56,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
 | T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Done | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | VarisPah | bosthanapatw | T-15 | Game | Should | Not started | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
-| T-45 | Apply decided rules to the game data | 2026-11-04 (end of day) | purin-kan | bosthanapatw, Jaoguya, VarisPah, SupaOhm | Decisions on issue 6 (VarisPah and Jaoguya; items 1 to 3 needed by Nov 2) | Game | Must | Not started | The decisions are entered in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits); `build-content.js` and `quest-check.js` rerun and passing; a short change note lists each rule changed; Drug Dealer, Fool and Killer stay out of play |
+| T-45 | Apply decided rules to the game data | 2026-11-04 (end of day) | purin-kan | bosthanapatw, Jaoguya, VarisPah, SupaOhm | Decisions on issue 6 (VarisPah and Jaoguya; items 1 to 3 needed by Nov 2) | Game | Must | Done | The decisions are entered in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits); `build-content.js` and `quest-check.js` rerun and passing; a short change note lists each rule changed; Drug Dealer, Fool and Killer stay out of play |
 
 ## Phase 4: Feature & Asset Freeze
 

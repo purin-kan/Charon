@@ -1,6 +1,6 @@
 {
-  "version": "0.7-trial",
-  "contentSha256": "6acddee665aa4334c59d43d78777cc7e2a1343df38d1f3c66ce8cd83df140788",
+  "version": "0.8-t45",
+  "contentSha256": "245d1b8407750f80c6f8ed8cddfa6b3e3fbafc9b31637afd62a6d8dbc2d3941d",
   "generated": [
     "content.js",
     "rules.json",

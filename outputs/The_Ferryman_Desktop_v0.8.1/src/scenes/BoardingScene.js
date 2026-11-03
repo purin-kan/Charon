@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { addArt, queueAssets } from '../preloader.js';
-import { SLOT, TOKEN, boatZone, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
+import { queueAssets } from '../preloader.js';
+import { boatZone, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
+import { addSoulToken, setTokenLabels } from './soul-token.js';
 
 const DRAG_START_PX = 6;
 const SNAP_MS = 160;
@@ -178,18 +179,7 @@ export class BoardingScene extends Phaser.Scene {
   }
 
   addToken(entry) {
-    const { w, h } = TOKEN;
-    const panel = this.add.rectangle(0, 0, w, h, 0x1d2c38).setStrokeStyle(1, 0x7fa6c0);
-    const art = addArt(this, 0, -34, entry.actor.type, 64);
-    const small = { fontFamily: FONT, fontSize: '13px', color: '#cfe3f0', align: 'center', wordWrap: { width: w - 6 } };
-    const name = this.add.text(0, 16, '', small).setOrigin(0.5);
-    const wish = this.add.text(0, 40, '', small).setOrigin(0.5);
-    const anger = this.add.text(0, 58, '', small).setOrigin(0.5);
-    const token = this.add.container(entry.x, entry.y, [panel, art, name, wish, anger]);
-    // A container with no size is centred on (0, 0), so the hit area is too.
-    token.setInteractive(new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), Phaser.Geom.Rectangle.Contains);
-    token.setDepth(1);
-    token.setData({ id: entry.id, name, wish, anger });
+    const token = addSoulToken(this, entry);
     this.tokens.set(entry.id, token);
     return token;
   }
@@ -197,10 +187,7 @@ export class BoardingScene extends Phaser.Scene {
   updateToken(token, entry) {
     this.input.setDraggable(token, entry.draggable && !this.tollMode);
     token.setAlpha(entry.draggable ? 1 : 0.75);
-    const labels = tokenLabels(entry, Ferry);
-    token.getData('name').setText(labels.name);
-    token.getData('wish').setText(labels.wish);
-    token.getData('anger').setText(labels.anger);
+    setTokenLabels(token, tokenLabels(entry, Ferry));
     this.tweens.killTweensOf(token);
     this.tweens.add({ targets: token, x: entry.x, y: entry.y, duration: SNAP_MS, ease: 'Cubic.Out' });
   }
