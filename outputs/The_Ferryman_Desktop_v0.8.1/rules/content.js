@@ -7,8 +7,9 @@ globalThis.FerryData = {
     "maxLight": 6,
     "seats": 4,
     "shoreTarget": 5,
-    "shoreAngerLimit": 2,
-    "shipAngerLimit": 4,
+    "shoreAngerLimit": 6,
+    "shipAngerLimit": 6,
+    "boardingAngerRelief": 3,
     "handLimit": 3,
     "spawnInterval": 3,
     "polongFogThreshold": 2,
@@ -410,13 +411,13 @@ globalThis.FerryData = {
   ],
   "returnSteps": [
     "With an empty boat, play held memories if desired.",
-    "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
+    "Waiting souls gain one Anger; above five, resolve Wraith damage/removal. Zero Light ends the run before healing.",
     "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ],
   "rules": {
     "scope": "Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
-    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Polong is shown before departure.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls lose 3 Anger on departure, minimum 0, because they are no longer waiting. The next Polong is shown before departure.",
     "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All seven destinations are open for this trial. Heaven is separate, with base fog 2. Hero wishes draw from the six older destinations. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
@@ -551,6 +552,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3"
+  "contentSha256": "6acddee665aa4334c59d43d78777cc7e2a1343df38d1f3c66ce8cd83df140788"
 }
 ;

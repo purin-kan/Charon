@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3`.
+Generated from content.json. SHA-256: `6acddee665aa4334c59d43d78777cc7e2a1343df38d1f3c66ce8cd83df140788`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -52,7 +52,7 @@ Keep the lantern burning through repeated trips. Zero Light ends the run. This t
 
 ## boarding
 
-Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Polong is shown before departure.
+Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls lose 3 Anger on departure, minimum 0, because they are no longer waiting. The next Polong is shown before departure.
 
 ## memories
 
@@ -113,7 +113,7 @@ Fog protection does not prevent Wraith or toll damage. Original Po Long delivere
 ## Return
 
 1. With an empty boat, play held memories if desired.
-2. Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.
+2. Waiting souls gain one Anger; above five, resolve Wraith damage/removal. Zero Light ends the run before healing.
 3. If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
 
 ## Included roster entries awaiting playable rules
