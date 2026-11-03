@@ -2,7 +2,8 @@
 // Destinations and fog come only from the engine: Ferry.routeView (which forks the player may see,
 // with Po Mued concealment) and Ferry.preview (the fog calculation for one option). Nothing is
 // recomputed here.
-// Wording follows src/data/scene-text.json "crossing" (T-27, PR 15); switch to t() once it is on main.
+// Wording follows src/data/scene-text.json "crossing" (T-27). TEXT is the Node fallback; RouteUI passes
+// t() so the scene-text entries (for example the Long names) win in the game.
 
 export const TEXT = {
   heading: 'Where next?', // crossing.routeHeading
@@ -31,6 +32,16 @@ export const TEXT = {
 const destName = (Ferry, id) => Ferry.data.destinations.find((d) => d.id === id)?.name ?? '?';
 const soulName = (Ferry, type) => Ferry.data.souls.find((s) => s.id === type)?.name ?? type;
 
+/** TEXT with the scene-text entries filled in when a t() is given (src/text.js), so this file stays Phaser- and JSON-free. */
+export function routeText(Ferry, t = null) {
+  if (!t) return TEXT;
+  return {
+    ...TEXT,
+    intro: t('crossing.routeIntro'),
+    concealedDetail: t('crossing.concealedDetail', { long: soulName(Ferry, 'SOUL-PO-MUED') }),
+  };
+}
+
 /** Boat passengers whose wish is this destination (helps the player pick a fork). */
 function wishesFor(state, Ferry, destination) {
   if (!destination) return [];
@@ -50,7 +61,7 @@ export function previewOption(state, Ferry, option) {
   }
 }
 
-function optionCard(state, Ferry, opt, pickedOption) {
+function optionCard(state, Ferry, opt, pickedOption, TEXT) {
   const p = previewOption(state, Ferry, opt.option);
   const hidden = opt.hidden || !p || p.hidden;
   const name = hidden ? TEXT.concealed : destName(Ferry, opt.destination);
@@ -70,7 +81,7 @@ function optionCard(state, Ferry, opt, pickedOption) {
   };
 }
 
-function forkRow(Ferry, fork, label) {
+function forkRow(Ferry, fork, label, TEXT) {
   return {
     label,
     options: fork.map((opt) => (opt.hidden ? { name: TEXT.concealed, hidden: true } : { name: destName(Ferry, opt.destination), hidden: false })),
@@ -85,7 +96,8 @@ function forkRow(Ferry, fork, label) {
  *  - 'review'    a CROSS is pending: the chosen option's fog, Back and Confirm.
  * Return windows and other phases are 'hidden' (ReturnScene handles the way home).
  */
-export function routeModel(state, Ferry) {
+export function routeModel(state, Ferry, t = null) {
+  const TEXT = routeText(Ferry, t);
   const outward = state.window?.kind === 'outward';
   const reviewing = state.phase === 'review' && state.pending?.type === 'CROSS';
   const atFork = state.phase === 'window' && outward && state.travelPrepared;
@@ -95,14 +107,14 @@ export function routeModel(state, Ferry) {
   if (beforeFork && state.routes.foresight > 0) {
     return {
       mode: 'foresight',
-      upcoming: forks.map((fork, i) => forkRow(Ferry, fork, i === 0 ? TEXT.firstFork : TEXT.foresightFork(i + 1))),
+      upcoming: forks.map((fork, i) => forkRow(Ferry, fork, i === 0 ? TEXT.firstFork : TEXT.foresightFork(i + 1), TEXT)),
     };
   }
   if (!atFork && !reviewing) return { mode: 'hidden' };
 
   const picked = reviewing ? state.pending.option : null;
-  const current = forks[0].map((opt) => optionCard(state, Ferry, opt, picked));
-  const upcoming = forks.slice(1).map((fork, i) => forkRow(Ferry, fork, TEXT.foresightFork(i + 2)));
+  const current = forks[0].map((opt) => optionCard(state, Ferry, opt, picked, TEXT));
+  const upcoming = forks.slice(1).map((fork, i) => forkRow(Ferry, fork, TEXT.foresightFork(i + 2), TEXT));
   const model = { mode: reviewing ? 'review' : 'fork', heading: TEXT.heading, intro: TEXT.intro, forkLabel: TEXT.currentFork, current, upcoming, review: null };
 
   if (reviewing) {

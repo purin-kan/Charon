@@ -1,5 +1,6 @@
 import { Ferry } from '../ferry.js';
 import { routeModel } from './route-layout.js';
+import { t } from '../text.js';
 
 // Route UI (T-22): a component for SupaOhm's CrossingScene, not a scene.
 //   fork mode:      the current fork's two options as cards; clicking one dispatches PLAN CROSS.
@@ -31,7 +32,7 @@ export class RouteUI {
     if (!this.root) return;
     for (const p of this.parts) p.destroy();
     this.parts = [];
-    const model = routeModel(state, Ferry);
+    const model = routeModel(state, Ferry, t);
     this.mode = model.mode;
     this.root.setVisible(model.mode !== 'hidden');
     if (model.mode === 'foresight') return this.drawRows(model.upcoming, 0, 'Foresight');

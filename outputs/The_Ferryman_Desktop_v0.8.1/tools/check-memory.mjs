@@ -29,21 +29,25 @@ const check = (ok, label, detail = '') => {
   console.log(`${ok ? 'OK  ' : 'FAIL'} ${label}${detail ? '  ' + detail : ''}`);
 };
 const byType = (view, type) => view.cards.find((c) => c.type === type);
+// The engine decides; the view must agree. Error message if the engine refuses, else null.
+const engineRefusal = (state, card, target) => {
+  try { Ferry.transition(state, playAction(card, target)); return null; } catch (e) { return e.message; }
+};
 
-// 1. Outward window before the fork: every card playable; Calm needs a target, Light does not.
+// 1. Outward window before the fork: every card playable; targets match the engine (Calm has none since T-45), Light has none.
 const win = withHand(fixture('window'), ['MEM-LIGHT', 'MEM-CALM', 'MEM-FORESIGHT']);
 let v = memoryHand(win, Ferry);
 check(v.cards.length === 3 && v.counter === 'Memories 3/3', 'window: 3 cards, counter', v.counter);
 check(v.cards.every((c) => c.playable), 'window: all playable', v.cards.map((c) => `${c.name}:${c.playable}`).join(' '));
 const calm = byType(v, 'MEM-CALM');
-const expectedTargets = Ferry.memoryTargets(win, 'MEM-CALM').map((x) => x.id);
-check(calm.needsTarget && calm.targets.length === expectedTargets.length, 'window: Calm targets every shore and boat soul', `${calm.targets.length} targets`);
+const expectedTargets = Ferry.memoryTargets(win, 'MEM-CALM')?.map((x) => x.id) ?? null;
+check(expectedTargets === null ? !calm.needsTarget : calm.needsTarget && calm.targets.length === expectedTargets.length, 'window: Calm targets match the engine', expectedTargets ? `${calm.targets.length} targets` : 'no target');
 check(!byType(v, 'MEM-LIGHT').needsTarget, 'window: Light takes no target');
 check(byType(v, 'MEM-LIGHT').source === 'Mother', 'window: source name from sourceRef', byType(v, 'MEM-LIGHT').source);
 
 // 2. Playing through the view's action reaches the engine and removes the card.
-const afterCalm = Ferry.transition(win, playAction(calm, calm.targets[0]));
-check(afterCalm.hand.length === 2 && !afterCalm.hand.some((m) => m.id === calm.id), 'play Calm on a target: card leaves the hand');
+const afterCalm = Ferry.transition(win, playAction(calm, calm.needsTarget ? calm.targets[0] : undefined));
+check(afterCalm.hand.length === 2 && !afterCalm.hand.some((m) => m.id === calm.id), 'play Calm: card leaves the hand');
 const light = byType(v, 'MEM-LIGHT');
 const afterLight = Ferry.transition(win, playAction(light));
 check(afterLight.hand.length === 2, 'play Light: no target needed');
@@ -52,17 +56,18 @@ check(afterLight.hand.length === 2, 'play Light: no target needed');
 const fork = Ferry.transition(win, { type: 'START_CROSSING' });
 v = memoryHand(fork, Ferry);
 check(v.cards.every((c) => !c.playable) && !v.anyPlayable, 'fork: hand locked after approaching');
-check(/before approaching a fork/.test(v.note), 'fork: engine reason shown', JSON.stringify(v.note));
+check(v.note === engineRefusal(fork, byType(memoryHand(win, Ferry), 'MEM-LIGHT')), 'fork: engine reason shown', JSON.stringify(v.note));
 
-// 4. Boarding: only Boat Space may be played, so Light is refused with the engine's reason.
+// 4. Boarding: Light is refused, with the engine's own reason.
 const board = withHand(fixture('boarding'), ['MEM-LIGHT']);
 v = memoryHand(board, Ferry);
-check(!v.cards[0].playable && /Only Boat Space/.test(v.cards[0].reason), 'boarding: Light refused', JSON.stringify(v.cards[0].reason));
+const boardRefusal = engineRefusal(board, v.cards[0]);
+check(boardRefusal && !v.cards[0].playable && v.cards[0].reason === boardRefusal, 'boarding: Light refused with the engine reason', JSON.stringify(v.cards[0].reason));
 
-// 5. Return window: memories can still be played before returning.
+// 5. Return window: each card is playable exactly when the engine accepts it (the rules may forbid memories on the way back).
 const ret = withHand(fixture('return'), ['MEM-LIGHT', 'MEM-CALM']);
 v = memoryHand(ret, Ferry);
-check(v.cards.every((c) => c.playable), 'return: hand usable before returning');
+check(v.cards.every((c) => c.playable === (engineRefusal(ret, c, c.needsTarget ? c.targets[0] : undefined) === null)), 'return: playable matches the engine', v.cards.map((c) => `${c.name}:${c.playable}`).join(' '));
 
 // 6. Empty hand shows the no-memories line.
 v = memoryHand(withHand(fixture('window'), []), Ferry);

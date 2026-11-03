@@ -4,7 +4,7 @@ import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { routeModel } from '../src/components/route-layout.js';
+import { routeModel, routeText } from '../src/components/route-layout.js';
 import { sceneFor } from '../src/phase-map.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -74,6 +74,14 @@ check(m.current.every((c) => c.hidden && c.name === 'Concealed route') && m.revi
 
 // 8. Return windows are not the route UI's job.
 check(routeModel(fixture('return'), Ferry).mode === 'hidden', 'return window: hidden');
+
+// 9. With t() (as RouteUI passes it) the scene-text entries win: the intro and the concealed line.
+const texts = JSON.parse(readFileSync(path.join(dir, '..', '..', 'data', 'scene-text.json'), 'utf8'));
+const tFake = (key, values = {}) => key.split('.').reduce((n, k) => n?.[k], texts).replace(/\{(\w+)\}/g, (slot, k) => values[k] ?? slot);
+const withT = routeModel(fork, Ferry, tFake);
+check(withT.intro === texts.crossing.routeIntro, 'with t(): intro from crossing.routeIntro', withT.intro);
+const concealed = routeText(Ferry, tFake).concealedDetail;
+check(concealed === tFake('crossing.concealedDetail', { long: Ferry.data.souls.find((x) => x.id === 'SOUL-PO-MUED').name }), 'with t(): concealed line from crossing.concealedDetail', concealed);
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nAll route checks passed');
 process.exit(bad ? 1 : 0);

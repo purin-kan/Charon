@@ -22,7 +22,7 @@ These answers disagree with each other, so the PM or co-PM needs to pick one. Th
 
 | # | Issue | Why it matters |
 |---|---|---|
-| 8 | **Applying the rule answers.** None of the 44 register tasks changes the game rules to match these answers: T-35 only sets balance values and T-31 only cuts features. See "Differences from v0.7" below. | [Pull request 9](https://github.com/purin-kan/Charon/pull/9) proposes T-45 for this, with bosthanapatw as owner; not yet agreed. The boarding and memory rules affect T-12 and T-19. |
+| 8 | **Applying the rule answers.** None of the 44 register tasks changes the game rules to match these answers: T-35 only sets balance values and T-31 only cuts features. See "Differences from v0.7" below. | T-45 covers this ([pull request 9](https://github.com/purin-kan/Charon/pull/9), merged Nov 1); owner purin-kan from Nov 1, with bosthanapatw supporting. The boarding and memory rules affect T-12 and T-19. |
 
 ## Still unanswered
 
@@ -116,7 +116,7 @@ Heroic souls arrive in the form of the Traveler, with a brief description of whi
 
 **The Fighter (Heracles).** Needs more than 3 souls on the shore; arrives after cycle 9, randomly at 25%. Toll: select 1 soul on the shore. His wish is random from the 6 destinations. On arrival he fights Cerberus and brings him aboard, scaring 2 random souls off. Frightened souls leave the boat and do not become Wraiths. Cerberus takes 2 seats and gives no memory. Deliver both to receive the Golden Apple; the quest then ends.
 
-**The Strategist (Odysseus).** Arrives after cycle 6, randomly at 25%. His wish is random from the 6 destinations. On arrival he meets Tiresias the Poet, and the player chooses one:
+**The Strategist (Odysseus).** Arrives after cycle 6, randomly at 25%. His wish is random from the 6 destinations. On arrival he meets Tiresias, and the player chooses one:
 
 * **Charybdis:** lose 1 random memory, receive Moly of Hermes.
 * **Scylla:** lose 1 random soul, which turns into a Wraith, and Light -1; receive Nobody. Scylla only eats normal souls (not Tainted or heroic). If hand or boat is empty, Light drops by 1.

@@ -26,3 +26,6 @@ work/
 out/
 dist/
 .vite/
+
+# Local superpowers specs and plans
+/docs/superpowers/

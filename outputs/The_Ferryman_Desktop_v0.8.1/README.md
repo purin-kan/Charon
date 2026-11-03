@@ -34,13 +34,13 @@ Other commands:
 | Command | What it does |
 | --- | --- |
 | `npm run fixtures` | Regenerates `src/dev/fixtures/*.json` from rules/engine.js |
-| `npm run check` | Node checks: engine loads, `Ferry.create(1)` has a phase, phase to scene mapping on all fixtures |
+| `npm run check` | Runs `tools/run-checks.mjs`: `check-engine` and `check-router` first, then every other `tools/check-*.mjs`. Exits 1 if any fails |
 | `npm run package` | Builds `out/The Ferryman-win32-x64/The Ferryman.exe` (folder of about 359 MB; never commit `out/`) |
 | `npm run make` | Zips the packaged app for win32 (no installer) |
 
 ## Rules source
 
-The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`). This
+The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`) and since edited for T-45; the current hash is in `rules/verification/content-build.json`. This
 folder depends on no other folder. `src/ferry.js` imports `rules/content.js` first (sets
 `globalThis.FerryData`), then `rules/engine.js` (publishes `globalThis.Ferry`, or its CommonJS
 export in a production build). Never edit `engine.js` to fix loading; wrap it.
@@ -73,9 +73,10 @@ tools/               make-fixtures.mjs, check-engine.mjs, check-router.mjs
 
 ## Dev launcher (open any scene with a saved state)
 
-Fixtures live in `src/dev/fixtures/<name>.json`: boarding, window, fork, review, delivery, choice,
+Fixtures live in `src/dev/fixtures/<name>.json`: boarding, boarding-heracles, window, fork, review, delivery, delivery-match, choice, choice-odysseus,
 trim, return, review-return, ended. All come from engine runs except `trim`, which is the `window`
-state with a 4-memory hand (random play rarely reaches the hand limit).
+state with a 4-memory hand (random play rarely reaches the hand limit), and `choice-odysseus`, a
+scripted run (random play never accepts a hero).
 
 In `npm start` windows a small menu at the top right picks a scene and fixture. To start directly:
 
@@ -85,6 +86,28 @@ npm start
 ```
 
 Omit `fixture` to use the scene's default. Set `$env:FERRY_DEVTOOLS = '1'` to open DevTools.
+
+## Tuning panel (animation timing, easing, snap sizes, river paths)
+
+In `npm start`, press F2 or click **Tuning (F2)** at the bottom right. Changes apply while the game
+runs. **Save to tuning.json** writes `assets/tuning.json`; commit that file when you are done, one
+tuner at a time. Values that differ from the saved file are marked with `*`. A path value such as
+`crossing.riverPath` has **Edit on screen**: drag the points, click empty space to add one at the
+end, right-click a point to remove it. The packaged `.exe` uses the committed values but cannot
+save (no dev server). The rules engine never reads `tuning.json`; gameplay balance stays in
+`rules/content.json`.
+
+In a scene, read a value at the moment you use it, so panel changes apply at once:
+
+```js
+import { tune, defineTuning } from '../tuning.js';
+this.tweens.add({ targets: boat, duration: tune('crossing.travelMs'), ease: tune('crossing.travelEase') });
+defineTuning({ 'delivery.glowMs': { type: 'number', default: 400, min: 0, max: 2000, step: 10 } }); // your own value
+```
+
+Types: `number` (min, max, step), `ease` (Phaser ease name), `bool`, `points` (`[[x, y], ...]` in
+1280 x 720 game coordinates). The starting keys are listed at the bottom of `src/tuning.js`; their
+defaults match the scene constants where one exists.
 
 ## Router and exit animations
 
@@ -105,7 +128,51 @@ Drop files in; no manifest to edit:
 - Draw with `addArt(this, x, y, id, size)`: a missing image shows a letter emblem. A missing sound
   makes `playSound(this, id)` a silent no-op.
 
-The id naming convention is decided in the art pipeline task. The code accepts any id.
+File names follow the art pipeline (`notes/T-03_ART_PIPELINE.md`) and the audio plan
+(`notes/T-07_AUDIO_PLAN.md`). Scenes can ask by engine id and the preloader finds the art file:
+`SOUL-MOTHER` and `CHAR-CERBERUS` load `art/sprite-mother.png` and `art/sprite-cerberus.png`,
+`MEM-MOLY` loads `art/memory-moly.png`, `DEST-STYX` loads `backgrounds/bg-styx.png`. A file named
+exactly after the id wins; names that do not follow the pattern go in `ALIASES` in
+`src/asset-names.js` (for example `SOUL-PO-LUEM` loads `art/sprite-long-hollow.png`, shown as Long
+Hollow). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
+`node tools/check-art.mjs` tests these rules and lists which engine ids still show an emblem.
+
+## Title screen and save
+
+`TitleScene` offers Continue and New game over one save slot (`src/save.js`). New game takes an
+optional seed: click the seed line, type digits, press Enter (blank means random). A fixed seed
+replays the same routes and encounters, for the demo video. Starting a new game over an existing
+save asks first.
+
+Saves are written after every state change once a run starts from the title screen, through
+`Ferry.exportSave`, and read back through `Ferry.importSave`, so the engine validates them. A save
+the engine rejects (for example after a rules version change) is reported as unreadable and is
+replaced by the next new game. Keys:
+
+| Save | localStorage key |
+| --- | --- |
+| Player | `the-ferryman:desktop:player:save` |
+| QA | `the-ferryman:desktop:qa:<name>:save` |
+
+v0.6 and v0.7-trial keys are never read or written. For tests, give the run its own save so the
+player's is never touched: `$env:FERRY_QA = 'smoke'` before `npm start` or before starting the
+packaged `.exe` (`src/main.js` adds `?qa=smoke` to the page address; a yellow badge shows it).
+The dev launcher skips the title screen and never saves, so fixtures cannot overwrite a save.
+
+## Scene text
+
+Buttons, help and ending text live in `src/data/scene-text.json`, grouped by scene. In a scene:
+
+```js
+import { t } from '../text.js';
+this.add.text(x, y, t('delivery.heading', { place: 'Styx' })); // "Who disembarks at Styx?"
+```
+
+A missing key shows the key itself and warns once in the console; it never throws. Soul,
+destination, memory and quest names are not copied there: read them from `Ferry.data`. The help
+screen gets its headings from `scene-text.json` and its bodies from the `rules` section of
+`rules/content.json` (`helpSections(Ferry.data)`). `node tools/check-text.mjs` checks that every
+`t('...')` key used in `src/` exists.
 
 ## Add a scene
 
@@ -115,6 +182,8 @@ The id naming convention is decided in the art pipeline task. The code accepts a
    Remove listeners on `this.events.once('shutdown', ...)`.
 2. Register it: import it in `src/scenes/index.js` and add it to `SCENES`.
 3. Route it: add a rule in `src/phase-map.js` (`sceneFor`). For an overlay, also add its key to `OVERLAYS`.
-4. Check: `npm run check`, then open it with `?scene=MyScene&fixture=<name>`.
+4. Check: `npm run check`, then open it with `?scene=MyScene&fixture=<name>`. To add your own Node check,
+   create `tools/check-<name>.mjs` that exits non-zero on failure; `npm run check` picks it up with no
+   `package.json` change.
 
 Only the scaffold owner edits `scenes/index.js`, `package.json` and the lockfile; send a one-line request.
