@@ -1,5 +1,6 @@
 // Checks src/data/scene-text.json (T-27): every entry is text, every t('key') used in src/ exists,
-// and every help heading matches a section of the rules data. Run: node tools/check-text.mjs
+// a t('key') call with no values has no {slots} to fill, and every help heading matches a section
+// of the rules data. Run: node tools/check-text.mjs
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,14 +12,14 @@ let failed = 0;
 const report = (ok, label) => { console.log(`${ok ? 'OK  ' : 'FAIL'} ${label}`); if (!ok) failed++; };
 
 // 1. Every leaf (except _about) is a non-empty string with balanced braces.
-const keys = new Set();
+const keys = new Map();
 const walk = (node, path) => {
   for (const [k, v] of Object.entries(node)) {
     if (k.startsWith('_')) continue;
     const key = path ? `${path}.${k}` : k;
     if (v && typeof v === 'object') walk(v, key);
     else {
-      keys.add(key);
+      keys.set(key, v);
       const ok = typeof v === 'string' && v.trim() !== '' && (v.match(/\{/g) ?? []).length === (v.match(/\}/g) ?? []).length;
       if (!ok) report(false, `entry ${key} is not usable text`);
     }
@@ -27,7 +28,7 @@ const walk = (node, path) => {
 walk(text, '');
 report(keys.size > 0, `${keys.size} text entries read`);
 
-// 2. Every literal t('...') key in src/ exists.
+// 2. Every literal t('...') key in src/ exists, and t('key') with no values has no {slot} left showing.
 const files = [];
 const collect = (dir) => {
   for (const name of readdirSync(dir)) {
@@ -40,9 +41,10 @@ collect(join(root, 'src'));
 let used = 0;
 for (const file of files) {
   const src = readFileSync(file, 'utf8');
-  for (const m of src.matchAll(/\bt\(\s*['"]([\w.]+)['"]/g)) {
+  for (const m of src.matchAll(/\bt\(\s*['"]([\w.]+)['"]\s*(\))?/g)) {
     used++;
     if (!keys.has(m[1])) report(false, `${relative(root, file)} uses missing key "${m[1]}"`);
+    else if (m[2] && /\{\w+\}/.test(keys.get(m[1]))) report(false, `${relative(root, file)} calls t('${m[1]}') with no values, so "${keys.get(m[1])}" would show its {slots}`);
   }
 }
 report(true, `${used} t('...') uses checked in ${files.length} source files`);
