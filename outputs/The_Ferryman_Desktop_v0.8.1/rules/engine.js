@@ -307,7 +307,7 @@
     else if(a.type==='DEPART'){
       need(s.phase==='boarding'&&(s.selected.length||s.boat.length),'Select passengers before departure.');
       const all=passengers(s);need(!['SOUL-MERCHANT','SOUL-BLACKSMITH','SOUL-MASON'].every(type=>all.some(x=>x.type===type)),'Merchant cannot depart with both Blacksmith and Mason.');
-      s.boat=all.map(x=>({...x,anger:Math.max(0,x.anger-C.boardingAngerRelief),boardingId:s.nextBoarding,exhausted:false}));s.nextBoarding=inc(s.nextBoarding);s.shore=s.shore.filter(x=>!s.selected.includes(x.id));s.selected=[];
+      s.boat=all.map(x=>({...x,anger:0,boardingId:s.nextBoarding,exhausted:false}));s.nextBoarding=inc(s.nextBoarding);s.shore=s.shore.filter(x=>!s.selected.includes(x.id));s.selected=[];
       if(s.heroOffer)s.heroOffer.resolved=true;s.phase='window';startPairs(s);
     }else if(a.type==='START_CROSSING')startCrossing(s);
     else if(a.type==='PLAY_MEMORY')playMemory(s,a.id,a.target);

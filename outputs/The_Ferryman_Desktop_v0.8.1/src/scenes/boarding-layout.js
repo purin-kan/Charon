@@ -68,7 +68,7 @@ export function tokenLabels(entry, Ferry) {
   return {
     name: soulName(entry.actor.type, Ferry),
     wish: destinationName(Ferry.wish(entry.actor), Ferry),
-    anger: `Anger ${entry.actor.anger}/${limit - 1}`, // limit is where a Wraith forms, so limit - 1 is the highest safe Anger
+    anger: `Anger ${entry.actor.anger}/${limit}`,
   };
 }
 

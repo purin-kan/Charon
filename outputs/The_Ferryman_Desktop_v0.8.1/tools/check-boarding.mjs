@@ -88,9 +88,9 @@ check('drop zone grows with capacity', boatZone(fiveSeats).w > zone.w);
 // Labels.
 const labels = tokenLabels(spot(layoutBoarding(base, Ferry), firstId), Ferry);
 check('labels read the name and wish', labels.name === 'Mother' && labels.wish === 'Tartarus');
-check('shore soul shows the highest safe shore Anger', labels.anger === 'Anger 0/5');
+check('shore soul shows the shore limit', labels.anger === 'Anger 0/2');
 const seatedLabels = tokenLabels(wideEntry, Ferry);
-check('boat soul shows the highest safe ship Anger', seatedLabels.anger.endsWith('/5'));
+check('boat soul shows the ship limit', seatedLabels.anger.endsWith('/5'));
 check('unknown type falls back to its id', soulName('SOUL-NOPE', Ferry) === 'SOUL-NOPE');
 
 // Status line.

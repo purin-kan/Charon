@@ -7,9 +7,8 @@ globalThis.FerryData = {
     "maxLight": 6,
     "seats": 4,
     "shoreTarget": 5,
-    "shoreAngerLimit": 6,
-    "shipAngerLimit": 6,
-    "boardingAngerRelief": 3,
+    "shoreAngerLimit": 2,
+    "shipAngerLimit": 5,
     "handLimit": 3,
     "spawnInterval": 3,
     "polongFogThreshold": 2,
@@ -421,13 +420,13 @@ globalThis.FerryData = {
   ],
   "returnSteps": [
     "With an empty boat, play held memories if desired.",
-    "Waiting souls gain one Anger; above five, resolve Wraith damage/removal. Zero Light ends the run before healing.",
+    "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
     "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ],
   "rules": {
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
-    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls lose 3 Anger on departure, minimum 0, because they are no longer waiting. The next Long is shown before departure.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
     "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
@@ -562,6 +561,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "245d1b8407750f80c6f8ed8cddfa6b3e3fbafc9b31637afd62a6d8dbc2d3941d"
+  "contentSha256": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69"
 }
 ;

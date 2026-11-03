@@ -35,7 +35,7 @@ check('nobody starts on the dock', open.entries.every((e) => e.area === 'seat'))
 check('a soul that can leave is flagged', entryOf(open, leaver.id).canLeave === true);
 check('a different wish is not flagged', entryOf(open, stayer.id).canLeave === false);
 check('no soul can leave in the delivery fixture', layoutDelivery(none, [], Ferry).entries.every((e) => !e.canLeave));
-check('labels show the highest safe ship Anger', entryOf(open, leaver.id).labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit - 1}`));
+check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit}`));
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
 const spot = entryOf(marked, leaver.id);

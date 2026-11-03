@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `245d1b8407750f80c6f8ed8cddfa6b3e3fbafc9b31637afd62a6d8dbc2d3941d`.
+Generated from content.json. SHA-256: `32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -52,7 +52,7 @@ Keep the lantern burning through repeated trips. Zero Light ends the run. This t
 
 ## boarding
 
-Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls lose 3 Anger on departure, minimum 0, because they are no longer waiting. The next Long is shown before departure.
+Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
 
 ## memories
 
@@ -113,7 +113,7 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 ## Return
 
 1. With an empty boat, play held memories if desired.
-2. Waiting souls gain one Anger; above five, resolve Wraith damage/removal. Zero Light ends the run before healing.
+2. Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.
 3. If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
 
 ## Included roster entries awaiting playable rules
