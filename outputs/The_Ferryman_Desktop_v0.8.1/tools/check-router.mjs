@@ -7,8 +7,8 @@ import { sceneFor } from '../src/phase-map.js';
 const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'src', 'dev', 'fixtures');
 const expected = {
   boarding: 'BoardingScene', 'boarding-heracles': 'BoardingScene', window: 'CrossingScene', fork: 'CrossingScene', review: 'CrossingScene',
-  delivery: 'DeliveryScene', choice: 'ChoiceOverlay', trim: 'TrimOverlay', return: 'ReturnScene',
-  'review-return': 'ReturnScene', ended: 'GameOverScene',
+  delivery: 'DeliveryScene', 'delivery-match': 'DeliveryScene', choice: 'ChoiceOverlay', 'choice-odysseus': 'ChoiceOverlay', trim: 'TrimOverlay',
+  return: 'ReturnScene', 'review-return': 'ReturnScene', ended: 'GameOverScene',
 };
 let bad = 0;
 for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {

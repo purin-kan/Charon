@@ -47,7 +47,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
 | T-19 | CrossingScene | 2026-11-05 | SupaOhm | Jaoguya | T-05; integrates T-16 and T-22 | Game | Must | Not started | Memory window, route choice, review and boat animation work; fog and Light loss shown |
-| T-20 | DeliveryScene | 2026-11-05 | SupaOhm | | T-05 | Game | Must | Not started | Matching-wish feedback, delivery, soul departure, memory reward and choice overlay work |
+| T-20 | DeliveryScene | 2026-11-05 | SupaOhm | | T-05 | Game | Must | Done | Matching-wish feedback, delivery, soul departure, memory reward and choice overlay work |
 | T-21 | ReturnScene | 2026-11-05 | Jaoguya | | T-05 | Game | Must | Not started | Return resolves anger, wraith conversion and Light restoration, then starts the next cycle |
 | T-22 | Route UI | 2026-11-04 | Jaoguya | | T-05 | Game | Must | Not started | Fork display, review and Foresight preview work as a component for CrossingScene |
 | T-23 | Tuning and pacing calibration | 2026-11-06 (midday) | Tinpatpun | VarisPah, Kanyakorn-goya | T-13, T-19 | Game | Should | Not started | Crossing speed, snap feel and wraith pacing tuned; `tuning.json` committed by one person |
