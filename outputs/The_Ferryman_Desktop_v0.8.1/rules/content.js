@@ -399,7 +399,7 @@ globalThis.FerryData = {
       "name": "Moly of Hermes",
       "kind": "moly",
       "amount": 0,
-      "text": "Prevent future scheduled Long arrivals until the next return. Existing passengers remain."
+      "text": "Every Long on the boat leaves, including souls turned into a Long. No scheduled Long boards until the next return."
     },
     {
       "id": "MEM-NOBODY",
@@ -561,6 +561,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69"
+  "contentSha256": "bdd661af93bfdc21e61cb86d764370f6ab2d47176041b888da28fab9e69e66fc"
 }
 ;

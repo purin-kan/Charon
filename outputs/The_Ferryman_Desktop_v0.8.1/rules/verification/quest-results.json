@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45",
-  "passed": 24,
+  "passed": 25,
   "failed": 0,
   "hashes": {
-    "engine.js": "0266b00b96f6801223c37f905ade2cc71249f3b460472c3b3d62f3c864f88abb",
-    "content.json": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69",
-    "tests/quest-check.js": "65f878c4840365629279ae5805454b416d92a480fb71c30a8cf78e0d89bd0891"
+    "engine.js": "dbb97deeb8dcca033ece47568f1809022d526ff6d2225869c3a8fab91805dd5b",
+    "content.json": "bdd661af93bfdc21e61cb86d764370f6ab2d47176041b888da28fab9e69e66fc",
+    "tests/quest-check.js": "8b15b103f806441042a4235d5386fa639a9b453df7d2920c9ea7f35c71dea248"
   },
   "records": [
     {
@@ -65,6 +65,10 @@
       "status": "PASS"
     },
     {
+      "name": "Moly removes every Long on the boat, spread souls included, then still blocks arrivals",
+      "status": "PASS"
+    },
+    {
       "name": "Polong encounter levels, next variant and forced Po Nak overload",
       "status": "PASS"
     },
@@ -104,7 +108,7 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2531,
+      "transitions": 2553,
       "choices": 27,
       "humanPlaytest": false
     }

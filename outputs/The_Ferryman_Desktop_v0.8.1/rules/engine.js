@@ -267,6 +267,7 @@
     if(m.kind==='calm')for(const x of s.boat)x.anger=Math.max(0,x.anger-m.amount);
     if(m.kind==='apple'){s.maxLight++;s.light=s.maxLight;}
     if(['capacity','moly','nobody'].includes(m.kind))s.effects[m.kind]=true;
+    if(m.kind==='moly'){const longs=s.boat.filter(isTainted);for(const x of longs)remove(s,x,'Moly');if(!longs.length)record(s,'No Long is on the boat.');}
     if(m.kind==='sword')remove(s,s.boat.find(x=>x.id===target),'Sword');
     if(m.kind==='passage')deliver(s,s.boat.find(x=>x.id===target),'passage');
     if(s.phase==='ended')return;
