@@ -79,8 +79,7 @@ export class DeliveryScene extends Phaser.Scene {
     // behind it. The overlay closes on a state this handler then leaves from.
     this.onState = (s) => {
       if (this.router.willLeave(this.scene.key)) return this.router.exitDone();
-      if (this.leaving) return;
-      this.hand.render(s);
+      if (!this.leaving) this.hand.render(s); // the hand is hidden once the delivery is on its way
       this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
