@@ -57,6 +57,7 @@ Total time and the time per part are not given in the plan. Fill them in once th
 Source of the list: the plan's "Algorithmic Implementation" item, checked against `rules/engine.js` on `main` (function names are given instead of line numbers, since lines move with rule edits). The plan says the group makes the design decisions and the AI writes the implementation, and the presentation says so. AI logic is not claimed: the game has no computer-controlled opponent.
 
 **Slide 9. One seeded random generator**
+* The team decided what is random and why; AI wrote most of the implementation (required by the plan, so it stays even if slide 13 is cut)
 * Every random event draws from one seeded generator (`draw`, a linear congruential generator)
 * The seed is saved with the game, so the same seed and the same choices replay the same run
 * Uses: reproducible demo, bug reports, automated tests
@@ -72,7 +73,8 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 * Longs board every third outward round, with a tiered random pick: Long Veil and Long Grasp can first appear at the third encounter (`drawPolong`)
 * Random hero offer each return (`offerHero`)
 * Cerberus frightens up to two random ordinary passengers off the boat (`heroicArrival`)
-* Random targets: Charybdis's stolen memory, Scylla's victim, Long spread, and Long Hollow's memory theft from level 3 (below that the player chooses; `thefts`)
+* Restless River: from round 4, most Longs can gain extra Anger, and the chance rises over the run
+* Random targets: Charybdis's stolen memory, Scylla's victim, Long spread, the route Long Veil hides, and Long Hollow's memory theft from level 3 (below that the player chooses; `thefts`)
 
 **Slide 12. Deterministic rules**
 * Fog cost is a fixed calculation, not random: base fog + cycle escalation + Long fog + overload, minus shields (`fog`)
@@ -82,7 +84,6 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 **Slide 13. How it was built** (optional)
 * Phaser scenes for each phase, routed from the engine's state
 * Developer tuning panel for timing and river paths (Phaser has no visual editor)
-* AI wrote most code from team prompts; the team made the design decisions
 
 ## Part 3: Demo play
 
