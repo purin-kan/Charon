@@ -9,7 +9,9 @@ import { t } from '../text.js';
 // The host keeps START_CROSSING ("Approach the fork"), the memory window and the boat animation.
 // Style follows TitleScene (T-11), BoardingScene (T-12) and the memory hand (T-16).
 //
-//   this.routes = new RouteUI(this, { x: 40, y: 72 });
+//   this.routes = new RouteUI(this, { x: 40, y: 72, onAction });
+//   onAction(action) runs before each dispatch; returning true means the host handles that action
+//   (CrossingScene plays the crossing before it dispatches CONFIRM).
 //   this.routes.render(state);                // in create() and in the 'ferry-state' handler
 //   this.routes.root.setPosition(x, y);       // move it; this.routes.mode tells what it shows
 
@@ -18,8 +20,9 @@ const GOLD = '#edc47f';
 export const ROUTE = { cardW: 370, cardH: 230, gap: 20, panelX: 800, panelW: 400, panelH: 560 };
 
 export class RouteUI {
-  constructor(scene, { x = 40, y = 72 } = {}) {
+  constructor(scene, { x = 40, y = 72, onAction = null } = {}) {
     this.scene = scene;
+    this.onAction = onAction;
     this.mode = 'hidden';
     this.root = scene.add.container(x, y).setDepth(4);
     this.parts = [];
@@ -125,6 +128,7 @@ export class RouteUI {
 
   /** Dispatches through the router; the host re-renders on 'ferry-state'. Engine refusals are shown. */
   act(action) {
+    if (this.onAction?.(action)) return;
     try {
       this.router.dispatch(action);
     } catch (err) {

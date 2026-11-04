@@ -99,7 +99,9 @@ check('a lethal crossing still names where it went', dead.to === dest(lethalFork
 const veiled = fixture('crossing-concealed');
 const hidden = Ferry.routeView(veiled)[0].find((o) => o.hidden).option;
 const reveal = cross(veiled, hidden);
-check('the concealed destination is revealed on arrival', crossingOutcome(reveal.review, reveal.next, Ferry, t).to === dest(veiled.routes.offers[0][hidden]));
+const revealed = crossingOutcome(reveal.review, reveal.next, Ferry, t);
+check('the concealed destination is revealed on arrival', revealed.concealed && revealed.to === dest(veiled.routes.offers[0][hidden]));
+check('a visible route is not concealed', !plain.concealed);
 
 // Odysseus at his wish leaves for Tiresias.
 const ody = fixture('crossing-odysseus');

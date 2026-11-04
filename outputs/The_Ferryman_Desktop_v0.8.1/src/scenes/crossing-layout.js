@@ -104,11 +104,13 @@ export function approachOutcome(state, next, Ferry, t) {
  */
 export function crossingOutcome(state, next, Ferry, t) {
   const paid = Math.max(0, state.light - next.light);
+  const concealed = !!Ferry.routeView(state)[0]?.[state.pending?.option]?.hidden;
   const ended = next.phase === 'ended';
   const changes = ended ? { departed: [], boarded: [], lines: [] } : boatChanges(state, next, Ferry, t);
   return {
     from: t('crossing.from', { place: placeName(state, Ferry, t) }),
     to: destinationName(next.destination, Ferry),
+    concealed, // the scene shows "?" until arrival
     arrived: t('crossing.arrived', { destination: destinationName(next.destination, Ferry) }),
     paid,
     lightBefore: state.light,
