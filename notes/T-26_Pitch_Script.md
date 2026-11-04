@@ -75,13 +75,15 @@ Each phase of the game is a Phaser scene, chosen from the engine's state. Phaser
 
 Let's play. This is a fixed seed, so if we make the same choices, the run matches our rehearsal.
 
-[Action: the driver plays the path below. The narrator speaks at each step. The steps are a placeholder until the seed is chosen after the freeze (outline to-do 3).]
+[Action: the driver plays the path below. The narrator speaks at each step. This is **candidate seed 116**, the first cycle only. It was replayed through `rules/engine.js` at rules `0.8-t45`, not in the game window. Run it again after the freeze: see "Demo seed" below.]
 
-1. Boarding: "Here is the shore. I pick souls that share a direction, up to four seats."
-2. Fork: "Two routes. This one costs [n] fog, this one [n]. I take the cheaper one that reaches a wish."
-3. Delivery: "[Soul] reaches [destination] and leaves a memory: [memory]."
-4. Long boarding: "A Long boards. This one is [Long], so [effect]."
-5. Return: "The boat is empty, so we go back and recover one Light. The waiting souls are angrier now."
+1. Boarding (Light 6). Board Mother, Child, Merchant and Cook. Leave the Odysseus offer. "Here is the shore. Four seats, four souls. Mother and Child board together, so their story starts."
+2. Fork 1: Acheron (fog 1) or Haven (fog 0). Take Haven and deliver Child. "Haven costs no fog, and the Child's wish is Haven. The Child must arrive before the Mother."
+3. Fork 2: River Styx (fog 1) or Asphodel (fog 2). Take River Styx and deliver Merchant (Light 5). "The Merchant leaves a memory: Foresight."
+4. Fork 3: Long Mist boards. Acheron (fog 1) or Haven (fog 0). Take Haven and deliver no one. "A Long boards: Long Mist. Its wish is Tartarus. Nobody aboard wishes for these two routes, so take the free one."
+5. Fork 4: Elysium (fog 3) or Tartarus (fog 3). Take Tartarus (Light 2), then deliver Mother and Long Mist (Light 3). "The Mother's story is complete, and it gives the Passenger memory. Long Mist pays one Light for its fare."
+6. Wraith: Cook reaches Anger 4 and becomes a Wraith (Light 2). "The Cook sailed too long. That is the price of a wish that never came up."
+7. Return (Light 3, cycle 2). "The boat is empty, so we go back and recover one Light. The next cycle begins."
 
 **Slide 15. Credits** (15 s)
 
@@ -100,10 +102,19 @@ Thank you. We are happy to take questions.
 * **Why a seed?** Repeatable runs for the demo, for bug reports and for automated tests.
 * **What are the Longs based on?** To confirm with the team from the entity catalog before answering (outline slide 6 note).
 
+## Demo seed
+
+Candidate only. The outline chooses the final seed after the November 6 freeze (to-do 3).
+
+* Seed 116 was picked from a search of seeds 1 to 5000 with one fixed boarding (Mother, Child, Merchant, Cook) and a simple route rule. The search kept seeds where a memory comes before the first Long and the first cycle ends. Seed 116 also finishes a story and shows a Wraith in only four forks.
+* Replayed twice through `rules/engine.js`: both runs gave the same final state.
+* Approved #26 (boat Wraith at Anger 5) would change step 6 and everything after it, and #27 may change the memories, so the path must be replayed after the freeze.
+* NOT_RUN: this path in the real game. CrossingScene (T-19) is still a stub on `main`.
+
 ## Not done for T-26
 
 * **Early gameplay footage** (in the T-26 done-when line) is not captured. It needs a human to play the build; CrossingScene (T-19) is due November 5, so footage taken today would not show a crossing.
 * Speakers and timing per person are not assigned.
-* The demo steps on slide 14 wait for the seed (T-41).
+* The demo steps on slide 14 use a candidate seed; the final seed waits for the freeze (T-41).
 * The game shows "Hercules the traveler" (`content.json`), while the outline and this script say Heracles. Pick one name for the slides and the speech.
 * The script was not read aloud or timed; the times above are word-count estimates.
