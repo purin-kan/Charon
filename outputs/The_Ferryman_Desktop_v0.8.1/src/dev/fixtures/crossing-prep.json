@@ -1,0 +1,191 @@
+{
+  "format": "the-ferryman-save",
+  "version": "0.8-t45",
+  "schemaVersion": 3,
+  "seed": 1,
+  "rng": 2282599509,
+  "phase": "window",
+  "paused": false,
+  "light": 6,
+  "maxLight": 6,
+  "round": "2",
+  "cycle": "1",
+  "completed": "0",
+  "deliveries": "0",
+  "nextActor": "6",
+  "nextBoarding": "2",
+  "nextMemory": "3",
+  "nextQuest": "2",
+  "encounters": "0",
+  "shore": [
+    {
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-1",
+      "type": "SOUL-FARMER",
+      "origin": "SOUL-FARMER",
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-4",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-PRIEST",
+      "origin": "SOUL-PRIEST",
+      "wish": "DEST-HAVEN",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "arrivals": [
+    "SOUL-CHILD",
+    "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
+    "SOUL-MOTHER",
+    "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
+    "SOUL-RED-SOLDIER"
+  ],
+  "discard": [],
+  "selected": [],
+  "hand": [
+    {
+      "id": "MEMORY-1",
+      "type": "MEM-LIGHT",
+      "sourceRef": {
+        "kind": "character",
+        "definitionId": "SOUL-MOTHER",
+        "instanceId": "ACTOR-1"
+      }
+    },
+    {
+      "id": "MEMORY-2",
+      "type": "MEM-FORESIGHT",
+      "sourceRef": {
+        "kind": "character",
+        "definitionId": "SOUL-POET",
+        "instanceId": "ACTOR-1"
+      }
+    }
+  ],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-MEAL",
+      "participants": [
+        "ACTOR-1",
+        "ACTOR-4"
+      ],
+      "status": "active",
+      "stage": "active",
+      "sharedRoutes": 0,
+      "delivered": [],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": null,
+      "cycle": "1",
+      "data": {}
+    }
+  ],
+  "effects": {
+    "capacity": false,
+    "moly": false,
+    "nobody": false
+  },
+  "window": {
+    "kind": "outward",
+    "uses": 0,
+    "guard": 0,
+    "shield": 0,
+    "allFog": false
+  },
+  "travelPrepared": false,
+  "routes": {
+    "offers": [
+      [
+        "DEST-STYX",
+        "DEST-ASPHODEL"
+      ],
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ],
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ]
+    ],
+    "masks": [
+      1,
+      1,
+      1
+    ],
+    "foresight": 0,
+    "history": []
+  },
+  "nextPolong": "SOUL-PO-LUEM",
+  "heroOffer": {
+    "type": "SOUL-ODYSSEUS",
+    "resolved": true
+  },
+  "destination": null,
+  "pending": null,
+  "choice": null,
+  "theftQueue": [],
+  "trimNext": null,
+  "ending": null,
+  "log": [
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "All-quest trial begins."
+    }
+  ]
+}

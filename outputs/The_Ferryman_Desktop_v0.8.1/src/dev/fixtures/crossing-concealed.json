@@ -1,0 +1,196 @@
+{
+  "format": "the-ferryman-save",
+  "version": "0.8-t45",
+  "schemaVersion": 3,
+  "seed": 5,
+  "rng": 4209905802,
+  "phase": "window",
+  "paused": false,
+  "light": 4,
+  "maxLight": 6,
+  "round": "3",
+  "cycle": "1",
+  "completed": "0",
+  "deliveries": "0",
+  "nextActor": "7",
+  "nextBoarding": "2",
+  "nextMemory": "1",
+  "nextQuest": "1",
+  "encounters": "1",
+  "shore": [
+    {
+      "id": "ACTOR-1",
+      "type": "SOUL-MOTHER",
+      "origin": "SOUL-MOTHER",
+      "wish": "DEST-TARTARUS",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HAVEN",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-4",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
+      "anger": 2,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 2,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-6",
+      "type": "SOUL-PO-MUED",
+      "origin": null,
+      "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "3",
+      "level": 1,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "arrivals": [
+    "SOUL-BLUE-SOLDIER",
+    "SOUL-PRIEST",
+    "SOUL-POET",
+    "SOUL-BLACKSMITH",
+    "SOUL-FARMER",
+    "SOUL-MESSENGER",
+    "SOUL-MUSICIAN",
+    "SOUL-KEEPER",
+    "SOUL-LISTENER",
+    "SOUL-RED-SOLDIER"
+  ],
+  "discard": [],
+  "selected": [],
+  "hand": [],
+  "quests": [],
+  "effects": {
+    "capacity": false,
+    "moly": false,
+    "nobody": false
+  },
+  "window": {
+    "kind": "outward",
+    "uses": 0,
+    "guard": 0,
+    "shield": 0,
+    "allFog": false
+  },
+  "travelPrepared": true,
+  "routes": {
+    "offers": [
+      [
+        "DEST-ACHERON",
+        "DEST-STYX"
+      ],
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ],
+      [
+        "DEST-ASPHODEL",
+        "DEST-ACHERON"
+      ]
+    ],
+    "masks": [
+      1,
+      1,
+      0
+    ],
+    "foresight": 0,
+    "history": [
+      {
+        "offer": [
+          "DEST-HAVEN",
+          "DEST-STYX"
+        ],
+        "chosen": "DEST-HAVEN"
+      },
+      {
+        "offer": [
+          "DEST-ASPHODEL",
+          "DEST-HAVEN"
+        ],
+        "chosen": "DEST-ASPHODEL"
+      }
+    ]
+  },
+  "nextPolong": "SOUL-PO-NAK",
+  "heroOffer": {
+    "type": "SOUL-HERACLES",
+    "resolved": true
+  },
+  "destination": "DEST-ASPHODEL",
+  "pending": null,
+  "choice": null,
+  "theftQueue": [],
+  "trimNext": null,
+  "ending": null,
+  "log": [
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "All-quest trial begins."
+    },
+    {
+      "round": "1",
+      "cycle": "1",
+      "text": "crossing to Haven: 0 Light lost."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "crossing to Asphodel: 2 Light lost."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "Long Burden boards at level 1."
+    }
+  ]
+}
