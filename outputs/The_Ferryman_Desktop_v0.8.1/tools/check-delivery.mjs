@@ -209,5 +209,9 @@ check('the memory picked for Po Luem is not listed as lost', outcomeOf(theft, th
 const twelve = memoryRowSpots(12);
 check('twelve rows stay on screen', twelve.every((r) => r.x + r.w <= 1240 && r.y < 620));
 check('rows never share a spot', new Set(twelve.map((r) => `${r.x},${r.y}`)).size === 12);
+const tall = memoryRowSpots(3, [50, 120, 50]);
+check('a tall row pushes the next one down', tall[1].y - tall[0].y === 84 && tall[2].y - tall[1].y === 130);
+const tallCols = memoryRowSpots(6, [200, 50, 50, 50, 50, 50]);
+check('the next column starts at the top again', tallCols[5].y === tallCols[0].y);
 
 process.exit(bad ? 1 : 0);
