@@ -9,7 +9,7 @@ How to read this script:
 * Speakers are not assigned yet. Suggested split: one speaker for Part 1, one for Part 2, one driver and one narrator for Part 3.
 * The course limit is 15 minutes. This draft is about 8 to 9 minutes of speech before Q&A, plus the time to drive the demo. If time is short, cut slide 9 first.
 
-## Part 1: Description (about 3.5 minutes)
+## Part 1: Description (about 4 minutes)
 
 **Slide 1. Title** (10 s)
 
@@ -33,11 +33,11 @@ Each cycle has four steps. First, board: choose souls from the shore, up to four
 
 Two numbers drive the game. Light is your life: you start with six, fog takes it, and the return gives one back. Anger is the souls' patience. A soul left waiting on the shore, or sailing too long, turns into a Wraith, and Wraiths cost Light. The fog also gets thicker as the run goes on, from cycle 6 and again from cycle 12, except at Haven.
 
-**Slide 6. Memories** (30 s)
+**Slide 6. Memories** (25 s)
 
 When a soul is delivered, it often leaves a memory card. Twelve of the fifteen ordinary souls do. You can hold three. Memories are your tools. For example, Light restores one Light, and Calm lowers the Anger of every soul on the boat. Some stories end with a special memory, like the Sword or the Golden Apple.
 
-**Slide 7. Longs** (25 s)
+**Slide 7. Longs** (20 s)
 
 Then there are the Longs: lost souls from another land. One boards on every third outward round, and each Long breaks one rule. For example, Long Mist adds fog, and Long Hollow steals memories. They get stronger with each encounter.
 
@@ -67,7 +67,7 @@ Randomness also creates pressure. The type of each Long is a tiered random pick:
 
 Not everything is random. The fog cost is a fixed calculation: the route's base fog, plus the cycle increase, plus Long fog and overload, minus any shields. The player sees this cost before confirming a route, unless Long Veil hides it. All rules live in one engine and one data file, and every scene reads from them, so the rules are never written twice.
 
-**Slide 14. Luck and skill** (25 s)
+**Slide 14. Luck and skill** (30 s)
 
 Some of the game is luck, and some is skill. Chance decides the routes, the arrivals and which Longs appear. The player decides who boards, which fork to take and when to play a memory. With one seeded generator, the same seed and the same choices replay the same run, so a good or bad result can be studied again.
 
@@ -119,7 +119,7 @@ Candidate only. The outline chooses the final seed after the November 6 freeze (
 
 ## Not done for T-26
 
-* **Early gameplay footage** (in the T-26 done-when line) is not captured. It needs a human to play the build; CrossingScene (T-19) is due November 5, so footage taken today would not show a crossing.
+* **Early gameplay footage** (in the T-26 done-when line) is not captured. purin-kan agreed on #22 that it can be added after #34 (CrossingScene) merges, so T-26 stays In progress until then.
 * Speakers and timing per person are not assigned.
 * The demo steps on slide 15 use a candidate seed; the final seed waits for the freeze (T-41).
 * VarisPah chose the name Heracles (#21), so this script uses it. The game still shows "Hercules the traveler" (`content.json`) until that rename lands.
