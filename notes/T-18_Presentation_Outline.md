@@ -101,7 +101,7 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 ## To do before the slides (T-26, T-38)
 
 1. Course time limit for the presentation, so each part gets a time.
-2. Recheck every rule on slides 2 to 8 against `RULES.md` after the November 6 freeze; slides 4 and 5 change if #26 (Anger limit) and #27 (memory rules) are approved.
+2. Recheck every rule on slides 2 to 8 against `RULES.md` after the November 6 freeze; slides 4 and 5 change when #26 (Anger limit) and #27 (memory rules) merge, and slides 6 and 11 change if #28 drops Long levels or spread, or if Long arrivals become per cycle.
 3. Pick the demo seed and record what it shows (T-41).
 4. Confirm with the PM whether the Long spawn should be called "random" or "AI" (the plan says random; confirm after the freeze).
 5. Screenshots for slides 3 to 8 once the scenes have art.
