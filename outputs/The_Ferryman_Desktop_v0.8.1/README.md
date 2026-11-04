@@ -198,3 +198,7 @@ screen gets its headings from `scene-text.json` and its bodies from the `rules` 
    `package.json` change.
 
 Only the scaffold owner edits `scenes/index.js`, `package.json` and the lockfile; send a one-line request.
+
+## Credits
+
+Art, audio, font and software credits are collected in [CREDITS.md](CREDITS.md). Two audio sources are CC-BY 4.0 and must be credited: the menu music "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop, and the board and unboard footsteps from "Pirate Pack Vol 1" by JC Sounds, https://opengameart.org/content/jc-sounds-pirate-pack-vol-1.
