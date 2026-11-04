@@ -67,7 +67,7 @@ check('Listener transforms on third shared crossing, keeps origin and coexists w
 check('Meal is once per shared boarding, includes Cook reduction and can expire Cook',()=>{
  let s=boat(['SOUL-FARMER','SOUL-COOK']);find(s,'SOUL-COOK').anger=2;find(s,'SOUL-FARMER').anger=2;
  const q=quest(s,'QUEST-MEAL');s=act(s,'MEAL',{questId:q.id});assert.equal(find(s,'SOUL-COOK').anger,3);assert.equal(find(s,'SOUL-FARMER').anger,1);assert.throws(()=>act(s,'MEAL',{questId:q.id}));
- let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=3;const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
+ let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=g.data.config.shipAngerLimit-2;// the meal nets the Cook +1const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
 });
 check('Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith',()=>{
  let s=boat(['SOUL-MERCHANT','SOUL-BLACKSMITH']);s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-MERCHANT').anger,1);assert.equal(find(s,'SOUL-BLACKSMITH').anger,1);
@@ -116,7 +116,7 @@ check('Unlimited memories, overflow cannot be spent, full fog does not block Wra
  let s=boat(['SOUL-MOTHER','SOUL-COOK']);s.light=5;const a=memory(s,'MEM-LIGHT','SOUL-MOTHER'),b=memory(s,'MEM-LIGHT','SOUL-MOTHER');
  s=act(s,'PLAY_MEMORY',{id:a});s=act(s,'PLAY_MEMORY',{id:b});assert.equal(s.window.uses,2);assert.equal(s.light,7);
  for(let i=0;i<4;i++)memory(s,'MEM-LIGHT','SOUL-MOTHER');assert.throws(()=>act(s,'PLAY_MEMORY',{id:s.hand[0].id}),/Excess/);rt(s);
- let fog=boat(['SOUL-RED-SOLDIER']);const id=memory(fog,'MEM-ALL-FOG','SOUL-RED-SOLDIER');find(fog,'SOUL-RED-SOLDIER').anger=3;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-TARTARUS');assert.equal(fog.light,before-1);
+ let fog=boat(['SOUL-RED-SOLDIER']);const id=memory(fog,'MEM-ALL-FOG','SOUL-RED-SOLDIER');find(fog,'SOUL-RED-SOLDIER').anger=g.data.config.shipAngerLimit-1;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-TARTARUS');assert.equal(fog.light,before-1);
 });
 check('Moly suppresses scheduled arrivals without increasing level; Nobody blocks fog only',()=>{
  let s=boat(['SOUL-COOK']);s.effects.moly=false;s.round='2';const m=memory(s,'MEM-MOLY');s=act(s,'PLAY_MEMORY',{id:m});s=act(s,'START_CROSSING');assert.equal(s.encounters,'0');assert.equal(s.boat.length,1);
@@ -141,7 +141,14 @@ check('Po Luem skips boarding round then creates a saved discard choice; empower
  let empowered=boat(['SOUL-MOTHER']);polong(empowered,'SOUL-PO-LUEM',3);memory(empowered,'MEM-LIGHT','SOUL-MOTHER');const twin=copy(empowered);assert.deepEqual(step(empowered,'DEST-HAVEN'),step(twin,'DEST-HAVEN'));
 });
 check('Level-five spread conserves origin, spares family and fails participant quests',()=>{
- let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-COOK','SOUL-FARMER']);polong(s,'SOUL-POLONG',5,3);s=step(s,'DEST-HAVEN');const spread=s.boat.find(x=>x.spread);assert.ok(spread);assert.ok(['SOUL-COOK','SOUL-FARMER'].includes(spread.origin));assert.equal(spread.type,'SOUL-POLONG');assert.equal(spread.anger,0);assert.equal(quest(s,'QUEST-MEAL').status,'failed');assert.ok(find(s,'SOUL-MOTHER'));assert.ok(find(s,'SOUL-CHILD'));rt(s);
+ let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-COOK','SOUL-FARMER']);polong(s,'SOUL-POLONG',5,g.data.config.shipAngerLimit-1);s=step(s,'DEST-HAVEN');const spread=s.boat.find(x=>x.spread);assert.ok(spread);assert.ok(['SOUL-COOK','SOUL-FARMER'].includes(spread.origin));assert.equal(spread.type,'SOUL-POLONG');assert.equal(spread.anger,0);assert.equal(quest(s,'QUEST-MEAL').status,'failed');assert.ok(find(s,'SOUL-MOTHER'));assert.ok(find(s,'SOUL-CHILD'));rt(s);
+});
+check('Boat Wraith when Anger reaches 5; shore limit 2 and departure reset unchanged',()=>{
+ assert.equal(g.data.config.shipAngerLimit,5);assert.equal(g.data.config.shoreAngerLimit,2);
+ let s=shore(['SOUL-MOTHER','SOUL-CHILD','SOUL-COOK']);find(s,'SOUL-MOTHER').anger=1;
+ for(const type of ['SOUL-MOTHER','SOUL-CHILD'])s=act(s,'BOARD',{id:find(s,type).id});s=act(s,'DEPART');s.effects.moly=true;assert.equal(find(s,'SOUL-MOTHER').anger,0);
+ find(s,'SOUL-MOTHER').anger=3;s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-MOTHER').anger,4);rt(s);
+ const before=s.light;s=step(s,'DEST-HAVEN');assert.ok(!s.boat.some(x=>x.type==='SOUL-MOTHER'));assert.equal(s.light,before-1);
 });
 check('Only original normally delivered Po Long pays Light; fatal damage stops rewards',()=>{
  let s=boat(['SOUL-COOK']);polong(s,'SOUL-POLONG',1);const before=s.light;s=step(s,'DEST-TARTARUS',['SOUL-POLONG']);assert.equal(s.light,before-2);

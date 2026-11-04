@@ -8,7 +8,7 @@ globalThis.FerryData = {
     "seats": 4,
     "shoreTarget": 5,
     "shoreAngerLimit": 2,
-    "shipAngerLimit": 4,
+    "shipAngerLimit": 5,
     "handLimit": 3,
     "spawnInterval": 3,
     "polongFogThreshold": 2,
@@ -561,6 +561,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6"
+  "contentSha256": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69"
 }
 ;
