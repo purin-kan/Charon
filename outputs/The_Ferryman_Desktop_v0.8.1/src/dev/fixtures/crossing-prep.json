@@ -8,7 +8,7 @@
   "paused": false,
   "light": 6,
   "maxLight": 6,
-  "round": "2",
+  "round": "0",
   "cycle": "1",
   "completed": "0",
   "deliveries": "0",
@@ -187,5 +187,8 @@
       "cycle": "1",
       "text": "All-quest trial begins."
     }
+  ],
+  "longForks": [
+    1
   ]
 }

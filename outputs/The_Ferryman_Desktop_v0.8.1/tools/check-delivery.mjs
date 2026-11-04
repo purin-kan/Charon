@@ -27,14 +27,26 @@ const entryOf = (layout, id) => layout.entries.find((e) => e.id === id);
 // Layout.
 const none = fixture('delivery');
 const match = fixture('delivery-match');
-const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.data.souls.find((d) => d.id === x.type).memory);
-const stayer = match.boat.find((x) => Ferry.wish(x) !== match.destination);
+// Any soul may leave at any stop; only a matching wish gives its memory. The fixture has one of each kind.
+const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) === match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory);
+const wanderer = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) !== match.destination);
+const stayer = match.boat.find((x) => Ferry.deliveryReason(match, x));
+if (!leaver || !wanderer || !stayer) {
+  console.log('FAIL delivery-match needs a soul at its wish with a memory, one that can leave elsewhere and one the engine refuses; run npm run fixtures');
+  process.exit(1);
+}
+// The same boat with no Anger, so a delivery is not followed by Wraiths.
+const calm = structuredClone(match);
+for (const x of calm.boat) x.anger = 0;
 const open = layoutDelivery(match, [], Ferry);
 check('every passenger has one spot', open.entries.length === match.boat.length);
 check('nobody starts on the dock', open.entries.every((e) => e.area === 'seat'));
 check('a soul that can leave is flagged', entryOf(open, leaver.id).canLeave === true);
-check('a different wish is not flagged', entryOf(open, stayer.id).canLeave === false);
-check('no soul can leave in the delivery fixture', layoutDelivery(none, [], Ferry).entries.every((e) => !e.canLeave));
+check('a soul the engine refuses is not flagged', entryOf(open, stayer.id).canLeave === false);
+check('a different wish can still leave', entryOf(open, wanderer.id).canLeave === true);
+check('a matching wish is marked gold', entryOf(open, leaver.id).wishMatches === true);
+check('a different wish is not gold', entryOf(open, wanderer.id).wishMatches === false);
+check('the delivery fixture flags exactly the souls the engine lets leave', layoutDelivery(none, [], Ferry).entries.every((e) => e.canLeave === !Ferry.deliveryReason(none, e.actor)));
 check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit}`));
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
@@ -77,6 +89,7 @@ const before = JSON.stringify(match);
 const seatEntry = entryOf(open, leaver.id);
 const accepted = applyDrop(match, [], seatEntry, 'dock', Ferry, t);
 check('an eligible soul is marked', accepted.marked.includes(leaver.id) && accepted.reason === null);
+check('a soul at the wrong stop is marked', applyDrop(match, [], entryOf(open, wanderer.id), 'dock', Ferry, t).marked.includes(wanderer.id));
 const refused = applyDrop(match, [], entryOf(open, stayer.id), 'dock', Ferry, t);
 check('an ineligible soul is refused with the engine reason', refused.marked.length === 0 && refused.reason === Ferry.deliveryReason(match, stayer));
 check('a seat soul dropped on the boat changes nothing', applyDrop(match, [], seatEntry, 'boat', Ferry, t).marked.length === 0);
@@ -116,8 +129,8 @@ check('empty boat has a finish button', confirmLabel(empty, [], t) === 'Finish r
 check('empty boat explains itself', introText(empty, t).includes('left the boat empty'));
 
 // Outcomes.
-const next = Ferry.transition(match, deliverAction([leaver.id]));
-const outcome = arrivalOutcome(match, next, deliverAction([leaver.id]), Ferry);
+const next = Ferry.transition(calm, deliverAction([leaver.id]));
+const outcome = arrivalOutcome(calm, next, deliverAction([leaver.id]), Ferry);
 check('the delivered soul departs', outcome.departed.length === 1 && outcome.departed[0] === leaver.id);
 check('the new memory is the reward', outcome.rewards.length >= 1 && outcome.rewards.every((m) => m.name && m.text));
 const kept = Ferry.transition(match, deliverAction([]));
@@ -127,6 +140,17 @@ check('a run that stops partway only departs who left', arrivalOutcome(match, st
   && arrivalOutcome(match, stopped, deliverAction([stayer.id, leaver.id]), Ferry).departed.length === 1);
 check('an ordinary delivery loses nothing', outcome.lost.length === 0 && outcome.stolenRewards === 0);
 check('an ordinary delivery has no loss lines', lossLines(outcome, t, Ferry).length === 0);
+const strayAction = deliverAction([wanderer.id]);
+const stray = arrivalOutcome(calm, Ferry.transition(calm, strayAction), strayAction, Ferry);
+check('a soul at the wrong stop departs with no reward', stray.departed.join() === wanderer.id && stray.rewards.length === 0);
+const wandererName = entryOf(open, wanderer.id).labels.name;
+const wandererWish = Ferry.data.destinations.find((d) => d.id === Ferry.wish(wanderer)).name;
+check('it says which memory was not given', lossLines(stray, t, Ferry).join() === `${wandererName} wished for ${wandererWish}. No memory.`);
+// A Long leaves only at its wish.
+const mist = match.boat.find((x) => Ferry.data.souls.find((d) => d.id === x.type).tainted && Ferry.wish(x) !== match.destination);
+check('a Long at the wrong stop is refused with its wish', mist && Ferry.wish(mist) !== match.destination
+  && applyDrop(match, [], entryOf(open, mist.id), 'dock', Ferry, t).reason === `Wishes for ${Ferry.data.destinations.find((d) => d.id === Ferry.wish(mist)).name}.`);
+check('and is dimmed', entryOf(open, mist.id).canLeave === false);
 const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
 const robbed = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, deliverAction([]), Ferry);
 check('a theft of a held memory is reported', robbed.lost.length === 1 && robbed.lost[0].id === 'MEMORY-2' && robbed.stolenRewards === 0 && robbed.rewards.length === 1);
@@ -156,7 +180,8 @@ check('a lethal Wraith names only itself', doomedNext.phase === 'ended' && doome
 // A Polong in Mother's seat: Polongs have no origin, so Mother's goes back to the discard.
 function polongFor(state, fields) {
   const s = structuredClone(state);
-  Object.assign(s.boat.find((x) => x.id === leaver.id), { origin: null, wish: 'DEST-TARTARUS', ...fields });
+  // A Long leaves only at its wish, so it wishes for this stop unless fields say otherwise.
+  Object.assign(s.boat.find((x) => x.id === leaver.id), { origin: null, wish: state.destination, ...fields });
   s.discard.push(leaver.type);
   return s;
 }
@@ -168,7 +193,8 @@ check('and is not flagged', entryOf(layoutDelivery(due, [leaver.id], Ferry), sta
 const calmDue = polongFor(match, { type: 'SOUL-PO-DUE', level: 1, anger: 1 });
 check('a matching wish the engine refuses is not flagged', Ferry.wish(entryOf(open, leaver.id).actor) === calmDue.destination
   && entryOf(layoutDelivery(calmDue, [], Ferry), leaver.id).canLeave === false);
-const fare = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0 });
+const fare = polongFor(calm, { type: 'SOUL-POLONG', level: 1, anger: 0, wish: 'DEST-TARTARUS' });
+fare.destination = 'DEST-TARTARUS'; // the fare is paid only at Tartarus
 fare.boat.find((x) => x.id === stayer.id).anger = Ferry.data.config.shipAngerLimit - 1;
 const fareNext = Ferry.transition(fare, deliverAction([leaver.id]));
 const fareOutcome = arrivalOutcome(fare, fareNext, deliverAction([leaver.id]), Ferry);

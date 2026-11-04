@@ -169,7 +169,9 @@ export class DeliveryScene extends Phaser.Scene {
 
   updateToken(token, entry) {
     setTokenLabels(token, entry.labels);
-    token.getData('panel').setStrokeStyle(entry.canLeave ? 3 : 1, entry.canLeave ? GOLD : STROKE);
+    // Gold is at its wish (its memory, quest step or fare), plain can leave without it, dimmed cannot leave.
+    const gold = entry.canLeave && entry.wishMatches;
+    token.getData('panel').setStrokeStyle(gold ? 3 : 1, gold ? GOLD : STROKE);
     token.setAlpha(entry.canLeave ? 1 : 0.6);
     this.tweens.killTweensOf(token);
     this.tweens.add({ targets: token, x: entry.x, y: entry.y, duration: tune('boarding.snapMs'), ease: tune('boarding.snapEase') });

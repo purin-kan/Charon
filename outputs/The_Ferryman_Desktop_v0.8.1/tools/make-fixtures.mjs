@@ -19,8 +19,8 @@ const WANTED = {
   fork: (s) => s.phase === 'window' && s.window.kind === 'outward' && s.travelPrepared,
   review: (s) => s.phase === 'review' && s.window.kind === 'outward',
   delivery: (s) => s.phase === 'delivery',
-  'delivery-match': (s) => s.phase === 'delivery' && s.boat.length >= 2 && s.boat.some((x) => Ferry.wish(x) !== s.destination)
-    && s.boat.some((x) => !Ferry.deliveryReason(s, x) && Ferry.data.souls.find((d) => d.id === x.type).memory),
+  // One soul that leaves with a memory, one that can leave without one, and one the engine refuses.
+  'delivery-match': (s) => mixedDelivery(s) && s.boat.some((x) => Ferry.deliveryReason(s, x)),
   choice: (s) => s.phase === 'choice',
   'choice-odysseus': (s) => s.phase === 'choice' && s.choice.kind === 'odysseus',
   trim: (s) => s.phase === 'trim',
@@ -33,6 +33,15 @@ const WANTED = {
 
 function atFork(s) {
   return s.phase === 'window' && s.window.kind === 'outward' && s.travelPrepared;
+}
+
+// Any soul may leave at any stop; only a matching wish gives its memory.
+function mixedDelivery(s) {
+  if (s.phase !== 'delivery') return false;
+  const leaves = (x) => !Ferry.deliveryReason(s, x);
+  const memory = (x) => Ferry.data.souls.find((d) => d.id === x.type).memory;
+  return s.boat.some((x) => leaves(x) && Ferry.wish(x) === s.destination && memory(x))
+    && s.boat.some((x) => leaves(x) && Ferry.wish(x) !== s.destination);
 }
 
 function lcg(seed) {
@@ -58,7 +67,8 @@ function candidates(s, rnd) {
     case 'review':
       return [{ type: 'CONFIRM' }];
     case 'delivery': {
-      const ids = s.boat.filter(() => rnd() < 0.9).map((x) => x.id);
+      // Players drop souls at their wish; dropping everyone everywhere would empty the boat each stop.
+      const ids = s.boat.filter((x) => rnd() < 0.9 && Ferry.wish(x) === s.destination).map((x) => x.id);
       return [{ type: 'DELIVER', ids }, { type: 'DELIVER', ids: [] }];
     }
     case 'choice':
@@ -73,15 +83,15 @@ function candidates(s, rnd) {
 }
 
 const found = {};
-let longFork = null; // a fork with a Long aboard, for crossing-concealed below
 const names = Object.keys(WANTED);
 const scripted = ['crossing-prep', 'crossing-concealed', 'crossing-odysseus', 'crossing-heracles'];
+let mixedFallback = null; // used when no seed has a refused soul beside the other two
 for (let seed = 1; seed <= 400 && Object.keys(found).length < names.length; seed++) {
   const rnd = lcg(seed * 7919);
   let s = Ferry.create(seed);
   for (let step = 0; step < 600 && s.phase !== 'ended'; step++) {
     for (const n of names) if (!found[n] && WANTED[n](s)) found[n] = { seed, step, state: s };
-    if (!longFork && atFork(s) && s.light >= 4 && s.boat.some((x) => Ferry.isTainted(x) && !x.origin)) longFork = { seed, step, state: s };
+    if (!mixedFallback && mixedDelivery(s)) mixedFallback = { seed, step, state: s };
     const list = candidates(s, rnd);
     let moved = false;
     while (list.length && !moved) {
@@ -137,6 +147,7 @@ function odysseusChoice() {
   return null;
 }
 if (!found['choice-odysseus']) found['choice-odysseus'] = odysseusChoice();
+if (!found['delivery-match'] && mixedFallback) found['delivery-match'] = mixedFallback;
 
 // CrossingScene (T-19). Random play delivers too often to keep souls aboard for three rounds, so these
 // runs board chosen souls, pick a fork nobody wishes for, and deliver no one until the wanted state.
@@ -187,7 +198,7 @@ function crossingPrep() {
   s.boat.push({ ...child, anger: 0, boardingId: a.boardingId, exhausted: false });
   s.quests.push({ id: 'QUEST-' + s.nextQuest, definitionId: 'QUEST-MEAL', participants: [a.id, b.id], status: 'active', stage: 'active', sharedRoutes: 0, delivered: [], rewardClaimed: false, rewardType: null, reason: null, cycle: s.cycle, data: {} });
   s.nextQuest = String(Number(s.nextQuest) + 1);
-  s.round = String(Ferry.data.config.spawnInterval - 1);
+  s.longForks = [s.routes.history.length + 1]; // a Long is due at this fork
   const n0 = Number(s.nextMemory);
   const src = { 'MEM-LIGHT': 'SOUL-MOTHER', 'MEM-FORESIGHT': 'SOUL-POET' };
   s.hand = Object.keys(src).map((type, i) => ({ id: 'MEMORY-' + (n0 + i), type, sourceRef: { kind: 'character', definitionId: src[type], instanceId: 'ACTOR-1' } }));
@@ -195,13 +206,34 @@ function crossingPrep() {
   return { seed: found.window.seed, step: 'synthetic', state: s };
 }
 
-// A fork with one option concealed: the Long aboard a real fork becomes Long Veil, which hides one option.
-function crossingConcealed() {
-  if (!longFork) return null;
-  const s = structuredClone(longFork.state);
-  retype(s.boat.find((x) => Ferry.isTainted(x) && !x.origin), 'SOUL-PO-MUED');
-  return Ferry.routeView(s)[0].some((o) => o.hidden) ? { seed: longFork.seed, step: 'synthetic', state: s } : null;
+// Longs arrive from cycle 3, which random play rarely reaches, so these start from the "window" fixture with a
+// chosen Long due at the next fork (the only edit); the engine plays the rest.
+function withLong(state, type) {
+  const s = structuredClone(state);
+  s.effects.moly = false;
+  s.longForks = [s.routes.history.length + 1];
+  s.nextPolong = type;
+  return Ferry.transition(s, { type: 'START_CROSSING' });
 }
+
+// A fork with one option concealed: Long Veil boards at the fork and hides one option.
+function crossingConcealed() {
+  if (!found.window) return null;
+  const s = withLong(found.window.state, 'SOUL-PO-MUED');
+  return Ferry.routeView(s)[0].some((o) => o.hidden) ? { seed: found.window.seed, step: 'synthetic', state: s } : null;
+}
+
+// Long Hollow's choice: it boards at a fork, skips its boarding round, then asks for a held memory.
+function theftChoice() {
+  if (!found.window) return null;
+  let s = withLong(found.window.state, 'SOUL-PO-LUEM');
+  const n0 = Number(s.nextMemory);
+  s.hand = ['MEM-LIGHT', 'MEM-FORESIGHT'].map((type, i) => ({ id: 'MEMORY-' + (n0 + i), type, sourceRef: { kind: 'character', definitionId: type === 'MEM-LIGHT' ? 'SOUL-MOTHER' : 'SOUL-POET', instanceId: 'ACTOR-1' } }));
+  s.nextMemory = String(n0 + 2);
+  s = keepAboard(s, (x) => x.phase === 'choice' && x.choice.kind === 'memory-loss');
+  return s ? { seed: found.window.seed, step: 'synthetic', state: s } : null;
+}
+if (!found.choice) found.choice = theftChoice();
 
 // The fork that offers a hero's wish. Odysseus sails alone; Heracles takes a shore toll and two souls
 // Cerberus can frighten off the boat.

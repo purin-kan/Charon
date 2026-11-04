@@ -2,13 +2,13 @@
   "format": "the-ferryman-save",
   "version": "0.8-t45",
   "schemaVersion": 3,
-  "seed": 5,
-  "rng": 4209905802,
+  "seed": 1,
+  "rng": 927463856,
   "phase": "window",
   "paused": false,
-  "light": 4,
+  "light": 6,
   "maxLight": 6,
-  "round": "3",
+  "round": "1",
   "cycle": "1",
   "completed": "0",
   "deliveries": "0",
@@ -18,18 +18,6 @@
   "nextQuest": "1",
   "encounters": "1",
   "shore": [
-    {
-      "id": "ACTOR-1",
-      "type": "SOUL-MOTHER",
-      "origin": "SOUL-MOTHER",
-      "wish": "DEST-TARTARUS",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
     {
       "id": "ACTOR-2",
       "type": "SOUL-CHILD",
@@ -43,26 +31,12 @@
       "exhausted": false
     },
     {
-      "id": "ACTOR-4",
-      "type": "SOUL-MASON",
-      "origin": "SOUL-MASON",
-      "wish": "DEST-ACHERON",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    }
-  ],
-  "boat": [
-    {
       "id": "ACTOR-3",
       "type": "SOUL-MERCHANT",
       "origin": "SOUL-MERCHANT",
       "wish": "DEST-STYX",
-      "anger": 2,
-      "boardingId": "1",
+      "anger": 0,
+      "boardingId": null,
       "bornRound": "0",
       "level": 0,
       "spread": false,
@@ -73,7 +47,33 @@
       "type": "SOUL-COOK",
       "origin": "SOUL-COOK",
       "wish": "DEST-ASPHODEL",
-      "anger": 2,
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-1",
+      "type": "SOUL-MOTHER",
+      "origin": "SOUL-MOTHER",
+      "wish": "DEST-TARTARUS",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-4",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
+      "anger": 0,
       "boardingId": "1",
       "bornRound": "0",
       "level": 0,
@@ -87,22 +87,22 @@
       "wish": "DEST-STYX",
       "anger": 0,
       "boardingId": "1",
-      "bornRound": "3",
+      "bornRound": "1",
       "level": 1,
       "spread": false,
       "exhausted": false
     }
   ],
   "arrivals": [
-    "SOUL-BLUE-SOLDIER",
     "SOUL-PRIEST",
-    "SOUL-POET",
+    "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
     "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
     "SOUL-FARMER",
     "SOUL-MESSENGER",
-    "SOUL-MUSICIAN",
-    "SOUL-KEEPER",
-    "SOUL-LISTENER",
+    "SOUL-BLUE-SOLDIER",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [],
@@ -125,47 +125,32 @@
   "routes": {
     "offers": [
       [
-        "DEST-ACHERON",
-        "DEST-STYX"
+        "DEST-STYX",
+        "DEST-ASPHODEL"
       ],
       [
         "DEST-TARTARUS",
         "DEST-STYX"
       ],
       [
-        "DEST-ASPHODEL",
-        "DEST-ACHERON"
+        "DEST-TARTARUS",
+        "DEST-STYX"
       ]
     ],
     "masks": [
       1,
       1,
-      0
+      1
     ],
     "foresight": 0,
-    "history": [
-      {
-        "offer": [
-          "DEST-HAVEN",
-          "DEST-STYX"
-        ],
-        "chosen": "DEST-HAVEN"
-      },
-      {
-        "offer": [
-          "DEST-ASPHODEL",
-          "DEST-HAVEN"
-        ],
-        "chosen": "DEST-ASPHODEL"
-      }
-    ]
+    "history": []
   },
-  "nextPolong": "SOUL-PO-NAK",
+  "nextPolong": "SOUL-POLONG",
   "heroOffer": {
-    "type": "SOUL-HERACLES",
+    "type": "SOUL-ODYSSEUS",
     "resolved": true
   },
-  "destination": "DEST-ASPHODEL",
+  "destination": null,
   "pending": null,
   "choice": null,
   "theftQueue": [],
@@ -180,17 +165,8 @@
     {
       "round": "1",
       "cycle": "1",
-      "text": "crossing to Haven: 0 Light lost."
-    },
-    {
-      "round": "2",
-      "cycle": "1",
-      "text": "crossing to Asphodel: 2 Light lost."
-    },
-    {
-      "round": "3",
-      "cycle": "1",
-      "text": "Long Burden boards at level 1."
+      "text": "Long Veil boards at level 1."
     }
-  ]
+  ],
+  "longForks": []
 }

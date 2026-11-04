@@ -46,7 +46,10 @@ export function boatSpots(state, Ferry) {
   return { spots, slots };
 }
 
-/** Every passenger with its spot. canLeave is the engine's answer for that soul joining the marked list. */
+/**
+ * Every passenger with its spot. canLeave is the engine's answer for that soul joining the marked list. Any soul but
+ * a Long may leave at any stop, but only wishMatches gives its memory, quest step or fare.
+ */
 export function layoutDelivery(state, marked, Ferry) {
   const { spots, slots } = boatSpots(state, Ferry);
   const entries = spots.map(({ id, actor, span, x, y }) => {
@@ -58,6 +61,7 @@ export function layoutDelivery(state, marked, Ferry) {
       ...(i >= 0 ? dockSpot(i) : { x, y }),
       span,
       canLeave: i >= 0 || testRun(state, [...marked, id], Ferry).ok,
+      wishMatches: Ferry.wish(actor) === state.destination,
       labels: tokenLabels({ actor, draggable: false }, Ferry), // draggable false picks the ship limit
     };
   });
@@ -153,12 +157,20 @@ export function arrivalOutcome(state, next, action, Ferry) {
   return {
     departed,
     rewards,
+    strays: departed.map((id) => state.boat.find((x) => x.id === id)).filter((x) => strayed(state, x, Ferry))
+      .map((x) => ({ name: soulName(x.type, Ferry), wish: destinationName(Ferry.wish(x), Ferry) })),
     wraiths: expired.map((x) => soulName(x.type, Ferry)),
     ...lightChange(state, next, action, departed, Ferry),
     lost: state.hand.filter((m) => !kept.has(m.id) && m.id !== action.id).map((m) => memoryView(m, Ferry)),
     takenBy: action.branch === 'charybdis' ? 'charybdis' : 'SOUL-PO-LUEM',
     stolenRewards: Number(next.nextMemory) - Number(state.nextMemory) - rewards.length,
   };
+}
+
+// A soul that left at a stop other than its wish, and so gave none of the memory it carries.
+function strayed(state, actor, Ferry) {
+  const memory = Ferry.data.souls.find((d) => d.id === actor.type)?.memory;
+  return Boolean(memory) && Ferry.wish(actor) !== state.destination;
 }
 
 // The net change would let a Po Long's +1 hide a Wraith's -1 at the same stop. Light is only gained here by a
@@ -172,10 +184,11 @@ function lightChange(state, next, action, departed, Ferry) {
   return { lightLost, lightGained: next.light - state.light + lightLost };
 }
 
-/** Wraiths and Light first, then memories. A gain shows only beside a loss, which it would otherwise hide. */
-export function lossLines({ wraiths, lightLost, lightGained, lost, takenBy, stolenRewards }, t, Ferry) {
+/** Memories not given first, then Wraiths and Light, then memories taken. A gain shows only beside a loss, which it would otherwise hide. */
+export function lossLines({ strays = [], wraiths, lightLost, lightGained, lost, takenBy, stolenRewards }, t, Ferry) {
   const thief = takenBy === 'charybdis' ? t('choice.charybdis') : soulName(takenBy, Ferry);
   return [
+    ...strays.map(({ name, wish }) => t('delivery.noMemory', { name, wish })),
     ...wraiths.map((name) => t('delivery.wraith', { name })),
     ...(lightLost ? [t('delivery.lightLost', { amount: lightLost })] : []),
     ...(lightLost && lightGained ? [t('delivery.lightGained', { amount: lightGained })] : []),

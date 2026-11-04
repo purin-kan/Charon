@@ -131,7 +131,8 @@
     "lightGained": "Gained {amount} Light.",
     "lost": "{thief} took {name}.",
     "lostReward": "{thief} took a memory you had just received.",
-    "runEnds": "The lantern goes out before this soul can leave."
+    "runEnds": "The lantern goes out before this soul can leave.",
+    "noMemory": "{name} wished for {wish}. No memory."
   },
 
   "return": {

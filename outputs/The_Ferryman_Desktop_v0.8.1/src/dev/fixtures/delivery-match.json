@@ -2,22 +2,34 @@
   "format": "the-ferryman-save",
   "version": "0.8-t45",
   "schemaVersion": 3,
-  "seed": 1,
-  "rng": 3037600243,
+  "seed": 8,
+  "rng": 1130135720,
   "phase": "delivery",
   "paused": false,
-  "light": 1,
+  "light": 2,
   "maxLight": 6,
-  "round": "2",
+  "round": "4",
   "cycle": "1",
   "completed": "0",
   "deliveries": "0",
   "nextActor": "6",
   "nextBoarding": "2",
   "nextMemory": "1",
-  "nextQuest": "1",
+  "nextQuest": "2",
   "encounters": "0",
   "shore": [
+    {
+      "id": "ACTOR-1",
+      "type": "SOUL-MOTHER",
+      "origin": "SOUL-MOTHER",
+      "wish": "DEST-TARTARUS",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
     {
       "id": "ACTOR-2",
       "type": "SOUL-CHILD",
@@ -29,39 +41,15 @@
       "level": 0,
       "spread": false,
       "exhausted": false
-    },
+    }
+  ],
+  "boat": [
     {
       "id": "ACTOR-3",
       "type": "SOUL-MERCHANT",
       "origin": "SOUL-MERCHANT",
       "wish": "DEST-STYX",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
-    {
-      "id": "ACTOR-5",
-      "type": "SOUL-COOK",
-      "origin": "SOUL-COOK",
-      "wish": "DEST-ASPHODEL",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    }
-  ],
-  "boat": [
-    {
-      "id": "ACTOR-1",
-      "type": "SOUL-MOTHER",
-      "origin": "SOUL-MOTHER",
-      "wish": "DEST-TARTARUS",
-      "anger": 1,
+      "anger": 3,
       "boardingId": "1",
       "bornRound": "0",
       "level": 0,
@@ -73,7 +61,19 @@
       "type": "SOUL-MASON",
       "origin": "SOUL-MASON",
       "wish": "DEST-ACHERON",
-      "anger": 1,
+      "anger": 3,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 3,
       "boardingId": "1",
       "bornRound": "0",
       "level": 0,
@@ -82,21 +82,39 @@
     }
   ],
   "arrivals": [
-    "SOUL-PRIEST",
-    "SOUL-MUSICIAN",
-    "SOUL-LISTENER",
     "SOUL-BLACKSMITH",
     "SOUL-KEEPER",
-    "SOUL-POET",
     "SOUL-FARMER",
-    "SOUL-MESSENGER",
+    "SOUL-MUSICIAN",
     "SOUL-BLUE-SOLDIER",
+    "SOUL-MESSENGER",
+    "SOUL-LISTENER",
+    "SOUL-PRIEST",
+    "SOUL-POET",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [],
   "selected": [],
   "hand": [],
-  "quests": [],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-BOAT",
+      "participants": [
+        "ACTOR-3",
+        "ACTOR-4"
+      ],
+      "status": "active",
+      "stage": "active",
+      "sharedRoutes": 3,
+      "delivered": [],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": null,
+      "cycle": "1",
+      "data": {}
+    }
+  ],
   "effects": {
     "capacity": false,
     "moly": false,
@@ -113,47 +131,61 @@
   "routes": {
     "offers": [
       [
-        "DEST-TARTARUS",
+        "DEST-ELYSIUM",
+        "DEST-TARTARUS"
+      ],
+      [
+        "DEST-ELYSIUM",
+        "DEST-ASPHODEL"
+      ],
+      [
+        "DEST-HAVEN",
         "DEST-STYX"
-      ],
-      [
-        "DEST-STYX",
-        "DEST-HAVEN"
-      ],
-      [
-        "DEST-STYX",
-        "DEST-HAVEN"
       ]
     ],
     "masks": [
       1,
-      0,
-      1
+      1,
+      0
     ],
     "foresight": 0,
     "history": [
       {
         "offer": [
-          "DEST-STYX",
-          "DEST-ASPHODEL"
+          "DEST-ACHERON",
+          "DEST-STYX"
         ],
-        "chosen": "DEST-ASPHODEL"
+        "chosen": "DEST-ACHERON"
+      },
+      {
+        "offer": [
+          "DEST-ACHERON",
+          "DEST-TARTARUS"
+        ],
+        "chosen": "DEST-ACHERON"
       },
       {
         "offer": [
           "DEST-TARTARUS",
+          "DEST-ACHERON"
+        ],
+        "chosen": "DEST-ACHERON"
+      },
+      {
+        "offer": [
+          "DEST-HAVEN",
           "DEST-STYX"
         ],
-        "chosen": "DEST-TARTARUS"
+        "chosen": "DEST-STYX"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-LUEM",
+  "nextPolong": "SOUL-POLONG",
   "heroOffer": {
     "type": "SOUL-ODYSSEUS",
     "resolved": true
   },
-  "destination": "DEST-TARTARUS",
+  "destination": "DEST-STYX",
   "pending": null,
   "choice": null,
   "theftQueue": [],
@@ -166,14 +198,30 @@
       "text": "All-quest trial begins."
     },
     {
+      "round": "0",
+      "cycle": "1",
+      "text": "Room for one more: started."
+    },
+    {
       "round": "1",
       "cycle": "1",
-      "text": "crossing to Asphodel: 2 Light lost."
+      "text": "crossing to Acheron: 1 Light lost."
     },
     {
       "round": "2",
       "cycle": "1",
-      "text": "crossing to Tartarus: 3 Light lost."
+      "text": "crossing to Acheron: 1 Light lost."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "crossing to Acheron: 1 Light lost."
+    },
+    {
+      "round": "4",
+      "cycle": "1",
+      "text": "crossing to River Styx: 1 Light lost."
     }
-  ]
+  ],
+  "longForks": []
 }
