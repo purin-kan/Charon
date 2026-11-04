@@ -47,8 +47,11 @@
     }
   }
   function drawPolong(s) { const types=BigInt(s.encounters)>=2n?tier2:tier1; return types[draw(s,types.length)]; }
+  // At each boarding, a hero can be offered once the run reaches its cycle (config.heroArrival: Odysseus from
+  // cycle 6, Heracles from cycle 9), and then only on a chance roll (25%). At most one hero is offered at a time.
   function offerHero(s) {
-    const choices=heroes.filter(type=>!s.boat.some(x=>x.type===type) && (type!=='SOUL-HERACLES'||s.shore.length>3));
+    const arrives=type=>BigInt(s.cycle)>=BigInt(C.heroArrival[type].fromCycle)&&draw(s,100)<C.heroArrival[type].chance;
+    const choices=heroes.filter(type=>!s.boat.some(x=>x.type===type) && (type!=='SOUL-HERACLES'||s.shore.length>3) && arrives(type));
     s.heroOffer=choices.length?{type:choices[draw(s,choices.length)],resolved:false}:null;
   }
   function create(seed=1) {

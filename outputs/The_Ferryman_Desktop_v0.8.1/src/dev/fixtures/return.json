@@ -2,8 +2,8 @@
   "format": "the-ferryman-save",
   "version": "0.8-t45",
   "schemaVersion": 3,
-  "seed": 34,
-  "rng": 808415655,
+  "seed": 8,
+  "rng": 190422046,
   "phase": "window",
   "paused": false,
   "light": 5,
@@ -69,15 +69,15 @@
   ],
   "boat": [],
   "arrivals": [
-    "SOUL-MESSENGER",
-    "SOUL-KEEPER",
-    "SOUL-PRIEST",
     "SOUL-BLACKSMITH",
-    "SOUL-MUSICIAN",
+    "SOUL-KEEPER",
     "SOUL-FARMER",
-    "SOUL-LISTENER",
-    "SOUL-POET",
+    "SOUL-MUSICIAN",
     "SOUL-BLUE-SOLDIER",
+    "SOUL-MESSENGER",
+    "SOUL-LISTENER",
+    "SOUL-PRIEST",
+    "SOUL-POET",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [
@@ -112,16 +112,16 @@
   "routes": {
     "offers": [
       [
-        "DEST-STYX",
-        "DEST-ELYSIUM"
+        "DEST-ACHERON",
+        "DEST-TARTARUS"
       ],
       [
         "DEST-TARTARUS",
-        "DEST-ELYSIUM"
+        "DEST-ACHERON"
       ],
       [
-        "DEST-HAVEN",
-        "DEST-ELYSIUM"
+        "DEST-ELYSIUM",
+        "DEST-HAVEN"
       ]
     ],
     "masks": [
@@ -133,18 +133,15 @@
     "history": [
       {
         "offer": [
-          "DEST-STYX",
-          "DEST-HAVEN"
+          "DEST-ACHERON",
+          "DEST-STYX"
         ],
         "chosen": "DEST-STYX"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-LUEM",
-  "heroOffer": {
-    "type": "SOUL-ODYSSEUS",
-    "resolved": true
-  },
+  "nextPolong": "SOUL-POLONG",
+  "heroOffer": null,
   "destination": "DEST-STYX",
   "pending": null,
   "choice": null,

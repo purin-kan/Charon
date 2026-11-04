@@ -3,14 +3,14 @@
   "version": "0.8-t45",
   "schemaVersion": 3,
   "seed": 1,
-  "rng": 1369582169,
+  "rng": 302988898,
   "phase": "choice",
   "paused": false,
-  "light": 5,
+  "light": 3,
   "maxLight": 6,
   "round": "1",
-  "cycle": "1",
-  "completed": "0",
+  "cycle": "6",
+  "completed": "5",
   "deliveries": "0",
   "nextActor": "7",
   "nextBoarding": "2",
@@ -111,7 +111,7 @@
       "rewardClaimed": false,
       "rewardType": null,
       "reason": null,
-      "cycle": "1",
+      "cycle": "6",
       "data": {}
     }
   ],
@@ -139,8 +139,8 @@
         "DEST-STYX"
       ],
       [
-        "DEST-HAVEN",
-        "DEST-STYX"
+        "DEST-STYX",
+        "DEST-HAVEN"
       ]
     ],
     "masks": [
@@ -155,7 +155,7 @@
           "DEST-STYX",
           "DEST-ASPHODEL"
         ],
-        "chosen": "DEST-STYX"
+        "chosen": "DEST-ASPHODEL"
       }
     ]
   },
@@ -164,7 +164,7 @@
     "type": "SOUL-ODYSSEUS",
     "resolved": true
   },
-  "destination": "DEST-STYX",
+  "destination": "DEST-ASPHODEL",
   "pending": null,
   "choice": {
     "kind": "odysseus",
@@ -181,27 +181,27 @@
     },
     {
       "round": "0",
-      "cycle": "1",
+      "cycle": "6",
       "text": "Odysseus the traveler and Tiresias: started."
     },
     {
       "round": "0",
-      "cycle": "1",
-      "text": "Odysseus the traveler wishes for River Styx."
+      "cycle": "6",
+      "text": "Odysseus the traveler wishes for Asphodel."
     },
     {
       "round": "1",
-      "cycle": "1",
-      "text": "crossing to River Styx: 1 Light lost."
+      "cycle": "6",
+      "text": "crossing to Asphodel: 3 Light lost."
     },
     {
       "round": "1",
-      "cycle": "1",
+      "cycle": "6",
       "text": "Odysseus the traveler leaves: delivery."
     },
     {
       "round": "1",
-      "cycle": "1",
+      "cycle": "6",
       "text": "Tiresias offers Charybdis or Scylla."
     }
   ]

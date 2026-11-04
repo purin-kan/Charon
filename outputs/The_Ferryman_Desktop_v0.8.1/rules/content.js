@@ -16,6 +16,16 @@ globalThis.FerryData = {
     "returnLight": 1,
     "wraithDamage": 1,
     "foresightForks": 3,
+    "heroArrival": {
+      "SOUL-ODYSSEUS": {
+        "fromCycle": 6,
+        "chance": 25
+      },
+      "SOUL-HERACLES": {
+        "fromCycle": 9,
+        "chance": 25
+      }
+    },
     "memoriesPerWindow": null,
     "endless": true,
     "initialShore": [
@@ -426,7 +436,7 @@ globalThis.FerryData = {
   "rules": {
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
-    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
     "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
@@ -561,6 +571,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69"
+  "contentSha256": "738d1e8062eca258d46a0b7125d1ad44b4943fc9e8c7f02b38102427919536a9"
 }
 ;

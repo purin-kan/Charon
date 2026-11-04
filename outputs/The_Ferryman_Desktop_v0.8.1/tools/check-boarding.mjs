@@ -98,16 +98,23 @@ const status = statusLine(one, Ferry);
 check('status shows Light and seats', status.includes('Light 6/6') && status.includes('Seats 1/4'));
 check('status shows the next Long by its data name', status.includes(soulName(one.nextPolong, Ferry)) && soulName(one.nextPolong, Ferry) === 'Long Hollow');
 
-// Hero offers.
-const odysseus = heroPrompt(base, Ferry);
+// Hero offers. Cycle 1 has none (Odysseus from cycle 6, Heracles from cycle 9), so Odysseus's
+// offer is put on a copy of the boarding fixture moved to cycle 6.
+check('no hero offer in cycle 1', base.cycle === '1' && base.heroOffer === null && heroPrompt(base, Ferry) === null);
+const atSix = structuredClone(base);
+atSix.cycle = '6';
+atSix.completed = '5';
+atSix.heroOffer = { type: 'SOUL-ODYSSEUS', resolved: false };
+Ferry.validate(atSix);
+const odysseus = heroPrompt(atSix, Ferry);
 check('Odysseus needs no toll', odysseus.name === 'Odysseus the traveler' && odysseus.needsToll === false);
-check('Odysseus resolves', Ferry.transition(base, { type: 'ACCEPT_HERO' }).boat.length === 1);
+check('Odysseus resolves', Ferry.transition(atSix, { type: 'ACCEPT_HERO' }).boat.length === 1);
 const heracles = fixture('boarding-heracles');
 check('Heracles needs a toll', heroPrompt(heracles, Ferry).needsToll === true);
 check('Heracles without a toll is rejected', rejects(heracles, { type: 'ACCEPT_HERO' }));
 const paid = Ferry.transition(heracles, { type: 'ACCEPT_HERO', target: heracles.shore[0].id });
 check('Heracles resolves with a toll', paid.boat.length === 1 && paid.shore.length === heracles.shore.length - 1);
 check('resolved offer hides the prompt', heroPrompt(paid, Ferry) === null);
-check('declined offer hides the prompt', heroPrompt(Ferry.transition(base, { type: 'DECLINE_HERO' }), Ferry) === null);
+check('declined offer hides the prompt', heroPrompt(Ferry.transition(atSix, { type: 'DECLINE_HERO' }), Ferry) === null);
 
 process.exit(bad ? 1 : 0);
