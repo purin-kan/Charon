@@ -172,6 +172,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.entries = new Map(entries.map((e) => [e.id, e]));
     for (const [id, token] of this.tokens) {
       if (this.entries.has(id)) continue;
+      this.tip.hide(); // its hover box would stay with no token under it
       token.destroy();
       this.tokens.delete(id);
     }

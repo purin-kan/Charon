@@ -251,4 +251,15 @@ const keptMarks = keepValidMarks(gone, [leaver.id, wanderer.id], Ferry);
 check('a marked soul no longer aboard is unmarked', !keptMarks.includes(leaver.id) && keptMarks.includes(wanderer.id));
 check('marks the engine still accepts are kept', keepValidMarks(match, [leaver.id], Ferry).join() === leaver.id);
 
+// A quest soul that leaves before its wish fails its quest, and the outcome says so with the engine's reason:
+// the same boat at another stop, so the Merchant (Room for one more, with Mason) leaves early.
+const early = structuredClone(match);
+early.destination = Ferry.data.destinations.find((d) => d.id !== Ferry.wish(leaver) && d.id !== Ferry.wish(stayer)).id;
+const earlyQuest = early.quests.find((q) => q.status === 'active' && q.participants.includes(leaver.id));
+const earlyNext = Ferry.transition(early, deliverAction([leaver.id]));
+const earlyOut = arrivalOutcome(early, earlyNext, deliverAction([leaver.id]), Ferry);
+check('a quest that fails at the dock is listed with its reason', earlyQuest && earlyOut.failedQuests.length === 1
+  && lossLines(earlyOut, t, Ferry).includes(`${Ferry.data.quests.find((d) => d.id === earlyQuest.definitionId).name} failed: ${earlyNext.quests.find((q) => q.id === earlyQuest.id).reason}.`));
+check('and the soul that left early gave no memory', earlyOut.rewards.length === 0 && earlyOut.strays.length === 1);
+
 process.exit(bad ? 1 : 0);

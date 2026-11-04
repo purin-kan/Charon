@@ -170,6 +170,9 @@ export function arrivalOutcome(state, next, action, Ferry) {
     strays: departed.map((id) => state.boat.find((x) => x.id === id)).filter((x) => strayed(state, x, Ferry))
       .map((x) => ({ name: soulName(x.type, Ferry), wish: destinationName(Ferry.wish(x), Ferry) })),
     wraiths: expired.map((x) => soulName(x.type, Ferry)),
+    // A quest that failed here (a soul left before its wish, became a Wraith, ...), with the engine's own reason.
+    failedQuests: (state.quests ?? []).filter((q) => q.status === 'active' && next.quests?.find((n) => n.id === q.id)?.status === 'failed')
+      .map((q) => ({ name: Ferry.data.quests.find((d) => d.id === q.definitionId)?.name ?? q.definitionId, reason: next.quests.find((n) => n.id === q.id).reason })),
     ...lightChange(state, next, action, departed, Ferry),
     lost: state.hand.filter((m) => !kept.has(m.id) && m.id !== action.id).map((m) => memoryView(m, Ferry)),
     takenBy: action.branch === 'charybdis' ? 'charybdis' : 'SOUL-PO-LUEM',
@@ -195,10 +198,11 @@ function lightChange(state, next, action, departed, Ferry) {
 }
 
 /** Memories not given first, then Wraiths and Light, then memories taken. A gain shows only beside a loss, which it would otherwise hide. */
-export function lossLines({ strays = [], wraiths, lightLost, lightGained, lost, takenBy, stolenRewards }, t, Ferry) {
+export function lossLines({ strays = [], failedQuests = [], wraiths, lightLost, lightGained, lost, takenBy, stolenRewards }, t, Ferry) {
   const thief = takenBy === 'charybdis' ? t('choice.charybdis') : soulName(takenBy, Ferry);
   return [
     ...strays.map(({ name, wish }) => t('delivery.noMemory', { name, wish })),
+    ...failedQuests.map(({ name, reason }) => t('delivery.questFailed', { name, reason })),
     ...wraiths.map((name) => t('delivery.wraith', { name })),
     ...(lightLost ? [t('delivery.lightLost', { amount: lightLost })] : []),
     ...(lightLost && lightGained ? [t('delivery.lightGained', { amount: lightGained })] : []),

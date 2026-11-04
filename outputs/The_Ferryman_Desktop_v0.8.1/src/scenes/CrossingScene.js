@@ -83,7 +83,7 @@ export class CrossingScene extends Phaser.Scene {
 
     this.status = this.hud(this.add.text(40, 24, '', { fontFamily: FONT, fontSize: '24px', color: '#e8f1f7' }));
     this.title = this.hud(this.add.text(40, 64, '', { fontFamily: FONT, fontSize: '24px', color: '#edc47f', fontStyle: 'bold' }));
-    this.sub = this.hud(this.add.text(40, 96, '', { fontFamily: FONT, fontSize: '16px', color: '#c9d6df', wordWrap: { width: 780 } }));
+    this.sub = this.hud(this.add.text(40, 96, '', { fontFamily: FONT, fontSize: '16px', color: '#c9d6df', wordWrap: { width: 1200 } })); // one line, clear of the dock below
     this.message = this.hud(this.add.text(640, 626, '', {
       fontFamily: FONT, fontSize: '18px', color: '#e8c27f', align: 'center', wordWrap: { width: 440 },
     }).setOrigin(0.5, 0));
