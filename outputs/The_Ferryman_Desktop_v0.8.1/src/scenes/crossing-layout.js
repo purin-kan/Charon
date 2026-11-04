@@ -2,9 +2,10 @@
 // Nothing here decides a rule: the meal, purify, the approach and the crossing are each tried on the
 // engine (Ferry.transition on the state), and outcomes are the difference between two engine states.
 // Text comes in as t: src/text.js imports JSON, which plain Node refuses.
-import { destinationName, soulName, tokenLabels } from './boarding-layout.js';
-import { boatSpots } from './delivery-layout.js';
+import { boatZone, destinationName, soulName, tokenLabels } from './boarding-layout.js';
+import { DOCK, boatSpots } from './delivery-layout.js';
 import { memoryHand } from '../components/memory-layout.js';
+import { previewOption, routeModel, routeText } from '../components/route-layout.js';
 
 /** The engine's next state for an action, or null when it refuses. */
 export function attempt(state, action, Ferry) {
@@ -32,11 +33,95 @@ export function placeName(state, Ferry, t) {
   return state.destination ? destinationName(state.destination, Ferry) : t('common.startingShore');
 }
 
-export function statusText(state, Ferry, t) {
-  return t('common.statusLine', {
-    light: state.light, maxLight: Ferry.maxLight(state), cycle: state.cycle, round: state.round,
-    seats: Ferry.seats(state), capacity: Ferry.capacity(state), place: placeName(state, Ferry, t),
+// ---- the river world ------------------------------------------------------------------------
+// One world the scene pans and zooms over. "home" is where the boat sits at a stop: the hull centre
+// that BoardingScene and DeliveryScene use, so a stop looks the same in all three scenes. The river
+// runs right to a fork; option 0 branches up, option 1 down. Each branch ends level, at a spot where the
+// boat sits exactly as DeliveryScene draws it once the view is back at zoom 1 (see arrivalView).
+export const WORLD = { forkAhead: 1000, approachBack: 400, branchRun: 900, branchRise: 420, signAhead: 760, signRise: 110, viewAhead: 550, forkZoom: 0.48 };
+
+/** A view is the world point at the centre of the screen and a zoom. */
+export const homeView = () => ({ x: 640, y: 360, zoom: 1 });
+
+export function worldLayout(state, Ferry) {
+  const hull = boatZone(boatSpots(state, Ferry).slots);
+  const home = { x: hull.x, y: hull.y };
+  const fork = { x: home.x + WORLD.forkAhead, y: home.y };
+  const approach = { x: fork.x - WORLD.approachBack, y: home.y };
+  const branches = [-1, 1].map((dir, option) => {
+    const end = { x: fork.x + WORLD.branchRun, y: home.y + dir * WORLD.branchRise };
+    return {
+      option,
+      end,
+      // fork, two bends, the level end, and the river running on past it
+      points: [fork, { x: fork.x + 350, y: home.y + dir * 250 }, { x: fork.x + 700, y: home.y + dir * (WORLD.branchRise - 10) }, end, { x: end.x + 900, y: end.y }],
+      sign: { x: fork.x + WORLD.signAhead, y: home.y + dir * WORLD.signRise }, // on the land between the branches
+      dock: { x: end.x - home.x + DOCK.x, y: end.y - home.y + DOCK.y },
+      view: { x: end.x - home.x + 640, y: end.y - home.y + 360, zoom: 1 },
+    };
   });
+  // The fork view leaves the right of the screen free for the review panel.
+  return { home, fork, approach, branches, forkView: { x: fork.x + WORLD.viewAhead, y: home.y, zoom: WORLD.forkZoom } };
+}
+
+/** Where a world point lands on the 1280x720 screen for a view. */
+export function onScreen(point, view) {
+  return { x: 640 + (point.x - view.x) * view.zoom, y: 360 + (point.y - view.y) * view.zoom };
+}
+
+/** The boat's path for a crossing: from the approach point down the chosen branch to its end. */
+export function crossingPath(layout, option) {
+  return [layout.approach, ...layout.branches[option].points.slice(0, 4)];
+}
+
+/**
+ * The sign on each branch: the destination, its fog and who wishes for it, from Jaoguya's route
+ * model (Ferry.routeView and Ferry.preview). Before the fork the options are unseen unless Foresight
+ * revealed them. detail is the hover text.
+ */
+export function branchSigns(state, Ferry, t) {
+  const model = routeModel(state, Ferry, t);
+  const TEXT = routeText(Ferry, t);
+  if (model.mode === 'fork' || model.mode === 'review') {
+    return model.current.map((card) => {
+      const p = card.hidden ? null : previewOption(state, Ferry, card.option);
+      const detail = card.hidden
+        ? [TEXT.concealedDetail]
+        : [TEXT.breakdown(p), TEXT.modifiers(p), TEXT.routeCost(p.payment, p.remaining), card.wishes, card.lethal ? TEXT.lethal : ''].filter(Boolean);
+      return { option: card.option, number: card.number, name: card.name, fog: card.hidden ? '?' : TEXT.routeCost(p.payment, p.remaining), wishes: card.wishes, hidden: card.hidden, lethal: card.lethal, picked: card.picked, action: card.action, detail };
+    });
+  }
+  const first = model.mode === 'foresight' ? model.upcoming[0] : null;
+  return [0, 1].map((option) => {
+    const seen = first?.options[option];
+    const name = seen ? seen.name : '?';
+    return { option, number: option + 1, name, fog: '', wishes: '', hidden: !seen || seen.hidden, lethal: false, picked: false, action: null, detail: [seen ? '' : t('crossing.unknownBranch')].filter(Boolean) };
+  });
+}
+
+/** Hover text for a passenger: who it is, its wish and Anger, what it gives, its quests. */
+export function soulDetail(state, actor, Ferry, t) {
+  const def = Ferry.data.souls.find((s) => s.id === actor.type) ?? {};
+  const memory = Ferry.data.memories.find((m) => m.id === def.memory);
+  const lines = [
+    `${t('common.wish')}: ${destinationName(Ferry.wish(actor), Ferry)}`,
+    `${t('common.anger')} ${actor.anger}/${Ferry.data.config.shipAngerLimit}`,
+  ];
+  if (Ferry.isTainted(actor) && !actor.origin) lines.push(t('crossing.detailLevel', { level: actor.level }));
+  if (def.text) lines.push(def.text);
+  lines.push(memory ? t('crossing.detailGives', { memory: memory.name, text: memory.text }) : t('crossing.detailNoMemory'));
+  for (const q of state.quests.filter((x) => x.status === 'active' && x.participants.includes(actor.id))) {
+    const quest = Ferry.data.quests.find((x) => x.id === q.definitionId);
+    if (quest) lines.push(t('crossing.detailQuest', { name: quest.name, description: quest.description }));
+  }
+  return { title: def.personalName ? `${def.name} (${def.personalName})` : def.name ?? actor.type, lines };
+}
+
+/** Hover text for a prepare-step button: the meal quest's own description, purify, or the approach. */
+export function buttonDetail(kind, state, Ferry, t) {
+  if (kind === 'meal') return Ferry.data.quests.find((q) => q.id === 'QUEST-MEAL')?.description ?? '';
+  if (kind === 'purify') return t('crossing.purifyTitle');
+  return approachWarning(state, Ferry, t) || t('crossing.approachDetail');
 }
 
 /** Every passenger with its seat (local to the boat) and labels. */

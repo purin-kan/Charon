@@ -5,6 +5,9 @@
 import { SLOT, TOKEN, boatZone, destinationName, layoutBoarding, soulName, tokenLabels } from './boarding-layout.js';
 
 export const DOCK = { x: 300, y: 345, w: 520, h: 430 };
+// The river band behind the boat at a stop. CrossingScene draws the same band, so arriving at a stop
+// and opening DeliveryScene look like one place.
+export const RIVER = { y: 300, h: 250, color: 0x15303c };
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
 const DOCK_SPOT = { x: 130, y: 240, cellW: 130, cellH: 150, cols: 3 }; // the first row clears the Dock label

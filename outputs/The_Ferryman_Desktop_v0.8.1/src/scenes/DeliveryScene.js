@@ -5,7 +5,7 @@ import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { boatZone, statusLine } from './boarding-layout.js';
 import {
-  DOCK, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText, introText, layoutDelivery,
+  DOCK, RIVER, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText, introText, layoutDelivery,
 } from './delivery-layout.js';
 import { showOutcome } from './outcome-panel.js';
 import { addSoulToken, setTokenLabels } from './soul-token.js';
@@ -40,6 +40,8 @@ export class DeliveryScene extends Phaser.Scene {
     this.leaving = false;
 
     if (this.textures.exists(state.destination)) this.add.image(640, 360, state.destination).setDisplaySize(1280, 720);
+    // The same river band CrossingScene sails in, so arriving here shows no cut (T-19).
+    this.add.rectangle(640, RIVER.y, 1280, RIVER.h, RIVER.color);
     this.slots = layoutDelivery(state, [], Ferry).slots;
     this.drawBoat();
     this.drawHud(state);

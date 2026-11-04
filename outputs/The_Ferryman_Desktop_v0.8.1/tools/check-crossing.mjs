@@ -4,8 +4,11 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { boatZone } from '../src/scenes/boarding-layout.js';
+import { DOCK, boatSpots } from '../src/scenes/delivery-layout.js';
 import {
-  abilities, approachOutcome, approachWarning, attempt, boatEntries, crossingOutcome, crossingStep, placeName, purifyAction, statusText,
+  abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath, crossingStep,
+  homeView, onScreen, placeName, purifyAction, soulDetail, worldLayout,
 } from '../src/scenes/crossing-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -50,7 +53,6 @@ check('a Long with no seat rides on the deck row', rider && rider.y > entries[0]
 // Where the boat is.
 check('the first crossing of a cycle starts at the Starting Shore', placeName(windowState, Ferry, t) === t('common.startingShore'));
 check('a later crossing starts at the last stop', placeName(fixture('crossing-lethal'), Ferry, t) === dest(fixture('crossing-lethal').destination));
-check('the status line names the place', statusText(windowState, Ferry, t).endsWith(`At ${t('common.startingShore')}`));
 
 // Abilities: the engine's answer, before the fork only.
 const ab = abilities(prep, Ferry, t);
@@ -120,5 +122,47 @@ const cerberus = herRun.next.boat.find((x) => x.type === 'CHAR-CERBERUS');
 check('Cerberus boards', herOut.boarded.includes(cerberus.id) && herOut.lines.includes(`${name('CHAR-CERBERUS')} boards.`));
 check('two souls are frightened off the boat', herOut.departed.length === 2 && herOut.departed.every((id) => !herRun.next.boat.some((x) => x.id === id)));
 check('Heracles now wishes elsewhere', herOut.lines.includes(`${name('SOUL-HERACLES')} now wishes for ${dest(Ferry.wish(herRun.next.boat.find((x) => x.id === herHero.id)))}.`));
+
+// The river world: a stop looks the same in BoardingScene, CrossingScene and DeliveryScene.
+const world = worldLayout(prep, Ferry);
+const hull = boatZone(boatSpots(prep, Ferry).slots);
+check('home is the hull centre BoardingScene and DeliveryScene use', world.home.x === hull.x && world.home.y === hull.y);
+check('at home the view puts the boat where DeliveryScene draws it', ['x', 'y'].every((k) => onScreen(world.home, homeView())[k] === world.home[k]));
+for (const b of world.branches) {
+  const boat = onScreen(b.end, b.view);
+  const dock = onScreen(b.dock, b.view);
+  check(`branch ${b.option + 1} ends with the boat where DeliveryScene draws it`, boat.x === world.home.x && boat.y === world.home.y);
+  check(`branch ${b.option + 1} puts its dock where DeliveryScene draws the dock`, dock.x === DOCK.x && dock.y === DOCK.y);
+  check(`branch ${b.option + 1} ends level`, b.points[3].y === b.points[4].y);
+}
+check('the two branches part', world.branches[0].end.y < world.home.y && world.branches[1].end.y > world.home.y);
+const fv = world.forkView;
+const visible = (p) => { const s = onScreen(p, fv); return s.x >= 0 && s.x <= 1280 && s.y >= 0 && s.y <= 720; };
+check('the fork view shows the boat, the fork, both branch ends and both signs', [world.approach, world.fork, ...world.branches.flatMap((b) => [b.end, b.sign])].every(visible));
+const signsOnScreen = world.branches.map((b) => onScreen(b.sign, fv));
+check('the signs sit left of the review panel and clear of the status line', signsOnScreen.every((p) => p.x + 0.48 * 250 < 880 && p.y - 0.48 * 95 > 120));
+check('the signs do not overlap', signsOnScreen[1].y - signsOnScreen[0].y > 0.48 * 190);
+const route = crossingPath(world, 1);
+check('a crossing runs from the approach point to the branch end', route[0] === world.approach && route[route.length - 1] === world.branches[1].end);
+
+// Branch signs come from the route model.
+const forkSigns = branchSigns(fork, Ferry, t);
+check('two signs at the fork, with names and fog', forkSigns.length === 2 && forkSigns.every((s) => s.name && s.fog && s.action?.type === 'PLAN'));
+check('a sign hover shows the fog breakdown', forkSigns.every((s) => s.detail.some((l) => l.startsWith('Base '))));
+check('before the fork the branches are unseen', branchSigns(windowState, Ferry, t).every((s) => s.name === '?' && !s.action));
+check('the picked branch is marked in review', branchSigns(review, Ferry, t).filter((s) => s.picked).length === 1);
+const veiledSigns = branchSigns(fixture('crossing-concealed'), Ferry, t);
+check('a concealed branch says so', veiledSigns.some((s) => s.hidden && s.name === t('crossing.concealed') && s.fog === '?'));
+
+// Hover details.
+const cook = prep.boat.find((x) => x.type === 'SOUL-COOK');
+const cookDetail = soulDetail(prep, cook, Ferry, t);
+check('a soul hover names it with its personal name', cookDetail.title.startsWith('Cook ('));
+check('a soul hover shows its wish, Anger, memory and quest', ['Wish:', 'Anger', 'Gives', 'A shared meal:'].every((k) => cookDetail.lines.some((l) => l.startsWith(k))));
+const longDetail = soulDetail(withLong, longAboard, Ferry, t);
+check('a Long hover shows its level and its text', longDetail.lines.includes(`Level ${longAboard.level}`) && longDetail.lines.includes(Ferry.data.souls.find((s) => s.id === longAboard.type).text));
+check('the meal hover is the quest description from the data', buttonDetail('meal', prep, Ferry, t) === Ferry.data.quests.find((q) => q.id === 'QUEST-MEAL').description);
+check('the approach hover warns while something is usable', buttonDetail('approach', prep, Ferry, t) === t('crossing.approachWarning'));
+check('otherwise the approach hover explains it', buttonDetail('approach', windowState, Ferry, t) === t('crossing.approachDetail'));
 
 process.exit(bad ? 1 : 0);

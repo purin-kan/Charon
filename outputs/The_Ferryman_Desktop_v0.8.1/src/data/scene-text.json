@@ -96,7 +96,14 @@
     "lanternOut": "The lantern goes out.",
     "soulBoards": "{name} boards.",
     "soulLeaves": "{name} leaves the boat.",
-    "wishChanged": "{name} now wishes for {wish}."
+    "wishChanged": "{name} now wishes for {wish}.",
+    "pickBranch": "Choose a branch of the river. Hover a sign for its fog.",
+    "approachDetail": "Sail on to the fork, then choose a branch.",
+    "detailGives": "Gives {memory}: {text}",
+    "detailNoMemory": "Gives no memory.",
+    "detailLevel": "Level {level}",
+    "detailQuest": "{name}: {description}",
+    "unknownBranch": "Not yet seen. Approach the fork to see where it leads."
   },
 
   "memory": {
