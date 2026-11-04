@@ -35,7 +35,7 @@ check('nobody starts on the dock', open.entries.every((e) => e.area === 'seat'))
 check('a soul that can leave is flagged', entryOf(open, leaver.id).canLeave === true);
 check('a different wish is not flagged', entryOf(open, stayer.id).canLeave === false);
 check('no soul can leave in the delivery fixture', layoutDelivery(none, [], Ferry).entries.every((e) => !e.canLeave));
-check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.endsWith('/4'));
+check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit}`));
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
 const spot = entryOf(marked, leaver.id);
@@ -134,7 +134,7 @@ check('the theft names the memory', lossLines(robbed, t, Ferry)[0] === `${soulNa
 const snatched = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: held, nextMemory: '4' }, deliverAction([]), Ferry);
 check('a theft of the new reward is reported', snatched.rewards.length === 0 && snatched.stolenRewards === 1 && lossLines(snatched, t, Ferry).length === 1);
 const angry = structuredClone(none);
-angry.boat[0].anger = 3;
+angry.boat[0].anger = Ferry.data.config.shipAngerLimit - 1; // one more Anger makes a Wraith
 const wraithName = entryOf(layoutDelivery(angry, [], Ferry), angry.boat[0].id).labels.name;
 const expired = arrivalOutcome(angry, Ferry.transition(angry, deliverAction([])), deliverAction([]), Ferry);
 check('a Wraith is named', expired.wraiths.length === 1 && expired.wraiths[0] === wraithName);
@@ -147,7 +147,7 @@ const lethalOutcome = arrivalOutcome(lethal, lethalNext, deliverAction([]), Ferr
 check('a lethal Wraith is named too', lethalNext.phase === 'ended' && lethalOutcome.wraiths[0] === wraithName && lethalOutcome.lightLost === 1);
 const doomed = structuredClone(match);
 doomed.light = 1;
-for (const x of doomed.boat) x.anger = 3;
+for (const x of doomed.boat) x.anger = Ferry.data.config.shipAngerLimit - 1;
 const doomedNext = Ferry.transition(doomed, deliverAction([]));
 const doomedOutcome = arrivalOutcome(doomed, doomedNext, deliverAction([]), Ferry);
 check('a lethal Wraith names only itself', doomedNext.phase === 'ended' && doomedNext.boat.length === doomed.boat.length - 1
@@ -169,7 +169,7 @@ const calmDue = polongFor(match, { type: 'SOUL-PO-DUE', level: 1, anger: 1 });
 check('a matching wish the engine refuses is not flagged', Ferry.wish(entryOf(open, leaver.id).actor) === calmDue.destination
   && entryOf(layoutDelivery(calmDue, [], Ferry), leaver.id).canLeave === false);
 const fare = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0 });
-fare.boat.find((x) => x.id === stayer.id).anger = 3;
+fare.boat.find((x) => x.id === stayer.id).anger = Ferry.data.config.shipAngerLimit - 1;
 const fareNext = Ferry.transition(fare, deliverAction([leaver.id]));
 const fareOutcome = arrivalOutcome(fare, fareNext, deliverAction([leaver.id]), Ferry);
 check('a Po Long fare does not hide a Wraith', fareNext.light === fare.light && fareOutcome.lightLost === 1 && fareOutcome.lightGained === 1);

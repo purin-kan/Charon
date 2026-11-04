@@ -8,7 +8,7 @@
     "seats": 4,
     "shoreTarget": 5,
     "shoreAngerLimit": 2,
-    "shipAngerLimit": 4,
+    "shipAngerLimit": 5,
     "handLimit": 3,
     "spawnInterval": 3,
     "polongFogThreshold": 2,

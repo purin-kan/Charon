@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45",
-  "passed": 23,
+  "passed": 24,
   "failed": 0,
   "hashes": {
     "engine.js": "0266b00b96f6801223c37f905ade2cc71249f3b460472c3b3d62f3c864f88abb",
-    "content.json": "2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6",
-    "tests/quest-check.js": "68a6069ffa557cecf85bceeec03fa80a7b3256b75969f6cae4954023b65b5c12"
+    "content.json": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69",
+    "tests/quest-check.js": "65f878c4840365629279ae5805454b416d92a480fb71c30a8cf78e0d89bd0891"
   },
   "records": [
     {
@@ -85,6 +85,10 @@
       "status": "PASS"
     },
     {
+      "name": "Boat Wraith when Anger reaches 5; shore limit 2 and departure reset unchanged",
+      "status": "PASS"
+    },
+    {
       "name": "Only original normally delivered Po Long pays Light; fatal damage stops rewards",
       "status": "PASS"
     },
@@ -100,8 +104,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2473,
-      "choices": 26,
+      "transitions": 2531,
+      "choices": 27,
       "humanPlaytest": false
     }
   ],

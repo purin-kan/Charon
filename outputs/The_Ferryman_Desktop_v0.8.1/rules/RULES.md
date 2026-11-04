@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6`.
+Generated from content.json. SHA-256: `32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
