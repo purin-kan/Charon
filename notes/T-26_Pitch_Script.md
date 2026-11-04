@@ -1,6 +1,6 @@
 # T-26 pitch script draft (November 4, 2026)
 
-Owner: bosthanapatw. Support: purin-kan. Draft for the team to review. It follows the slide numbers in `notes/T-18_Presentation_Outline.md` and the rules in `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` at rules version `0.8-t45`. **Every rule line is provisional until the November 6 freeze**, and slides 4, 5 and 14 change if #26 (Anger limit) or #27 (memory rules) is merged.
+Owner: bosthanapatw. Support: purin-kan. Draft for the team to review. It follows the slide numbers in `notes/T-18_Presentation_Outline.md` and the rules in `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` at rules version `0.8-t45`. **Every rule line is provisional until the November 6 freeze**, and slides 4, 5 and 14 change when #26 (Anger limit) and #27 (memory rules) merge. Slides 6 and 11 change if #28 drops Long levels or spread, or if Long arrivals become per cycle.
 
 How to read this script:
 
@@ -116,5 +116,5 @@ Candidate only. The outline chooses the final seed after the November 6 freeze (
 * **Early gameplay footage** (in the T-26 done-when line) is not captured. It needs a human to play the build; CrossingScene (T-19) is due November 5, so footage taken today would not show a crossing.
 * Speakers and timing per person are not assigned.
 * The demo steps on slide 14 use a candidate seed; the final seed waits for the freeze (T-41).
-* The game shows "Hercules the traveler" (`content.json`), while the outline and this script say Heracles. Pick one name for the slides and the speech.
+* VarisPah chose the name Heracles (#21), so this script uses it. The game still shows "Hercules the traveler" (`content.json`) until that rename lands.
 * The script was not read aloud or timed; the times above are word-count estimates.
