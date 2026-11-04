@@ -90,14 +90,12 @@ const labels = tokenLabels(spot(layoutBoarding(base, Ferry), firstId), Ferry);
 check('labels read the name and wish', labels.name === 'Mother' && labels.wish === 'Tartarus');
 check('shore soul shows the shore limit', labels.anger === 'Anger 0/2');
 const seatedLabels = tokenLabels(wideEntry, Ferry);
-check('boat soul shows the ship limit', seatedLabels.anger.endsWith('/4'));
+check('boat soul shows the ship limit', seatedLabels.anger.endsWith('/5'));
 check('unknown type falls back to its id', soulName('SOUL-NOPE', Ferry) === 'SOUL-NOPE');
 
 // Status line.
 const status = statusLine(one, Ferry);
-check('status shows Light and seats', status.includes('Light 6/6') && status.includes('Seats 1/4') && !status.includes('Room for one more'));
-const seatBonus = statusLine({ ...one, effects: { ...one.effects, capacity: true } }, Ferry);
-check('status names the Room for one more seat', seatBonus.includes('Seats 1/5 (+1 seat: Room for one more)'));
+check('status shows Light and seats', status.includes('Light 6/6') && status.includes('Seats 1/4'));
 check('status shows the next Long by its data name', status.includes(soulName(one.nextPolong, Ferry)) && soulName(one.nextPolong, Ferry) === 'Long Hollow');
 
 // Hero offers.

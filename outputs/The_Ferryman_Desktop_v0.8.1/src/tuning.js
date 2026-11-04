@@ -94,7 +94,7 @@ defineTuning({
   'scenes.fadeMs': { type: 'number', default: 300, min: 0, max: 2000, step: 10, help: 'Fade between scenes' },
   'boarding.snapMs': { type: 'number', default: 160, min: 0, max: 1000, step: 10, help: 'Soul glides to its spot' },
   'boarding.snapEase': { type: 'ease', default: 'Cubic.Out' },
-  'boarding.dropPadding': { type: 'number', default: 0, min: -40, max: 80, step: 2, help: 'Extra pixels around each seat drop zone (snap radius)' },
+  'boarding.dropPadding': { type: 'number', default: 0, min: -40, max: 80, step: 2, help: 'Extra pixels around the hull drop zone (BoardingScene does not read it yet)' },
   'boarding.exitMs': { type: 'number', default: 600, min: 0, max: 3000, step: 20, help: 'Boat leaves the shore' },
   'boarding.exitEase': { type: 'ease', default: 'Cubic.In' },
   'boarding.exitDistance': { type: 'number', default: 900, min: 0, max: 1600, step: 10 },

@@ -35,7 +35,7 @@ check('nobody starts on the dock', open.entries.every((e) => e.area === 'seat'))
 check('a soul that can leave is flagged', entryOf(open, leaver.id).canLeave === true);
 check('a different wish is not flagged', entryOf(open, stayer.id).canLeave === false);
 check('no soul can leave in the delivery fixture', layoutDelivery(none, [], Ferry).entries.every((e) => !e.canLeave));
-check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.endsWith('/4'));
+check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit}`));
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
 const spot = entryOf(marked, leaver.id);
@@ -134,7 +134,7 @@ check('the theft names the memory', lossLines(robbed, t, Ferry)[0] === `${soulNa
 const snatched = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: held, nextMemory: '4' }, deliverAction([]), Ferry);
 check('a theft of the new reward is reported', snatched.rewards.length === 0 && snatched.stolenRewards === 1 && lossLines(snatched, t, Ferry).length === 1);
 const angry = structuredClone(none);
-angry.boat[0].anger = 3;
+angry.boat[0].anger = Ferry.data.config.shipAngerLimit - 1; // one more Anger makes a Wraith
 const wraithName = entryOf(layoutDelivery(angry, [], Ferry), angry.boat[0].id).labels.name;
 const expired = arrivalOutcome(angry, Ferry.transition(angry, deliverAction([])), deliverAction([]), Ferry);
 check('a Wraith is named', expired.wraiths.length === 1 && expired.wraiths[0] === wraithName);
@@ -147,7 +147,7 @@ const lethalOutcome = arrivalOutcome(lethal, lethalNext, deliverAction([]), Ferr
 check('a lethal Wraith is named too', lethalNext.phase === 'ended' && lethalOutcome.wraiths[0] === wraithName && lethalOutcome.lightLost === 1);
 const doomed = structuredClone(match);
 doomed.light = 1;
-for (const x of doomed.boat) x.anger = 3;
+for (const x of doomed.boat) x.anger = Ferry.data.config.shipAngerLimit - 1;
 const doomedNext = Ferry.transition(doomed, deliverAction([]));
 const doomedOutcome = arrivalOutcome(doomed, doomedNext, deliverAction([]), Ferry);
 check('a lethal Wraith names only itself', doomedNext.phase === 'ended' && doomedNext.boat.length === doomed.boat.length - 1
@@ -169,7 +169,7 @@ const calmDue = polongFor(match, { type: 'SOUL-PO-DUE', level: 1, anger: 1 });
 check('a matching wish the engine refuses is not flagged', Ferry.wish(entryOf(open, leaver.id).actor) === calmDue.destination
   && entryOf(layoutDelivery(calmDue, [], Ferry), leaver.id).canLeave === false);
 const fare = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0 });
-fare.boat.find((x) => x.id === stayer.id).anger = 3;
+fare.boat.find((x) => x.id === stayer.id).anger = Ferry.data.config.shipAngerLimit - 1;
 const fareNext = Ferry.transition(fare, deliverAction([leaver.id]));
 const fareOutcome = arrivalOutcome(fare, fareNext, deliverAction([leaver.id]), Ferry);
 check('a Po Long fare does not hide a Wraith', fareNext.light === fare.light && fareOutcome.lightLost === 1 && fareOutcome.lightGained === 1);
@@ -190,24 +190,28 @@ const charybdis = Ferry.transition(tiresias, heroView.options[0].action);
 check('the Charybdis action resolves', charybdis.phase === 'delivery' && charybdis.boat.length === 0);
 check('the Zilla action resolves', Ferry.transition(tiresias, heroView.options[1].action).phase === 'delivery');
 check('an empty boat finishes the round', Ferry.transition(charybdis, deliverAction([])).phase === 'window');
-// Odysseus with a Poet aboard and the Poet's memory held (the Farmer gives no memory), so both branches cost something.
+// Odysseus with a Farmer aboard and the Farmer's memory held, so both branches cost something.
 const costly = structuredClone(tiresias);
-costly.arrivals.splice(costly.arrivals.indexOf('SOUL-POET'), 1);
-costly.boat.push({ id: `ACTOR-${costly.nextActor}`, type: 'SOUL-POET', origin: 'SOUL-POET', wish: 'DEST-ELYSIUM', anger: 0, boardingId: '1', bornRound: '0', level: 0, spread: false, exhausted: false });
+costly.arrivals.splice(costly.arrivals.indexOf('SOUL-FARMER'), 1);
+costly.boat.push({ id: `ACTOR-${costly.nextActor}`, type: 'SOUL-FARMER', origin: 'SOUL-FARMER', wish: 'DEST-ELYSIUM', anger: 0, boardingId: '1', bornRound: '0', level: 0, spread: false, exhausted: false });
 costly.nextActor = String(Number(costly.nextActor) + 1);
-const poetMemory = { id: `MEMORY-${costly.nextMemory}`, type: Ferry.data.souls.find((d) => d.id === 'SOUL-POET').memory, sourceRef: { kind: 'character', definitionId: 'SOUL-POET', instanceId: 'ACTOR-1' } };
-costly.hand.push(poetMemory);
+const harvest = { id: `MEMORY-${costly.nextMemory}`, type: Ferry.data.souls.find((d) => d.id === 'SOUL-FARMER').memory, sourceRef: { kind: 'character', definitionId: 'SOUL-FARMER', instanceId: 'ACTOR-1' } };
+costly.hand.push(harvest);
 costly.nextMemory = String(Number(costly.nextMemory) + 1);
 const outcomeOf = (state, action) => arrivalOutcome(state, Ferry.transition(state, action), action, Ferry);
 const charybdisOutcome = outcomeOf(costly, heroView.options[0].action);
 check('Charybdis shows the memory it took and Moly', lossLines(charybdisOutcome, t, Ferry).join() === `Charybdis took ${charybdisOutcome.lost[0]?.name}.`
-  && charybdisOutcome.lost[0].id === poetMemory.id && charybdisOutcome.rewards.map((m) => m.type).join() === 'MEM-MOLY');
+  && charybdisOutcome.lost[0].id === harvest.id && charybdisOutcome.rewards.map((m) => m.type).join() === 'MEM-MOLY');
 const zillaOutcome = outcomeOf(costly, heroView.options[1].action);
-check('Zilla shows the Wraith, the Light and Nobody', lossLines(zillaOutcome, t, Ferry).join(' ') === 'Poet became a Wraith. Lost 1 Light.'
+check('Zilla shows the Wraith, the Light and Nobody', lossLines(zillaOutcome, t, Ferry).join(' ') === 'Farmer became a Wraith. Lost 1 Light.'
   && zillaOutcome.rewards.map((m) => m.type).join() === 'MEM-NOBODY');
 check('the memory picked for Po Luem is not listed as lost', outcomeOf(theft, theftView.rows[0].action).lost.every((m) => m.id !== theft.hand[0].id));
 const twelve = memoryRowSpots(12);
 check('twelve rows stay on screen', twelve.every((r) => r.x + r.w <= 1240 && r.y < 620));
 check('rows never share a spot', new Set(twelve.map((r) => `${r.x},${r.y}`)).size === 12);
+const tall = memoryRowSpots(3, [50, 120, 50]);
+check('a tall row pushes the next one down', tall[1].y - tall[0].y === 84 && tall[2].y - tall[1].y === 130);
+const tallCols = memoryRowSpots(6, [200, 50, 50, 50, 50, 50]);
+check('the next column starts at the top again', tallCols[5].y === tallCols[0].y);
 
 process.exit(bad ? 1 : 0);

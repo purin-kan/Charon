@@ -23,11 +23,11 @@ Plan scope: the five sound groups named in the project plan (menu BGM, crossing 
 
 | Id | Type | Plays when | Scene (owner) | Loop | Task | Status |
 |---|---|---|---|---|---|---|
-| `bgm-menu` | Music | Title screen is open | TitleScene (Tinpatpun) | Yes | T-07 placeholder, T-15 final | Not started |
-| `amb-crossing` | Ambient | Boat is on the river | CrossingScene (SupaOhm) | Yes | T-15 | Not started |
-| `sfx-board` | SFX | A soul is dropped onto a boat seat (`BOARD`) | BoardingScene (SupaOhm) | No | T-15 | Not started |
-| `sfx-unboard` | SFX | A soul is dragged back off the boat (also `BOARD`) | BoardingScene (SupaOhm) | No | T-15 | Not started |
-| `sfx-ui-click` | SFX | Any button press | All scenes | No | T-15 | Not started |
+| `bgm-menu` | Music | Title screen is open | TitleScene (Tinpatpun) | Yes | T-07 placeholder, T-15 final | Placeholder in game |
+| `amb-crossing` | Ambient | Boat is on the river | CrossingScene (SupaOhm) | Yes | T-15 | Deferred: river candidates so far flowed too strongly or were too loud; to be looked into later |
+| `sfx-board` | SFX | A soul is dropped onto a boat seat (`BOARD`) | BoardingScene (SupaOhm) | No | T-15 | File added |
+| `sfx-unboard` | SFX | A soul is dragged back off the boat (also `BOARD`) | BoardingScene (SupaOhm) | No | T-15 | File added |
+| `sfx-ui-click` | SFX | Any button press | All scenes | No | T-15 | File added |
 | `amb-crossing-2` | Ambient | Alternative crossing loop (variant) | CrossingScene (SupaOhm) | Yes | T-28 | Not started |
 | `amb-fog` | Ambient | Layered on top when fog is high | CrossingScene (SupaOhm) | Yes | T-28 | Not started |
 | `sfx-delivery-success` | SFX (jingle) | A soul's wish matches the destination (`DELIVER`) | DeliveryScene (SupaOhm) | No | T-28 | Not started |

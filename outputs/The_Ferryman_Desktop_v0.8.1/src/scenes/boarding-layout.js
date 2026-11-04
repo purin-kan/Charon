@@ -74,8 +74,7 @@ export function tokenLabels(entry, Ferry) {
 
 export function statusLine(state, Ferry) {
   const next = state.nextPolong ? soulName(state.nextPolong, Ferry) : 'none';
-  const bonus = state.effects.capacity ? ' (+1 seat: Room for one more)' : '';
-  return `Light ${state.light}/${Ferry.maxLight(state)}   Cycle ${state.cycle}   Seats ${Ferry.seats(state)}/${Ferry.capacity(state)}${bonus}   Next Polong: ${next}`;
+  return `Light ${state.light}/${Ferry.maxLight(state)}   Cycle ${state.cycle}   Seats ${Ferry.seats(state)}/${Ferry.capacity(state)}   Next Polong: ${next}`;
 }
 
 /** The unresolved hero offer in display form, or null. needsToll mirrors the engine, which has no data field for it. */

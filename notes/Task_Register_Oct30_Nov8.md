@@ -22,9 +22,9 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-03 | Lock art pipeline | 2026-10-31 | Kanyakorn-goya | | | Game | Must | Not started | Sprite resolution and naming convention written; one test character cut out and committed |
 | T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | Kanyakorn-goya | purin-kan | T-03, T-05 | Game | Must | Done | The test sprite renders in the dev window through the preloader |
 | T-05 | Scaffold A: dev environment | 2026-10-31 (end of day) | purin-kan | | | Game | Must | Done | Phaser runs in the Electron dev window; `Ferry.create(1)` returns a valid state; scene stubs, router, dev launcher, preloader fallback, empty `tuning.json` and README pushed and announced |
-| T-06 | Scene architecture design | 2026-10-31 | Jaoguya | SupaOhm | | Process | Should | Not started | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
+| T-06 | Scene architecture design | 2026-10-31 | Jaoguya | SupaOhm | | Process | Should | In progress | Scene, phase and action map written and agreed; scaffold stubs updated if it differs |
 | T-07 | Audio asset strategy | 2026-10-31 | VarisPah | bosthanapatw | | Game | Should | Not started | Track list written, placeholder menu loop sourced, source and licence of each file recorded |
-| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | SupaOhm | bosthanapatw | T-01 | Process | Should | Not started | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the spreadsheet goes in a path that `.gitignore` does not cover (the entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in the repository checkout) |
+| T-43 | Push consolidated spreadsheet and blockers | 2026-10-31 | SupaOhm | bosthanapatw | T-01 | Process | Should | Done | Consolidated spreadsheet and the resolved blockers are committed through a pull request once both are done; the spreadsheet goes in a path that `.gitignore` does not cover (the entry `/outputs/charon-game-database-2026-10-25/` names a folder that is not in the repository checkout) |
 
 ## Phase 2: Engine Prep & Base Build
 
@@ -34,13 +34,13 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-09 | Soul sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | Not started | Cut-outs for Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted) committed; the other five ordinary souls stay letter placeholders unless art is approved |
 | T-10 | Polong, boat and shore sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | Not started | Cut-outs for Polong, boat and shore committed |
 | T-11 | TitleScene, single save and optional seed | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Must | Done | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
-| T-12 | BoardingScene | 2026-11-02 | SupaOhm | | T-05 | Game | Must | Not started | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
+| T-12 | BoardingScene | 2026-11-02 | SupaOhm | | T-05 | Game | Must | Done | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
 | T-13 | Developer tuning panel | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Should | Done | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
 | T-14 | Early `.exe` and SmartScreen test | 2026-11-02 (afternoon) | VarisPah | purin-kan | T-08 | .exe | Must | In progress | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
 | T-15 | Base BGM and SFX | 2026-11-02 | VarisPah | bosthanapatw | T-07 | Game | Should | Not started | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
-| T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Hand display, play-before-crossing flow and discard prompt work against fixture states |
-| T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Not started | Run summary shown from state; restart works |
-| T-18 | Presentation outline | 2026-11-02 | bosthanapatw | | | Presentation | Must | Not started | Slide structure for Description, Algorithmic Implementation and Demo play; Description drafted from the generated `RULES.md`; README and credits note started |
+| T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Done | Hand display, play-before-crossing flow and discard prompt work against fixture states |
+| T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Done | Run summary shown from state; restart works |
+| T-18 | Presentation outline | 2026-11-02 | bosthanapatw | | | Presentation | Must | In progress | Slide structure for Description, Algorithmic Implementation and Demo play; Description drafted from the generated `RULES.md`; README and credits note started |
 
 ## Phase 3: Core Loop & Content
 
@@ -48,12 +48,12 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 |---|---|---|---|---|---|---|---|---|---|
 | T-19 | CrossingScene | 2026-11-05 | SupaOhm | Jaoguya | T-05; integrates T-16 and T-22 | Game | Must | Not started | Memory window, route choice, review and boat animation work; fog and Light loss shown |
 | T-20 | DeliveryScene | 2026-11-05 | SupaOhm | | T-05 | Game | Must | Done | Matching-wish feedback, delivery, soul departure, memory reward and choice overlay work |
-| T-21 | ReturnScene | 2026-11-05 | Jaoguya | | T-05 | Game | Must | Not started | Return resolves anger, wraith conversion and Light restoration, then starts the next cycle |
-| T-22 | Route UI | 2026-11-04 | Jaoguya | | T-05 | Game | Must | Not started | Fork display, review and Foresight preview work as a component for CrossingScene |
+| T-21 | ReturnScene | 2026-11-05 | Jaoguya | | T-05 | Game | Must | Done | Return resolves anger, wraith conversion and Light restoration, then starts the next cycle |
+| T-22 | Route UI | 2026-11-04 | Jaoguya | | T-05 | Game | Must | Done | Fork display, review and Foresight preview work as a component for CrossingScene |
 | T-23 | Tuning and pacing calibration | 2026-11-06 (midday) | Tinpatpun | VarisPah, Kanyakorn-goya | T-13, T-19 | Game | Should | Not started | Crossing speed, snap feel and wraith pacing tuned; `tuning.json` committed by one person |
 | T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Not started | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
 | T-25 | Wraith transformation frames | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Not started | Animation frames committed with naming convention |
-| T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | Not started | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
+| T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | In progress | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
 | T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Done | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | VarisPah | bosthanapatw | T-15 | Game | Should | Not started | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
 | T-45 | Apply decided rules to the game data | 2026-11-04 (end of day) | purin-kan | bosthanapatw, Jaoguya, VarisPah, SupaOhm | Decisions on issue 6 (VarisPah and Jaoguya; items 1 to 3 needed by Nov 2) | Game | Must | Done | The decisions are entered in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits); `build-content.js` and `quest-check.js` rerun and passing; a short change note lists each rule changed; Drug Dealer, Fool and Killer stay out of play |
@@ -76,7 +76,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-35 | Balance tuning | 2026-11-07 (midday) | VarisPah | | T-33 | Game | Should | Not started | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun |
 | T-36 | Bug fixes | 2026-11-07 (midday) | Jaoguya | SupaOhm | T-30, T-34 | Game | Must | Not started | Starts Nov 6 from the integration check findings; issues from the Nov 7 test log added; each owner fixes their own scenes |
 | T-37 | Visual polish | 2026-11-07 (midday) | Tinpatpun | SupaOhm | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty; anything not merged before the T-44 build is Cut |
-| T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | Not started | Final slides cover all three required parts |
+| T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | In progress | Final slides cover all three required parts |
 | T-39 | Art polish | 2026-11-07 (midday) | Kanyakorn-goya | | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized; anything not merged before the T-44 build is Cut |
 | T-44 | Re-test after fixes | 2026-11-07 (end of day) | bosthanapatw | VarisPah, purin-kan | T-35, T-36 (and T-37, T-39 unless Cut) | .exe | Must | Not started | A build made after the Nov 7 bug fixes and balance values is tested on a second Windows machine; results recorded, untested items marked `NOT_RUN`; purin-kan makes the build |
 

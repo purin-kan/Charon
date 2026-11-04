@@ -22,7 +22,7 @@
 
   "title": {
     "heading": "The Ferryman",
-    "tagline": "Carry souls to their wishes. Face the five Polongs. Follow eight stories along the river.",
+    "tagline": "Carry souls to their wishes. Face the five Longs. Follow eight stories along the river.",
     "continue": "Continue",
     "continueDetail": "Cycle {cycle} · Light {light}/{maxLight}",
     "continueEnded": "View last run",
@@ -44,13 +44,14 @@
   "boarding": {
     "heading": "Who will you carry?",
     "intro": "Choose passengers within capacity. Quest attempts begin when the required characters depart together.",
-    "nextPolong": "Next Polong: {name} · encounter {encounter}. It boards on the next scheduled third outward round unless Moly is active.",
+    "nextPolong": "Next Long: {name} · encounter {encounter}. It boards on the next scheduled third outward round unless Moly is active.",
     "heroAsks": "{name} asks to board",
     "heroHeracles": "One seat. Choose a shore soul as Hades' toll and lose 1 Light. The toll grants no memory.",
     "heroOdysseus": "One seat. Reach his wish to meet Tiresias and choose a route through danger.",
     "acceptHero": "Accept {name}",
     "declineHero": "Decline this trip",
     "chooseToll": "Choose Hades' toll",
+    "boatSpace": "Use Boat Space (+1 seat this trip)",
     "alreadyAboard": "Already aboard: {list}",
     "clash": "Merchant cannot depart with both Blacksmith and Mason.",
     "notEnoughSeats": "Not enough seats.",
@@ -61,7 +62,7 @@
 
   "crossing": {
     "prepHeading": "Memories and passenger abilities",
-    "prepIntro": "You may use one memory this round, before the fork. Each copy is consumed.",
+    "prepIntro": "Use held memories as needed, then continue. Each copy is consumed; there is no use cap.",
     "overLimit": "Excess rewards cannot be played. Finish this round and choose what to keep.",
     "meal": "Prepare the shared meal",
     "purify": "Priest: purify a passenger",
@@ -69,12 +70,12 @@
     "noMemories": "No memories held. Deliver passengers and complete quests to earn them.",
     "approachFork": "Approach the fork",
     "routeHeading": "Where next?",
-    "routeIntro": "The round has begun and any scheduled Polong is aboard. Confirm one route to cross.",
+    "routeIntro": "The round has begun and any scheduled Long is aboard. Confirm one route to cross.",
     "currentFork": "The current fork",
     "firstFork": "The first fork",
     "foresightFork": "Foresight: fork {number}",
     "concealed": "Concealed route",
-    "concealedDetail": "Po Mued conceals this destination. Confirm to reveal it and pay its fog.",
+    "concealedDetail": "{long} conceals this destination. Confirm to reveal it and pay its fog.",
     "routeCost": "{payment} Light · {remaining} remaining",
     "routeBreakdown": "Base {base} + tainted {tainted} + overload {overload}",
     "baseFog": "Base fog {fog}",
@@ -91,7 +92,9 @@
     "play": "Play {name}",
     "from": "From {source}",
     "chooseTarget": "Choose a target for {name}",
-    "choose": "Choose {name}"
+    "choose": "Choose {name}",
+    "heading": "Memories",
+    "held": "Memories {held}/{limit}"
   },
 
   "delivery": {
@@ -118,7 +121,7 @@
     "reviewReturn": "Review return",
     "heading": "Return to the Starting Shore",
     "cost": "{loss} Light from waiting souls expiring, then +1 Light if alive.",
-    "expire": "Moly and Nobody expire on this return. A Room for one more seat ends with this cycle.",
+    "expire": "Boat Space, Moly and Nobody expire on this return.",
     "lethal": "The lantern goes out before healing."
   },
 
@@ -127,11 +130,11 @@
     "odysseusIntro": "Odysseus has disembarked. Choose how to continue; the random consequence is committed once when selected.",
     "charybdis": "Charybdis",
     "charybdisCost": "Lose one random held memory, if any.",
-    "charybdisReward": "Receive Moly of Hermes: suppress future Polong arrivals until the next return when played.",
+    "charybdisReward": "Receive Moly of Hermes: suppress future Long arrivals until the next return when played.",
     "zilla": "Scylla",
     "zillaCost": "One random ordinary passenger becomes a Wraith: lose 1 Light. No eligible passenger means no loss.",
     "zillaReward": "If alive, receive Nobody: prevent fog until the next return when played.",
-    "theftHeading": "Po Luem takes a memory",
+    "theftHeading": "A Long takes a memory",
     "theftIntro": "Choose one held memory to lose. This choice is saved until you resolve it.",
     "lose": "Lose {name}"
   },
@@ -146,7 +149,15 @@
     "heading": "The river remembers",
     "summary": "{cycles} cycles survived · {deliveries} ordinary souls delivered · {quests} quests completed",
     "newRun": "Start a new run",
-    "toTitle": "Back to title"
+    "toTitle": "Back to title",
+    "questsHeading": "Quests",
+    "noQuests": "No quests were started on this run.",
+    "more": "+{count} more",
+    "status": {
+      "completed": "Done",
+      "failed": "Failed",
+      "active": "Unfinished"
+    }
   },
 
   "journal": {
@@ -172,7 +183,7 @@
       "memories": "Memories",
       "quest": "Quests",
       "routes": "Routes",
-      "polongs": "Polongs",
+      "polongs": "Longs",
       "effects": "Effects",
       "recycling": "Recycling",
       "damage": "Damage"

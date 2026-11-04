@@ -1,11 +1,11 @@
 {
-  "version": "0.8-t45b",
-  "passed": 23,
+  "version": "0.8-t45",
+  "passed": 24,
   "failed": 0,
   "hashes": {
-    "engine.js": "8a2e462df435758a36b81524da5caefe8ff2231e161a67476ba62142270b879c",
-    "content.json": "fd348c0e98b8187a80d274f253f8c343f5a78845d530d7efa5388a4f18d534b6",
-    "tests/quest-check.js": "3e6a54e89385cdd29fe033dc13bc244c019c1797caa4e89e449569504515086f"
+    "engine.js": "0266b00b96f6801223c37f905ade2cc71249f3b460472c3b3d62f3c864f88abb",
+    "content.json": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69",
+    "tests/quest-check.js": "65f878c4840365629279ae5805454b416d92a480fb71c30a8cf78e0d89bd0891"
   },
   "records": [
     {
@@ -29,7 +29,7 @@
       "status": "PASS"
     },
     {
-      "name": "Meal is once per shared boarding; others and Longs -1, Cook does not eat and gains 3, can expire Cook; Farmer gives no memory",
+      "name": "Meal is once per shared boarding, includes Cook reduction and can expire Cook",
       "status": "PASS"
     },
     {
@@ -37,7 +37,7 @@
       "status": "PASS"
     },
     {
-      "name": "Mason leaves last including Polongs; the next cycle gets +1 seat, which ends with that cycle and does not stack",
+      "name": "Mason leaves last including Polongs; capacity can be used before boarding and expires",
       "status": "PASS"
     },
     {
@@ -57,7 +57,7 @@
       "status": "PASS"
     },
     {
-      "name": "One memory per round, none in boarding or on the return trip; overflow cannot be spent; full fog does not block Wraiths",
+      "name": "Unlimited memories, overflow cannot be spent, full fog does not block Wraiths",
       "status": "PASS"
     },
     {
@@ -85,6 +85,10 @@
       "status": "PASS"
     },
     {
+      "name": "Boat Wraith when Anger reaches 5; shore limit 2 and departure reset unchanged",
+      "status": "PASS"
+    },
+    {
       "name": "Only original normally delivered Po Long pays Light; fatal damage stops rewards",
       "status": "PASS"
     },
@@ -100,8 +104,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2389,
-      "choices": 25,
+      "transitions": 2531,
+      "choices": 27,
       "humanPlaytest": false
     }
   ],

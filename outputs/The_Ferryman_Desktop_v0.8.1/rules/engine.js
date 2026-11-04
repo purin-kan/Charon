@@ -56,7 +56,7 @@
     const s={format:'the-ferryman-save',version:data.version,schemaVersion:data.schemaVersion,seed,rng:seed,
       phase:'boarding',paused:false,light:C.startLight,maxLight:C.maxLight,round:'0',cycle:'1',completed:'0',deliveries:'0',
       nextActor:'1',nextBoarding:'1',nextMemory:'1',nextQuest:'1',encounters:'0',shore:[],boat:[],arrivals:[],discard:[],selected:[],hand:[],quests:[],
-      effects:{capacity:false,moly:false,nobody:false,capacityNext:false},window:windowState('outward'),travelPrepared:false,
+      effects:{capacity:false,moly:false,nobody:false},window:windowState('outward'),travelPrepared:false,
       routes:{offers:[],masks:[],foresight:0,history:[]},nextPolong:null,heroOffer:null,destination:null,
       pending:null,choice:null,theftQueue:[],trimNext:null,ending:null,log:[]};
     s.shore=C.initialShore.map(type=>fresh(s,type));s.arrivals=shuffle(s,C.initialArrivals);s.nextPolong=drawPolong(s);deal(s);offerHero(s);
@@ -189,7 +189,7 @@
       else if(q.definitionId==='QUEST-SWORD'){
         if(x.type==='SOUL-MERCHANT')q.stage='merchant-delivered';else if(q.stage==='merchant-delivered')complete(s,q);else fail(s,q,'Blacksmith delivered before Merchant');
       }else if(q.definitionId==='QUEST-BOAT'){
-        if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}else{complete(s,q);s.effects.capacityNext=true;record(s,'Next cycle starts with +1 seat.');}
+        if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}else complete(s,q);
       }else if(q.definitionId==='QUEST-HERACLES'&&q.delivered.length===2)complete(s,q);
       else if(['QUEST-LISTENER','QUEST-MEAL'].includes(q.definitionId))fail(s,q,'participant delivered before interaction');
     }
@@ -249,10 +249,10 @@
     return null;
   }
   function memoryReady(s,id,target) {
-    need(s.phase==='window'&&!s.travelPrepared&&s.window.kind==='outward','Play memories during a round, before approaching the fork.');
+    need((s.phase==='window'&&!s.travelPrepared)||s.phase==='boarding','Use memories before approaching a fork or returning.');
     need(s.hand.length<=C.handLimit,'Excess rewards cannot be played before hand trimming.');
-    need(C.memoriesPerWindow==null||s.window.uses<C.memoriesPerWindow,'Only one memory per round.');
     const held=s.hand.find(m=>m.id===id);need(held,'Choose a held memory.');
+    need(s.phase!=='boarding'||MEM[held.type].kind==='capacity','Only Boat Space is used during boarding.');
     const targets=memoryTargets(s,held.type);
     need(targets?targets.some(x=>x.id===target):target==null,'Choose an eligible memory target.');return held;
   }
@@ -266,7 +266,7 @@
     if(m.kind==='foresight')s.routes.foresight=C.foresightForks;
     if(m.kind==='calm')for(const x of s.boat)x.anger=Math.max(0,x.anger-m.amount);
     if(m.kind==='apple'){s.maxLight++;s.light=s.maxLight;}
-    if(['moly','nobody'].includes(m.kind))s.effects[m.kind]=true;
+    if(['capacity','moly','nobody'].includes(m.kind))s.effects[m.kind]=true;
     if(m.kind==='sword')remove(s,s.boat.find(x=>x.id===target),'Sword');
     if(m.kind==='passage')deliver(s,s.boat.find(x=>x.id===target),'passage');
     if(s.phase==='ended')return;
@@ -275,7 +275,7 @@
   function meal(s,questId) {
     need(s.phase==='window'&&!s.travelPrepared&&s.window.kind==='outward','Prepare meals before travel.');
     const q=activeQuests(s).find(q=>q.id===questId&&q.definitionId==='QUEST-MEAL');need(q&&participant(s,q,'SOUL-FARMER')&&participant(s,q,'SOUL-COOK'),'No unused shared meal is available.');
-    const cook=participant(s,q,'SOUL-COOK');for(const x of s.boat)if(x!==cook)x.anger=Math.max(0,x.anger-1);cook.anger+=3;complete(s,q);record(s,'Everyone eats; Cook is stressed and gains three Anger.');expire(s);
+    for(const x of s.boat)x.anger=Math.max(0,x.anger-1);participant(s,q,'SOUL-COOK').anger+=2;complete(s,q);record(s,'Everyone eats; Cook gains two stress Anger.');expire(s);
     if(s.phase!=='ended'&&!s.boat.length)s.window.kind='return';
   }
   function purify(s,actorId,target) {
@@ -288,7 +288,7 @@
     for(const x of s.shore)x.anger++;
     for(const x of s.shore.slice())if(x.anger>=C.shoreAngerLimit){damage(s,C.wraithDamage,named(x)+' shore expiry');remove(s,x,'shore expiry');if(s.phase==='ended')return;}
     s.light=Math.min(s.maxLight,s.light+C.returnLight);s.completed=inc(s.completed);s.cycle=inc(s.cycle);
-    s.effects={capacity:s.effects.capacityNext,moly:false,nobody:false,capacityNext:false};if(s.effects.capacity)record(s,'Room for one more: +1 seat this cycle.');
+    s.effects={capacity:false,moly:false,nobody:false};
     while(s.shore.length<C.shoreTarget){if(!s.arrivals.length){s.arrivals=shuffle(s,s.discard);s.discard=[];}if(!s.arrivals.length)break;s.shore.push(fresh(s,s.arrivals.shift()));}
     for(const q of activeQuests(s))fail(s,q,'trip ended before completion');
     s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +1 Light. Cycle '+s.cycle+'.');
@@ -337,7 +337,7 @@
     for(const k of ['round','cycle','completed','deliveries','nextActor','nextBoarding','nextMemory','nextQuest','encounters'])need(decimal(s[k]),'Invalid counter '+k);
     need(BigInt(s.cycle)===BigInt(s.completed)+1n&&['nextActor','nextBoarding','nextMemory','nextQuest'].every(k=>BigInt(s[k])>0n),'Invalid counter relationship.');
     for(const k of ['shore','boat','arrivals','discard','selected','hand','quests','theftQueue'])need(Array.isArray(s[k]),'Invalid '+k);
-    need(s.effects&&['capacity','moly','nobody','capacityNext'].every(k=>typeof s.effects[k]==='boolean'),'Invalid effects.');
+    need(s.effects&&['capacity','moly','nobody'].every(k=>typeof s.effects[k]==='boolean'),'Invalid effects.');
     need(s.window&&['outward','return'].includes(s.window.kind)&&int(s.window.uses)&&int(s.window.guard,0,1)&&int(s.window.shield)&&typeof s.window.allFog==='boolean','Invalid memory window.');
     const actors=[...s.shore,...s.boat],ids=actors.map(x=>x?.id),origins=[...s.arrivals,...s.discard];
     const validId=(id,prefix,counter)=>typeof id==='string'&&id.startsWith(prefix)&&decimal(id.slice(prefix.length))&&BigInt(id.slice(prefix.length))>0n&&BigInt(id.slice(prefix.length))<BigInt(counter);

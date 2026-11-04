@@ -26,7 +26,7 @@ is echoed to the terminal with a `[renderer]` prefix. Expected lines:
 
 ```
 [ferry] Phaser 4.2.1 booted (renderer: WEBGL)
-[ferry] Ferry.create(1) -> state.phase = boarding (version 0.7-trial)
+[ferry] Ferry.create(1) -> state.phase = boarding (version 0.8-t45)
 ```
 
 Other commands:
@@ -60,15 +60,26 @@ read `state`, act through `this.game.router.dispatch(action)`.
 
 ```
 src/main.js          Electron main process (echoes renderer console to stdout)
+src/preload.js       Electron preload script
 src/renderer.js      Creates the Phaser game and the router
+src/index.css        Page style around the game canvas
 src/ferry.js         Loads content.js then engine.js, exports Ferry
 src/router.js        state.phase -> scene, waits for exitDone()
 src/phase-map.js     The pure phase -> scene table
 src/preloader.js     Asset lookup by file name, with fallbacks
-src/scenes/          One file per scene, listed in scenes/index.js
+src/asset-names.js   Engine id -> asset file name (aliases and patterns)
+src/save.js          Single save slot through Ferry.exportSave / importSave
+src/text.js          t('key') over src/data/scene-text.json
+src/tuning.js        Presentation tuning values and the F2 panel
+src/data/            scene-text.json (buttons, help and ending text)
+src/scenes/          One file per scene, listed in scenes/index.js, plus their
+                     *-layout.js view models, soul-token.js and outcome-panel.js
+src/components/      MemoryHand and RouteUI, with their *-layout.js view models
 src/dev/             Dev launcher and fixture states
 assets/              art/ backgrounds/ audio/ fonts/ and tuning.json
-tools/               make-fixtures.mjs, check-engine.mjs, check-router.mjs
+tools/               make-fixtures.mjs, run-checks.mjs and one check-*.mjs per area
+                     (engine, router, art, boarding, delivery, memory, return, route,
+                     gameover, text)
 ```
 
 ## Dev launcher (open any scene with a saved state)
@@ -187,3 +198,7 @@ screen gets its headings from `scene-text.json` and its bodies from the `rules` 
    `package.json` change.
 
 Only the scaffold owner edits `scenes/index.js`, `package.json` and the lockfile; send a one-line request.
+
+## Credits
+
+Art, audio, font and software credits are collected in [CREDITS.md](CREDITS.md). Two audio sources are CC-BY 4.0 and must be credited: the menu music "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop, and the board and unboard footsteps from "Pirate Pack Vol 1" by JC Sounds, https://opengameart.org/content/jc-sounds-pirate-pack-vol-1.

@@ -9,7 +9,7 @@ export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
 const DOCK_SPOT = { x: 130, y: 240, cellW: 130, cellH: 150, cols: 3 }; // the first row clears the Dock label
 const DECK = { y: 470, width: 336 }; // souls with no seat ride here, inside the width of a four-seat hull
-const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, perCol: 5 };
+const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, gap: 10, perCol: 5 };
 
 const dockSpot = (i) => ({
   x: DOCK_SPOT.x + (i % DOCK_SPOT.cols) * DOCK_SPOT.cellW,
@@ -195,13 +195,18 @@ export function choiceView(state, Ferry, t) {
   };
 }
 
-/** Rows for held memories. The hand can be over the limit here, so rows wrap into columns. */
-export function memoryRowSpots(n) {
+/**
+ * Rows for held memories. The hand can be over the limit here, so rows wrap into columns. heights[i] is how tall
+ * row i's text is; a row taller than ROWS.rowH pushes the rows below it down, so long memory text is never cut.
+ */
+export function memoryRowSpots(n, heights = []) {
   const cols = Math.max(1, Math.ceil(n / ROWS.perCol));
   const w = ROWS.width / cols;
-  return Array.from({ length: n }, (_, i) => ({
-    x: ROWS.left + Math.floor(i / ROWS.perCol) * w,
-    y: ROWS.top + (i % ROWS.perCol) * ROWS.rowH,
-    w,
-  }));
+  let y = ROWS.top;
+  return Array.from({ length: n }, (_, i) => {
+    if (i % ROWS.perCol === 0) y = ROWS.top;
+    const spot = { x: ROWS.left + Math.floor(i / ROWS.perCol) * w, y, w };
+    y += Math.max(ROWS.rowH, (heights[i] ?? 0) + ROWS.gap);
+    return spot;
+  });
 }

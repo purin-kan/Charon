@@ -1,6 +1,6 @@
 {
-  "version": "0.8-t45b",
-  "contentSha256": "fd348c0e98b8187a80d274f253f8c343f5a78845d530d7efa5388a4f18d534b6",
+  "version": "0.8-t45",
+  "contentSha256": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69",
   "trial": {
     "stage": "All-quest local trial",
     "notice": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
@@ -20,7 +20,7 @@
     "seats": 4,
     "shoreTarget": 5,
     "shoreAngerLimit": 2,
-    "shipAngerLimit": 4,
+    "shipAngerLimit": 5,
     "handLimit": 3,
     "spawnInterval": 3,
     "polongFogThreshold": 2,
@@ -28,7 +28,7 @@
     "returnLight": 1,
     "wraithDamage": 1,
     "foresightForks": 3,
-    "memoriesPerWindow": 1,
+    "memoriesPerWindow": null,
     "endless": true,
     "initialShore": [
       "SOUL-MOTHER",
@@ -54,16 +54,16 @@
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
     "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
-    "memories": "One memory per round (one crossing to a new route), played before approaching the fork. No memories during boarding or on the return trip. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
+    "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
     "polongs": "Every third outward round brings the shown Long unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
-    "effects": "Moly and Nobody expire at the next return. Effect duration does not stack. The Room for one more seat applies to the whole next cycle only and does not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
+    "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
     "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
     "damage": "Fog protection does not prevent Wraith or toll damage. Long Mist delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Longs grant no Light or memory."
   },
   "roundSteps": [
-    "Play up to one held memory and any available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
+    "Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
     "Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.",
     "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
     "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
@@ -72,7 +72,7 @@
     "Begin the next memory window, or return if the boat is empty."
   ],
   "returnSteps": [
-    "With an empty boat, return to the Starting Shore. No memories are played on the return trip.",
+    "With an empty boat, play held memories if desired.",
     "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
     "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ]

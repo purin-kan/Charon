@@ -1,6 +1,6 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.8-t45b",
+  "version": "0.8-t45",
   "schemaVersion": 3,
   "seed": 1,
   "rng": 1369582169,
@@ -118,8 +118,7 @@
   "effects": {
     "capacity": false,
     "moly": false,
-    "nobody": false,
-    "capacityNext": false
+    "nobody": false
   },
   "window": {
     "kind": "outward",
