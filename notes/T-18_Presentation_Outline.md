@@ -1,6 +1,6 @@
 # T-18 presentation outline (November 2, 2026)
 
-Owner: bosthanapatw. Support on the script and slides later: purin-kan (T-26, T-38). Draft for the team: the structure follows the three required parts in `notes/Project_Plan_Oct30_Nov8.md` ("Submission Deliverables"). The Description is drafted from the generated `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` as it stands, plus the issue 6 decisions that T-45 applies. **Everything here is provisional until the November 6 freeze.**
+Owner: bosthanapatw. Support on the script and slides later: purin-kan (T-26, T-38). Draft for the team: the structure follows the three required parts in `notes/Project_Plan_Oct30_Nov8.md` ("Submission Deliverables"). The Description is drafted from the generated `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` as it stands, after T-45 (merged, rules `0.8-t45`). Revised November 4 after the owner review on PR 22. **Everything here is provisional until the November 6 freeze.**
 
 Slide text rules (AGENTS.md): short bullets, no "we" on slides, no em dashes, every number traceable to a recorded result.
 
@@ -33,14 +33,14 @@ Total time and the time per part are not given in the plan. Fill them in once th
 * Six destinations, fog 0 to 3: Haven, River Styx, Acheron, Asphodel, Elysium, Tartarus
 
 **Slide 5. Memories**
-* Most delivered souls leave a memory card (Child and Listener have none); hand limit 3
-* Examples: Light (+1 Light), Foresight (see the next 3 forks), Calm (Anger -1), Fog Shield (fog -1)
+* 12 of the 15 ordinary souls leave a memory card (Child, Listener and Blacksmith have none); hand limit 3
+* Examples: Light (+1 Light), Foresight (see the next 3 forks), Calm (Anger -1 for every soul on the boat), Fog Shield (fog -1)
 * Quest rewards are special memories: Passenger, Sword, Boat Space, Golden Apple
 
-**Slide 6. Polongs (tainted souls)**
-* Lost souls from another land that sneak aboard as Light dims
-* Five variants, each breaking one rule: extra fog, hidden routes, stolen memories, extra seats, refusing to leave
-* Encounters grow stronger over the run; a top-level Polong that turns into a Wraith can corrupt another soul
+**Slide 6. Longs (tainted souls)**
+* Lost souls from another land that board every third outward round
+* Five variants, each breaking one rule: Long Mist (extra fog), Long Veil (hidden routes), Long Hollow (stolen memories), Long Burden (takes seats), Long Grasp (refuses to leave)
+* Encounters grow stronger over the run; a top-level Long that turns into a Wraith can corrupt another soul
 * Folklore inspirations for each variant: see the entity catalog (to confirm wording with the team)
 
 **Slide 7. Stories (quests)**
@@ -66,17 +66,17 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 * Route forks: two different destinations drawn per fork, three forks ahead (`deal`)
 * Arrival order of souls: Fisher-Yates shuffle (`shuffle`)
 * Hero wishes drawn from the six destinations (`randomWish`)
-* Po Due forces Haven into an unseen fork, never a fork already shown
+* Long Grasp forces Haven into an unseen fork, never a fork already shown
 
 **Slide 11. Random systems that create pressure**
-* Polong spawn on a fixed round interval, with a tiered random pick: a second tier of types from the second encounter on (`drawPolong`)
+* Longs board every third outward round, with a tiered random pick: Long Veil and Long Grasp can first appear at the third encounter (`drawPolong`)
 * Random hero offer each return (`offerHero`)
 * Cerberus frightens two random passengers off the boat (`heroicArrival`)
-* Random targets: Po Luem's memory theft, Scylla's victim, Polong spread
+* Random targets: Scylla's victim, Long spread, and Long Hollow's memory theft from level 3 (below that the player chooses; `thefts`)
 
 **Slide 12. Deterministic rules**
-* Fog cost is a fixed calculation, not random: base fog + cycle escalation + Polong fog + overload, minus shields (`fog`)
-* The player sees the cost before confirming a route, unless Po Mued hides that route
+* Fog cost is a fixed calculation, not random: base fog + cycle escalation + Long fog + overload, minus shields (`fog`)
+* The player sees the cost before confirming a route, unless Long Veil hides that route
 * One rules engine (`engine.js`) drives every scene; scenes never duplicate rules
 
 **Slide 13. How it was built** (optional)
@@ -89,7 +89,7 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 **Slide 14. Demo**
 * Live demo of the built `.exe` with a fixed seed (TitleScene seed line)
 * Recorded video as a backup (T-41, from the build that passed T-44)
-* Suggested path for the seed, to be chosen after the freeze: board, a fork choice, a delivery that gives a memory, a Polong boarding, a return
+* Suggested path for the seed, to be chosen after the freeze: board, a fork choice, a delivery that gives a memory, a Long boarding, a return
 
 **Slide 15. Credits**
 * From `outputs/The_Ferryman_Desktop_v0.8.1/CREDITS.md`
@@ -100,7 +100,7 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 ## To do before the slides (T-26, T-38)
 
 1. Course time limit for the presentation, so each part gets a time.
-2. Recheck every rule on slides 2 to 8 against `RULES.md` after the November 6 freeze; T-45 (issue 6 decisions) is not merged yet.
+2. Recheck every rule on slides 2 to 8 against `RULES.md` after the November 6 freeze; slides 4 and 5 change if #26 (Anger limit) and #27 (memory rules) are approved.
 3. Pick the demo seed and record what it shows (T-41).
-4. Confirm with the PM whether the Polong spawn should be called "random" or "AI" (the plan says random; confirm after the freeze).
+4. Confirm with the PM whether the Long spawn should be called "random" or "AI" (the plan says random; confirm after the freeze).
 5. Screenshots for slides 3 to 8 once the scenes have art.
