@@ -67,15 +67,18 @@ export class ChoiceOverlay extends Phaser.Scene {
     this.parts.push(box, name, cost, reward, this.button(x, y + 130, option.label, option.action));
   }
 
+  /** Texts are made first so each row can be as tall as its text, then placed. */
   drawRows(rows) {
-    const spots = memoryRowSpots(rows.length);
+    const { w } = memoryRowSpots(rows.length)[0];
+    const bodies = rows.map((row) => this.add.text(0, 0, row.text, {
+      fontFamily: FONT, fontSize: '14px', color: '#cfe3f0', wordWrap: { width: w - 270 },
+    }));
+    const spots = memoryRowSpots(rows.length, bodies.map((body) => 26 + body.height));
     rows.forEach((row, i) => {
-      const { x, y, w } = spots[i];
+      const { x, y } = spots[i];
       const name = this.add.text(x, y, row.name, { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' });
-      const body = this.add.text(x, y + 26, row.text, {
-        fontFamily: FONT, fontSize: '14px', color: '#cfe3f0', wordWrap: { width: w - 270 }, maxLines: 3,
-      });
-      this.parts.push(name, body, this.button(x + w - 130, y + 26, row.label, row.action));
+      bodies[i].setPosition(x, y + 26);
+      this.parts.push(name, bodies[i], this.button(x + w - 130, y + 26, row.label, row.action));
     });
   }
 
