@@ -8,9 +8,11 @@
 import { fileIdFor } from './asset-names.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
+// Art may sit in subfolders (art/souls/, art/memories/, ...): the file name alone is the id,
+// so a name must be unique across subfolders (tools/check-art.mjs checks this).
 const found = {
-  art: import.meta.glob('../assets/art/*.png', { eager: true, query: '?url', import: 'default' }),
-  backgrounds: import.meta.glob('../assets/backgrounds/*.png', { eager: true, query: '?url', import: 'default' }),
+  art: import.meta.glob('../assets/art/**/*.png', { eager: true, query: '?url', import: 'default' }),
+  backgrounds: import.meta.glob('../assets/backgrounds/**/*.png', { eager: true, query: '?url', import: 'default' }),
   audio: import.meta.glob('../assets/audio/*.ogg', { eager: true, query: '?url', import: 'default' }),
 };
 
