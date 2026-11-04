@@ -29,7 +29,7 @@ Plan scope: the five sound groups named in the project plan (menu BGM, crossing 
 | `sfx-unboard` | SFX | A soul is dragged back off the boat (also `BOARD`) | BoardingScene (SupaOhm) | No | T-15 | File added |
 | `sfx-ui-click` | SFX | Any button press | All scenes | No | T-15 | File added |
 | `amb-crossing-2` | Ambient | Alternative crossing loop (variant) | CrossingScene (SupaOhm) | Yes | T-28 | Not started |
-| `sfx-row` | SFX (one-shot) | Three oar strokes. Plays once when the boat sets off after the player confirms a new destination, before `sfx-fog` and the Light decrease. Order: `sfx-row`, then `sfx-fog` (if fog 1 or more), then the Light loss | CrossingScene (SupaOhm) | No | T-28 | File added |
+| `sfx-row` | SFX (one-shot) | Three oar strokes. Plays once when the boat sets off after the player confirms a new destination, **at the same moment as** `sfx-fog` (when the route has fog 1 or more); the Light loss is shown after, at its usual time | CrossingScene (SupaOhm) | No | T-28 | File added |
 | `sfx-fog` | SFX (one-shot) | Replaces the planned `amb-fog` loop. Plays once right after the player confirms a route with fog 1 or more (every route except a fog-0 Haven), before the Light decrease is shown | CrossingScene (SupaOhm) | No | T-28 | File added |
 | `sfx-delivery-success` | SFX (jingle) | A soul's wish matches the destination (`DELIVER`) | DeliveryScene (SupaOhm) | No | T-28 | File added |
 | `sfx-wraith` | SFX | A soul turns into a wraith (on the boat or on return) | DeliveryScene (SupaOhm), ReturnScene (Jaoguya) | No | T-28 | File added |
