@@ -6,7 +6,7 @@ Merged to main in order: #21 T-45 (`0ce6eb8`; rules `0.8-t45`, Long names, Greek
 
 ## November 4, 2026: T-26 pitch script drafted (bosthanapatw)
 
-`notes/T-26_Pitch_Script.md`: spoken lines per slide of the T-18 outline, about 8 to 9 minutes by word count (not read aloud or timed), stage directions for the demo, a credits line read aloud for CC-BY, and prepared Q&A answers. Branch `t-26-pitch-script` sits on `t-18-presentation-outline`, so it should merge after PR 22. Not done: early gameplay footage (needs a human and CrossingScene, T-19), speaker assignment, final demo seed (seed 116 is a candidate, replayed through the engine only; replay after the freeze, T-41), Heracles or Hercules naming.
+`notes/T-26_Pitch_Script.md`: spoken lines per slide of the T-18 outline, about 8 minutes of speech by word count plus demo play time (not read aloud or timed), stage directions for the demo, a credits line read aloud for CC-BY, and prepared Q&A answers. Branch `t-26-pitch-script` sits on `t-18-presentation-outline`, so it should merge after PR 22. Not done: early gameplay footage (needs a human and CrossingScene, T-19), speaker assignment, final demo seed (seed 116 is a candidate, replayed through the engine only; replay after the freeze, T-41), Heracles or Hercules naming.
 
 ## November 2, 2026: T-18 presentation outline drafted (bosthanapatw)
 

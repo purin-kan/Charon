@@ -13,6 +13,7 @@ Discussion and decision history live here. The current rules authority is [`rule
 | [Blockers resolved Oct 31](Blockers_Resolved_2026-10-31.md) | Team answers to the open blockers for T-43. Partly applied: the issue 6 decisions, Calm and the White flag in T-45; the Anger limit and memory rules are in pull requests 26 and 27, pending PM approval |
 | [T-45 rule changes](T-45_Rule_Changes.md) | Change note for T-45: each rule applied to `rules/content.json` and `engine.js`, with the checks run |
 | [T-18 presentation outline](T-18_Presentation_Outline.md) | 16 slides for Description, Algorithmic Implementation and Demo play; provisional until the Nov 6 freeze |
+| [T-26 pitch script](T-26_Pitch_Script.md) | Spoken draft for the outline's slides, candidate demo seed and prepared answers; provisional until the Nov 6 freeze |
 | [Public entity catalog](Charon_Entity_Catalog_Public_2026-10-31.xlsx) | Text-only spreadsheet of souls, memories, locations and links, with the Oct 31 team answers and a change log |
 | [T-03 art pipeline](T-03_ART_PIPELINE.md) | Character sprite standard for T-03: 512 × 768 transparent PNG, file naming and the test sprite |
 | [T-07 audio plan](T-07_AUDIO_PLAN.md) | Draft audio file rules, track list, sourcing and rights record for T-07; proposals, not team approval |
