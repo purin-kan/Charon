@@ -81,28 +81,41 @@ check('Merchant protection is story only; Sword only when Merchant is delivered 
  reversed=step(reversed,'DEST-STYX',['SOUL-MERCHANT']);assert.ok(!reversed.hand.some(m=>m.type==='MEM-LAST-MASTERWORK'));
  let clash=shore(['SOUL-MERCHANT','SOUL-BLACKSMITH','SOUL-MASON']);for(const x of clash.shore)clash=act(clash,'BOARD',{id:x.id});assert.throws(()=>act(clash,'DEPART'),/both/);
 });
-check('Mason leaves last including Polongs; capacity can be used before boarding and expires',()=>{
+check('Mason leaves last including Polongs, or the quest fails; capacity can be used before boarding and expires',()=>{
  let s=boat(['SOUL-MERCHANT','SOUL-MASON']);const p=polong(s,'SOUL-POLONG');
- s=step(s,'DEST-STYX',['SOUL-MERCHANT']);assert.match(g.deliveryReason({...s,destination:'DEST-ACHERON'},find(s,'SOUL-MASON')),/last/);
+ const first=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(first,'QUEST-BOAT').status,'failed');assert.equal(quest(first,'QUEST-BOAT').reason,'Mason left before the Merchant');
+ s=step(s,'DEST-STYX',['SOUL-MERCHANT']);assert.equal(g.deliveryReason({...s,destination:'DEST-ACHERON'},find(s,'SOUL-MASON')),null);
+ const early=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(early,'QUEST-BOAT').status,'failed');assert.equal(quest(early,'QUEST-BOAT').reason,'Mason left before the last passenger');
+ assert.ok(!early.hand.some(m=>m.type==='MEM-BOAT-SPACE'));assert.ok(early.boat.some(x=>x.id===p.id));rt(early);
  s=step(s,'DEST-TARTARUS',['SOUL-POLONG']);s=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(s,'QUEST-BOAT').status,'completed');
  s=act(s,'RETURN');const m=s.hand.find(m=>m.type==='MEM-BOAT-SPACE');s=act(s,'PLAY_MEMORY',{id:m.id});assert.equal(g.capacity(s),5);assert.equal(s.phase,'boarding');
  for(const x of s.shore)s=act(s,'BOARD',{id:x.id});assert.equal(g.seats(s),5);s=act(s,'DEPART');
  // Empty-boat return fixture only verifies the effect boundary, not survival balance.
  s.discard.push(...s.boat.map(x=>x.origin));s.boat=[];s.window.kind='return';for(const q of s.quests)if(q.status==='active'){q.status='failed';q.reason='fixture resolved participants';}s=act(s,'RETURN');assert.equal(g.capacity(s),4);
 });
-check('Any passenger but a Long may leave at any stop; only its wish gives its memory and delivery count',()=>{
+check('Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count',()=>{
  let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-FARMER']);polong(s,'SOUL-POLONG');polong(s,'SOUL-PO-MUED');s=cross(s,'DEST-HAVEN');
- assert.equal(g.deliveryReason(s,find(s,'SOUL-POLONG')),'Wishes for Tartarus.');assert.equal(g.deliveryReason(s,find(s,'SOUL-PO-MUED')),'Wishes for River Styx.');
- assert.throws(()=>act(s,'DELIVER',{ids:[find(s,'SOUL-POLONG').id]}),/Tartarus/);
- s=act(s,'DELIVER',{ids:[]});s=act(s,'START_CROSSING');s=route(s,'DEST-STYX');s=act(s,'CROSS',{option:0});
+ assert.equal(g.deliveryReason(s,find(s,'SOUL-POLONG')),null);assert.equal(g.deliveryReason(s,find(s,'SOUL-PO-MUED')),null);
+ s.light=20;const fare=s.light;s=act(s,'DELIVER',{ids:[find(s,'SOUL-POLONG').id]});assert.ok(!s.boat.some(x=>x.type==='SOUL-POLONG'));assert.equal(s.light,fare);
+ s=act(s,'START_CROSSING');s=route(s,'DEST-STYX');s=act(s,'CROSS',{option:0});
  const light=s.light,hand=s.hand.length,ids=['SOUL-CHILD','SOUL-FARMER','SOUL-PO-MUED'].map(type=>find(s,type).id);
  assert.ok(ids.every(id=>g.deliveryReason(s,s.boat.find(x=>x.id===id))===null));
- s=act(s,'DELIVER',{ids});assert.deepEqual(s.boat.map(x=>x.type).sort(),['SOUL-MOTHER','SOUL-POLONG']);
+ s=act(s,'DELIVER',{ids});assert.deepEqual(s.boat.map(x=>x.type).sort(),['SOUL-MOTHER']);
  assert.equal(s.hand.length,hand);assert.equal(s.deliveries,'0');assert.equal(s.light,light);
  assert.equal(quest(s,'QUEST-FAMILY').status,'failed');assert.equal(quest(s,'QUEST-FAMILY').reason,'Child left the boat before Haven');
  assert.ok(s.log.some(e=>/Farmer left the boat at River Styx\./.test(e.text??e)));rt(s);
- let mason=boat(['SOUL-MERCHANT','SOUL-MASON']);mason=cross(mason,'DEST-STYX');assert.match(g.deliveryReason(mason,find(mason,'SOUL-MASON')),/last/);
+ let grasp=boat(['SOUL-FARMER']);const due=polong(grasp,'SOUL-PO-DUE',1,1);grasp=cross(grasp,'DEST-HAVEN');assert.match(g.deliveryReason(grasp,find(grasp,'SOUL-PO-DUE')),/Anger 2/);
+ assert.throws(()=>act(grasp,'DELIVER',{ids:[due.id]}),/Anger 2/);
+ let mason=boat(['SOUL-MERCHANT','SOUL-MASON']);mason=cross(mason,'DEST-STYX');assert.equal(g.deliveryReason(mason,find(mason,'SOUL-MASON')),null);
+ mason=act(mason,'DELIVER',{ids:[find(mason,'SOUL-MASON').id]});assert.equal(quest(mason,'QUEST-BOAT').status,'failed');assert.equal(quest(mason,'QUEST-BOAT').reason,'Mason left the boat before Acheron');
  let match=boat(['SOUL-FARMER']);match=step(match,'DEST-ASPHODEL',['SOUL-FARMER']);assert.deepEqual(match.hand.map(m=>m.type),['MEM-SHARED-HARVEST']);assert.equal(match.deliveries,'1');
+});
+check('Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop',()=>{
+ let s=boat(['SOUL-MASON','SOUL-RED-SOLDIER','SOUL-MOTHER']);const fog=memory(s,'MEM-FOG','SOUL-MASON'),all=memory(s,'MEM-ALL-FOG','SOUL-RED-SOLDIER'),light=memory(s,'MEM-LIGHT','SOUL-MOTHER');
+ s=cross(s,'DEST-HAVEN');assert.equal(s.phase,'delivery');
+ for(const id of [fog,all])assert.throws(()=>act(s,'PLAY_MEMORY',{id}),/before you travel/);
+ s=act(s,'PLAY_MEMORY',{id:light});assert.ok(!s.hand.some(m=>m.id===light));
+ s=act(s,'DELIVER',{ids:[]});assert.equal(s.phase,'window');s=act(s,'PLAY_MEMORY',{id:fog});assert.ok(s.window.shield>0);rt(s);
 });
 check('Priest +1 memory or purification trade-off, once per boarding and save/reload',()=>{
  let s=boat(['SOUL-PRIEST','SOUL-COOK']);const priest=find(s,'SOUL-PRIEST'),cook=find(s,'SOUL-COOK');cook.anger=3;

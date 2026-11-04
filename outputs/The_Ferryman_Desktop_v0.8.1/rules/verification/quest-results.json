@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45",
-  "passed": 27,
+  "passed": 28,
   "failed": 0,
   "hashes": {
-    "engine.js": "31320e074404e1e726d419f8c50e6c31d1670f8ff66b0a0eedd754cca2a60a7f",
-    "content.json": "df9552ef5407c82f1481502baf268fdef1b3d9ef2f53310719993c51248073a3",
-    "tests/quest-check.js": "8247a213ef1183526ea5ba63b63dcb3a1f197608b7c34ed9183ea063fbae76a9"
+    "engine.js": "ff3a00782a4dc5750e5a4138234b274e0d321f3c2c4eefdd68768cefc3b8b942",
+    "content.json": "43e608dd8b75c33a67d63d32a9a136a3f570adfc6c12550d31f3b83505990288",
+    "tests/quest-check.js": "cb0ec7f4a7c1c2e535aaebef8e2a8dce3314c99d69ce123590b8cbbf355f888d"
   },
   "records": [
     {
@@ -37,11 +37,15 @@
       "status": "PASS"
     },
     {
-      "name": "Mason leaves last including Polongs; capacity can be used before boarding and expires",
+      "name": "Mason leaves last including Polongs, or the quest fails; capacity can be used before boarding and expires",
       "status": "PASS"
     },
     {
-      "name": "Any passenger but a Long may leave at any stop; only its wish gives its memory and delivery count",
+      "name": "Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count",
+      "status": "PASS"
+    },
+    {
+      "name": "Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop",
       "status": "PASS"
     },
     {
@@ -116,7 +120,7 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2666,
+      "transitions": 3023,
       "choices": 25,
       "humanPlaytest": false
     }

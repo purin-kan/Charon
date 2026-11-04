@@ -176,10 +176,8 @@
   }
   function deliveryReason(s,x,via='normal') {
     if(!s.boat.some(a=>a.id===x.id))return 'Not aboard.';
-    if(via==='normal'&&isTainted(x)&&x.wish!==s.destination)return 'Wishes for '+DEST[x.wish].name+'.';
     if(x.type==='SOUL-PO-DUE'&&x.anger<2)return 'Long Grasp will not leave below Anger 2.';
     for(const q of activeQuests(s).filter(q=>q.participants.includes(x.id))){
-      if(q.definitionId==='QUEST-BOAT'&&x.type==='SOUL-MASON'&&(q.stage!=='merchant-delivered'||s.boat.length!==1))return 'Deliver Merchant first. Mason must be the last passenger.';
       if(q.definitionId==='QUEST-HERACLES'&&(q.stage!=='cerberus'||q.data.battleRound===s.round))return 'Complete the Cerberus encounter, then deliver on a later arrival.';
       if(q.definitionId==='QUEST-ODYSSEUS')return 'Odysseus disembarks through his Tiresias encounter.';
     }
@@ -195,7 +193,9 @@
       else if(q.definitionId==='QUEST-SWORD'){
         if(x.type==='SOUL-MERCHANT')q.stage='merchant-delivered';else if(q.stage==='merchant-delivered')complete(s,q);else fail(s,q,'Blacksmith delivered before Merchant');
       }else if(q.definitionId==='QUEST-BOAT'){
-        if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}else complete(s,q);
+        if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}
+        else if(q.stage!=='merchant-delivered')fail(s,q,'Mason left before the Merchant');
+        else if(s.boat.length!==1)fail(s,q,'Mason left before the last passenger');else complete(s,q);
       }else if(q.definitionId==='QUEST-HERACLES'&&q.delivered.length===2)complete(s,q);
       else if(['QUEST-LISTENER','QUEST-MEAL'].includes(q.definitionId))fail(s,q,'participant delivered before interaction');
     }
@@ -266,6 +266,7 @@
     const held=s.hand.find(m=>m.id===id);need(held,'Choose a held memory.');
     need(s.phase!=='boarding'||MEM[held.type].kind==='capacity','Only Boat Space is used during boarding.');
     need(s.phase==='boarding'||MEM[held.type].kind!=='capacity','Boat Space is used only during boarding.');
+    need(s.phase!=='delivery'||!['fog','all-fog','guard'].includes(MEM[held.type].kind),MEM[held.type].name+' protects a crossing; play it before you travel.');
     const targets=memoryTargets(s,held.type);
     need(targets?targets.some(x=>x.id===target):target==null,'Choose an eligible memory target.');return held;
   }

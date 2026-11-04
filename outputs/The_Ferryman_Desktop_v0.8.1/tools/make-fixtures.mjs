@@ -147,7 +147,16 @@ function odysseusChoice() {
   return null;
 }
 if (!found['choice-odysseus']) found['choice-odysseus'] = odysseusChoice();
-if (!found['delivery-match'] && mixedFallback) found['delivery-match'] = mixedFallback;
+// Any soul, Longs included, may leave at any stop, so random play rarely has a refused soul at a dock.
+// The fallback adds a calm Long Grasp, which the engine refuses below Anger 2.
+function withCalmGrasp({ seed, state }) {
+  const s = structuredClone(state);
+  const boardingId = s.boat[0]?.boardingId ?? String(BigInt(s.nextBoarding) - 1n);
+  s.boat.push({ id: 'ACTOR-' + s.nextActor, type: 'SOUL-PO-DUE', origin: null, wish: Ferry.data.souls.find((d) => d.id === 'SOUL-PO-DUE').wish, anger: 0, boardingId, bornRound: s.round, level: 1, spread: false, exhausted: false });
+  s.nextActor = String(BigInt(s.nextActor) + 1n);
+  return { seed, step: 'synthetic', state: s };
+}
+if (!found['delivery-match'] && mixedFallback) found['delivery-match'] = withCalmGrasp(mixedFallback);
 
 // CrossingScene (T-19). Random play delivers too often to keep souls aboard for three rounds, so these
 // runs board chosen souls, pick a fork nobody wishes for, and deliver no one until the wanted state.
