@@ -24,12 +24,11 @@ Plan scope: the five sound groups named in the project plan (menu BGM, crossing 
 | Id | Type | Plays when | Scene (owner) | Loop | Task | Status |
 |---|---|---|---|---|---|---|
 | `bgm-menu` | Music | Title screen is open | TitleScene (Tinpatpun) | Yes | T-07 placeholder, T-15 final | Placeholder in game |
-| `amb-crossing` | Ambient | The whole time the crossing screen is open (memory window, fork, review and sailing), quiet in the background | CrossingScene (SupaOhm) | Yes | T-15, finished in T-28 | File added (ElevenLabs, still water; the recorded rivers flowed too strongly) |
+| `amb-crossing` | Ambient | The whole time the crossing screen is open (memory window, fork, review and sailing), the quietest sound in the game, in the background | CrossingScene (SupaOhm) | Yes | T-15, finished in T-28 | File added (ElevenLabs, still water; the recorded rivers flowed too strongly) |
 | `sfx-board` | SFX | A soul is dropped onto a boat seat (`BOARD`) | BoardingScene (SupaOhm) | No | T-15 | File added |
 | `sfx-unboard` | SFX | A soul is dragged back off the boat (also `BOARD`) | BoardingScene (SupaOhm) | No | T-15 | File added |
 | `sfx-ui-click` | SFX | Any button press | All scenes | No | T-15 | File added |
 | `amb-crossing-2` | Ambient | Alternative crossing loop (variant) | CrossingScene (SupaOhm) | Yes | T-28 | Not started |
-| `sfx-row` | SFX (one-shot) | Three oar strokes. Plays once when the boat sets off after the player confirms a new destination, **at the same moment as** `sfx-fog` (when the route has fog 1 or more); the Light loss is shown after, at its usual time | CrossingScene (SupaOhm) | No | T-28 | File added |
 | `sfx-fog` | SFX (one-shot) | Replaces the planned `amb-fog` loop. Plays once right after the player confirms a route with fog 1 or more (every route except a fog-0 Haven), before the Light decrease is shown | CrossingScene (SupaOhm) | No | T-28 | File added |
 | `sfx-delivery-success` | SFX (jingle) | A soul's wish matches the destination (`DELIVER`) | DeliveryScene (SupaOhm) | No | T-28 | File added |
 | `sfx-wraith` | SFX | A soul turns into a wraith (on the boat or on return) | DeliveryScene (SupaOhm), ReturnScene (Jaoguya) | No | T-28 | File added |
