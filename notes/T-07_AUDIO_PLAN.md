@@ -30,8 +30,8 @@ Plan scope: the five sound groups named in the project plan (menu BGM, crossing 
 | `sfx-ui-click` | SFX | Any button press | All scenes | No | T-15 | File added |
 | `amb-crossing-2` | Ambient | Alternative crossing loop (variant) | CrossingScene (SupaOhm) | Yes | T-28 | Not started |
 | `amb-fog` | Ambient | Layered on top when fog is high | CrossingScene (SupaOhm) | Yes | T-28 | Not started |
-| `sfx-delivery-success` | SFX (jingle) | A soul's wish matches the destination (`DELIVER`) | DeliveryScene (SupaOhm) | No | T-28 | Not started |
-| `sfx-wraith` | SFX | A soul turns into a wraith on return | ReturnScene (Jaoguya) | No | T-28 | Not started |
+| `sfx-delivery-success` | SFX (jingle) | A soul's wish matches the destination (`DELIVER`) | DeliveryScene (SupaOhm) | No | T-28 | File added |
+| `sfx-wraith` | SFX | A soul turns into a wraith (on the boat or on return) | DeliveryScene (SupaOhm), ReturnScene (Jaoguya) | No | T-28 | File added |
 
 Open questions for the team:
 
