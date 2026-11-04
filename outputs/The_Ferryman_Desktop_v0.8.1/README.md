@@ -26,7 +26,7 @@ is echoed to the terminal with a `[renderer]` prefix. Expected lines:
 
 ```
 [ferry] Phaser 4.2.1 booted (renderer: WEBGL)
-[ferry] Ferry.create(1) -> state.phase = boarding (version 0.7-trial)
+[ferry] Ferry.create(1) -> state.phase = boarding (version 0.8-t45)
 ```
 
 Other commands:
@@ -40,7 +40,7 @@ Other commands:
 
 ## Rules source
 
-The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`). This
+The rules live in `rules/`, copied from the v0.7 snapshot (content SHA-256 `a5a686c5...`) and since edited for T-45; the current hash is in `rules/verification/content-build.json`. This
 folder depends on no other folder. `src/ferry.js` imports `rules/content.js` first (sets
 `globalThis.FerryData`), then `rules/engine.js` (publishes `globalThis.Ferry`, or its CommonJS
 export in a production build). Never edit `engine.js` to fix loading; wrap it.
@@ -60,22 +60,34 @@ read `state`, act through `this.game.router.dispatch(action)`.
 
 ```
 src/main.js          Electron main process (echoes renderer console to stdout)
+src/preload.js       Electron preload script
 src/renderer.js      Creates the Phaser game and the router
+src/index.css        Page style around the game canvas
 src/ferry.js         Loads content.js then engine.js, exports Ferry
 src/router.js        state.phase -> scene, waits for exitDone()
 src/phase-map.js     The pure phase -> scene table
 src/preloader.js     Asset lookup by file name, with fallbacks
-src/scenes/          One file per scene, listed in scenes/index.js
+src/asset-names.js   Engine id -> asset file name (aliases and patterns)
+src/save.js          Single save slot through Ferry.exportSave / importSave
+src/text.js          t('key') over src/data/scene-text.json
+src/tuning.js        Presentation tuning values and the F2 panel
+src/data/            scene-text.json (buttons, help and ending text)
+src/scenes/          One file per scene, listed in scenes/index.js, plus their
+                     *-layout.js view models, soul-token.js and outcome-panel.js
+src/components/      MemoryHand and RouteUI, with their *-layout.js view models
 src/dev/             Dev launcher and fixture states
 assets/              art/ backgrounds/ audio/ fonts/ and tuning.json
-tools/               make-fixtures.mjs, check-engine.mjs, check-router.mjs
+tools/               make-fixtures.mjs, run-checks.mjs and one check-*.mjs per area
+                     (engine, router, art, boarding, delivery, memory, return, route,
+                     gameover, text)
 ```
 
 ## Dev launcher (open any scene with a saved state)
 
-Fixtures live in `src/dev/fixtures/<name>.json`: boarding, window, fork, review, delivery, choice,
+Fixtures live in `src/dev/fixtures/<name>.json`: boarding, boarding-heracles, window, fork, review, delivery, delivery-match, choice, choice-odysseus,
 trim, return, review-return, ended. All come from engine runs except `trim`, which is the `window`
-state with a 4-memory hand (random play rarely reaches the hand limit).
+state with a 4-memory hand (random play rarely reaches the hand limit), and `choice-odysseus`, a
+scripted run (random play never accepts a hero).
 
 In `npm start` windows a small menu at the top right picks a scene and fixture. To start directly:
 
@@ -132,8 +144,8 @@ File names follow the art pipeline (`notes/T-03_ART_PIPELINE.md`) and the audio 
 `SOUL-MOTHER` and `CHAR-CERBERUS` load `art/sprite-mother.png` and `art/sprite-cerberus.png`,
 `MEM-MOLY` loads `art/memory-moly.png`, `DEST-STYX` loads `backgrounds/bg-styx.png`. A file named
 exactly after the id wins; names that do not follow the pattern go in `ALIASES` in
-`src/asset-names.js` (the five Polong variants wait there for the team to match them to the
-`sprite-long-*` art). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
+`src/asset-names.js` (for example `SOUL-PO-LUEM` loads `art/sprite-long-hollow.png`, shown as Long
+Hollow). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
 `node tools/check-art.mjs` tests these rules and lists which engine ids still show an emblem.
 
 ## Title screen and save

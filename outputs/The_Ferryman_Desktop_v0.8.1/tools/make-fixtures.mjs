@@ -19,7 +19,10 @@ const WANTED = {
   fork: (s) => s.phase === 'window' && s.window.kind === 'outward' && s.travelPrepared,
   review: (s) => s.phase === 'review' && s.window.kind === 'outward',
   delivery: (s) => s.phase === 'delivery',
+  'delivery-match': (s) => s.phase === 'delivery' && s.boat.length >= 2 && s.boat.some((x) => Ferry.wish(x) !== s.destination)
+    && s.boat.some((x) => !Ferry.deliveryReason(s, x) && Ferry.data.souls.find((d) => d.id === x.type).memory),
   choice: (s) => s.phase === 'choice',
+  'choice-odysseus': (s) => s.phase === 'choice' && s.choice.kind === 'odysseus',
   trim: (s) => s.phase === 'trim',
   return: (s) => s.phase === 'window' && s.window.kind === 'return',
   'review-return': (s) => s.phase === 'review' && s.window.kind === 'return',
@@ -102,6 +105,29 @@ if (!found.trim && found.window) {
   s.trimNext = 'same-window';
   found.trim = { seed: found.window.seed, step: 'synthetic', state: s };
 }
+
+// The random policy never accepts a hero, so Odysseus's choice is scripted: he sails alone and
+// the boat takes his wish at the first fork that offers it. After CHOOSE the boat is empty.
+function odysseusChoice() {
+  for (let seed = 1; seed <= 400; seed++) {
+    let s = Ferry.create(seed);
+    if (s.heroOffer?.type !== 'SOUL-ODYSSEUS') continue;
+    s = Ferry.transition(s, { type: 'ACCEPT_HERO' });
+    s = Ferry.transition(s, { type: 'DEPART' });
+    for (let step = 0; step < 40 && !['choice', 'ended'].includes(s.phase); step++) {
+      if (s.phase === 'delivery') s = Ferry.transition(s, { type: 'DELIVER', ids: [] });
+      else if (s.phase === 'review') s = Ferry.transition(s, { type: 'CONFIRM' });
+      else if (!s.travelPrepared) s = Ferry.transition(s, { type: 'START_CROSSING' });
+      else {
+        const option = Math.max(0, s.routes.offers[0].indexOf(Ferry.wish(s.boat[0])));
+        s = Ferry.transition(s, { type: 'PLAN', action: { type: 'CROSS', option } });
+      }
+    }
+    if (s.phase === 'choice') return { seed, step: 'scripted', state: s };
+  }
+  return null;
+}
+if (!found['choice-odysseus']) found['choice-odysseus'] = odysseusChoice();
 
 for (const n of names) {
   if (!found[n]) {

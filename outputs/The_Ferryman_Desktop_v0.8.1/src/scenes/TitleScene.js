@@ -10,7 +10,7 @@ const FONT = 'sans-serif';
 const GOLD = '#edc47f';
 const MAX_SEED = 4294967295;
 const FADE_MS = 300;
-const MENU_MUSIC = ['bgm-menu', 'menu-bgm']; // T-07 names the file bgm-menu; BootScene queues menu-bgm
+const MENU_MUSIC = ['bgm-menu']; // the T-07 id; BootScene queues the same one
 
 const randomSeed = () => crypto.getRandomValues(new Uint32Array(1))[0];
 
@@ -31,6 +31,7 @@ export class TitleScene extends Phaser.Scene {
     this.seedText = '';
     this.editingSeed = false;
     this.leaving = false;
+    this.handledKeys = new WeakSet();
     console.log(`[ferry] TitleScene shown (save: ${this.save.state ? 'found' : this.save.broken ? 'unreadable' : 'none'})`);
 
     this.drawBackdrop(width, height);
@@ -112,9 +113,10 @@ export class TitleScene extends Phaser.Scene {
   }
 
   onKey(e) {
-    // Phaser 4.2.1 can hand the same keydown event over twice (same object, same timeStamp).
-    if (e === this.lastKey) return;
-    this.lastKey = e;
+    // Phaser 4.2.1 can hand the same keydown event over more than once, and when several keys arrive
+    // in one frame it replays earlier ones after later ones. Each event object is handled once.
+    if (this.handledKeys.has(e)) return;
+    this.handledKeys.add(e);
     if (this.dialog) {
       if (e.key === 'Escape') this.closeDialog();
       return;

@@ -1,8 +1,8 @@
-# The Ferryman 0.7-trial
+# The Ferryman 0.8-t45
 
-Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
+Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `a5a686c5a5cb4803b167dd89d8ec67e5828ed2dfec17fc26a50f68d00b71cbc3`.
+Generated from content.json. SHA-256: `2c13c429efac5f36ab5f1205a5391bbd33f37035e3a7a01fcab97f838bca25e6`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -16,35 +16,35 @@ Arrival pool: Poet, Keeper, Red Soldier, Blue Soldier, Messenger, Bard, Listener
 
 ## Active baseline souls
 
-| ID | Name | Seats | Wish | Memory |
-|---|---|---:|---|---|
-| SOUL-MOTHER | Mother | 1 | Tartarus | Light |
-| SOUL-CHILD | Child | 1 | Heaven | None |
-| SOUL-MERCHANT | Merchant | 1 | River Styx | Foresight |
-| SOUL-POET | Poet | 1 | Elysium | Foresight |
-| SOUL-COOK | Cook | 1 | Asphodel | Calm |
-| SOUL-MASON | Mason | 1 | Acheron | Fog Shield |
-| SOUL-KEEPER | Keeper | 1 | Asphodel | Fog Shield |
-| SOUL-POLONG | PoLong | 0 | Tartarus | None |
-| SOUL-RED-SOLDIER | Red Soldier | 1 | River Styx | Full Fog Protection |
-| SOUL-BLUE-SOLDIER | Blue Soldier | 1 | River Styx | Full Fog Protection |
-| SOUL-MESSENGER | Messenger | 1 | River Styx | Foresight |
-| SOUL-MUSICIAN | Bard | 1 | Elysium | Calm |
-| SOUL-LISTENER | Listener | 1 | Elysium | None |
-| SOUL-FARMER | Farmer | 1 | Asphodel | Shared Harvest |
-| SOUL-BLACKSMITH | Blacksmith | 1 | Heaven | None |
-| SOUL-PRIEST | Priest | 1 | Heaven | Last Prayer |
-| SOUL-PO-LUEM | Po Luem | 0 | Asphodel | None |
-| SOUL-PO-NAK | Po Nak | 0 | Acheron | None |
-| SOUL-PO-MUED | Po Mued | 0 | River Styx | None |
-| SOUL-PO-DUE | Po Due | 0 | Haven | None |
-| SOUL-HERACLES | Hercules the traveler | 1 | Haven | None |
-| SOUL-ODYSSEUS | Odysseus the traveler | 1 | Haven | None |
-| CHAR-CERBERUS | Cerberus | 1 | Haven | None |
+| ID | Name | Personal name | Seats | Wish | Memory |
+|---|---|---|---:|---|---|
+| SOUL-MOTHER | Mother | Penelope | 1 | Tartarus | Light |
+| SOUL-CHILD | Child | Theo | 1 | Haven | None |
+| SOUL-MERCHANT | Merchant | Hermon | 1 | River Styx | Foresight |
+| SOUL-POET | Poet | Sappho | 1 | Elysium | Foresight |
+| SOUL-COOK | Cook | Sikon | 1 | Asphodel | Calm |
+| SOUL-MASON | Mason | Petros | 1 | Acheron | Fog Shield |
+| SOUL-KEEPER | Keeper | Hero | 1 | Asphodel | Fog Shield |
+| SOUL-POLONG | Long Mist |  | 0 | Tartarus | None |
+| SOUL-RED-SOLDIER | Red Soldier | Phoenix | 1 | River Styx | Full Fog Protection |
+| SOUL-BLUE-SOLDIER | Blue Soldier | Glaukos | 1 | River Styx | Full Fog Protection |
+| SOUL-MESSENGER | Messenger | Nikos | 1 | River Styx | Foresight |
+| SOUL-MUSICIAN | Bard | Homer | 1 | Elysium | Calm |
+| SOUL-LISTENER | Listener | Echo | 1 | Elysium | None |
+| SOUL-FARMER | Farmer | Georgios | 1 | Asphodel | Shared Harvest |
+| SOUL-BLACKSMITH | Blacksmith | Chalkon | 1 | Acheron | None |
+| SOUL-PRIEST | Priest | Elias | 1 | Haven | Last Prayer |
+| SOUL-PO-LUEM | Long Hollow |  | 0 | Asphodel | None |
+| SOUL-PO-NAK | Long Burden |  | 0 | Acheron | None |
+| SOUL-PO-MUED | Long Veil |  | 0 | River Styx | None |
+| SOUL-PO-DUE | Long Grasp |  | 0 | Haven | None |
+| SOUL-HERACLES | Hercules the traveler |  | 1 | Haven | None |
+| SOUL-ODYSSEUS | Odysseus the traveler |  | 1 | Haven | None |
+| CHAR-CERBERUS | Cerberus |  | 1 | Haven | None |
 
 ## scope
 
-Quest prototype: eight quests and five Polong variants. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
+Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
 ## objective
 
@@ -52,7 +52,7 @@ Keep the lantern burning through repeated trips. Zero Light ends the run. This t
 
 ## boarding
 
-Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Polong is shown before departure.
+Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
 
 ## memories
 
@@ -64,11 +64,11 @@ All eight quests are active. Pair attempts bind to characters that depart togeth
 
 ## routes
 
-All seven destinations are open for this trial. Heaven is separate, with base fog 2. Hero wishes draw from the six older destinations. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
+All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
 
 ## polongs
 
-Every third outward round brings the shown Polong unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five variants, concealment, Restless River, memory theft, overload, refusal and spread.
+Every third outward round brings the shown Long unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.
 
 ## effects
 
@@ -80,34 +80,34 @@ Resolved ordinary characters return to the arrival pool when it empties, using t
 
 ## damage
 
-Fog protection does not prevent Wraith or toll damage. Original Po Long delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Polongs grant no Light or memory.
+Fog protection does not prevent Wraith or toll damage. Long Mist delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Longs grant no Light or memory.
 
 ## Memories
 
 - **Light:** Restore 1 Light, up to your current maximum.
 - **Foresight:** Reveal both options at the current fork and next two forks. Revealed options stay visible for this cycle.
 - **Guard:** Prevent the next 1 point of damage this outward round or return. Does not stack.
-- **Calm:** Reduce one active soul's current Shore or Ship Anger by 1, minimum 0. It may target PoLong. It cannot revive a removed soul.
+- **Calm:** Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected.
 - **Fog Shield:** Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.
 - **Passenger:** Deliver one eligible onboard passenger directly to its wish. No travel fog, route count or scheduled arrival; delivery restrictions and quest consequences still apply.
 - **Last Prayer:** Restore 1 Light up to your current maximum.
-- **Shared Harvest:** Reduce one active soul’s Anger by 1, minimum zero.
+- **Shared Harvest:** Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected.
 - **Full Fog Protection:** Prevent all fog on this crossing. Does not prevent Wraith damage.
 - **Sword:** Remove one tainted passenger. No reward, Wraith damage or spread.
-- **Soldiers’ Peace:** Reduce one active soul’s Anger by 3, minimum zero.
+- **Soldiers’ Peace:** Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected.
 - **Boat Space:** One extra seat until the next return. Does not stack.
 - **Golden Apple:** Increase maximum Light by 1 for this run and restore Light to that maximum.
-- **Moly of Hermes:** Prevent future scheduled Polong arrivals until the next return. Existing passengers remain.
+- **Moly of Hermes:** Prevent future scheduled Long arrivals until the next return. Existing passengers remain.
 - **Nobody:** Prevent all crossing fog until the next return. Other damage still applies.
 
 ## Outward round
 
 1. Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.
-2. Approach the fork: advance the outward round and board a scheduled Polong unless Moly suppresses it. Its level/effects apply immediately.
+2. Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.
 3. Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.
 4. Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.
-5. Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls. Blacksmith protects Merchant from Anger increases.
-6. Resolve Wraith damage, removals and eligible spread. Po Luem takes memories; choose excess memories to discard to three.
+5. Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls.
+6. Resolve Wraith damage, removals and eligible spread. Long Hollow takes memories; choose excess memories to discard to three.
 7. Begin the next memory window, or return if the boat is empty.
 
 ## Return
