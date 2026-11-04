@@ -8,7 +8,7 @@ import { boatZone } from '../src/scenes/boarding-layout.js';
 import { BANK, DOCK, boatSpots, stopScenery } from '../src/scenes/delivery-layout.js';
 import {
   abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath, crossingStep,
-  homeView, onScreen, placeName, purifyAction, soulDetail, worldLayout,
+  homeView, onScreen, placeName, purifyAction, soulDetail, typeDetail, worldLayout,
 } from '../src/scenes/crossing-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -169,6 +169,15 @@ check('a soul hover names it with its personal name', cookDetail.title.startsWit
 check('a soul hover shows its wish, Anger, memory and quest', ['Wish:', 'Anger', 'Gives', 'A shared meal:'].every((k) => cookDetail.lines.some((l) => l.startsWith(k))));
 const longDetail = soulDetail(withLong, longAboard, Ferry, t);
 check('a Long hover shows its level and its text', longDetail.lines.includes(`Level ${longAboard.level}`) && longDetail.lines.includes(Ferry.data.souls.find((s) => s.id === longAboard.type).text));
+// Shore hovers (BoardingScene): what each kind of soul does, before it boards.
+const questLine = (id) => Ferry.data.quests.find((q) => q.id === id);
+const motherLines = typeDetail('SOUL-MOTHER', Ferry, t);
+check('a shore hover names a quest and its partner', motherLines.includes(t('crossing.detailQuestWith', { name: questLine('QUEST-FAMILY').name, partners: 'Child', description: questLine('QUEST-FAMILY').description })));
+check('the Merchant hover lists both of its quests and the depart rule', ['QUEST-SWORD', 'QUEST-BOAT'].every((id) => typeDetail('SOUL-MERCHANT', Ferry, t).some((l) => l.startsWith(questLine(id).name + ' (with'))) && typeDetail('SOUL-MERCHANT', Ferry, t).includes(t('crossing.detailTrio')));
+check('the Priest hover says he can purify', typeDetail('SOUL-PRIEST', Ferry, t).includes(t('crossing.detailPurify')));
+check('a hero hover shows its quest without partners', typeDetail('SOUL-HERACLES', Ferry, t).includes(t('crossing.detailQuest', { name: questLine('QUEST-HERACLES').name, description: questLine('QUEST-HERACLES').description })));
+check('an active quest is listed once, not again as a possible one', cookDetail.lines.filter((l) => l.startsWith(questLine('QUEST-MEAL').name)).length === 1);
+check('every soul type has some detail beyond its memory line', Ferry.data.souls.every((d) => typeDetail(d.id, Ferry, t).length >= 1));
 check('the meal hover is the quest description from the data', buttonDetail('meal', prep, Ferry, t) === Ferry.data.quests.find((q) => q.id === 'QUEST-MEAL').description);
 check('the approach hover warns while something would be lost', buttonDetail('approach', prep, Ferry, t) === t('crossing.approachWarningAbilities'));
 check('otherwise the approach hover explains it', buttonDetail('approach', windowState, Ferry, t) === t('crossing.approachDetail'));
