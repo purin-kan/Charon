@@ -1,6 +1,6 @@
 {
   "version": "0.8-t45b",
-  "contentSha256": "093c65f6efa1f1cc371284a6c6f21d8b8e55a8f5942a23e0117641f3bc231fe8",
+  "contentSha256": "ac7ce727737f4f2bbd540b52590694014d369790577d651b7bfb3d1684776d1c",
   "trial": {
     "stage": "All-quest local trial",
     "notice": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
@@ -28,7 +28,7 @@
     "returnLight": 1,
     "wraithDamage": 1,
     "foresightForks": 3,
-    "memoriesPerWindow": null,
+    "memoriesPerStop": 1,
     "endless": true,
     "initialShore": [
       "SOUL-MOTHER",
@@ -54,7 +54,7 @@
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
     "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
-    "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
+    "memories": "One memory during boarding, one per stop and one on the return trip. A stop runs from arriving at a destination (delivery) through the next memory window, fork and review. Boat Space is played only during boarding. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
     "polongs": "Every third outward round brings the shown Long unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
@@ -63,7 +63,7 @@
     "damage": "Fog protection does not prevent Wraith or toll damage. Long Mist delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Longs grant no Light or memory."
   },
   "roundSteps": [
-    "Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
+    "Play up to one memory per stop, at any point of it: the delivery that starts it, this memory window, the fork or the review. Excess rewards cannot be played before trimming.",
     "Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.",
     "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
     "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
@@ -72,7 +72,7 @@
     "Begin the next memory window, or return if the boat is empty."
   ],
   "returnSteps": [
-    "With an empty boat, play held memories if desired.",
+    "With an empty boat, play up to one held memory if desired.",
     "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
     "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ]

@@ -56,7 +56,7 @@
     const s={format:'the-ferryman-save',version:data.version,schemaVersion:data.schemaVersion,seed,rng:seed,
       phase:'boarding',paused:false,light:C.startLight,maxLight:C.maxLight,round:'0',cycle:'1',completed:'0',deliveries:'0',
       nextActor:'1',nextBoarding:'1',nextMemory:'1',nextQuest:'1',encounters:'0',shore:[],boat:[],arrivals:[],discard:[],selected:[],hand:[],quests:[],
-      effects:{capacity:false,moly:false,nobody:false},window:windowState('outward'),travelPrepared:false,
+      effects:{capacity:false,moly:false,nobody:false},window:windowState('outward'),memoryUses:0,travelPrepared:false,
       routes:{offers:[],masks:[],foresight:0,history:[]},nextPolong:null,heroOffer:null,destination:null,
       pending:null,choice:null,theftQueue:[],trimNext:null,ending:null,log:[]};
     s.shore=C.initialShore.map(type=>fresh(s,type));s.arrivals=shuffle(s,C.initialArrivals);s.nextPolong=drawPolong(s);deal(s);offerHero(s);
@@ -166,7 +166,7 @@
     preview(s,option);const pair=s.routes.offers[0],destination=pair[option];s.destination=destination;
     const calculation=fog(s,destination);s.routes.history.push({offer:pair.slice(),chosen:destination});s.routes.offers.shift();s.routes.masks.shift();s.routes.foresight=Math.max(0,s.routes.foresight-1);
     damage(s,calculation.fog,'crossing to '+DEST[destination].name);
-    if(s.phase==='ended')return;s.phase='delivery';deal(s);heroicArrival(s);
+    if(s.phase==='ended')return;s.memoryUses=0;s.phase='delivery';deal(s);heroicArrival(s);
   }
   function deliveryReason(s,x,via='normal') {
     if(!s.boat.some(a=>a.id===x.id))return 'Not aboard.';
@@ -200,13 +200,11 @@
     deliveredQuests(s,x);
     if(x.origin&&!isTainted(x))s.deliveries=inc(s.deliveries);
     const memory=SOUL[x.type].memory;
-    const fed=x.type==='SOUL-FARMER'&&s.quests.some(q=>q.definitionId==='QUEST-MEAL'&&q.status==='completed'&&q.participants.includes(x.id));
-    if(fed)record(s,named(x)+' shared his harvest in the meal and gives no memory.');
-    else if(memory&&!(x.type==='SOUL-PRIEST'&&x.exhausted))grant(s,memory,'character',x.type,x.id);
+    if(memory&&!(x.type==='SOUL-PRIEST'&&x.exhausted))grant(s,memory,'character',x.type,x.id);
     if(x.type==='SOUL-POLONG'&&!x.spread&&via==='normal'&&s.destination==='DEST-TARTARUS'){s.light=Math.min(s.maxLight,s.light+1);record(s,'Po Long pays the fare: +1 Light.');}
     remove(s,x,'delivery');record(s,named(x)+' reached '+DEST[x.wish].name+'.');
   }
-  function nextWindow(s) {s.phase='window';s.travelPrepared=false;s.window=windowState(s.boat.length?'outward':'return');s.trimNext=null;s.theftQueue=[];deal(s);}
+  function nextWindow(s) {s.phase='window';s.travelPrepared=false;s.window=windowState(s.boat.length?'outward':'return');if(!s.boat.length)s.memoryUses=0;s.trimNext=null;s.theftQueue=[];deal(s);}
   function finishRound(s) {if(s.hand.length>C.handLimit){s.phase='trim';s.trimNext='new-window';}else nextWindow(s);}
   function thefts(s) {
     while(s.theftQueue.length){const id=s.theftQueue.shift(),x=s.boat.find(a=>a.id===id);if(!x||!s.hand.length)continue;
@@ -251,15 +249,16 @@
     return null;
   }
   function memoryReady(s,id,target) {
-    need((s.phase==='window'&&!s.travelPrepared)||s.phase==='boarding','Use memories before approaching a fork or returning.');
+    need(['boarding','window','review','delivery'].includes(s.phase),'Memories are played during boarding, a stop or the return trip.');
     need(s.hand.length<=C.handLimit,'Excess rewards cannot be played before hand trimming.');
+    need(C.memoriesPerStop==null||s.memoryUses<C.memoriesPerStop,s.phase==='boarding'?'Only one memory during boarding.':s.window.kind==='return'?'Only one memory on the return trip.':'Only one memory per stop.');
     const held=s.hand.find(m=>m.id===id);need(held,'Choose a held memory.');
-    need(s.phase!=='boarding'||MEM[held.type].kind==='capacity','Only Boat Space is used during boarding.');
+    need(MEM[held.type].kind!=='capacity'||s.phase==='boarding','Boat Space is only played during boarding.');
     const targets=memoryTargets(s,held.type);
     need(targets?targets.some(x=>x.id===target):target==null,'Choose an eligible memory target.');return held;
   }
   function playMemory(s,id,target) {
-    const held=memoryReady(s,id,target),m=MEM[held.type];s.hand=s.hand.filter(x=>x.id!==id);s.window.uses++;
+    const held=memoryReady(s,id,target),m=MEM[held.type];s.hand=s.hand.filter(x=>x.id!==id);s.window.uses++;s.memoryUses++;
     record(s,'Played '+m.name+'.');
     if(m.kind==='light')s.light=Math.min(s.maxLight,s.light+m.amount);
     if(m.kind==='guard')s.window.guard=1;
@@ -272,12 +271,12 @@
     if(m.kind==='sword')remove(s,s.boat.find(x=>x.id===target),'Sword');
     if(m.kind==='passage')deliver(s,s.boat.find(x=>x.id===target),'passage');
     if(s.phase==='ended')return;
-    if(s.phase!=='boarding'&&!s.boat.length){s.window.kind='return';if(s.hand.length>C.handLimit){s.phase='trim';s.trimNext='same-window';}}
+    if(s.phase!=='boarding'&&!s.boat.length){if(s.phase==='window'&&s.window.kind!=='return')s.memoryUses=0;s.window.kind='return';if(s.hand.length>C.handLimit){s.phase='trim';s.trimNext='same-window';}}
   }
   function meal(s,questId) {
     need(s.phase==='window'&&!s.travelPrepared&&s.window.kind==='outward','Prepare meals before travel.');
     const q=activeQuests(s).find(q=>q.id===questId&&q.definitionId==='QUEST-MEAL');need(q&&participant(s,q,'SOUL-FARMER')&&participant(s,q,'SOUL-COOK'),'No unused shared meal is available.');
-    const cook=participant(s,q,'SOUL-COOK');for(const x of s.boat)if(x!==cook)x.anger=Math.max(0,x.anger-1);cook.anger+=2;complete(s,q);record(s,'Everyone else eats; the Cook does not eat and gains two stress Anger.');expire(s);
+    const cook=participant(s,q,'SOUL-COOK');for(const x of s.boat)if(x!==cook)x.anger=Math.max(0,x.anger-1);cook.anger+=2;complete(s,q);record(s,'Everyone eats; Cook is stressed and gains two Anger.');expire(s);
     if(s.phase!=='ended'&&!s.boat.length)s.window.kind='return';
   }
   function purify(s,actorId,target) {
@@ -293,7 +292,7 @@
     s.effects={capacity:false,moly:false,nobody:false};
     while(s.shore.length<C.shoreTarget){if(!s.arrivals.length){s.arrivals=shuffle(s,s.discard);s.discard=[];}if(!s.arrivals.length)break;s.shore.push(fresh(s,s.arrivals.shift()));}
     for(const q of activeQuests(s))fail(s,q,'trip ended before completion');
-    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +1 Light. Cycle '+s.cycle+'.');
+    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.window=windowState('outward');s.memoryUses=0;s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +1 Light. Cycle '+s.cycle+'.');
   }
   function transition(input,a) {
     validate(input);need(a&&typeof a.type==='string','Choose an action.');const s=clone(input);
@@ -310,7 +309,7 @@
       need(s.phase==='boarding'&&(s.selected.length||s.boat.length),'Select passengers before departure.');
       const all=passengers(s);need(!['SOUL-MERCHANT','SOUL-BLACKSMITH','SOUL-MASON'].every(type=>all.some(x=>x.type===type)),'Merchant cannot depart with both Blacksmith and Mason.');
       s.boat=all.map(x=>({...x,anger:0,boardingId:s.nextBoarding,exhausted:false}));s.nextBoarding=inc(s.nextBoarding);s.shore=s.shore.filter(x=>!s.selected.includes(x.id));s.selected=[];
-      if(s.heroOffer)s.heroOffer.resolved=true;s.phase='window';startPairs(s);
+      if(s.heroOffer)s.heroOffer.resolved=true;s.memoryUses=0;s.phase='window';startPairs(s);
     }else if(a.type==='START_CROSSING')startCrossing(s);
     else if(a.type==='PLAY_MEMORY')playMemory(s,a.id,a.target);
     else if(a.type==='MEAL')meal(s,a.questId);
@@ -340,7 +339,7 @@
     need(BigInt(s.cycle)===BigInt(s.completed)+1n&&['nextActor','nextBoarding','nextMemory','nextQuest'].every(k=>BigInt(s[k])>0n),'Invalid counter relationship.');
     for(const k of ['shore','boat','arrivals','discard','selected','hand','quests','theftQueue'])need(Array.isArray(s[k]),'Invalid '+k);
     need(s.effects&&['capacity','moly','nobody'].every(k=>typeof s.effects[k]==='boolean'),'Invalid effects.');
-    need(s.window&&['outward','return'].includes(s.window.kind)&&int(s.window.uses)&&int(s.window.guard,0,1)&&int(s.window.shield)&&typeof s.window.allFog==='boolean','Invalid memory window.');
+    need(int(s.memoryUses)&&s.window&&['outward','return'].includes(s.window.kind)&&int(s.window.uses)&&int(s.window.guard,0,1)&&int(s.window.shield)&&typeof s.window.allFog==='boolean','Invalid memory window.');
     const actors=[...s.shore,...s.boat],ids=actors.map(x=>x?.id),origins=[...s.arrivals,...s.discard];
     const validId=(id,prefix,counter)=>typeof id==='string'&&id.startsWith(prefix)&&decimal(id.slice(prefix.length))&&BigInt(id.slice(prefix.length))>0n&&BigInt(id.slice(prefix.length))<BigInt(counter);
     need(unique(ids),'Duplicate actor identity.');

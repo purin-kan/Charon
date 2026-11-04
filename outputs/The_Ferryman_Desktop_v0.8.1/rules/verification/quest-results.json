@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45b",
-  "passed": 25,
+  "passed": 24,
   "failed": 0,
   "hashes": {
-    "engine.js": "72429dc9b752476855d94a9d699c99785e2bff35b76ddf3c1cb21cbf0df0665f",
-    "content.json": "093c65f6efa1f1cc371284a6c6f21d8b8e55a8f5942a23e0117641f3bc231fe8",
-    "tests/quest-check.js": "f1b5caf58c9304d5cd629b556b803133934c8a809214bbf8be4e6a20924a03d2"
+    "engine.js": "455a7d0e996ba8eead7aa24539528c81dd29393e27a9a3a7421e5f4a405d43fb",
+    "content.json": "ac7ce727737f4f2bbd540b52590694014d369790577d651b7bfb3d1684776d1c",
+    "tests/quest-check.js": "2cb5d889f159a50a1f3eb4a34fd7f0b6b5ec8b4da9ff7298e87277d69d8ec62f"
   },
   "records": [
     {
@@ -29,11 +29,7 @@
       "status": "PASS"
     },
     {
-      "name": "Meal is once per shared boarding: every other soul -1 (Longs included), Cook does not eat and gains +2, and can expire Cook",
-      "status": "PASS"
-    },
-    {
-      "name": "Farmer gives Calm when he gets off, but no memory if he shared the meal",
+      "name": "Meal is once per shared boarding; others and Longs -1, Cook does not eat and gains 2, can expire Cook; Farmer gives Calm",
       "status": "PASS"
     },
     {
@@ -61,7 +57,7 @@
       "status": "PASS"
     },
     {
-      "name": "Unlimited memories, overflow cannot be spent, full fog does not block Wraiths",
+      "name": "One memory per stop, any time in it; one at boarding (Boat Space only there) and one on the return trip",
       "status": "PASS"
     },
     {
@@ -108,8 +104,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2531,
-      "choices": 27,
+      "transitions": 2465,
+      "choices": 26,
       "humanPlaytest": false
     }
   ],

@@ -64,16 +64,11 @@ check('Listener transforms on third shared crossing, keeps origin and coexists w
  s=step(s,'DEST-HAVEN');s=step(s,'DEST-HAVEN');assert.ok(find(s,'SOUL-LISTENER'));
  s=step(s,'DEST-HAVEN');assert.equal(s.boat.filter(x=>x.type==='SOUL-POET').length,2);const x=s.boat.find(x=>x.id===listener);assert.equal(x.origin,'SOUL-LISTENER');assert.equal(x.anger,3);assert.equal(quest(s,'QUEST-LISTENER').status,'completed');rt(s);
 });
-check('Meal is once per shared boarding: every other soul -1 (Longs included), Cook does not eat and gains +2, and can expire Cook',()=>{
- let s=boat(['SOUL-FARMER','SOUL-COOK']);find(s,'SOUL-COOK').anger=2;find(s,'SOUL-FARMER').anger=2;const long=polong(s,'SOUL-POLONG',1,2);
- const q=quest(s,'QUEST-MEAL');s=act(s,'MEAL',{questId:q.id});assert.equal(find(s,'SOUL-COOK').anger,4);assert.equal(find(s,'SOUL-FARMER').anger,1);assert.equal(s.boat.find(x=>x.id===long.id).anger,1);assert.throws(()=>act(s,'MEAL',{questId:q.id}));
- let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=g.data.config.shipAngerLimit-2;/* the Cook gains +2 and reaches the limit */const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
-});
-check('Farmer gives Calm when he gets off, but no memory if he shared the meal',()=>{
+check('Meal is once per shared boarding; others and Longs -1, Cook does not eat and gains 2, can expire Cook; Farmer gives Calm',()=>{
+ let s=boat(['SOUL-FARMER','SOUL-COOK']);const p=polong(s,'SOUL-POLONG',1,2);find(s,'SOUL-COOK').anger=1;find(s,'SOUL-FARMER').anger=2;
+ const q=quest(s,'QUEST-MEAL');s=act(s,'MEAL',{questId:q.id});assert.equal(find(s,'SOUL-COOK').anger,3);assert.equal(find(s,'SOUL-FARMER').anger,1);assert.equal(s.boat.find(x=>x.id===p.id).anger,1);assert.throws(()=>act(s,'MEAL',{questId:q.id}));
  assert.equal(def('SOUL-FARMER').memory,'MEM-CALM');assert.ok(!g.data.memories.some(m=>m.id==='MEM-SHARED-HARVEST'));
- let plain=boat(['SOUL-FARMER','SOUL-COOK']);plain=step(plain,'DEST-ASPHODEL',['SOUL-FARMER']);assert.ok(plain.hand.some(m=>m.type==='MEM-CALM'&&m.sourceRef.definitionId==='SOUL-FARMER'));
- let fed=boat(['SOUL-FARMER','SOUL-COOK']);fed=act(fed,'MEAL',{questId:quest(fed,'QUEST-MEAL').id});const hand=fed.hand.length;
- fed=step(fed,'DEST-ASPHODEL',['SOUL-FARMER']);assert.ok(!find(fed,'SOUL-FARMER'));assert.equal(fed.hand.length,hand);assert.ok(!fed.hand.some(m=>m.sourceRef.definitionId==='SOUL-FARMER'));rt(fed);
+ let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=g.data.config.shipAngerLimit-2;/* the meal gives the Cook +2 */const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
 });
 check('Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith',()=>{
  let s=boat(['SOUL-MERCHANT','SOUL-BLACKSMITH']);s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-MERCHANT').anger,1);assert.equal(find(s,'SOUL-BLACKSMITH').anger,1);
@@ -106,6 +101,7 @@ check('Heracles toll, Cerberus encounter, shared second-stage wish and Golden Ap
  assert.match(g.deliveryReason(s,find(s,'SOUL-HERACLES'),'passage'),/later/);s=act(s,'DELIVER',{ids:[]});
  const wish=find(s,'SOUL-HERACLES').wish;assert.equal(find(s,'CHAR-CERBERUS').wish,wish);s=step(s,wish,['SOUL-HERACLES','CHAR-CERBERUS']);
  assert.equal(quest(s,'QUEST-HERACLES').status,'completed');const apple=s.hand.find(m=>m.type==='MEM-GOLDEN-APPLE');const old=s.maxLight;s=act(s,'PLAY_MEMORY',{id:apple.id});assert.equal(s.maxLight,old+1);assert.equal(s.light,s.maxLight);
+ s.memoryUses=0;// next stop
  memory(s,'MEM-GOLDEN-APPLE');s=act(s,'PLAY_MEMORY',{id:s.hand.at(-1).id});assert.equal(s.maxLight,old+2);rt(s);
 });
 check('Odysseus branches commit once, preserve pending choice on load, handle empty hand/boat',()=>{
@@ -118,10 +114,22 @@ check('Sword removal has no expiry damage, spread, memory or fare reward',()=>{
  let s=boat(['SOUL-COOK']);const p=polong(s,'SOUL-POLONG',5,3);const id=memory(s,'MEM-LAST-MASTERWORK');const before=s.light;
  s=act(s,'PLAY_MEMORY',{id,target:p.id});assert.equal(s.light,before);assert.equal(s.boat.length,1);assert.equal(s.hand.length,0);assert.equal(s.boat[0].type,'SOUL-COOK');
 });
-check('Unlimited memories, overflow cannot be spent, full fog does not block Wraiths',()=>{
+check('One memory per stop, any time in it; one at boarding (Boat Space only there) and one on the return trip',()=>{
  let s=boat(['SOUL-MOTHER','SOUL-COOK']);s.light=5;const a=memory(s,'MEM-LIGHT','SOUL-MOTHER'),b=memory(s,'MEM-LIGHT','SOUL-MOTHER');
- s=act(s,'PLAY_MEMORY',{id:a});s=act(s,'PLAY_MEMORY',{id:b});assert.equal(s.window.uses,2);assert.equal(s.light,7);
- for(let i=0;i<4;i++)memory(s,'MEM-LIGHT','SOUL-MOTHER');assert.throws(()=>act(s,'PLAY_MEMORY',{id:s.hand[0].id}),/Excess/);rt(s);
+ s=act(s,'PLAY_MEMORY',{id:a});assert.throws(()=>act(s,'PLAY_MEMORY',{id:b}),/one memory per stop/);assert.equal(s.light,6);
+ // A stop starts on arrival: a delivery memory shares the slot with the next window, fork and review.
+ s=cross(s,'DEST-HAVEN');assert.equal(s.phase,'delivery');assert.equal(s.memoryUses,0);s=act(s,'PLAY_MEMORY',{id:b});assert.equal(s.light,7);
+ s=act(s,'DELIVER',{ids:[]});const c=memory(s,'MEM-LIGHT','SOUL-MOTHER');assert.throws(()=>act(s,'PLAY_MEMORY',{id:c}),/one memory per stop/);
+ s=act(s,'START_CROSSING');assert.throws(()=>act(s,'PLAY_MEMORY',{id:c}),/one memory per stop/);rt(s);
+ // Fork and review are part of the stop when nothing was played yet.
+ let f=boat(['SOUL-MOTHER','SOUL-COOK']);f.light=5;const fm=memory(f,'MEM-LIGHT','SOUL-MOTHER');f=act(f,'START_CROSSING');f=route(f,'DEST-HAVEN');f=act(f,'PLAN',{action:{type:'CROSS',option:0}});assert.equal(f.phase,'review');f=act(f,'PLAY_MEMORY',{id:fm});assert.equal(f.light,6);
+ // Return trip: its own one memory.
+ let back=boat(['SOUL-MOTHER']);const r1=memory(back,'MEM-LIGHT','SOUL-MOTHER'),r2=memory(back,'MEM-LIGHT','SOUL-MOTHER'),r3=memory(back,'MEM-LIGHT','SOUL-MOTHER');back.light=3;back=act(back,'PLAY_MEMORY',{id:r1});back=step(back,'DEST-TARTARUS',['SOUL-MOTHER']);
+ assert.equal(back.window.kind,'return');assert.equal(back.memoryUses,0);back=act(back,'PLAY_MEMORY',{id:r2});assert.throws(()=>act(back,'PLAY_MEMORY',{id:r3}),/return trip/);rt(back);
+ // Boarding: one memory, and Boat Space only there.
+ let board=shore(['SOUL-MOTHER']);const d=memory(board,'MEM-LIGHT','SOUL-MOTHER'),e=memory(board,'MEM-LIGHT','SOUL-MOTHER');board.light=3;board=act(board,'PLAY_MEMORY',{id:d});assert.throws(()=>act(board,'PLAY_MEMORY',{id:e}),/during boarding/);
+ let space=boat(['SOUL-COOK']);const bs=memory(space,'MEM-BOAT-SPACE');assert.throws(()=>act(space,'PLAY_MEMORY',{id:bs}),/only played during boarding/);
+ let over=boat(['SOUL-MOTHER','SOUL-COOK']);for(let i=0;i<4;i++)memory(over,'MEM-LIGHT','SOUL-MOTHER');assert.throws(()=>act(over,'PLAY_MEMORY',{id:over.hand[0].id}),/Excess/);rt(over);
  let fog=boat(['SOUL-RED-SOLDIER']);const id=memory(fog,'MEM-ALL-FOG','SOUL-RED-SOLDIER');find(fog,'SOUL-RED-SOLDIER').anger=g.data.config.shipAngerLimit-1;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-TARTARUS');assert.equal(fog.light,before-1);
 });
 check('Moly suppresses scheduled arrivals without increasing level; Nobody blocks fog only',()=>{
@@ -164,6 +172,7 @@ check('Calm and Soldiers Peace lower every soul on the boat, not the shore, with
  let s=shore(['SOUL-MOTHER','SOUL-MUSICIAN','SOUL-COOK']);for(const t of ['SOUL-MOTHER','SOUL-MUSICIAN'])s=act(s,'BOARD',{id:find(s,t).id});s=act(s,'DEPART');s.effects.moly=true;polong(s,'SOUL-PO-DUE',1,2);const cook=find(s,'SOUL-COOK');for(const x of s.boat)x.anger=2;cook.anger=1;
  const calm=memory(s,'MEM-CALM','SOUL-MUSICIAN');assert.equal(g.memoryTargets(s,'MEM-CALM'),null);assert.throws(()=>act(s,'PLAY_MEMORY',{id:calm,target:s.boat[0].id}));
  s=act(s,'PLAY_MEMORY',{id:calm});assert.deepEqual(s.boat.map(x=>x.anger),[1,1,1]);assert.equal(s.shore.find(x=>x.id===cook.id).anger,1);
+ s.memoryUses=0;// next stop
  const peace=memory(s,'MEM-SOLDIER-PEACE');s=act(s,'PLAY_MEMORY',{id:peace});assert.ok(s.boat.every(x=>x.anger===0));assert.equal(s.shore.find(x=>x.id===cook.id).anger,1);rt(s);
 });
 check('Save validation rejects old versions, broken origins, duplicated IDs and wrong pending choices',()=>{
@@ -184,7 +193,7 @@ check('128 seeded all-system runs: deterministic replay, immutable transitions a
    else if(s.phase==='delivery')a={type:'DELIVER',ids:s.boat.filter(x=>!g.deliveryReason(s,x)).map(x=>x.id)};
    else if(s.window.kind==='return')a={type:'RETURN'};
    else if(!s.travelPrepared){
-    const m=s.hand.length<=3?s.hand.find(m=>{const ts=g.memoryTargets(s,m.type);return !ts||ts.length;}):null;
+    const m=s.hand.length<=3&&s.memoryUses<(g.data.config.memoriesPerStop??Infinity)?s.hand.find(m=>{const ts=g.memoryTargets(s,m.type);return !ts||ts.length;}):null;
     if(m){const ts=g.memoryTargets(s,m.type);a={type:'PLAY_MEMORY',id:m.id,target:ts?.[0].id};}
     else a={type:'START_CROSSING'};
    }else {const views=g.routeView(s)[0];const preferred=views.find(v=>v.destination&&s.boat.some(x=>x.wish===v.destination));a={type:'CROSS',option:preferred?.option??0};}
