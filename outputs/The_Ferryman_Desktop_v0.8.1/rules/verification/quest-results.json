@@ -3,9 +3,9 @@
   "passed": 24,
   "failed": 0,
   "hashes": {
-    "engine.js": "455a7d0e996ba8eead7aa24539528c81dd29393e27a9a3a7421e5f4a405d43fb",
-    "content.json": "ac7ce727737f4f2bbd540b52590694014d369790577d651b7bfb3d1684776d1c",
-    "tests/quest-check.js": "2cb5d889f159a50a1f3eb4a34fd7f0b6b5ec8b4da9ff7298e87277d69d8ec62f"
+    "engine.js": "44f66e1e66c2c7198b6c1d700083544cbcbd22ecd91e52ae0c5aea668f96ed06",
+    "content.json": "0f3b390ed02d3e33df91c00e25b6eeb4af972e3e652e368d7fa26e72372b4036",
+    "tests/quest-check.js": "b00f7bd0a049dfce0914a90dc29f0ebfcff65436cce337d14299df01ef67f213"
   },
   "records": [
     {
@@ -57,7 +57,7 @@
       "status": "PASS"
     },
     {
-      "name": "One memory per stop, any time in it; one at boarding (Boat Space only there) and one on the return trip",
+      "name": "Unlimited memories, overflow cannot be spent, full fog does not block Wraiths",
       "status": "PASS"
     },
     {
@@ -104,8 +104,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2465,
-      "choices": 26,
+      "transitions": 2531,
+      "choices": 27,
       "humanPlaytest": false
     }
   ],

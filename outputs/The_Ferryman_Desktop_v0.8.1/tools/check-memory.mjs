@@ -52,22 +52,17 @@ const light = byType(v, 'MEM-LIGHT');
 const afterLight = Ferry.transition(win, playAction(light));
 check(afterLight.hand.length === 2, 'play Light: no target needed');
 
-// 3. At the fork (after START_CROSSING) and 4. during boarding: each card is playable exactly when the
-// engine accepts it, and a refused card shows the engine's reason (the rules decide which moments allow memories).
-const agrees = (state, view) => view.cards.every((c) => {
-  const refusal = engineRefusal(state, c, c.needsTarget ? c.targets[0] : undefined);
-  return refusal === null ? c.playable : !c.playable && c.reason === refusal;
-});
+// 3. After START_CROSSING the hand is locked, with the engine's reason.
 const fork = Ferry.transition(win, { type: 'START_CROSSING' });
 v = memoryHand(fork, Ferry);
-check(agrees(fork, v), 'fork: playable and reasons match the engine', v.cards.map((c) => `${c.name}:${c.playable}`).join(' '));
-const forkUsed = Ferry.transition(fork, playAction(byType(v, 'MEM-LIGHT')));
-v = memoryHand(forkUsed, Ferry);
-check(agrees(forkUsed, v), 'fork after one play: playable and reasons match the engine', v.cards.map((c) => `${c.name}:${c.playable}`).join(' '));
+check(v.cards.every((c) => !c.playable) && !v.anyPlayable, 'fork: hand locked after approaching');
+check(v.note === engineRefusal(fork, byType(memoryHand(win, Ferry), 'MEM-LIGHT')), 'fork: engine reason shown', JSON.stringify(v.note));
 
+// 4. Boarding: Light is refused, with the engine's own reason.
 const board = withHand(fixture('boarding'), ['MEM-LIGHT']);
 v = memoryHand(board, Ferry);
-check(agrees(board, v), 'boarding: playable and reasons match the engine', JSON.stringify(v.cards[0].reason ?? 'playable'));
+const boardRefusal = engineRefusal(board, v.cards[0]);
+check(boardRefusal && !v.cards[0].playable && v.cards[0].reason === boardRefusal, 'boarding: Light refused with the engine reason', JSON.stringify(v.cards[0].reason));
 
 // 5. Return window: each card is playable exactly when the engine accepts it (the rules may forbid memories on the way back).
 const ret = withHand(fixture('return'), ['MEM-LIGHT', 'MEM-CALM']);

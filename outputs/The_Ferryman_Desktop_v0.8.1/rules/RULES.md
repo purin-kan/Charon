@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `ac7ce727737f4f2bbd540b52590694014d369790577d651b7bfb3d1684776d1c`.
+Generated from content.json. SHA-256: `0f3b390ed02d3e33df91c00e25b6eeb4af972e3e652e368d7fa26e72372b4036`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -56,7 +56,7 @@ Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacks
 
 ## memories
 
-One memory during boarding, one per stop and one on the return trip. A stop runs from arriving at a destination (delivery) through the next memory window, fork and review. Boat Space is played only during boarding. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
+No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
 
 ## quest
 
@@ -94,14 +94,14 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 - **Full Fog Protection:** Prevent all fog on this crossing. Does not prevent Wraith damage.
 - **Sword:** Remove one tainted passenger. No reward, Wraith damage or spread.
 - **Soldiers’ Peace:** Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected.
-- **Boat Space:** One extra seat until the next return. Played only during boarding, as that boarding's one memory. Does not stack.
+- **Boat Space:** One extra seat until the next return. Does not stack.
 - **Golden Apple:** Increase maximum Light by 1 for this run and restore Light to that maximum.
 - **Moly of Hermes:** Prevent future scheduled Long arrivals until the next return. Existing passengers remain.
 - **Nobody:** Prevent all crossing fog until the next return. Other damage still applies.
 
 ## Outward round
 
-1. Play up to one memory per stop, at any point of it: the delivery that starts it, this memory window, the fork or the review. Excess rewards cannot be played before trimming.
+1. Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.
 2. Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.
 3. Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.
 4. Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.
@@ -111,7 +111,7 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 
 ## Return
 
-1. With an empty boat, play up to one held memory if desired.
+1. With an empty boat, play held memories if desired.
 2. Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.
 3. If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
 
