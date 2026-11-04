@@ -85,7 +85,18 @@
     "concealedDestination": "Concealed destination",
     "concealedWarning": "The destination and its fog remain hidden until you confirm. This may put out the lantern.",
     "crossCost": "{payment} Light to cross; {remaining} remains.",
-    "lethal": "Zero Light ends the run before delivery."
+    "lethal": "Zero Light ends the run before delivery.",
+    "approachWarning": "Memories and abilities can't be used after this.",
+    "purifyPick": "Choose a passenger for the Priest to purify.",
+    "longBoards": "{name} boards at level {level}.",
+    "from": "From: {place}",
+    "arrived": "Arrived at {destination}",
+    "lightLost": "−{n} Light",
+    "noLightLost": "No Light lost.",
+    "lanternOut": "The lantern goes out.",
+    "soulBoards": "{name} boards.",
+    "soulLeaves": "{name} leaves the boat.",
+    "wishChanged": "{name} now wishes for {wish}."
   },
 
   "memory": {

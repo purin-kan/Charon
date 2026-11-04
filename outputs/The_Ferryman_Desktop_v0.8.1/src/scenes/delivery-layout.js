@@ -16,27 +16,36 @@ const dockSpot = (i) => ({
   y: DOCK_SPOT.y + Math.floor(i / DOCK_SPOT.cols) * DOCK_SPOT.cellH,
 });
 
-/** Every passenger with its spot. Seats fill in order; souls with no seat ride on the deck. canLeave is the engine's answer for that soul joining the marked list. */
-export function layoutDelivery(state, marked, Ferry) {
+/** Where each passenger sits. Seats fill in order; souls with no seat ride on the deck row. Shared with CrossingScene. */
+export function boatSpots(state, Ferry) {
   const { slots } = layoutBoarding(state, Ferry);
   const seatX = (i) => slots[0].x + i * (SLOT.w + SLOT.gap);
   const riders = state.boat.filter((actor) => Ferry.actorSeats(actor) === 0);
   const riderStep = Math.min(SLOT.w + SLOT.gap, DECK.width / Math.max(1, riders.length - 1));
   let seat = 0;
-  const entries = state.boat.map((actor) => {
+  const spots = state.boat.map((actor) => {
     const span = Ferry.actorSeats(actor);
-    const aboard = span
+    const at = span
       ? { x: (seatX(seat) + seatX(seat + span - 1)) / 2, y: slots[0].y }
       : { x: seatX(0) + riders.indexOf(actor) * riderStep, y: DECK.y };
     seat += span;
-    const i = marked.indexOf(actor.id);
+    return { id: actor.id, actor, span, ...at };
+  });
+  return { spots, slots };
+}
+
+/** Every passenger with its spot. canLeave is the engine's answer for that soul joining the marked list. */
+export function layoutDelivery(state, marked, Ferry) {
+  const { spots, slots } = boatSpots(state, Ferry);
+  const entries = spots.map(({ id, actor, span, x, y }) => {
+    const i = marked.indexOf(id);
     return {
-      id: actor.id,
+      id,
       actor,
       area: i >= 0 ? 'dock' : 'seat',
-      ...(i >= 0 ? dockSpot(i) : aboard),
+      ...(i >= 0 ? dockSpot(i) : { x, y }),
       span,
-      canLeave: i >= 0 || testRun(state, [...marked, actor.id], Ferry).ok,
+      canLeave: i >= 0 || testRun(state, [...marked, id], Ferry).ok,
       labels: tokenLabels({ actor, draggable: false }, Ferry), // draggable false picks the ship limit
     };
   });
