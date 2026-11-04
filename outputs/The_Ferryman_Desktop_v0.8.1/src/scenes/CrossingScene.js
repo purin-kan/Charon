@@ -3,10 +3,10 @@ import { Ferry } from '../ferry.js';
 import { playSound, queueAssets } from '../preloader.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
-import { MemoryHand, drawCard } from '../components/MemoryHand.js';
+import { MemoryHand } from '../components/MemoryHand.js';
 import { routeModel } from '../components/route-layout.js';
 import { statusLine } from './boarding-layout.js';
-import { DOCK, RIVER } from './delivery-layout.js';
+import { BANK, DOCK, RIVER, stopScenery } from './delivery-layout.js';
 import {
   abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath,
   crossingStep, homeView, placeName, purifyAction, soulDetail, worldLayout,
@@ -154,7 +154,8 @@ export class CrossingScene extends Phaser.Scene {
     const { home, fork, branches } = this.layout;
     const g = this.add.graphics();
     this.world.add(g);
-    g.fillStyle(RIVER.color, 1).fillRect(home.x - 2200, home.y - RIVER.h / 2, fork.x - home.x + 2200, RIVER.h);
+    // The river leaves the stop at the bank's edge, as in DeliveryScene.
+    g.fillStyle(RIVER.color, 1).fillRect(BANK.right, home.y - RIVER.h / 2, fork.x - BANK.right, RIVER.h);
     g.fillCircle(fork.x, fork.y, RIVER.h / 2);
     for (const b of branches) {
       g.lineStyle(RIVER.h, RIVER.color, 1);
@@ -163,11 +164,11 @@ export class CrossingScene extends Phaser.Scene {
       g.fillRect(b.end.x - 200, b.end.y - RIVER.h / 2, 2200, RIVER.h);
     }
     const label = { fontFamily: FONT, fontSize: '22px', color: '#9fb6c6' };
+    const { bank } = stopScenery();
+    this.world.add(this.add.rectangle(bank.x - 1000, bank.y, bank.w + 2000, bank.h + 600, bank.color)); // reaches past the screen edges
     if (state.destination) {
       this.world.add(this.add.rectangle(DOCK.x, DOCK.y, DOCK.w, DOCK.h, 0x3a3226).setStrokeStyle(2, 0x6b5a3f));
       this.world.add(this.add.text(DOCK.x - DOCK.w / 2 + 12, DOCK.y - DOCK.h / 2 + 8, t('delivery.dock'), { ...label, fontSize: '20px' }));
-    } else {
-      this.world.add(this.add.rectangle(DOCK.x - 200, home.y, DOCK.w + 400, 900, 0x2a2418));
     }
     this.world.add(this.add.text(DOCK.x - DOCK.w / 2 + 12, DOCK.y - DOCK.h / 2 + 40, placeName(state, Ferry, t), label));
   }
@@ -353,12 +354,10 @@ export class CrossingScene extends Phaser.Scene {
 
   hideTip() { this.tip.setVisible(false); }
 
-  /** The full memory card above the strip while the pointer is on a small one. */
+  /** A memory's full text in the hover box: the strip draws cards small, and a card cuts its text at four lines. */
   previewCard(card) {
-    this.cardPreview?.destroy();
-    this.cardPreview = null;
-    if (!card) return;
-    this.cardPreview = this.hud(drawCard(this, HUD.strip.x + 110, HUD.strip.y - 130, card, { dim: !card.playable, footer: card.playable ? undefined : card.reason }), HUD.depth + 4);
+    if (!card) return this.hideTip();
+    this.showTip(this.input.activePointer, card.name, [card.text, t('memory.from', { source: card.source }), card.playable ? '' : card.reason]);
   }
 
   say(text) {
@@ -538,10 +537,11 @@ export class CrossingScene extends Phaser.Scene {
     }
     // The view settles on exactly what DeliveryScene draws: plain water band, dock, boat. A cover in the
     // background colour hides the branch curves, then the band and the dock fade in over it.
+    const scenery = stopScenery({ x: branch.view.x - 640, y: branch.view.y - 360 });
     const cover = this.add.rectangle(branch.view.x, branch.view.y, 1280, 720, 0x0b1117).setAlpha(0);
-    const band = this.add.rectangle(branch.view.x, branch.end.y, 1280, RIVER.h, RIVER.color).setAlpha(0);
-    this.world.addAt([cover, band], this.world.getIndex(this.boat));
-    this.tweens.add({ targets: [cover, band], alpha: 1, duration: tune('crossing.eventMs') });
+    const [bank, band] = [scenery.bank, scenery.river].map((r) => this.add.rectangle(r.x, r.y, r.w, r.h, r.color).setAlpha(0));
+    this.world.addAt([cover, bank, band], this.world.getIndex(this.boat));
+    this.tweens.add({ targets: [cover, bank, band], alpha: 1, duration: tune('crossing.eventMs') });
     // The dock at the destination, where DeliveryScene draws it.
     const dock = this.add.rectangle(branch.dock.x, branch.dock.y, DOCK.w, DOCK.h, 0x3a3226).setStrokeStyle(2, 0x6b5a3f).setAlpha(0);
     const dockLabel = this.add.text(branch.dock.x - DOCK.w / 2 + 12, branch.dock.y - DOCK.h / 2 + 8, t('delivery.dock'), { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' }).setAlpha(0);

@@ -5,9 +5,18 @@
 import { SLOT, TOKEN, boatZone, destinationName, layoutBoarding, soulName, tokenLabels } from './boarding-layout.js';
 
 export const DOCK = { x: 300, y: 345, w: 520, h: 430 };
-// The river band behind the boat at a stop. CrossingScene draws the same band, so arriving at a stop
-// and opening DeliveryScene look like one place.
+// A stop: land on the left with the dock at its edge, the river from there to the right. CrossingScene
+// draws the same scenery (stopScenery), so arriving at a stop and opening DeliveryScene look like one place.
 export const RIVER = { y: 300, h: 250, color: 0x15303c };
+export const BANK = { right: DOCK.x + DOCK.w / 2, color: 0x2a2418 };
+
+/** The bank and the river band of a stop as rectangles {x, y, w, h} (centres), for a frame whose top left is origin. */
+export function stopScenery(origin = { x: 0, y: 0 }) {
+  return {
+    bank: { x: origin.x + BANK.right / 2, y: origin.y + 360, w: BANK.right, h: 720, color: BANK.color },
+    river: { x: origin.x + (BANK.right + 1280) / 2, y: origin.y + RIVER.y, w: 1280 - BANK.right, h: RIVER.h, color: RIVER.color },
+  };
+}
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
 const DOCK_SPOT = { x: 130, y: 240, cellW: 130, cellH: 150, cols: 3 }; // the first row clears the Dock label

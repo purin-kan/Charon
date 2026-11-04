@@ -5,7 +5,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { boatZone } from '../src/scenes/boarding-layout.js';
-import { DOCK, boatSpots } from '../src/scenes/delivery-layout.js';
+import { BANK, DOCK, boatSpots, stopScenery } from '../src/scenes/delivery-layout.js';
 import {
   abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath, crossingStep,
   homeView, onScreen, placeName, purifyAction, soulDetail, worldLayout,
@@ -135,6 +135,11 @@ for (const b of world.branches) {
   check(`branch ${b.option + 1} puts its dock where DeliveryScene draws the dock`, dock.x === DOCK.x && dock.y === DOCK.y);
   check(`branch ${b.option + 1} ends level`, b.points[3].y === b.points[4].y);
 }
+const stop = stopScenery();
+check('the dock stands on the bank, at the river edge', DOCK.x + DOCK.w / 2 === BANK.right && stop.bank.x + stop.bank.w / 2 === BANK.right && stop.river.x - stop.river.w / 2 === BANK.right);
+check('the river runs from the bank to the screen edge, behind the boat', stop.river.x + stop.river.w / 2 === 1280 && hull.x - hull.w / 2 > BANK.right);
+const moved = stopScenery({ x: 100, y: -50 });
+check('a stop drawn elsewhere keeps the same shape', moved.river.x - stop.river.x === 100 && moved.bank.y - stop.bank.y === -50);
 check('the two branches part', world.branches[0].end.y < world.home.y && world.branches[1].end.y > world.home.y);
 const fv = world.forkView;
 const visible = (p) => { const s = onScreen(p, fv); return s.x >= 0 && s.x <= 1280 && s.y >= 0 && s.y <= 720; };
