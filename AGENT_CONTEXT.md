@@ -6,7 +6,7 @@ Merged to main in order: #21 T-45 (`0ce6eb8`; rules `0.8-t45`, Long names, Greek
 
 ## November 2, 2026: T-18 presentation outline drafted (bosthanapatw)
 
-`notes/T-18_Presentation_Outline.md` has 16 slides across Description (from `RULES.md` plus the issue 6 decisions, provisional until the Nov 6 freeze), Algorithmic Implementation (random systems by `engine.js` function name; AI logic not claimed) and Demo play. `outputs/The_Ferryman_Desktop_v0.8.1/CREDITS.md` started from the asset provenance notes, with the required CC-BY music credit; the desktop README links it. Revised Nov 4 after purin-kan's review: Long names, 12 of 15 souls leave a memory, Long Veil and Long Grasp from the third encounter, Long Hollow theft random only from level 3. Open: presentation time limit, demo seed.
+`notes/T-18_Presentation_Outline.md` has 16 slides across Description (from `RULES.md` plus the issue 6 decisions, provisional until the Nov 6 freeze), Algorithmic Implementation (random systems by `engine.js` function name; AI logic not claimed) and Demo play. `outputs/The_Ferryman_Desktop_v0.8.1/CREDITS.md` started from the asset provenance notes, with the required CC-BY music credit; the desktop README links it. Revised Nov 4 after purin-kan's review: Long names, 12 of 15 souls leave a memory, Long Veil and Long Grasp from the third encounter, Long Hollow theft random only from level 3. `CREDITS.md` and the desktop README now also credit JC Sounds (CC-BY 4.0, footsteps) and Kenney (CC0, UI click) from T-15. Open: presentation time limit, demo seed.
 
 ## November 2, 2026: T-20 DeliveryScene and ChoiceOverlay built
 

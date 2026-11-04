@@ -201,4 +201,4 @@ Only the scaffold owner edits `scenes/index.js`, `package.json` and the lockfile
 
 ## Credits
 
-Art, audio, font and software credits are collected in [CREDITS.md](CREDITS.md). The menu music is CC-BY 4.0: "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop.
+Art, audio, font and software credits are collected in [CREDITS.md](CREDITS.md). Two audio sources are CC-BY 4.0 and must be credited: the menu music "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop, and the board and unboard footsteps from "Pirate Pack Vol 1" by JC Sounds, https://opengameart.org/content/jc-sounds-pirate-pack-vol-1.

@@ -35,7 +35,7 @@ Total time and the time per part are not given in the plan. Fill them in once th
 **Slide 5. Memories**
 * 12 of the 15 ordinary souls leave a memory card (Child, Listener and Blacksmith have none); hand limit 3
 * Examples: Light (+1 Light), Foresight (see the next 3 forks), Calm (Anger -1 for every soul on the boat), Fog Shield (fog -1)
-* Quest rewards are special memories: Passenger, Sword, Boat Space, Golden Apple
+* Quest rewards are special memories, for example Passenger, Sword, Boat Space, Soldiers' Peace, Golden Apple
 
 **Slide 6. Longs (tainted souls)**
 * Lost souls from another land that board every third outward round
@@ -58,7 +58,7 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 
 **Slide 9. One seeded random generator**
 * Every random event draws from one seeded generator (`draw`, a linear congruential generator)
-* The seed is saved with the game, so a seed replays the same run
+* The seed is saved with the game, so the same seed and the same choices replay the same run
 * Uses: reproducible demo, bug reports, automated tests
 * Evidence: `quest-check.js` replays 128 seeded runs deterministically (`rules/verification/quest-results.json`)
 
@@ -71,8 +71,8 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 **Slide 11. Random systems that create pressure**
 * Longs board every third outward round, with a tiered random pick: Long Veil and Long Grasp can first appear at the third encounter (`drawPolong`)
 * Random hero offer each return (`offerHero`)
-* Cerberus frightens two random passengers off the boat (`heroicArrival`)
-* Random targets: Scylla's victim, Long spread, and Long Hollow's memory theft from level 3 (below that the player chooses; `thefts`)
+* Cerberus frightens up to two random ordinary passengers off the boat (`heroicArrival`)
+* Random targets: Charybdis's stolen memory, Scylla's victim, Long spread, and Long Hollow's memory theft from level 3 (below that the player chooses; `thefts`)
 
 **Slide 12. Deterministic rules**
 * Fog cost is a fixed calculation, not random: base fog + cycle escalation + Long fog + overload, minus shields (`fog`)
@@ -93,7 +93,7 @@ Source of the list: the plan's "Algorithmic Implementation" item, checked agains
 
 **Slide 15. Credits**
 * From `outputs/The_Ferryman_Desktop_v0.8.1/CREDITS.md`
-* Must include the CC-BY music credit
+* Must include both CC-BY credits: the menu music (Joseph Collard) and the footstep sounds (JC Sounds)
 
 **Slide 16. Questions**
 

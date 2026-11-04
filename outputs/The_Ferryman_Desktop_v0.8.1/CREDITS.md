@@ -21,6 +21,8 @@ Roles are from `notes/Project_Plan_Oct30_Nov8.md`. Each member should check thei
 Source: `assets/audio/AUDIO_NOTES.md`.
 
 * "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop, licensed CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Converted from WAV to OGG. Used as the menu loop (`bgm-menu`). **CC-BY: this credit must appear in the README and the presentation.**
+* "Pirate Pack Vol 1" by JC Sounds, https://opengameart.org/content/jc-sounds-pirate-pack-vol-1, licensed CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). `steps_wood_fast_01.wav` and `steps_sand_dry_04.wav` converted from WAV to OGG; volumes adjusted (wood step lowered, sand step raised). Used as the board and unboard sounds (`sfx-board`, `sfx-unboard`). **CC-BY: this credit must appear in the README and the presentation.**
+* "Interface Sounds" by Kenney (kenney.nl), https://opengameart.org/content/interface-sounds, CC0 (credit not required). Volume lowered. Used as the UI click (`sfx-ui-click`).
 
 ## Art
 
@@ -28,6 +30,7 @@ Source: `assets/source-art/ARTWORK_NOTES.md` and the v0.6 rights record (`output
 
 * The portraits, destinations, memory icons, boat and shore in `assets/source-art/` are project artwork. The v0.6 record says the older raster art and eight v0.6 images were generated with a built-in AI image tool; no stock or downloaded images were added. No third-party licence is recorded for them.
 * Farmer v7, Blacksmith v4 and Priest (normal v2, exhausted v3) were copied from the October 30 catalog's local images.
+* `assets/art/sprite-mother-test.png`: a temporary test cut-out for the art pipeline, not final Mother art (`notes/T-03_ART_PIPELINE.md`).
 * Sprite cut-outs and new art for the desktop build: Kanyakorn-goya (to fill in as files land in `assets/art/` and `assets/backgrounds/`).
 * Final art approval by the team is pending.
 
