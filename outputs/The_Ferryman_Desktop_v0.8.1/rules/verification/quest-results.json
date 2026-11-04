@@ -1,11 +1,11 @@
 {
-  "version": "0.8-t45",
-  "passed": 24,
+  "version": "0.8-t45b",
+  "passed": 25,
   "failed": 0,
   "hashes": {
-    "engine.js": "0266b00b96f6801223c37f905ade2cc71249f3b460472c3b3d62f3c864f88abb",
-    "content.json": "32b1a1260ace0da9ab2cdcd4fe5d0aba6a7e81b076bb2908d5b1bb5f96f09c69",
-    "tests/quest-check.js": "65f878c4840365629279ae5805454b416d92a480fb71c30a8cf78e0d89bd0891"
+    "engine.js": "72429dc9b752476855d94a9d699c99785e2bff35b76ddf3c1cb21cbf0df0665f",
+    "content.json": "093c65f6efa1f1cc371284a6c6f21d8b8e55a8f5942a23e0117641f3bc231fe8",
+    "tests/quest-check.js": "f1b5caf58c9304d5cd629b556b803133934c8a809214bbf8be4e6a20924a03d2"
   },
   "records": [
     {
@@ -29,7 +29,11 @@
       "status": "PASS"
     },
     {
-      "name": "Meal is once per shared boarding, includes Cook reduction and can expire Cook",
+      "name": "Meal is once per shared boarding: every other soul -1 (Longs included), Cook does not eat and gains +2, and can expire Cook",
+      "status": "PASS"
+    },
+    {
+      "name": "Farmer gives Calm when he gets off, but no memory if he shared the meal",
       "status": "PASS"
     },
     {
