@@ -69,7 +69,10 @@ check('no abilities after the fork', abilities(withLong, Ferry, t).length === 0)
 check('no abilities with nobody able', abilities(windowState, Ferry, t).length === 0);
 
 // The warning above "Approach the fork".
-check('warned while memories or abilities are usable', approachWarning(prep, Ferry, t) === t('crossing.approachWarning'));
+check('warned that the meal and purify end at the fork (memories stay playable)', approachWarning(prep, Ferry, t) === t('crossing.approachWarningAbilities'));
+const handOnly = structuredClone(windowState);
+handOnly.hand = prep.hand.slice(0, 1);
+check('no warning when only memories are held, since they stay playable at the fork', approachWarning(handOnly, Ferry, t) === '');
 check('no warning with nothing usable', approachWarning(windowState, Ferry, t) === '');
 check('no warning at the fork', approachWarning(fork, Ferry, t) === '');
 
@@ -167,7 +170,7 @@ check('a soul hover shows its wish, Anger, memory and quest', ['Wish:', 'Anger',
 const longDetail = soulDetail(withLong, longAboard, Ferry, t);
 check('a Long hover shows its level and its text', longDetail.lines.includes(`Level ${longAboard.level}`) && longDetail.lines.includes(Ferry.data.souls.find((s) => s.id === longAboard.type).text));
 check('the meal hover is the quest description from the data', buttonDetail('meal', prep, Ferry, t) === Ferry.data.quests.find((q) => q.id === 'QUEST-MEAL').description);
-check('the approach hover warns while something is usable', buttonDetail('approach', prep, Ferry, t) === t('crossing.approachWarning'));
+check('the approach hover warns while something would be lost', buttonDetail('approach', prep, Ferry, t) === t('crossing.approachWarningAbilities'));
 check('otherwise the approach hover explains it', buttonDetail('approach', windowState, Ferry, t) === t('crossing.approachDetail'));
 
 process.exit(bad ? 1 : 0);

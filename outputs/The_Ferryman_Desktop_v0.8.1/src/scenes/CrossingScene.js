@@ -11,6 +11,7 @@ import {
   abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath,
   crossingStep, homeView, placeName, purifyAction, soulDetail, worldLayout,
 } from './crossing-layout.js';
+import { HoverTip } from './hover-tip.js';
 import { addSoulToken, setTokenLabels } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
@@ -87,7 +88,7 @@ export class CrossingScene extends Phaser.Scene {
       fontFamily: FONT, fontSize: '18px', color: '#e8c27f', align: 'center', wordWrap: { width: 440 },
     }).setOrigin(0.5, 0));
     this.fog = this.hud(this.add.rectangle(640, 360, 1280, 720, 0xcfd8dc, 0), HUD.depth - 1);
-    this.tip = this.makeTip();
+    this.tip = new HoverTip(this, HUD.depth + 5);
 
     this.hand = new MemoryHand(this, {
       x: 0, y: 0,
@@ -333,26 +334,9 @@ export class CrossingScene extends Phaser.Scene {
     this.button(x + 146, y + h - 60, w - 166, r.confirm.label, '#edc47f', '#18140a', () => this.cross());
   }
 
-  makeTip() {
-    const bg = this.add.rectangle(0, 0, 10, 10, 0x0b1117, 0.96).setOrigin(0).setStrokeStyle(1, STROKE);
-    const title = this.add.text(12, 10, '', { fontFamily: FONT, fontSize: '17px', color: '#edc47f', fontStyle: 'bold', wordWrap: { width: 336 } });
-    const body = this.add.text(12, 36, '', { fontFamily: FONT, fontSize: '15px', color: '#e8f1f7', wordWrap: { width: 336 }, lineSpacing: 4 });
-    return this.hud(this.add.container(0, 0, [bg, title, body]), HUD.depth + 5).setVisible(false).setData({ bg, title, body });
-  }
+  showTip(pointer, title, lines) { this.tip.show(pointer, title, lines); }
 
-  showTip(pointer, title, lines) {
-    const { bg, title: head, body } = this.tip.data.values;
-    head.setText(title ?? '');
-    body.setText((lines ?? []).filter(Boolean).join('\n')).setY(head.text ? 36 : 10);
-    const w = 360;
-    const h = body.y + body.height + 12;
-    bg.setSize(w, h);
-    const x = Math.min(pointer.x + 16, 1280 - w - 8);
-    const y = pointer.y + 16 + h > 712 ? pointer.y - h - 12 : pointer.y + 16;
-    this.tip.setPosition(x, Math.max(8, y)).setVisible(true);
-  }
-
-  hideTip() { this.tip.setVisible(false); }
+  hideTip() { this.tip.hide(); }
 
   /** A memory's full text in the hover box: the strip draws cards small, and a card cuts its text at four lines. */
   previewCard(card) {

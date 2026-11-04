@@ -3,10 +3,14 @@ import { Ferry } from '../ferry.js';
 import { queueAssets } from '../preloader.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
+import { MemoryHand } from '../components/MemoryHand.js';
 import { boatZone, statusLine } from './boarding-layout.js';
+import { soulDetail } from './crossing-layout.js';
 import {
-  DOCK, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText, introText, layoutDelivery, stopScenery,
+  DOCK, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText, introText, keepValidMarks, layoutDelivery,
+  stopScenery,
 } from './delivery-layout.js';
+import { HoverTip } from './hover-tip.js';
 import { showOutcome } from './outcome-panel.js';
 import { addSoulToken, setTokenLabels } from './soul-token.js';
 
@@ -14,6 +18,8 @@ const DRAG_START_PX = 6;
 const FONT = 'sans-serif';
 const GOLD = 0xedc47f;
 const STROKE = 0x7fa6c0;
+const TARGET = 0x9fe0ff; // a soul the picked memory can target
+const STRIP = { x: 40, y: 566, s: 0.5 }; // the memory hand, drawn small (as in CrossingScene)
 
 defineTuning({
   'delivery.departDistance': { type: 'number', default: 120, min: 0, max: 400, step: 10, help: 'How far a soul walks off the dock' },
@@ -28,7 +34,7 @@ export class DeliveryScene extends Phaser.Scene {
 
   preload() {
     const { destination } = this.registry.get('state');
-    queueAssets(this, { art: Ferry.data.souls.map((s) => s.id), backgrounds: destination ? [destination] : [] });
+    queueAssets(this, { art: [...Ferry.data.souls.map((s) => s.id), ...MemoryHand.artIds()], backgrounds: destination ? [destination] : [] });
   }
 
   create() {
@@ -38,6 +44,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.entries = new Map();
     this.marked = [];
     this.leaving = false;
+    this.targets = null; // soul ids the picked memory can target
 
     if (this.textures.exists(state.destination)) this.add.image(640, 360, state.destination).setDisplaySize(1280, 720);
     // The same bank and river CrossingScene sails in, so arriving here shows no cut (T-19).
@@ -45,6 +52,15 @@ export class DeliveryScene extends Phaser.Scene {
     this.slots = layoutDelivery(state, [], Ferry).slots;
     this.drawBoat();
     this.drawHud(state);
+    // One memory per stop can also be played here (VarisPah on #27, Nov 4); the engine says which.
+    this.tip = new HoverTip(this);
+    this.hand = new MemoryHand(this, {
+      x: 0, y: 0,
+      onTargets: (ids) => { this.targets = ids; this.render(this.registry.get('state')); },
+      onHover: (card) => (card ? this.tip.show(this.input.activePointer, card.name, [card.text, t('memory.from', { source: card.source }), card.playable ? '' : card.reason]) : this.tip.hide()),
+    });
+    this.hand.root.setPosition(STRIP.x, STRIP.y).setScale(STRIP.s);
+    this.hand.render(state);
     this.render(state);
 
     // Without a threshold a click counts as a drag.
@@ -62,8 +78,10 @@ export class DeliveryScene extends Phaser.Scene {
     // A trim or choice overlay can open after DELIVER, over this scene, so the board stays current
     // behind it. The overlay closes on a state this handler then leaves from.
     this.onState = (s) => {
-      if (this.router.willLeave(this.scene.key)) this.router.exitDone();
-      else this.render(s);
+      if (this.router.willLeave(this.scene.key)) return this.router.exitDone();
+      if (this.leaving) return;
+      this.hand.render(s);
+      this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
     this.events.once('shutdown', () => this.game.events.off('ferry-state', this.onState));
@@ -117,6 +135,9 @@ export class DeliveryScene extends Phaser.Scene {
       return;
     }
     this.leaving = true;
+    this.tip.hide();
+    this.hand.cancel();
+    this.hand.root.setVisible(false); // no memory once the delivery is on its way
     for (const token of this.tokens.values()) this.input.setDraggable(token, false);
     this.confirmBtn.setVisible(false).disableInteractive();
     const outcome = arrivalOutcome(state, next, action, Ferry);
@@ -144,6 +165,7 @@ export class DeliveryScene extends Phaser.Scene {
 
   /** Brings the screen in line with the state and the marked list. */
   render(state) {
+    this.marked = keepValidMarks(state, this.marked, Ferry); // a memory may have taken a marked soul
     const { entries } = layoutDelivery(state, this.marked, Ferry);
     this.status.setText(statusLine(state, Ferry));
     this.intro.setText(introText(state, t));
@@ -163,6 +185,16 @@ export class DeliveryScene extends Phaser.Scene {
   addToken(entry) {
     const token = addSoulToken(this, entry);
     this.input.setDraggable(token, true);
+    token.on('pointerdown', () => { if (this.targets?.includes(entry.id)) this.hand.pickTarget(entry.id); });
+    token.on('pointerover', (pointer) => {
+      const state = this.registry.get('state');
+      const actor = state.boat.find((x) => x.id === entry.id);
+      if (!actor) return;
+      const d = soulDetail(state, actor, Ferry, t);
+      this.tip.show(pointer, d.title, d.lines);
+    });
+    token.on('pointerout', () => this.tip.hide());
+    token.on('dragstart', () => this.tip.hide());
     this.tokens.set(entry.id, token);
     return token;
   }
@@ -171,7 +203,8 @@ export class DeliveryScene extends Phaser.Scene {
     setTokenLabels(token, entry.labels);
     // Gold is at its wish (its memory, quest step or fare), plain can leave without it, dimmed cannot leave.
     const gold = entry.canLeave && entry.wishMatches;
-    token.getData('panel').setStrokeStyle(gold ? 3 : 1, gold ? GOLD : STROKE);
+    const target = this.targets?.includes(entry.id);
+    token.getData('panel').setStrokeStyle(gold || target ? 3 : 1, target ? TARGET : gold ? GOLD : STROKE);
     token.setAlpha(entry.canLeave ? 1 : 0.6);
     this.tweens.killTweensOf(token);
     this.tweens.add({ targets: token, x: entry.x, y: entry.y, duration: tune('boarding.snapMs'), ease: tune('boarding.snapEase') });

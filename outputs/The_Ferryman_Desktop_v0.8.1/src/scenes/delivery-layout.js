@@ -84,7 +84,7 @@ export const deliverAction = (marked) => ({ type: 'DELIVER', ids: marked });
 // A soul that ends the run stops DELIVER there, so the engine never judges the souls after it.
 // The last soul is unreached when it is still aboard and the run already ends without it; a soul
 // that ends the run itself stays allowed, as the engine allows it.
-function testRun(state, ids, Ferry) {
+export function testRun(state, ids, Ferry) {
   try {
     const next = Ferry.transition(state, deliverAction(ids));
     const stopped = next.phase === 'ended' && next.boat.some((x) => x.id === ids[ids.length - 1]);
@@ -96,6 +96,16 @@ function testRun(state, ids, Ferry) {
 }
 
 /** The engine's reason the last soul of this list can't leave, or null if it can. */
+/**
+ * After a memory changes the state at delivery (Passenger takes a soul, Sword removes one), the marked list keeps
+ * only souls still aboard, and drops trailing marks the engine no longer accepts.
+ */
+export function keepValidMarks(state, marked, Ferry) {
+  const kept = marked.filter((id) => state.boat.some((x) => x.id === id));
+  while (kept.length && !testRun(state, kept, Ferry).ok) kept.pop();
+  return kept;
+}
+
 export function refusal(state, ids, Ferry, t) {
   const { ok, reason, unreached } = testRun(state, ids, Ferry);
   if (ok) return null;

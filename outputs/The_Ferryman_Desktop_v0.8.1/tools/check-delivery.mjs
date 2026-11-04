@@ -7,7 +7,7 @@ import path from 'node:path';
 import { boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
   DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, headingText,
-  introText, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
+  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
 } from '../src/scenes/delivery-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -146,11 +146,13 @@ check('a soul at the wrong stop departs with no reward', stray.departed.join() =
 const wandererName = entryOf(open, wanderer.id).labels.name;
 const wandererWish = Ferry.data.destinations.find((d) => d.id === Ferry.wish(wanderer)).name;
 check('it says which memory was not given', lossLines(stray, t, Ferry).join() === `${wandererName} wished for ${wandererWish}. No memory.`);
-// A Long leaves only at its wish.
-const mist = match.boat.find((x) => Ferry.data.souls.find((d) => d.id === x.type).tainted && Ferry.wish(x) !== match.destination);
-check('a Long at the wrong stop is refused with its wish', mist && Ferry.wish(mist) !== match.destination
-  && applyDrop(match, [], entryOf(open, mist.id), 'dock', Ferry, t).reason === `Wishes for ${Ferry.data.destinations.find((d) => d.id === Ferry.wish(mist)).name}.`);
-check('and is dimmed', entryOf(open, mist.id).canLeave === false);
+// A Long leaves only at its wish: the leaver becomes a Long Mist that wishes for Tartarus (this stop is not).
+const misty = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0, wish: 'DEST-TARTARUS' });
+const mist = misty.boat.find((x) => x.id === leaver.id);
+const mistOpen = layoutDelivery(misty, [], Ferry);
+check('a Long at the wrong stop is refused with its wish', misty.destination !== 'DEST-TARTARUS'
+  && applyDrop(misty, [], entryOf(mistOpen, mist.id), 'dock', Ferry, t).reason === `Wishes for ${Ferry.data.destinations.find((d) => d.id === 'DEST-TARTARUS').name}.`);
+check('and is dimmed', entryOf(mistOpen, mist.id).canLeave === false);
 const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
 const robbed = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, deliverAction([]), Ferry);
 check('a theft of a held memory is reported', robbed.lost.length === 1 && robbed.lost[0].id === 'MEMORY-2' && robbed.stolenRewards === 0 && robbed.rewards.length === 1);
@@ -239,5 +241,14 @@ const tall = memoryRowSpots(3, [50, 120, 50]);
 check('a tall row pushes the next one down', tall[1].y - tall[0].y === 84 && tall[2].y - tall[1].y === 130);
 const tallCols = memoryRowSpots(6, [200, 50, 50, 50, 50, 50]);
 check('the next column starts at the top again', tallCols[5].y === tallCols[0].y);
+
+// A memory played at delivery can take a marked soul off the boat (Passenger, Sword); the marks follow.
+const gone = structuredClone(match);
+gone.boat = gone.boat.filter((x) => x.id !== leaver.id);
+gone.discard.push(leaver.type); // as the engine does when a memory takes a soul
+for (const q of gone.quests) if (q.status === 'active' && q.participants.includes(leaver.id)) Object.assign(q, { status: 'failed', reason: 'taken by a memory' });
+const keptMarks = keepValidMarks(gone, [leaver.id, wanderer.id], Ferry);
+check('a marked soul no longer aboard is unmarked', !keptMarks.includes(leaver.id) && keptMarks.includes(wanderer.id));
+check('marks the engine still accepts are kept', keepValidMarks(match, [leaver.id], Ferry).join() === leaver.id);
 
 process.exit(bad ? 1 : 0);

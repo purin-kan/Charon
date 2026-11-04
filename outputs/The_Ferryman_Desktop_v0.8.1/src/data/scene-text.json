@@ -62,7 +62,7 @@
 
   "crossing": {
     "prepHeading": "Memories and passenger abilities",
-    "prepIntro": "Use held memories as needed, then continue. Each copy is consumed; there is no use cap.",
+    "prepIntro": "One memory per stop: play it now, at the fork or at the dock. The shared meal and the Priest's purify are only before the fork.",
     "overLimit": "Excess rewards cannot be played. Finish this round and choose what to keep.",
     "meal": "Prepare the shared meal",
     "purify": "Priest: purify a passenger",
@@ -87,6 +87,8 @@
     "crossCost": "{payment} Light to cross; {remaining} remains.",
     "lethal": "Zero Light ends the run before delivery.",
     "approachWarning": "Memories and abilities can't be used after this.",
+    "approachWarningAbilities": "The meal and the Priest's purify can't be used after this.",
+    "approachWarningMemories": "Memories can't be used after this.",
     "purifyPick": "Choose a passenger for the Priest to purify.",
     "longBoards": "{name} boards at level {level}.",
     "from": "From: {place}",

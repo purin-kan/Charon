@@ -152,11 +152,20 @@ export function abilities(state, Ferry, t) {
   return out;
 }
 
-/** The line above "Approach the fork" while a memory or ability would still be usable before it. */
+/**
+ * The line above "Approach the fork" when approaching would take something away: the engine is asked by
+ * test-running START_CROSSING, so it says only what is really lost (the meal and purify end at the fork;
+ * memories stay playable through the stop under one memory per stop).
+ */
 export function approachWarning(state, Ferry, t) {
   if (crossingStep(state) !== 'prepare') return '';
-  const usable = memoryHand(state, Ferry).anyPlayable || abilities(state, Ferry, t).length > 0;
-  return usable ? t('crossing.approachWarning') : '';
+  const next = attempt(state, { type: 'START_CROSSING' }, Ferry);
+  if (!next) return '';
+  const losesAbilities = abilities(state, Ferry, t).length > 0 && abilities(next, Ferry, t).length === 0;
+  const losesMemories = memoryHand(state, Ferry).anyPlayable && !memoryHand(next, Ferry).anyPlayable;
+  if (losesAbilities && losesMemories) return t('crossing.approachWarning');
+  if (losesAbilities) return t('crossing.approachWarningAbilities');
+  return losesMemories ? t('crossing.approachWarningMemories') : '';
 }
 
 /** Who came aboard and who left between two states, and whose wish changed. */
