@@ -24,7 +24,7 @@ Plan scope: the five sound groups named in the project plan (menu BGM, crossing 
 | Id | Type | Plays when | Scene (owner) | Loop | Task | Status |
 |---|---|---|---|---|---|---|
 | `bgm-menu` | Music | Title screen is open | TitleScene (Tinpatpun) | Yes | T-07 placeholder, T-15 final | Placeholder in game |
-| `amb-crossing` | Ambient | Boat is on the river | CrossingScene (SupaOhm) | Yes | T-15 | Deferred: river candidates so far flowed too strongly or were too loud; to be looked into later |
+| `amb-crossing` | Ambient | The whole time the crossing screen is open (memory window, fork, review and sailing), quiet in the background | CrossingScene (SupaOhm) | Yes | T-15, finished in T-28 | File added (ElevenLabs, still water; the recorded rivers flowed too strongly) |
 | `sfx-board` | SFX | A soul is dropped onto a boat seat (`BOARD`) | BoardingScene (SupaOhm) | No | T-15 | File added |
 | `sfx-unboard` | SFX | A soul is dragged back off the boat (also `BOARD`) | BoardingScene (SupaOhm) | No | T-15 | File added |
 | `sfx-ui-click` | SFX | Any button press | All scenes | No | T-15 | File added |
