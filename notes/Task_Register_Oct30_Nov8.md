@@ -76,7 +76,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-35 | Balance tuning | 2026-11-07 (midday) | VarisPah | | T-33 | Game | Should | Not started | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun |
 | T-36 | Bug fixes | 2026-11-07 (midday) | Jaoguya | SupaOhm | T-30, T-34 | Game | Must | Not started | Starts Nov 6 from the integration check findings; issues from the Nov 7 test log added; each owner fixes their own scenes |
 | T-37 | Visual polish | 2026-11-07 (midday) | Tinpatpun | SupaOhm | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty; anything not merged before the T-44 build is Cut |
-| T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | Not started | Final slides cover all three required parts |
+| T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | In progress | Final slides cover all three required parts |
 | T-39 | Art polish | 2026-11-07 (midday) | Kanyakorn-goya | | T-29 | Game | Nice | Not started | Placeholder sprites touched up and UI elements finalized; anything not merged before the T-44 build is Cut |
 | T-44 | Re-test after fixes | 2026-11-07 (end of day) | bosthanapatw | VarisPah, purin-kan | T-35, T-36 (and T-37, T-39 unless Cut) | .exe | Must | Not started | A build made after the Nov 7 bug fixes and balance values is tested on a second Windows machine; results recorded, untested items marked `NOT_RUN`; purin-kan makes the build |
 

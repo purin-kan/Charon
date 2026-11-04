@@ -1,6 +1,6 @@
 # T-26 pitch script draft (November 4, 2026)
 
-Owner: bosthanapatw. Support: purin-kan. Draft for the team to review. It follows the slide numbers in `notes/T-18_Presentation_Outline.md` and the rules in `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` at rules version `0.8-t45`. **Every rule line is provisional until the November 6 freeze**, and slides 4, 5 and 14 change when #26 (Anger limit) and #27 (memory rules) merge. Slides 6 and 11 change if #28 drops Long levels or spread, or if Long arrivals become per cycle.
+Owner: bosthanapatw. Support: purin-kan. Draft for the team to review. It follows the slide numbers in `notes/T-18_Presentation_Outline.md` and the rules in `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` at rules version `0.8-t45`. **Every rule line is provisional until the November 6 freeze**, #26 (boat Wraith at Anger 5) is merged, and slides 5 and 14 change when #27 (memory rules) merges. Slides 6 and 11 change if #28 drops Long levels or spread, or if Long arrivals become per cycle.
 
 How to read this script:
 
@@ -69,21 +69,22 @@ Each phase of the game is a Phaser scene, chosen from the engine's state. Phaser
 
 ## Part 3: Demo play (about 2 minutes)
 
-**Slide 14. Demo** (about 2 min: 70 s of speech plus play time, not measured)
+**Slide 14. Demo** (about 2 min: 75 s of speech plus play time, not measured)
 
 [Action: open the built `.exe`. Start a new game with the demo seed, typed on the title screen. If the live demo fails, play the recorded video (T-41).]
 
 Let's play. This is a fixed seed, so if we make the same choices, the run matches our rehearsal.
 
-[Action: the driver plays the path below. The narrator speaks at each step. This is **candidate seed 116**, the first cycle only. It was replayed through `rules/engine.js` at rules `0.8-t45`, not in the game window. Run it again after the freeze: see "Demo seed" below.]
+[Action: the driver plays the path below. The narrator speaks at each step. This is **candidate seed 116**, the first cycle only. It was replayed through `rules/engine.js` on `main` at `e599583`, with #26 merged, not in the game window. Run it again after the freeze: see "Demo seed" below.]
 
 1. Boarding (Light 6). Board Mother, Child, Merchant and Cook. Leave the Odysseus offer. "Here is the shore. Four seats, four souls. Mother and Child board together, so their story starts."
 2. Fork 1: Acheron (fog 1) or Haven (fog 0). Take Haven and deliver Child. "Haven costs no fog, and the Child's wish is Haven. The Child must arrive before the Mother."
 3. Fork 2: River Styx (fog 1) or Asphodel (fog 2). Take River Styx and deliver Merchant (Light 5). "River Styx costs less fog than Asphodel, so the Merchant goes first and the Cook waits. The Merchant leaves a memory: Foresight."
 4. Fork 3: Long Mist boards. Acheron (fog 1) or Haven (fog 0). Take Haven and deliver no one. "A Long boards: Long Mist. Its wish is Tartarus. Nobody aboard wishes for these two routes, so take the free one."
 5. Fork 4: Elysium (fog 3) or Tartarus (fog 3). Take Tartarus (Light 2), then deliver Mother and Long Mist (Light 3). "The Mother's story is complete, and it gives the Passenger memory. Long Mist pays one Light for its fare."
-6. Wraith: Cook reaches Anger 4 and becomes a Wraith (Light 2). "The Cook sailed too long and becomes a Wraith. We passed Asphodel at the second fork, and that choice costs one Light."
-7. Return (Light 3, cycle 2). "The boat is empty, so we go back and recover one Light. The next cycle begins."
+6. Memory: before fork 5, play the Light memory (Light 4). "The next route costs fog, so we use the Light memory the Mother left."
+7. Fork 5: Asphodel (fog 2) or Elysium (fog 3). Take Asphodel (Light 2) and deliver Cook. "Asphodel is the Cook's wish. The Cook leaves a memory: Calm."
+8. Return (Light 3, cycle 2). "The boat is empty, so we go back and recover one Light. The next cycle begins."
 
 **Slide 15. Credits** (20 s)
 
@@ -106,9 +107,10 @@ Thank you. We are happy to take questions.
 
 Candidate only. The outline chooses the final seed after the November 6 freeze (to-do 3).
 
-* Seed 116 was picked from a search of seeds 1 to 5000 with one fixed boarding (Mother, Child, Merchant, Cook) and a simple route rule. The search kept seeds where a memory comes before the first Long and the first cycle ends. Seed 116 also finishes a story and shows a Wraith in only four forks.
-* Replayed twice through `rules/engine.js`: both runs gave the same final state.
-* If #26 merges (boat Wraith at Anger 5), step 6 and everything after it change. #27 may change the memories. Replay the path after the freeze.
+* Seed 116 was picked from a search of seeds 1 to 5000 with one fixed boarding (Mother, Child, Merchant, Cook) and a simple route rule. The search kept seeds where a memory comes before the first Long and the first cycle ends.
+* After #26, the Cook no longer becomes a Wraith at fork 4, so the path has a fifth fork. It finishes a story, plays a memory and delivers all four souls.
+* Replayed twice through `rules/engine.js` on `main` at `e599583`: both runs gave the same final state.
+* #27 may change the memories. Replay the path after the freeze.
 * NOT_RUN: this path in the real game. CrossingScene (T-19) is still a stub on `main` and nothing mounts RouteUI yet, so the fog display on slide 12 and in this path is also unconfirmed in the game window.
 
 ## Not done for T-26
