@@ -47,8 +47,11 @@
     }
   }
   function drawPolong(s) { const types=BigInt(s.encounters)>=2n?tier2:tier1; return types[draw(s,types.length)]; }
+  // At each boarding, a hero can be offered once the run reaches its cycle (config.heroArrival: Odysseus from
+  // cycle 6, Heracles from cycle 9), and then only on a chance roll (25%). At most one hero is offered at a time.
   function offerHero(s) {
-    const choices=heroes.filter(type=>!s.boat.some(x=>x.type===type) && (type!=='SOUL-HERACLES'||s.shore.length>3));
+    const arrives=type=>BigInt(s.cycle)>=BigInt(C.heroArrival[type].fromCycle)&&draw(s,100)<C.heroArrival[type].chance;
+    const choices=heroes.filter(type=>!s.boat.some(x=>x.type===type) && (type!=='SOUL-HERACLES'||s.shore.length>3) && arrives(type));
     s.heroOffer=choices.length?{type:choices[draw(s,choices.length)],resolved:false}:null;
   }
   function create(seed=1) {
@@ -200,7 +203,10 @@
     deliveredQuests(s,x);
     if(x.origin&&!isTainted(x))s.deliveries=inc(s.deliveries);
     const memory=SOUL[x.type].memory;
-    if(memory&&!(x.type==='SOUL-PRIEST'&&x.exhausted))grant(s,memory,'character',x.type,x.id);
+    // Meal or Calm (VarisPah, #27): a Farmer who shared the meal gives no memory when he gets off.
+    const fed=x.type==='SOUL-FARMER'&&s.quests.some(q=>q.definitionId==='QUEST-MEAL'&&q.status==='completed'&&q.participants.includes(x.id));
+    if(fed)record(s,named(x)+' shared his harvest in the meal and gives no memory.');
+    else if(memory&&!(x.type==='SOUL-PRIEST'&&x.exhausted))grant(s,memory,'character',x.type,x.id);
     if(x.type==='SOUL-POLONG'&&!x.spread&&via==='normal'&&s.destination==='DEST-TARTARUS'){s.light=Math.min(s.maxLight,s.light+1);record(s,'Po Long pays the fare: +1 Light.');}
     remove(s,x,'delivery');record(s,named(x)+' reached '+DEST[x.wish].name+'.');
   }

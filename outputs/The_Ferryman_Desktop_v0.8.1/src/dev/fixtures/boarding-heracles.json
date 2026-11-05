@@ -2,15 +2,15 @@
   "format": "the-ferryman-save",
   "version": "0.8-t45b",
   "schemaVersion": 3,
-  "seed": 2,
-  "rng": 1796326438,
+  "seed": 1,
+  "rng": 2931756366,
   "phase": "boarding",
   "paused": false,
   "light": 6,
   "maxLight": 6,
   "round": "0",
-  "cycle": "1",
-  "completed": "0",
+  "cycle": "9",
+  "completed": "8",
   "deliveries": "0",
   "nextActor": "6",
   "nextBoarding": "1",
@@ -81,15 +81,15 @@
   ],
   "boat": [],
   "arrivals": [
-    "SOUL-BLUE-SOLDIER",
     "SOUL-PRIEST",
-    "SOUL-FARMER",
-    "SOUL-LISTENER",
-    "SOUL-POET",
-    "SOUL-BLACKSMITH",
     "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
     "SOUL-KEEPER",
+    "SOUL-POET",
+    "SOUL-FARMER",
     "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [],
@@ -112,27 +112,27 @@
   "routes": {
     "offers": [
       [
-        "DEST-ELYSIUM",
-        "DEST-HAVEN"
+        "DEST-STYX",
+        "DEST-ASPHODEL"
       ],
       [
-        "DEST-ELYSIUM",
-        "DEST-ACHERON"
+        "DEST-TARTARUS",
+        "DEST-STYX"
       ],
       [
-        "DEST-HAVEN",
-        "DEST-ACHERON"
+        "DEST-TARTARUS",
+        "DEST-STYX"
       ]
     ],
     "masks": [
       1,
-      0,
+      1,
       1
     ],
     "foresight": 0,
     "history": []
   },
-  "nextPolong": "SOUL-PO-NAK",
+  "nextPolong": "SOUL-PO-LUEM",
   "heroOffer": {
     "type": "SOUL-HERACLES",
     "resolved": false

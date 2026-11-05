@@ -3,7 +3,7 @@
   "version": "0.8-t45b",
   "schemaVersion": 3,
   "seed": 1,
-  "rng": 2503481014,
+  "rng": 3037600243,
   "phase": "ended",
   "paused": false,
   "light": 0,
@@ -15,21 +15,9 @@
   "nextActor": "7",
   "nextBoarding": "2",
   "nextMemory": "1",
-  "nextQuest": "1",
+  "nextQuest": "2",
   "encounters": "1",
   "shore": [
-    {
-      "id": "ACTOR-2",
-      "type": "SOUL-CHILD",
-      "origin": "SOUL-CHILD",
-      "wish": "DEST-HAVEN",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
     {
       "id": "ACTOR-3",
       "type": "SOUL-MERCHANT",
@@ -61,6 +49,18 @@
       "type": "SOUL-MOTHER",
       "origin": "SOUL-MOTHER",
       "wish": "DEST-TARTARUS",
+      "anger": 2,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HAVEN",
       "anger": 2,
       "boardingId": "1",
       "bornRound": "0",
@@ -108,7 +108,25 @@
   "discard": [],
   "selected": [],
   "hand": [],
-  "quests": [],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-FAMILY",
+      "participants": [
+        "ACTOR-1",
+        "ACTOR-2"
+      ],
+      "status": "active",
+      "stage": "active",
+      "sharedRoutes": 2,
+      "delivered": [],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": null,
+      "cycle": "1",
+      "data": {}
+    }
+  ],
   "effects": {
     "capacity": false,
     "moly": false,
@@ -125,17 +143,17 @@
   "routes": {
     "offers": [
       [
-        "DEST-STYX",
-        "DEST-HAVEN"
+        "DEST-ASPHODEL",
+        "DEST-STYX"
       ],
       [
-        "DEST-STYX",
-        "DEST-HAVEN"
+        "DEST-HAVEN",
+        "DEST-ACHERON"
       ]
     ],
     "masks": [
       0,
-      1
+      0
     ],
     "foresight": 0,
     "history": [
@@ -158,26 +176,28 @@
           "DEST-TARTARUS",
           "DEST-STYX"
         ],
-        "chosen": "DEST-TARTARUS"
+        "chosen": "DEST-STYX"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-LUEM",
-  "heroOffer": {
-    "type": "SOUL-ODYSSEUS",
-    "resolved": true
-  },
-  "destination": "DEST-TARTARUS",
+  "nextPolong": "SOUL-PO-NAK",
+  "heroOffer": null,
+  "destination": "DEST-STYX",
   "pending": null,
   "choice": null,
   "theftQueue": [],
   "trimNext": null,
-  "ending": "The lantern went out: crossing to Tartarus.",
+  "ending": "The lantern went out: crossing to River Styx.",
   "log": [
     {
       "round": "0",
       "cycle": "1",
       "text": "All-quest trial begins."
+    },
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "Mother and Child: started."
     },
     {
       "round": "1",
@@ -197,12 +217,12 @@
     {
       "round": "3",
       "cycle": "1",
-      "text": "crossing to Tartarus: 1 Light lost."
+      "text": "crossing to River Styx: 1 Light lost."
     },
     {
       "round": "3",
       "cycle": "1",
-      "text": "The lantern went out: crossing to Tartarus."
+      "text": "The lantern went out: crossing to River Styx."
     }
   ]
 }

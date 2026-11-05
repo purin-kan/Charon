@@ -3,10 +3,10 @@
   "version": "0.8-t45b",
   "schemaVersion": 3,
   "seed": 34,
-  "rng": 3174170238,
+  "rng": 1429048940,
   "phase": "choice",
   "paused": false,
-  "light": 3,
+  "light": 2,
   "maxLight": 6,
   "round": "4",
   "cycle": "2",
@@ -41,28 +41,14 @@
       "level": 0,
       "spread": false,
       "exhausted": false
-    }
-  ],
-  "boat": [
+    },
     {
       "id": "ACTOR-4",
       "type": "SOUL-MASON",
       "origin": "SOUL-MASON",
       "wish": "DEST-ACHERON",
-      "anger": 3,
-      "boardingId": "2",
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
-    {
-      "id": "ACTOR-5",
-      "type": "SOUL-COOK",
-      "origin": "SOUL-COOK",
-      "wish": "DEST-ASPHODEL",
-      "anger": 3,
-      "boardingId": "2",
+      "anger": 1,
+      "boardingId": null,
       "bornRound": "0",
       "level": 0,
       "spread": false,
@@ -73,9 +59,23 @@
       "type": "SOUL-MESSENGER",
       "origin": "SOUL-MESSENGER",
       "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "1",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
       "anger": 3,
       "boardingId": "2",
-      "bornRound": "1",
+      "bornRound": "0",
       "level": 0,
       "spread": false,
       "exhausted": false
@@ -136,53 +136,50 @@
   "routes": {
     "offers": [
       [
-        "DEST-TARTARUS",
-        "DEST-ACHERON"
+        "DEST-STYX",
+        "DEST-HAVEN"
       ],
       [
-        "DEST-HAVEN",
+        "DEST-TARTARUS",
         "DEST-ASPHODEL"
       ],
       [
-        "DEST-HAVEN",
+        "DEST-ASPHODEL",
         "DEST-ACHERON"
       ]
     ],
     "masks": [
       1,
-      1,
-      1
+      0,
+      0
     ],
     "foresight": 0,
     "history": [
       {
         "offer": [
-          "DEST-ELYSIUM",
-          "DEST-HAVEN"
-        ],
-        "chosen": "DEST-HAVEN"
-      },
-      {
-        "offer": [
-          "DEST-ACHERON",
+          "DEST-STYX",
           "DEST-ELYSIUM"
         ],
         "chosen": "DEST-ELYSIUM"
       },
       {
         "offer": [
-          "DEST-HAVEN",
+          "DEST-STYX",
           "DEST-ACHERON"
+        ],
+        "chosen": "DEST-ACHERON"
+      },
+      {
+        "offer": [
+          "DEST-TARTARUS",
+          "DEST-HAVEN"
         ],
         "chosen": "DEST-HAVEN"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-NAK",
-  "heroOffer": {
-    "type": "SOUL-HERACLES",
-    "resolved": true
-  },
+  "nextPolong": "SOUL-PO-LUEM",
+  "heroOffer": null,
   "destination": "DEST-HAVEN",
   "pending": null,
   "choice": {
@@ -226,7 +223,7 @@
     {
       "round": "2",
       "cycle": "2",
-      "text": "crossing to Haven: 0 Light lost."
+      "text": "crossing to Elysium: 3 Light lost."
     },
     {
       "round": "3",
@@ -236,7 +233,7 @@
     {
       "round": "3",
       "cycle": "2",
-      "text": "crossing to Elysium: 3 Light lost."
+      "text": "crossing to Acheron: 1 Light lost."
     },
     {
       "round": "4",

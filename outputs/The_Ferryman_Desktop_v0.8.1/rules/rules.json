@@ -1,6 +1,6 @@
 {
   "version": "0.8-t45b",
-  "contentSha256": "0f3b390ed02d3e33df91c00e25b6eeb4af972e3e652e368d7fa26e72372b4036",
+  "contentSha256": "08925833d0971f743f0d976fe5758da1fea63aa8534a65d8651ec24ede809816",
   "trial": {
     "stage": "All-quest local trial",
     "notice": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
@@ -28,6 +28,16 @@
     "returnLight": 1,
     "wraithDamage": 1,
     "foresightForks": 3,
+    "heroArrival": {
+      "SOUL-ODYSSEUS": {
+        "fromCycle": 6,
+        "chance": 25
+      },
+      "SOUL-HERACLES": {
+        "fromCycle": 9,
+        "chance": 25
+      }
+    },
     "memoriesPerWindow": null,
     "endless": true,
     "initialShore": [
@@ -53,7 +63,7 @@
   "rules": {
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
-    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
     "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",

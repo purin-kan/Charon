@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45b",
-  "passed": 24,
+  "passed": 26,
   "failed": 0,
   "hashes": {
-    "engine.js": "44f66e1e66c2c7198b6c1d700083544cbcbd22ecd91e52ae0c5aea668f96ed06",
-    "content.json": "0f3b390ed02d3e33df91c00e25b6eeb4af972e3e652e368d7fa26e72372b4036",
-    "tests/quest-check.js": "b00f7bd0a049dfce0914a90dc29f0ebfcff65436cce337d14299df01ef67f213"
+    "engine.js": "2b1a0944ba8e49bab980e3f4ceae6f2ae01ec5f892aff11917b8ac16228f6812",
+    "content.json": "08925833d0971f743f0d976fe5758da1fea63aa8534a65d8651ec24ede809816",
+    "tests/quest-check.js": "479d2327965ebf6c1ed66d755c7f5143cb50ea2c3735beff560c5d5bdc9bc780"
   },
   "records": [
     {
@@ -33,6 +33,10 @@
       "status": "PASS"
     },
     {
+      "name": "Farmer gives Calm when he gets off, but no memory if he shared the meal",
+      "status": "PASS"
+    },
+    {
       "name": "Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith",
       "status": "PASS"
     },
@@ -42,6 +46,10 @@
     },
     {
       "name": "Priest +1 memory or purification trade-off, once per boarding and save/reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Hero timing: none before cycle 6, Odysseus from cycle 6, Heracles from cycle 9, each at about 25%",
       "status": "PASS"
     },
     {
@@ -104,8 +112,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2531,
-      "choices": 27,
+      "transitions": 2598,
+      "choices": 4,
       "humanPlaytest": false
     }
   ],

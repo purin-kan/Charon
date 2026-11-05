@@ -106,12 +106,24 @@ if (!found.trim && found.window) {
   found.trim = { seed: found.window.seed, step: 'synthetic', state: s };
 }
 
+// Heroes are offered only from cycle 6 (Odysseus) or cycle 9 (Heracles), at 25%, which random play
+// rarely reaches. These fixtures move a state to that cycle and put the hero's offer on it.
+function atCycle(s, cycle, type) {
+  s = structuredClone(s);
+  s.cycle = String(cycle);
+  s.completed = String(cycle - 1);
+  s.heroOffer = { type, resolved: false };
+  return s;
+}
+if (!found['boarding-heracles'] && found.boarding) {
+  found['boarding-heracles'] = { seed: found.boarding.seed, step: 'synthetic', state: atCycle(found.boarding.state, 9, 'SOUL-HERACLES') };
+}
+
 // The random policy never accepts a hero, so Odysseus's choice is scripted: he sails alone and
 // the boat takes his wish at the first fork that offers it. After CHOOSE the boat is empty.
 function odysseusChoice() {
   for (let seed = 1; seed <= 400; seed++) {
-    let s = Ferry.create(seed);
-    if (s.heroOffer?.type !== 'SOUL-ODYSSEUS') continue;
+    let s = atCycle(Ferry.create(seed), 6, 'SOUL-ODYSSEUS');
     s = Ferry.transition(s, { type: 'ACCEPT_HERO' });
     s = Ferry.transition(s, { type: 'DEPART' });
     for (let step = 0; step < 40 && !['choice', 'ended'].includes(s.phase); step++) {

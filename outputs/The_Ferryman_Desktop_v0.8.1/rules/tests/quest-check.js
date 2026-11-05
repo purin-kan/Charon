@@ -70,6 +70,11 @@ check('Meal is once per shared boarding; others and Longs -1, Cook does not eat 
  assert.equal(def('SOUL-FARMER').memory,'MEM-CALM');assert.ok(!g.data.memories.some(m=>m.id==='MEM-SHARED-HARVEST'));
  let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=g.data.config.shipAngerLimit-2;/* the meal gives the Cook +2 */const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
 });
+check('Farmer gives Calm when he gets off, but no memory if he shared the meal',()=>{
+ let plain=boat(['SOUL-FARMER','SOUL-COOK']);plain=step(plain,'DEST-ASPHODEL',['SOUL-FARMER']);assert.ok(plain.hand.some(m=>m.type==='MEM-CALM'&&m.sourceRef.definitionId==='SOUL-FARMER'));
+ let fed=boat(['SOUL-FARMER','SOUL-COOK']);fed=act(fed,'MEAL',{questId:quest(fed,'QUEST-MEAL').id});const hand=fed.hand.length;
+ fed=step(fed,'DEST-ASPHODEL',['SOUL-FARMER']);assert.ok(!find(fed,'SOUL-FARMER'));assert.equal(fed.hand.length,hand);assert.ok(!fed.hand.some(m=>m.sourceRef.definitionId==='SOUL-FARMER'));rt(fed);
+});
 check('Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith',()=>{
  let s=boat(['SOUL-MERCHANT','SOUL-BLACKSMITH']);s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-MERCHANT').anger,1);assert.equal(find(s,'SOUL-BLACKSMITH').anger,1);
  assert.equal(g.deliveryReason({...s,destination:'DEST-ACHERON'},find(s,'SOUL-BLACKSMITH')),null);
@@ -92,6 +97,17 @@ check('Priest +1 memory or purification trade-off, once per boarding and save/re
  s=act(s,'PURIFY',{actorId:priest.id,target:cook.id});assert.equal(find(s,'SOUL-COOK').anger,0);assert.equal(find(s,'SOUL-PRIEST').exhausted,true);rt(s);assert.throws(()=>act(s,'PURIFY',{actorId:priest.id,target:cook.id}));
  s=step(s,'DEST-HAVEN',['SOUL-PRIEST']);assert.ok(!s.hand.some(m=>m.type==='MEM-LAST-PRAYER'));
  let normal=boat(['SOUL-PRIEST']);normal=step(normal,'DEST-HAVEN',['SOUL-PRIEST']);normal.light=3;normal=act(normal,'PLAY_MEMORY',{id:normal.hand[0].id});assert.equal(normal.light,4);
+});
+check('Hero timing: none before cycle 6, Odysseus from cycle 6, Heracles from cycle 9, each at about 25%',()=>{
+ const arrival=g.data.config.heroArrival;assert.deepEqual(arrival['SOUL-ODYSSEUS'],{fromCycle:6,chance:25});assert.deepEqual(arrival['SOUL-HERACLES'],{fromCycle:9,chance:25});
+ for(let seed=1;seed<=200;seed++)assert.equal(g.create(seed).heroOffer,null);
+ // Return at the end of cycle-1 into the given cycle, with a seeded roll; the shore refills to five, so Heracles' shore rule holds.
+ const returnInto=(cycle,seed)=>{let s=boat(['SOUL-MOTHER']);s=step(s,'DEST-TARTARUS',['SOUL-MOTHER']);s.completed=String(cycle-2);s.cycle=String(cycle-1);s.rng=seed;s=act(s,'RETURN');assert.equal(s.cycle,String(cycle));assert.ok(s.shore.length>3);return s;};
+ const offers=cycle=>{const n={'SOUL-ODYSSEUS':0,'SOUL-HERACLES':0,none:0};for(let seed=1;seed<=400;seed++){const s=returnInto(cycle,seed*2654435761>>>0);n[s.heroOffer?s.heroOffer.type:'none']++;if(s.heroOffer)rt(s);}return n;};
+ for(const cycle of [2,5])assert.equal(offers(cycle).none,400);
+ for(const cycle of [6,8]){const n=offers(cycle);assert.equal(n['SOUL-HERACLES'],0);assert.ok(n['SOUL-ODYSSEUS']>=60&&n['SOUL-ODYSSEUS']<=140,'Odysseus about 25%: '+n['SOUL-ODYSSEUS']);}
+ const late=offers(9);assert.ok(late['SOUL-HERACLES']>=40&&late['SOUL-ODYSSEUS']>=40,'both heroes from cycle 9: '+JSON.stringify(late));
+ assert.ok(400-late.none>=135&&400-late.none<=215,'one hero offered about 44% of boardings: '+JSON.stringify(late));
 });
 check('Heracles toll, Cerberus encounter, shared second-stage wish and Golden Apple stacking',()=>{
  let s=shore(['SOUL-MOTHER','SOUL-CHILD','SOUL-MERCHANT','SOUL-COOK','SOUL-MASON']);s.heroOffer={type:'SOUL-HERACLES',resolved:false};

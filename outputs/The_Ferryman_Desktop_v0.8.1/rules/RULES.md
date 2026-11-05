@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `0f3b390ed02d3e33df91c00e25b6eeb4af972e3e652e368d7fa26e72372b4036`.
+Generated from content.json. SHA-256: `08925833d0971f743f0d976fe5758da1fea63aa8534a65d8651ec24ede809816`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -52,7 +52,7 @@ Keep the lantern burning through repeated trips. Zero Light ends the run. This t
 
 ## boarding
 
-Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
+Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
 
 ## memories
 
