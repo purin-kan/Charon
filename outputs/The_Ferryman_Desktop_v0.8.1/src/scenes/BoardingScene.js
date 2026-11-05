@@ -1,14 +1,16 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { BODY_FONT, HEAD_FONT, whenFontsReady } from '../fonts.js';
-import { addBackdrop, playSound, queueAssets } from '../preloader.js';
+import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
+import { BODY_FONT, COLOR, CSS, FADE_RGB, bodyText, drawPanel, fadeIn, headText, makeButton, makeChip, whenFontsReady } from '../theme.js';
 import { defineTuning, onTune, tune } from '../tuning.js';
+import { Hud } from '../components/Hud.js';
+import { MemoryHand } from '../components/MemoryHand.js';
 import { soulTitle, typeDetail } from './crossing-layout.js';
-import { Atmosphere, DEPTH, makeTextures } from './boarding-fx.js';
+import { DEPTH, NightStage } from './night-fx.js';
 import { HoverTip } from './hover-tip.js';
 import {
-  STAGE, aboardChips, arcPoint, boatSway, clearActions, flames, heroPrompt, lastBoarded, layoutStage, nextLongName, panelButtons,
+  STAGE, aboardChips, arcPoint, boatSway, clearActions, heroPrompt, lastBoarded, layoutStage, panelButtons,
   ridePoint, seatBar, soulBadge, soulFacts, springStep,
 } from './boarding-layout.js';
 import { addBoardingSoul, setBoardingBadge, swayTail } from './soul-token.js';
@@ -18,7 +20,6 @@ defineTuning({
   'boarding.walkEase': { type: 'ease', default: 'Sine.InOut' },
   'boarding.arcPx': { type: 'number', default: 34, min: 0, max: 120, step: 1, help: 'Height of the arc over the gunwale' },
   'boarding.leanDeg': { type: 'number', default: 7, min: 0, max: 25, step: 0.5, help: 'Soul leans as it travels' },
-  'boarding.trailAlpha': { type: 'number', default: 0.2, min: 0, max: 1, step: 0.02, help: 'Mist left behind a moving soul' },
   'boarding.selectLift': { type: 'number', default: 6, min: 0, max: 30, step: 1, help: 'Selected soul rises in its seat' },
   'boarding.bobPx': { type: 'number', default: 4, min: 0, max: 16, step: 1, help: 'Breathing bob height (new souls)' },
   'boarding.bobMs': { type: 'number', default: 2600, min: 500, max: 6000, step: 100, help: 'Breathing bob, one way (new souls)' },
@@ -39,20 +40,9 @@ defineTuning({
   'boarding.appearMs': { type: 'number', default: 800, min: 0, max: 2500, step: 50, help: 'A soul rises out of the mist' },
   'boarding.appearRise': { type: 'number', default: 18, min: 0, max: 60, step: 1 },
   'boarding.uiMs': { type: 'number', default: 520, min: 0, max: 1500, step: 10, help: 'Panels slide in and out' },
-  'boarding.veil': { type: 'number', default: 0.6, min: 0, max: 1, step: 0.02, help: 'Dark teal veil over the painting' },
-  'boarding.vignette': { type: 'number', default: 0.85, min: 0, max: 1, step: 0.02 },
   'boarding.backdropShift': { type: 'number', default: 110, min: 0, max: 200, step: 2, help: 'Painting moved up, clear of the panel' },
-  'boarding.parallaxPx': { type: 'number', default: 9, min: 0, max: 30, step: 1, help: 'Painting shifts with the pointer' },
-  'boarding.fogSpeed': { type: 'number', default: 7, min: 0, max: 60, step: 1, help: 'Fog drift, pixels per second' },
-  'boarding.fogAlpha': { type: 'number', default: 0.1, min: 0, max: 0.5, step: 0.01 },
-  'boarding.rayAlpha': { type: 'number', default: 0.08, min: 0, max: 0.4, step: 0.01, help: 'Moonlight rays' },
-  'boarding.moteAlpha': { type: 'number', default: 0.65, min: 0, max: 1, step: 0.05, help: 'Drifting motes of light' },
-  'boarding.glintAlpha': { type: 'number', default: 0.2, min: 0, max: 1, step: 0.02, help: 'Moonlight on the water' },
-  'boarding.rippleAlpha': { type: 'number', default: 0.3, min: 0, max: 1, step: 0.02 },
-  'boarding.rippleMs': { type: 'number', default: 1400, min: 200, max: 4000, step: 50, help: 'Ring on the water' },
   'boarding.lanternGlow': { type: 'number', default: 0.2, min: 0, max: 1, step: 0.02, help: 'Warm light on the boat' },
   'boarding.lanternFlicker': { type: 'number', default: 0.22, min: 0, max: 0.6, step: 0.02 },
-  'boarding.boatScale': { type: 'number', default: 0.32, min: 0.15, max: 0.6, step: 0.01 },
   'boarding.heavePx': { type: 'number', default: 2.5, min: 0, max: 12, step: 0.5, help: 'Boat rises and falls' },
   'boarding.rollDeg': { type: 'number', default: 0.7, min: 0, max: 4, step: 0.1, help: 'Boat rocks' },
   'boarding.dipPx': { type: 'number', default: 26, min: 0, max: 120, step: 1, help: 'Kick when a soul steps aboard or off' },
@@ -71,29 +61,14 @@ defineTuning({
   'boarding.seatStep': { type: 'number', default: STAGE.seatStep, min: 40, max: 160, step: 1, help: 'Between seats' },
 });
 
-const COLOR = { deep: 0x020607, panel: 0x08161b, panelHi: 0x12262c, veil: 0x06141a, gold: 0xedc47f, goldHi: 0xf7dcae, unlit: 0x5b6a6a, lantern: 0xf0a860, reflection: 0x9fb0cc };
-const CSS = { bone: '#f5efdf', muted: '#b9c3bd', gold: '#edc47f', danger: '#ff9f8a', ink: '#08161b' };
-const PANEL = { w: 760, h: 164, r: 18, left: -356, chipX: -282, chipStep: 108, chipW: 100, chipH: 26, seatX: 190, seatStep: 32, seatW: 26, seatH: 14 };
-// The boat image is 2400 x 900: its deck is centred on the image, the floor sits near y 620, the keel near y 750 and the
-// lantern near (621, 346). The soul sprites keep their tails out of sight behind the hull.
-const BOAT_ART = { h: 900, centreX: 1200, centreY: 450, floorY: 620, keelY: 740, lanternX: 621, lanternY: 346, fadeY: 430 };
+const PANEL = { w: 760, h: 164, left: -356, chipX: -282, chipStep: 108, chipW: 100, chipH: 26, seatX: 190, seatStep: 32, seatW: 26, seatH: 14 };
 const REFLECTION_POINTS = 16;
 const REFLECTION_SQUASH = 0.5; // looked at from above the water, a reflection is shorter than the boat
+const REFLECTION_REACH = 0.58; // how far up the boat the reflection shows, as a share of the height to the waterline
+const REFLECTION_TINT = 0x9fb0cc;
 const LANTERN_SCALE = 1.1;
 
 const stageView = () => Object.fromEntries(Object.keys(STAGE).map((key) => [key, tune(`boarding.${key}`)]));
-const bodyText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: BODY_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
-const headText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: HEAD_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
-
-function flameShape(w, h) {
-  const points = [];
-  for (let i = 0; i < 24; i++) {
-    const a = (i / 24) * Math.PI * 2;
-    const lean = w * 0.4 * ((Math.cos(a) + 1) / 2) ** 2; // the tip curls, or it reads as a water drop
-    points.push({ x: w * Math.sin(a) * Math.sin(a / 2) ** 2 + lean, y: -h * Math.cos(a) - h });
-  }
-  return points;
-}
 
 export class BoardingScene extends Phaser.Scene {
   constructor() {
@@ -104,7 +79,7 @@ export class BoardingScene extends Phaser.Scene {
 
   preload() {
     queueAssets(this, {
-      art: [...Ferry.data.souls.map((s) => s.id), 'sprite-boat-horizontal'],
+      art: [...soulArtIds(), 'sprite-boat-horizontal', ...MemoryHand.artIds()],
       backgrounds: ['bg-starting-shore'],
       audio: ['sfx-board', 'sfx-unboard'],
     });
@@ -117,18 +92,15 @@ export class BoardingScene extends Phaser.Scene {
     this.entries = new Map();
     this.chipBoxes = new Map();
     this.seatCells = [];
-    this.flameMarks = [];
     this.tollMode = false;
     this.leaving = false;
     this.ready = false;
     this.heroShown = false;
-    this.lean = 0;
-    this.backdropScale = undefined;
     this.wakeClock = 0;
     this.boatMotion = { shift: tune('boarding.introBoat'), dip: { value: 0, velocity: 0 }, roll: { value: 0, velocity: 0 }, pivot: { x: 0, y: 0 }, angle: 0, offset: { x: 0, y: 0 } };
 
     this.drawStage();
-    this.cameras.main.fadeIn(tune('boarding.introMs'), 2, 6, 7);
+    fadeIn(this, tune('boarding.introMs'));
     this.tweens.add({ targets: this.boatMotion, shift: 0, duration: tune('boarding.introMs') * 1.5, ease: 'Cubic.Out' });
 
     const run = (this.run = {}); // a scene restarted while the fonts load must not build twice
@@ -138,7 +110,7 @@ export class BoardingScene extends Phaser.Scene {
       else this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
-    const stopTuning = onTune((key) => { if (key.startsWith('boarding.')) this.applyTuning(); });
+    const stopTuning = onTune((key) => { if (/^(boarding|art|night)\./.test(key)) this.applyTuning(); });
     this.events.once('shutdown', () => {
       this.run = null;
       this.boat = null; // update() can fire once more, after the rope has gone
@@ -148,13 +120,17 @@ export class BoardingScene extends Phaser.Scene {
 
     whenFontsReady().then(() => {
       if (this.run !== run) return;
-      this.drawHud();
-      this.drawPanel();
-      this.drawHeroBox();
+      this.hud = new Hud(this);
       this.tip = new HoverTip(this, DEPTH.hero + 1);
       this.tip.title.setFontFamily(BODY_FONT).setFontSize(20).setColor(CSS.gold);
       this.tip.body.setFontFamily(BODY_FONT).setFontSize(17).setColor(CSS.bone);
       this.tip.bg.setFillStyle(COLOR.panel, 0.96).setStrokeStyle(1, COLOR.gold, 0.25);
+      this.hand = new MemoryHand(this, {
+        compact: true,
+        onHover: (card) => this.showCardTip(card),
+      });
+      this.drawPanel();
+      this.drawHeroBox();
       this.ready = true;
       this.render(this.registry.get('state'));
       this.slideUiIn();
@@ -163,22 +139,11 @@ export class BoardingScene extends Phaser.Scene {
 
   /** The night scene: everything here has no text, so it can show before the fonts arrive. */
   drawStage() {
-    const { width, height } = this.scale;
-    makeTextures(this);
-    this.add.rectangle(width / 2, height / 2, width, height, COLOR.deep).setDepth(DEPTH.sky);
-    this.backdrop = addBackdrop(this, 'bg-starting-shore', 0);
-    this.veil = this.add.rectangle(width / 2, height / 2, width, height, COLOR.veil).setDepth(DEPTH.veil);
-    this.floorFade = this.add.image(width / 2, 0, 'board-fade').setOrigin(0.5, 0).setDepth(DEPTH.floor).setDisplaySize(width, 170);
-    this.floorFill = this.add.rectangle(width / 2, 0, width, height, COLOR.deep).setOrigin(0.5, 0).setDepth(DEPTH.floor);
-    this.vignette = this.add.image(width / 2, height / 2, 'board-vignette').setDepth(DEPTH.vignette);
-    this.fx = new Atmosphere(this);
-
-    if (this.textures.exists('sprite-boat-horizontal')) {
-      this.boat = this.add.image(0, 0, 'sprite-boat-horizontal').setDepth(DEPTH.boat);
-      this.reflection = this.addReflection();
-    } else {
-      this.boat = this.add.rectangle(0, 0, 1320, 300, 0x2a2118).setDepth(DEPTH.boat);
-    }
+    this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'));
+    this.fx = this.night.fx;
+    this.boatKey = this.textures.exists('sprite-boat-horizontal') ? 'sprite-boat-horizontal' : 'board-hull';
+    this.boat = this.add.image(0, 0, this.boatKey).setDepth(DEPTH.boat);
+    this.reflection = this.addReflection();
     this.lantern = this.add.image(0, 0, 'board-soft').setTint(COLOR.lantern).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.lantern);
     this.lanternPool = this.add.image(0, 0, 'board-soft').setScale(1.1, 0.26).setTint(COLOR.lantern).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.reflection);
     this.placeStage();
@@ -186,42 +151,35 @@ export class BoardingScene extends Phaser.Scene {
 
   /** The boat upside down on the water, as a rope, so the water can bend it. Faded to nothing away from the hull. */
   addReflection() {
-    const { keelY, fadeY } = BOAT_ART;
+    const { height } = this.boat;
+    const keel = height * tune('art.boat.keel');
+    const fade = keel * (1 - REFLECTION_REACH);
     const points = [];
     const alphas = [];
     for (let i = 0; i < REFLECTION_POINTS; i++) {
-      const artY = (BOAT_ART.h * i) / (REFLECTION_POINTS - 1);
-      points.push(new Phaser.Math.Vector2(0, keelY - artY));
-      const strength = Phaser.Math.Clamp((artY - fadeY) / (keelY - fadeY), 0, 1);
-      alphas.push(artY < keelY ? tune('boarding.reflectionAlpha') * strength ** 2 : 0);
+      const artY = (height * i) / (REFLECTION_POINTS - 1);
+      points.push(new Phaser.Math.Vector2(0, keel - artY));
+      const strength = Phaser.Math.Clamp((artY - fade) / (keel - fade), 0, 1);
+      alphas.push(artY < keel ? tune('boarding.reflectionAlpha') * strength ** 2 : 0);
     }
-    const colors = points.map(() => COLOR.reflection);
-    return this.add.rope(0, 0, 'sprite-boat-horizontal', undefined, points, false, colors, alphas).setDepth(DEPTH.reflection);
+    const colors = points.map(() => REFLECTION_TINT);
+    return this.add.rope(0, 0, this.boatKey, undefined, points, false, colors, alphas).setDepth(DEPTH.reflection);
   }
 
-  /** Puts everything that follows a tuning value in place. The boat's own motion is in updateBoat. */
+  /** The boat image fitted to its tuned width, whatever size the file is. */
+  boatScale() {
+    return tune('art.boat.width') / this.boat.width;
+  }
+
   placeStage() {
-    const { width, height } = this.scale;
-    const shift = tune('boarding.backdropShift');
-    if (this.backdrop) {
-      if (this.backdropScale === undefined) this.backdropScale = this.backdrop.scaleX;
-      this.backdrop.setScale(this.backdropScale * (1 + (2 * tune('boarding.parallaxPx')) / width));
-      this.backdrop.setY(height / 2 - shift);
-      this.floorFade.setY(height - shift - 170);
-      this.floorFill.setY(height - shift);
-    } else {
-      this.floorFade.setVisible(false);
-      this.floorFill.setVisible(false);
-    }
-    this.veil.setAlpha(tune('boarding.veil'));
-    this.vignette.setAlpha(tune('boarding.vignette'));
-    this.boat.setScale(tune('boarding.boatScale'));
-    this.reflection?.setScale(tune('boarding.boatScale'), tune('boarding.boatScale') * REFLECTION_SQUASH);
-    this.fx.applyTuning();
+    const scale = this.boatScale();
+    this.boat.setScale(scale);
+    this.reflection.setScale(scale, scale * REFLECTION_SQUASH);
   }
 
   applyTuning() {
     if (this.leaving) return;
+    this.night.place();
     this.placeStage();
     if (!this.ready) return;
     this.panel.setY(tune('boarding.panelY'));
@@ -231,16 +189,23 @@ export class BoardingScene extends Phaser.Scene {
   update(time, delta) {
     if (!this.boat) return;
     const seconds = time / 1000;
-    const dt = delta / 1000;
-    const pointer = this.input.activePointer;
-    const target = this.ready ? (pointer.x / this.scale.width - 0.5) * 2 * tune('boarding.parallaxPx') : 0;
-    this.lean += (target - this.lean) * Math.min(1, dt * 2.5); // eased, so the view drifts instead of tracking the mouse
-    if (this.backdrop) this.backdrop.x = this.scale.width / 2 - this.lean;
-    this.fx.update(seconds, dt, this.lean);
-    this.updateBoat(seconds, dt);
+    this.night.update(time, delta);
+    this.updateBoat(seconds, delta / 1000);
     this.updateSouls(seconds, delta);
-    this.updateFlames(seconds);
+    this.hud?.update(seconds);
     this.updateWake(delta);
+  }
+
+  /** How far the deck, the waterline and the lantern sit from the middle of the boat image, on screen. */
+  boatMarks() {
+    const { width, height } = this.boat;
+    const scale = this.boatScale();
+    return {
+      floor: (tune('art.boat.floor') - 0.5) * height * scale,
+      keel: (tune('art.boat.keel') - 0.5) * height * scale,
+      lanternX: (tune('art.boat.lanternX') - 0.5) * width * scale,
+      lanternY: (tune('art.boat.lanternY') - 0.5) * height * scale,
+    };
   }
 
   updateBoat(seconds, dt) {
@@ -250,23 +215,21 @@ export class BoardingScene extends Phaser.Scene {
     motion.dip = springStep(motion.dip, dt, stiffness, damping);
     motion.roll = springStep(motion.roll, dt, stiffness, damping);
     const sway = boatSway(seconds, tune('boarding.heavePx'), Phaser.Math.DegToRad(tune('boarding.rollDeg')));
-    const scale = tune('boarding.boatScale');
+    const marks = this.boatMarks();
     const x = tune('boarding.deckX');
-    const y = tune('boarding.deckY') - (BOAT_ART.floorY - BOAT_ART.centreY) * scale;
+    const y = tune('boarding.deckY') - marks.floor;
     motion.pivot = { x, y };
     motion.angle = sway.angle + motion.roll.value;
     motion.offset = { x: motion.shift, y: sway.y + motion.dip.value };
     this.boat.setPosition(x + motion.offset.x, y + motion.offset.y).setRotation(motion.angle);
 
-    const home = { x: x + (BOAT_ART.lanternX - BOAT_ART.centreX) * scale, y: y + (BOAT_ART.lanternY - BOAT_ART.centreY) * scale };
-    const light = ridePoint(home, motion.pivot, motion.angle, motion.offset);
+    const light = ridePoint({ x: x + marks.lanternX, y: y + marks.lanternY }, motion.pivot, motion.angle, motion.offset);
     const flicker = 1 - tune('boarding.lanternFlicker') * (0.5 + 0.3 * Math.sin(seconds * 7.3) + 0.2 * Math.sin(seconds * 13.1 + 2));
     this.lantern.setPosition(light.x, light.y).setScale(LANTERN_SCALE * (0.96 + 0.1 * flicker)).setAlpha(tune('boarding.lanternGlow') * flicker);
-    const waterY = y + (BOAT_ART.keelY - BOAT_ART.centreY) * scale;
+    const waterY = y + marks.keel;
     this.lanternPool.setPosition(light.x + 6, waterY + 8).setAlpha(tune('boarding.lanternGlow') * 0.55 * flicker);
 
-    if (!this.reflection) return;
-    const wobble = tune('boarding.reflectionWobble') / scale;
+    const wobble = tune('boarding.reflectionWobble') / this.boatScale();
     this.reflection.setPosition(x + motion.offset.x, waterY - motion.offset.y * 0.4).setRotation(-motion.angle);
     this.reflection.points.forEach((point, i) => {
       const depth = 1 - i / (REFLECTION_POINTS - 1);
@@ -296,23 +259,14 @@ export class BoardingScene extends Phaser.Scene {
     }
   }
 
-  updateFlames(seconds) {
-    this.flameMarks.forEach((flame, i) => {
-      if (!flame.lit) return;
-      const beat = seconds * (5.1 + i * 0.7) + i * 1.9;
-      flame.mark.setScale(1 + 0.05 * Math.sin(beat * 1.3), 1 + 0.08 * Math.sin(beat) + 0.04 * Math.sin(beat * 2.7));
-    });
-  }
-
   /** The boat leaves rings behind it while it moves. */
   updateWake(delta) {
     if (!this.leaving) return;
     this.wakeClock += delta;
     if (this.wakeClock < 230) return;
     this.wakeClock = 0;
-    const scale = tune('boarding.boatScale');
     const { pivot, offset } = this.boatMotion;
-    this.fx.ripple(pivot.x + offset.x - 300 * scale * 1.2, pivot.y + (BOAT_ART.keelY - BOAT_ART.centreY) * scale + 6, 1.5);
+    this.fx.ripple(pivot.x + offset.x - tune('art.boat.width') * 0.15, pivot.y + this.boatMarks().keel + 6, 1.5);
   }
 
   /** A soul stepping on or off rocks the boat towards its side. */
@@ -323,52 +277,16 @@ export class BoardingScene extends Phaser.Scene {
     motion.roll.velocity += side * 0.08 * Math.abs(weight);
   }
 
-  drawHud() {
-    const plate = this.add.graphics();
-    this.drawPlate(plate, 24, 20, 300, 80);
-    this.flameHolder = this.add.container(0, 0);
-    this.cycle = this.add.text(304, 44, '', bodyText(20, CSS.gold)).setOrigin(1, 0.5); // Cinzel's 1 reads as a Roman I
-    this.nextLong = this.add.text(42, 76, '', bodyText(17, CSS.muted)).setOrigin(0, 0.5);
-    this.hud = this.add.container(0, 0, [plate, this.flameHolder, this.cycle, this.nextLong]).setDepth(DEPTH.ui);
-  }
-
-  drawPlate(graphics, x, y, w, h) {
-    graphics.fillStyle(COLOR.panel, 0.94).fillRoundedRect(x, y, w, h, PANEL.r);
-    graphics.lineStyle(1, COLOR.gold, 0.25).strokeRoundedRect(x, y, w, h, PANEL.r);
-  }
-
-  drawFlames(lit) {
-    while (this.flameMarks.length < lit.length) {
-      const i = this.flameMarks.length;
-      const mark = this.add.graphics().setPosition(52 + i * 26, 56);
-      this.flameHolder.add(mark);
-      this.flameMarks.push({ mark, lit: null });
-    }
-    lit.forEach((on, i) => {
-      const flame = this.flameMarks[i];
-      if (flame.lit === on) return;
-      flame.lit = on;
-      flame.mark.clear().setScale(1);
-      if (on) {
-        flame.mark.fillStyle(COLOR.gold, 1).fillPoints(flameShape(10, 13), true);
-        flame.mark.fillStyle(0xf5efdf, 0.9).fillPoints(flameShape(5, 7), true);
-      } else {
-        flame.mark.lineStyle(1, COLOR.unlit, 1).strokePoints(flameShape(10, 13), true);
-      }
-    });
-  }
-
   drawPanel() {
     const { w, h, left } = PANEL;
-    const back = this.add.graphics();
-    this.drawPlate(back, -w / 2, 0, w, h);
+    const back = drawPanel(this.add.graphics(), -w / 2, 0, w, h);
     const heading = this.add.text(left, 24, t('boarding.heading'), headText(21)).setOrigin(0, 0.5);
     this.seatsLine = this.add.text(176, 24, '', bodyText(19)).setOrigin(1, 0.5);
     const aboard = this.add.text(left, 60, t('boarding.aboard'), bodyText(18, CSS.muted)).setOrigin(0, 0.5);
     this.message = this.add.text(left, 102, '', bodyText(18, CSS.danger, { wordWrap: { width: 290 }, lineSpacing: -2 })).setOrigin(0, 0.5);
-    this.undoBtn = this.button(0, 102, 96, 36, t('boarding.undo'), false, () => this.undo());
-    this.clearBtn = this.button(128, 102, 136, 36, t('boarding.clearBoat'), false, () => this.clearBoat());
-    this.castBtn = this.button(282, 102, 148, 36, t('boarding.castOff'), true, () => this.act({ type: 'DEPART' }));
+    this.undoBtn = makeButton(this, 0, 102, 96, 36, t('boarding.undo'), () => this.undo());
+    this.clearBtn = makeButton(this, 128, 102, 136, 36, t('boarding.clearBoat'), () => this.clearBoat());
+    this.castBtn = makeButton(this, 282, 102, 148, 36, t('boarding.castOff'), () => this.act({ type: 'DEPART' }), { gold: true });
     const note = t('boarding.shoreNote', { limit: Ferry.data.config.shoreAngerLimit });
     const noteText = this.add.text(0, 143, note, bodyText(16, CSS.muted)).setOrigin(0.5);
     this.panel = this.add.container(this.scale.width / 2, tune('boarding.panelY'), [
@@ -379,13 +297,12 @@ export class BoardingScene extends Phaser.Scene {
   drawHeroBox() {
     const w = 480;
     const h = 136;
-    const back = this.add.graphics();
-    this.drawPlate(back, -w / 2, -h / 2, w, h);
+    const back = drawPanel(this.add.graphics(), -w / 2, -h / 2, w, h);
     this.heroTitle = this.add.text(0, -46, '', headText(19, CSS.gold, { align: 'center', wordWrap: { width: w - 40 } })).setOrigin(0.5);
     this.heroLine = this.add.text(0, -10, '', bodyText(17, CSS.bone, { align: 'center', wordWrap: { width: w - 40 } })).setOrigin(0.5);
-    this.acceptBtn = this.button(-70, 42, 120, 34, t('boarding.accept'), true, () => this.acceptHero());
-    this.declineBtn = this.button(70, 42, 120, 34, t('boarding.decline'), false, () => this.act({ type: 'DECLINE_HERO' }));
-    this.cancelBtn = this.button(0, 42, 120, 34, t('common.cancel'), false, () => this.setTollMode(false));
+    this.acceptBtn = makeButton(this, -70, 42, 120, 34, t('boarding.accept'), () => this.acceptHero(), { gold: true });
+    this.declineBtn = makeButton(this, 70, 42, 120, 34, t('boarding.decline'), () => this.act({ type: 'DECLINE_HERO' }));
+    this.cancelBtn = makeButton(this, 0, 42, 120, 34, t('common.cancel'), () => this.setTollMode(false));
     const hover = this.add.zone(0, -24, w, 84).setInteractive();
     // Hovering the offer tells what the hero does, as hovering a soul does.
     hover.on('pointerover', (pointer) => {
@@ -404,56 +321,10 @@ export class BoardingScene extends Phaser.Scene {
     const delay = tune('boarding.introMs') * 0.45;
     const panelY = tune('boarding.panelY');
     this.panel.setAlpha(0).setY(panelY + 44);
-    this.hud.setAlpha(0).setY(-22);
     this.tweens.add({ targets: this.panel, y: panelY, alpha: 1, duration, delay, ease: 'Cubic.Out' });
-    this.tweens.add({ targets: this.hud, y: 0, alpha: 1, duration, delay: delay + 120, ease: 'Cubic.Out' });
-  }
-
-  /** A pill button. Gold for the main action, with a slow breath of light; dark with a thin gold outline otherwise. */
-  button(x, y, w, h, label, gold, onPress) {
-    const face = this.add.graphics();
-    const paint = (hover) => {
-      face.clear();
-      face.fillStyle(gold ? (hover ? COLOR.goldHi : COLOR.gold) : (hover ? COLOR.panelHi : COLOR.panel), 1).fillRoundedRect(-w / 2, -h / 2, w, h, h / 2);
-      if (!gold) face.lineStyle(1, COLOR.gold, hover ? 0.9 : 0.6).strokeRoundedRect(-w / 2, -h / 2, w, h, h / 2);
-    };
-    const text = this.add.text(0, 0, label, headText(15, gold ? CSS.ink : CSS.gold, { fontStyle: 'bold' })).setOrigin(0.5);
-    const parts = [face, text];
-    let aura = null;
-    if (gold) {
-      aura = this.add.image(0, 0, 'board-soft').setDisplaySize(w * 1.7, h * 3).setTint(COLOR.gold).setAlpha(0);
-      parts.unshift(aura);
-      this.tweens.add({ targets: aura, alpha: 0.42, duration: 1500, ease: 'Sine.InOut', yoyo: true, repeat: -1 });
-    }
-    const btn = this.add.container(x, y, parts);
-    btn.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
-    const scaleTo = (scale, duration = 140) => {
-      this.tweens.killTweensOf(btn);
-      this.tweens.add({ targets: btn, scale, duration, ease: 'Sine.Out' });
-    };
-    btn.enabled = true;
-    btn.styled = false;
-    btn.on('pointerover', () => { if (btn.enabled) { paint(true); scaleTo(1.03); } });
-    btn.on('pointerout', () => { paint(false); scaleTo(1); });
-    btn.on('pointerdown', () => {
-      if (!btn.enabled) return;
-      this.tweens.killTweensOf(btn);
-      this.tweens.add({ targets: btn, scale: 0.96, duration: 70, ease: 'Sine.Out', yoyo: true });
-      onPress();
-    });
-    btn.setEnabled = (on) => {
-      if (btn.styled && btn.enabled === on) return;
-      const first = !btn.styled;
-      btn.styled = true;
-      btn.enabled = on;
-      btn.input.cursor = on ? 'pointer' : 'default';
-      aura?.setVisible(on);
-      if (!on) paint(false);
-      if (first) btn.setAlpha(on ? 1 : 0.45);
-      else this.tweens.add({ targets: btn, alpha: on ? 1 : 0.45, duration: 200, ease: 'Sine.Out' });
-    };
-    paint(false);
-    return btn;
+    this.hud.slideIn(delay + 120);
+    this.hand.root.setAlpha(0);
+    this.tweens.add({ targets: this.hand.root, alpha: 1, duration, delay: delay + 200, ease: 'Sine.Out' });
   }
 
   /** Applies an action. A rejected one changes nothing: the engine's reason shows and the soul refuses. */
@@ -519,6 +390,12 @@ export class BoardingScene extends Phaser.Scene {
     if (!fresh) return;
     this.tip.root.setAlpha(0);
     this.tweens.add({ targets: this.tip.root, alpha: 1, duration: 140, ease: 'Sine.Out' });
+  }
+
+  /** A small card shows its full text on hover. */
+  showCardTip(card) {
+    if (!card) { this.tip.hide(); return; }
+    this.showTip(this.input.activePointer, card.name, [card.text, t('memory.from', { source: card.source }), card.reason]);
   }
 
   /** A short shake on the figure only, so it never fights a walk. */
@@ -596,7 +473,8 @@ export class BoardingScene extends Phaser.Scene {
     const duration = tune('boarding.exitMs');
     const ui = tune('boarding.uiMs');
     this.tweens.add({ targets: this.panel, y: this.panel.y + 44, alpha: 0, duration: ui, ease: 'Sine.In' });
-    this.tweens.add({ targets: this.hud, y: -22, alpha: 0, duration: ui, ease: 'Sine.In' });
+    this.hud.slideOut();
+    this.tweens.add({ targets: this.hand.root, alpha: 0, duration: ui, ease: 'Sine.In' });
     if (this.heroShown) this.tweens.add({ targets: this.heroBox, alpha: 0, duration: ui, ease: 'Sine.In' });
     this.kickBoat(tune('boarding.deckX'), 0.5);
     this.tweens.add({
@@ -606,7 +484,7 @@ export class BoardingScene extends Phaser.Scene {
       ease: tune('boarding.exitEase'),
       onComplete: () => this.router.exitDone(),
     });
-    this.time.delayedCall(duration * 0.68, () => this.cameras.main.fadeOut(duration * 0.32, 2, 6, 7));
+    this.time.delayedCall(duration * 0.68, () => this.cameras.main.fadeOut(duration * 0.32, ...FADE_RGB));
   }
 
   /** Brings the screen in line with the state. Tokens are keyed by actor id, so they travel rather than jump. */
@@ -623,20 +501,14 @@ export class BoardingScene extends Phaser.Scene {
       const delay = first ? tune('boarding.introMs') * 0.3 + i * tune('boarding.introStagger') : 0;
       this.updateToken(this.tokens.get(entry.id) ?? this.addToken(entry, delay), entry);
     });
-    this.renderHud(state);
+    this.hud.render(state);
+    this.hand.render(state);
     this.renderPanel(state);
     this.syncHero(state);
     const buttons = panelButtons(state, this.tollMode);
     this.undoBtn.setEnabled(buttons.undo);
     this.clearBtn.setEnabled(buttons.clear);
     this.castBtn.setEnabled(buttons.castOff);
-  }
-
-  renderHud(state) {
-    this.drawFlames(flames(state, Ferry));
-    this.cycle.setText(t('boarding.cycleLine', { cycle: state.cycle }));
-    const long = nextLongName(state, Ferry);
-    this.nextLong.setText(long ? t('boarding.nextLong', { name: long }) : '');
   }
 
   renderPanel(state) {
@@ -680,25 +552,13 @@ export class BoardingScene extends Phaser.Scene {
     for (const chip of chips) {
       let box = this.chipBoxes.get(chip.id);
       if (!box) {
-        box = this.addChip(chip).setAlpha(0).setY(54);
+        box = makeChip(this, chip.x, 54, PANEL.chipW, PANEL.chipH, t('boarding.chip', { name: chip.name }), () => this.board(chip.id)).setAlpha(0);
         this.chipBoxes.set(chip.id, box);
         this.panel.add(box);
       }
       this.tweens.killTweensOf(box);
       this.tweens.add({ targets: box, x: chip.x, y: 60, alpha: 1, duration: 240, ease: 'Sine.Out' });
     }
-  }
-
-  addChip(chip) {
-    const { chipW: w, chipH: h } = PANEL;
-    const face = this.add.graphics();
-    face.fillStyle(COLOR.panelHi, 1).fillRoundedRect(0, -h / 2, w, h, 6);
-    face.lineStyle(1, COLOR.gold, 0.45).strokeRoundedRect(0, -h / 2, w, h, 6);
-    const text = this.add.text(w / 2, 0, t('boarding.chip', { name: chip.name }), bodyText(16)).setOrigin(0.5);
-    const box = this.add.container(chip.x, 60, [face, text]);
-    box.setInteractive({ hitArea: new Phaser.Geom.Rectangle(0, -h / 2, w, h), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
-    box.on('pointerdown', () => this.board(chip.id));
-    return box;
   }
 
   addToken(entry, delay) {
@@ -850,8 +710,7 @@ export class BoardingScene extends Phaser.Scene {
         token.setPosition(x, y);
         if (!boarding) return;
         this.kickBoat(x, 1);
-        const { pivot } = this.boatMotion;
-        this.fx.ripple(x, pivot.y + (BOAT_ART.keelY - BOAT_ART.centreY) * tune('boarding.boatScale') + 4);
+        this.fx.ripple(x, this.boatMotion.pivot.y + this.boatMarks().keel + 4);
       },
     });
   }

@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
-import { addArt } from '../preloader.js';
-import { BODY_FONT } from '../fonts.js';
+import { Ferry } from '../ferry.js';
+import { addArt, soulArtId } from '../preloader.js';
+import { BODY_FONT, COLOR, angerPips } from '../theme.js';
+import { tune } from '../tuning.js';
 import { TOKEN, tailOffset } from './boarding-layout.js';
 
 const FONT = 'sans-serif';
@@ -28,12 +30,17 @@ export function setTokenLabels(token, labels) {
   token.getData('anger').setText(labels.anger);
 }
 
-// BoardingScene's full-figure soul. The sprites are 512 x 768 with the figure about 620 tall and its tail ending near y 680.
-const SPRITE = { h: 768, figure: 620, foot: 680 };
-const GOLD = 0xedc47f;
-const DANGER = 0xff9f8a;
-const SHADOW = 0x020607;
+// BoardingScene's full-figure soul. The frame is the soul's height on screen; art.*.fill and art.*.foot (theme.js) fit
+// whatever image is there into it, so nothing here knows a file's pixel size or padding.
+const GOLD = COLOR.gold;
+const SHADOW = COLOR.deep;
 const TAIL_POINTS = 14;
+
+/** Which art frame a soul type uses: soul, long or hero. */
+function artKind(type, Ferry) {
+  if (type.startsWith('CHAR-') || type === 'SOUL-HERACLES' || type === 'SOUL-ODYSSEUS') return 'hero';
+  return Ferry.data.souls.find((s) => s.id === type)?.tainted ? 'long' : 'soul';
+}
 
 function diamond(x, y, r) {
   return [{ x, y: y - r }, { x: x + r, y }, { x, y: y + r }, { x: x - r, y }];
@@ -54,11 +61,12 @@ function bendableArt(scene, art, y) {
  * still over the head.
  */
 export function addBoardingSoul(scene, entry, height) {
-  const size = (height * SPRITE.h) / SPRITE.figure;
-  const centreY = -((SPRITE.foot - SPRITE.h / 2) / SPRITE.h) * size; // the sprite's middle, with its tail on the ground
+  const kind = artKind(entry.actor.type, Ferry);
+  const size = height * tune(`art.${kind}.fill`);
+  const centreY = -(tune(`art.${kind}.foot`) - 0.5) * size; // the image's middle, with its base on the ground
   const glow = scene.add.image(0, -height / 2, 'board-soft').setScale((height * 1.5) / 256).setTint(GOLD).setAlpha(0);
   const shadow = scene.add.image(0, -2, 'board-soft').setScale(0.62, 0.11).setTint(SHADOW);
-  const art = addArt(scene, 0, centreY, entry.actor.type, size);
+  const art = addArt(scene, 0, centreY, soulArtId(scene, entry.actor.type), size, { w: height * 0.5, h: height * 0.92, y: -height * 0.46 });
   const figureParts = [];
   let rim = null;
   let rope = null;
@@ -111,13 +119,5 @@ export function setBoardingBadge(token, badge) {
     marks.fillStyle(GOLD, 1).fillRect(x - 4.5, -1, 9, 7);
   }
   pips.clear();
-  if (!badge.pips) return;
-  const { filled, total, danger } = badge.pips;
-  const colour = danger ? DANGER : GOLD;
-  for (let i = 0; i < total; i++) {
-    const x = left + 22 + i * 11;
-    pips.fillStyle(SHADOW, 1).fillCircle(x, 0, 5);
-    if (i < filled) pips.fillStyle(colour, 1).fillCircle(x, 0, 3.5);
-    else pips.lineStyle(1, colour, 0.8).strokeCircle(x, 0, 3.5);
-  }
+  if (badge.pips) angerPips(pips, left + 22, badge.pips);
 }
