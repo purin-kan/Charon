@@ -91,6 +91,12 @@ check('test-runs leave the state alone', JSON.stringify(match) === before);
 const boatQuest = structuredClone(none);
 const mason = boatQuest.boat.find((x) => x.type === 'SOUL-MASON');
 const other = boatQuest.boat.find((x) => x.type !== 'SOUL-MASON');
+// Exactly two aboard (the fixture's boat can hold more): any third soul goes back to the pool with its quests.
+for (const x of boatQuest.boat.filter((a) => a !== mason && a !== other)) {
+  boatQuest.discard.push(x.origin);
+  boatQuest.quests = boatQuest.quests.filter((q) => !q.participants.includes(x.id));
+}
+boatQuest.boat = [other, mason];
 other.wish = 'DEST-ACHERON';
 boatQuest.destination = 'DEST-ACHERON';
 boatQuest.quests.push({
