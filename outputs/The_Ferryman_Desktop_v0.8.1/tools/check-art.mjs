@@ -43,9 +43,21 @@ const HANDOFF = {
     'memory-nobody', 'memory-all-fog', 'memory-moly', 'memory-soldier-peace'],
   backgrounds: ['bg-haven', 'bg-styx', 'bg-acheron', 'bg-asphodel', 'bg-elysium', 'bg-tartarus', 'bg-starting-shore'],
 };
+// Files in assets/<kind>/ and its subfolders, by file name (the preloader's id).
 const onDisk = (kind) => {
-  try { return readdirSync(join(root, 'assets', kind)).filter((f) => /\.png$/.test(f)).map((f) => f.slice(0, -4)); } catch { return []; }
+  try {
+    return readdirSync(join(root, 'assets', kind), { recursive: true })
+      .map((f) => String(f).replace(/\\/g, '/'))
+      .filter((f) => /\.png$/.test(f))
+      .map((f) => f.slice(f.lastIndexOf('/') + 1, -4));
+  } catch { return []; }
 };
+// Two files with the same name in different subfolders would load as one id.
+for (const kind of ['art', 'backgrounds']) {
+  const names = onDisk(kind);
+  const dupes = [...new Set(names.filter((n, i) => names.indexOf(n) !== i))];
+  report(!dupes.length, `assets/${kind} file names are unique across subfolders${dupes.length ? ': ' + dupes.join(', ') : ''}`);
+}
 const ids = {
   art: [...data.souls.map((s) => s.id), ...data.memories.map((m) => m.id)],
   backgrounds: data.destinations.map((d) => d.id),
@@ -55,6 +67,10 @@ for (const kind of ['art', 'backgrounds']) {
   const missing = ids[kind].filter((id) => !fileIdFor(kind, id, available));
   console.log(`info ${kind}: ${ids[kind].length - missing.length} of ${ids[kind].length} engine ids have a handoff or assets file`);
   if (missing.length) console.log(`info ${kind}: emblem until art or an alias exists: ${missing.join(', ')}`);
+  const disk = new Set(onDisk(kind));
+  const absent = ids[kind].filter((id) => !fileIdFor(kind, id, disk));
+  console.log(`info ${kind}: ${ids[kind].length - absent.length} of ${ids[kind].length} engine ids have a file in assets/`);
+  if (absent.length) console.log(`info ${kind}: no file in assets/ yet: ${absent.join(', ')}`);
 }
 
 console.log(failed ? `${failed} problem(s)` : 'art names OK');
