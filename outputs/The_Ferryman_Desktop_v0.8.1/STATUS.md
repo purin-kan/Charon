@@ -47,9 +47,28 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 | Art import from handoff v4 (branch `art-import`, Nov 4, Windows 10, Node 24.22.1) | `node tools/check-art.mjs`, `npm run check`, `npx vite build --config vite.renderer.config.mjs` into a scratch folder | 49 PNGs copied from `The_Ferryman_Art_Handoff_Nov1_v4_RULES_SYNCED.zip` (release `art-handoff-nov1-v4`) into `assets/art/{souls,longs,heroes,boat,memories,wraith}/` and `assets/backgrounds/`; the six memories without a v4 placeholder (Light, Foresight, Guard, Calm, Fog Shield, Passenger) come from `assets/source-art/`. Art: 38 of 38 engine ids have a file; backgrounds: 6 of 6. The preloader globs now include subfolders; the Vite build bundled 56 PNGs; the new unique-name check failed with a duplicate `sprite-mother` added and passed once it was removed. 10 of 10 checks OK. `npm start` (art seen in a scene) and the exe NOT_RUN |
 | Scene art: shore, boat, Wraith frames (branch `art-import`, Nov 5, macOS) | `npm run check`, `npx vite build --config vite.renderer.config.mjs`, `npm start` with `BoardingScene` / `boarding` | BoardingScene draws `bg-starting-shore` and `sprite-boat-horizontal` under the seats; ReturnScene draws `bg-starting-shore` and plays the five `wraith-transform` frames over each soul that turns on Confirm, then fades. 10 of 10 checks OK; build OK; Boarding opened with no errors. Placement not yet checked by eye; Delivery and Crossing left to #34 |
 
-## Full game restyle, first checkpoint (branch `full-game-restyle`, Nov 6, 2026, not pushed)
+## Full game restyle, all scenes (branch `full-game-restyle`, Nov 6, 2026, not pushed)
 
-Done so far: `src/theme.js`, the shared HUD (`src/components/Hud.js`), the HUD memory hand, the shared night stage (`night-fx.js`), the name plate for missing art, `art.*` frames in tuning, TitleScene, and BoardingScene moved onto all of these. Tinpatpun asked to keep the cut-outs from the v0.6 paintings although the restyle brief says to make no art files, on the understanding that the art may change: 11 files in `assets/art/figures/`, and `assets/source-art/` and the sprites are unchanged. Both soldiers share one figure, since the brief forbids recolouring and there is one painting. After seeing them in the game, Tinpatpun asked for 2D characters, so the sprites are the default again and the figures stay as an F2 option (`art.useFigures`, off).
+Every scene now uses the shared theme, HUD, hand, night stage and bottom panel. Rules, `package.json`, the lockfile, `src/scenes/index.js`, `assets/source-art/` and the sprites are unchanged (`git diff origin/main HEAD` on those paths is empty).
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Logic | `npm run check` | 11 of 11 pass; `check-boarding` 81, `check-crossing` 71, `check-delivery` 77, `check-return` 23, `check-memory` 16, `check-route` 19, `check-gameover` 10, `check-art` 20, all OK, 0 FAIL |
+| Build | `npx vite build --config vite.renderer.config.mjs --base ./` into a scratch folder | builds |
+| Art | `node tools/check-art.mjs` | 37 of 37 art ids and 6 of 6 backgrounds have a file, so no engine id uses the name plate. The Charybdis card asks for `sprite-charybdis`, which has no file, so that one card shows its plate |
+| Full run, seed 7 (agent, scripted real mouse input, not a playtest) | `npm start` with `FERRY_QA=restyle`, from TitleScene to GameOverScene on the final commit | 4 cycles, 5 deliveries, 3 returns, the run ended at 0 Light (the script plays to reach each flow, then lost on a fog cost). Scenes seen: Title, Boarding, Crossing, Delivery, Return, Trim, GameOver. Light loss, Wraiths at the return and a trim all played. 0 console errors or warnings |
+| Fixtures (agent) | `window`, `fork`, `review`, `crossing-prep`, `crossing-lethal`, `crossing-concealed`, `crossing-heracles`, `crossing-odysseus`, `delivery`, `delivery-match`, `choice`, `choice-odysseus`, `trim`, `return`, `review-return`, `ended`, `boarding`, `boarding-heracles` | all opened and were driven; no exceptions. Heracles' toll from boarding through to CrossingScene, a lethal route through "The lantern goes out." to GameOverScene, Odysseus's choice over CrossingScene with its reward, the replace-save dialog, and GameOverScene's New game and Back to title |
+| Quest completion (agent) | a temporary fixture built with real engine actions, removed afterwards | Room for one more completes on delivery and its Boat Space reward shows and goes into the hand |
+
+The full run did not reach a hero, a completed quest or a choice, so those rest on the fixtures above.
+
+NOT_RUN: every human check, including how the motion feels; the F2 panel with the new values; hearing the sounds; a real Boat Space card earned in play; the packaged `.exe`; a weaker PC (only the boarding scene's frame rate was measured, 60 fps on this machine).
+
+Notes: `CrossingScene` keeps its own river path and camera, so `crossing.riverPath` stays unread, as it was. `RouteUI.js` is imported by nothing and keeps its old style; the scene uses `routeModel` directly. A return's animation has to fit the router's 5 s limit, about 4 s at the defaults with five souls. Long riders sit in front of the hull, under the boat, because the deck row is below it.
+
+### First checkpoint
+
+Done first: `src/theme.js`, the shared HUD (`src/components/Hud.js`), the HUD memory hand, the shared night stage (`night-fx.js`), the name plate for missing art, `art.*` frames in tuning, TitleScene, and BoardingScene moved onto all of these. Tinpatpun asked to keep the cut-outs from the v0.6 paintings although the restyle brief says to make no art files, on the understanding that the art may change: 11 files in `assets/art/figures/`, and `assets/source-art/` and the sprites are unchanged. Both soldiers share one figure, since the brief forbids recolouring and there is one painting. After seeing them in the game, Tinpatpun asked for 2D characters, so the sprites are the default again and the figures stay as an F2 option (`art.useFigures`, off).
 
 | Check | Command | Result |
 | --- | --- | --- |
@@ -57,9 +76,6 @@ Done so far: `src/theme.js`, the shared HUD (`src/components/Hud.js`), the HUD m
 | In the window (agent, not a playtest) | `npm start` with `FERRY_QA=restyle`, scripted real mouse input, screenshots read | Title: letter spacing fade, seed 7 typed, New game reaches BoardingScene from a real start. Boarding: figures on shore and boat, Cast off to CrossingScene. HUD hand with a temporary fixture (removed afterwards): hover shows the full card, Boat Space played takes seats from 4 to 5, the second card is refused with the engine's reason. Missing art, tested by making `addArt`, `soulArtId` and the boat treat images as absent for one run (reverted): dark name plates for souls and memory cards, an empty drawn hull for the boat, and a seated soul still shows |
 | Build | `npx vite build --config vite.renderer.config.mjs --base ./` into a scratch folder | builds |
 
-The rest of this restyle is not started: CrossingScene, DeliveryScene, ChoiceOverlay, TrimOverlay, ReturnScene, GameOverScene. Until then those scenes keep their old look and show the old sprites.
-
-NOT_RUN: every human check, the replace-save dialog in the window, the F2 panel with the new `art.*`, `hud.*`, `night.*` and `title.*` values, and the packaged `.exe`.
 
 ## Boarding panel click redesign (branch `boarding-click-redesign`, Nov 5, 2026)
 
