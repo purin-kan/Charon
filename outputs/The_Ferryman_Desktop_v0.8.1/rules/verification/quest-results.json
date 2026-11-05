@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45",
-  "passed": 25,
+  "passed": 26,
   "failed": 0,
   "hashes": {
     "engine.js": "b4761990955145e8d062229d1080edf05859e2d16943c6cf40d0061685bc41ff",
-    "content.json": "738d1e8062eca258d46a0b7125d1ad44b4943fc9e8c7f02b38102427919536a9",
-    "tests/quest-check.js": "e77c9fe33e04deb72bf4d9adc64e55c14ac81c2dbd81a1698a00eb9be2e538b0"
+    "content.json": "ab4960d92380068dcbb9017f67c91c73a22f145e5b2886e680c8c703e2f6e900",
+    "tests/quest-check.js": "cb8d56f87911a521f37ef66a0c5a42cd22403594b0ec75c2f53d557cc1e2934d"
   },
   "records": [
     {
@@ -18,6 +18,10 @@
     },
     {
       "name": "Fresh returned character instances start a new quest without reusing rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Soul data (Jaoguya on #6, Nov 4): Soldiers, Messenger and Blacksmith wishes and memories",
       "status": "PASS"
     },
     {
@@ -61,7 +65,7 @@
       "status": "PASS"
     },
     {
-      "name": "Unlimited memories, overflow cannot be spent, full fog does not block Wraiths",
+      "name": "Unlimited memories, overflow cannot be spent, fog protection does not block Wraiths",
       "status": "PASS"
     },
     {
@@ -108,7 +112,7 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2598,
+      "transitions": 2578,
       "choices": 4,
       "humanPlaytest": false
     }

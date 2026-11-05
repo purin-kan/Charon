@@ -134,8 +134,8 @@ globalThis.FerryData = {
       "name": "Red Soldier",
       "personalName": "Phoenix",
       "seats": 1,
-      "wish": "DEST-STYX",
-      "memory": "MEM-ALL-FOG",
+      "wish": "DEST-TARTARUS",
+      "memory": "MEM-GUARD",
       "ordinary": true,
       "tainted": false
     },
@@ -144,8 +144,8 @@ globalThis.FerryData = {
       "name": "Blue Soldier",
       "personalName": "Glaukos",
       "seats": 1,
-      "wish": "DEST-STYX",
-      "memory": "MEM-ALL-FOG",
+      "wish": "DEST-ASPHODEL",
+      "memory": "MEM-GUARD",
       "ordinary": true,
       "tainted": false
     },
@@ -154,7 +154,7 @@ globalThis.FerryData = {
       "name": "Messenger",
       "personalName": "Nikos",
       "seats": 1,
-      "wish": "DEST-STYX",
+      "wish": "DEST-ASPHODEL",
       "memory": "MEM-FORESIGHT",
       "ordinary": true,
       "tainted": false
@@ -195,7 +195,7 @@ globalThis.FerryData = {
       "personalName": "Chalkon",
       "seats": 1,
       "wish": "DEST-ACHERON",
-      "memory": null,
+      "memory": "MEM-FOG",
       "ordinary": true,
       "tainted": false
     },
@@ -571,6 +571,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "738d1e8062eca258d46a0b7125d1ad44b4943fc9e8c7f02b38102427919536a9"
+  "contentSha256": "ab4960d92380068dcbb9017f67c91c73a22f145e5b2886e680c8c703e2f6e900"
 }
 ;
