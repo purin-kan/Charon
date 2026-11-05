@@ -1,0 +1,192 @@
+{
+  "format": "the-ferryman-save",
+  "version": "0.8-t45b",
+  "schemaVersion": 3,
+  "seed": 1,
+  "rng": 2282599509,
+  "phase": "window",
+  "paused": false,
+  "light": 6,
+  "maxLight": 6,
+  "round": "1",
+  "cycle": "1",
+  "completed": "0",
+  "deliveries": "0",
+  "nextActor": "7",
+  "nextBoarding": "2",
+  "nextMemory": "1",
+  "nextQuest": "2",
+  "encounters": "1",
+  "shore": [
+    {
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-1",
+      "type": "SOUL-MOTHER",
+      "origin": "SOUL-MOTHER",
+      "wish": "DEST-TARTARUS",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HAVEN",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-4",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-6",
+      "type": "SOUL-PO-MUED",
+      "origin": null,
+      "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "1",
+      "level": 1,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "arrivals": [
+    "SOUL-PRIEST",
+    "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
+    "SOUL-FARMER",
+    "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
+    "SOUL-RED-SOLDIER"
+  ],
+  "discard": [],
+  "selected": [],
+  "hand": [],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-FAMILY",
+      "participants": [
+        "ACTOR-1",
+        "ACTOR-2"
+      ],
+      "status": "active",
+      "stage": "active",
+      "sharedRoutes": 0,
+      "delivered": [],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": null,
+      "cycle": "1",
+      "data": {}
+    }
+  ],
+  "effects": {
+    "capacity": false,
+    "moly": false,
+    "nobody": false
+  },
+  "window": {
+    "kind": "outward",
+    "uses": 0,
+    "guard": 0,
+    "shield": 0,
+    "allFog": false
+  },
+  "travelPrepared": true,
+  "routes": {
+    "offers": [
+      [
+        "DEST-STYX",
+        "DEST-ASPHODEL"
+      ],
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ],
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ]
+    ],
+    "masks": [
+      1,
+      1,
+      1
+    ],
+    "foresight": 0,
+    "history": []
+  },
+  "nextPolong": "SOUL-PO-LUEM",
+  "heroOffer": null,
+  "destination": null,
+  "pending": null,
+  "choice": null,
+  "theftQueue": [],
+  "trimNext": null,
+  "ending": null,
+  "log": [
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "All-quest trial begins."
+    },
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "Mother and Child: started."
+    },
+    {
+      "round": "1",
+      "cycle": "1",
+      "text": "Long Veil boards at level 1."
+    }
+  ],
+  "longForks": []
+}

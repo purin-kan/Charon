@@ -1,8 +1,8 @@
-# The Ferryman 0.8-t45
+# The Ferryman 0.8-t45b
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `bdd661af93bfdc21e61cb86d764370f6ab2d47176041b888da28fab9e69e66fc`.
+Generated from content.json. SHA-256: `cdef337abc6faa461d9d4d7c776aeea5f5e65c91c9933efa09b41caf13e04f70`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -31,7 +31,7 @@ Arrival pool: Poet, Keeper, Red Soldier, Blue Soldier, Messenger, Bard, Listener
 | SOUL-MESSENGER | Messenger | Nikos | 1 | River Styx | Foresight |
 | SOUL-MUSICIAN | Bard | Homer | 1 | Elysium | Calm |
 | SOUL-LISTENER | Listener | Echo | 1 | Elysium | None |
-| SOUL-FARMER | Farmer | Georgios | 1 | Asphodel | Shared Harvest |
+| SOUL-FARMER | Farmer | Georgios | 1 | Asphodel | Calm |
 | SOUL-BLACKSMITH | Blacksmith | Chalkon | 1 | Acheron | None |
 | SOUL-PRIEST | Priest | Elias | 1 | Haven | Last Prayer |
 | SOUL-PO-LUEM | Long Hollow |  | 0 | Asphodel | None |
@@ -52,15 +52,15 @@ Keep the lantern burning through repeated trips. Zero Light ends the run. This t
 
 ## boarding
 
-Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
+Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
 
 ## memories
 
-No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
+One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop (away from its wish it costs 1 Light, which Guard cannot prevent, and the last Light ends the run), except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger (Longs are not passengers), his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
 
 ## quest
 
-All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.
+All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. A quest passenger that leaves at a stop other than its wish fails its quest. The journal shows stages and restrictions.
 
 ## routes
 
@@ -68,7 +68,7 @@ All six destinations are open for this trial. Heaven is merged into Haven. Hero 
 
 ## polongs
 
-Every third outward round brings the shown Long unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.
+Longs arrive from cycle 3: one per cycle from cycle 3, two from cycle 9, three from cycle 18. When the boat departs, each is given one of the first three forks of the trip; a trip that ends before that fork skips it. Moly suppresses them. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.
 
 ## effects
 
@@ -91,7 +91,6 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 - **Fog Shield:** Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.
 - **Passenger:** Deliver one eligible onboard passenger directly to its wish. No travel fog, route count or scheduled arrival; delivery restrictions and quest consequences still apply.
 - **Last Prayer:** Restore 1 Light up to your current maximum.
-- **Shared Harvest:** Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected.
 - **Full Fog Protection:** Prevent all fog on this crossing. Does not prevent Wraith damage.
 - **Sword:** Remove one tainted passenger. No reward, Wraith damage or spread.
 - **Soldiers’ Peace:** Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected.
@@ -102,8 +101,8 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 
 ## Outward round
 
-1. Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.
-2. Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.
+1. Use available abilities before approaching the fork. One held memory may be played at any point of the stop: before the fork, at the fork or review, or at delivery. Excess rewards cannot be played before trimming.
+2. Approach the fork: advance the outward round and board any Long scheduled for this fork unless Moly suppresses it. Its level/effects apply immediately.
 3. Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.
 4. Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.
 5. Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls.
@@ -112,7 +111,7 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 
 ## Return
 
-1. With an empty boat, play held memories if desired.
+1. With an empty boat, one held memory may be played.
 2. Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.
 3. If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
 

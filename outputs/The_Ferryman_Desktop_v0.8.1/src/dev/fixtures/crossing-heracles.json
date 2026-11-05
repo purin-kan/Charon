@@ -1,0 +1,228 @@
+{
+  "format": "the-ferryman-save",
+  "version": "0.8-t45b",
+  "schemaVersion": 3,
+  "seed": 1,
+  "rng": 1369582169,
+  "phase": "window",
+  "paused": false,
+  "light": 5,
+  "maxLight": 6,
+  "round": "1",
+  "cycle": "9",
+  "completed": "8",
+  "deliveries": "0",
+  "nextActor": "9",
+  "nextBoarding": "2",
+  "nextMemory": "1",
+  "nextQuest": "2",
+  "encounters": "2",
+  "shore": [
+    {
+      "id": "ACTOR-4",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-6",
+      "type": "SOUL-HERACLES",
+      "origin": null,
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HAVEN",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-7",
+      "type": "SOUL-PO-LUEM",
+      "origin": null,
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "1",
+      "level": 1,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-8",
+      "type": "SOUL-POLONG",
+      "origin": null,
+      "wish": "DEST-TARTARUS",
+      "anger": 1,
+      "boardingId": "1",
+      "bornRound": "1",
+      "level": 2,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "arrivals": [
+    "SOUL-PRIEST",
+    "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
+    "SOUL-FARMER",
+    "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
+    "SOUL-RED-SOLDIER"
+  ],
+  "discard": [
+    "SOUL-MOTHER"
+  ],
+  "selected": [],
+  "hand": [],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-HERACLES",
+      "participants": [
+        "ACTOR-6"
+      ],
+      "status": "active",
+      "stage": "active",
+      "sharedRoutes": 0,
+      "delivered": [],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": null,
+      "cycle": "9",
+      "data": {}
+    }
+  ],
+  "effects": {
+    "capacity": false,
+    "moly": false,
+    "nobody": false
+  },
+  "window": {
+    "kind": "outward",
+    "uses": 0,
+    "guard": 0,
+    "shield": 0,
+    "allFog": false
+  },
+  "travelPrepared": true,
+  "routes": {
+    "offers": [
+      [
+        "DEST-STYX",
+        "DEST-ASPHODEL"
+      ],
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ],
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ]
+    ],
+    "masks": [
+      1,
+      1,
+      1
+    ],
+    "foresight": 0,
+    "history": []
+  },
+  "nextPolong": "SOUL-PO-LUEM",
+  "heroOffer": {
+    "type": "SOUL-HERACLES",
+    "resolved": true
+  },
+  "destination": null,
+  "pending": null,
+  "choice": null,
+  "theftQueue": [],
+  "trimNext": null,
+  "ending": null,
+  "log": [
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "All-quest trial begins."
+    },
+    {
+      "round": "0",
+      "cycle": "9",
+      "text": "Hades’ toll: 1 Light lost."
+    },
+    {
+      "round": "0",
+      "cycle": "9",
+      "text": "Mother leaves: sacrifice."
+    },
+    {
+      "round": "0",
+      "cycle": "9",
+      "text": "Hercules the traveler and Cerberus: started."
+    },
+    {
+      "round": "0",
+      "cycle": "9",
+      "text": "Hercules the traveler wishes for Asphodel."
+    },
+    {
+      "round": "1",
+      "cycle": "9",
+      "text": "Long Hollow boards at level 1."
+    },
+    {
+      "round": "1",
+      "cycle": "9",
+      "text": "Long Mist boards at level 2."
+    }
+  ],
+  "longForks": []
+}

@@ -1,6 +1,6 @@
 {
-  "version": "0.8-t45",
-  "contentSha256": "bdd661af93bfdc21e61cb86d764370f6ab2d47176041b888da28fab9e69e66fc",
+  "version": "0.8-t45b",
+  "contentSha256": "cdef337abc6faa461d9d4d7c776aeea5f5e65c91c9933efa09b41caf13e04f70",
   "generated": [
     "content.js",
     "rules.json",

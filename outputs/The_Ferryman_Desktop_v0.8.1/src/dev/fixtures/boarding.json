@@ -1,9 +1,9 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.8-t45",
+  "version": "0.8-t45b",
   "schemaVersion": 3,
   "seed": 1,
-  "rng": 2282599509,
+  "rng": 2931756366,
   "phase": "boarding",
   "paused": false,
   "light": 6,
@@ -133,10 +133,7 @@
     "history": []
   },
   "nextPolong": "SOUL-PO-LUEM",
-  "heroOffer": {
-    "type": "SOUL-ODYSSEUS",
-    "resolved": false
-  },
+  "heroOffer": null,
   "destination": null,
   "pending": null,
   "choice": null,

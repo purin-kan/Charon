@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { queueAssets } from '../preloader.js';
+import { addBackdrop, queueAssets } from '../preloader.js';
+import { t } from '../text.js';
+import { soulDetail, soulTitle, typeDetail } from './crossing-layout.js';
+import { HoverTip } from './hover-tip.js';
 import { boatZone, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
 import { addSoulToken, setTokenLabels } from './soul-token.js';
 
@@ -19,7 +22,7 @@ export class BoardingScene extends Phaser.Scene {
   get router() { return this.game.router; }
 
   preload() {
-    queueAssets(this, { art: Ferry.data.souls.map((s) => s.id) });
+    queueAssets(this, { art: [...Ferry.data.souls.map((s) => s.id), 'sprite-boat-horizontal'], backgrounds: ['bg-starting-shore'] });
   }
 
   create() {
@@ -31,8 +34,10 @@ export class BoardingScene extends Phaser.Scene {
     this.tollMode = false;
     this.leaving = false;
 
+    addBackdrop(this, 'bg-starting-shore');
     this.drawBoat(layoutBoarding(state, Ferry).slots);
     this.drawHud();
+    this.tip = new HoverTip(this);
     this.render(state);
 
     // Without a threshold a click counts as a drag that ends off the boat, which unboards the soul.
@@ -41,6 +46,7 @@ export class BoardingScene extends Phaser.Scene {
     this.input.on('dragstart', (_pointer, token) => {
       this.tweens.killTweensOf(token);
       token.setDepth(2);
+      this.tip.hide();
     });
     this.input.on('dragend', (_pointer, token, dropped) => {
       token.setDepth(1);
@@ -60,10 +66,20 @@ export class BoardingScene extends Phaser.Scene {
 
   drawBoat(slots) {
     const hull = boatZone(slots);
-    this.boatParts.push(this.add.rectangle(hull.x, hull.y, hull.w, hull.h, 0x2a3b49));
+    if (this.textures.exists('sprite-boat-horizontal')) {
+      // Goya's boat (2400 x 900): its open deck, between the lantern and the ferryman, runs about
+      // x 540 to 1860 and the floor sits near y 620, so scale that span to the seats and set the floor
+      // under the souls.
+      const boat = this.add.image(hull.x, 0, 'sprite-boat-horizontal');
+      const scale = hull.w / 1320;
+      boat.setScale(scale).setY(hull.y + hull.h / 2 - (620 - 450) * scale);
+      this.boatParts.push(boat);
+    } else {
+      this.boatParts.push(this.add.rectangle(hull.x, hull.y, hull.w, hull.h, 0x2a3b49));
+    }
     this.add.zone(hull.x, hull.y, hull.w, hull.h).setRectangleDropZone(hull.w, hull.h);
     for (const slot of slots) {
-      const seat = this.add.rectangle(slot.x, slot.y, slot.w, slot.h, 0x16232e).setStrokeStyle(2, 0x3d5566);
+      const seat = this.add.rectangle(slot.x, slot.y, slot.w, slot.h, 0x16232e, 0.35).setStrokeStyle(2, 0x3d5566);
       this.boatParts.push(seat);
     }
   }
@@ -73,7 +89,13 @@ export class BoardingScene extends Phaser.Scene {
     this.add.text(40, 68, 'Shore', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.add.text(640, 160, 'Boat', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.message = this.add.text(640, 610, '', { fontFamily: FONT, fontSize: '20px', color: '#e8c27f' }).setOrigin(0.5);
-    this.heroText = this.add.text(40, 650, '', { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' });
+    this.heroText = this.add.text(40, 650, '', { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' }).setInteractive();
+    // The hero waiting to board is only a line of text, so the line carries its hover.
+    this.heroText.on('pointerover', (pointer) => {
+      const hero = heroPrompt(this.registry.get('state'), Ferry);
+      if (hero && !this.tollMode) this.tip.show(pointer, soulTitle(hero.type, Ferry), typeDetail(hero.type, Ferry, t));
+    });
+    this.heroText.on('pointerout', () => this.tip.hide());
     this.acceptBtn = this.button(560, 664, 'Accept', () => this.acceptHero());
     this.declineBtn = this.button(680, 664, 'Decline', () => this.act({ type: 'DECLINE_HERO' }));
     this.cancelBtn = this.button(560, 664, 'Cancel', () => this.setTollMode(false));
@@ -143,6 +165,7 @@ export class BoardingScene extends Phaser.Scene {
     if (this.leaving) return;
     this.leaving = true;
     this.input.enabled = false;
+    this.tip.hide();
     if (state.phase !== 'window') {
       this.router.exitDone();
       return;
@@ -180,6 +203,14 @@ export class BoardingScene extends Phaser.Scene {
 
   addToken(entry) {
     const token = addSoulToken(this, entry);
+    token.on('pointerover', (pointer) => {
+      if (this.input.activePointer.isDown) return; // no box over a soul being dragged
+      const actor = this.entries.get(entry.id)?.actor ?? entry.actor;
+      const d = soulDetail(this.registry.get('state'), actor, Ferry, t);
+      this.tip.show(pointer, d.title, d.lines);
+    });
+    token.on('pointerout', () => this.tip.hide());
+    token.once('destroy', () => this.tip.hide());
     this.tokens.set(entry.id, token);
     return token;
   }

@@ -44,7 +44,7 @@
   "boarding": {
     "heading": "Who will you carry?",
     "intro": "Choose passengers within capacity. Quest attempts begin when the required characters depart together.",
-    "nextPolong": "Next Long: {name} · encounter {encounter}. It boards on the next scheduled third outward round unless Moly is active.",
+    "nextPolong": "Next Long: {name} · encounter {encounter}. From cycle 3 it boards at a fork of a trip, unless Moly is active.",
     "heroAsks": "{name} asks to board",
     "heroHeracles": "One seat. Choose a shore soul as Hades' toll and lose 1 Light. The toll grants no memory.",
     "heroOdysseus": "One seat. Reach his wish to meet Tiresias and choose a route through danger.",
@@ -62,7 +62,7 @@
 
   "crossing": {
     "prepHeading": "Memories and passenger abilities",
-    "prepIntro": "Use held memories as needed, then continue. Each copy is consumed; there is no use cap.",
+    "prepIntro": "One memory per stop: play it now, at the fork or at the dock. The shared meal and the Priest's purify are only before the fork.",
     "overLimit": "Excess rewards cannot be played. Finish this round and choose what to keep.",
     "meal": "Prepare the shared meal",
     "purify": "Priest: purify a passenger",
@@ -85,7 +85,30 @@
     "concealedDestination": "Concealed destination",
     "concealedWarning": "The destination and its fog remain hidden until you confirm. This may put out the lantern.",
     "crossCost": "{payment} Light to cross; {remaining} remains.",
-    "lethal": "Zero Light ends the run before delivery."
+    "lethal": "Zero Light ends the run before delivery.",
+    "approachWarning": "Memories and abilities can't be used after this.",
+    "approachWarningAbilities": "The meal and the Priest's purify can't be used after this.",
+    "approachWarningMemories": "Memories can't be used after this.",
+    "purifyPick": "Choose a passenger for the Priest to purify.",
+    "longBoards": "{name} boards at level {level}.",
+    "from": "From: {place}",
+    "arrived": "Arrived at {destination}",
+    "lightLost": "−{n} Light",
+    "noLightLost": "No Light lost.",
+    "lanternOut": "The lantern goes out.",
+    "soulBoards": "{name} boards.",
+    "soulLeaves": "{name} leaves the boat.",
+    "wishChanged": "{name} now wishes for {wish}.",
+    "pickBranch": "Choose a branch of the river. Hover a sign for its fog.",
+    "approachDetail": "Sail on to the fork, then choose a branch.",
+    "detailGives": "Gives {memory}: {text}",
+    "detailNoMemory": "Gives no memory.",
+    "detailLevel": "Level {level}",
+    "detailQuest": "{name}: {description}",
+    "detailQuestWith": "{name} (with {partners}): {description}",
+    "detailPurify": "Once per boarding, before the fork, he can set another passenger's Anger to 0. He then gives no memory for that boarding.",
+    "detailTrio": "Merchant can't depart with both Blacksmith and Mason.",
+    "unknownBranch": "Not yet seen. Approach the fork to see where it leads."
   },
 
   "memory": {
@@ -110,10 +133,13 @@
     "received": "Received",
     "wraith": "{name} became a Wraith.",
     "lightLost": "Lost {amount} Light.",
+"exitWarning": "Leaving away from a wish costs 1 Light each. {n} marked, {light} Light left: the lantern goes out.",
     "lightGained": "Gained {amount} Light.",
     "lost": "{thief} took {name}.",
     "lostReward": "{thief} took a memory you had just received.",
-    "runEnds": "The lantern goes out before this soul can leave."
+    "runEnds": "The lantern goes out before this soul can leave.",
+    "noMemory": "{name} wished for {wish}. No memory.",
+    "questFailed": "{name} failed: {reason}."
   },
 
   "return": {

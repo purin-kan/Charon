@@ -1,14 +1,14 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.8-t45",
+  "version": "0.8-t45b",
   "schemaVersion": 3,
-  "seed": 34,
-  "rng": 808415655,
+  "seed": 6,
+  "rng": 922079314,
   "phase": "review",
   "paused": false,
-  "light": 5,
+  "light": 1,
   "maxLight": 6,
-  "round": "1",
+  "round": "3",
   "cycle": "1",
   "completed": "0",
   "deliveries": "1",
@@ -43,10 +43,10 @@
       "exhausted": false
     },
     {
-      "id": "ACTOR-4",
-      "type": "SOUL-MASON",
-      "origin": "SOUL-MASON",
-      "wish": "DEST-ACHERON",
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
       "anger": 0,
       "boardingId": null,
       "bornRound": "0",
@@ -69,29 +69,29 @@
   ],
   "boat": [],
   "arrivals": [
-    "SOUL-MESSENGER",
-    "SOUL-KEEPER",
-    "SOUL-PRIEST",
-    "SOUL-BLACKSMITH",
     "SOUL-MUSICIAN",
-    "SOUL-FARMER",
-    "SOUL-LISTENER",
-    "SOUL-POET",
+    "SOUL-KEEPER",
+    "SOUL-MESSENGER",
     "SOUL-BLUE-SOLDIER",
+    "SOUL-POET",
+    "SOUL-PRIEST",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
+    "SOUL-FARMER",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [
-    "SOUL-MERCHANT"
+    "SOUL-MASON"
   ],
   "selected": [],
   "hand": [
     {
       "id": "MEMORY-1",
-      "type": "MEM-FORESIGHT",
+      "type": "MEM-FOG",
       "sourceRef": {
         "kind": "character",
-        "definitionId": "SOUL-MERCHANT",
-        "instanceId": "ACTOR-3"
+        "definitionId": "SOUL-MASON",
+        "instanceId": "ACTOR-4"
       }
     }
   ],
@@ -112,20 +112,20 @@
   "routes": {
     "offers": [
       [
-        "DEST-STYX",
+        "DEST-TARTARUS",
+        "DEST-ASPHODEL"
+      ],
+      [
+        "DEST-ACHERON",
         "DEST-ELYSIUM"
       ],
       [
         "DEST-TARTARUS",
-        "DEST-ELYSIUM"
-      ],
-      [
-        "DEST-HAVEN",
-        "DEST-ELYSIUM"
+        "DEST-ACHERON"
       ]
     ],
     "masks": [
-      0,
+      1,
       1,
       0
     ],
@@ -133,19 +133,30 @@
     "history": [
       {
         "offer": [
-          "DEST-STYX",
-          "DEST-HAVEN"
+          "DEST-ASPHODEL",
+          "DEST-TARTARUS"
         ],
-        "chosen": "DEST-STYX"
+        "chosen": "DEST-ASPHODEL"
+      },
+      {
+        "offer": [
+          "DEST-ASPHODEL",
+          "DEST-STYX"
+        ],
+        "chosen": "DEST-ASPHODEL"
+      },
+      {
+        "offer": [
+          "DEST-ASPHODEL",
+          "DEST-ACHERON"
+        ],
+        "chosen": "DEST-ACHERON"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-LUEM",
-  "heroOffer": {
-    "type": "SOUL-ODYSSEUS",
-    "resolved": true
-  },
-  "destination": "DEST-STYX",
+  "nextPolong": "SOUL-PO-NAK",
+  "heroOffer": null,
+  "destination": "DEST-ACHERON",
   "pending": {
     "type": "RETURN"
   },
@@ -162,22 +173,33 @@
     {
       "round": "1",
       "cycle": "1",
-      "text": "crossing to River Styx: 1 Light lost."
+      "text": "crossing to Asphodel: 2 Light lost."
     },
     {
-      "round": "1",
+      "round": "2",
       "cycle": "1",
-      "text": "Received Foresight."
+      "text": "crossing to Asphodel: 2 Light lost."
     },
     {
-      "round": "1",
+      "round": "3",
       "cycle": "1",
-      "text": "Merchant leaves: delivery."
+      "text": "crossing to Acheron: 1 Light lost."
     },
     {
-      "round": "1",
+      "round": "3",
       "cycle": "1",
-      "text": "Merchant reached River Styx."
+      "text": "Received Fog Shield."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "Mason leaves: delivery."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "Mason reached Acheron."
     }
-  ]
+  ],
+  "longForks": []
 }

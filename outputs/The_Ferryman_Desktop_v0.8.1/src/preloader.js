@@ -8,9 +8,11 @@
 import { fileIdFor } from './asset-names.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
+// Art may sit in subfolders (art/souls/, art/memories/, ...): the file name alone is the id,
+// so a name must be unique across subfolders (tools/check-art.mjs checks this).
 const found = {
-  art: import.meta.glob('../assets/art/*.png', { eager: true, query: '?url', import: 'default' }),
-  backgrounds: import.meta.glob('../assets/backgrounds/*.png', { eager: true, query: '?url', import: 'default' }),
+  art: import.meta.glob('../assets/art/**/*.png', { eager: true, query: '?url', import: 'default' }),
+  backgrounds: import.meta.glob('../assets/backgrounds/**/*.png', { eager: true, query: '?url', import: 'default' }),
   audio: import.meta.glob('../assets/audio/*.ogg', { eager: true, query: '?url', import: 'default' }),
 };
 
@@ -75,3 +77,19 @@ export function playSound(scene, id, config) {
   s.play();
   return s;
 }
+
+/**
+ * Draws a background id (bg-starting-shore, DEST-STYX) to cover the 1280 x 720 view, with a dark veil so
+ * text stays readable. Draws nothing if the file is missing. Returns the image or null.
+ */
+export function addBackdrop(scene, id, veil = 0.55) {
+  if (!scene.textures.exists(id)) return null;
+  const { width, height } = scene.scale;
+  const img = scene.add.image(width / 2, height / 2, id).setDepth(-10);
+  img.setScale(Math.max(width / img.width, height / img.height));
+  scene.add.rectangle(width / 2, height / 2, width, height, 0x0b1117, veil).setDepth(-9);
+  return img;
+}
+
+/** Goya's Wraith transformation frames (art handoff v4), in order. */
+export const WRAITH_FRAMES = ['wraith-transform-01', 'wraith-transform-02', 'wraith-transform-03', 'wraith-transform-04', 'wraith-transform-05'];

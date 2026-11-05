@@ -1,9 +1,9 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.8-t45",
+  "version": "0.8-t45b",
   "schemaVersion": 3,
   "seed": 1,
-  "rng": 2503481014,
+  "rng": 557551588,
   "phase": "ended",
   "paused": false,
   "light": 0,
@@ -11,25 +11,13 @@
   "round": "3",
   "cycle": "1",
   "completed": "0",
-  "deliveries": "0",
-  "nextActor": "7",
+  "deliveries": "1",
+  "nextActor": "6",
   "nextBoarding": "2",
-  "nextMemory": "1",
-  "nextQuest": "1",
-  "encounters": "1",
+  "nextMemory": "2",
+  "nextQuest": "2",
+  "encounters": "0",
   "shore": [
-    {
-      "id": "ACTOR-2",
-      "type": "SOUL-CHILD",
-      "origin": "SOUL-CHILD",
-      "wish": "DEST-HAVEN",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
     {
       "id": "ACTOR-3",
       "type": "SOUL-MERCHANT",
@@ -57,10 +45,10 @@
   ],
   "boat": [
     {
-      "id": "ACTOR-1",
-      "type": "SOUL-MOTHER",
-      "origin": "SOUL-MOTHER",
-      "wish": "DEST-TARTARUS",
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HAVEN",
       "anger": 2,
       "boardingId": "1",
       "bornRound": "0",
@@ -79,18 +67,6 @@
       "level": 0,
       "spread": false,
       "exhausted": false
-    },
-    {
-      "id": "ACTOR-6",
-      "type": "SOUL-PO-LUEM",
-      "origin": null,
-      "wish": "DEST-ASPHODEL",
-      "anger": 0,
-      "boardingId": "1",
-      "bornRound": "3",
-      "level": 1,
-      "spread": false,
-      "exhausted": false
     }
   ],
   "arrivals": [
@@ -105,10 +81,42 @@
     "SOUL-BLUE-SOLDIER",
     "SOUL-RED-SOLDIER"
   ],
-  "discard": [],
+  "discard": [
+    "SOUL-MOTHER"
+  ],
   "selected": [],
-  "hand": [],
-  "quests": [],
+  "hand": [
+    {
+      "id": "MEMORY-1",
+      "type": "MEM-LIGHT",
+      "sourceRef": {
+        "kind": "character",
+        "definitionId": "SOUL-MOTHER",
+        "instanceId": "ACTOR-1"
+      }
+    }
+  ],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-FAMILY",
+      "participants": [
+        "ACTOR-1",
+        "ACTOR-2"
+      ],
+      "status": "failed",
+      "stage": "active",
+      "sharedRoutes": 1,
+      "delivered": [
+        "ACTOR-1"
+      ],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": "Mother delivered before Child",
+      "cycle": "1",
+      "data": {}
+    }
+  ],
   "effects": {
     "capacity": false,
     "moly": false,
@@ -125,17 +133,17 @@
   "routes": {
     "offers": [
       [
-        "DEST-STYX",
-        "DEST-HAVEN"
+        "DEST-ASPHODEL",
+        "DEST-STYX"
       ],
       [
-        "DEST-STYX",
-        "DEST-HAVEN"
+        "DEST-HAVEN",
+        "DEST-ACHERON"
       ]
     ],
     "masks": [
       0,
-      1
+      0
     ],
     "foresight": 0,
     "history": [
@@ -158,26 +166,28 @@
           "DEST-TARTARUS",
           "DEST-STYX"
         ],
-        "chosen": "DEST-TARTARUS"
+        "chosen": "DEST-STYX"
       }
     ]
   },
   "nextPolong": "SOUL-PO-LUEM",
-  "heroOffer": {
-    "type": "SOUL-ODYSSEUS",
-    "resolved": true
-  },
-  "destination": "DEST-TARTARUS",
+  "heroOffer": null,
+  "destination": "DEST-STYX",
   "pending": null,
   "choice": null,
   "theftQueue": [],
   "trimNext": null,
-  "ending": "The lantern went out: crossing to Tartarus.",
+  "ending": "The lantern went out: crossing to River Styx.",
   "log": [
     {
       "round": "0",
       "cycle": "1",
       "text": "All-quest trial begins."
+    },
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "Mother and Child: started."
     },
     {
       "round": "1",
@@ -190,19 +200,35 @@
       "text": "crossing to Tartarus: 3 Light lost."
     },
     {
-      "round": "3",
+      "round": "2",
       "cycle": "1",
-      "text": "Long Hollow boards at level 1."
+      "text": "Mother and Child: failed (Mother delivered before Child)."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Received Light."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother leaves: delivery."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother reached Tartarus."
     },
     {
       "round": "3",
       "cycle": "1",
-      "text": "crossing to Tartarus: 1 Light lost."
+      "text": "crossing to River Styx: 1 Light lost."
     },
     {
       "round": "3",
       "cycle": "1",
-      "text": "The lantern went out: crossing to Tartarus."
+      "text": "The lantern went out: crossing to River Styx."
     }
-  ]
+  ],
+  "longForks": []
 }

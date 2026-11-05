@@ -1,11 +1,11 @@
 {
-  "version": "0.8-t45",
-  "passed": 25,
+  "version": "0.8-t45b",
+  "passed": 32,
   "failed": 0,
   "hashes": {
-    "engine.js": "dbb97deeb8dcca033ece47568f1809022d526ff6d2225869c3a8fab91805dd5b",
-    "content.json": "bdd661af93bfdc21e61cb86d764370f6ab2d47176041b888da28fab9e69e66fc",
-    "tests/quest-check.js": "8b15b103f806441042a4235d5386fa639a9b453df7d2920c9ea7f35c71dea248"
+    "engine.js": "214117dd8913a368cd2037cb975ae2e555d599c5b9e35ad71a93908dae31fd04",
+    "content.json": "cdef337abc6faa461d9d4d7c776aeea5f5e65c91c9933efa09b41caf13e04f70",
+    "tests/quest-check.js": "854f260af0a3af4ab69d6b765dd00682fb01ff87769d2f81e1464f52e08e7c42"
   },
   "records": [
     {
@@ -29,7 +29,11 @@
       "status": "PASS"
     },
     {
-      "name": "Meal is once per shared boarding, includes Cook reduction and can expire Cook",
+      "name": "Meal is once per shared boarding; others and Longs -1, Cook does not eat and gains 2, can expire Cook; Farmer gives Calm",
+      "status": "PASS"
+    },
+    {
+      "name": "Farmer gives Calm when he gets off, but no memory if he shared the meal",
       "status": "PASS"
     },
     {
@@ -37,11 +41,27 @@
       "status": "PASS"
     },
     {
-      "name": "Mason leaves last including Polongs; capacity can be used before boarding and expires",
+      "name": "Mason leaves after the Merchant and every ordinary passenger (Longs do not count), or the quest fails; capacity can be used before boarding and expires",
+      "status": "PASS"
+    },
+    {
+      "name": "Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count; each off-wish exit costs 1 Light",
+      "status": "PASS"
+    },
+    {
+      "name": "Guard cannot prevent the Light an off-wish exit costs, and the last Light ends the run",
+      "status": "PASS"
+    },
+    {
+      "name": "Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop",
       "status": "PASS"
     },
     {
       "name": "Priest +1 memory or purification trade-off, once per boarding and save/reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Hero timing: none before cycle 6, Odysseus from cycle 6, Heracles from cycle 9, each at about 25%",
       "status": "PASS"
     },
     {
@@ -57,7 +77,7 @@
       "status": "PASS"
     },
     {
-      "name": "Unlimited memories, overflow cannot be spent, full fog does not block Wraiths",
+      "name": "One memory per stop, overflow cannot be spent, full fog does not block Wraiths",
       "status": "PASS"
     },
     {
@@ -105,11 +125,19 @@
       "status": "PASS"
     },
     {
+      "name": "One memory per stop at any point of it, one at boarding (Boat Space only) and one on the return trip",
+      "status": "PASS"
+    },
+    {
+      "name": "Longs arrive from cycle 3 at a fork picked on departure; a trip that ends first skips it",
+      "status": "PASS"
+    },
+    {
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2553,
-      "choices": 27,
+      "transitions": 3214,
+      "choices": 0,
       "humanPlaytest": false
     }
   ],

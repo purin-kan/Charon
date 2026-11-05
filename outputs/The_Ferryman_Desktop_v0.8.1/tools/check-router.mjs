@@ -9,6 +9,8 @@ const expected = {
   boarding: 'BoardingScene', 'boarding-heracles': 'BoardingScene', window: 'CrossingScene', fork: 'CrossingScene', review: 'CrossingScene',
   delivery: 'DeliveryScene', 'delivery-match': 'DeliveryScene', choice: 'ChoiceOverlay', 'choice-odysseus': 'ChoiceOverlay', trim: 'TrimOverlay',
   return: 'ReturnScene', 'review-return': 'ReturnScene', ended: 'GameOverScene',
+  'crossing-prep': 'CrossingScene', 'crossing-lethal': 'CrossingScene', 'crossing-concealed': 'CrossingScene',
+  'crossing-odysseus': 'CrossingScene', 'crossing-heracles': 'CrossingScene',
 };
 let bad = 0;
 for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
@@ -17,7 +19,7 @@ for (const f of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
   const got = sceneFor(s);
   const ok = got === expected[name];
   if (!ok) bad++;
-  console.log(`${ok ? 'OK  ' : 'FAIL'} ${name.padEnd(14)} phase=${s.phase.padEnd(8)} window=${s.window.kind.padEnd(8)} -> ${got}`);
+  console.log(`${ok ? 'OK  ' : 'FAIL'} ${name.padEnd(18)} phase=${s.phase.padEnd(8)} window=${s.window.kind.padEnd(8)} -> ${got}`);
 }
 // Router.dispatch relies on Ferry.transition returning the next state (it throws on an illegal
 // action). Check that contract with one legal action from a fresh run.
