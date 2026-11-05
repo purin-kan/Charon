@@ -227,7 +227,6 @@ export class DecisionPanel {
   show({ heading = '', lines = [], warning = '', buttons = [] }) {
     this.heading.setText(heading);
     this.body.setText(lines.filter(Boolean).join('\n'));
-    this.warning.setText(warning ?? '');
     for (const button of this.buttons) button.destroy();
     let right = this.w / 2 - 24;
     this.buttons = [...buttons].reverse().map((button) => {
@@ -241,6 +240,9 @@ export class DecisionPanel {
       this.root.add(made);
       return made;
     });
+    // Beside the buttons when they leave room for it, otherwise on its own line above them.
+    const beside = right - this.left >= 300;
+    this.warning.setWordWrapWidth(beside ? right - this.left : this.w - 48).setY(beside ? this.h - 32 : this.h - 66).setText(warning ?? '');
   }
 
   slideIn(delay = 0) {

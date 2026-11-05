@@ -91,7 +91,6 @@ if (import.meta.hot) import.meta.hot.accept('../assets/tuning.json', () => {});
 // Values named in the project plan. Defaults match the constants in the scene code where one exists
 // (BoardingScene on the T-12 branch), so adopting tune() changes nothing until someone tunes it.
 defineTuning({
-  'scenes.fadeMs': { type: 'number', default: 300, min: 0, max: 2000, step: 10, help: 'Fade between scenes' },
   'boarding.snapMs': { type: 'number', default: 160, min: 0, max: 1000, step: 10, help: 'Soul glides to its spot' },
   'boarding.snapEase': { type: 'ease', default: 'Cubic.Out' },
   'boarding.exitMs': { type: 'number', default: 1800, min: 0, max: 4000, step: 20, help: 'Boat leaves the shore' },

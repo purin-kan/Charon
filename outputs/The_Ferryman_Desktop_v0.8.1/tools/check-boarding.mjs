@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import {
   DESTINATION_COLORS, STAGE, aboardChips, arcPoint, boatSway, boatZone, clearActions, flames, heroPrompt, lastBoarded, layoutBoarding,
-  layoutStage, nextLongName, panelButtons, ridePoint, seatBar, soulBadge, soulFacts, soulName, springStep, statusLine, tailOffset, tokenLabels,
+  layoutStage, nextLongName, panelButtons, ridePoint, seatBar, shipBadge, soulBadge, soulFacts, soulName, springStep, statusLine, tailOffset, tokenLabels,
 } from '../src/scenes/boarding-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -185,6 +185,14 @@ check('a locked soul has no pips', soulBadge(wideSpot, Ferry).pips === null && s
 check('every destination has a colour', Ferry.data.destinations.every((x) => typeof DESTINATION_COLORS[x.id] === 'number'));
 check('destination colours differ', new Set(Object.values(DESTINATION_COLORS)).size === Ferry.data.destinations.length);
 check('the diamond follows the wish', calmBadge.color === DESTINATION_COLORS[Ferry.wish(angry.shore[0])]);
+
+// The badge under way counts to the ship's limit, not the shore's.
+const shipLimit = Ferry.data.config.shipAngerLimit;
+const sailing = { ...base.shore[0], anger: shipLimit - 1 };
+const sailingBadge = shipBadge(sailing, Ferry);
+check('ship pips count to the ship limit', sailingBadge.pips.total === shipLimit && sailingBadge.pips.filled === shipLimit - 1);
+check('ship pips warn one step before a Wraith', sailingBadge.pips.danger === true && shipBadge(base.shore[0], Ferry).pips.danger === false);
+check('the ship badge keeps the name and the wish colour', sailingBadge.name === soulName(sailing.type, Ferry) && sailingBadge.color === DESTINATION_COLORS[Ferry.wish(sailing)]);
 
 // Hover facts and the next Long.
 const fakeT = (key, values = {}) => `${key} ${Object.values(values).join(' ')}`;

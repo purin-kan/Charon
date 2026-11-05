@@ -173,7 +173,7 @@ export class MemoryHand {
     this.message.setOrigin(1, 0).setPosition(right, below);
     this.cancelBtn.setOrigin(1, 0).setPosition(right, below + 26).setVisible(!!this.picked);
     if (this.picked) this.say(TEXT.chooseTarget(this.picked.name), false);
-    else this.say(n ? view.note : '', false); // an empty hand needs no sentence in the HUD
+    else this.say(n > view.limit ? view.note : '', false); // a card says why it can't be played when clicked or hovered
   }
 
   press(card) {
