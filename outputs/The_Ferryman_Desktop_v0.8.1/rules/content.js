@@ -1,6 +1,6 @@
 globalThis.FerryData = {
   "schemaVersion": 3,
-  "version": "0.8-t45",
+  "version": "0.8-t45b",
   "title": "The Ferryman",
   "config": {
     "startLight": 6,
@@ -199,7 +199,7 @@ globalThis.FerryData = {
       "personalName": "Georgios",
       "seats": 1,
       "wish": "DEST-ASPHODEL",
-      "memory": "MEM-SHARED-HARVEST",
+      "memory": "MEM-CALM",
       "ordinary": true,
       "tainted": false
     },
@@ -377,13 +377,6 @@ globalThis.FerryData = {
       "text": "Restore 1 Light up to your current maximum."
     },
     {
-      "id": "MEM-SHARED-HARVEST",
-      "name": "Shared Harvest",
-      "kind": "calm",
-      "amount": 1,
-      "text": "Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected."
-    },
-    {
       "id": "MEM-ALL-FOG",
       "name": "Full Fog Protection",
       "kind": "all-fog",
@@ -515,7 +508,7 @@ globalThis.FerryData = {
         "SOUL-COOK"
       ],
       "reward": null,
-      "description": "Prepare a meal once per boarding: everyone −1 Anger, then Cook +2."
+      "description": "Prepare a meal once per boarding: every other soul on the boat −1 Anger, Longs included; the Cook does not eat and is stressed, +2 Anger. A Farmer who shared the meal gives no memory when he gets off."
     },
     {
       "id": "QUEST-SWORD",
@@ -585,6 +578,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "b375ab7a9e27f4bb46d7637fd78abcbad45f53176d6a612e7cf808754d492326"
+  "contentSha256": "2d50dc72c40923a1e42ca4d55d3d4a22962222012b3e1bc4c174cd0a49d40df4"
 }
 ;
