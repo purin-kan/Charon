@@ -33,6 +33,12 @@ defineTuning({
   'ui.auraMs': { type: 'number', default: 1500, min: 200, max: 5000, step: 50, help: 'Slow light behind a gold button' },
   'ui.toastMs': { type: 'number', default: 2600, min: 500, max: 8000, step: 100, help: 'Status line under the HUD' },
   'ui.fadeMs': { type: 'number', default: 500, min: 100, max: 2000, step: 10, help: 'Fade between scenes' },
+  'ui.panelY': { type: 'number', default: 545, min: 400, max: 560, step: 1, help: 'Top of the bottom panel' },
+  'ui.panelMs': { type: 'number', default: 420, min: 0, max: 1500, step: 10, help: 'Bottom panel slides in and out' },
+  'ui.shadeAlpha': { type: 'number', default: 0.72, min: 0, max: 1, step: 0.02, help: 'Dimming behind a modal' },
+  'ui.flashAlpha': { type: 'number', default: 0.55, min: 0, max: 1, step: 0.05, help: 'Glow at the screen edge' },
+  'ui.flashMs': { type: 'number', default: 320, min: 50, max: 1500, step: 10 },
+  'art.boat.deck': { type: 'number', default: 0.55, min: 0.2, max: 1, step: 0.01, help: 'Share of the boat image that is deck' },
 });
 
 export const COLOR = {
@@ -201,6 +207,72 @@ export function soulPlate(scene, x, y, w, h, name) {
   const label = scene.add.text(0, h * 0.4, name, headText(size, CSS.gold, { align: 'center', wordWrap: { width: w - 10 } })).setOrigin(0.5);
   return scene.add.container(x, y, [face, label]);
 }
+
+/**
+ * The bottom decision panel every scene shares: a heading, a line or two of explanation, then buttons, gold for the main
+ * action. show() redraws it; slideIn and slideOut move it. A button is { label, onPress, gold, enabled, onHover }.
+ */
+export class DecisionPanel {
+  constructor(scene, { w = 820, h = 164, depth = 12 } = {}) {
+    Object.assign(this, { scene, w, h, buttons: [] });
+    const left = -w / 2 + 24;
+    this.left = left;
+    const back = drawPanel(scene.add.graphics(), -w / 2, 0, w, h);
+    this.heading = scene.add.text(left, 24, '', headText(21)).setOrigin(0, 0.5);
+    this.body = scene.add.text(left, 44, '', bodyText(18, CSS.bone, { wordWrap: { width: w - 48 }, lineSpacing: -2 }));
+    this.warning = scene.add.text(left, h - 32, '', bodyText(17, CSS.danger, { wordWrap: { width: w / 2 - 40 }, lineSpacing: -2 })).setOrigin(0, 0.5);
+    this.root = scene.add.container(scene.scale.width / 2, tune('ui.panelY'), [back, this.heading, this.body, this.warning]).setDepth(depth);
+  }
+
+  show({ heading = '', lines = [], warning = '', buttons = [] }) {
+    this.heading.setText(heading);
+    this.body.setText(lines.filter(Boolean).join('\n'));
+    this.warning.setText(warning ?? '');
+    for (const button of this.buttons) button.destroy();
+    let right = this.w / 2 - 24;
+    this.buttons = [...buttons].reverse().map((button) => {
+      const w = Math.max(96, button.label.length * 9 + 40);
+      const made = makeButton(this.scene, right - w / 2, this.h - 32, w, 36, button.label, button.onPress, { gold: button.gold }).setEnabled(button.enabled ?? true);
+      if (button.onHover) {
+        made.on('pointerover', (pointer) => button.onHover(pointer));
+        made.on('pointerout', () => button.onHover(null));
+      }
+      right -= w + 12;
+      this.root.add(made);
+      return made;
+    });
+  }
+
+  slideIn(delay = 0) {
+    const y = tune('ui.panelY');
+    const { root, scene } = this;
+    scene.tweens.killTweensOf(root);
+    root.setAlpha(0).setY(y + 44);
+    scene.tweens.add({ targets: root, y, alpha: 1, duration: tune('ui.panelMs'), delay, ease: 'Cubic.Out' });
+  }
+
+  slideOut() {
+    const { root, scene } = this;
+    scene.tweens.killTweensOf(root);
+    scene.tweens.add({ targets: root, y: tune('ui.panelY') + 44, alpha: 0, duration: tune('ui.panelMs'), ease: 'Sine.In' });
+  }
+}
+
+/** A dimmed screen behind a modal. It takes every click, so the scene underneath cannot be used. */
+export function modalShade(scene) {
+  const { width, height } = scene.scale;
+  return scene.add.rectangle(width / 2, height / 2, width, height, COLOR.deep, tune('ui.shadeAlpha')).setInteractive();
+}
+
+/** A brief glow around the edge of the screen: danger for a loss, lantern for warm news. */
+export function edgeFlash(scene, color = COLOR.danger, depth = 11) {
+  const { width, height } = scene.scale;
+  const edge = scene.add.image(width / 2, height / 2, 'board-edge').setDisplaySize(width, height).setTint(color).setAlpha(0).setDepth(depth);
+  scene.tweens.add({ targets: edge, alpha: tune('ui.flashAlpha'), duration: tune('ui.flashMs'), ease: 'Sine.Out', yoyo: true, onComplete: () => edge.destroy() });
+}
+
+/** A small shake of the view, for Light lost. */
+export const lossShake = (scene) => scene.cameras.main.shake(tune('wraith.shakeMs'), tune('wraith.shakeIntensity'));
 
 /** Fades the scene out, then calls done. The one way a scene leaves unless a boat carries it off. */
 export function fadeOut(scene, done, ms = tune('ui.fadeMs')) {

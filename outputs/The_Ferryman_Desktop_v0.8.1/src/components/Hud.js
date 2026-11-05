@@ -15,6 +15,7 @@ defineTuning({
   'hud.x': { type: 'number', default: 24, min: 0, max: 200, step: 1, help: 'Left edge of the HUD' },
   'hud.y': { type: 'number', default: 20, min: 0, max: 200, step: 1, help: 'Top edge of the HUD' },
   'hud.slideMs': { type: 'number', default: 520, min: 0, max: 1500, step: 10, help: 'HUD slides in and out' },
+  'hud.flameMs': { type: 'number', default: 260, min: 0, max: 1000, step: 10, help: 'One flame going out or lighting' },
 });
 
 const SIZE = { w: 300, h: 80 };
@@ -40,6 +41,18 @@ export class Hud {
 
   update(seconds) {
     this.flames.flicker(seconds);
+  }
+
+  /** Moves the flames from one Light value to another, one flame at a time. Returns how long that takes. */
+  stepLight(from, to, max) {
+    const step = tune('hud.flameMs');
+    const count = Math.abs(to - from);
+    const dir = Math.sign(to - from);
+    for (let i = 1; i <= count; i++) {
+      const light = from + dir * i;
+      this.scene.time.delayedCall(i * step, () => this.flames.set(Array.from({ length: max }, (_, n) => n < light)));
+    }
+    return count * step;
   }
 
   /** A short line under the HUD. Danger red by default, for refusals; pass CSS.calm or CSS.gold for good news. */

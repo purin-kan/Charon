@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { BODY_FONT, COLOR, CSS, FADE_RGB, bodyText, drawPanel, fadeIn, headText, makeButton, makeChip, whenFontsReady } from '../theme.js';
+import { COLOR, CSS, FADE_RGB, bodyText, drawPanel, fadeIn, headText, makeButton, makeChip, whenFontsReady } from '../theme.js';
 import { defineTuning, onTune, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -13,7 +13,7 @@ import {
   STAGE, aboardChips, arcPoint, boatSway, clearActions, heroPrompt, lastBoarded, layoutStage, panelButtons,
   ridePoint, seatBar, soulBadge, soulFacts, springStep,
 } from './boarding-layout.js';
-import { addBoardingSoul, setBoardingBadge, swayTail } from './soul-token.js';
+import { addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
 
 defineTuning({
   'boarding.walkMs': { type: 'number', default: 680, min: 100, max: 1500, step: 10, help: 'Soul travels between shore and boat' },
@@ -122,9 +122,6 @@ export class BoardingScene extends Phaser.Scene {
       if (this.run !== run) return;
       this.hud = new Hud(this);
       this.tip = new HoverTip(this, DEPTH.hero + 1);
-      this.tip.title.setFontFamily(BODY_FONT).setFontSize(20).setColor(CSS.gold);
-      this.tip.body.setFontFamily(BODY_FONT).setFontSize(17).setColor(CSS.bone);
-      this.tip.bg.setFillStyle(COLOR.panel, 0.96).setStrokeStyle(1, COLOR.gold, 0.25);
       this.hand = new MemoryHand(this, {
         compact: true,
         onHover: (card) => this.showCardTip(card),
@@ -385,11 +382,7 @@ export class BoardingScene extends Phaser.Scene {
   }
 
   showTip(pointer, title, lines) {
-    const fresh = !this.tip.root.visible;
     this.tip.show(pointer, title, lines);
-    if (!fresh) return;
-    this.tip.root.setAlpha(0);
-    this.tweens.add({ targets: this.tip.root, alpha: 1, duration: 140, ease: 'Sine.Out' });
   }
 
   /** A small card shows its full text on hover. */
@@ -575,15 +568,7 @@ export class BoardingScene extends Phaser.Scene {
     });
     token.on('pointerdown', () => this.onSoulClick(entry.id));
     token.once('destroy', () => this.tip?.hide());
-    this.tweens.add({
-      targets: token.parts.figure,
-      y: -tune('boarding.bobPx'),
-      duration: tune('boarding.bobMs'),
-      delay: Math.random() * 1200, // so a row of souls does not breathe in step
-      ease: 'Sine.InOut',
-      yoyo: true,
-      repeat: -1,
-    });
+    startBreathing(this, token);
     token.goal = { x: entry.x, y: entry.y };
     token.riding = { amount: entry.area === 'seat' ? 1 : 0 };
     token.seated = entry.area === 'seat';

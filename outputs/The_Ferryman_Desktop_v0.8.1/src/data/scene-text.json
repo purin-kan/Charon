@@ -122,7 +122,10 @@
     "detailQuestWith": "{name} (with {partners}): {description}",
     "detailPurify": "Once per boarding, before the fork, he can set another passenger's Anger to 0. He then gives no memory for that boarding.",
     "detailTrio": "Merchant can't depart with both Blacksmith and Mason.",
-    "unknownBranch": "Not yet seen. Approach the fork to see where it leads."
+    "unknownBranch": "Not yet seen. Approach the fork to see where it leads.",
+    "signOption": "Option {number}",
+    "foresight": "Foresight",
+    "foresightRow": "{label}: {options}"
   },
 
   "memory": {

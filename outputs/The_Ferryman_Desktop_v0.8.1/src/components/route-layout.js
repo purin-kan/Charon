@@ -84,7 +84,7 @@ function optionCard(state, Ferry, opt, pickedOption, TEXT) {
 function forkRow(Ferry, fork, label, TEXT) {
   return {
     label,
-    options: fork.map((opt) => (opt.hidden ? { name: TEXT.concealed, hidden: true } : { name: destName(Ferry, opt.destination), hidden: false })),
+    options: fork.map((opt) => (opt.hidden ? { name: TEXT.concealed, hidden: true } : { name: destName(Ferry, opt.destination), destination: opt.destination, hidden: false })),
   };
 }
 

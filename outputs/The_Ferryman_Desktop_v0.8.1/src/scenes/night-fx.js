@@ -77,6 +77,13 @@ export function makeTextures(scene) {
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, width, height);
   });
+  softTexture(scene, 'board-edge', 640, 360, (ctx) => {
+    const g = ctx.createRadialGradient(320, 180, 170, 320, 180, 380);
+    g.addColorStop(0, 'rgba(255,255,255,0)');
+    g.addColorStop(1, 'rgba(255,255,255,1)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 640, 360);
+  });
   softTexture(scene, 'board-fade', 4, 256, (ctx) => {
     const g = ctx.createLinearGradient(0, 0, 0, 256);
     g.addColorStop(0, 'rgba(2,6,7,0)');
@@ -84,6 +91,34 @@ export function makeTextures(scene) {
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, 4, 256);
   });
+}
+
+/**
+ * A destination's painting as a round thumbnail with a thin gold ring, made once from whatever image is loaded, whatever its
+ * size. Returns the texture key, or null if the image is missing.
+ */
+export function roundThumb(scene, id, size = 180) {
+  const key = `thumb-${id}`;
+  if (scene.textures.exists(key)) return key;
+  if (!scene.textures.exists(id)) return null;
+  const source = scene.textures.get(id).getSourceImage();
+  const texture = scene.textures.createCanvas(key, size, size);
+  const ctx = texture.getContext();
+  const r = size / 2;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(r, r, r - 3, 0, Math.PI * 2);
+  ctx.clip();
+  const scale = Math.max(size / source.width, size / source.height); // cover: a thumbnail has no bars
+  ctx.drawImage(source, (size - source.width * scale) / 2, (size - source.height * scale) / 2, source.width * scale, source.height * scale);
+  ctx.restore();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = 'rgba(237,196,127,0.8)';
+  ctx.beginPath();
+  ctx.arc(r, r, r - 3, 0, Math.PI * 2);
+  ctx.stroke();
+  texture.refresh();
+  return key;
 }
 
 /** Fades a particle in and out over its life. */

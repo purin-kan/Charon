@@ -87,12 +87,27 @@ export function addBoardingSoul(scene, entry, height) {
   const pips = scene.add.graphics();
   const labels = scene.add.container(0, -height - 2, [name, marks, pips]);
 
-  const ride = scene.add.container(0, 0, [shadow, body, labels]);
+  // A soft shaft of gold, for a soul at its wish (DeliveryScene).
+  const beam = scene.add.image(0, -height * 0.9, 'board-soft').setScale(0.42, 2.1).setTint(GOLD).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0);
+  const ride = scene.add.container(0, 0, [shadow, beam, body, labels]);
   const token = scene.add.container(entry.x, entry.y, [ride]);
   token.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-36, -height, 72, height), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
-  token.parts = { ride, shadow, body, figure, glow, rim, rope, name, marks, pips, labels };
+  token.parts = { ride, shadow, beam, body, figure, glow, rim, rope, name, marks, pips, labels };
   token.seed = Math.random() * Math.PI * 2; // so a row of souls does not sway in step
   return token;
+}
+
+/** The slow bob every soul has at rest. */
+export function startBreathing(scene, token) {
+  scene.tweens.add({
+    targets: token.parts.figure,
+    y: -tune('boarding.bobPx'),
+    duration: tune('boarding.bobMs'),
+    delay: Math.random() * 1200, // so a row of souls does not breathe in step
+    ease: 'Sine.InOut',
+    yoyo: true,
+    repeat: -1,
+  });
 }
 
 /** Bends the tail for this frame. amp is in game pixels at the tail tip, whatever the sprite's size. */

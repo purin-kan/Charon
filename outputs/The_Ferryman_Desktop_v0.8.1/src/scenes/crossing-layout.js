@@ -38,7 +38,7 @@ export function placeName(state, Ferry, t) {
 // that BoardingScene and DeliveryScene use, so a stop looks the same in all three scenes. The river
 // runs right to a fork; option 0 branches up, option 1 down. Each branch ends level, at a spot where the
 // boat sits exactly as DeliveryScene draws it once the view is back at zoom 1 (see arrivalView).
-export const WORLD = { forkAhead: 1000, approachBack: 400, branchRun: 900, branchRise: 420, signAhead: 760, signRise: 110, viewAhead: 550, forkZoom: 0.48 };
+export const WORLD = { forkAhead: 1000, approachBack: 400, branchRun: 900, branchRise: 420, signAhead: 760, signRise: 155, viewAhead: 550, forkZoom: 0.48 };
 
 /** A view is the world point at the centre of the screen and a zoom. */
 export const homeView = () => ({ x: 640, y: 360, zoom: 1 });
@@ -88,14 +88,14 @@ export function branchSigns(state, Ferry, t) {
       const detail = card.hidden
         ? [TEXT.concealedDetail]
         : [TEXT.breakdown(p), TEXT.modifiers(p), TEXT.routeCost(p.payment, p.remaining), card.wishes, card.lethal ? TEXT.lethal : ''].filter(Boolean);
-      return { option: card.option, number: card.number, name: card.name, fog: card.hidden ? '?' : TEXT.routeCost(p.payment, p.remaining), wishes: card.wishes, hidden: card.hidden, lethal: card.lethal, picked: card.picked, action: card.action, detail };
+      return { option: card.option, number: card.number, destination: card.destination, name: card.name, fog: card.hidden ? '?' : TEXT.routeCost(p.payment, p.remaining), wishes: card.wishes, hidden: card.hidden, lethal: card.lethal, picked: card.picked, action: card.action, detail };
     });
   }
   const first = model.mode === 'foresight' ? model.upcoming[0] : null;
   return [0, 1].map((option) => {
     const seen = first?.options[option];
     const name = seen ? seen.name : '?';
-    return { option, number: option + 1, name, fog: '', wishes: '', hidden: !seen || seen.hidden, lethal: false, picked: false, action: null, detail: [seen ? '' : t('crossing.unknownBranch')].filter(Boolean) };
+    return { option, number: option + 1, destination: seen?.destination ?? null, name, fog: '', wishes: '', hidden: !seen || seen.hidden, lethal: false, picked: false, action: null, detail: [seen ? '' : t('crossing.unknownBranch')].filter(Boolean) };
   });
 }
 

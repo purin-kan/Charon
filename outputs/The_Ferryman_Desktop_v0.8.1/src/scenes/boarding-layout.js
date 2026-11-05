@@ -144,6 +144,17 @@ export function soulBadge(entry, Ferry) {
   };
 }
 
+/** The badge of a passenger under way: the same marks as on the shore, counted to the ship's Anger limit. */
+export function shipBadge(actor, Ferry) {
+  const limit = Ferry.data.config.shipAngerLimit;
+  return {
+    name: soulName(actor.type, Ferry),
+    color: DESTINATION_COLORS[Ferry.wish(actor)] ?? NO_DESTINATION_COLOR,
+    locked: false,
+    pips: { filled: Math.min(actor.anger, limit), total: limit, danger: actor.anger + 1 >= limit },
+  };
+}
+
 /** Which panel buttons work. Cast off follows the engine: anyone aboard may leave, even a lone hero with nothing selected. */
 export function panelButtons(state, tollMode = false) {
   const picked = state.selected.length > 0;
