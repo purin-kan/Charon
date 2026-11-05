@@ -172,7 +172,7 @@
     preview(s,option);const pair=s.routes.offers[0],destination=pair[option];s.destination=destination;
     const calculation=fog(s,destination);s.routes.history.push({offer:pair.slice(),chosen:destination});s.routes.offers.shift();s.routes.masks.shift();s.routes.foresight=Math.max(0,s.routes.foresight-1);
     damage(s,calculation.fog,'crossing to '+DEST[destination].name);
-    if(s.phase==='ended')return;s.phase='delivery';deal(s);heroicArrival(s);
+    if(s.phase==='ended')return;s.phase='delivery';s.window.uses=0;deal(s);heroicArrival(s); // a stop starts on arrival: its memory is shared by delivery, window, fork and review
   }
   function deliveryReason(s,x,via='normal') {
     if(!s.boat.some(a=>a.id===x.id))return 'Not aboard.';
@@ -215,7 +215,7 @@
     if(x.type==='SOUL-POLONG'&&!x.spread&&via==='normal'&&s.destination==='DEST-TARTARUS'){s.light=Math.min(s.maxLight,s.light+1);record(s,'Po Long pays the fare: +1 Light.');}
     remove(s,x,'delivery');record(s,named(x)+' reached '+DEST[x.wish].name+'.');
   }
-  function nextWindow(s) {s.phase='window';s.travelPrepared=false;s.window=windowState(s.boat.length?'outward':'return');s.trimNext=null;s.theftQueue=[];deal(s);}
+  function nextWindow(s) {s.phase='window';s.travelPrepared=false;const uses=s.boat.length&&s.window.kind==='outward'?s.window.uses:0;s.window=windowState(s.boat.length?'outward':'return');s.window.uses=uses;s.trimNext=null;s.theftQueue=[];deal(s);}
   function finishRound(s) {if(s.hand.length>C.handLimit){s.phase='trim';s.trimNext='new-window';}else nextWindow(s);}
   function thefts(s) {
     while(s.theftQueue.length){const id=s.theftQueue.shift(),x=s.boat.find(a=>a.id===id);if(!x||!s.hand.length)continue;

@@ -114,7 +114,7 @@ check('Fog and All Fog protect a crossing, so they are refused at the dock and p
  let s=boat(['SOUL-MASON','SOUL-RED-SOLDIER','SOUL-MOTHER']);const fog=memory(s,'MEM-FOG','SOUL-MASON'),all=memory(s,'MEM-ALL-FOG','SOUL-RED-SOLDIER'),light=memory(s,'MEM-LIGHT','SOUL-MOTHER');
  s=cross(s,'DEST-HAVEN');assert.equal(s.phase,'delivery');
  for(const id of [fog,all])assert.throws(()=>act(s,'PLAY_MEMORY',{id}),/before you travel/);
- s=act(s,'PLAY_MEMORY',{id:light});assert.ok(!s.hand.some(m=>m.id===light));
+ const played=act(s,'PLAY_MEMORY',{id:light});assert.ok(!played.hand.some(m=>m.id===light)); // a card that is not window-only is fine at the dock (played on a copy: one memory per stop)
  s=act(s,'DELIVER',{ids:[]});assert.equal(s.phase,'window');s=act(s,'PLAY_MEMORY',{id:fog});assert.ok(s.window.shield>0);rt(s);
 });
 check('Priest +1 memory or purification trade-off, once per boarding and save/reload',()=>{
@@ -200,7 +200,8 @@ check('One memory per stop at any point of it, one at boarding (Boat Space only)
  s=act(s,'START_CROSSING');s=act(s,'PLAY_MEMORY',{id:a});assert.equal(s.light,4);assert.throws(()=>act(s,'PLAY_MEMORY',{id:b}),/One memory per stop/);
  let r=boat(['SOUL-MOTHER','SOUL-COOK']);r.light=3;[a]=two(r);r=act(r,'START_CROSSING');r=act(route(r,'DEST-HAVEN'),'PLAN',{action:{type:'CROSS',option:0}});r=act(r,'PLAY_MEMORY',{id:a});assert.equal(r.phase,'review');assert.equal(r.light,4);rt(r);
  let d=boat(['SOUL-MOTHER','SOUL-COOK']);d.light=3;[a,b]=two(d);d=cross(d,'DEST-HAVEN');assert.equal(d.phase,'delivery');d=act(d,'PLAY_MEMORY',{id:a});assert.throws(()=>act(d,'PLAY_MEMORY',{id:b}),/One memory per stop/);
- d=act(d,'DELIVER',{ids:[]});assert.equal(d.window.uses,0);d=act(d,'PLAY_MEMORY',{id:b});assert.equal(d.window.uses,1);rt(d);
+ d=act(d,'DELIVER',{ids:[]});assert.equal(d.window.uses,1);assert.throws(()=>act(d,'PLAY_MEMORY',{id:b}),/One memory per stop/); // the stop's memory is shared by delivery, window, fork and review
+ d=act(route(act(d,'START_CROSSING'),'DEST-STYX'),'CROSS',{option:0});assert.equal(d.window.uses,0);d=act(d,'PLAY_MEMORY',{id:b});assert.equal(d.window.uses,1);rt(d); // sailing starts the next stop
  let w=boat(['SOUL-MOTHER']);const space=memory(w,'MEM-BOAT-SPACE');assert.throws(()=>act(w,'PLAY_MEMORY',{id:space}),/only during boarding/);
  let home=boat(['SOUL-MOTHER']);[a,b]=two(home);home=step(home,'DEST-TARTARUS',['SOUL-MOTHER']);assert.equal(home.window.kind,'return');home=act(home,'PLAY_MEMORY',{id:a});assert.throws(()=>act(home,'PLAY_MEMORY',{id:b}),/return trip/);
  let shoreS=shore(['SOUL-MOTHER','SOUL-COOK']);const s1=memory(shoreS,'MEM-BOAT-SPACE'),s2=memory(shoreS,'MEM-BOAT-SPACE'),l=memory(shoreS,'MEM-LIGHT','SOUL-MOTHER');
