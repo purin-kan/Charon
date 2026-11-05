@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { queueAssets } from '../preloader.js';
+import { playSound, queueAssets } from '../preloader.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -140,6 +140,8 @@ export class DeliveryScene extends Phaser.Scene {
     for (const token of this.tokens.values()) this.input.setDraggable(token, false);
     this.confirmBtn.setVisible(false).disableInteractive();
     const outcome = arrivalOutcome(state, next, action, Ferry);
+    if (outcome.departed.length > outcome.strays.length) playSound(this, 'sfx-delivery-success'); // someone reached their wish
+    if (outcome.wraiths.length) playSound(this, 'sfx-wraith');
     this.playDeparture(outcome.departed, () => showOutcome(this, outcome, () => this.router.dispatch(action)));
   }
 

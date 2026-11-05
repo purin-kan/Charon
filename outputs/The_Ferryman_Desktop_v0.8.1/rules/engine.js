@@ -205,7 +205,8 @@
     if(x.type==='SOUL-PO-DUE'&&x.level>=3){damage(s,1,'Long Grasp delivery');if(s.phase==='ended')return;}
     if(via==='normal'&&x.wish!==s.destination){
       for(const q of activeQuests(s))if(q.participants.includes(x.id))fail(s,q,named(x)+' left the boat before '+DEST[x.wish].name);
-      remove(s,x,'delivery');record(s,named(x)+' left the boat at '+DEST[s.destination].name+'.');return;
+      remove(s,x,'delivery');record(s,named(x)+' left the boat at '+DEST[s.destination].name+'.');
+      damage(s,1,named(x)+' left away from its wish');return;
     }
     deliveredQuests(s,x);
     if(x.origin&&!isTainted(x))s.deliveries=inc(s.deliveries);

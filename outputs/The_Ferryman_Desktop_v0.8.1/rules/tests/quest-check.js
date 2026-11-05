@@ -93,15 +93,15 @@ check('Mason leaves last including Polongs, or the quest fails; capacity can be 
  // Empty-boat return fixture only verifies the effect boundary, not survival balance.
  s.discard.push(...s.boat.map(x=>x.origin));s.boat=[];s.window.kind='return';for(const q of s.quests)if(q.status==='active'){q.status='failed';q.reason='fixture resolved participants';}s=act(s,'RETURN');assert.equal(g.capacity(s),4);
 });
-check('Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count',()=>{
+check('Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count; each off-wish exit costs 1 Light',()=>{
  let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-FARMER']);polong(s,'SOUL-POLONG');polong(s,'SOUL-PO-MUED');s=cross(s,'DEST-HAVEN');
  assert.equal(g.deliveryReason(s,find(s,'SOUL-POLONG')),null);assert.equal(g.deliveryReason(s,find(s,'SOUL-PO-MUED')),null);
- s.light=20;const fare=s.light;s=act(s,'DELIVER',{ids:[find(s,'SOUL-POLONG').id]});assert.ok(!s.boat.some(x=>x.type==='SOUL-POLONG'));assert.equal(s.light,fare);
+ s.light=20;const fare=s.light;s=act(s,'DELIVER',{ids:[find(s,'SOUL-POLONG').id]});assert.ok(!s.boat.some(x=>x.type==='SOUL-POLONG'));assert.equal(s.light,fare-1);
  s=act(s,'START_CROSSING');s=route(s,'DEST-STYX');s=act(s,'CROSS',{option:0});
  const light=s.light,hand=s.hand.length,ids=['SOUL-CHILD','SOUL-FARMER','SOUL-PO-MUED'].map(type=>find(s,type).id);
  assert.ok(ids.every(id=>g.deliveryReason(s,s.boat.find(x=>x.id===id))===null));
  s=act(s,'DELIVER',{ids});assert.deepEqual(s.boat.map(x=>x.type).sort(),['SOUL-MOTHER']);
- assert.equal(s.hand.length,hand);assert.equal(s.deliveries,'0');assert.equal(s.light,light);
+ assert.equal(s.hand.length,hand);assert.equal(s.deliveries,'0');assert.equal(s.light,light-2); // Child and Farmer left away from their wishes; Long Veil reached its own (River Styx)
  assert.equal(quest(s,'QUEST-FAMILY').status,'failed');assert.equal(quest(s,'QUEST-FAMILY').reason,'Child left the boat before Haven');
  assert.ok(s.log.some(e=>/Farmer left the boat at River Styx\./.test(e.text??e)));rt(s);
  let grasp=boat(['SOUL-FARMER']);const due=polong(grasp,'SOUL-PO-DUE',1,1);grasp=cross(grasp,'DEST-HAVEN');assert.match(g.deliveryReason(grasp,find(grasp,'SOUL-PO-DUE')),/Anger 2/);

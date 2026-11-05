@@ -149,7 +149,7 @@ const stray = arrivalOutcome(calm, Ferry.transition(calm, strayAction), strayAct
 check('a soul at the wrong stop departs with no reward', stray.departed.join() === wanderer.id && stray.rewards.length === 0);
 const wandererName = entryOf(open, wanderer.id).labels.name;
 const wandererWish = Ferry.data.destinations.find((d) => d.id === Ferry.wish(wanderer)).name;
-check('it says which memory was not given', lossLines(stray, t, Ferry).join() === `${wandererName} wished for ${wandererWish}. No memory.`);
+check('it says which memory was not given, and the 1 Light the early exit costs', lossLines(stray, t, Ferry).join('|') === `${wandererName} wished for ${wandererWish}. No memory.|Lost 1 Light.`);
 // A Long may leave at any stop: the leaver becomes a Long Mist that wishes for somewhere other than this stop.
 const elsewhere = Ferry.data.destinations.find((d) => d.id !== match.destination).id;
 const misty = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0, wish: elsewhere });

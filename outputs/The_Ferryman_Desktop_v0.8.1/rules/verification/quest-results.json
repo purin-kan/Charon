@@ -3,9 +3,9 @@
   "passed": 28,
   "failed": 0,
   "hashes": {
-    "engine.js": "ff3a00782a4dc5750e5a4138234b274e0d321f3c2c4eefdd68768cefc3b8b942",
+    "engine.js": "353b4ee4a51e0710d13aa1779918feecb0deacad06c2ed1ab9dbbde6d3b75868",
     "content.json": "43e608dd8b75c33a67d63d32a9a136a3f570adfc6c12550d31f3b83505990288",
-    "tests/quest-check.js": "cb0ec7f4a7c1c2e535aaebef8e2a8dce3314c99d69ce123590b8cbbf355f888d"
+    "tests/quest-check.js": "bc52dc7e9554d40ece0ed1c7e801c68cac14b12134c6aa61bd72e547618b868c"
   },
   "records": [
     {
@@ -41,7 +41,7 @@
       "status": "PASS"
     },
     {
-      "name": "Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count",
+      "name": "Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count; each off-wish exit costs 1 Light",
       "status": "PASS"
     },
     {

@@ -4,7 +4,7 @@ import { playSound, queueAssets } from '../preloader.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { MemoryHand } from '../components/MemoryHand.js';
-import { routeModel } from '../components/route-layout.js';
+import { previewOption, routeModel } from '../components/route-layout.js';
 import { statusLine } from './boarding-layout.js';
 import { BANK, DOCK, RIVER, stopScenery } from './delivery-layout.js';
 import {
@@ -34,6 +34,8 @@ const GOLD = 0xedc47f;
 const STROKE = 0x7fa6c0;
 const RED = 0xff9f8a;
 const CLICK = 'sfx-ui-click';
+const FOG = 'sfx-fog'; // once on confirming a route with fog 1 or more, before the Light loss shows
+const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long as the crossing screen is open (queued by BootScene)
 const HUD = { depth: 10, side: { x: 880, w: 360 }, strip: { x: 40, y: 556, s: 0.5 }, review: { x: 880, y: 110, w: 360, h: 430 } };
 const SIGN = { w: 500, h: 190 }; // world size; about 240 x 90 on screen at the fork view
 
@@ -60,7 +62,7 @@ export class CrossingScene extends Phaser.Scene {
   get router() { return this.game.router; }
 
   preload() {
-    queueAssets(this, { art: [...Ferry.data.souls.map((s) => s.id), ...MemoryHand.artIds()] });
+    queueAssets(this, { art: [...Ferry.data.souls.map((s) => s.id), ...MemoryHand.artIds()], audio: [FOG] }); // sfx-fog is not in BootScene's list
   }
 
   create() {
@@ -104,8 +106,10 @@ export class CrossingScene extends Phaser.Scene {
       this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
+    this.ambience = playSound(this, AMBIENCE, { loop: true });
     this.events.once('shutdown', () => {
       this.game.events.off('ferry-state', this.onState);
+      this.ambience?.stop();
       this.rippleTimer?.remove();
     });
 
@@ -469,6 +473,7 @@ export class CrossingScene extends Phaser.Scene {
     if (!next) return this.dispatch(action);
     const outcome = crossingOutcome(state, next, Ferry, t);
     const branch = this.layout.branches[state.pending.option];
+    if (previewOption(state, Ferry, state.pending.option)?.fog >= 1) playSound(this, FOG);
     console.log(`[ferry] CrossingScene: crossing to ${outcome.to}, ${outcome.paid} Light${outcome.ended ? ', the lantern goes out' : ''}`);
     this.busy = true;
     this.hideTip();
