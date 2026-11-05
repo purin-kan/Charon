@@ -27,6 +27,10 @@ function memory(s,type,character){
   const m={id:'MEMORY-'+s.nextMemory,type,sourceRef:ref};s.nextMemory=String(BigInt(s.nextMemory)+1n);s.hand.push(m);return m.id;
 }
 const quest=(s,id)=>s.quests.find(q=>q.definitionId===id&&q.status==='active')||s.quests.find(q=>q.definitionId===id);
+// One memory per stop: tests about stacking effects play the next copy as if at a later stop.
+const later=s=>{s=copy(s);s.window.uses=0;return s;};
+// A Long due at the next fork (Longs are scheduled per cycle when the boat departs).
+const dueNow=s=>{s.longForks=[s.routes.history.length+1];return s;};
 
 check('Included roster, explicit TBA entries, six destinations without Heaven and all quest definitions',()=>{
  const s=g.create(42);assert.equal(g.data.destinations.length,6);assert.ok(!g.data.destinations.some(d=>d.id==='DEST-HEAVEN'));
@@ -83,14 +87,50 @@ check('Merchant protection is story only; Sword only when Merchant is delivered 
  reversed=step(reversed,'DEST-STYX',['SOUL-MERCHANT']);assert.ok(!reversed.hand.some(m=>m.type==='MEM-LAST-MASTERWORK'));
  let clash=shore(['SOUL-MERCHANT','SOUL-BLACKSMITH','SOUL-MASON']);for(const x of clash.shore)clash=act(clash,'BOARD',{id:x.id});assert.throws(()=>act(clash,'DEPART'),/both/);
 });
-check('Mason leaves last including Polongs; capacity can be used before boarding and expires',()=>{
+check('Mason leaves after the Merchant and every ordinary passenger (Longs do not count), or the quest fails; capacity can be used before boarding and expires',()=>{
  let s=boat(['SOUL-MERCHANT','SOUL-MASON']);const p=polong(s,'SOUL-POLONG');
- s=step(s,'DEST-STYX',['SOUL-MERCHANT']);assert.match(g.deliveryReason({...s,destination:'DEST-ACHERON'},find(s,'SOUL-MASON')),/last/);
+ const first=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(first,'QUEST-BOAT').status,'failed');assert.equal(quest(first,'QUEST-BOAT').reason,'Mason left before the Merchant');
+ s=step(s,'DEST-STYX',['SOUL-MERCHANT']);assert.equal(g.deliveryReason({...s,destination:'DEST-ACHERON'},find(s,'SOUL-MASON')),null);
+ // Longs are not passengers for this quest: the Mason and a Long are the last two, the Mason leaves, and the quest completes.
+ const withLong=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(withLong,'QUEST-BOAT').status,'completed');assert.ok(withLong.boat.some(x=>x.id===p.id));rt(withLong);
+ // An ordinary soul still aboard when he leaves: the quest fails.
+ let crowd=boat(['SOUL-MERCHANT','SOUL-MASON','SOUL-FARMER']);crowd=step(crowd,'DEST-STYX',['SOUL-MERCHANT']);
+ const early=step(crowd,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(early,'QUEST-BOAT').status,'failed');assert.equal(quest(early,'QUEST-BOAT').reason,'Mason left before the last passenger');
+ assert.ok(!early.hand.some(m=>m.type==='MEM-BOAT-SPACE'));assert.ok(early.boat.some(x=>x.type==='SOUL-FARMER'));rt(early);
  s=step(s,'DEST-TARTARUS',['SOUL-POLONG']);s=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(s,'QUEST-BOAT').status,'completed');
  s=act(s,'RETURN');const m=s.hand.find(m=>m.type==='MEM-BOAT-SPACE');s=act(s,'PLAY_MEMORY',{id:m.id});assert.equal(g.capacity(s),5);assert.equal(s.phase,'boarding');
  for(const x of s.shore)s=act(s,'BOARD',{id:x.id});assert.equal(g.seats(s),5);s=act(s,'DEPART');
  // Empty-boat return fixture only verifies the effect boundary, not survival balance.
  s.discard.push(...s.boat.map(x=>x.origin));s.boat=[];s.window.kind='return';for(const q of s.quests)if(q.status==='active'){q.status='failed';q.reason='fixture resolved participants';}s=act(s,'RETURN');assert.equal(g.capacity(s),4);
+});
+check('Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count; each off-wish exit costs 1 Light',()=>{
+ let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-FARMER']);polong(s,'SOUL-POLONG');polong(s,'SOUL-PO-MUED');s=cross(s,'DEST-HAVEN');
+ assert.equal(g.deliveryReason(s,find(s,'SOUL-POLONG')),null);assert.equal(g.deliveryReason(s,find(s,'SOUL-PO-MUED')),null);
+ s.light=20;const fare=s.light;s=act(s,'DELIVER',{ids:[find(s,'SOUL-POLONG').id]});assert.ok(!s.boat.some(x=>x.type==='SOUL-POLONG'));assert.equal(s.light,fare-1);
+ s=act(s,'START_CROSSING');s=route(s,'DEST-STYX');s=act(s,'CROSS',{option:0});
+ const light=s.light,hand=s.hand.length,ids=['SOUL-CHILD','SOUL-FARMER','SOUL-PO-MUED'].map(type=>find(s,type).id);
+ assert.ok(ids.every(id=>g.deliveryReason(s,s.boat.find(x=>x.id===id))===null));
+ s=act(s,'DELIVER',{ids});assert.deepEqual(s.boat.map(x=>x.type).sort(),['SOUL-MOTHER']);
+ assert.equal(s.hand.length,hand);assert.equal(s.deliveries,'0');assert.equal(s.light,light-2); // Child and Farmer left away from their wishes; Long Veil reached its own (River Styx)
+ assert.equal(quest(s,'QUEST-FAMILY').status,'failed');assert.equal(quest(s,'QUEST-FAMILY').reason,'Child left the boat before Haven');
+ assert.ok(s.log.some(e=>/Farmer left the boat at River Styx\./.test(e.text??e)));rt(s);
+ let grasp=boat(['SOUL-FARMER']);const due=polong(grasp,'SOUL-PO-DUE',1,1);grasp=cross(grasp,'DEST-HAVEN');assert.match(g.deliveryReason(grasp,find(grasp,'SOUL-PO-DUE')),/Anger 2/);
+ assert.throws(()=>act(grasp,'DELIVER',{ids:[due.id]}),/Anger 2/);
+ let mason=boat(['SOUL-MERCHANT','SOUL-MASON']);mason=cross(mason,'DEST-STYX');assert.equal(g.deliveryReason(mason,find(mason,'SOUL-MASON')),null);
+ mason=act(mason,'DELIVER',{ids:[find(mason,'SOUL-MASON').id]});assert.equal(quest(mason,'QUEST-BOAT').status,'failed');assert.equal(quest(mason,'QUEST-BOAT').reason,'Mason left the boat before Acheron');
+ let match=boat(['SOUL-FARMER']);match=step(match,'DEST-ASPHODEL',['SOUL-FARMER']);assert.deepEqual(match.hand.map(m=>m.type),['MEM-CALM']);assert.equal(match.deliveries,'1');
+});
+check('Guard cannot prevent the Light an off-wish exit costs, and the last Light ends the run',()=>{
+ let e=boat(['SOUL-FARMER','SOUL-MOTHER']);e=cross(e,'DEST-HAVEN');e.window.guard=1;e.light=5;const farmer=find(e,'SOUL-FARMER').id;
+ const after=act(e,'DELIVER',{ids:[farmer]});assert.equal(after.light,4); // Guard would have left it at 5
+ e.light=1;const over=act(e,'DELIVER',{ids:[farmer]});assert.equal(over.phase,'ended');assert.equal(over.light,0);assert.match(over.ending,/left away from its wish/);
+});
+check('Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop',()=>{
+ let s=boat(['SOUL-MASON','SOUL-RED-SOLDIER','SOUL-MOTHER']);const fog=memory(s,'MEM-FOG','SOUL-MASON'),all=memory(s,'MEM-ALL-FOG','SOUL-RED-SOLDIER'),light=memory(s,'MEM-LIGHT','SOUL-MOTHER');
+ s=cross(s,'DEST-HAVEN');assert.equal(s.phase,'delivery');
+ for(const id of [fog,all])assert.throws(()=>act(s,'PLAY_MEMORY',{id}),/before you travel/);
+ const played=act(s,'PLAY_MEMORY',{id:light});assert.ok(!played.hand.some(m=>m.id===light)); // a card that is not window-only is fine at the dock (played on a copy: one memory per stop)
+ s=act(s,'DELIVER',{ids:[]});assert.equal(s.phase,'window');s=act(s,'PLAY_MEMORY',{id:fog});assert.ok(s.window.shield>0);rt(s);
 });
 check('Priest +1 memory or purification trade-off, once per boarding and save/reload',()=>{
  let s=boat(['SOUL-PRIEST','SOUL-COOK']);const priest=find(s,'SOUL-PRIEST'),cook=find(s,'SOUL-COOK');cook.anger=3;
@@ -115,9 +155,12 @@ check('Heracles toll, Cerberus encounter, shared second-stage wish and Golden Ap
  for(const x of s.shore.slice(0,3))s=act(s,'BOARD',{id:x.id});s=act(s,'DEPART');s.effects.moly=true;
  const first=find(s,'SOUL-HERACLES').wish;s=cross(s,first);assert.ok(find(s,'CHAR-CERBERUS'));assert.equal(s.boat.filter(x=>x.origin).length,1);
  assert.match(g.deliveryReason(s,find(s,'SOUL-HERACLES'),'passage'),/later/);s=act(s,'DELIVER',{ids:[]});
- const wish=find(s,'SOUL-HERACLES').wish;assert.equal(find(s,'CHAR-CERBERUS').wish,wish);s=step(s,wish,['SOUL-HERACLES','CHAR-CERBERUS']);
+ const wish=find(s,'SOUL-HERACLES').wish;assert.equal(find(s,'CHAR-CERBERUS').wish,wish);
+ const elsewhere={...structuredClone(s),phase:'delivery',round:String(Number(s.round)+1),destination:g.data.destinations.find(d=>d.id!==wish).id};
+ for(const type of ['SOUL-HERACLES','CHAR-CERBERUS'])assert.match(g.deliveryReason(elsewhere,find(elsewhere,type)),/own destination/); // heroes leave only at their wish, even after the Cerberus encounter
+ s=step(s,wish,['SOUL-HERACLES','CHAR-CERBERUS']);
  assert.equal(quest(s,'QUEST-HERACLES').status,'completed');const apple=s.hand.find(m=>m.type==='MEM-GOLDEN-APPLE');const old=s.maxLight;s=act(s,'PLAY_MEMORY',{id:apple.id});assert.equal(s.maxLight,old+1);assert.equal(s.light,s.maxLight);
- memory(s,'MEM-GOLDEN-APPLE');s=act(s,'PLAY_MEMORY',{id:s.hand.at(-1).id});assert.equal(s.maxLight,old+2);rt(s);
+ memory(s,'MEM-GOLDEN-APPLE');s=act(later(s),'PLAY_MEMORY',{id:s.hand.at(-1).id});assert.equal(s.maxLight,old+2);rt(s);
 });
 check('Odysseus branches commit once, preserve pending choice on load, handle empty hand/boat',()=>{
  function encounter(types=[]){let s=shore(types);s.heroOffer={type:'SOUL-ODYSSEUS',resolved:false};s=act(s,'ACCEPT_HERO');for(const x of s.shore)s=act(s,'BOARD',{id:x.id});s=act(s,'DEPART');s.effects.moly=true;return cross(s,find(s,'SOUL-ODYSSEUS').wish);}
@@ -129,18 +172,18 @@ check('Sword removal has no expiry damage, spread, memory or fare reward',()=>{
  let s=boat(['SOUL-COOK']);const p=polong(s,'SOUL-POLONG',5,3);const id=memory(s,'MEM-LAST-MASTERWORK');const before=s.light;
  s=act(s,'PLAY_MEMORY',{id,target:p.id});assert.equal(s.light,before);assert.equal(s.boat.length,1);assert.equal(s.hand.length,0);assert.equal(s.boat[0].type,'SOUL-COOK');
 });
-check('Unlimited memories, overflow cannot be spent, full fog does not block Wraiths',()=>{
+check('One memory per stop, overflow cannot be spent, full fog does not block Wraiths',()=>{
  let s=boat(['SOUL-MOTHER','SOUL-COOK']);s.light=5;const a=memory(s,'MEM-LIGHT','SOUL-MOTHER'),b=memory(s,'MEM-LIGHT','SOUL-MOTHER');
- s=act(s,'PLAY_MEMORY',{id:a});s=act(s,'PLAY_MEMORY',{id:b});assert.equal(s.window.uses,2);assert.equal(s.light,7);
+ s=act(s,'PLAY_MEMORY',{id:a});assert.throws(()=>act(s,'PLAY_MEMORY',{id:b}),/One memory per stop/);assert.equal(s.window.uses,1);assert.equal(s.light,6);s=act(later(s),'PLAY_MEMORY',{id:b});assert.equal(s.light,7);
  for(let i=0;i<4;i++)memory(s,'MEM-LIGHT','SOUL-MOTHER');assert.throws(()=>act(s,'PLAY_MEMORY',{id:s.hand[0].id}),/Excess/);rt(s);
  let fog=boat(['SOUL-RED-SOLDIER']);const id=memory(fog,'MEM-ALL-FOG','SOUL-RED-SOLDIER');find(fog,'SOUL-RED-SOLDIER').anger=g.data.config.shipAngerLimit-1;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-TARTARUS');assert.equal(fog.light,before-1);
 });
 check('Moly suppresses scheduled arrivals without increasing level; Nobody blocks fog only',()=>{
- let s=boat(['SOUL-COOK']);s.effects.moly=false;s.round='2';const m=memory(s,'MEM-MOLY');s=act(s,'PLAY_MEMORY',{id:m});s=act(s,'START_CROSSING');assert.equal(s.encounters,'0');assert.equal(s.boat.length,1);
- s=act(route(s,'DEST-HAVEN'),'CROSS',{option:0});s=act(s,'DELIVER',{ids:[]});const n=memory(s,'MEM-NOBODY');s=act(s,'PLAY_MEMORY',{id:n});s=act(s,'START_CROSSING');assert.equal(g.preview(route(s,'DEST-TARTARUS'),0).payment,0);
+ let s=boat(['SOUL-COOK']);s.effects.moly=false;dueNow(s);const m=memory(s,'MEM-MOLY');s=act(s,'PLAY_MEMORY',{id:m});s=act(s,'START_CROSSING');assert.equal(s.encounters,'0');assert.equal(s.boat.length,1);
+ s=act(route(s,'DEST-HAVEN'),'CROSS',{option:0});s=act(s,'DELIVER',{ids:[]});const n=memory(s,'MEM-NOBODY');s=act(later(s),'PLAY_MEMORY',{id:n});s=act(s,'START_CROSSING');assert.equal(g.preview(route(s,'DEST-TARTARUS'),0).payment,0);
 });
 check('Polong encounter levels, next variant and forced Po Nak overload',()=>{
- let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-MERCHANT','SOUL-COOK']);s.effects.moly=false;s.round='8';s.encounters='2';s.nextPolong='SOUL-PO-NAK';s=act(s,'START_CROSSING');const p=find(s,'SOUL-PO-NAK');assert.equal(p.level,3);assert.equal(p.anger,1);assert.equal(g.actorSeats(p),2);assert.equal(g.seats(s),6);assert.equal(g.preview(route(s,'DEST-HAVEN'),0).overload,1);rt(s);
+ let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-MERCHANT','SOUL-COOK']);s.effects.moly=false;dueNow(s);s.encounters='2';s.nextPolong='SOUL-PO-NAK';s=act(s,'START_CROSSING');const p=find(s,'SOUL-PO-NAK');assert.equal(p.level,3);assert.equal(p.anger,1);assert.equal(g.actorSeats(p),2);assert.equal(g.seats(s),6);assert.equal(g.preview(route(s,'DEST-HAVEN'),0).overload,1);rt(s);
 });
 check('Po Mued concealment hides route/cost through review, Foresight overrides it',()=>{
  let s=boat(['SOUL-MERCHANT']);polong(s,'SOUL-PO-MUED',3);s=act(s,'START_CROSSING');assert.ok(g.routeView(s)[0].every(x=>x.hidden&&x.destination===null));const rng=s.rng;
@@ -154,7 +197,7 @@ check('Po Due timing and Haven guarantee preserve already visible offers',()=>{
 });
 check('Po Luem skips boarding round then creates a saved discard choice; empowered loss is deterministic',()=>{
  let s=boat(['SOUL-MOTHER']);const thief=polong(s,'SOUL-PO-LUEM',1,0);memory(s,'MEM-LIGHT','SOUL-MOTHER');s=step(s,'DEST-HAVEN');assert.equal(s.phase,'choice');rt(s);const id=s.hand[0].id;s=act(s,'CHOOSE',{id});assert.equal(s.hand.length,0);assert.equal(s.phase,'window');
- let spawned=boat(['SOUL-MOTHER']);spawned.effects.moly=false;spawned.round='2';spawned.nextPolong='SOUL-PO-LUEM';memory(spawned,'MEM-LIGHT','SOUL-MOTHER');spawned=step(spawned,'DEST-HAVEN');assert.equal(spawned.phase,'window');assert.equal(spawned.hand.length,1);
+ let spawned=boat(['SOUL-MOTHER']);spawned.effects.moly=false;dueNow(spawned);spawned.nextPolong='SOUL-PO-LUEM';memory(spawned,'MEM-LIGHT','SOUL-MOTHER');spawned=step(spawned,'DEST-HAVEN');assert.equal(spawned.phase,'window');assert.equal(spawned.hand.length,1);
  let empowered=boat(['SOUL-MOTHER']);polong(empowered,'SOUL-PO-LUEM',3);memory(empowered,'MEM-LIGHT','SOUL-MOTHER');const twin=copy(empowered);assert.deepEqual(step(empowered,'DEST-HAVEN'),step(twin,'DEST-HAVEN'));
 });
 check('Level-five spread conserves origin, spares family and fails participant quests',()=>{
@@ -175,10 +218,33 @@ check('Calm and Soldiers Peace lower every soul on the boat, not the shore, with
  let s=shore(['SOUL-MOTHER','SOUL-MUSICIAN','SOUL-COOK']);for(const t of ['SOUL-MOTHER','SOUL-MUSICIAN'])s=act(s,'BOARD',{id:find(s,t).id});s=act(s,'DEPART');s.effects.moly=true;polong(s,'SOUL-PO-DUE',1,2);const cook=find(s,'SOUL-COOK');for(const x of s.boat)x.anger=2;cook.anger=1;
  const calm=memory(s,'MEM-CALM','SOUL-MUSICIAN');assert.equal(g.memoryTargets(s,'MEM-CALM'),null);assert.throws(()=>act(s,'PLAY_MEMORY',{id:calm,target:s.boat[0].id}));
  s=act(s,'PLAY_MEMORY',{id:calm});assert.deepEqual(s.boat.map(x=>x.anger),[1,1,1]);assert.equal(s.shore.find(x=>x.id===cook.id).anger,1);
- const peace=memory(s,'MEM-SOLDIER-PEACE');s=act(s,'PLAY_MEMORY',{id:peace});assert.ok(s.boat.every(x=>x.anger===0));assert.equal(s.shore.find(x=>x.id===cook.id).anger,1);rt(s);
+ const peace=memory(s,'MEM-SOLDIER-PEACE');s=act(later(s),'PLAY_MEMORY',{id:peace});assert.ok(s.boat.every(x=>x.anger===0));assert.equal(s.shore.find(x=>x.id===cook.id).anger,1);rt(s);
 });
 check('Save validation rejects old versions, broken origins, duplicated IDs and wrong pending choices',()=>{
  const base=g.create();for(const edit of [s=>s.version='0.6',s=>s.shore[0].origin='SOUL-KILLER',s=>s.shore[0].id=s.shore[1].id,s=>s.routes.offers[0][0]='UNKNOWN',s=>s.choice={kind:'odysseus',questId:'missing'},s=>s.effects.moly='yes']){const bad=copy(base);edit(bad);assert.throws(()=>g.importSave(JSON.stringify(bad)));}rt(base);
+});
+check('One memory per stop at any point of it, one at boarding (Boat Space only) and one on the return trip',()=>{
+ const two=s=>[memory(s,'MEM-LIGHT','SOUL-MOTHER'),memory(s,'MEM-LIGHT','SOUL-MOTHER')];
+ let s=boat(['SOUL-MOTHER','SOUL-COOK']);s.light=3;let [a,b]=two(s);
+ s=act(s,'START_CROSSING');s=act(s,'PLAY_MEMORY',{id:a});assert.equal(s.light,4);assert.throws(()=>act(s,'PLAY_MEMORY',{id:b}),/One memory per stop/);
+ let r=boat(['SOUL-MOTHER','SOUL-COOK']);r.light=3;[a]=two(r);r=act(r,'START_CROSSING');r=act(route(r,'DEST-HAVEN'),'PLAN',{action:{type:'CROSS',option:0}});r=act(r,'PLAY_MEMORY',{id:a});assert.equal(r.phase,'review');assert.equal(r.light,4);rt(r);
+ let d=boat(['SOUL-MOTHER','SOUL-COOK']);d.light=3;[a,b]=two(d);d=cross(d,'DEST-HAVEN');assert.equal(d.phase,'delivery');d=act(d,'PLAY_MEMORY',{id:a});assert.throws(()=>act(d,'PLAY_MEMORY',{id:b}),/One memory per stop/);
+ d=act(d,'DELIVER',{ids:[]});assert.equal(d.window.uses,1);assert.throws(()=>act(d,'PLAY_MEMORY',{id:b}),/One memory per stop/); // the stop's memory is shared by delivery, window, fork and review
+ d=act(route(act(d,'START_CROSSING'),'DEST-STYX'),'CROSS',{option:0});assert.equal(d.window.uses,0);d=act(d,'PLAY_MEMORY',{id:b});assert.equal(d.window.uses,1);rt(d); // sailing starts the next stop
+ let w=boat(['SOUL-MOTHER']);const space=memory(w,'MEM-BOAT-SPACE');assert.throws(()=>act(w,'PLAY_MEMORY',{id:space}),/only during boarding/);
+ let home=boat(['SOUL-MOTHER']);[a,b]=two(home);home=step(home,'DEST-TARTARUS',['SOUL-MOTHER']);assert.equal(home.window.kind,'return');home=act(home,'PLAY_MEMORY',{id:a});assert.throws(()=>act(home,'PLAY_MEMORY',{id:b}),/return trip/);
+ let shoreS=shore(['SOUL-MOTHER','SOUL-COOK']);const s1=memory(shoreS,'MEM-BOAT-SPACE'),s2=memory(shoreS,'MEM-BOAT-SPACE'),l=memory(shoreS,'MEM-LIGHT','SOUL-MOTHER');
+ assert.throws(()=>act(shoreS,'PLAY_MEMORY',{id:l}),/Only Boat Space/);shoreS=act(shoreS,'PLAY_MEMORY',{id:s1});assert.ok(shoreS.effects.capacity);assert.throws(()=>act(shoreS,'PLAY_MEMORY',{id:s2}),/per boarding/);
+ shoreS=act(shoreS,'BOARD',{id:shoreS.shore[0].id});shoreS=act(shoreS,'DEPART');assert.equal(shoreS.window.uses,0);shoreS.light=3;shoreS=act(shoreS,'PLAY_MEMORY',{id:l});assert.equal(shoreS.light,4);rt(shoreS);
+});
+check('Longs arrive from cycle 3 at a fork picked on departure; a trip that ends first skips it',()=>{
+ const departAt=(cycle,seed=17)=>{let s=shore(['SOUL-MOTHER','SOUL-COOK'],seed);s.cycle=String(cycle);s.completed=String(cycle-1);s=act(s,'BOARD',{id:s.shore[0].id});s=act(s,'BOARD',{id:s.shore[1].id});return act(s,'DEPART');};
+ for(const [cycle,n] of [[1,0],[2,0],[3,1],[8,1],[9,2],[17,2],[18,3],[40,3]]){const s=departAt(cycle);assert.equal(s.longForks.length,n,'cycle '+cycle);assert.ok(s.longForks.every(f=>f>=1&&f<=g.data.config.longForkChoices));rt(s);}
+ const seen=new Set();for(let seed=1;seed<=60;seed++)seen.add(departAt(3,seed).longForks[0]);assert.deepEqual([...seen].sort(),[1,2,3]);
+ let s=departAt(3);s.longForks=[2];s=act(s,'START_CROSSING');assert.equal(s.encounters,'0');assert.ok(s.boat.every(x=>x.origin));
+ s=act(route(s,'DEST-HAVEN'),'CROSS',{option:0});s=act(s,'DELIVER',{ids:[]});s=act(s,'START_CROSSING');assert.equal(s.encounters,'1');assert.equal(s.boat.filter(x=>!x.origin).length,1);assert.deepEqual(s.longForks,[]);rt(s);
+ let short=departAt(3);short.longForks=[3];short=step(short,'DEST-TARTARUS',['SOUL-MOTHER','SOUL-COOK']);assert.equal(short.window.kind,'return');short=act(short,'RETURN');assert.deepEqual(short.longForks,[]);assert.equal(short.encounters,'0');
+ const old=copy(g.create(5));delete old.longForks;g.validate(old);
 });
 check('128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips',()=>{
  let transitions=0,choices=0;
@@ -192,10 +258,10 @@ check('128 seeded all-system runs: deterministic replay, immutable transitions a
     else a={type:'DEPART'};
    }else if(s.phase==='choice'){a=s.choice.kind==='odysseus'?{type:'CHOOSE',branch:seed%2?'zilla':'charybdis'}:{type:'CHOOSE',id:s.hand[0].id};choices++;}
    else if(s.phase==='trim')a={type:'DISCARD_MEMORY',id:s.hand[0].id};
-   else if(s.phase==='delivery')a={type:'DELIVER',ids:s.boat.filter(x=>!g.deliveryReason(s,x)).map(x=>x.id)};
+   else if(s.phase==='delivery')a={type:'DELIVER',ids:s.boat.filter(x=>x.wish===s.destination&&!g.deliveryReason(s,x)).map(x=>x.id)};
    else if(s.window.kind==='return')a={type:'RETURN'};
    else if(!s.travelPrepared){
-    const m=s.hand.length<=3?s.hand.find(m=>{const ts=g.memoryTargets(s,m.type);return !ts||ts.length;}):null;
+    const m=s.hand.length<=3&&s.window.uses<g.data.config.memoriesPerWindow?s.hand.find(m=>{if(g.data.memories.find(d=>d.id===m.type).kind==='capacity')return false;const ts=g.memoryTargets(s,m.type);return !ts||ts.length;}):null;
     if(m){const ts=g.memoryTargets(s,m.type);a={type:'PLAY_MEMORY',id:m.id,target:ts?.[0].id};}
     else a={type:'START_CROSSING'};
    }else {const views=g.routeView(s)[0];const preferred=views.find(v=>v.destination&&s.boat.some(x=>x.wish===v.destination));a={type:'CROSS',option:preferred?.option??0};}

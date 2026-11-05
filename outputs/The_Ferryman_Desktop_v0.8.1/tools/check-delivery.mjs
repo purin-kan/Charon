@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
-  DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, headingText,
-  introText, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
+  DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, exitWarning, headingText,
+  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
 } from '../src/scenes/delivery-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -27,14 +27,28 @@ const entryOf = (layout, id) => layout.entries.find((e) => e.id === id);
 // Layout.
 const none = fixture('delivery');
 const match = fixture('delivery-match');
-const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.data.souls.find((d) => d.id === x.type).memory);
-const stayer = match.boat.find((x) => Ferry.wish(x) !== match.destination);
+// Any soul may leave at any stop; only a matching wish gives its memory. The fixture has one of each kind.
+// A clean delivery fails no quest (the Mason at his wish still fails his quest while the Merchant is aboard).
+const failsQuest = (x) => Ferry.transition(match, { type: 'DELIVER', ids: [x.id] }).quests.some((q, i) => q.status === 'failed' && match.quests[i]?.status !== 'failed');
+const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) === match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory && !failsQuest(x));
+const wanderer = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) !== match.destination);
+const stayer = match.boat.find((x) => Ferry.deliveryReason(match, x));
+if (!leaver || !wanderer || !stayer) {
+  console.log('FAIL delivery-match needs a soul at its wish with a memory, one that can leave elsewhere and one the engine refuses; run npm run fixtures');
+  process.exit(1);
+}
+// The same boat with no Anger, so a delivery is not followed by Wraiths.
+const calm = structuredClone(match);
+for (const x of calm.boat) x.anger = 0;
 const open = layoutDelivery(match, [], Ferry);
 check('every passenger has one spot', open.entries.length === match.boat.length);
 check('nobody starts on the dock', open.entries.every((e) => e.area === 'seat'));
 check('a soul that can leave is flagged', entryOf(open, leaver.id).canLeave === true);
-check('a different wish is not flagged', entryOf(open, stayer.id).canLeave === false);
-check('no soul can leave in the delivery fixture', layoutDelivery(none, [], Ferry).entries.every((e) => !e.canLeave));
+check('a soul the engine refuses is not flagged', entryOf(open, stayer.id).canLeave === false);
+check('a different wish can still leave', entryOf(open, wanderer.id).canLeave === true);
+check('a matching wish is marked gold', entryOf(open, leaver.id).wishMatches === true);
+check('a different wish is not gold', entryOf(open, wanderer.id).wishMatches === false);
+check('the delivery fixture flags exactly the souls the engine lets leave', layoutDelivery(none, [], Ferry).entries.every((e) => e.canLeave === !Ferry.deliveryReason(none, e.actor)));
 check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit}`));
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
@@ -77,6 +91,7 @@ const before = JSON.stringify(match);
 const seatEntry = entryOf(open, leaver.id);
 const accepted = applyDrop(match, [], seatEntry, 'dock', Ferry, t);
 check('an eligible soul is marked', accepted.marked.includes(leaver.id) && accepted.reason === null);
+check('a soul at the wrong stop is marked', applyDrop(match, [], entryOf(open, wanderer.id), 'dock', Ferry, t).marked.includes(wanderer.id));
 const refused = applyDrop(match, [], entryOf(open, stayer.id), 'dock', Ferry, t);
 check('an ineligible soul is refused with the engine reason', refused.marked.length === 0 && refused.reason === Ferry.deliveryReason(match, stayer));
 check('a seat soul dropped on the boat changes nothing', applyDrop(match, [], seatEntry, 'boat', Ferry, t).marked.length === 0);
@@ -87,7 +102,7 @@ check('a dock soul dropped on water stays marked', applyDrop(match, [leaver.id],
 check('a dock soul dropped on the dock stays marked', applyDrop(match, [leaver.id], dockEntry, 'dock', Ferry, t).marked.length === 1);
 check('test-runs leave the state alone', JSON.stringify(match) === before);
 
-// Order matters: Mason must be the last passenger, so he can follow the soul ahead of him but not lead.
+// Order matters: Mason may leave at any time, but his quest completes only when he is the last passenger.
 const boatQuest = structuredClone(none);
 const mason = boatQuest.boat.find((x) => x.type === 'SOUL-MASON');
 const other = boatQuest.boat.find((x) => x.type !== 'SOUL-MASON');
@@ -105,12 +120,16 @@ boatQuest.quests.push({
   reason: null, cycle: boatQuest.cycle, data: { merchantRound: '0' },
 });
 boatQuest.nextQuest = String(Number(boatQuest.nextQuest) + 1);
-check('Mason alone is refused', refusal(boatQuest, [mason.id], Ferry, t) !== null);
+const boatName = Ferry.data.quests.find((d) => d.id === 'QUEST-BOAT').name;
+check('Mason alone may leave', refusal(boatQuest, [mason.id], Ferry, t) === null);
+const alone = arrivalOutcome(boatQuest, Ferry.transition(boatQuest, deliverAction([mason.id])), deliverAction([mason.id]), Ferry);
+check('Mason leaving ahead of a passenger fails the quest, with the engine reason', alone.failedQuests.length === 1
+  && lossLines(alone, t, Ferry).includes(`${boatName} failed: Mason left before the last passenger.`));
 check('Mason behind the other soul is accepted', refusal(boatQuest, [other.id, mason.id], Ferry, t) === null);
+check('and completes the quest', Ferry.transition(boatQuest, deliverAction([other.id, mason.id])).quests.find((q) => q.definitionId === 'QUEST-BOAT').status === 'completed');
 const quest = layoutDelivery(boatQuest, [other.id, mason.id], Ferry);
 const afterUndo = applyDrop(boatQuest, [other.id, mason.id], entryOf(quest, other.id), 'boat', Ferry, t);
-check('undoing the soul ahead also sends Mason back', afterUndo.marked.length === 0);
-check('the player is told why Mason went back', afterUndo.reason === refusal(boatQuest, [mason.id], Ferry, t));
+check('undoing the soul ahead keeps Mason marked', afterUndo.marked.join() === mason.id);
 
 // Button and heading.
 check('confirm reads Keep everyone with nobody marked', confirmLabel(match, [], t) === 'Keep everyone / finish round');
@@ -122,8 +141,8 @@ check('empty boat has a finish button', confirmLabel(empty, [], t) === 'Finish r
 check('empty boat explains itself', introText(empty, t).includes('left the boat empty'));
 
 // Outcomes.
-const next = Ferry.transition(match, deliverAction([leaver.id]));
-const outcome = arrivalOutcome(match, next, deliverAction([leaver.id]), Ferry);
+const next = Ferry.transition(calm, deliverAction([leaver.id]));
+const outcome = arrivalOutcome(calm, next, deliverAction([leaver.id]), Ferry);
 check('the delivered soul departs', outcome.departed.length === 1 && outcome.departed[0] === leaver.id);
 check('the new memory is the reward', outcome.rewards.length >= 1 && outcome.rewards.every((m) => m.name && m.text));
 const kept = Ferry.transition(match, deliverAction([]));
@@ -133,6 +152,22 @@ check('a run that stops partway only departs who left', arrivalOutcome(match, st
   && arrivalOutcome(match, stopped, deliverAction([stayer.id, leaver.id]), Ferry).departed.length === 1);
 check('an ordinary delivery loses nothing', outcome.lost.length === 0 && outcome.stolenRewards === 0);
 check('an ordinary delivery has no loss lines', lossLines(outcome, t, Ferry).length === 0);
+check('no warning while the Light can pay for the exits', exitWarning(calm, [wanderer.id], Ferry, t) === '' && exitWarning(calm, [], Ferry, t) === '');
+check('it warns before confirming when the exits would put the lantern out', exitWarning({ ...calm, light: 1 }, [wanderer.id], Ferry, t).includes('lantern goes out'));
+check('one invalid mark in the middle does not drop the valid marks after it', keepValidMarks(calm, [leaver.id, 'GONE', wanderer.id], Ferry).join() === [leaver.id, wanderer.id].join());
+const strayAction = deliverAction([wanderer.id]);
+const stray = arrivalOutcome(calm, Ferry.transition(calm, strayAction), strayAction, Ferry);
+check('a soul at the wrong stop departs with no reward', stray.departed.join() === wanderer.id && stray.rewards.length === 0);
+const wandererName = entryOf(open, wanderer.id).labels.name;
+const wandererWish = Ferry.data.destinations.find((d) => d.id === Ferry.wish(wanderer)).name;
+check('it says which memory was not given, and the 1 Light the early exit costs', lossLines(stray, t, Ferry).join('|') === `${wandererName} wished for ${wandererWish}. No memory.|Lost 1 Light.`);
+// A Long may leave at any stop: the leaver becomes a Long Mist that wishes for somewhere other than this stop.
+const elsewhere = Ferry.data.destinations.find((d) => d.id !== match.destination).id;
+const misty = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0, wish: elsewhere });
+const mist = misty.boat.find((x) => x.id === leaver.id);
+const mistOpen = layoutDelivery(misty, [], Ferry);
+check('a Long at the wrong stop may be marked', applyDrop(misty, [], entryOf(mistOpen, mist.id), 'dock', Ferry, t).marked.join() === mist.id);
+check('and is not dimmed', entryOf(mistOpen, mist.id).canLeave === true && entryOf(mistOpen, mist.id).wishMatches === false);
 const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
 const robbed = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, deliverAction([]), Ferry);
 check('a theft of a held memory is reported', robbed.lost.length === 1 && robbed.lost[0].id === 'MEMORY-2' && robbed.stolenRewards === 0 && robbed.rewards.length === 1);
@@ -145,7 +180,7 @@ const wraithName = entryOf(layoutDelivery(angry, [], Ferry), angry.boat[0].id).l
 const expired = arrivalOutcome(angry, Ferry.transition(angry, deliverAction([])), deliverAction([]), Ferry);
 check('a Wraith is named', expired.wraiths.length === 1 && expired.wraiths[0] === wraithName);
 check('the Light it cost is reported', expired.lightLost > 0 && expired.lightLost === angry.light - Ferry.transition(angry, deliverAction([])).light);
-check('the Wraith reads as lines', lossLines(expired, t, Ferry).join(' ') === `${wraithName} became a Wraith. Lost ${expired.lightLost} Light.`);
+check('the Wraith reads as lines', lossLines(expired, t, Ferry).filter((l) => !l.includes(' failed')).join(' ') === `${wraithName} became a Wraith. Lost ${expired.lightLost} Light.`);
 const lethal = structuredClone(angry);
 lethal.light = 1;
 const lethalNext = Ferry.transition(lethal, deliverAction([]));
@@ -162,7 +197,8 @@ check('a lethal Wraith names only itself', doomedNext.phase === 'ended' && doome
 // A Polong in Mother's seat: Polongs have no origin, so Mother's goes back to the discard.
 function polongFor(state, fields) {
   const s = structuredClone(state);
-  Object.assign(s.boat.find((x) => x.id === leaver.id), { origin: null, wish: 'DEST-TARTARUS', ...fields });
+  // The Long wishes for this stop unless fields say otherwise.
+  Object.assign(s.boat.find((x) => x.id === leaver.id), { origin: null, wish: state.destination, ...fields });
   s.discard.push(leaver.type);
   return s;
 }
@@ -174,7 +210,8 @@ check('and is not flagged', entryOf(layoutDelivery(due, [leaver.id], Ferry), sta
 const calmDue = polongFor(match, { type: 'SOUL-PO-DUE', level: 1, anger: 1 });
 check('a matching wish the engine refuses is not flagged', Ferry.wish(entryOf(open, leaver.id).actor) === calmDue.destination
   && entryOf(layoutDelivery(calmDue, [], Ferry), leaver.id).canLeave === false);
-const fare = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0 });
+const fare = polongFor(calm, { type: 'SOUL-POLONG', level: 1, anger: 0, wish: 'DEST-TARTARUS' });
+fare.destination = 'DEST-TARTARUS'; // the fare is paid only at Tartarus
 fare.boat.find((x) => x.id === stayer.id).anger = Ferry.data.config.shipAngerLimit - 1;
 const fareNext = Ferry.transition(fare, deliverAction([leaver.id]));
 const fareOutcome = arrivalOutcome(fare, fareNext, deliverAction([leaver.id]), Ferry);
@@ -219,5 +256,29 @@ const tall = memoryRowSpots(3, [50, 120, 50]);
 check('a tall row pushes the next one down', tall[1].y - tall[0].y === 84 && tall[2].y - tall[1].y === 130);
 const tallCols = memoryRowSpots(6, [200, 50, 50, 50, 50, 50]);
 check('the next column starts at the top again', tallCols[5].y === tallCols[0].y);
+
+// A memory played at delivery can take a marked soul off the boat (Passenger, Sword); the marks follow.
+const gone = structuredClone(match);
+gone.boat = gone.boat.filter((x) => x.id !== leaver.id);
+gone.discard.push(leaver.type); // as the engine does when a memory takes a soul
+for (const q of gone.quests) if (q.status === 'active' && q.participants.includes(leaver.id)) Object.assign(q, { status: 'failed', reason: 'taken by a memory' });
+const keptMarks = keepValidMarks(gone, [leaver.id, wanderer.id], Ferry);
+check('a marked soul no longer aboard is unmarked', !keptMarks.includes(leaver.id) && keptMarks.includes(wanderer.id));
+check('marks the engine still accepts are kept', keepValidMarks(match, [leaver.id], Ferry).join() === leaver.id);
+
+// A quest soul that leaves before its wish fails its quest, and the outcome says so with the engine's reason:
+// the soul that can leave elsewhere is given an active quest and leaves at this stop, before its wish.
+const early = structuredClone(match);
+early.quests.push({
+  id: `QUEST-${early.nextQuest}`, definitionId: 'QUEST-BOAT', participants: [wanderer.id, 'ACTOR-3'], status: 'active',
+  stage: 'merchant-delivered', sharedRoutes: 0, delivered: ['ACTOR-3'], rewardClaimed: false, rewardType: null, reason: null, cycle: early.cycle, data: { merchantRound: '0' },
+});
+early.nextQuest = String(Number(early.nextQuest) + 1);
+const earlyQuest = early.quests.find((q) => q.status === 'active' && q.participants.includes(wanderer.id));
+const earlyNext = Ferry.transition(early, deliverAction([wanderer.id]));
+const earlyOut = arrivalOutcome(early, earlyNext, deliverAction([wanderer.id]), Ferry);
+check('a quest that fails at the dock is listed with its reason', earlyQuest && earlyOut.failedQuests.length === 1
+  && lossLines(earlyOut, t, Ferry).includes(`${Ferry.data.quests.find((d) => d.id === earlyQuest.definitionId).name} failed: ${earlyNext.quests.find((q) => q.id === earlyQuest.id).reason}.`));
+check('and the soul that left early gave no memory', earlyOut.rewards.length === 0 && earlyOut.strays.length === 1);
 
 process.exit(bad ? 1 : 0);

@@ -46,6 +46,10 @@
       if(firstUnseen<s.routes.offers.length&&!s.routes.offers[firstUnseen].includes('DEST-HAVEN')) s.routes.offers[firstUnseen][draw(s,2)]='DEST-HAVEN';
     }
   }
+  /** How many Longs this cycle brings (config.longsPerCycle: the last row whose fromCycle has been reached). */
+  function longsThisCycle(s) {let n=0;for(const row of C.longsPerCycle)if(BigInt(s.cycle)>=BigInt(row.fromCycle))n=row.count;return n;}
+  /** On departure, each of the cycle's Longs gets a fork from 1 to longForkChoices; a trip that ends sooner skips it. */
+  function scheduleLongs(s) {s.longForks=[];for(let i=0;i<longsThisCycle(s);i++)s.longForks.push(1+draw(s,C.longForkChoices));s.longForks.sort((a,b)=>a-b);}
   function drawPolong(s) { const types=BigInt(s.encounters)>=2n?tier2:tier1; return types[draw(s,types.length)]; }
   // At each boarding, a hero can be offered once the run reaches its cycle (config.heroArrival: Odysseus from
   // cycle 6, Heracles from cycle 9), and then only on a chance roll (25%). At most one hero is offered at a time.
@@ -131,7 +135,9 @@
   function startCrossing(s) {
     need(s.phase==='window'&&s.window.kind==='outward'&&!s.travelPrepared&&s.boat.length,'Approach the fork once, after using memories.');
     s.round=inc(s.round);s.travelPrepared=true;
-    if(BigInt(s.round)%BigInt(C.spawnInterval)===0n){
+    // Longs board at the forks picked for this cycle when the boat departed (longForks: 1 = the cycle's first fork).
+    const fork=s.routes.history.length+1,due=(s.longForks||[]).filter(n=>n===fork).length;s.longForks=(s.longForks||[]).filter(n=>n!==fork);
+    for(let i=0;i<due;i++){
       if(s.effects.moly)record(s,'Moly prevents this scheduled Polong arrival.');
       else{s.encounters=inc(s.encounters);const x=fresh(s,s.nextPolong,null);x.level=Number(BigInt(s.encounters)>5n?5n:BigInt(s.encounters));x.anger=x.level>=2?1:0;x.boardingId=String(BigInt(s.nextBoarding)-1n);s.boat.push(x);record(s,named(x)+' boards at level '+s.encounters+'.');s.nextPolong=drawPolong(s);}
     }
@@ -169,15 +175,16 @@
     preview(s,option);const pair=s.routes.offers[0],destination=pair[option];s.destination=destination;
     const calculation=fog(s,destination);s.routes.history.push({offer:pair.slice(),chosen:destination});s.routes.offers.shift();s.routes.masks.shift();s.routes.foresight=Math.max(0,s.routes.foresight-1);
     damage(s,calculation.fog,'crossing to '+DEST[destination].name);
-    if(s.phase==='ended')return;s.phase='delivery';deal(s);heroicArrival(s);
+    if(s.phase==='ended')return;s.phase='delivery';s.window.uses=0;deal(s);heroicArrival(s); // a stop starts on arrival: its memory is shared by delivery, window, fork and review
   }
   function deliveryReason(s,x,via='normal') {
     if(!s.boat.some(a=>a.id===x.id))return 'Not aboard.';
-    if(via==='normal'&&x.wish!==s.destination)return 'Wishes for '+DEST[x.wish].name+'.';
     if(x.type==='SOUL-PO-DUE'&&x.anger<2)return 'Long Grasp will not leave below Anger 2.';
     for(const q of activeQuests(s).filter(q=>q.participants.includes(x.id))){
-      if(q.definitionId==='QUEST-BOAT'&&x.type==='SOUL-MASON'&&(q.stage!=='merchant-delivered'||s.boat.length!==1))return 'Deliver Merchant first. Mason must be the last passenger.';
-      if(q.definitionId==='QUEST-HERACLES'&&(q.stage!=='cerberus'||q.data.battleRound===s.round))return 'Complete the Cerberus encounter, then deliver on a later arrival.';
+      if(q.definitionId==='QUEST-HERACLES'){
+        if(q.stage!=='cerberus'||q.data.battleRound===s.round)return 'Complete the Cerberus encounter, then deliver on a later arrival.';
+        if(via==='normal'&&x.wish!==s.destination)return 'Heracles and Cerberus leave only at their own destination.'; // PM: heroes leave only at their wish
+      }
       if(q.definitionId==='QUEST-ODYSSEUS')return 'Odysseus disembarks through his Tiresias encounter.';
     }
     return null;
@@ -192,7 +199,9 @@
       else if(q.definitionId==='QUEST-SWORD'){
         if(x.type==='SOUL-MERCHANT')q.stage='merchant-delivered';else if(q.stage==='merchant-delivered')complete(s,q);else fail(s,q,'Blacksmith delivered before Merchant');
       }else if(q.definitionId==='QUEST-BOAT'){
-        if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}else complete(s,q);
+        if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}
+        else if(q.stage!=='merchant-delivered')fail(s,q,'Mason left before the Merchant');
+        else if(s.boat.some(a=>a.id!==x.id&&!isTainted(a)))fail(s,q,'Mason left before the last passenger');else complete(s,q); // Longs (tainted souls) are not passengers here
       }else if(q.definitionId==='QUEST-HERACLES'&&q.delivered.length===2)complete(s,q);
       else if(['QUEST-LISTENER','QUEST-MEAL'].includes(q.definitionId))fail(s,q,'participant delivered before interaction');
     }
@@ -200,6 +209,12 @@
   function deliver(s,x,via='normal') {
     need(!deliveryReason(s,x,via),deliveryReason(s,x,via));
     if(x.type==='SOUL-PO-DUE'&&x.level>=3){damage(s,1,'Long Grasp delivery');if(s.phase==='ended')return;}
+    if(via==='normal'&&x.wish!==s.destination){
+      for(const q of activeQuests(s))if(q.participants.includes(x.id))fail(s,q,named(x)+' left the boat before '+DEST[x.wish].name);
+      remove(s,x,'delivery');record(s,named(x)+' left the boat at '+DEST[s.destination].name+'.');
+      // Guard cannot prevent this loss (PM decision, Nov 5): the soul is let off by choice, not struck by the river.
+      s.light-=1;record(s,named(x)+' left away from its wish: 1 Light lost.');if(!s.light)end(s,'The lantern went out: '+named(x)+' left away from its wish.');return;
+    }
     deliveredQuests(s,x);
     if(x.origin&&!isTainted(x))s.deliveries=inc(s.deliveries);
     const memory=SOUL[x.type].memory;
@@ -210,7 +225,7 @@
     if(x.type==='SOUL-POLONG'&&!x.spread&&via==='normal'&&s.destination==='DEST-TARTARUS'){s.light=Math.min(s.maxLight,s.light+1);record(s,'Po Long pays the fare: +1 Light.');}
     remove(s,x,'delivery');record(s,named(x)+' reached '+DEST[x.wish].name+'.');
   }
-  function nextWindow(s) {s.phase='window';s.travelPrepared=false;s.window=windowState(s.boat.length?'outward':'return');s.trimNext=null;s.theftQueue=[];deal(s);}
+  function nextWindow(s) {s.phase='window';s.travelPrepared=false;const uses=s.boat.length&&s.window.kind==='outward'?s.window.uses:0;s.window=windowState(s.boat.length?'outward':'return');s.window.uses=uses;s.trimNext=null;s.theftQueue=[];deal(s);}
   function finishRound(s) {if(s.hand.length>C.handLimit){s.phase='trim';s.trimNext='new-window';}else nextWindow(s);}
   function thefts(s) {
     while(s.theftQueue.length){const id=s.theftQueue.shift(),x=s.boat.find(a=>a.id===id);if(!x||!s.hand.length)continue;
@@ -220,7 +235,9 @@
   }
   function resolveDelivery(s,ids) {
     need(s.phase==='delivery'&&unique(ids),'Choose unique passengers.');
-    for(const id of ids){const x=s.boat.find(x=>x.id===id);need(x,'Passenger is not aboard.');deliver(s,x);if(s.phase==='ended')return;}
+    // Souls leaving at the same stop leave together: the Mason goes last, so the Merchant and everyone else leaving with him count as gone.
+    const mason=id=>s.boat.find(x=>x.id===id)?.type==='SOUL-MASON';
+    for(const id of [...ids.filter(id=>!mason(id)),...ids.filter(mason)]){const x=s.boat.find(x=>x.id===id);need(x,'Passenger is not aboard.');deliver(s,x);if(s.phase==='ended')return;}
     for(const q of activeQuests(s)){
       const def=QUEST[q.definitionId];if(def.roles.length!==2||!def.roles.every(type=>participant(s,q,type)))continue;
       q.sharedRoutes++;
@@ -255,10 +272,14 @@
     return null;
   }
   function memoryReady(s,id,target) {
-    need((s.phase==='window'&&!s.travelPrepared)||s.phase==='boarding','Use memories before approaching a fork or returning.');
+    // One memory per stop (window, fork, review and delivery), one at boarding and one on the return trip.
+    need(s.phase==='boarding'||['window','review'].includes(s.phase)||(s.phase==='delivery'&&s.window.kind==='outward'),'Memories are played at boarding, at a stop or on the return trip.');
     need(s.hand.length<=C.handLimit,'Excess rewards cannot be played before hand trimming.');
+    need(C.memoriesPerWindow==null||s.window.uses<C.memoriesPerWindow,s.phase==='boarding'?'One memory per boarding: one is already played.':s.window.kind==='return'?'One memory on the return trip: one is already played.':'One memory per stop: one is already played here.');
     const held=s.hand.find(m=>m.id===id);need(held,'Choose a held memory.');
     need(s.phase!=='boarding'||MEM[held.type].kind==='capacity','Only Boat Space is used during boarding.');
+    need(s.phase==='boarding'||MEM[held.type].kind!=='capacity','Boat Space is used only during boarding.');
+    need(s.phase!=='delivery'||!['fog','all-fog','guard'].includes(MEM[held.type].kind),MEM[held.type].name+' protects a crossing; play it before you travel.');
     const targets=memoryTargets(s,held.type);
     need(targets?targets.some(x=>x.id===target):target==null,'Choose an eligible memory target.');return held;
   }
@@ -276,13 +297,15 @@
     if(m.kind==='sword')remove(s,s.boat.find(x=>x.id===target),'Sword');
     if(m.kind==='passage')deliver(s,s.boat.find(x=>x.id===target),'passage');
     if(s.phase==='ended')return;
-    if(s.phase!=='boarding'&&!s.boat.length){s.window.kind='return';if(s.hand.length>C.handLimit){s.phase='trim';s.trimNext='same-window';}}
+    // The boat emptied at a stop (window or review): the return trip starts, with its own memory. In the delivery
+    // phase the round still ends through DELIVER, which opens the return window.
+    if(['window','review'].includes(s.phase)&&s.window.kind==='outward'&&!s.boat.length){s.phase='window';s.pending=null;s.travelPrepared=false;s.window=windowState('return');if(s.hand.length>C.handLimit){s.phase='trim';s.trimNext='same-window';}}
   }
   function meal(s,questId) {
     need(s.phase==='window'&&!s.travelPrepared&&s.window.kind==='outward','Prepare meals before travel.');
     const q=activeQuests(s).find(q=>q.id===questId&&q.definitionId==='QUEST-MEAL');need(q&&participant(s,q,'SOUL-FARMER')&&participant(s,q,'SOUL-COOK'),'No unused shared meal is available.');
     const cook=participant(s,q,'SOUL-COOK');for(const x of s.boat)if(x!==cook)x.anger=Math.max(0,x.anger-1);cook.anger+=2;complete(s,q);record(s,'Everyone eats; Cook is stressed and gains two Anger.');expire(s);
-    if(s.phase!=='ended'&&!s.boat.length)s.window.kind='return';
+    if(s.phase!=='ended'&&!s.boat.length)s.window=windowState('return');
   }
   function purify(s,actorId,target) {
     need(s.phase==='window'&&!s.travelPrepared&&s.window.kind==='outward','Purify before travel.');
@@ -297,7 +320,7 @@
     s.effects={capacity:false,moly:false,nobody:false};
     while(s.shore.length<C.shoreTarget){if(!s.arrivals.length){s.arrivals=shuffle(s,s.discard);s.discard=[];}if(!s.arrivals.length)break;s.shore.push(fresh(s,s.arrivals.shift()));}
     for(const q of activeQuests(s))fail(s,q,'trip ended before completion');
-    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +1 Light. Cycle '+s.cycle+'.');
+    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.longForks=[];s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +1 Light. Cycle '+s.cycle+'.');
   }
   function transition(input,a) {
     validate(input);need(a&&typeof a.type==='string','Choose an action.');const s=clone(input);
@@ -314,7 +337,7 @@
       need(s.phase==='boarding'&&(s.selected.length||s.boat.length),'Select passengers before departure.');
       const all=passengers(s);need(!['SOUL-MERCHANT','SOUL-BLACKSMITH','SOUL-MASON'].every(type=>all.some(x=>x.type===type)),'Merchant cannot depart with both Blacksmith and Mason.');
       s.boat=all.map(x=>({...x,anger:0,boardingId:s.nextBoarding,exhausted:false}));s.nextBoarding=inc(s.nextBoarding);s.shore=s.shore.filter(x=>!s.selected.includes(x.id));s.selected=[];
-      if(s.heroOffer)s.heroOffer.resolved=true;s.phase='window';startPairs(s);
+      if(s.heroOffer)s.heroOffer.resolved=true;s.phase='window';s.window=windowState('outward');scheduleLongs(s);startPairs(s);
     }else if(a.type==='START_CROSSING')startCrossing(s);
     else if(a.type==='PLAY_MEMORY')playMemory(s,a.id,a.target);
     else if(a.type==='MEAL')meal(s,a.questId);
@@ -344,6 +367,8 @@
     need(BigInt(s.cycle)===BigInt(s.completed)+1n&&['nextActor','nextBoarding','nextMemory','nextQuest'].every(k=>BigInt(s[k])>0n),'Invalid counter relationship.');
     for(const k of ['shore','boat','arrivals','discard','selected','hand','quests','theftQueue'])need(Array.isArray(s[k]),'Invalid '+k);
     need(s.effects&&['capacity','moly','nobody'].every(k=>typeof s.effects[k]==='boolean'),'Invalid effects.');
+    // longForks is new in T-19; a save without it simply has no Longs scheduled this cycle.
+    need(s.longForks===undefined||(Array.isArray(s.longForks)&&s.longForks.every(n=>int(n,1,C.longForkChoices))),'Invalid Long schedule.');
     need(s.window&&['outward','return'].includes(s.window.kind)&&int(s.window.uses)&&int(s.window.guard,0,1)&&int(s.window.shield)&&typeof s.window.allFog==='boolean','Invalid memory window.');
     const actors=[...s.shore,...s.boat],ids=actors.map(x=>x?.id),origins=[...s.arrivals,...s.discard];
     const validId=(id,prefix,counter)=>typeof id==='string'&&id.startsWith(prefix)&&decimal(id.slice(prefix.length))&&BigInt(id.slice(prefix.length))>0n&&BigInt(id.slice(prefix.length))<BigInt(counter);

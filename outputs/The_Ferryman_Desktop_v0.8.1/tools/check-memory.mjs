@@ -52,11 +52,15 @@ const light = byType(v, 'MEM-LIGHT');
 const afterLight = Ferry.transition(win, playAction(light));
 check(afterLight.hand.length === 2, 'play Light: no target needed');
 
-// 3. After START_CROSSING the hand is locked, with the engine's reason.
+// 3. One memory per stop (VarisPah on #27, Nov 4): the hand stays open at the fork; once one is played at
+//    this stop, the rest are locked with the engine's reason.
 const fork = Ferry.transition(win, { type: 'START_CROSSING' });
 v = memoryHand(fork, Ferry);
-check(v.cards.every((c) => !c.playable) && !v.anyPlayable, 'fork: hand locked after approaching');
-check(v.note === engineRefusal(fork, byType(memoryHand(win, Ferry), 'MEM-LIGHT')), 'fork: engine reason shown', JSON.stringify(v.note));
+check(byType(v, 'MEM-LIGHT').playable, 'fork: a memory can still be played after approaching');
+const forkPlayed = Ferry.transition(fork, playAction(byType(v, 'MEM-LIGHT')));
+v = memoryHand(forkPlayed, Ferry);
+check(v.cards.every((c) => !c.playable) && !v.anyPlayable, 'fork: one memory per stop, then the hand is locked');
+check(v.note === engineRefusal(forkPlayed, v.cards[0]), 'fork: engine reason shown', JSON.stringify(v.note));
 
 // 4. Boarding: Light is refused, with the engine's own reason.
 const board = withHand(fixture('boarding'), ['MEM-LIGHT']);

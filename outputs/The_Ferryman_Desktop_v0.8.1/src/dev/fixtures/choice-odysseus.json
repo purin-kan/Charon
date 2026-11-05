@@ -3,7 +3,7 @@
   "version": "0.8-t45b",
   "schemaVersion": 3,
   "seed": 1,
-  "rng": 302988898,
+  "rng": 1369582169,
   "phase": "choice",
   "paused": false,
   "light": 3,
@@ -139,8 +139,8 @@
         "DEST-STYX"
       ],
       [
-        "DEST-STYX",
-        "DEST-HAVEN"
+        "DEST-HAVEN",
+        "DEST-STYX"
       ]
     ],
     "masks": [
@@ -204,5 +204,6 @@
       "cycle": "6",
       "text": "Tiresias offers Charybdis or Scylla."
     }
-  ]
+  ],
+  "longForks": []
 }

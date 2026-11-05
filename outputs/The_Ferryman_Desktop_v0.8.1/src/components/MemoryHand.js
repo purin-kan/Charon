@@ -10,6 +10,8 @@ import { TEXT, memoryHand, playAction } from './memory-layout.js';
 //   this.hand.render(state);                  // in create() and in the 'ferry-state' handler
 //   this.hand.pickTarget(actorId);            // when a highlighted soul is clicked
 //   preload(): queueAssets(this, { art: MemoryHand.artIds() })
+//   Optional onHover(card | null): called when the pointer enters or leaves a card, so a host can
+//   show the full card while the hand is drawn small (CrossingScene's strip).
 
 const FONT = 'sans-serif';
 export const CARD = { w: 200, h: 230, gap: 20, lift: 16 };
@@ -63,12 +65,13 @@ export class MemoryHand {
 
   /**
    * @param {Phaser.Scene} scene host scene (must have scene.game.router)
-   * @param {{x?:number, y?:number, onTargets?:(ids:string[]|null)=>void}} opts
+   * @param {{x?:number, y?:number, onTargets?:(ids:string[]|null)=>void, onHover?:(card:object|null)=>void}} opts
    *   x, y: top-left of the hand. onTargets: called with the legal target ids when a card that needs a
    *   target is picked, and with null when the pick ends (played or cancelled).
    */
-  constructor(scene, { x = 40, y = 400, onTargets = () => {} } = {}) {
+  constructor(scene, { x = 40, y = 400, onTargets = () => {}, onHover = () => {} } = {}) {
     this.scene = scene;
+    this.onHover = onHover;
     this.x = x;
     this.y = y;
     this.onTargets = onTargets;
@@ -109,6 +112,8 @@ export class MemoryHand {
       });
       box.setInteractive({ useHandCursor: card.playable });
       box.on('pointerdown', () => this.press(card));
+      box.on('pointerover', () => this.onHover(card));
+      box.on('pointerout', () => this.onHover(null));
       this.root.add(box);
       return box;
     });
