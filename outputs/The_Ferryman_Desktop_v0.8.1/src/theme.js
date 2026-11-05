@@ -11,6 +11,7 @@ export { BODY_FONT, HEAD_FONT, whenFontsReady };
 // should need only a change here, in the F2 panel. foot, floor, keel and lantern are fractions of the image's height or
 // width, and fill is how much of its frame the image's content takes up.
 defineTuning({
+  'art.useFigures': { type: 'bool', default: false, help: 'Painted figures in place of the 2D sprites (next scene)' },
   'art.soul.fill': { type: 'number', default: 1.24, min: 0.5, max: 2, step: 0.01, help: 'Soul image against its frame height' },
   'art.soul.foot': { type: 'number', default: 0.885, min: 0.5, max: 1, step: 0.005, help: 'Where the base of a soul sits in its image' },
   'art.long.fill': { type: 'number', default: 1.24, min: 0.5, max: 2, step: 0.01, help: 'Long image against its frame height' },

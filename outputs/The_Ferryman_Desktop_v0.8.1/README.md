@@ -153,8 +153,8 @@ Hollow). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load d
 
 Art is not final, so nothing may depend on a file's pixel size or padding. An image is fitted into its frame, and the
 `art.*` values in `src/theme.js` (F2 panel) place it: a new file needs only a tuning change. A missing image shows a dark
-name plate. Optional painted figures in `assets/art/figures/figure-<x>.png` take over from a soul's sprite where one exists
-(`soulArtId` in `src/preloader.js`); remove the file and the sprite comes back.
+name plate. Souls use the 2D sprites. The painted figures in `assets/art/figures/figure-<x>.png` are off by default: turn on
+`art.useFigures` in the F2 panel to compare them (`soulArtId` in `src/preloader.js`).
 
 ## Title screen and save
 

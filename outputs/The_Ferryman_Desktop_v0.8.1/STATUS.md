@@ -49,7 +49,7 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 
 ## Full game restyle, first checkpoint (branch `full-game-restyle`, Nov 6, 2026, not pushed)
 
-Done so far: `src/theme.js`, the shared HUD (`src/components/Hud.js`), the HUD memory hand, the shared night stage (`night-fx.js`), the name plate for missing art, `art.*` frames in tuning, TitleScene, and BoardingScene moved onto all of these. Tinpatpun asked to keep the cut-outs from the v0.6 paintings although the restyle brief says to make no art files, on the understanding that the art may change: 11 files in `assets/art/figures/`, and `assets/source-art/` and the sprites are unchanged. Both soldiers share one figure, since the brief forbids recolouring and there is one painting. Messenger, Bard, Listener, the Longs and the heroes have no painting and keep their sprites, so the styles are mixed until there is art for them.
+Done so far: `src/theme.js`, the shared HUD (`src/components/Hud.js`), the HUD memory hand, the shared night stage (`night-fx.js`), the name plate for missing art, `art.*` frames in tuning, TitleScene, and BoardingScene moved onto all of these. Tinpatpun asked to keep the cut-outs from the v0.6 paintings although the restyle brief says to make no art files, on the understanding that the art may change: 11 files in `assets/art/figures/`, and `assets/source-art/` and the sprites are unchanged. Both soldiers share one figure, since the brief forbids recolouring and there is one painting. After seeing them in the game, Tinpatpun asked for 2D characters, so the sprites are the default again and the figures stay as an F2 option (`art.useFigures`, off).
 
 | Check | Command | Result |
 | --- | --- | --- |

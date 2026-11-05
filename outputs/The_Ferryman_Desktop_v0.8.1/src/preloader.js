@@ -8,6 +8,7 @@
 import { figureIdFor, fileIdFor } from './asset-names.js';
 import { Ferry } from './ferry.js';
 import { COLOR, soulPlate } from './theme.js';
+import { tune } from './tuning.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
 // Art may sit in subfolders (art/souls/, art/memories/, ...): the file name alone is the id,
@@ -38,10 +39,10 @@ function plateName(id) {
   return known?.name ?? id.replace(/^[A-Za-z]+-(?=.)/, '').replace(/-/g, ' ');
 }
 
-/** The id to draw for a soul type: its painted figure if that file is loaded, otherwise the type's own sprite. */
+/** The id to draw for a soul type: its 2D sprite, or its painted figure when art.useFigures is on and the file is loaded. */
 export function soulArtId(scene, type) {
   const figure = figureIdFor(type);
-  return scene.textures.exists(figure) ? figure : type;
+  return tune('art.useFigures') && scene.textures.exists(figure) ? figure : type;
 }
 
 /** Every id a scene that draws souls should queue: each soul's sprite and any figure for it. */
