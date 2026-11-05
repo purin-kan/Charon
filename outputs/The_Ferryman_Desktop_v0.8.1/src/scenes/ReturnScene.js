@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { WRAITH_FRAMES, addArt, addBackdrop, queueAssets } from '../preloader.js';
+import { WRAITH_FRAMES, addArt, addBackdrop, playSound, queueAssets } from '../preloader.js';
 import { MemoryHand } from '../components/MemoryHand.js';
-import { returnView, statusLine } from './return-layout.js';
+import { actionSound, returnView, statusLine } from './return-layout.js';
 
 // Return to the Starting Shore (T-21): phase 'window' or 'review' with window.kind 'return'.
 // Prepare: the shore souls with their Anger now and after the return, the memory hand (T-16), and a
@@ -151,7 +151,9 @@ export class ReturnScene extends Phaser.Scene {
       this.message.setText('');
       const before = this.registry.get('state');
       this.turning = action.type === 'CONFIRM' ? returnView(before, Ferry).souls.filter((x) => x.wraith).map((x) => x.id) : [];
+      const sound = actionSound(before, action, Ferry);
       this.router.dispatch(action);
+      if (sound) playSound(this, sound); // only once the engine accepted the action
     } catch (err) {
       this.message.setText(err.message);
     }

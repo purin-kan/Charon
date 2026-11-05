@@ -4,7 +4,7 @@ import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { returnView, newLogLines } from '../src/scenes/return-layout.js';
+import { returnView, newLogLines, actionSound } from '../src/scenes/return-layout.js';
 import { sceneFor } from '../src/phase-map.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -59,6 +59,12 @@ const next = Ferry.transition(planned, { type: 'CONFIRM' });
 check(next.phase === 'boarding' && next.cycle === String(Number(ret.cycle) + 1) && sceneFor(next) === 'BoardingScene', 'Confirm starts the next cycle', `cycle ${next.cycle}`);
 const back = Ferry.transition(planned, { type: 'BACK' });
 check(back.phase === 'window' && sceneFor(back) === 'ReturnScene', 'Back returns to the return window');
+
+// 5b. sfx-wraith (#33) plays on Confirm only when a shore soul turns into a Wraith.
+const turning = Ferry.transition(angry(ret, 1), { type: 'PLAN', action: { type: 'RETURN' } });
+check(actionSound(turning, { type: 'CONFIRM' }, Ferry) === 'sfx-wraith', 'Confirm with a Wraith plays sfx-wraith');
+check(actionSound(planned, { type: 'CONFIRM' }, Ferry) === null, 'Confirm without a Wraith plays nothing');
+check(actionSound(turning, { type: 'BACK' }, Ferry) === null && actionSound(angry(ret, 1), { type: 'PLAN', action: { type: 'RETURN' } }, Ferry) === null, 'Back and Review return play nothing');
 
 // 6. newLogLines finds the new entries even when the log is full (80, oldest dropped).
 const full = { log: Array.from({ length: 80 }, (_, i) => ({ round: '1', cycle: '1', text: 'e' + i })) };
