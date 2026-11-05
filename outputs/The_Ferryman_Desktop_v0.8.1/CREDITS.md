@@ -32,6 +32,7 @@ Source: `assets/source-art/ARTWORK_NOTES.md` and the v0.6 rights record (`output
 * Farmer v7, Blacksmith v4 and Priest (normal v2, exhausted v3) were copied from the October 30 catalog's local images.
 * `assets/art/sprite-mother-test.png`: a temporary test cut-out for the art pipeline, not final Mother art (`notes/T-03_ART_PIPELINE.md`).
 * Sprite cut-outs and new art for the desktop build: Kanyakorn-goya (to fill in as files land in `assets/art/` and `assets/backgrounds/`).
+* `assets/art/figures/figure-*.png`: transparent cut-outs of the portraits in `assets/source-art/` (the same paintings as `Game_Materials_v0.6.pdf`), made on Nov 6, 2026 with rembg (isnet-general-use model) and faded at the hem. Temporary, and the art may change: delete or replace a file and the game goes back to the sprite with no code change. The originals are unchanged.
 * Final art approval by the team is pending.
 
 ## Fonts
