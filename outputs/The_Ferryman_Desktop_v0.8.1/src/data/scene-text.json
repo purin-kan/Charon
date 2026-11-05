@@ -57,7 +57,21 @@
     "notEnoughSeats": "Not enough seats.",
     "board": "Board {name}",
     "leaveAshore": "Leave ashore: {name}",
-    "depart": "Set out"
+    "depart": "Set out",
+    "cycleLine": "Cycle {cycle}",
+    "nextLong": "Next Long: {name}",
+    "seatsLine": "Seats {used}/{capacity}",
+    "aboard": "Aboard:",
+    "chip": "{name} ✕",
+    "undo": "Undo",
+    "clearBoat": "Clear boat",
+    "castOff": "Cast off",
+    "shoreNote": "Souls left on shore gain 1 anger when you return; at {limit} they become wraiths.",
+    "tipDestination": "Destination: {name}",
+    "tipSeats": "Seats used: {n}",
+    "accept": "Accept",
+    "decline": "Decline",
+    "tollPrompt": "Choose a shore soul as the toll."
   },
 
   "crossing": {

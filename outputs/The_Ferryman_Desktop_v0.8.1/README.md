@@ -70,6 +70,7 @@ src/preloader.js     Asset lookup by file name, with fallbacks
 src/asset-names.js   Engine id -> asset file name (aliases and patterns)
 src/save.js          Single save slot through Ferry.exportSave / importSave
 src/text.js          t('key') over src/data/scene-text.json
+src/fonts.js         Bundled display fonts; a scene waits on whenFontsReady() before drawing text
 src/tuning.js        Presentation tuning values and the F2 panel
 src/data/            scene-text.json (buttons, help and ending text)
 src/scenes/          One file per scene, listed in scenes/index.js, plus their

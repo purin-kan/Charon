@@ -37,6 +37,8 @@ Source: `assets/source-art/ARTWORK_NOTES.md` and the v0.6 rights record (`output
 ## Fonts
 
 * Bitstream Vera, under the Bitstream Vera licence (`assets/fonts/bitstream-vera-license.txt`). Bundled, not yet loaded by any scene.
+* Cinzel Decorative by Natanael Gama, SIL Open Font License 1.1 (`assets/fonts/cinzel-decorative-OFL.txt`). Regular and Bold from https://github.com/google/fonts (`ofl/cinzeldecorative`), unmodified. Headings and buttons in BoardingScene.
+* Cormorant Garamond by the Cormorant Project Authors (https://github.com/CatharsisFonts/Cormorant), SIL Open Font License 1.1 (`assets/fonts/cormorant-garamond-OFL.txt`). Variable roman and italic from https://github.com/google/fonts (`ofl/cormorantgaramond`), unmodified. Body text in BoardingScene.
 
 ## Software
 

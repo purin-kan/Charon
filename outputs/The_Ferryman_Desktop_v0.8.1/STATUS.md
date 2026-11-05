@@ -47,6 +47,21 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 | Art import from handoff v4 (branch `art-import`, Nov 4, Windows 10, Node 24.22.1) | `node tools/check-art.mjs`, `npm run check`, `npx vite build --config vite.renderer.config.mjs` into a scratch folder | 49 PNGs copied from `The_Ferryman_Art_Handoff_Nov1_v4_RULES_SYNCED.zip` (release `art-handoff-nov1-v4`) into `assets/art/{souls,longs,heroes,boat,memories,wraith}/` and `assets/backgrounds/`; the six memories without a v4 placeholder (Light, Foresight, Guard, Calm, Fog Shield, Passenger) come from `assets/source-art/`. Art: 38 of 38 engine ids have a file; backgrounds: 6 of 6. The preloader globs now include subfolders; the Vite build bundled 56 PNGs; the new unique-name check failed with a duplicate `sprite-mother` added and passed once it was removed. 10 of 10 checks OK. `npm start` (art seen in a scene) and the exe NOT_RUN |
 | Scene art: shore, boat, Wraith frames (branch `art-import`, Nov 5, macOS) | `npm run check`, `npx vite build --config vite.renderer.config.mjs`, `npm start` with `BoardingScene` / `boarding` | BoardingScene draws `bg-starting-shore` and `sprite-boat-horizontal` under the seats; ReturnScene draws `bg-starting-shore` and plays the five `wraith-transform` frames over each soul that turns on Confirm, then fades. 10 of 10 checks OK; build OK; Boarding opened with no errors. Placement not yet checked by eye; Delivery and Crossing left to #34 |
 
+## Boarding panel click redesign (branch `boarding-click-redesign`, Nov 5, 2026)
+
+Machine: Windows 11, Node v25.1.0. BoardingScene only: click replaces drag, with the night stage, bottom panel, Light flames, seat bar, chips, Undo, Clear boat and Cast off. `rules/`, `package.json`, the lockfile and `src/scenes/index.js` are unchanged. Delivery and Crossing keep `addSoulToken`, `layoutBoarding` and `boatZone`.
+
+| Check | Command | Result |
+| --- | --- | --- |
+| Logic | `npm run check` | 11 of 11 pass; `check-boarding` 67 OK, 0 FAIL |
+| Build | `npx vite build --config vite.renderer.config.mjs --base ./` into a scratch folder | builds; the four font files are emitted and the CSS refers to them by relative path |
+| In the window (agent, not a playtest) | `npm start` with `boarding`, `boarding-heracles` and a temporary fixture (removed afterwards), scripted real mouse input over the debug port, screenshots read | Board 4; 5th refused with "Not enough seats."; seat click, chip, Undo and Clear boat send souls back; other souls hold their shore spots and seats close up; a soul turned back mid-walk from its chip and from a click on the moving soul, both ending at home with Seats 0/4; Undo, Clear boat and Cast off off with nobody aboard; Cast off sails and CrossingScene opens; Merchant + Blacksmith + Mason refused with the engine's message; a soul at Anger 1 shows a red pip; hero offer, toll mode, Cancel, toll paid (Light 6 to 5, Heracles locked with a padlock, clicking him does nothing), "Leave a seat for the hero.", Decline. No console errors |
+| Fonts | canvas `measureText` in the window | the `lnum` descriptor in `src/index.css` gives lining figures in canvas text in this Chromium (digit height 39 to 64), so the font files stay unmodified |
+
+NOT_RUN: all hand checks by a person (board 4, try a 5th, remove one, Undo, Clear boat, click mid-walk, Cast off, the hero offer). Also NOT_RUN: seeing the refuse shake at full speed (the screenshots are too far apart), Odysseus's offer in the window (same code path as Heracles without the toll), hearing `sfx-board` and `sfx-unboard`, the F2 panel with the new `boarding.*` values, a two-seat soul in the window (`check-boarding` only), and the packaged `.exe` with the new fonts.
+
+Notes: the grey line's "gain 1 anger" is fixed text, since the engine has no config value for it (`returnShore` does `x.anger++`); `{limit}` comes from config. The painting moves up 110 px to clear the panel, which crops the moon; `boarding.backdropShift` changes that. `boarding.dropPadding` was removed with the drag code. Bob size and speed in the F2 panel apply to new souls only.
+
 ## Verified: T-16 memory UI and T-17 GameOverScene (Jaoguya, Nov 1, 2026)
 
 Machine: Windows 10 Pro, Node v24.22.1, npm 11.19.1.
