@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `874448e37b4dafa8761c6ac4e4d4e0e77d0aeba9933f31cec4723c31e06c4575`.
+Generated from content.json. SHA-256: `0aa50a2d9ea8824305a9f93502048fadfbd5c0e8114c3c55aaca0e60582c157f`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -96,7 +96,7 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 - **Soldiers’ Peace:** Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected.
 - **Boat Space:** One extra seat until the next return. Does not stack.
 - **Golden Apple:** Increase maximum Light by 1 for this run and restore Light to that maximum.
-- **Moly of Hermes:** Prevent future scheduled Long arrivals until the next return. Existing passengers remain.
+- **Moly of Hermes:** Every Long on the boat leaves, including souls turned into a Long. No scheduled Long boards until the next return.
 - **Nobody:** Prevent all crossing fog until the next return. Other damage still applies.
 
 ## Outward round

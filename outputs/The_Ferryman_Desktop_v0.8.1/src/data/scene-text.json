@@ -156,7 +156,7 @@
     "odysseusIntro": "Odysseus has disembarked. Choose how to continue; the random consequence is committed once when selected.",
     "charybdis": "Charybdis",
     "charybdisCost": "Lose one random held memory, if any.",
-    "charybdisReward": "Receive Moly of Hermes: suppress future Long arrivals until the next return when played.",
+    "charybdisReward": "Receive Moly of Hermes: when played, every Long leaves the boat and no Long boards until the next return.",
     "zilla": "Scylla",
     "zillaCost": "One random ordinary passenger becomes a Wraith: lose 1 Light. No eligible passenger means no loss.",
     "zillaReward": "If alive, receive Nobody: prevent fog until the next return when played.",
