@@ -1,15 +1,24 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
+import { queueAssets } from '../preloader.js';
+import { deleteSave, readSave, startAutosave, writeSave } from '../save.js';
+import { t } from '../text.js';
+import { COLOR, CSS, LightFlames, bodyText, drawPanel, fadeOut, headText, makeButton } from '../theme.js';
+import { defineTuning, tune } from '../tuning.js';
 import { TEXT, gameOverView } from './gameover-layout.js';
+import { DEPTH, NightStage } from './night-fx.js';
 
-// Game over (T-17). The run is endless, so there is no win screen: this shows how far the player
-// rowed and why the lantern went out. "Start a new run" returns to TitleScene (suggested by
-// Tinpatpun in PR 16) so the player sees the seed field and the replace-save confirmation.
-// Style follows TitleScene (T-11): river backdrop, gold heading, wide gold-outlined button.
+// Game over (T-17). The run is endless, so there is no win screen: the lantern gutters and goes dark, then a
+// quiet summary shows how far the player rowed and why it went out. New game starts again at once; Title goes
+// back to the seed field. A run that is not over is never replaced from here: that goes through TitleScene's warning.
 
-const FONT = 'sans-serif';
-const GOLD = '#edc47f';
-const FADE_MS = 300;
+defineTuning({
+  'gameover.lanternMs': { type: 'number', default: 1700, min: 0, max: 5000, step: 50, help: 'The lantern gutters and goes out' },
+  'gameover.revealMs': { type: 'number', default: 1200, min: 0, max: 4000, step: 50, help: 'The summary fades in' },
+  'gameover.veil': { type: 'number', default: 0.8, min: 0, max: 1, step: 0.02, help: 'How dark the river stays behind the summary' },
+});
+
+const UI = DEPTH.hero + 2;
 
 export class GameOverScene extends Phaser.Scene {
   constructor() {
@@ -18,38 +27,72 @@ export class GameOverScene extends Phaser.Scene {
 
   get router() { return this.game.router; }
 
+  preload() {
+    queueAssets(this, { backgrounds: ['bg-starting-shore'] });
+  }
+
   create() {
     const { width, height } = this.scale;
     const state = this.registry.get('state');
     const view = gameOverView(state, Ferry);
     console.log(`[ferry] GameOverScene shown (cycle ${state.cycle}, completed ${state.completed}, ending: ${state.ending})`);
     this.leaving = false;
+    this.seconds = 0;
 
-    this.drawBackdrop(width, height);
-    this.add.text(width / 2, 100, view.heading, { fontFamily: FONT, fontSize: '64px', color: GOLD, fontStyle: 'bold' }).setOrigin(0.5);
-    this.add.text(width / 2, 168, view.summary, { fontFamily: FONT, fontSize: '22px', color: '#c9d6df', align: 'center', wordWrap: { width: 1000 } }).setOrigin(0.5);
-    this.add.text(width / 2, 204, view.ending, { fontFamily: FONT, fontSize: '19px', color: '#ff9f8a', align: 'center', wordWrap: { width: 1000 } }).setOrigin(0.5);
-    this.add.text(width / 2, 234, view.reached, { fontFamily: FONT, fontSize: '16px', color: '#9fb6c6' }).setOrigin(0.5);
-
-    this.drawQuests(width, view);
-
-    this.button(width / 2, 610, TEXT.newRun, () => this.toTitle());
+    this.night = new NightStage(this, 'bg-starting-shore');
+    const dark = this.add.rectangle(width / 2, height / 2, width, height, COLOR.deep, 1).setDepth(UI - 1);
+    this.playLantern(() => {
+      this.tweens.add({ targets: dark, fillAlpha: tune('gameover.veil'), duration: tune('gameover.revealMs'), ease: 'Sine.InOut' });
+      this.drawSummary(view);
+    });
     this.input.keyboard.once('keydown-ENTER', () => this.toTitle());
-    this.cameras.main.fadeIn(FADE_MS, 11, 17, 23);
+    this.events.once('shutdown', () => { this.night = null; });
   }
 
-  /** Same drawn river as TitleScene, so the two screens read as one place. */
-  drawBackdrop(width, height) {
-    this.add.graphics().fillGradientStyle(0x0b1117, 0x0b1117, 0x10283a, 0x10283a, 1).fillRect(0, 0, width, height);
-    this.add.graphics().fillStyle(0x0d2230, 1).fillRect(0, height * 0.7, width, height * 0.3);
-    for (let i = 0; i < 5; i++) {
-      const y = height * 0.72 + i * 28;
-      const wave = this.add.graphics().lineStyle(2, 0x2c5168, 0.6 - i * 0.08);
-      wave.beginPath();
-      for (let x = -40; x <= width + 40; x += 20) wave.lineTo(x, y + Math.sin(x / 70 + i) * 4);
-      wave.strokePath();
-      this.tweens.add({ targets: wave, x: { from: -30, to: 30 }, duration: 4000 + i * 600, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
-    }
+  update(time, delta) {
+    this.night?.update(time, delta);
+    this.seconds = time / 1000;
+    this.flame?.flicker(this.seconds);
+  }
+
+  /** One flame in the dark, with its glow: it gutters, shrinks and goes out. */
+  playLantern(done) {
+    const { width, height } = this.scale;
+    const glow = this.add.image(width / 2, height / 2 - 10, 'board-soft').setTint(COLOR.lantern).setBlendMode(Phaser.BlendModes.ADD).setDepth(UI).setScale(1.2).setAlpha(0.5);
+    this.flame = new LightFlames(this, 0, 0);
+    this.flame.set([true]);
+    this.flame.root.setPosition(width / 2, height / 2 + 14).setScale(2).setDepth(UI);
+    const ms = tune('gameover.lanternMs');
+    this.tweens.add({ targets: glow, alpha: { from: 0.5, to: 0.18 }, duration: ms / 7, ease: 'Sine.InOut', yoyo: true, repeat: 2 });
+    this.tweens.add({
+      targets: [glow, this.flame.root],
+      alpha: 0,
+      scale: 0.5,
+      delay: ms * 0.6,
+      duration: ms * 0.4,
+      ease: 'Sine.In',
+      onComplete: () => {
+        glow.destroy();
+        this.flame.root.destroy();
+        this.flame = null;
+        done();
+      },
+    });
+  }
+
+  drawSummary(view) {
+    const { width } = this.scale;
+    const parts = [
+      this.add.text(width / 2, 100, view.heading, headText(52, CSS.gold)).setOrigin(0.5),
+      this.add.text(width / 2, 168, view.summary, bodyText(25, CSS.bone, { align: 'center', wordWrap: { width: 1000 } })).setOrigin(0.5),
+      this.add.text(width / 2, 204, view.ending, bodyText(21, CSS.danger, { align: 'center', wordWrap: { width: 1000 } })).setOrigin(0.5),
+      this.add.text(width / 2, 234, view.reached, bodyText(18, CSS.muted)).setOrigin(0.5),
+      ...this.drawQuests(width, view),
+      makeButton(this, width / 2 - 130, 620, 240, 54, t('title.newGame'), () => this.newGame(), { gold: true, size: 19 }).setEnabled(true),
+      makeButton(this, width / 2 + 130, 620, 240, 54, t('gameOver.toTitle'), () => this.toTitle(), { size: 19 }).setEnabled(true),
+    ];
+    for (const part of parts) part.setDepth(UI).setAlpha(0);
+    this.tweens.add({ targets: parts, alpha: 1, duration: tune('gameover.revealMs'), ease: 'Sine.Out' });
   }
 
   drawQuests(width, view) {
@@ -58,19 +101,24 @@ export class GameOverScene extends Phaser.Scene {
     const panelH = 64 + rows * 30;
     const left = width / 2 - panelW / 2;
     const top = 266;
-    this.add.rectangle(width / 2, top + panelH / 2, panelW, panelH, 0x10202c).setStrokeStyle(2, 0x33454f);
-    this.add.text(left + 22, top + 14, TEXT.questsHeading, { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
+    const parts = [
+      drawPanel(this.add.graphics(), left, top, panelW, panelH),
+      this.add.text(left + 22, top + 14, TEXT.questsHeading, headText(17, CSS.muted)),
+    ];
     if (view.questNote) {
-      this.add.text(left + 22, top + 48, view.questNote, { fontFamily: FONT, fontSize: '17px', color: '#cfe3f0' });
-      return;
+      parts.push(this.add.text(left + 22, top + 48, view.questNote, bodyText(19)));
+      return parts;
     }
+    this.hint = this.add.text(width / 2, top + panelH + 18, '', bodyText(18, CSS.muted)).setOrigin(0.5);
+    parts.push(this.hint);
     const colW = (panelW - 44 - 32) / 2;
     view.quests.forEach((q, i) => {
       const x = left + 22 + (i % 2) * (colW + 32);
       const y = top + 48 + Math.floor(i / 2) * 30;
-      const color = q.status === 'completed' ? GOLD : q.status === 'failed' ? '#ff9f8a' : '#9fb6c6';
-      this.add.text(x, y, q.name, { fontFamily: FONT, fontSize: '17px', color: '#e8f1f7' });
-      const status = this.add.text(x + colW, y, q.label, { fontFamily: FONT, fontSize: '17px', color }).setOrigin(1, 0);
+      const color = q.status === 'completed' ? CSS.gold : q.status === 'failed' ? CSS.danger : CSS.muted;
+      parts.push(this.add.text(x, y, q.name, bodyText(19)));
+      const status = this.add.text(x + colW, y, q.label, bodyText(19, color)).setOrigin(1, 0);
+      parts.push(status);
       // The failure reason is long, so it sits behind a hover on the status word.
       if (q.reason) {
         status.setInteractive();
@@ -78,20 +126,26 @@ export class GameOverScene extends Phaser.Scene {
         status.on('pointerout', () => this.hint.setText(''));
       }
     });
-    if (view.more) this.add.text(left + 22, top + panelH - 34, view.more, { fontFamily: FONT, fontSize: '16px', color: '#9fb6c6' });
-    this.hint = this.add.text(width / 2, top + panelH + 18, '', { fontFamily: FONT, fontSize: '16px', color: '#9fb6c6' }).setOrigin(0.5);
+    if (view.more) parts.push(this.add.text(left + 22, top + panelH - 34, view.more, bodyText(18, CSS.muted)));
+    return parts;
   }
 
-  /** Wide button with the TitleScene look. */
-  button(x, y, label, onPress) {
-    const w = 380, h = 64;
-    const box = this.add.rectangle(0, 0, w, h, 0x1d363c).setStrokeStyle(2, 0xedc47f);
-    const text = this.add.text(0, 0, label, { fontFamily: FONT, fontSize: '28px', color: '#f3ecd9' }).setOrigin(0.5);
-    const btn = this.add.container(x, y, [box, text]).setSize(w, h).setInteractive({ useHandCursor: true });
-    btn.on('pointerover', () => box.setFillStyle(0x2c4a51));
-    btn.on('pointerout', () => box.setFillStyle(0x1d363c));
-    btn.on('pointerdown', onPress);
-    return btn;
+  /** A new run with a random seed, saved like one from TitleScene. Anything but a finished run goes through TitleScene's warning. */
+  newGame() {
+    if (this.leaving) return;
+    const saved = readSave();
+    if (saved.broken || (saved.state && saved.state.phase !== 'ended')) {
+      this.toTitle();
+      return;
+    }
+    this.leaving = true;
+    const seed = crypto.getRandomValues(new Uint32Array(1))[0];
+    console.log(`[ferry] GameOverScene: new game (seed ${seed})`);
+    const state = Ferry.create(seed);
+    deleteSave();
+    startAutosave(this.game, () => console.warn('[ferry] ' + t('title.storageFailed')));
+    if (!writeSave(state)) console.warn('[ferry] ' + t('title.storageFailed'));
+    fadeOut(this, () => this.router.start(state));
   }
 
   /** Fades out, then hands over to TitleScene, which starts the next run through the router. */
@@ -99,7 +153,6 @@ export class GameOverScene extends Phaser.Scene {
     if (this.leaving) return;
     this.leaving = true;
     console.log('[ferry] GameOverScene: back to title for a new run');
-    this.cameras.main.fadeOut(FADE_MS, 11, 17, 23);
-    this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('TitleScene'));
+    fadeOut(this, () => this.scene.start('TitleScene'));
   }
 }
