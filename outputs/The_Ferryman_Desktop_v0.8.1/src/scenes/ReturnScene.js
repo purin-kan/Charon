@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { addArt, playSound, queueAssets } from '../preloader.js';
+import { WRAITH_FRAMES, addArt, addBackdrop, playSound, queueAssets } from '../preloader.js';
 import { MemoryHand } from '../components/MemoryHand.js';
 import { actionSound, returnView, statusLine } from './return-layout.js';
 
@@ -14,6 +14,8 @@ import { actionSound, returnView, statusLine } from './return-layout.js';
 const FONT = 'sans-serif';
 const GOLD = '#edc47f';
 const FADE_MS = 300;
+const WRAITH_FRAME_MS = 160; // per Wraith transformation frame
+const WRAITH_HOLD_MS = 400; // last frame held before the fade
 const SOUL = { w: 140, h: 190, gap: 12, x: 40, y: 186 };
 const PANEL = { x: 840, y: 72, w: 400, h: 560 };
 
@@ -25,7 +27,7 @@ export class ReturnScene extends Phaser.Scene {
   get router() { return this.game.router; }
 
   preload() {
-    queueAssets(this, { art: MemoryHand.artIds() });
+    queueAssets(this, { art: [...MemoryHand.artIds(), ...WRAITH_FRAMES], backgrounds: ['bg-starting-shore'] });
   }
 
   create() {
@@ -35,6 +37,9 @@ export class ReturnScene extends Phaser.Scene {
     this.leaving = false;
     this.targets = null; // soul ids a picked memory can target
     this.parts = [];
+    this.cardPos = new Map(); // soul id -> card centre, for the Wraith frames
+    this.turning = []; // soul ids that become Wraiths on the confirmed return
+    addBackdrop(this, 'bg-starting-shore');
 
     this.status = this.add.text(40, 24, '', { fontFamily: FONT, fontSize: '24px', color: '#e8f1f7' });
     this.add.text(40, 72, view.heading, { fontFamily: FONT, fontSize: '30px', color: GOLD, fontStyle: 'bold' });
@@ -89,6 +94,7 @@ export class ReturnScene extends Phaser.Scene {
       const wish = this.add.text(0, 26, soul.wish, text).setOrigin(0.5, 0);
       const anger = this.add.text(0, 48, soul.wraith ? `${soul.label}\nBecomes a Wraith` : soul.label, text).setOrigin(0.5, 0);
       const card = this.add.container(x, y, [panel, art, name, wish, anger]).setSize(w, SOUL.h);
+      this.cardPos.set(soul.id, { x, y, w });
       if (target) {
         card.setInteractive({ useHandCursor: true });
         card.on('pointerdown', () => this.hand.pickTarget(soul.id));
@@ -143,12 +149,34 @@ export class ReturnScene extends Phaser.Scene {
     if (this.leaving) return;
     try {
       this.message.setText('');
-      const sound = actionSound(this.registry.get('state'), action, Ferry);
+      const before = this.registry.get('state');
+      this.turning = action.type === 'CONFIRM' ? returnView(before, Ferry).souls.filter((x) => x.wraith).map((x) => x.id) : [];
+      const sound = actionSound(before, action, Ferry);
       this.router.dispatch(action);
       if (sound) playSound(this, sound); // only once the engine accepted the action
     } catch (err) {
       this.message.setText(err.message);
     }
+  }
+
+  /** Plays Goya's Wraith frames over each soul card that turned on this return, then calls done. */
+  playWraiths(done) {
+    const spots = this.turning.map((id) => this.cardPos.get(id)).filter(Boolean);
+    if (!spots.length || !WRAITH_FRAMES.every((f) => this.textures.exists(f))) return done();
+    const sprites = spots.map(({ x, y, w }) => {
+      const img = this.add.image(x, y, WRAITH_FRAMES[0]).setDepth(5);
+      return img.setScale(Math.min(w / img.width, (SOUL.h + 40) / img.height));
+    });
+    let frame = 0;
+    this.time.addEvent({
+      delay: WRAITH_FRAME_MS,
+      repeat: WRAITH_FRAMES.length - 1,
+      callback: () => {
+        frame += 1;
+        if (frame < WRAITH_FRAMES.length) sprites.forEach((img) => img.setTexture(WRAITH_FRAMES[frame]));
+        else this.time.delayedCall(WRAITH_HOLD_MS, done);
+      },
+    });
   }
 
   /** The return is done (next cycle, or the run ended): fade out, then let the router switch scenes. */
@@ -157,7 +185,7 @@ export class ReturnScene extends Phaser.Scene {
     this.leaving = true;
     this.input.enabled = false;
     console.log('[ferry] ReturnScene: rowing back to the Starting Shore');
-    this.cameras.main.fadeOut(FADE_MS, 11, 17, 23);
+    this.playWraiths(() => this.cameras.main.fadeOut(FADE_MS, 11, 17, 23));
     this.cameras.main.once('camerafadeoutcomplete', () => this.router.exitDone());
   }
 }

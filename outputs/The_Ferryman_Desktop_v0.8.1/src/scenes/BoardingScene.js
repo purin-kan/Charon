@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { queueAssets } from '../preloader.js';
+import { addBackdrop, queueAssets } from '../preloader.js';
 import { t } from '../text.js';
 import { soulDetail, soulTitle, typeDetail } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
@@ -22,7 +22,7 @@ export class BoardingScene extends Phaser.Scene {
   get router() { return this.game.router; }
 
   preload() {
-    queueAssets(this, { art: Ferry.data.souls.map((s) => s.id) });
+    queueAssets(this, { art: [...Ferry.data.souls.map((s) => s.id), 'sprite-boat-horizontal'], backgrounds: ['bg-starting-shore'] });
   }
 
   create() {
@@ -34,6 +34,7 @@ export class BoardingScene extends Phaser.Scene {
     this.tollMode = false;
     this.leaving = false;
 
+    addBackdrop(this, 'bg-starting-shore');
     this.drawBoat(layoutBoarding(state, Ferry).slots);
     this.drawHud();
     this.tip = new HoverTip(this);
@@ -65,10 +66,20 @@ export class BoardingScene extends Phaser.Scene {
 
   drawBoat(slots) {
     const hull = boatZone(slots);
-    this.boatParts.push(this.add.rectangle(hull.x, hull.y, hull.w, hull.h, 0x2a3b49));
+    if (this.textures.exists('sprite-boat-horizontal')) {
+      // Goya's boat (2400 x 900): its open deck, between the lantern and the ferryman, runs about
+      // x 540 to 1860 and the floor sits near y 620, so scale that span to the seats and set the floor
+      // under the souls.
+      const boat = this.add.image(hull.x, 0, 'sprite-boat-horizontal');
+      const scale = hull.w / 1320;
+      boat.setScale(scale).setY(hull.y + hull.h / 2 - (620 - 450) * scale);
+      this.boatParts.push(boat);
+    } else {
+      this.boatParts.push(this.add.rectangle(hull.x, hull.y, hull.w, hull.h, 0x2a3b49));
+    }
     this.add.zone(hull.x, hull.y, hull.w, hull.h).setRectangleDropZone(hull.w, hull.h);
     for (const slot of slots) {
-      const seat = this.add.rectangle(slot.x, slot.y, slot.w, slot.h, 0x16232e).setStrokeStyle(2, 0x3d5566);
+      const seat = this.add.rectangle(slot.x, slot.y, slot.w, slot.h, 0x16232e, 0.35).setStrokeStyle(2, 0x3d5566);
       this.boatParts.push(seat);
     }
   }
