@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
-  DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, exitWarning, headingText,
-  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
+  DOCK, arrivalOutcome, choiceView, confirmLabel, deliverAction, exitWarning, headingText,
+  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots, toggleMark,
 } from '../src/scenes/delivery-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -73,33 +73,16 @@ const wideEntries = layoutDelivery(wide, [], Ferry).entries;
 check('a two-seat soul centres on its seats', wideEntries[0].x === (open.slots[0].x + open.slots[1].x) / 2);
 check('the next soul takes the third seat', wideEntries[1].x === open.slots[2].x);
 
-// Drop areas.
-const { slots } = open;
-check('the dock centre is the dock', dropArea(DOCK.x, DOCK.y, slots) === 'dock');
-check('a seat is the boat', dropArea(slots[0].x, slots[0].y, slots) === 'boat');
-check('open water is nothing', dropArea(600, 650, slots) === null);
-const deckSpot = riderSpots.find((e) => e.span === 0);
-check('a deck spot is the boat', dropArea(deckSpot.x, deckSpot.y, slots) === 'boat');
-check('the gap between hull and deck is the boat', dropArea(slots[0].x, hull.y + hull.h / 2 + 4, slots) === 'boat');
-check('water past the deck is nothing', dropArea(slots[0].x, 620, slots) === null);
-const crowd = structuredClone(none);
-crowd.boat = Array.from({ length: 6 }, (_, i) => ({ ...none.boat[0], id: `ACTOR-${90 + i}`, type: 'SOUL-POLONG' }));
-check('every deck soul can drop back on its own spot', layoutDelivery(crowd, [], Ferry).entries.every((e) => dropArea(e.x, e.y, slots) === 'boat'));
-
 // Marking.
 const before = JSON.stringify(match);
 const seatEntry = entryOf(open, leaver.id);
-const accepted = applyDrop(match, [], seatEntry, 'dock', Ferry, t);
+const accepted = toggleMark(match, [], seatEntry, Ferry, t);
 check('an eligible soul is marked', accepted.marked.includes(leaver.id) && accepted.reason === null);
-check('a soul at the wrong stop is marked', applyDrop(match, [], entryOf(open, wanderer.id), 'dock', Ferry, t).marked.includes(wanderer.id));
-const refused = applyDrop(match, [], entryOf(open, stayer.id), 'dock', Ferry, t);
+check('a soul at the wrong stop is marked', toggleMark(match, [], entryOf(open, wanderer.id), Ferry, t).marked.includes(wanderer.id));
+const refused = toggleMark(match, [], entryOf(open, stayer.id), Ferry, t);
 check('an ineligible soul is refused with the engine reason', refused.marked.length === 0 && refused.reason === Ferry.deliveryReason(match, stayer));
-check('a seat soul dropped on the boat changes nothing', applyDrop(match, [], seatEntry, 'boat', Ferry, t).marked.length === 0);
-check('a seat soul dropped on water changes nothing', applyDrop(match, [], seatEntry, null, Ferry, t).marked.length === 0);
 const dockEntry = entryOf(marked, leaver.id);
-check('a dock soul dragged to the boat is unmarked', applyDrop(match, [leaver.id], dockEntry, 'boat', Ferry, t).marked.length === 0);
-check('a dock soul dropped on water stays marked', applyDrop(match, [leaver.id], dockEntry, null, Ferry, t).marked.length === 1);
-check('a dock soul dropped on the dock stays marked', applyDrop(match, [leaver.id], dockEntry, 'dock', Ferry, t).marked.length === 1);
+check('a click on a soul on the dock unmarks it', toggleMark(match, [leaver.id], dockEntry, Ferry, t).marked.length === 0);
 check('test-runs leave the state alone', JSON.stringify(match) === before);
 
 // Order matters: Mason may leave at any time, but his quest completes only when he is the last passenger.
@@ -128,7 +111,7 @@ check('Mason leaving ahead of a passenger fails the quest, with the engine reaso
 check('Mason behind the other soul is accepted', refusal(boatQuest, [other.id, mason.id], Ferry, t) === null);
 check('and completes the quest', Ferry.transition(boatQuest, deliverAction([other.id, mason.id])).quests.find((q) => q.definitionId === 'QUEST-BOAT').status === 'completed');
 const quest = layoutDelivery(boatQuest, [other.id, mason.id], Ferry);
-const afterUndo = applyDrop(boatQuest, [other.id, mason.id], entryOf(quest, other.id), 'boat', Ferry, t);
+const afterUndo = toggleMark(boatQuest, [other.id, mason.id], entryOf(quest, other.id), Ferry, t);
 check('undoing the soul ahead keeps Mason marked', afterUndo.marked.join() === mason.id);
 
 // Button and heading.
@@ -166,7 +149,7 @@ const elsewhere = Ferry.data.destinations.find((d) => d.id !== match.destination
 const misty = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0, wish: elsewhere });
 const mist = misty.boat.find((x) => x.id === leaver.id);
 const mistOpen = layoutDelivery(misty, [], Ferry);
-check('a Long at the wrong stop may be marked', applyDrop(misty, [], entryOf(mistOpen, mist.id), 'dock', Ferry, t).marked.join() === mist.id);
+check('a Long at the wrong stop may be marked', toggleMark(misty, [], entryOf(mistOpen, mist.id), Ferry, t).marked.join() === mist.id);
 check('and is not dimmed', entryOf(mistOpen, mist.id).canLeave === true && entryOf(mistOpen, mist.id).wishMatches === false);
 const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
 const robbed = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, deliverAction([]), Ferry);
