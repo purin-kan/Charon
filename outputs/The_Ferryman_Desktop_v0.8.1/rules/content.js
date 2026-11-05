@@ -10,7 +10,21 @@ globalThis.FerryData = {
     "shoreAngerLimit": 2,
     "shipAngerLimit": 5,
     "handLimit": 3,
-    "spawnInterval": 3,
+    "longsPerCycle": [
+      {
+        "fromCycle": 3,
+        "count": 1
+      },
+      {
+        "fromCycle": 9,
+        "count": 2
+      },
+      {
+        "fromCycle": 18,
+        "count": 3
+      }
+    ],
+    "longForkChoices": 3,
     "polongFogThreshold": 2,
     "polongFog": 1,
     "returnLight": 1,
@@ -26,7 +40,7 @@ globalThis.FerryData = {
         "chance": 25
       }
     },
-    "memoriesPerWindow": null,
+    "memoriesPerWindow": 1,
     "endless": true,
     "initialShore": [
       "SOUL-MOTHER",
@@ -413,8 +427,8 @@ globalThis.FerryData = {
     }
   ],
   "roundSteps": [
-    "Play any number of held memories and available abilities before approaching the fork. Excess rewards cannot be played before trimming.",
-    "Approach the fork: advance the outward round and board a scheduled Long unless Moly suppresses it. Its level/effects apply immediately.",
+    "Use available abilities before approaching the fork. One held memory may be played at any point of the stop: before the fork, at the fork or review, or at delivery. Excess rewards cannot be played before trimming.",
+    "Approach the fork: advance the outward round and board any Long scheduled for this fork unless Moly suppresses it. Its level/effects apply immediately.",
     "Choose a visible or concealed option, review, then confirm. Pay fog after protection. Zero Light ends the run immediately.",
     "Resolve a heroic encounter or Tiresias choice, then optionally deliver eligible passengers.",
     "Resolve pair shared-crossing effects, then ordinary Anger and Restless River rolls.",
@@ -422,7 +436,7 @@ globalThis.FerryData = {
     "Begin the next memory window, or return if the boat is empty."
   ],
   "returnSteps": [
-    "With an empty boat, play held memories if desired.",
+    "With an empty boat, one held memory may be played.",
     "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
     "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ],
@@ -430,10 +444,10 @@ globalThis.FerryData = {
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
     "boarding": "Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
-    "memories": "No use cap before travel or return. Each use consumes one held copy. Ordinary eligible deliveries create source-labeled memories; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
-    "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. The journal shows stages and restrictions.",
+    "memories": "One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop (away from its wish it costs 1 Light, which Guard cannot prevent, and the last Light ends the run), except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger (Longs are not passengers), his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
+    "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. A quest passenger that leaves at a stop other than its wish fails its quest. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
-    "polongs": "Every third outward round brings the shown Long unless Moly suppresses it. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
+    "polongs": "Longs arrive from cycle 3: one per cycle from cycle 3, two from cycle 9, three from cycle 18. When the boat departs, each is given one of the first three forks of the trip; a trip that ends before that fork skips it. Moly suppresses them. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
     "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
     "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
     "damage": "Fog protection does not prevent Wraith or toll damage. Long Mist delivered normally to Tartarus restores 1 Light; Passenger and Sword do not. Other Longs grant no Light or memory."
@@ -564,6 +578,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "0bbb132198ea76c984d4db7bcaeb905b1704fbb3d35bf3d53b4eafeebaaa572d"
+  "contentSha256": "874448e37b4dafa8761c6ac4e4d4e0e77d0aeba9933f31cec4723c31e06c4575"
 }
 ;

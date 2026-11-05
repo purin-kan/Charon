@@ -2,66 +2,66 @@
   "format": "the-ferryman-save",
   "version": "0.8-t45b",
   "schemaVersion": 3,
-  "seed": 34,
-  "rng": 1429048940,
+  "seed": 68,
+  "rng": 2459509340,
   "phase": "choice",
   "paused": false,
   "light": 2,
   "maxLight": 6,
-  "round": "4",
-  "cycle": "2",
-  "completed": "1",
-  "deliveries": "1",
-  "nextActor": "8",
-  "nextBoarding": "3",
-  "nextMemory": "2",
+  "round": "5",
+  "cycle": "3",
+  "completed": "2",
+  "deliveries": "3",
+  "nextActor": "12",
+  "nextBoarding": "4",
+  "nextMemory": "4",
   "nextQuest": "1",
   "encounters": "1",
   "shore": [
     {
-      "id": "ACTOR-1",
-      "type": "SOUL-MOTHER",
-      "origin": "SOUL-MOTHER",
-      "wish": "DEST-TARTARUS",
-      "anger": 1,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
-    {
-      "id": "ACTOR-2",
-      "type": "SOUL-CHILD",
-      "origin": "SOUL-CHILD",
-      "wish": "DEST-HAVEN",
-      "anger": 1,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
-    {
-      "id": "ACTOR-4",
-      "type": "SOUL-MASON",
-      "origin": "SOUL-MASON",
-      "wish": "DEST-ACHERON",
-      "anger": 1,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
-    {
       "id": "ACTOR-6",
-      "type": "SOUL-MESSENGER",
-      "origin": "SOUL-MESSENGER",
+      "type": "SOUL-LISTENER",
+      "origin": "SOUL-LISTENER",
+      "wish": "DEST-ELYSIUM",
+      "anger": 1,
+      "boardingId": null,
+      "bornRound": "2",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-7",
+      "type": "SOUL-POET",
+      "origin": "SOUL-POET",
+      "wish": "DEST-ELYSIUM",
+      "anger": 1,
+      "boardingId": null,
+      "bornRound": "2",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-8",
+      "type": "SOUL-FARMER",
+      "origin": "SOUL-FARMER",
       "wish": "DEST-ASPHODEL",
       "anger": 0,
       "boardingId": null,
-      "bornRound": "1",
+      "bornRound": "3",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-9",
+      "type": "SOUL-MUSICIAN",
+      "origin": "SOUL-MUSICIAN",
+      "wish": "DEST-ELYSIUM",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "3",
       "level": 0,
       "spread": false,
       "exhausted": false
@@ -69,48 +69,66 @@
   ],
   "boat": [
     {
-      "id": "ACTOR-5",
-      "type": "SOUL-COOK",
-      "origin": "SOUL-COOK",
-      "wish": "DEST-ASPHODEL",
-      "anger": 3,
-      "boardingId": "2",
-      "bornRound": "0",
+      "id": "ACTOR-10",
+      "type": "SOUL-PRIEST",
+      "origin": "SOUL-PRIEST",
+      "wish": "DEST-HAVEN",
+      "anger": 2,
+      "boardingId": "3",
+      "bornRound": "3",
       "level": 0,
       "spread": false,
       "exhausted": false
     },
     {
-      "id": "ACTOR-7",
+      "id": "ACTOR-11",
       "type": "SOUL-PO-LUEM",
       "origin": null,
       "wish": "DEST-ASPHODEL",
       "anger": 2,
-      "boardingId": "2",
-      "bornRound": "3",
+      "boardingId": "3",
+      "bornRound": "4",
       "level": 1,
       "spread": false,
       "exhausted": false
     }
   ],
   "arrivals": [
-    "SOUL-KEEPER",
-    "SOUL-PRIEST",
     "SOUL-BLACKSMITH",
-    "SOUL-MUSICIAN",
-    "SOUL-FARMER",
-    "SOUL-LISTENER",
-    "SOUL-POET",
+    "SOUL-KEEPER",
     "SOUL-BLUE-SOLDIER",
+    "SOUL-MESSENGER",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [
-    "SOUL-MERCHANT"
+    "SOUL-COOK",
+    "SOUL-MASON",
+    "SOUL-MERCHANT",
+    "SOUL-MOTHER",
+    "SOUL-CHILD"
   ],
   "selected": [],
   "hand": [
     {
       "id": "MEMORY-1",
+      "type": "MEM-CALM",
+      "sourceRef": {
+        "kind": "character",
+        "definitionId": "SOUL-COOK",
+        "instanceId": "ACTOR-5"
+      }
+    },
+    {
+      "id": "MEMORY-2",
+      "type": "MEM-FOG",
+      "sourceRef": {
+        "kind": "character",
+        "definitionId": "SOUL-MASON",
+        "instanceId": "ACTOR-4"
+      }
+    },
+    {
+      "id": "MEMORY-3",
       "type": "MEM-FORESIGHT",
       "sourceRef": {
         "kind": "character",
@@ -136,55 +154,48 @@
   "routes": {
     "offers": [
       [
-        "DEST-STYX",
+        "DEST-ASPHODEL",
         "DEST-HAVEN"
-      ],
-      [
-        "DEST-TARTARUS",
-        "DEST-ASPHODEL"
       ],
       [
         "DEST-ASPHODEL",
         "DEST-ACHERON"
+      ],
+      [
+        "DEST-STYX",
+        "DEST-ELYSIUM"
       ]
     ],
     "masks": [
-      1,
       0,
-      0
+      0,
+      1
     ],
     "foresight": 0,
     "history": [
       {
         "offer": [
-          "DEST-STYX",
-          "DEST-ELYSIUM"
+          "DEST-HAVEN",
+          "DEST-STYX"
         ],
-        "chosen": "DEST-ELYSIUM"
+        "chosen": "DEST-HAVEN"
       },
       {
         "offer": [
-          "DEST-STYX",
-          "DEST-ACHERON"
-        ],
-        "chosen": "DEST-ACHERON"
-      },
-      {
-        "offer": [
-          "DEST-TARTARUS",
-          "DEST-HAVEN"
+          "DEST-HAVEN",
+          "DEST-ASPHODEL"
         ],
         "chosen": "DEST-HAVEN"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-LUEM",
+  "nextPolong": "SOUL-PO-NAK",
   "heroOffer": null,
   "destination": "DEST-HAVEN",
   "pending": null,
   "choice": {
     "kind": "memory-loss",
-    "actorId": "ACTOR-7"
+    "actorId": "ACTOR-11"
   },
   "theftQueue": [],
   "trimNext": null,
@@ -198,47 +209,108 @@
     {
       "round": "1",
       "cycle": "1",
-      "text": "crossing to River Styx: 1 Light lost."
+      "text": "crossing to Asphodel: 2 Light lost."
     },
     {
       "round": "1",
       "cycle": "1",
-      "text": "Received Foresight."
+      "text": "Received Calm."
     },
     {
       "round": "1",
       "cycle": "1",
-      "text": "Merchant leaves: delivery."
+      "text": "Cook leaves: delivery."
     },
     {
       "round": "1",
       "cycle": "1",
-      "text": "Merchant reached River Styx."
+      "text": "Cook reached Asphodel."
     },
     {
-      "round": "1",
-      "cycle": "2",
-      "text": "Return survived: +1 Light. Cycle 2."
+      "round": "2",
+      "cycle": "1",
+      "text": "crossing to Acheron: 1 Light lost."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Received Fog Shield."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mason leaves: delivery."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mason reached Acheron."
     },
     {
       "round": "2",
       "cycle": "2",
-      "text": "crossing to Elysium: 3 Light lost."
+      "text": "Return survived: +1 Light. Cycle 2."
     },
     {
       "round": "3",
       "cycle": "2",
-      "text": "Long Hollow boards at level 1."
+      "text": "crossing to River Styx: 1 Light lost."
     },
     {
       "round": "3",
       "cycle": "2",
-      "text": "crossing to Acheron: 1 Light lost."
+      "text": "Received Foresight."
+    },
+    {
+      "round": "3",
+      "cycle": "2",
+      "text": "Merchant leaves: delivery."
+    },
+    {
+      "round": "3",
+      "cycle": "2",
+      "text": "Merchant reached River Styx."
+    },
+    {
+      "round": "3",
+      "cycle": "2",
+      "text": "Mother shore expiry: 1 Light lost."
+    },
+    {
+      "round": "3",
+      "cycle": "2",
+      "text": "Mother leaves: shore expiry."
+    },
+    {
+      "round": "3",
+      "cycle": "2",
+      "text": "Child shore expiry: 1 Light lost."
+    },
+    {
+      "round": "3",
+      "cycle": "2",
+      "text": "Child leaves: shore expiry."
+    },
+    {
+      "round": "3",
+      "cycle": "3",
+      "text": "Return survived: +1 Light. Cycle 3."
     },
     {
       "round": "4",
-      "cycle": "2",
+      "cycle": "3",
+      "text": "Long Hollow boards at level 1."
+    },
+    {
+      "round": "4",
+      "cycle": "3",
+      "text": "crossing to Haven: 0 Light lost."
+    },
+    {
+      "round": "5",
+      "cycle": "3",
       "text": "crossing to Haven: 0 Light lost."
     }
-  ]
+  ],
+  "longForks": []
 }

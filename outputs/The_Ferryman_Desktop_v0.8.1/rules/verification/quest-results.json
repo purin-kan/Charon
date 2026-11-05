@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45b",
-  "passed": 27,
+  "passed": 32,
   "failed": 0,
   "hashes": {
-    "engine.js": "2b1a0944ba8e49bab980e3f4ceae6f2ae01ec5f892aff11917b8ac16228f6812",
-    "content.json": "0bbb132198ea76c984d4db7bcaeb905b1704fbb3d35bf3d53b4eafeebaaa572d",
-    "tests/quest-check.js": "531789b7fd1af4e5c8d2066e397a6322f22882dd0ce6e81ae96e43202e60e5e3"
+    "engine.js": "a54fdf7ee9da0c66dcfd7218ba7ca7e7962209c7f1a45652b90d23f97e3d6f2c",
+    "content.json": "874448e37b4dafa8761c6ac4e4d4e0e77d0aeba9933f31cec4723c31e06c4575",
+    "tests/quest-check.js": "b89c7cc927bee5c417e5f0734f3d9fd0e1e3edf0311a903b245ef1cafa1d216f"
   },
   "records": [
     {
@@ -45,7 +45,19 @@
       "status": "PASS"
     },
     {
-      "name": "Mason leaves last including Polongs; capacity can be used before boarding and expires",
+      "name": "Mason leaves after the Merchant and every ordinary passenger (Longs do not count), or the quest fails; capacity can be used before boarding and expires",
+      "status": "PASS"
+    },
+    {
+      "name": "Any passenger, Longs included, may leave at any stop; only its wish gives its memory, fare and delivery count; each off-wish exit costs 1 Light",
+      "status": "PASS"
+    },
+    {
+      "name": "Guard cannot prevent the Light an off-wish exit costs, and the last Light ends the run",
+      "status": "PASS"
+    },
+    {
+      "name": "Fog Shield and Guard protect a crossing, so they are refused at the dock and playable at the next stop",
       "status": "PASS"
     },
     {
@@ -69,7 +81,7 @@
       "status": "PASS"
     },
     {
-      "name": "Unlimited memories, overflow cannot be spent, fog protection does not block Wraiths",
+      "name": "One memory per stop, overflow cannot be spent, fog protection does not block Wraiths",
       "status": "PASS"
     },
     {
@@ -113,11 +125,19 @@
       "status": "PASS"
     },
     {
+      "name": "One memory per stop at any point of it, one at boarding (Boat Space only) and one on the return trip",
+      "status": "PASS"
+    },
+    {
+      "name": "Longs arrive from cycle 3 at a fork picked on departure; a trip that ends first skips it",
+      "status": "PASS"
+    },
+    {
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 2578,
-      "choices": 4,
+      "transitions": 3197,
+      "choices": 0,
       "humanPlaytest": false
     }
   ],

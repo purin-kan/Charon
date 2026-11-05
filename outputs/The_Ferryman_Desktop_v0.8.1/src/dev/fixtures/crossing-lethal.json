@@ -1,0 +1,222 @@
+{
+  "format": "the-ferryman-save",
+  "version": "0.8-t45b",
+  "schemaVersion": 3,
+  "seed": 1,
+  "rng": 557551588,
+  "phase": "window",
+  "paused": false,
+  "light": 1,
+  "maxLight": 6,
+  "round": "3",
+  "cycle": "1",
+  "completed": "0",
+  "deliveries": "1",
+  "nextActor": "6",
+  "nextBoarding": "2",
+  "nextMemory": "2",
+  "nextQuest": "2",
+  "encounters": "0",
+  "shore": [
+    {
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "boat": [
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HAVEN",
+      "anger": 2,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-4",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
+      "anger": 2,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    }
+  ],
+  "arrivals": [
+    "SOUL-PRIEST",
+    "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
+    "SOUL-FARMER",
+    "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
+    "SOUL-RED-SOLDIER"
+  ],
+  "discard": [
+    "SOUL-MOTHER"
+  ],
+  "selected": [],
+  "hand": [
+    {
+      "id": "MEMORY-1",
+      "type": "MEM-LIGHT",
+      "sourceRef": {
+        "kind": "character",
+        "definitionId": "SOUL-MOTHER",
+        "instanceId": "ACTOR-1"
+      }
+    }
+  ],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-FAMILY",
+      "participants": [
+        "ACTOR-1",
+        "ACTOR-2"
+      ],
+      "status": "failed",
+      "stage": "active",
+      "sharedRoutes": 1,
+      "delivered": [
+        "ACTOR-1"
+      ],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": "Mother delivered before Child",
+      "cycle": "1",
+      "data": {}
+    }
+  ],
+  "effects": {
+    "capacity": false,
+    "moly": false,
+    "nobody": false
+  },
+  "window": {
+    "kind": "outward",
+    "uses": 0,
+    "guard": 0,
+    "shield": 0,
+    "allFog": false
+  },
+  "travelPrepared": true,
+  "routes": {
+    "offers": [
+      [
+        "DEST-TARTARUS",
+        "DEST-STYX"
+      ],
+      [
+        "DEST-ASPHODEL",
+        "DEST-STYX"
+      ],
+      [
+        "DEST-HAVEN",
+        "DEST-ACHERON"
+      ]
+    ],
+    "masks": [
+      1,
+      0,
+      0
+    ],
+    "foresight": 0,
+    "history": [
+      {
+        "offer": [
+          "DEST-STYX",
+          "DEST-ASPHODEL"
+        ],
+        "chosen": "DEST-ASPHODEL"
+      },
+      {
+        "offer": [
+          "DEST-TARTARUS",
+          "DEST-STYX"
+        ],
+        "chosen": "DEST-TARTARUS"
+      }
+    ]
+  },
+  "nextPolong": "SOUL-PO-LUEM",
+  "heroOffer": null,
+  "destination": "DEST-TARTARUS",
+  "pending": null,
+  "choice": null,
+  "theftQueue": [],
+  "trimNext": null,
+  "ending": null,
+  "log": [
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "All-quest trial begins."
+    },
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "Mother and Child: started."
+    },
+    {
+      "round": "1",
+      "cycle": "1",
+      "text": "crossing to Asphodel: 2 Light lost."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "crossing to Tartarus: 3 Light lost."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother and Child: failed (Mother delivered before Child)."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Received Light."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother leaves: delivery."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother reached Tartarus."
+    }
+  ],
+  "longForks": []
+}

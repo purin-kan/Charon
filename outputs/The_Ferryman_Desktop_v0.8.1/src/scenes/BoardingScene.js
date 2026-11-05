@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { addBackdrop, queueAssets } from '../preloader.js';
+import { t } from '../text.js';
+import { soulDetail, soulTitle, typeDetail } from './crossing-layout.js';
+import { HoverTip } from './hover-tip.js';
 import { boatZone, dropAction, heroPrompt, layoutBoarding, statusLine, tokenLabels } from './boarding-layout.js';
 import { addSoulToken, setTokenLabels } from './soul-token.js';
 
@@ -34,6 +37,7 @@ export class BoardingScene extends Phaser.Scene {
     addBackdrop(this, 'bg-starting-shore');
     this.drawBoat(layoutBoarding(state, Ferry).slots);
     this.drawHud();
+    this.tip = new HoverTip(this);
     this.render(state);
 
     // Without a threshold a click counts as a drag that ends off the boat, which unboards the soul.
@@ -42,6 +46,7 @@ export class BoardingScene extends Phaser.Scene {
     this.input.on('dragstart', (_pointer, token) => {
       this.tweens.killTweensOf(token);
       token.setDepth(2);
+      this.tip.hide();
     });
     this.input.on('dragend', (_pointer, token, dropped) => {
       token.setDepth(1);
@@ -84,7 +89,13 @@ export class BoardingScene extends Phaser.Scene {
     this.add.text(40, 68, 'Shore', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.add.text(640, 160, 'Boat', { fontFamily: FONT, fontSize: '20px', color: '#9fb6c6' });
     this.message = this.add.text(640, 610, '', { fontFamily: FONT, fontSize: '20px', color: '#e8c27f' }).setOrigin(0.5);
-    this.heroText = this.add.text(40, 650, '', { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' });
+    this.heroText = this.add.text(40, 650, '', { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' }).setInteractive();
+    // The hero waiting to board is only a line of text, so the line carries its hover.
+    this.heroText.on('pointerover', (pointer) => {
+      const hero = heroPrompt(this.registry.get('state'), Ferry);
+      if (hero && !this.tollMode) this.tip.show(pointer, soulTitle(hero.type, Ferry), typeDetail(hero.type, Ferry, t));
+    });
+    this.heroText.on('pointerout', () => this.tip.hide());
     this.acceptBtn = this.button(560, 664, 'Accept', () => this.acceptHero());
     this.declineBtn = this.button(680, 664, 'Decline', () => this.act({ type: 'DECLINE_HERO' }));
     this.cancelBtn = this.button(560, 664, 'Cancel', () => this.setTollMode(false));
@@ -154,6 +165,7 @@ export class BoardingScene extends Phaser.Scene {
     if (this.leaving) return;
     this.leaving = true;
     this.input.enabled = false;
+    this.tip.hide();
     if (state.phase !== 'window') {
       this.router.exitDone();
       return;
@@ -191,6 +203,14 @@ export class BoardingScene extends Phaser.Scene {
 
   addToken(entry) {
     const token = addSoulToken(this, entry);
+    token.on('pointerover', (pointer) => {
+      if (this.input.activePointer.isDown) return; // no box over a soul being dragged
+      const actor = this.entries.get(entry.id)?.actor ?? entry.actor;
+      const d = soulDetail(this.registry.get('state'), actor, Ferry, t);
+      this.tip.show(pointer, d.title, d.lines);
+    });
+    token.on('pointerout', () => this.tip.hide());
+    token.once('destroy', () => this.tip.hide());
     this.tokens.set(entry.id, token);
     return token;
   }
