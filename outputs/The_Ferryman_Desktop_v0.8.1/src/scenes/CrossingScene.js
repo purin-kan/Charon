@@ -476,6 +476,7 @@ export class CrossingScene extends Phaser.Scene {
     if (previewOption(state, Ferry, state.pending.option)?.fog >= 1) playSound(this, FOG);
     console.log(`[ferry] CrossingScene: crossing to ${outcome.to}, ${outcome.paid} Light${outcome.ended ? ', the lantern goes out' : ''}`);
     this.busy = true;
+    this.hand.root.setVisible(false); // no memory once the boat sails: the state must not change after the crossing was computed
     this.hideTip();
     this.hand.cancel();
     this.targetMode = null;

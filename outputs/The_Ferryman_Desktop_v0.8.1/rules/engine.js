@@ -181,7 +181,10 @@
     if(!s.boat.some(a=>a.id===x.id))return 'Not aboard.';
     if(x.type==='SOUL-PO-DUE'&&x.anger<2)return 'Long Grasp will not leave below Anger 2.';
     for(const q of activeQuests(s).filter(q=>q.participants.includes(x.id))){
-      if(q.definitionId==='QUEST-HERACLES'&&(q.stage!=='cerberus'||q.data.battleRound===s.round))return 'Complete the Cerberus encounter, then deliver on a later arrival.';
+      if(q.definitionId==='QUEST-HERACLES'){
+        if(q.stage!=='cerberus'||q.data.battleRound===s.round)return 'Complete the Cerberus encounter, then deliver on a later arrival.';
+        if(via==='normal'&&x.wish!==s.destination)return 'Heracles and Cerberus leave only at their own destination.'; // PM: heroes leave only at their wish
+      }
       if(q.definitionId==='QUEST-ODYSSEUS')return 'Odysseus disembarks through his Tiresias encounter.';
     }
     return null;
@@ -232,7 +235,9 @@
   }
   function resolveDelivery(s,ids) {
     need(s.phase==='delivery'&&unique(ids),'Choose unique passengers.');
-    for(const id of ids){const x=s.boat.find(x=>x.id===id);need(x,'Passenger is not aboard.');deliver(s,x);if(s.phase==='ended')return;}
+    // Souls leaving at the same stop leave together: the Mason goes last, so the Merchant and everyone else leaving with him count as gone.
+    const mason=id=>s.boat.find(x=>x.id===id)?.type==='SOUL-MASON';
+    for(const id of [...ids.filter(id=>!mason(id)),...ids.filter(mason)]){const x=s.boat.find(x=>x.id===id);need(x,'Passenger is not aboard.');deliver(s,x);if(s.phase==='ended')return;}
     for(const q of activeQuests(s)){
       const def=QUEST[q.definitionId];if(def.roles.length!==2||!def.roles.every(type=>participant(s,q,type)))continue;
       q.sharedRoutes++;

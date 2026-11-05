@@ -47,8 +47,9 @@ export function boatSpots(state, Ferry) {
 }
 
 /**
- * Every passenger with its spot. canLeave is the engine's answer for that soul joining the marked list. Any soul but
- * a Long may leave at any stop, but only wishMatches gives its memory, quest step or fare.
+ * Every passenger with its spot. canLeave is the engine's answer for that soul joining the marked list. Any soul may
+ * leave at any stop (a Long too, Long Grasp only from Anger 2; heroes only at their wish), but only wishMatches gives
+ * its memory, quest step or fare.
  */
 export function layoutDelivery(state, marked, Ferry) {
   const { spots, slots } = boatSpots(state, Ferry);
@@ -85,6 +86,17 @@ export const deliverAction = (marked) => ({ type: 'DELIVER', ids: marked });
 // The last soul is unreached when it is still aboard and the run already ends without it; a soul
 // that ends the run itself stays allowed, as the engine allows it.
 export function testRun(state, ids, Ferry) {
+  // Every render asks the same questions of the same state (layout, valid marks, refusals), so answers are kept per
+  // state object; a changed state is a new object and starts empty. A state is plain data, so a cache hit is safe.
+  let runs = testRuns.get(state);
+  if (!runs) testRuns.set(state, (runs = new Map()));
+  const key = ids.join('|');
+  if (!runs.has(key)) runs.set(key, runTest(state, ids, Ferry));
+  return runs.get(key);
+}
+const testRuns = new WeakMap();
+
+function runTest(state, ids, Ferry) {
   try {
     const next = Ferry.transition(state, deliverAction(ids));
     const stopped = next.phase === 'ended' && next.boat.some((x) => x.id === ids[ids.length - 1]);
@@ -95,17 +107,20 @@ export function testRun(state, ids, Ferry) {
   }
 }
 
-/** The engine's reason the last soul of this list can't leave, or null if it can. */
 /**
  * After a memory changes the state at delivery (Passenger takes a soul, Sword removes one), the marked list keeps
- * only souls still aboard, and drops trailing marks the engine no longer accepts.
+ * only souls still aboard, and drops each mark the engine no longer accepts, in order, so the valid ones after an
+ * invalid one stay.
  */
 export function keepValidMarks(state, marked, Ferry) {
-  const kept = marked.filter((id) => state.boat.some((x) => x.id === id));
-  while (kept.length && !testRun(state, kept, Ferry).ok) kept.pop();
+  const kept = [];
+  for (const id of marked) {
+    if (state.boat.some((x) => x.id === id) && testRun(state, [...kept, id], Ferry).ok) kept.push(id);
+  }
   return kept;
 }
 
+/** The engine's reason the last soul of this list can't leave, or null if it can. */
 export function refusal(state, ids, Ferry, t) {
   const { ok, reason, unreached } = testRun(state, ids, Ferry);
   if (ok) return null;

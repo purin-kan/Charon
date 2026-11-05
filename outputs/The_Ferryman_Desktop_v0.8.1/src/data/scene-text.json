@@ -44,7 +44,7 @@
   "boarding": {
     "heading": "Who will you carry?",
     "intro": "Choose passengers within capacity. Quest attempts begin when the required characters depart together.",
-    "nextPolong": "Next Long: {name} · encounter {encounter}. It boards on the next scheduled third outward round unless Moly is active.",
+    "nextPolong": "Next Long: {name} · encounter {encounter}. From cycle 3 it boards at a fork of a trip, unless Moly is active.",
     "heroAsks": "{name} asks to board",
     "heroHeracles": "One seat. Choose a shore soul as Hades' toll and lose 1 Light. The toll grants no memory.",
     "heroOdysseus": "One seat. Reach his wish to meet Tiresias and choose a route through danger.",

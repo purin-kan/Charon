@@ -141,7 +141,7 @@ export class DeliveryScene extends Phaser.Scene {
     for (const token of this.tokens.values()) this.input.setDraggable(token, false);
     this.confirmBtn.setVisible(false).disableInteractive();
     const outcome = arrivalOutcome(state, next, action, Ferry);
-    if (outcome.departed.length > outcome.strays.length) playSound(this, 'sfx-delivery-success'); // someone reached their wish
+    if (outcome.departed.some((id) => Ferry.wish(state.boat.find((x) => x.id === id)) === state.destination)) playSound(this, 'sfx-delivery-success'); // someone reached their wish
     if (outcome.wraiths.length) playSound(this, 'sfx-wraith');
     this.playDeparture(outcome.departed, () => showOutcome(this, outcome, () => this.router.dispatch(action)));
   }

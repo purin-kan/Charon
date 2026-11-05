@@ -154,6 +154,7 @@ check('an ordinary delivery loses nothing', outcome.lost.length === 0 && outcome
 check('an ordinary delivery has no loss lines', lossLines(outcome, t, Ferry).length === 0);
 check('no warning while the Light can pay for the exits', exitWarning(calm, [wanderer.id], Ferry, t) === '' && exitWarning(calm, [], Ferry, t) === '');
 check('it warns before confirming when the exits would put the lantern out', exitWarning({ ...calm, light: 1 }, [wanderer.id], Ferry, t).includes('lantern goes out'));
+check('one invalid mark in the middle does not drop the valid marks after it', keepValidMarks(calm, [leaver.id, 'GONE', wanderer.id], Ferry).join() === [leaver.id, wanderer.id].join());
 const strayAction = deliverAction([wanderer.id]);
 const stray = arrivalOutcome(calm, Ferry.transition(calm, strayAction), strayAction, Ferry);
 check('a soul at the wrong stop departs with no reward', stray.departed.join() === wanderer.id && stray.rewards.length === 0);

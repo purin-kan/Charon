@@ -151,7 +151,10 @@ check('Heracles toll, Cerberus encounter, shared second-stage wish and Golden Ap
  for(const x of s.shore.slice(0,3))s=act(s,'BOARD',{id:x.id});s=act(s,'DEPART');s.effects.moly=true;
  const first=find(s,'SOUL-HERACLES').wish;s=cross(s,first);assert.ok(find(s,'CHAR-CERBERUS'));assert.equal(s.boat.filter(x=>x.origin).length,1);
  assert.match(g.deliveryReason(s,find(s,'SOUL-HERACLES'),'passage'),/later/);s=act(s,'DELIVER',{ids:[]});
- const wish=find(s,'SOUL-HERACLES').wish;assert.equal(find(s,'CHAR-CERBERUS').wish,wish);s=step(s,wish,['SOUL-HERACLES','CHAR-CERBERUS']);
+ const wish=find(s,'SOUL-HERACLES').wish;assert.equal(find(s,'CHAR-CERBERUS').wish,wish);
+ const elsewhere={...structuredClone(s),phase:'delivery',round:String(Number(s.round)+1),destination:g.data.destinations.find(d=>d.id!==wish).id};
+ for(const type of ['SOUL-HERACLES','CHAR-CERBERUS'])assert.match(g.deliveryReason(elsewhere,find(elsewhere,type)),/own destination/); // heroes leave only at their wish, even after the Cerberus encounter
+ s=step(s,wish,['SOUL-HERACLES','CHAR-CERBERUS']);
  assert.equal(quest(s,'QUEST-HERACLES').status,'completed');const apple=s.hand.find(m=>m.type==='MEM-GOLDEN-APPLE');const old=s.maxLight;s=act(s,'PLAY_MEMORY',{id:apple.id});assert.equal(s.maxLight,old+1);assert.equal(s.light,s.maxLight);
  memory(s,'MEM-GOLDEN-APPLE');s=act(later(s),'PLAY_MEMORY',{id:s.hand.at(-1).id});assert.equal(s.maxLight,old+2);rt(s);
 });
