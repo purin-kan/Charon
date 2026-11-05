@@ -3,20 +3,20 @@
   "version": "0.8-t45",
   "schemaVersion": 3,
   "seed": 1,
-  "rng": 927463856,
+  "rng": 448971087,
   "phase": "window",
   "paused": false,
   "light": 6,
   "maxLight": 6,
   "round": "1",
-  "cycle": "1",
-  "completed": "0",
+  "cycle": "6",
+  "completed": "5",
   "deliveries": "0",
-  "nextActor": "7",
+  "nextActor": "8",
   "nextBoarding": "2",
   "nextMemory": "1",
   "nextQuest": "2",
-  "encounters": "0",
+  "encounters": "1",
   "shore": [
     {
       "id": "ACTOR-1",
@@ -84,11 +84,23 @@
       "id": "ACTOR-6",
       "type": "SOUL-ODYSSEUS",
       "origin": null,
-      "wish": "DEST-STYX",
+      "wish": "DEST-ASPHODEL",
       "anger": 0,
       "boardingId": "1",
       "bornRound": "0",
       "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-7",
+      "type": "SOUL-PO-LUEM",
+      "origin": null,
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "1",
+      "level": 1,
       "spread": false,
       "exhausted": false
     }
@@ -122,7 +134,7 @@
       "rewardClaimed": false,
       "rewardType": null,
       "reason": null,
-      "cycle": "1",
+      "cycle": "6",
       "data": {}
     }
   ],
@@ -162,7 +174,7 @@
     "foresight": 0,
     "history": []
   },
-  "nextPolong": "SOUL-PO-LUEM",
+  "nextPolong": "SOUL-POLONG",
   "heroOffer": {
     "type": "SOUL-ODYSSEUS",
     "resolved": true
@@ -181,13 +193,18 @@
     },
     {
       "round": "0",
-      "cycle": "1",
+      "cycle": "6",
       "text": "Odysseus the traveler and Tiresias: started."
     },
     {
       "round": "0",
-      "cycle": "1",
-      "text": "Odysseus the traveler wishes for River Styx."
+      "cycle": "6",
+      "text": "Odysseus the traveler wishes for Asphodel."
+    },
+    {
+      "round": "1",
+      "cycle": "6",
+      "text": "Long Hollow boards at level 1."
     }
   ],
   "longForks": []

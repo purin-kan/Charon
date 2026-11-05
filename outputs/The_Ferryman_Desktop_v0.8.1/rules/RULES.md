@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `43e608dd8b75c33a67d63d32a9a136a3f570adfc6c12550d31f3b83505990288`.
+Generated from content.json. SHA-256: `b375ab7a9e27f4bb46d7637fd78abcbad45f53176d6a612e7cf808754d492326`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -52,11 +52,11 @@ Keep the lantern burning through repeated trips. Zero Light ends the run. This t
 
 ## boarding
 
-Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
+Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
 
 ## memories
 
-One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop, except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger, his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
+One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop (away from its wish it costs 1 Light, which Guard cannot prevent, and the last Light ends the run), except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger, his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
 
 ## quest
 

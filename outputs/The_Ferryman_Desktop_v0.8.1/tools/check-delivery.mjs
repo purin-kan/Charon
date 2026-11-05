@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
-  DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, headingText,
+  DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, exitWarning, headingText,
   introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
 } from '../src/scenes/delivery-layout.js';
 
@@ -28,7 +28,9 @@ const entryOf = (layout, id) => layout.entries.find((e) => e.id === id);
 const none = fixture('delivery');
 const match = fixture('delivery-match');
 // Any soul may leave at any stop; only a matching wish gives its memory. The fixture has one of each kind.
-const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) === match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory);
+// A clean delivery fails no quest (the Mason at his wish still fails his quest while the Merchant is aboard).
+const failsQuest = (x) => Ferry.transition(match, { type: 'DELIVER', ids: [x.id] }).quests.some((q, i) => q.status === 'failed' && match.quests[i]?.status !== 'failed');
+const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) === match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory && !failsQuest(x));
 const wanderer = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) !== match.destination);
 const stayer = match.boat.find((x) => Ferry.deliveryReason(match, x));
 if (!leaver || !wanderer || !stayer) {
@@ -104,6 +106,12 @@ check('test-runs leave the state alone', JSON.stringify(match) === before);
 const boatQuest = structuredClone(none);
 const mason = boatQuest.boat.find((x) => x.type === 'SOUL-MASON');
 const other = boatQuest.boat.find((x) => x.type !== 'SOUL-MASON');
+// Exactly two aboard (the fixture's boat can hold more): any third soul goes back to the pool with its quests.
+for (const x of boatQuest.boat.filter((a) => a !== mason && a !== other)) {
+  boatQuest.discard.push(x.origin);
+  boatQuest.quests = boatQuest.quests.filter((q) => !q.participants.includes(x.id));
+}
+boatQuest.boat = [other, mason];
 other.wish = 'DEST-ACHERON';
 boatQuest.destination = 'DEST-ACHERON';
 boatQuest.quests.push({
@@ -144,6 +152,8 @@ check('a run that stops partway only departs who left', arrivalOutcome(match, st
   && arrivalOutcome(match, stopped, deliverAction([stayer.id, leaver.id]), Ferry).departed.length === 1);
 check('an ordinary delivery loses nothing', outcome.lost.length === 0 && outcome.stolenRewards === 0);
 check('an ordinary delivery has no loss lines', lossLines(outcome, t, Ferry).length === 0);
+check('no warning while the Light can pay for the exits', exitWarning(calm, [wanderer.id], Ferry, t) === '' && exitWarning(calm, [], Ferry, t) === '');
+check('it warns before confirming when the exits would put the lantern out', exitWarning({ ...calm, light: 1 }, [wanderer.id], Ferry, t).includes('lantern goes out'));
 const strayAction = deliverAction([wanderer.id]);
 const stray = arrivalOutcome(calm, Ferry.transition(calm, strayAction), strayAction, Ferry);
 check('a soul at the wrong stop departs with no reward', stray.departed.join() === wanderer.id && stray.rewards.length === 0);
@@ -169,7 +179,7 @@ const wraithName = entryOf(layoutDelivery(angry, [], Ferry), angry.boat[0].id).l
 const expired = arrivalOutcome(angry, Ferry.transition(angry, deliverAction([])), deliverAction([]), Ferry);
 check('a Wraith is named', expired.wraiths.length === 1 && expired.wraiths[0] === wraithName);
 check('the Light it cost is reported', expired.lightLost > 0 && expired.lightLost === angry.light - Ferry.transition(angry, deliverAction([])).light);
-check('the Wraith reads as lines', lossLines(expired, t, Ferry).join(' ') === `${wraithName} became a Wraith. Lost ${expired.lightLost} Light.`);
+check('the Wraith reads as lines', lossLines(expired, t, Ferry).filter((l) => !l.includes(' failed')).join(' ') === `${wraithName} became a Wraith. Lost ${expired.lightLost} Light.`);
 const lethal = structuredClone(angry);
 lethal.light = 1;
 const lethalNext = Ferry.transition(lethal, deliverAction([]));

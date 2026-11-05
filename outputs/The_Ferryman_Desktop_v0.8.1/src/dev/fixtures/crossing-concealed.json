@@ -3,7 +3,7 @@
   "version": "0.8-t45",
   "schemaVersion": 3,
   "seed": 1,
-  "rng": 927463856,
+  "rng": 2282599509,
   "phase": "window",
   "paused": false,
   "light": 6,
@@ -15,21 +15,9 @@
   "nextActor": "7",
   "nextBoarding": "2",
   "nextMemory": "1",
-  "nextQuest": "1",
+  "nextQuest": "2",
   "encounters": "1",
   "shore": [
-    {
-      "id": "ACTOR-2",
-      "type": "SOUL-CHILD",
-      "origin": "SOUL-CHILD",
-      "wish": "DEST-HAVEN",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
     {
       "id": "ACTOR-3",
       "type": "SOUL-MERCHANT",
@@ -61,6 +49,18 @@
       "type": "SOUL-MOTHER",
       "origin": "SOUL-MOTHER",
       "wish": "DEST-TARTARUS",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-2",
+      "type": "SOUL-CHILD",
+      "origin": "SOUL-CHILD",
+      "wish": "DEST-HAVEN",
       "anger": 0,
       "boardingId": "1",
       "bornRound": "0",
@@ -108,7 +108,25 @@
   "discard": [],
   "selected": [],
   "hand": [],
-  "quests": [],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-FAMILY",
+      "participants": [
+        "ACTOR-1",
+        "ACTOR-2"
+      ],
+      "status": "active",
+      "stage": "active",
+      "sharedRoutes": 0,
+      "delivered": [],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": null,
+      "cycle": "1",
+      "data": {}
+    }
+  ],
   "effects": {
     "capacity": false,
     "moly": false,
@@ -145,11 +163,8 @@
     "foresight": 0,
     "history": []
   },
-  "nextPolong": "SOUL-POLONG",
-  "heroOffer": {
-    "type": "SOUL-ODYSSEUS",
-    "resolved": true
-  },
+  "nextPolong": "SOUL-PO-LUEM",
+  "heroOffer": null,
   "destination": null,
   "pending": null,
   "choice": null,
@@ -161,6 +176,11 @@
       "round": "0",
       "cycle": "1",
       "text": "All-quest trial begins."
+    },
+    {
+      "round": "0",
+      "cycle": "1",
+      "text": "Mother and Child: started."
     },
     {
       "round": "1",

@@ -30,6 +30,16 @@ globalThis.FerryData = {
     "returnLight": 1,
     "wraithDamage": 1,
     "foresightForks": 3,
+    "heroArrival": {
+      "SOUL-ODYSSEUS": {
+        "fromCycle": 6,
+        "chance": 25
+      },
+      "SOUL-HERACLES": {
+        "fromCycle": 9,
+        "chance": 25
+      }
+    },
     "memoriesPerWindow": 1,
     "endless": true,
     "initialShore": [
@@ -440,8 +450,8 @@ globalThis.FerryData = {
   "rules": {
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
     "objective": "Keep the lantern burning through repeated trips. Zero Light ends the run. This trial has no victory or cycle cap.",
-    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
-    "memories": "One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop, except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger, his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
+    "boarding": "Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
+    "memories": "One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop (away from its wish it costs 1 Light, which Guard cannot prevent, and the last Light ends the run), except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger, his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. A quest passenger that leaves at a stop other than its wish fails its quest. The journal shows stages and restrictions.",
     "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
     "polongs": "Longs arrive from cycle 3: one per cycle from cycle 3, two from cycle 9, three from cycle 18. When the boat departs, each is given one of the first three forks of the trip; a trip that ends before that fork skips it. Moly suppresses them. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
@@ -575,6 +585,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "43e608dd8b75c33a67d63d32a9a136a3f570adfc6c12550d31f3b83505990288"
+  "contentSha256": "b375ab7a9e27f4bb46d7637fd78abcbad45f53176d6a612e7cf808754d492326"
 }
 ;

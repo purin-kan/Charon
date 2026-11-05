@@ -2,21 +2,21 @@
   "format": "the-ferryman-save",
   "version": "0.8-t45",
   "schemaVersion": 3,
-  "seed": 13,
-  "rng": 2186077452,
+  "seed": 1,
+  "rng": 1369582169,
   "phase": "window",
   "paused": false,
   "light": 5,
   "maxLight": 6,
   "round": "1",
-  "cycle": "1",
-  "completed": "0",
+  "cycle": "9",
+  "completed": "8",
   "deliveries": "0",
-  "nextActor": "7",
+  "nextActor": "9",
   "nextBoarding": "2",
   "nextMemory": "1",
   "nextQuest": "2",
-  "encounters": "0",
+  "encounters": "2",
   "shore": [
     {
       "id": "ACTOR-4",
@@ -79,18 +79,42 @@
       "level": 0,
       "spread": false,
       "exhausted": false
+    },
+    {
+      "id": "ACTOR-7",
+      "type": "SOUL-PO-LUEM",
+      "origin": null,
+      "wish": "DEST-ASPHODEL",
+      "anger": 0,
+      "boardingId": "1",
+      "bornRound": "1",
+      "level": 1,
+      "spread": false,
+      "exhausted": false
+    },
+    {
+      "id": "ACTOR-8",
+      "type": "SOUL-POLONG",
+      "origin": null,
+      "wish": "DEST-TARTARUS",
+      "anger": 1,
+      "boardingId": "1",
+      "bornRound": "1",
+      "level": 2,
+      "spread": false,
+      "exhausted": false
     }
   ],
   "arrivals": [
     "SOUL-PRIEST",
-    "SOUL-FARMER",
-    "SOUL-BLACKSMITH",
-    "SOUL-BLUE-SOLDIER",
-    "SOUL-LISTENER",
-    "SOUL-POET",
-    "SOUL-KEEPER",
     "SOUL-MUSICIAN",
+    "SOUL-LISTENER",
+    "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
+    "SOUL-FARMER",
     "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [
@@ -112,7 +136,7 @@
       "rewardClaimed": false,
       "rewardType": null,
       "reason": null,
-      "cycle": "1",
+      "cycle": "9",
       "data": {}
     }
   ],
@@ -132,27 +156,27 @@
   "routes": {
     "offers": [
       [
-        "DEST-ELYSIUM",
+        "DEST-STYX",
         "DEST-ASPHODEL"
       ],
       [
-        "DEST-STYX",
-        "DEST-TARTARUS"
+        "DEST-TARTARUS",
+        "DEST-STYX"
       ],
       [
-        "DEST-ELYSIUM",
-        "DEST-ACHERON"
+        "DEST-TARTARUS",
+        "DEST-STYX"
       ]
     ],
     "masks": [
-      0,
       1,
-      0
+      1,
+      1
     ],
     "foresight": 0,
     "history": []
   },
-  "nextPolong": "SOUL-POLONG",
+  "nextPolong": "SOUL-PO-LUEM",
   "heroOffer": {
     "type": "SOUL-HERACLES",
     "resolved": true
@@ -171,23 +195,33 @@
     },
     {
       "round": "0",
-      "cycle": "1",
+      "cycle": "9",
       "text": "Hades’ toll: 1 Light lost."
     },
     {
       "round": "0",
-      "cycle": "1",
+      "cycle": "9",
       "text": "Mother leaves: sacrifice."
     },
     {
       "round": "0",
-      "cycle": "1",
+      "cycle": "9",
       "text": "Hercules the traveler and Cerberus: started."
     },
     {
       "round": "0",
-      "cycle": "1",
+      "cycle": "9",
       "text": "Hercules the traveler wishes for Asphodel."
+    },
+    {
+      "round": "1",
+      "cycle": "9",
+      "text": "Long Hollow boards at level 1."
+    },
+    {
+      "round": "1",
+      "cycle": "9",
+      "text": "Long Mist boards at level 2."
     }
   ],
   "longForks": []

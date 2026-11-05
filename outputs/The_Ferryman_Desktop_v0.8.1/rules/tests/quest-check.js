@@ -110,6 +110,11 @@ check('Any passenger, Longs included, may leave at any stop; only its wish gives
  mason=act(mason,'DELIVER',{ids:[find(mason,'SOUL-MASON').id]});assert.equal(quest(mason,'QUEST-BOAT').status,'failed');assert.equal(quest(mason,'QUEST-BOAT').reason,'Mason left the boat before Acheron');
  let match=boat(['SOUL-FARMER']);match=step(match,'DEST-ASPHODEL',['SOUL-FARMER']);assert.deepEqual(match.hand.map(m=>m.type),['MEM-SHARED-HARVEST']);assert.equal(match.deliveries,'1');
 });
+check('Guard cannot prevent the Light an off-wish exit costs, and the last Light ends the run',()=>{
+ let e=boat(['SOUL-FARMER','SOUL-MOTHER']);e=cross(e,'DEST-HAVEN');e.window.guard=1;e.light=5;const farmer=find(e,'SOUL-FARMER').id;
+ const after=act(e,'DELIVER',{ids:[farmer]});assert.equal(after.light,4); // Guard would have left it at 5
+ e.light=1;const over=act(e,'DELIVER',{ids:[farmer]});assert.equal(over.phase,'ended');assert.equal(over.light,0);assert.match(over.ending,/left away from its wish/);
+});
 check('Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop',()=>{
  let s=boat(['SOUL-MASON','SOUL-RED-SOLDIER','SOUL-MOTHER']);const fog=memory(s,'MEM-FOG','SOUL-MASON'),all=memory(s,'MEM-ALL-FOG','SOUL-RED-SOLDIER'),light=memory(s,'MEM-LIGHT','SOUL-MOTHER');
  s=cross(s,'DEST-HAVEN');assert.equal(s.phase,'delivery');
@@ -122,6 +127,17 @@ check('Priest +1 memory or purification trade-off, once per boarding and save/re
  s=act(s,'PURIFY',{actorId:priest.id,target:cook.id});assert.equal(find(s,'SOUL-COOK').anger,0);assert.equal(find(s,'SOUL-PRIEST').exhausted,true);rt(s);assert.throws(()=>act(s,'PURIFY',{actorId:priest.id,target:cook.id}));
  s=step(s,'DEST-HAVEN',['SOUL-PRIEST']);assert.ok(!s.hand.some(m=>m.type==='MEM-LAST-PRAYER'));
  let normal=boat(['SOUL-PRIEST']);normal=step(normal,'DEST-HAVEN',['SOUL-PRIEST']);normal.light=3;normal=act(normal,'PLAY_MEMORY',{id:normal.hand[0].id});assert.equal(normal.light,4);
+});
+check('Hero timing: none before cycle 6, Odysseus from cycle 6, Heracles from cycle 9, each at about 25%',()=>{
+ const arrival=g.data.config.heroArrival;assert.deepEqual(arrival['SOUL-ODYSSEUS'],{fromCycle:6,chance:25});assert.deepEqual(arrival['SOUL-HERACLES'],{fromCycle:9,chance:25});
+ for(let seed=1;seed<=200;seed++)assert.equal(g.create(seed).heroOffer,null);
+ // Return at the end of cycle-1 into the given cycle, with a seeded roll; the shore refills to five, so Heracles' shore rule holds.
+ const returnInto=(cycle,seed)=>{let s=boat(['SOUL-MOTHER']);s=step(s,'DEST-TARTARUS',['SOUL-MOTHER']);s.completed=String(cycle-2);s.cycle=String(cycle-1);s.rng=seed;s=act(s,'RETURN');assert.equal(s.cycle,String(cycle));assert.ok(s.shore.length>3);return s;};
+ const offers=cycle=>{const n={'SOUL-ODYSSEUS':0,'SOUL-HERACLES':0,none:0};for(let seed=1;seed<=400;seed++){const s=returnInto(cycle,seed*2654435761>>>0);n[s.heroOffer?s.heroOffer.type:'none']++;if(s.heroOffer)rt(s);}return n;};
+ for(const cycle of [2,5])assert.equal(offers(cycle).none,400);
+ for(const cycle of [6,8]){const n=offers(cycle);assert.equal(n['SOUL-HERACLES'],0);assert.ok(n['SOUL-ODYSSEUS']>=60&&n['SOUL-ODYSSEUS']<=140,'Odysseus about 25%: '+n['SOUL-ODYSSEUS']);}
+ const late=offers(9);assert.ok(late['SOUL-HERACLES']>=40&&late['SOUL-ODYSSEUS']>=40,'both heroes from cycle 9: '+JSON.stringify(late));
+ assert.ok(400-late.none>=135&&400-late.none<=215,'one hero offered about 44% of boardings: '+JSON.stringify(late));
 });
 check('Heracles toll, Cerberus encounter, shared second-stage wish and Golden Apple stacking',()=>{
  let s=shore(['SOUL-MOTHER','SOUL-CHILD','SOUL-MERCHANT','SOUL-COOK','SOUL-MASON']);s.heroOffer={type:'SOUL-HERACLES',resolved:false};

@@ -2,13 +2,13 @@
   "format": "the-ferryman-save",
   "version": "0.8-t45",
   "schemaVersion": 3,
-  "seed": 1,
-  "rng": 3037600243,
+  "seed": 5,
+  "rng": 1922483809,
   "phase": "delivery",
   "paused": false,
-  "light": 1,
+  "light": 5,
   "maxLight": 6,
-  "round": "2",
+  "round": "3",
   "cycle": "1",
   "completed": "0",
   "deliveries": "0",
@@ -18,6 +18,18 @@
   "nextQuest": "1",
   "encounters": "0",
   "shore": [
+    {
+      "id": "ACTOR-1",
+      "type": "SOUL-MOTHER",
+      "origin": "SOUL-MOTHER",
+      "wish": "DEST-TARTARUS",
+      "anger": 0,
+      "boardingId": null,
+      "bornRound": "0",
+      "level": 0,
+      "spread": false,
+      "exhausted": false
+    },
     {
       "id": "ACTOR-2",
       "type": "SOUL-CHILD",
@@ -31,22 +43,10 @@
       "exhausted": false
     },
     {
-      "id": "ACTOR-3",
-      "type": "SOUL-MERCHANT",
-      "origin": "SOUL-MERCHANT",
-      "wish": "DEST-STYX",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
-    {
-      "id": "ACTOR-5",
-      "type": "SOUL-COOK",
-      "origin": "SOUL-COOK",
-      "wish": "DEST-ASPHODEL",
+      "id": "ACTOR-4",
+      "type": "SOUL-MASON",
+      "origin": "SOUL-MASON",
+      "wish": "DEST-ACHERON",
       "anger": 0,
       "boardingId": null,
       "bornRound": "0",
@@ -57,11 +57,11 @@
   ],
   "boat": [
     {
-      "id": "ACTOR-1",
-      "type": "SOUL-MOTHER",
-      "origin": "SOUL-MOTHER",
-      "wish": "DEST-TARTARUS",
-      "anger": 1,
+      "id": "ACTOR-3",
+      "type": "SOUL-MERCHANT",
+      "origin": "SOUL-MERCHANT",
+      "wish": "DEST-STYX",
+      "anger": 2,
       "boardingId": "1",
       "bornRound": "0",
       "level": 0,
@@ -69,11 +69,11 @@
       "exhausted": false
     },
     {
-      "id": "ACTOR-4",
-      "type": "SOUL-MASON",
-      "origin": "SOUL-MASON",
-      "wish": "DEST-ACHERON",
-      "anger": 1,
+      "id": "ACTOR-5",
+      "type": "SOUL-COOK",
+      "origin": "SOUL-COOK",
+      "wish": "DEST-ASPHODEL",
+      "anger": 2,
       "boardingId": "1",
       "bornRound": "0",
       "level": 0,
@@ -87,22 +87,22 @@
       "wish": "DEST-HAVEN",
       "anger": 0,
       "boardingId": "1",
-      "bornRound": "2",
+      "bornRound": "3",
       "level": 1,
       "spread": false,
       "exhausted": false
     }
   ],
   "arrivals": [
+    "SOUL-BLUE-SOLDIER",
     "SOUL-PRIEST",
-    "SOUL-MUSICIAN",
-    "SOUL-LISTENER",
-    "SOUL-BLACKSMITH",
-    "SOUL-KEEPER",
     "SOUL-POET",
+    "SOUL-BLACKSMITH",
     "SOUL-FARMER",
     "SOUL-MESSENGER",
-    "SOUL-BLUE-SOLDIER",
+    "SOUL-MUSICIAN",
+    "SOUL-KEEPER",
+    "SOUL-LISTENER",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [],
@@ -125,47 +125,51 @@
   "routes": {
     "offers": [
       [
-        "DEST-TARTARUS",
-        "DEST-STYX"
+        "DEST-HAVEN",
+        "DEST-TARTARUS"
       ],
       [
-        "DEST-STYX",
-        "DEST-HAVEN"
+        "DEST-ELYSIUM",
+        "DEST-ASPHODEL"
       ],
       [
-        "DEST-STYX",
-        "DEST-HAVEN"
+        "DEST-ACHERON",
+        "DEST-TARTARUS"
       ]
     ],
     "masks": [
-      1,
       0,
-      1
+      1,
+      0
     ],
     "foresight": 0,
     "history": [
       {
         "offer": [
-          "DEST-STYX",
-          "DEST-ASPHODEL"
+          "DEST-HAVEN",
+          "DEST-STYX"
         ],
-        "chosen": "DEST-ASPHODEL"
+        "chosen": "DEST-HAVEN"
       },
       {
         "offer": [
-          "DEST-TARTARUS",
+          "DEST-ASPHODEL",
+          "DEST-HAVEN"
+        ],
+        "chosen": "DEST-HAVEN"
+      },
+      {
+        "offer": [
+          "DEST-ACHERON",
           "DEST-STYX"
         ],
-        "chosen": "DEST-TARTARUS"
+        "chosen": "DEST-STYX"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-LUEM",
-  "heroOffer": {
-    "type": "SOUL-ODYSSEUS",
-    "resolved": true
-  },
-  "destination": "DEST-TARTARUS",
+  "nextPolong": "SOUL-PO-NAK",
+  "heroOffer": null,
+  "destination": "DEST-STYX",
   "pending": null,
   "choice": null,
   "theftQueue": [],
@@ -180,12 +184,17 @@
     {
       "round": "1",
       "cycle": "1",
-      "text": "crossing to Asphodel: 2 Light lost."
+      "text": "crossing to Haven: 0 Light lost."
     },
     {
       "round": "2",
       "cycle": "1",
-      "text": "crossing to Tartarus: 3 Light lost."
+      "text": "crossing to Haven: 0 Light lost."
+    },
+    {
+      "round": "3",
+      "cycle": "1",
+      "text": "crossing to River Styx: 1 Light lost."
     }
   ],
   "longForks": []

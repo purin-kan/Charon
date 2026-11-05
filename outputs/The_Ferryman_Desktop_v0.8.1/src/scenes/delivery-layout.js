@@ -139,6 +139,15 @@ export const headingText = (state, Ferry, t) => t('delivery.heading', { place: d
 
 export const introText = (state, t) => t(state.boat.length ? 'delivery.intro' : 'delivery.emptyBoat');
 
+/** The marked souls that leave away from their wish cost 1 Light each, and Guard cannot stop it. A warning, before confirming, when that would put the lantern out. */
+export function exitWarning(state, marked, Ferry, t) {
+  const strays = marked.filter((id) => {
+    const actor = state.boat.find((x) => x.id === id);
+    return actor && Ferry.wish(actor) !== state.destination;
+  }).length;
+  return strays > 0 && strays >= state.light ? t('delivery.exitWarning', { n: strays, light: state.light }) : '';
+}
+
 export function confirmLabel(state, marked, t) {
   if (!state.boat.length) return t('delivery.finishRound');
   return t(marked.length ? 'delivery.deliverSelected' : 'delivery.keepEveryone');

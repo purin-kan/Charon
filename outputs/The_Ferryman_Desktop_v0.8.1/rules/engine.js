@@ -51,8 +51,11 @@
   /** On departure, each of the cycle's Longs gets a fork from 1 to longForkChoices; a trip that ends sooner skips it. */
   function scheduleLongs(s) {s.longForks=[];for(let i=0;i<longsThisCycle(s);i++)s.longForks.push(1+draw(s,C.longForkChoices));s.longForks.sort((a,b)=>a-b);}
   function drawPolong(s) { const types=BigInt(s.encounters)>=2n?tier2:tier1; return types[draw(s,types.length)]; }
+  // At each boarding, a hero can be offered once the run reaches its cycle (config.heroArrival: Odysseus from
+  // cycle 6, Heracles from cycle 9), and then only on a chance roll (25%). At most one hero is offered at a time.
   function offerHero(s) {
-    const choices=heroes.filter(type=>!s.boat.some(x=>x.type===type) && (type!=='SOUL-HERACLES'||s.shore.length>3));
+    const arrives=type=>BigInt(s.cycle)>=BigInt(C.heroArrival[type].fromCycle)&&draw(s,100)<C.heroArrival[type].chance;
+    const choices=heroes.filter(type=>!s.boat.some(x=>x.type===type) && (type!=='SOUL-HERACLES'||s.shore.length>3) && arrives(type));
     s.heroOffer=choices.length?{type:choices[draw(s,choices.length)],resolved:false}:null;
   }
   function create(seed=1) {
@@ -206,7 +209,8 @@
     if(via==='normal'&&x.wish!==s.destination){
       for(const q of activeQuests(s))if(q.participants.includes(x.id))fail(s,q,named(x)+' left the boat before '+DEST[x.wish].name);
       remove(s,x,'delivery');record(s,named(x)+' left the boat at '+DEST[s.destination].name+'.');
-      damage(s,1,named(x)+' left away from its wish');return;
+      // Guard cannot prevent this loss (PM decision, Nov 5): the soul is let off by choice, not struck by the river.
+      s.light-=1;record(s,named(x)+' left away from its wish: 1 Light lost.');if(!s.light)end(s,'The lantern went out: '+named(x)+' left away from its wish.');return;
     }
     deliveredQuests(s,x);
     if(x.origin&&!isTainted(x))s.deliveries=inc(s.deliveries);

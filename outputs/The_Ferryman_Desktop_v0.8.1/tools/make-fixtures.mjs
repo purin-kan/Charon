@@ -37,10 +37,11 @@ function atFork(s) {
 
 // Any soul may leave at any stop; only a matching wish gives its memory.
 function mixedDelivery(s) {
-  if (s.phase !== 'delivery') return false;
+  if (s.phase !== 'delivery' || s.light < 3) return false; // an early exit costs 1 Light, so the checks need Light to spare
   const leaves = (x) => !Ferry.deliveryReason(s, x);
   const memory = (x) => Ferry.data.souls.find((d) => d.id === x.type).memory;
-  return s.boat.some((x) => leaves(x) && Ferry.wish(x) === s.destination && memory(x))
+  const clean = (x) => !Ferry.transition(s, { type: 'DELIVER', ids: [x.id] }).quests.some((q, i) => q.status === 'failed' && s.quests[i]?.status !== 'failed'); // fails no quest
+  return s.boat.some((x) => leaves(x) && Ferry.wish(x) === s.destination && memory(x) && clean(x))
     && s.boat.some((x) => leaves(x) && Ferry.wish(x) !== s.destination);
 }
 
@@ -125,14 +126,27 @@ if (!found.trim && found.window) {
   found.trim = { seed: found.window.seed, step: 'synthetic', state: s };
 }
 
+// Heroes are offered only from cycle 6 (Odysseus) or cycle 9 (Heracles), at 25%, which random play
+// rarely reaches. These fixtures move a state to that cycle and put the hero's offer on it.
+function atCycle(s, cycle, type) {
+  s = structuredClone(s);
+  s.cycle = String(cycle);
+  s.completed = String(cycle - 1);
+  s.heroOffer = { type, resolved: false };
+  return s;
+}
+if (!found['boarding-heracles'] && found.boarding) {
+  found['boarding-heracles'] = { seed: found.boarding.seed, step: 'synthetic', state: atCycle(found.boarding.state, 9, 'SOUL-HERACLES') };
+}
+
 // The random policy never accepts a hero, so Odysseus's choice is scripted: he sails alone and
 // the boat takes his wish at the first fork that offers it. After CHOOSE the boat is empty.
 function odysseusChoice() {
   for (let seed = 1; seed <= 400; seed++) {
-    let s = Ferry.create(seed);
-    if (s.heroOffer?.type !== 'SOUL-ODYSSEUS') continue;
+    let s = atCycle(Ferry.create(seed), 6, 'SOUL-ODYSSEUS');
     s = Ferry.transition(s, { type: 'ACCEPT_HERO' });
     s = Ferry.transition(s, { type: 'DEPART' });
+    s.longForks = []; // cycle 6 schedules Longs; Odysseus sails alone, so none boards
     for (let step = 0; step < 40 && !['choice', 'ended'].includes(s.phase); step++) {
       if (s.phase === 'delivery') s = Ferry.transition(s, { type: 'DELIVER', ids: [] });
       else if (s.phase === 'review') s = Ferry.transition(s, { type: 'CONFIRM' });
@@ -193,7 +207,8 @@ function crossingPrep() {
   const s = structuredClone(found.window.state);
   const [a, b] = s.boat;
   const cook = s.shore.find((x) => x.type === 'SOUL-COOK');
-  const child = s.shore.find((x) => x.type === 'SOUL-CHILD');
+  const child = s.shore.find((x) => x.type === 'SOUL-CHILD') ?? s.shore.find((x) => x !== cook && x.type !== 'SOUL-PRIEST'); // any other waiting soul becomes the Priest
+  const childType = child?.type;
   if (!a || !b || !cook || !child) return null;
   const swap = (list, from, to) => { const i = list.indexOf(from); if (i >= 0) list[i] = to; };
   const types = { a: a.type, b: b.type };
@@ -201,7 +216,7 @@ function crossingPrep() {
   retype(a, 'SOUL-FARMER');
   retype(cook, types.b);
   retype(b, 'SOUL-COOK');
-  swap(s.arrivals, 'SOUL-PRIEST', 'SOUL-CHILD');
+  swap(s.arrivals, 'SOUL-PRIEST', childType);
   s.shore = s.shore.filter((x) => x !== child);
   retype(child, 'SOUL-PRIEST');
   s.boat.push({ ...child, anger: 0, boardingId: a.boardingId, exhausted: false });
@@ -248,8 +263,7 @@ if (!found.choice) found.choice = theftChoice();
 // Cerberus can frighten off the boat.
 function heroFork(type) {
   for (let seed = 1; seed <= 400; seed++) {
-    let s = Ferry.create(seed);
-    if (s.heroOffer?.type !== type) continue;
+    let s = atCycle(Ferry.create(seed), type === 'SOUL-HERACLES' ? 9 : 6, type);
     try {
       if (type === 'SOUL-HERACLES') {
         const [toll, ...others] = s.shore;

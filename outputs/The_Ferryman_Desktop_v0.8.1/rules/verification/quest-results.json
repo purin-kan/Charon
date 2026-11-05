@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45",
-  "passed": 28,
+  "passed": 30,
   "failed": 0,
   "hashes": {
-    "engine.js": "8ed2074706a54aaea55d9250ab88fc294394181591e253b7da9a2a3c34a04fc5",
-    "content.json": "43e608dd8b75c33a67d63d32a9a136a3f570adfc6c12550d31f3b83505990288",
-    "tests/quest-check.js": "f37b7445ceedc459dea5ea6b047d77c437d496c73a12a2579cc3d972001cc2d2"
+    "engine.js": "4ba25c7ff46a2c61c60902166e3ca17c762c689b258bcca9c113304ebe317617",
+    "content.json": "b375ab7a9e27f4bb46d7637fd78abcbad45f53176d6a612e7cf808754d492326",
+    "tests/quest-check.js": "6d3862c4bf53df3a24cf26f69f0f6a6e263be392365288057ba784a09481af2d"
   },
   "records": [
     {
@@ -45,11 +45,19 @@
       "status": "PASS"
     },
     {
+      "name": "Guard cannot prevent the Light an off-wish exit costs, and the last Light ends the run",
+      "status": "PASS"
+    },
+    {
       "name": "Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop",
       "status": "PASS"
     },
     {
       "name": "Priest +1 memory or purification trade-off, once per boarding and save/reload",
+      "status": "PASS"
+    },
+    {
+      "name": "Hero timing: none before cycle 6, Odysseus from cycle 6, Heracles from cycle 9, each at about 25%",
       "status": "PASS"
     },
     {
@@ -120,8 +128,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 3023,
-      "choices": 25,
+      "transitions": 3214,
+      "choices": 0,
       "humanPlaytest": false
     }
   ],

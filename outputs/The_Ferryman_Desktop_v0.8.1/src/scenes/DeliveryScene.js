@@ -7,7 +7,7 @@ import { MemoryHand } from '../components/MemoryHand.js';
 import { boatZone, statusLine } from './boarding-layout.js';
 import { soulDetail } from './crossing-layout.js';
 import {
-  DOCK, applyDrop, arrivalOutcome, confirmLabel, deliverAction, dropArea, headingText, introText, keepValidMarks, layoutDelivery,
+  DOCK, applyDrop, arrivalOutcome, confirmLabel, deliverAction, exitWarning, dropArea, headingText, introText, keepValidMarks, layoutDelivery,
   stopScenery,
 } from './delivery-layout.js';
 import { HoverTip } from './hover-tip.js';
@@ -101,6 +101,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.add.text(640, 70, headingText(state, Ferry, t), { fontFamily: FONT, fontSize: '26px', color: '#edc47f' }).setOrigin(0.5);
     this.intro = this.add.text(640, 102, introText(state, t), { fontFamily: FONT, fontSize: '16px', color: '#cfe3f0' }).setOrigin(0.5);
     this.message = this.add.text(640, 610, '', { fontFamily: FONT, fontSize: '20px', color: '#e8c27f' }).setOrigin(0.5);
+    this.warning = this.add.text(640, 580, '', { fontFamily: FONT, fontSize: '20px', color: '#ff9f8a', align: 'center', wordWrap: { width: 720 } }).setOrigin(0.5);
     const style = { fontFamily: FONT, fontSize: '24px', color: '#0b1117', backgroundColor: '#7fa6c0', padding: { x: 12, y: 6 } };
     this.confirmBtn = this.add.text(1000, 664, '', style).setOrigin(0.5).setInteractive({ useHandCursor: true });
     this.confirmBtn.on('pointerdown', () => this.confirm());
@@ -171,6 +172,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.status.setText(statusLine(state, Ferry));
     this.intro.setText(introText(state, t));
     this.confirmBtn.setText(confirmLabel(state, this.marked, t));
+    this.warning.setText(exitWarning(state, this.marked, Ferry, t));
     this.entries = new Map(entries.map((e) => [e.id, e]));
     for (const [id, token] of this.tokens) {
       if (this.entries.has(id)) continue;
