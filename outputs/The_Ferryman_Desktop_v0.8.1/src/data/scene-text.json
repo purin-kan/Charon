@@ -185,7 +185,9 @@
   "trim": {
     "heading": "Keep up to {limit} memories",
     "intro": "Choose excess memories to discard. They cannot be used instead.",
-    "discard": "Discard {name}"
+    "discard": "Discard {name}",
+    "confirm": "Keep these {limit}",
+    "marked": "Will be discarded"
   },
 
   "gameOver": {
