@@ -1,11 +1,11 @@
 {
-  "version": "0.8-t45",
-  "passed": 26,
+  "version": "0.8-t45b",
+  "passed": 27,
   "failed": 0,
   "hashes": {
-    "engine.js": "b4761990955145e8d062229d1080edf05859e2d16943c6cf40d0061685bc41ff",
-    "content.json": "ab4960d92380068dcbb9017f67c91c73a22f145e5b2886e680c8c703e2f6e900",
-    "tests/quest-check.js": "cb8d56f87911a521f37ef66a0c5a42cd22403594b0ec75c2f53d557cc1e2934d"
+    "engine.js": "2b1a0944ba8e49bab980e3f4ceae6f2ae01ec5f892aff11917b8ac16228f6812",
+    "content.json": "0bbb132198ea76c984d4db7bcaeb905b1704fbb3d35bf3d53b4eafeebaaa572d",
+    "tests/quest-check.js": "531789b7fd1af4e5c8d2066e397a6322f22882dd0ce6e81ae96e43202e60e5e3"
   },
   "records": [
     {
@@ -33,7 +33,11 @@
       "status": "PASS"
     },
     {
-      "name": "Meal is once per shared boarding, includes Cook reduction and can expire Cook",
+      "name": "Meal is once per shared boarding; others and Longs -1, Cook does not eat and gains 2, can expire Cook; Farmer gives Calm",
+      "status": "PASS"
+    },
+    {
+      "name": "Farmer gives Calm when he gets off, but no memory if he shared the meal",
       "status": "PASS"
     },
     {

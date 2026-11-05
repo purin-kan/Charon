@@ -87,6 +87,12 @@ export function returnView(state, Ferry) {
   };
 }
 
+/** The sound to play when `action` is dispatched from `state`: 'sfx-wraith' when Confirm turns a shore soul into a Wraith (T-28, #33), else null. */
+export function actionSound(state, action, Ferry) {
+  if (action?.type !== 'CONFIRM' || state.phase !== 'review') return null;
+  return returnView(state, Ferry).souls.some((x) => x.wraith) ? 'sfx-wraith' : null;
+}
+
 /** Status line in the format of scene-text common.statusLine. */
 export function statusLine(state, Ferry) {
   const place = state.destination ? destName(Ferry, state.destination) : 'Starting Shore';

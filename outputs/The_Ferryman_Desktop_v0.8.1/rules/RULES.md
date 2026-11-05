@@ -1,8 +1,8 @@
-# The Ferryman 0.8-t45
+# The Ferryman 0.8-t45b
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `ab4960d92380068dcbb9017f67c91c73a22f145e5b2886e680c8c703e2f6e900`.
+Generated from content.json. SHA-256: `0bbb132198ea76c984d4db7bcaeb905b1704fbb3d35bf3d53b4eafeebaaa572d`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -31,7 +31,7 @@ Arrival pool: Poet, Keeper, Red Soldier, Blue Soldier, Messenger, Bard, Listener
 | SOUL-MESSENGER | Messenger | Nikos | 1 | Asphodel | Foresight |
 | SOUL-MUSICIAN | Bard | Homer | 1 | Elysium | Calm |
 | SOUL-LISTENER | Listener | Echo | 1 | Elysium | None |
-| SOUL-FARMER | Farmer | Georgios | 1 | Asphodel | Shared Harvest |
+| SOUL-FARMER | Farmer | Georgios | 1 | Asphodel | Calm |
 | SOUL-BLACKSMITH | Blacksmith | Chalkon | 1 | Acheron | Fog Shield |
 | SOUL-PRIEST | Priest | Elias | 1 | Haven | Last Prayer |
 | SOUL-PO-LUEM | Long Hollow |  | 0 | Asphodel | None |
@@ -91,7 +91,6 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 - **Fog Shield:** Reduce total fog for this crossing by 1, minimum 0. It does not prevent wraith damage.
 - **Passenger:** Deliver one eligible onboard passenger directly to its wish. No travel fog, route count or scheduled arrival; delivery restrictions and quest consequences still apply.
 - **Last Prayer:** Restore 1 Light up to your current maximum.
-- **Shared Harvest:** Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected.
 - **Full Fog Protection:** Prevent all fog on this crossing. Does not prevent Wraith damage.
 - **Sword:** Remove one tainted passenger. No reward, Wraith damage or spread.
 - **Soldiers’ Peace:** Reduce the Anger of every soul on the boat by 3, minimum 0, Longs included. Souls on the shore are not affected.

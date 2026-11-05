@@ -1,6 +1,6 @@
 {
-  "version": "0.8-t45",
-  "contentSha256": "ab4960d92380068dcbb9017f67c91c73a22f145e5b2886e680c8c703e2f6e900",
+  "version": "0.8-t45b",
+  "contentSha256": "0bbb132198ea76c984d4db7bcaeb905b1704fbb3d35bf3d53b4eafeebaaa572d",
   "trial": {
     "stage": "All-quest local trial",
     "notice": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
