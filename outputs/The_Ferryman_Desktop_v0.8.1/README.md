@@ -74,7 +74,8 @@ src/fonts.js         Bundled display fonts; a scene waits on whenFontsReady() be
 src/tuning.js        Presentation tuning values and the F2 panel
 src/data/            scene-text.json (buttons, help and ending text)
 src/scenes/          One file per scene, listed in scenes/index.js, plus their
-                     *-layout.js view models, soul-token.js and outcome-panel.js
+                     *-layout.js view models, soul-token.js, outcome-panel.js and
+                     boarding-fx.js (BoardingScene's fog, motes, glints and ripples)
 src/components/      MemoryHand and RouteUI, with their *-layout.js view models
 src/dev/             Dev launcher and fixture states
 assets/              art/ backgrounds/ audio/ fonts/ and tuning.json

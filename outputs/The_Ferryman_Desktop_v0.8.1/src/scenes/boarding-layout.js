@@ -176,3 +176,40 @@ export const soulFacts = (actor, Ferry, t) => [
 ];
 
 export const nextLongName = (state, Ferry) => (state.nextPolong ? soulName(state.nextPolong, Ferry) : null);
+
+// Motion maths for BoardingScene: plain numbers in and out, so it can be tested. Time t is in seconds.
+
+/** A soul's spot p (0 to 1) along a walk: a straight line lifted by a sine arc, which ends exactly on the target. */
+export function arcPoint(from, to, p, arc) {
+  return { x: from.x + (to.x - from.x) * p, y: from.y + (to.y - from.y) * p - arc * Math.sin(Math.PI * p) };
+}
+
+/** The boat's resting motion: two slow sines each, so it never reads as a loop. angle is in radians. */
+export function boatSway(t, heave, roll) {
+  return {
+    y: heave * (Math.sin(t * 0.9) + 0.4 * Math.sin(t * 2.1 + 1)) / 1.4,
+    angle: roll * (Math.sin(t * 0.7 + 0.5) + 0.35 * Math.sin(t * 1.6)) / 1.35,
+  };
+}
+
+/** Where a point fixed to the boat is after the boat turns by angle around pivot and moves by offset. */
+export function ridePoint(point, pivot, angle, offset) {
+  const dx = point.x - pivot.x;
+  const dy = point.y - pivot.y;
+  const cos = Math.cos(angle);
+  const sin = Math.sin(angle);
+  return { x: pivot.x + dx * cos - dy * sin + offset.x, y: pivot.y + dx * sin + dy * cos + offset.y };
+}
+
+/** One step of a damped spring pulling value to 0: the boat's dip when someone steps aboard. dt is in seconds. */
+export function springStep(spring, dt, stiffness, damping) {
+  const step = Math.min(dt, 1 / 20); // a slow frame must not throw the boat
+  const velocity = spring.velocity + (-stiffness * spring.value - damping * spring.velocity) * step;
+  return { value: spring.value + velocity * step, velocity };
+}
+
+/** Sideways bend of a soul at height k (0 head, 1 tail tip). The upper body holds still; the tail takes the sway. */
+export function tailOffset(k, t, seed, amp, speed) {
+  const bend = Math.max(0, (k - 0.45) / 0.55) ** 2;
+  return amp * bend * Math.sin(t * speed + seed + k * 4.5);
+}

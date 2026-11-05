@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { addArt } from '../preloader.js';
 import { BODY_FONT } from '../fonts.js';
-import { TOKEN } from './boarding-layout.js';
+import { TOKEN, tailOffset } from './boarding-layout.js';
 
 const FONT = 'sans-serif';
 
@@ -33,25 +33,42 @@ const SPRITE = { h: 768, figure: 620, foot: 680 };
 const GOLD = 0xedc47f;
 const DANGER = 0xff9f8a;
 const SHADOW = 0x020607;
+const TAIL_POINTS = 14;
 
 function diamond(x, y, r) {
   return [{ x, y: y - r }, { x: x + r, y }, { x, y: y + r }, { x: x - r, y }];
 }
 
+/** The painted sprite as a vertical rope, so one still image can bend along its length. */
+function bendableArt(scene, art, y) {
+  const { width, height, scaleX } = art;
+  const key = art.texture.key;
+  art.destroy();
+  const points = Array.from({ length: TAIL_POINTS }, (_, i) => new Phaser.Math.Vector2(0, -height / 2 + (height * i) / (TAIL_POINTS - 1)));
+  return { rope: scene.add.rope(0, y, key, undefined, points, false).setScale(scaleX), key, scaleX, width };
+}
+
 /**
- * One soul standing at (entry.x, entry.y), which is the ground under it. Layers, so motions never fight:
- * the container walks, body takes the lift and size, figure takes the bob and shake, labels stay still over the head.
+ * One soul standing at (entry.x, entry.y), which is the ground under it. Layers, so motions never fight: the container
+ * walks; ride follows the boat rocking; body takes the lift and size; figure takes the bob, shake and lean; labels stay
+ * still over the head.
  */
 export function addBoardingSoul(scene, entry, height) {
   const size = (height * SPRITE.h) / SPRITE.figure;
   const centreY = -((SPRITE.foot - SPRITE.h / 2) / SPRITE.h) * size; // the sprite's middle, with its tail on the ground
   const glow = scene.add.image(0, -height / 2, 'board-soft').setScale((height * 1.5) / 256).setTint(GOLD).setAlpha(0);
+  const shadow = scene.add.image(0, -2, 'board-soft').setScale(0.62, 0.11).setTint(SHADOW);
   const art = addArt(scene, 0, centreY, entry.actor.type, size);
-  const figureParts = [art];
+  const figureParts = [];
   let rim = null;
-  if (art.texture) { // a letter emblem has no outline to light
-    rim = scene.add.image(0, centreY, art.texture.key).setScale(art.scaleX * 1.035).setTint(GOLD).setTintMode(Phaser.TintModes.FILL).setAlpha(0);
-    figureParts.unshift(rim);
+  let rope = null;
+  if (art.texture) { // a letter emblem has no outline to light and nothing to bend
+    const bent = bendableArt(scene, art, centreY);
+    rope = bent.rope;
+    rim = scene.add.image(0, centreY, bent.key).setScale(bent.scaleX * 1.035).setTint(GOLD).setTintMode(Phaser.TintModes.FILL).setAlpha(0);
+    figureParts.push(rim, rope);
+  } else {
+    figureParts.push(art);
   }
   const figure = scene.add.container(0, 0, figureParts);
   const body = scene.add.container(0, 0, [glow, figure]);
@@ -62,10 +79,21 @@ export function addBoardingSoul(scene, entry, height) {
   const pips = scene.add.graphics();
   const labels = scene.add.container(0, -height - 2, [name, marks, pips]);
 
-  const token = scene.add.container(entry.x, entry.y, [body, labels]);
+  const ride = scene.add.container(0, 0, [shadow, body, labels]);
+  const token = scene.add.container(entry.x, entry.y, [ride]);
   token.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-36, -height, 72, height), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
-  token.parts = { body, figure, glow, rim, name, marks, pips, labels };
+  token.parts = { ride, shadow, body, figure, glow, rim, rope, name, marks, pips, labels };
+  token.seed = Math.random() * Math.PI * 2; // so a row of souls does not sway in step
   return token;
+}
+
+/** Bends the tail for this frame. amp is in game pixels at the tail tip, whatever the sprite's size. */
+export function swayTail(token, t, amp, speed) {
+  const { rope } = token.parts;
+  if (!rope) return;
+  const textureAmp = amp / rope.scaleX;
+  rope.points.forEach((point, i) => { point.x = tailOffset(i / (TAIL_POINTS - 1), t, token.seed, textureAmp, speed); });
+  rope.updateVertices();
 }
 
 /** Name, destination diamond, Anger pips or a lock, centred in a row under the name. */
