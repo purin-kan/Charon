@@ -201,7 +201,7 @@
       }else if(q.definitionId==='QUEST-BOAT'){
         if(x.type==='SOUL-MERCHANT'){q.stage='merchant-delivered';q.data.merchantRound=s.round;}
         else if(q.stage!=='merchant-delivered')fail(s,q,'Mason left before the Merchant');
-        else if(s.boat.length!==1)fail(s,q,'Mason left before the last passenger');else complete(s,q);
+        else if(s.boat.some(a=>a.id!==x.id&&!isTainted(a)))fail(s,q,'Mason left before the last passenger');else complete(s,q); // Longs (tainted souls) are not passengers here
       }else if(q.definitionId==='QUEST-HERACLES'&&q.delivered.length===2)complete(s,q);
       else if(['QUEST-LISTENER','QUEST-MEAL'].includes(q.definitionId))fail(s,q,'participant delivered before interaction');
     }

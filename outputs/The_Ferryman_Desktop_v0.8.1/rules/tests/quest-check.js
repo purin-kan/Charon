@@ -87,12 +87,16 @@ check('Merchant protection is story only; Sword only when Merchant is delivered 
  reversed=step(reversed,'DEST-STYX',['SOUL-MERCHANT']);assert.ok(!reversed.hand.some(m=>m.type==='MEM-LAST-MASTERWORK'));
  let clash=shore(['SOUL-MERCHANT','SOUL-BLACKSMITH','SOUL-MASON']);for(const x of clash.shore)clash=act(clash,'BOARD',{id:x.id});assert.throws(()=>act(clash,'DEPART'),/both/);
 });
-check('Mason leaves last including Polongs, or the quest fails; capacity can be used before boarding and expires',()=>{
+check('Mason leaves after the Merchant and every ordinary passenger (Longs do not count), or the quest fails; capacity can be used before boarding and expires',()=>{
  let s=boat(['SOUL-MERCHANT','SOUL-MASON']);const p=polong(s,'SOUL-POLONG');
  const first=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(first,'QUEST-BOAT').status,'failed');assert.equal(quest(first,'QUEST-BOAT').reason,'Mason left before the Merchant');
  s=step(s,'DEST-STYX',['SOUL-MERCHANT']);assert.equal(g.deliveryReason({...s,destination:'DEST-ACHERON'},find(s,'SOUL-MASON')),null);
- const early=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(early,'QUEST-BOAT').status,'failed');assert.equal(quest(early,'QUEST-BOAT').reason,'Mason left before the last passenger');
- assert.ok(!early.hand.some(m=>m.type==='MEM-BOAT-SPACE'));assert.ok(early.boat.some(x=>x.id===p.id));rt(early);
+ // Longs are not passengers for this quest: the Mason and a Long are the last two, the Mason leaves, and the quest completes.
+ const withLong=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(withLong,'QUEST-BOAT').status,'completed');assert.ok(withLong.boat.some(x=>x.id===p.id));rt(withLong);
+ // An ordinary soul still aboard when he leaves: the quest fails.
+ let crowd=boat(['SOUL-MERCHANT','SOUL-MASON','SOUL-FARMER']);crowd=step(crowd,'DEST-STYX',['SOUL-MERCHANT']);
+ const early=step(crowd,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(early,'QUEST-BOAT').status,'failed');assert.equal(quest(early,'QUEST-BOAT').reason,'Mason left before the last passenger');
+ assert.ok(!early.hand.some(m=>m.type==='MEM-BOAT-SPACE'));assert.ok(early.boat.some(x=>x.type==='SOUL-FARMER'));rt(early);
  s=step(s,'DEST-TARTARUS',['SOUL-POLONG']);s=step(s,'DEST-ACHERON',['SOUL-MASON']);assert.equal(quest(s,'QUEST-BOAT').status,'completed');
  s=act(s,'RETURN');const m=s.hand.find(m=>m.type==='MEM-BOAT-SPACE');s=act(s,'PLAY_MEMORY',{id:m.id});assert.equal(g.capacity(s),5);assert.equal(s.phase,'boarding');
  for(const x of s.shore)s=act(s,'BOARD',{id:x.id});assert.equal(g.seats(s),5);s=act(s,'DEPART');
