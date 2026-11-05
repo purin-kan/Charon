@@ -401,7 +401,7 @@
       "name": "Moly of Hermes",
       "kind": "moly",
       "amount": 0,
-      "text": "Prevent future scheduled Long arrivals until the next return. Existing passengers remain."
+      "text": "Every Long on the boat leaves, including souls turned into a Long. No scheduled Long boards until the next return."
     },
     {
       "id": "MEM-NOBODY",

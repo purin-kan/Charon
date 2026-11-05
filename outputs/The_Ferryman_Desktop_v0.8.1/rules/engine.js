@@ -110,7 +110,7 @@
       if(s.phase==='ended')return;
       if(spread){const eligible=s.boat.filter(a=>a.origin&&!isTainted(a)&&!['SOUL-MOTHER','SOUL-CHILD'].includes(a.type));
         if(eligible.length){const target=eligible[draw(s,eligible.length)];for(const q of activeQuests(s))if(q.participants.includes(target.id))fail(s,q,'participant corrupted');
-          target.type='SOUL-POLONG';target.wish='DEST-TARTARUS';target.anger=0;target.level=1;target.spread=true;target.bornRound=s.round;record(s,'Corruption turns '+SOUL[target.origin].name+' into a base Po Long.');}}
+          target.type='SOUL-POLONG';target.wish='DEST-TARTARUS';target.anger=0;target.level=1;target.spread=true;target.bornRound=s.round;record(s,'Corruption turns '+SOUL[target.origin].name+' into a base Long.');}}
     }
   }
   function taintedFog(x) {return x.type==='SOUL-POLONG'&&x.anger>=(x.level>=3?1:2)?1:0;}
@@ -138,7 +138,7 @@
     // Longs board at the forks picked for this cycle when the boat departed (longForks: 1 = the cycle's first fork).
     const fork=s.routes.history.length+1,due=(s.longForks||[]).filter(n=>n===fork).length;s.longForks=(s.longForks||[]).filter(n=>n!==fork);
     for(let i=0;i<due;i++){
-      if(s.effects.moly)record(s,'Moly prevents this scheduled Polong arrival.');
+      if(s.effects.moly)record(s,'Moly prevents this scheduled Long arrival.');
       else{s.encounters=inc(s.encounters);const x=fresh(s,s.nextPolong,null);x.level=Number(BigInt(s.encounters)>5n?5n:BigInt(s.encounters));x.anger=x.level>=2?1:0;x.boardingId=String(BigInt(s.nextBoarding)-1n);s.boat.push(x);record(s,named(x)+' boards at level '+s.encounters+'.');s.nextPolong=drawPolong(s);}
     }
     deal(s);
@@ -222,7 +222,7 @@
     const fed=x.type==='SOUL-FARMER'&&s.quests.some(q=>q.definitionId==='QUEST-MEAL'&&q.status==='completed'&&q.participants.includes(x.id));
     if(fed)record(s,named(x)+' shared his harvest in the meal and gives no memory.');
     else if(memory&&!(x.type==='SOUL-PRIEST'&&x.exhausted))grant(s,memory,'character',x.type,x.id);
-    if(x.type==='SOUL-POLONG'&&!x.spread&&via==='normal'&&s.destination==='DEST-TARTARUS'){s.light=Math.min(s.maxLight,s.light+1);record(s,'Po Long pays the fare: +1 Light.');}
+    if(x.type==='SOUL-POLONG'&&!x.spread&&via==='normal'&&s.destination==='DEST-TARTARUS'){s.light=Math.min(s.maxLight,s.light+1);record(s,'A Long pays the fare: +1 Light.');}
     remove(s,x,'delivery');record(s,named(x)+' reached '+DEST[x.wish].name+'.');
   }
   function nextWindow(s) {s.phase='window';s.travelPrepared=false;const uses=s.boat.length&&s.window.kind==='outward'?s.window.uses:0;s.window=windowState(s.boat.length?'outward':'return');s.window.uses=uses;s.trimNext=null;s.theftQueue=[];deal(s);}
@@ -294,6 +294,7 @@
     if(m.kind==='calm')for(const x of s.boat)x.anger=Math.max(0,x.anger-m.amount);
     if(m.kind==='apple'){s.maxLight++;s.light=s.maxLight;}
     if(['capacity','moly','nobody'].includes(m.kind))s.effects[m.kind]=true;
+    if(m.kind==='moly'){const longs=s.boat.filter(isTainted);for(const x of longs)remove(s,x,'Moly');if(!longs.length)record(s,'No Long is on the boat.');}
     if(m.kind==='sword')remove(s,s.boat.find(x=>x.id===target),'Sword');
     if(m.kind==='passage')deliver(s,s.boat.find(x=>x.id===target),'passage');
     if(s.phase==='ended')return;
@@ -387,7 +388,7 @@
     need(unique(s.selected)&&s.selected.every(id=>s.shore.some(x=>x.id===id))&&(s.phase==='boarding'||s.selected.length===0),'Invalid boarding selection.');
     need(s.phase!=='boarding'||seats(s)<=capacity(s),'Voluntary boarding exceeds capacity.');
     need(s.heroOffer===null||(heroes.includes(s.heroOffer.type)&&typeof s.heroOffer.resolved==='boolean'),'Invalid hero offer.');
-    need(tier2.includes(s.nextPolong),'Invalid next Polong.');
+    need(tier2.includes(s.nextPolong),'Invalid next Long.');
     need(s.routes&&Array.isArray(s.routes.offers)&&s.routes.offers.length>=(s.phase==='ended'?2:C.foresightForks)&&s.routes.offers.length<=10000&&Array.isArray(s.routes.masks)&&s.routes.masks.length===s.routes.offers.length&&int(s.routes.foresight,0,C.foresightForks),'Invalid route queue.');
     for(const pair of s.routes.offers)need(Array.isArray(pair)&&pair.length===2&&unique(pair)&&pair.every(id=>DEST[id]),'Invalid destination pair.');
     need(s.routes.masks.every(n=>int(n,0,1))&&Array.isArray(s.routes.history)&&s.routes.history.every(h=>h&&Array.isArray(h.offer)&&h.offer.length===2&&unique(h.offer)&&h.offer.every(id=>DEST[id])&&h.offer.includes(h.chosen)),'Invalid route masks/history.');

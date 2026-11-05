@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45b",
-  "passed": 31,
+  "passed": 32,
   "failed": 0,
   "hashes": {
-    "engine.js": "a54fdf7ee9da0c66dcfd7218ba7ca7e7962209c7f1a45652b90d23f97e3d6f2c",
-    "content.json": "fafc437f85496041db04bcdc3ada364ddd3f5e1304ae41ea326ed98049718bf0",
-    "tests/quest-check.js": "a0f99852e2995de5c840130b0ddee18b888834a74825863087eb4bf81704c3a9"
+    "engine.js": "b9d6431854b49f670eb0616f65b6f04aab2288cfdecfae6ce9bb9f12605c5a2d",
+    "content.json": "cdef337abc6faa461d9d4d7c776aeea5f5e65c91c9933efa09b41caf13e04f70",
+    "tests/quest-check.js": "854f260af0a3af4ab69d6b765dd00682fb01ff87769d2f81e1464f52e08e7c42"
   },
   "records": [
     {
@@ -82,6 +82,10 @@
     },
     {
       "name": "Moly suppresses scheduled arrivals without increasing level; Nobody blocks fog only",
+      "status": "PASS"
+    },
+    {
+      "name": "Moly removes every Long on the boat, spread souls included, then still blocks arrivals",
       "status": "PASS"
     },
     {
