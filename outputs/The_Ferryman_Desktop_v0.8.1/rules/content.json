@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "version": "0.8-t45",
+  "version": "0.8-t45b",
   "title": "The Ferryman",
   "config": {
     "startLight": 6,
@@ -179,7 +179,7 @@
       "personalName": "Georgios",
       "seats": 1,
       "wish": "DEST-ASPHODEL",
-      "memory": "MEM-SHARED-HARVEST",
+      "memory": "MEM-CALM",
       "ordinary": true,
       "tainted": false
     },
@@ -357,13 +357,6 @@
       "text": "Restore 1 Light up to your current maximum."
     },
     {
-      "id": "MEM-SHARED-HARVEST",
-      "name": "Shared Harvest",
-      "kind": "calm",
-      "amount": 1,
-      "text": "Reduce the Anger of every soul on the boat by 1, minimum 0, Longs included. Souls on the shore are not affected."
-    },
-    {
       "id": "MEM-ALL-FOG",
       "name": "Full Fog Protection",
       "kind": "all-fog",
@@ -495,7 +488,7 @@
         "SOUL-COOK"
       ],
       "reward": null,
-      "description": "Prepare a meal once per boarding: everyone −1 Anger, then Cook +2."
+      "description": "Prepare a meal once per boarding: every other soul on the boat −1 Anger, Longs included; the Cook does not eat and is stressed, +2 Anger. A Farmer who shared the meal gives no memory when he gets off."
     },
     {
       "id": "QUEST-SWORD",

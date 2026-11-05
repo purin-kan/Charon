@@ -64,10 +64,16 @@ check('Listener transforms on third shared crossing, keeps origin and coexists w
  s=step(s,'DEST-HAVEN');s=step(s,'DEST-HAVEN');assert.ok(find(s,'SOUL-LISTENER'));
  s=step(s,'DEST-HAVEN');assert.equal(s.boat.filter(x=>x.type==='SOUL-POET').length,2);const x=s.boat.find(x=>x.id===listener);assert.equal(x.origin,'SOUL-LISTENER');assert.equal(x.anger,3);assert.equal(quest(s,'QUEST-LISTENER').status,'completed');rt(s);
 });
-check('Meal is once per shared boarding, includes Cook reduction and can expire Cook',()=>{
- let s=boat(['SOUL-FARMER','SOUL-COOK']);find(s,'SOUL-COOK').anger=2;find(s,'SOUL-FARMER').anger=2;
- const q=quest(s,'QUEST-MEAL');s=act(s,'MEAL',{questId:q.id});assert.equal(find(s,'SOUL-COOK').anger,3);assert.equal(find(s,'SOUL-FARMER').anger,1);assert.throws(()=>act(s,'MEAL',{questId:q.id}));
- let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=g.data.config.shipAngerLimit-2;// the meal nets the Cook +1const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
+check('Meal is once per shared boarding; others and Longs -1, Cook does not eat and gains 2, can expire Cook; Farmer gives Calm',()=>{
+ let s=boat(['SOUL-FARMER','SOUL-COOK']);const p=polong(s,'SOUL-POLONG',1,2);find(s,'SOUL-COOK').anger=1;find(s,'SOUL-FARMER').anger=2;
+ const q=quest(s,'QUEST-MEAL');s=act(s,'MEAL',{questId:q.id});assert.equal(find(s,'SOUL-COOK').anger,3);assert.equal(find(s,'SOUL-FARMER').anger,1);assert.equal(s.boat.find(x=>x.id===p.id).anger,1);assert.throws(()=>act(s,'MEAL',{questId:q.id}));
+ assert.equal(def('SOUL-FARMER').memory,'MEM-CALM');assert.ok(!g.data.memories.some(m=>m.id==='MEM-SHARED-HARVEST'));
+ let lethal=boat(['SOUL-FARMER','SOUL-COOK']);find(lethal,'SOUL-COOK').anger=g.data.config.shipAngerLimit-2;/* the meal gives the Cook +2 */const before=lethal.light;lethal=act(lethal,'MEAL',{questId:quest(lethal,'QUEST-MEAL').id});assert.ok(!find(lethal,'SOUL-COOK'));assert.equal(lethal.light,before-1);rt(lethal);
+});
+check('Farmer gives Calm when he gets off, but no memory if he shared the meal',()=>{
+ let plain=boat(['SOUL-FARMER','SOUL-COOK']);plain=step(plain,'DEST-ASPHODEL',['SOUL-FARMER']);assert.ok(plain.hand.some(m=>m.type==='MEM-CALM'&&m.sourceRef.definitionId==='SOUL-FARMER'));
+ let fed=boat(['SOUL-FARMER','SOUL-COOK']);fed=act(fed,'MEAL',{questId:quest(fed,'QUEST-MEAL').id});const hand=fed.hand.length;
+ fed=step(fed,'DEST-ASPHODEL',['SOUL-FARMER']);assert.ok(!find(fed,'SOUL-FARMER'));assert.equal(fed.hand.length,hand);assert.ok(!fed.hand.some(m=>m.sourceRef.definitionId==='SOUL-FARMER'));rt(fed);
 });
 check('Merchant protection is story only; Sword only when Merchant is delivered before Blacksmith',()=>{
  let s=boat(['SOUL-MERCHANT','SOUL-BLACKSMITH']);s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-MERCHANT').anger,1);assert.equal(find(s,'SOUL-BLACKSMITH').anger,1);
