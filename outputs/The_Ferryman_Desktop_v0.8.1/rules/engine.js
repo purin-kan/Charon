@@ -115,7 +115,7 @@
   }
   function taintedFog(x) {return x.type==='SOUL-POLONG'&&x.anger>=(x.level>=3?1:2)?1:0;}
   function fog(s,destination) {
-    const escalation=destination==='DEST-HAVEN'?0:BigInt(s.cycle)>=12n?2:BigInt(s.cycle)>=6n?1:0;
+    const escalation=destination==='DEST-HAVEN'?0:BigInt(s.cycle)>=15n?2:BigInt(s.cycle)>=9n?1:0; // +1 from cycle 9, +2 from cycle 15 (PM decision on #45, Nov 6)
     const base=DEST[destination].fog+escalation,tainted=s.boat.reduce((n,x)=>n+taintedFog(x),0),overload=seats(s)>capacity(s)?1:0;
     const total=s.effects.nobody||s.window.allFog?0:Math.max(0,base+tainted+overload-s.window.shield);
     const payment=Math.max(0,total-s.window.guard);

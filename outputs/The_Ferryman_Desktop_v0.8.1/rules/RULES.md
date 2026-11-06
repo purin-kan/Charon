@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `6ecbf9696310658fa3209ec88e7d42e80d018d36ed702b4df178641903d74c6d`.
+Generated from content.json. SHA-256: `e8fc2cfe11c63a8821e4d933aee74700151c9cd21c4906a66eea6cfe9446596f`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -64,7 +64,7 @@ All eight quests are active. Pair attempts bind to characters that depart togeth
 
 ## routes
 
-All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
+All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 9 and by 2 from cycle 15, except Haven.
 
 ## polongs
 

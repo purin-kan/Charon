@@ -259,6 +259,12 @@ check('Longs arrive from cycle 3 at a fork picked on departure; a trip that ends
  let short=departAt(3);short.longForks=[3];short=step(short,'DEST-TARTARUS',['SOUL-MOTHER','SOUL-COOK']);assert.equal(short.window.kind,'return');short=act(short,'RETURN');assert.deepEqual(short.longForks,[]);assert.equal(short.encounters,'0');
  const old=copy(g.create(5));delete old.longForks;g.validate(old);
 });
+check('Route fog rises by 1 from cycle 9 and by 2 from cycle 15, never at Haven',()=>{
+ const toll=id=>g.data.destinations.find(d=>d.id===id).fog;
+ for(const [cycle,extra] of [[1,0],[8,0],[9,1],[14,1],[15,2]]){let s=boat(['SOUL-COOK']);s.cycle=String(cycle);s.completed=String(cycle-1);s=act(s,'START_CROSSING');
+  for(const dest of ['DEST-STYX','DEST-TARTARUS'])assert.equal(g.preview(route(s,dest),0).base,toll(dest)+extra,dest+' in cycle '+cycle);
+  assert.equal(g.preview(route(s,'DEST-HAVEN'),0).base,0,'Haven in cycle '+cycle);}
+});
 check('128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips',()=>{
  let transitions=0,choices=0;
  for(let seed=0;seed<128;seed++){

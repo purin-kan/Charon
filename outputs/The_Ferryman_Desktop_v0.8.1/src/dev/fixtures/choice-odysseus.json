@@ -6,7 +6,7 @@
   "rng": 1369582169,
   "phase": "choice",
   "paused": false,
-  "light": 5,
+  "light": 6,
   "maxLight": 7,
   "round": "1",
   "cycle": "6",
@@ -192,7 +192,7 @@
     {
       "round": "1",
       "cycle": "6",
-      "text": "crossing to Asphodel: 2 Light lost."
+      "text": "crossing to Asphodel: 1 Light lost."
     },
     {
       "round": "1",

@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45c",
-  "passed": 33,
+  "passed": 34,
   "failed": 0,
   "hashes": {
-    "engine.js": "7a98357254dcb27359c3fc0a313093c11c8526d18ec3d21f88fb6a2771d01d6f",
-    "content.json": "6ecbf9696310658fa3209ec88e7d42e80d018d36ed702b4df178641903d74c6d",
-    "tests/quest-check.js": "f73983a5c80800250e5d3210c7523153d6fd536a914a08d444be550a3994bacd"
+    "engine.js": "218dd2068bb2951f5f8d0aa634d5b2dae9552518689ec5b839f7f1eabdfe807a",
+    "content.json": "e8fc2cfe11c63a8821e4d933aee74700151c9cd21c4906a66eea6cfe9446596f",
+    "tests/quest-check.js": "21cd751c1218e9303a61928d359249551e97407da49ecf36ca3946b8056e407b"
   },
   "records": [
     {
@@ -137,11 +137,15 @@
       "status": "PASS"
     },
     {
+      "name": "Route fog rises by 1 from cycle 9 and by 2 from cycle 15, never at Haven",
+      "status": "PASS"
+    },
+    {
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 9022,
-      "choices": 9,
+      "transitions": 9080,
+      "choices": 10,
       "humanPlaytest": false
     }
   ],
