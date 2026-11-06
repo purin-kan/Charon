@@ -70,10 +70,13 @@ src/preloader.js     Asset lookup by file name, with fallbacks
 src/asset-names.js   Engine id -> asset file name (aliases and patterns)
 src/save.js          Single save slot through Ferry.exportSave / importSave
 src/text.js          t('key') over src/data/scene-text.json
+src/fonts.js         Bundled display fonts; a scene waits on whenFontsReady() before drawing text
+src/theme.js         Colours, panels, buttons, chips, pips and flames, plus the art.* frame values
 src/tuning.js        Presentation tuning values and the F2 panel
 src/data/            scene-text.json (buttons, help and ending text)
 src/scenes/          One file per scene, listed in scenes/index.js, plus their
-                     *-layout.js view models, soul-token.js and outcome-panel.js
+                     *-layout.js view models, soul-token.js, outcome-panel.js and
+                     night-fx.js (the night stage: veil, fog, motes, glints, ripples)
 src/components/      MemoryHand and RouteUI, with their *-layout.js view models
 src/dev/             Dev launcher and fixture states
 assets/              art/ backgrounds/ audio/ fonts/ and tuning.json
@@ -146,7 +149,12 @@ File names follow the art pipeline (`notes/T-03_ART_PIPELINE.md`) and the audio 
 exactly after the id wins; names that do not follow the pattern go in `ALIASES` in
 `src/asset-names.js` (for example `SOUL-PO-LUEM` loads `art/sprite-long-hollow.png`, shown as Long
 Hollow). File ids such as `sprite-boat-horizontal` or `bg-starting-shore` load directly.
-`node tools/check-art.mjs` tests these rules and lists which engine ids still show an emblem.
+`node tools/check-art.mjs` tests these rules and lists which engine ids still show a name plate.
+
+Art is not final, so nothing may depend on a file's pixel size or padding. An image is fitted into its frame, and the
+`art.*` values in `src/theme.js` (F2 panel) place it: a new file needs only a tuning change. A missing image shows a dark
+name plate. Souls use the 2D sprites. The painted figures in `assets/art/figures/figure-<x>.png` are off by default: turn on
+`art.useFigures` in the F2 panel to compare them (`soulArtId` in `src/preloader.js`).
 
 ## Title screen and save
 

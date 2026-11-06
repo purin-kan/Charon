@@ -1,5 +1,12 @@
-html, body { margin: 0; height: 100%; background: #0b1117; color: #cfd8dc; font-family: system-ui, sans-serif; }
+html, body { margin: 0; height: 100%; background: #020607; color: #cfd8dc; font-family: system-ui, sans-serif; }
 #game { width: 100vw; height: 100vh; }
 #game canvas { display: block; }
 #dev-menu { position: fixed; top: 4px; right: 4px; z-index: 10; font-size: 12px; opacity: 0.85; }
 #dev-menu select, #dev-menu button { font-size: 12px; }
+
+/* Bundled for offline use (SIL OFL, licences in assets/fonts/). src/fonts.js waits for these before text is drawn.
+   lnum: Cormorant's default old-style 1 reads as a small I, which is wrong for seat counts. Canvas text has no other way to ask for it. */
+@font-face { font-family: 'Cinzel Decorative'; src: url('../assets/fonts/CinzelDecorative-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+@font-face { font-family: 'Cinzel Decorative'; src: url('../assets/fonts/CinzelDecorative-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+@font-face { font-family: 'Cormorant Garamond'; src: url('../assets/fonts/CormorantGaramond-Variable.ttf') format('truetype'); font-weight: 300 700; font-style: normal; font-feature-settings: 'lnum' 1; }
+@font-face { font-family: 'Cormorant Garamond'; src: url('../assets/fonts/CormorantGaramond-Italic-Variable.ttf') format('truetype'); font-weight: 300 700; font-style: italic; font-feature-settings: 'lnum' 1; }

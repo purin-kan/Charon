@@ -57,7 +57,21 @@
     "notEnoughSeats": "Not enough seats.",
     "board": "Board {name}",
     "leaveAshore": "Leave ashore: {name}",
-    "depart": "Set out"
+    "depart": "Set out",
+    "cycleLine": "Cycle {cycle}",
+    "nextLong": "Next Long: {name}",
+    "seatsLine": "Seats {used}/{capacity}",
+    "aboard": "Aboard:",
+    "chip": "{name} ✕",
+    "undo": "Undo",
+    "clearBoat": "Clear boat",
+    "castOff": "Cast off",
+    "shoreNote": "Souls left on shore gain 1 anger when you return; at {limit} they become wraiths.",
+    "tipDestination": "Destination: {name}",
+    "tipSeats": "Seats used: {n}",
+    "accept": "Accept",
+    "decline": "Decline",
+    "tollPrompt": "Choose a shore soul as the toll."
   },
 
   "crossing": {
@@ -108,7 +122,10 @@
     "detailQuestWith": "{name} (with {partners}): {description}",
     "detailPurify": "Once per boarding, before the fork, he can set another passenger's Anger to 0. He then gives no memory for that boarding.",
     "detailTrio": "Merchant can't depart with both Blacksmith and Mason.",
-    "unknownBranch": "Not yet seen. Approach the fork to see where it leads."
+    "unknownBranch": "Not yet seen. Approach the fork to see where it leads.",
+    "signOption": "Option {number}",
+    "foresight": "Foresight",
+    "foresightRow": "{label}: {options}"
   },
 
   "memory": {
@@ -129,7 +146,6 @@
     "deliver": "Deliver {name}",
     "keepAboard": "Keep aboard: {name}",
     "finishRound": "Finish round",
-    "dock": "Dock",
     "received": "Received",
     "wraith": "{name} became a Wraith.",
     "lightLost": "Lost {amount} Light.",
@@ -146,7 +162,7 @@
     "prepHeading": "Before you return",
     "reviewReturn": "Review return",
     "heading": "Return to the Starting Shore",
-    "cost": "{loss} Light from waiting souls expiring, then +1 Light if alive.",
+    "cost": "{loss} Light from waiting souls expiring, then +2 Light if alive.",
     "expire": "Boat Space, Moly and Nobody expire on this return.",
     "lethal": "The lantern goes out before healing."
   },
@@ -168,7 +184,9 @@
   "trim": {
     "heading": "Keep up to {limit} memories",
     "intro": "Choose excess memories to discard. They cannot be used instead.",
-    "discard": "Discard {name}"
+    "discard": "Discard {name}",
+    "confirm": "Keep these {limit}",
+    "marked": "Will be discarded"
   },
 
   "gameOver": {

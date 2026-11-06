@@ -1,17 +1,18 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
+import { addArt, queueAssets } from '../preloader.js';
 import { t } from '../text.js';
+import { CSS, COLOR, bodyText, drawPanel, headText, makeButton, modalShade } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
-import { arrivalOutcome, choiceView, memoryRowSpots } from './delivery-layout.js';
+import { CHOICE_ART, arrivalOutcome, choiceView, memoryRowSpots } from './delivery-layout.js';
 import { showOutcome } from './outcome-panel.js';
 
-// Choice prompt (T-20): opens over the running scene in phase 'choice'. That is DeliveryScene for
+// Choice prompt (T-20): a modal over the running scene in phase 'choice'. That is DeliveryScene for
 // Po Luem, but Odysseus's choice fires on arrival, over CrossingScene. The router closes this
-// overlay once the engine leaves 'choice'. Panel style matches TrimOverlay.
+// overlay once the engine leaves 'choice'. The art shows on each card; a missing image shows its name plate.
 
-const FONT = 'sans-serif';
-const GOLD = '#edc47f';
 const PANEL = { w: 1200, h: 590 };
+const CARD = { w: 540, h: 360, artW: 150, artH: 250 };
 
 defineTuning({
   'choice.inputDelayMs': { type: 'number', default: 300, min: 0, max: 1500, step: 50, help: 'Clicks ignored after a choice appears, so a double-click cannot lose a memory' },
@@ -24,12 +25,14 @@ export class ChoiceOverlay extends Phaser.Scene {
 
   get router() { return this.game.router; }
 
+  preload() {
+    queueAssets(this, { art: [...Object.values(CHOICE_ART), ...Ferry.data.memories.map((m) => m.id)] });
+  }
+
   create() {
     const state = this.registry.get('state');
     console.log(`[ferry] ${this.scene.key} shown (phase ${state?.phase ?? 'none'}, choice ${state?.choice?.kind ?? 'none'})`);
-    const { width, height } = this.scale;
-    // The shade takes every click so the scene underneath cannot be used while choosing.
-    this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6).setInteractive();
+    modalShade(this);
     this.parts = [];
     this.render(state);
 
@@ -45,48 +48,49 @@ export class ChoiceOverlay extends Phaser.Scene {
     const { width, height } = this.scale;
     const view = choiceView(state, Ferry, t);
     const top = height / 2 - PANEL.h / 2;
-    const panel = this.add.rectangle(width / 2, height / 2, PANEL.w, PANEL.h, 0x10202c).setStrokeStyle(2, 0xedc47f);
-    const title = this.add.text(width / 2, top + 40, view.heading, { fontFamily: FONT, fontSize: '30px', color: GOLD }).setOrigin(0.5);
-    const intro = this.add.text(width / 2, top + 80, view.intro, {
-      fontFamily: FONT, fontSize: '18px', color: '#e2ded1', align: 'center', wordWrap: { width: PANEL.w - 80 },
-    }).setOrigin(0.5);
-    this.message = this.add.text(width / 2, top + PANEL.h - 22, '', { fontFamily: FONT, fontSize: '18px', color: '#ff9f8a' }).setOrigin(0.5);
-    this.parts = [panel, title, intro, this.message];
+    const back = drawPanel(this.add.graphics(), width / 2 - PANEL.w / 2, top, PANEL.w, PANEL.h);
+    const title = this.add.text(width / 2, top + 40, view.heading, headText(27, CSS.gold)).setOrigin(0.5);
+    const intro = this.add.text(width / 2, top + 80, view.intro, bodyText(20, CSS.bone, { align: 'center', wordWrap: { width: PANEL.w - 80 } })).setOrigin(0.5);
+    this.message = this.add.text(width / 2, top + PANEL.h - 22, '', bodyText(19, CSS.danger)).setOrigin(0.5);
+    this.parts = [back, title, intro, this.message];
     if (view.kind === 'odysseus') view.options.forEach((option, i) => this.drawOption(option, i));
     else this.drawRows(view.rows);
   }
 
+  /** One of Odysseus's two paths, as a card: the art on the left, what it costs and gives on the right. */
   drawOption(option, i) {
     const x = 340 + i * 600;
-    const y = 370;
-    const box = this.add.rectangle(x, y, 540, 340, 0x1d2c38).setStrokeStyle(1, 0x7fa6c0);
-    const name = this.add.text(x, y - 135, option.name, { fontFamily: FONT, fontSize: '26px', color: GOLD }).setOrigin(0.5);
-    const body = { fontFamily: FONT, fontSize: '18px', color: '#cfe3f0', align: 'center', wordWrap: { width: 490 } };
-    const cost = this.add.text(x, y - 60, option.cost, body).setOrigin(0.5);
-    const reward = this.add.text(x, y + 40, option.reward, body).setOrigin(0.5);
-    this.parts.push(box, name, cost, reward, this.button(x, y + 130, option.label, option.action));
+    const y = 380;
+    const { w, h, artW, artH } = CARD;
+    const face = this.add.graphics();
+    face.fillStyle(COLOR.panelHi, 0.9).fillRoundedRect(x - w / 2, y - h / 2, w, h, 14);
+    face.lineStyle(1, COLOR.gold, 0.45).strokeRoundedRect(x - w / 2, y - h / 2, w, h, 14);
+    const artX = x - w / 2 + artW / 2 + 16;
+    const artY = y - 26;
+    const art = addArt(this, artX, artY, option.art, artH, { w: artW, h: artH });
+    const left = artX + artW / 2 + 18;
+    const room = w - (left - (x - w / 2)) - 20;
+    const name = this.add.text(left, y - h / 2 + 22, option.name, headText(23, CSS.gold));
+    const cost = this.add.text(left, y - h / 2 + 66, option.cost, bodyText(19, CSS.danger, { wordWrap: { width: room }, lineSpacing: -1 }));
+    const reward = this.add.text(left, cost.y + cost.height + 14, option.reward, bodyText(19, CSS.bone, { wordWrap: { width: room }, lineSpacing: -1 }));
+    const pick = makeButton(this, x, y + h / 2 - 34, 300, 40, option.label, () => this.choose(option.action), { gold: true });
+    this.parts.push(face, art, name, cost, reward, pick);
   }
 
   /** Texts are made first so each row can be as tall as its text, then placed. */
   drawRows(rows) {
     const { w } = memoryRowSpots(rows.length)[0];
-    const bodies = rows.map((row) => this.add.text(0, 0, row.text, {
-      fontFamily: FONT, fontSize: '14px', color: '#cfe3f0', wordWrap: { width: w - 270 },
-    }));
+    const textW = w - 310;
+    const bodies = rows.map((row) => this.add.text(0, 0, row.text, bodyText(16, CSS.bone, { wordWrap: { width: textW }, lineSpacing: -1 })));
     const spots = memoryRowSpots(rows.length, bodies.map((body) => 26 + body.height));
     rows.forEach((row, i) => {
       const { x, y } = spots[i];
-      const name = this.add.text(x, y, row.name, { fontFamily: FONT, fontSize: '20px', color: '#e8f1f7' });
-      bodies[i].setPosition(x, y + 26);
-      this.parts.push(name, bodies[i], this.button(x + w - 130, y + 26, row.label, row.action));
+      const art = addArt(this, x + 28, y + 26, row.type, 52);
+      const name = this.add.text(x + 66, y, row.name, headText(16, CSS.gold));
+      bodies[i].setPosition(x + 66, y + 24);
+      const pick = makeButton(this, x + w - 120, y + 26, 210, 34, row.label, () => this.choose(row.action), { size: 12 });
+      this.parts.push(art, name, bodies[i], pick);
     });
-  }
-
-  button(x, y, label, action) {
-    const style = { fontFamily: FONT, fontSize: '18px', color: '#0b1117', backgroundColor: '#7fa6c0', padding: { x: 12, y: 6 } };
-    const btn = this.add.text(x, y, label, style).setOrigin(0.5).setInteractive({ useHandCursor: true });
-    btn.on('pointerdown', () => this.choose(action));
-    return btn;
   }
 
   /** A choice can't be undone, so a click from the screen before it must not land here. Shows what it cost, then dispatches. */

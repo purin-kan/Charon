@@ -91,12 +91,10 @@ if (import.meta.hot) import.meta.hot.accept('../assets/tuning.json', () => {});
 // Values named in the project plan. Defaults match the constants in the scene code where one exists
 // (BoardingScene on the T-12 branch), so adopting tune() changes nothing until someone tunes it.
 defineTuning({
-  'scenes.fadeMs': { type: 'number', default: 300, min: 0, max: 2000, step: 10, help: 'Fade between scenes' },
   'boarding.snapMs': { type: 'number', default: 160, min: 0, max: 1000, step: 10, help: 'Soul glides to its spot' },
   'boarding.snapEase': { type: 'ease', default: 'Cubic.Out' },
-  'boarding.dropPadding': { type: 'number', default: 0, min: -40, max: 80, step: 2, help: 'Extra pixels around the hull drop zone (BoardingScene does not read it yet)' },
-  'boarding.exitMs': { type: 'number', default: 600, min: 0, max: 3000, step: 20, help: 'Boat leaves the shore' },
-  'boarding.exitEase': { type: 'ease', default: 'Cubic.In' },
+  'boarding.exitMs': { type: 'number', default: 1800, min: 0, max: 4000, step: 20, help: 'Boat leaves the shore' },
+  'boarding.exitEase': { type: 'ease', default: 'Quad.In' },
   'boarding.exitDistance': { type: 'number', default: 900, min: 0, max: 1600, step: 10 },
   'boarding.messageMs': { type: 'number', default: 2000, min: 500, max: 6000, step: 100, help: 'How long a refusal message stays' },
   'crossing.travelMs': { type: 'number', default: 2500, min: 200, max: 10000, step: 50, help: 'Boat crossing duration' },

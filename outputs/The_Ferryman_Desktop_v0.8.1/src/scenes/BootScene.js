@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { queueAssets } from '../preloader.js';
 import { openFromQuery } from '../dev/launcher.js';
+import { whenFontsReady } from '../theme.js';
+import { makeTextures } from './night-fx.js';
 
 /** Loads whatever assets exist (the rest falls back to emblems/silence), proves the engine works, then leaves. */
 export class BootScene extends Phaser.Scene {
@@ -20,19 +22,16 @@ export class BootScene extends Phaser.Scene {
   }
 
   create() {
-    const { width, height } = this.scale;
     const state = Ferry.create(1);
     console.log(`[ferry] Phaser ${Phaser.VERSION} booted (renderer: ${this.game.renderer.type === Phaser.WEBGL ? 'WEBGL' : 'CANVAS'})`);
     console.log(`[ferry] Ferry.create(1) -> state.phase = ${state.phase} (version ${Ferry.data.version})`);
-    this.add.text(width / 2, height / 2, `Phaser ${Phaser.VERSION} + Ferry engine OK\nstate.phase = ${state.phase}`, {
-      fontSize: '28px', color: '#e8f1f7', align: 'center',
-    }).setOrigin(0.5);
-
     const router = this.game.router;
-    // Plain timer (not this.time): keeps working even if the window is hidden and the game loop is throttled.
-    setTimeout(() => {
+    // Every scene after this one may draw text at once, so the fonts come first. makeTextures gives them the soft shapes
+    // the theme's buttons use. Plain promise (not this.time): keeps working if the window is hidden and the loop is throttled.
+    makeTextures(this);
+    whenFontsReady().then(() => {
       this.scene.stop();
       if (!openFromQuery(router)) this.scene.start('TitleScene');
-    }, 600);
+    });
   }
 }

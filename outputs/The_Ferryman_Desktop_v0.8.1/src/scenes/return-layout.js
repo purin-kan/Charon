@@ -87,6 +87,16 @@ export function returnView(state, Ferry) {
   };
 }
 
+/**
+ * The Light the flames show through a return: low after the Wraiths, high after the lantern is fed. The engine gives only the
+ * end value, so low is worked out from it, and a Guard that absorbed damage shows as no loss.
+ */
+export function returnLightSteps(before, after, wraiths, Ferry) {
+  if (after.phase === 'ended') return { low: 0, high: 0 };
+  const { returnLight, wraithDamage } = Ferry.data.config;
+  return { low: Math.max(before.light - wraiths * wraithDamage, after.light - returnLight), high: after.light };
+}
+
 /** The sound to play when `action` is dispatched from `state`: 'sfx-wraith' when Confirm turns a shore soul into a Wraith (T-28, #33), else null. */
 export function actionSound(state, action, Ferry) {
   if (action?.type !== 'CONFIRM' || state.phase !== 'review') return null;
