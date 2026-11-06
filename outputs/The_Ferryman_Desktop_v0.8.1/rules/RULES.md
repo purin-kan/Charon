@@ -1,14 +1,14 @@
-# The Ferryman 0.8-t45b
+# The Ferryman 0.8-t45c
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `ccc76bfe12c55644dda3b3ae6f995cf18631cfaca75236b5809c58af9a726e75`.
+Generated from content.json. SHA-256: `af20b41f8929c184ca9659804a167836522adb9cbf561484341e06fdc5da88fb`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
 ## Setup
 
-Start with 6 Light; maximum 6. Boat capacity 4. Return healing 1.
+Start with 7 Light; maximum 7. Boat capacity 4. Return healing 2.
 
 Initial shore: Mother, Child, Merchant, Mason, Cook.
 
@@ -64,7 +64,7 @@ All eight quests are active. Pair attempts bind to characters that depart togeth
 
 ## routes
 
-All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
+All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 9 and by 2 from cycle 15, except Haven.
 
 ## polongs
 
@@ -113,7 +113,7 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 
 1. With an empty boat, one held memory may be played.
 2. Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.
-3. If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
+3. If alive, recover 2 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
 
 ## Included roster entries awaiting playable rules
 

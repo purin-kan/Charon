@@ -115,7 +115,7 @@
   }
   function taintedFog(x) {return x.type==='SOUL-POLONG'&&x.anger>=(x.level>=3?1:2)?1:0;}
   function fog(s,destination) {
-    const escalation=destination==='DEST-HAVEN'?0:BigInt(s.cycle)>=12n?2:BigInt(s.cycle)>=6n?1:0;
+    const escalation=destination==='DEST-HAVEN'?0:BigInt(s.cycle)>=15n?2:BigInt(s.cycle)>=9n?1:0; // +1 from cycle 9, +2 from cycle 15 (PM decision on #45, Nov 6)
     const base=DEST[destination].fog+escalation,tainted=s.boat.reduce((n,x)=>n+taintedFog(x),0),overload=seats(s)>capacity(s)?1:0;
     const total=s.effects.nobody||s.window.allFog?0:Math.max(0,base+tainted+overload-s.window.shield);
     const payment=Math.max(0,total-s.window.guard);
@@ -321,7 +321,7 @@
     s.effects={capacity:false,moly:false,nobody:false};
     while(s.shore.length<C.shoreTarget){if(!s.arrivals.length){s.arrivals=shuffle(s,s.discard);s.discard=[];}if(!s.arrivals.length)break;s.shore.push(fresh(s,s.arrivals.shift()));}
     for(const q of activeQuests(s))fail(s,q,'trip ended before completion');
-    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.longForks=[];s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +1 Light. Cycle '+s.cycle+'.');
+    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.longForks=[];s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +'+C.returnLight+' Light. Cycle '+s.cycle+'.');
   }
   function transition(input,a) {
     validate(input);need(a&&typeof a.type==='string','Choose an action.');const s=clone(input);

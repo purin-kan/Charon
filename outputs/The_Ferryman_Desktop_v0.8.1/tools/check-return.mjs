@@ -82,10 +82,10 @@ const stepsFor = (light, anger) => {
 };
 const lit = stepsFor(3, 0);
 const litAfter = Ferry.transition(lit, { type: 'RETURN' });
-check(JSON.stringify(returnLightSteps(lit, litAfter, 0, Ferry)) === JSON.stringify({ low: 3, high: litAfter.light }) && litAfter.light === 4, 'a quiet return only feeds the lantern');
+check(JSON.stringify(returnLightSteps(lit, litAfter, 0, Ferry)) === JSON.stringify({ low: 3, high: litAfter.light }) && litAfter.light === 3 + Ferry.data.config.returnLight, 'a quiet return only feeds the lantern');
 const turned = stepsFor(3, Ferry.data.config.shoreAngerLimit - 1);
 const turnedAfter = Ferry.transition(turned, { type: 'RETURN' });
-check(JSON.stringify(returnLightSteps(turned, turnedAfter, 1, Ferry)) === JSON.stringify({ low: 2, high: 3 }), 'a Wraith takes Light before the lantern is fed');
+check(JSON.stringify(returnLightSteps(turned, turnedAfter, 1, Ferry)) === JSON.stringify({ low: 2, high: 2 + Ferry.data.config.returnLight }), 'a Wraith takes Light before the lantern is fed');
 const brimming = stepsFor(Ferry.data.config.maxLight, 0);
 const fullSteps = returnLightSteps(brimming, Ferry.transition(brimming, { type: 'RETURN' }), 0, Ferry);
 check(fullSteps.low === fullSteps.high, 'a full lantern shows no change');

@@ -1,13 +1,13 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.8-t45b",
+  "version": "0.8-t45c",
   "schemaVersion": 3,
   "seed": 68,
   "rng": 2459509340,
   "phase": "choice",
   "paused": false,
-  "light": 2,
-  "maxLight": 6,
+  "light": 7,
+  "maxLight": 7,
   "round": "5",
   "cycle": "3",
   "completed": "2",
@@ -209,7 +209,7 @@
     {
       "round": "1",
       "cycle": "1",
-      "text": "crossing to Asphodel: 2 Light lost."
+      "text": "crossing to Asphodel: 1 Light lost."
     },
     {
       "round": "1",
@@ -229,7 +229,7 @@
     {
       "round": "2",
       "cycle": "1",
-      "text": "crossing to Acheron: 1 Light lost."
+      "text": "crossing to Acheron: 0 Light lost."
     },
     {
       "round": "2",
@@ -249,12 +249,12 @@
     {
       "round": "2",
       "cycle": "2",
-      "text": "Return survived: +1 Light. Cycle 2."
+      "text": "Return survived: +2 Light. Cycle 2."
     },
     {
       "round": "3",
       "cycle": "2",
-      "text": "crossing to River Styx: 1 Light lost."
+      "text": "crossing to River Styx: 0 Light lost."
     },
     {
       "round": "3",
@@ -294,7 +294,7 @@
     {
       "round": "3",
       "cycle": "3",
-      "text": "Return survived: +1 Light. Cycle 3."
+      "text": "Return survived: +2 Light. Cycle 3."
     },
     {
       "round": "4",

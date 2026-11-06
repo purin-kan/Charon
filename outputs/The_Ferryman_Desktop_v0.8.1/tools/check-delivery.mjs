@@ -31,7 +31,7 @@ const match = fixture('delivery-match');
 // A clean delivery fails no quest (the Mason at his wish still fails his quest while the Merchant is aboard).
 const failsQuest = (x) => Ferry.transition(match, { type: 'DELIVER', ids: [x.id] }).quests.some((q, i) => q.status === 'failed' && match.quests[i]?.status !== 'failed');
 const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) === match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory && !failsQuest(x));
-const wanderer = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) !== match.destination);
+const wanderer = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) !== match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory && !failsQuest(x));
 const stayer = match.boat.find((x) => Ferry.deliveryReason(match, x));
 if (!leaver || !wanderer || !stayer) {
   console.log('FAIL delivery-match needs a soul at its wish with a memory, one that can leave elsewhere and one the engine refuses; run npm run fixtures');
