@@ -1,5 +1,5 @@
-// The HUD every scene shares, in the same place: Light flames, the cycle and the next Long top left, the status line
-// under them. The memory hand sits top right and is the host scene's own MemoryHand. Style comes from src/theme.js.
+// The HUD every scene shares, in the same place: the Light flames in a box that fits them top left, the cycle and the
+// status line under it. The memory hand sits top right and is the host scene's own MemoryHand. Style comes from src/theme.js.
 //
 //   this.hud = new Hud(this);                 // after fonts are ready
 //   this.hud.render(state);                   // in create() and on every 'ferry-state'
@@ -9,7 +9,7 @@ import { Ferry } from '../ferry.js';
 import { CSS, LightFlames, bodyText, drawPanel } from '../theme.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
-import { flames, nextLongName } from '../scenes/boarding-layout.js';
+import { flames } from '../scenes/boarding-layout.js';
 
 defineTuning({
   'hud.x': { type: 'number', default: 24, min: 0, max: 200, step: 1, help: 'Left edge of the HUD' },
@@ -18,25 +18,27 @@ defineTuning({
   'hud.flameMs': { type: 'number', default: 260, min: 0, max: 1000, step: 10, help: 'One flame going out or lighting' },
 });
 
-const SIZE = { w: 300, h: 80 };
+const SIZE = { h: 56, pad: 22, step: 26 };
 const DEPTH = 12;
 
 export class Hud {
   constructor(scene) {
     this.scene = scene;
-    const plate = drawPanel(scene.add.graphics(), 0, 0, SIZE.w, SIZE.h);
-    this.flames = new LightFlames(scene, 28, 36);
-    this.cycle = scene.add.text(SIZE.w - 20, 24, '', bodyText(20, CSS.gold)).setOrigin(1, 0.5); // Cinzel's 1 reads as a Roman I
-    this.nextLong = scene.add.text(18, 56, '', bodyText(17, CSS.muted)).setOrigin(0, 0.5);
-    this.line = scene.add.text(4, SIZE.h + 16, '', bodyText(18, CSS.danger, { wordWrap: { width: SIZE.w + 60 } })).setOrigin(0, 0.5).setAlpha(0);
-    this.root = scene.add.container(tune('hud.x'), tune('hud.y'), [plate, this.flames.root, this.cycle, this.nextLong, this.line]).setDepth(DEPTH);
+    this.plate = scene.add.graphics();
+    this.flames = new LightFlames(scene, SIZE.pad, 34, SIZE.step);
+    this.cycle = scene.add.text(6, SIZE.h + 16, '', bodyText(20, CSS.gold)).setOrigin(0, 0.5); // Cinzel's 1 reads as a Roman I
+    this.line = scene.add.text(4, SIZE.h + 134, '', bodyText(18, CSS.danger, { wordWrap: { width: 360 } })).setOrigin(0, 0.5).setAlpha(0);
+    this.root = scene.add.container(tune('hud.x'), tune('hud.y'), [this.plate, this.flames.root, this.cycle, this.line]).setDepth(DEPTH);
   }
 
   render(state) {
-    this.flames.set(flames(state, Ferry));
+    const lit = flames(state, Ferry);
+    this.flames.set(lit);
+    if (lit.length !== this.plateFlames) {
+      this.plateFlames = lit.length;
+      drawPanel(this.plate.clear(), 0, 0, SIZE.pad * 2 + (lit.length - 1) * SIZE.step, SIZE.h);
+    }
     this.cycle.setText(t('boarding.cycleLine', { cycle: state.cycle }));
-    const long = nextLongName(state, Ferry);
-    this.nextLong.setText(long ? t('boarding.nextLong', { name: long }) : '');
   }
 
   update(seconds) {

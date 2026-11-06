@@ -9,7 +9,7 @@ export const RIVER = { y: 300, h: 250, color: 0x15303c };
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
 const SHORE_WIDTH = 416; // the row of souls ashore stops here, clear of the boat
-const SHORE_FEET = 500; // they stand on the pier's boards, above the panel
+const SHORE_FEET = 650; // they stand on the pier's boards, above the panel
 export const SHORE_Y = SHORE_FEET - TOKEN.h / 2;
 const TIGHT_STEP = 78; // below this the names in the row would touch, so every other one sits higher
 const ROW_EDGE = { left: 0.2, right: 0.6 }; // how far past the end seats the row reaches with Longs aboard, in seat steps: between the lantern and the ferryman
@@ -25,7 +25,7 @@ const shoreSpot = (i, count) => ({
 const deckSlots = (state, Ferry) => layoutStage(state, Ferry).seats.map((seat) => ({ x: seat.x, y: seat.y - TOKEN.h / 2, w: SLOT.w, h: SLOT.h }));
 
 /**
- * Where each passenger rides. Every soul shares one row on the deck: all the Longs from the left, then the others.
+ * Where each passenger rides. Every soul shares one row on the deck: the others from the stern, then the Longs at the bow.
  * Most Longs take no seat, so with one aboard the row tightens to fit between the lantern and the ferryman.
  * Shared with CrossingScene.
  */
@@ -34,16 +34,16 @@ export function boatSpots(state, Ferry) {
   const seatStep = STAGE.seatStep;
   const riders = state.boat.filter((actor) => Ferry.actorSeats(actor) === 0);
   const seats = state.boat.reduce((n, actor) => n + Ferry.actorSeats(actor), 0);
-  const first = slots[0].x - (riders.length ? ROW_EDGE.left * seatStep : 0);
-  const last = slots[slots.length - 1].x + ROW_EDGE.right * seatStep;
+  const first = Math.max(STAGE.deckX - STAGE.deckSpan / 2, slots[0].x - (riders.length ? ROW_EDGE.left * seatStep : 0));
+  const last = Math.min(STAGE.deckX + STAGE.deckSpan / 2 + ROW_EDGE.right * seatStep, slots[slots.length - 1].x + ROW_EDGE.right * seatStep);
   const places = riders.length + seats;
-  const step = riders.length ? Math.min(seatStep, (last - first) / Math.max(1, places - 1)) : seatStep;
+  const step = Math.min(seatStep, (last - first) / Math.max(1, places - 1));
   const placeX = (i) => first + i * step;
   const tierOf = (place) => (step < TIGHT_STEP ? place % 2 : 0);
   const isLong = (actor) => Ferry.isTainted(actor);
   const widthOf = (actor) => Math.max(1, Ferry.actorSeats(actor));
   let place = 0;
-  const placed = new Map([...state.boat.filter(isLong), ...state.boat.filter((actor) => !isLong(actor))].map((actor) => {
+  const placed = new Map([...state.boat.filter((actor) => !isLong(actor)), ...state.boat.filter(isLong)].map((actor) => {
     const spot = { x: (placeX(place) + placeX(place + widthOf(actor) - 1)) / 2, tier: tierOf(place) };
     place += widthOf(actor);
     return [actor.id, spot];

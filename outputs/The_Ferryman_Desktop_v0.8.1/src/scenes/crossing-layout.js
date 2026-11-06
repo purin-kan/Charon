@@ -110,10 +110,9 @@ export function soulTitle(type, Ferry) {
 
 /**
  * What a kind of soul does, whoever it is: its own text (Longs), the Priest's purify, the Merchant,
- * Blacksmith and Mason rule, the memory it gives, and the quests it can take part in with whom.
- * Quests in skipQuests (already active for this soul) are left out.
+ * Blacksmith and Mason rule and the memory it gives. Its story is left for the player to find.
  */
-export function typeDetail(type, Ferry, t, skipQuests = []) {
+export function typeDetail(type, Ferry, t) {
   const def = Ferry.data.souls.find((s) => s.id === type) ?? {};
   const memory = Ferry.data.memories.find((m) => m.id === def.memory);
   const lines = [];
@@ -121,28 +120,17 @@ export function typeDetail(type, Ferry, t, skipQuests = []) {
   if (type === 'SOUL-PRIEST') lines.push(t('crossing.detailPurify'));
   if (TRIO.includes(type)) lines.push(t('crossing.detailTrio'));
   lines.push(memory ? t('crossing.detailGives', { memory: memory.name, text: memory.text }) : t('crossing.detailNoMemory'));
-  for (const quest of Ferry.data.quests.filter((q) => q.roles.includes(type) && !skipQuests.includes(q.id))) {
-    const partners = quest.roles.filter((r) => r !== type).map((r) => soulName(r, Ferry));
-    lines.push(partners.length
-      ? t('crossing.detailQuestWith', { name: quest.name, partners: partners.join(', '), description: quest.description })
-      : t('crossing.detailQuest', { name: quest.name, description: quest.description }));
-  }
   return lines;
 }
 
-/** Hover text for a soul on the shore or the boat: its wish and Anger, what it does, its quests. */
+/** Hover text for a soul on the shore or the boat: its wish and Anger and what it does. */
 export function soulDetail(state, actor, Ferry, t) {
   const lines = [
     `${t('common.wish')}: ${destinationName(Ferry.wish(actor), Ferry)}`,
     `${t('common.anger')} ${actor.anger}/${Ferry.data.config.shipAngerLimit}`,
   ];
   if (Ferry.isTainted(actor) && !actor.origin) lines.push(t('crossing.detailLevel', { level: actor.level }));
-  const active = state.quests.filter((x) => x.status === 'active' && x.participants.includes(actor.id));
-  const activeLines = active
-    .map((q) => Ferry.data.quests.find((x) => x.id === q.definitionId))
-    .filter(Boolean)
-    .map((quest) => t('crossing.detailQuest', { name: quest.name, description: quest.description }));
-  lines.push(...typeDetail(actor.type, Ferry, t, active.map((q) => q.definitionId)), ...activeLines);
+  lines.push(...typeDetail(actor.type, Ferry, t));
   return { title: soulTitle(actor.type, Ferry), lines };
 }
 

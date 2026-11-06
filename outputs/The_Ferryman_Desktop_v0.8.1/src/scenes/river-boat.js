@@ -45,6 +45,11 @@ export class RiverBoat {
     return token;
   }
 
+  /** Layers seated souls on a crowded deck, each one in front of the soul to its left. Pass them left to right. */
+  layerSeats(tokens) {
+    for (const token of [...tokens].reverse()) this.root.sendToBack(token);
+  }
+
   /** Rocks the boat and flickers its lantern. Call from the scene's update. */
   update(seconds) {
     const sway = boatSway(seconds, tune('boarding.heavePx'), Phaser.Math.DegToRad(tune('boarding.rollDeg')));

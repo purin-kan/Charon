@@ -19,13 +19,13 @@ defineTuning({
   'art.hero.fill': { type: 'number', default: 1.24, min: 0.5, max: 2, step: 0.01, help: 'Hero image against its frame height' },
   'art.hero.foot': { type: 'number', default: 0.885, min: 0.5, max: 1, step: 0.005 },
   'art.pier.x': { type: 'number', default: 245, min: 0, max: 640, step: 1, help: 'Middle of the pier at a stop' },
-  'art.pier.y': { type: 'number', default: 511, min: 300, max: 720, step: 1, help: 'Height of the pier at a stop' },
+  'art.pier.y': { type: 'number', default: 631, min: 300, max: 720, step: 1, help: 'Height of the pier at a stop' },
   'art.pier.width': { type: 'number', default: 600, min: 200, max: 1000, step: 2, help: 'Pier image width on screen' },
-  'art.boat.width': { type: 'number', default: 768, min: 200, max: 1280, step: 2, help: 'Boat image width on screen' },
-  'art.boat.floor': { type: 'number', default: 0.689, min: 0, max: 1, step: 0.005, help: 'Deck floor, fraction of the image height' },
-  'art.boat.keel': { type: 'number', default: 0.822, min: 0, max: 1, step: 0.005, help: 'Waterline, fraction of the image height' },
-  'art.boat.lanternX': { type: 'number', default: 0.259, min: 0, max: 1, step: 0.005 },
-  'art.boat.lanternY': { type: 'number', default: 0.384, min: 0, max: 1, step: 0.005 },
+  'art.boat.width': { type: 'number', default: 700, min: 200, max: 1280, step: 2, help: 'Boat image width on screen' },
+  'art.boat.floor': { type: 'number', default: 0.763, min: 0, max: 1, step: 0.005, help: 'Deck floor, fraction of the image height' },
+  'art.boat.keel': { type: 'number', default: 0.87, min: 0, max: 1, step: 0.005, help: 'Waterline, fraction of the image height' },
+  'art.boat.lanternX': { type: 'number', default: 0.867, min: 0, max: 1, step: 0.005 },
+  'art.boat.lanternY': { type: 'number', default: 0.432, min: 0, max: 1, step: 0.005 },
   'art.memory.size': { type: 'number', default: 56, min: 16, max: 160, step: 1, help: 'Memory art inside a full card' },
   'art.background.veil': { type: 'number', default: 0.6, min: 0, max: 1, step: 0.02, help: 'Dark teal veil over a background' },
   'art.background.vignette': { type: 'number', default: 0.85, min: 0, max: 1, step: 0.02 },
@@ -36,7 +36,7 @@ defineTuning({
   'ui.auraMs': { type: 'number', default: 1500, min: 200, max: 5000, step: 50, help: 'Slow light behind a gold button' },
   'ui.toastMs': { type: 'number', default: 2600, min: 500, max: 8000, step: 100, help: 'Status line under the HUD' },
   'ui.fadeMs': { type: 'number', default: 500, min: 100, max: 2000, step: 10, help: 'Fade between scenes' },
-  'ui.panelY': { type: 'number', default: 545, min: 400, max: 560, step: 1, help: 'Top of the bottom panel' },
+  'ui.panelY': { type: 'number', default: 20, min: 0, max: 560, step: 1, help: 'Top of the text panel' },
   'ui.panelMs': { type: 'number', default: 420, min: 0, max: 1500, step: 10, help: 'Bottom panel slides in and out' },
   'ui.shadeAlpha': { type: 'number', default: 0.72, min: 0, max: 1, step: 0.02, help: 'Dimming behind a modal' },
   'ui.flashAlpha': { type: 'number', default: 0.55, min: 0, max: 1, step: 0.05, help: 'Glow at the screen edge' },
@@ -46,7 +46,7 @@ defineTuning({
 
 export const COLOR = {
   deep: 0x020607, teal: 0x0c1d24, panel: 0x08161b, panelHi: 0x12262c, veil: 0x06141a,
-  gold: 0xedc47f, goldHi: 0xf7dcae, bone: 0xf5efdf, muted: 0xb9c3bd, danger: 0xff9f8a, calm: 0xa9dcff, unlit: 0x5b6a6a, lantern: 0xf0a860,
+  gold: 0xedc47f, goldHi: 0xf7dcae, bone: 0xf5efdf, muted: 0xb9c3bd, danger: 0xff9f8a, calm: 0xa9dcff, unlit: 0x5b6a6a, lantern: 0xf0a860, blueFire: 0x4aa8ff, blueFireCore: 0xd4f1ff,
 };
 export const CSS = {
   deep: '#020607', ink: '#08161b', bone: '#f5efdf', muted: '#b9c3bd', gold: '#edc47f', danger: '#ff9f8a', calm: '#a9dcff',
@@ -55,8 +55,8 @@ export const CSS = {
 export const FADE_RGB = [2, 6, 7];
 export const PANEL = { alpha: 0.94, borderAlpha: 0.25, radius: 18 };
 
-export const bodyText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: BODY_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
-export const headText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: HEAD_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
+export const bodyText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: BODY_FONT, fontSize: `${size}px`, fontStyle: 'bold', color, resolution: 2, ...extra });
+export const headText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: HEAD_FONT, fontSize: `${size}px`, fontStyle: 'bold', color, resolution: 2, ...extra });
 
 /** The standard panel on a Graphics object. x and y are its top left. */
 export function drawPanel(graphics, x, y, w, h, radius = PANEL.radius) {
@@ -178,8 +178,8 @@ export class LightFlames {
       flame.lit = on;
       flame.mark.clear().setScale(1);
       if (on) {
-        flame.mark.fillStyle(COLOR.gold, 1).fillPoints(flameShape(10, 13), true);
-        flame.mark.fillStyle(COLOR.bone, 0.9).fillPoints(flameShape(5, 7), true);
+        flame.mark.fillStyle(COLOR.blueFire, 1).fillPoints(flameShape(10, 13), true);
+        flame.mark.fillStyle(COLOR.blueFireCore, 0.95).fillPoints(flameShape(5, 7), true);
       } else {
         flame.mark.lineStyle(1, COLOR.unlit, 1).strokePoints(flameShape(10, 13), true);
       }
@@ -220,21 +220,33 @@ export class DecisionPanel {
     Object.assign(this, { scene, w, h, buttons: [] });
     const left = -w / 2 + 24;
     this.left = left;
-    const back = drawPanel(scene.add.graphics(), -w / 2, 0, w, h);
+    this.back = scene.add.graphics();
     this.heading = scene.add.text(left, 24, '', headText(21)).setOrigin(0, 0.5);
     this.body = scene.add.text(left, 44, '', bodyText(18, CSS.bone, { wordWrap: { width: w - 48 }, lineSpacing: -2 }));
     this.warning = scene.add.text(left, h - 32, '', bodyText(17, CSS.danger, { wordWrap: { width: w / 2 - 40 }, lineSpacing: -2 })).setOrigin(0, 0.5);
-    this.root = scene.add.container(scene.scale.width / 2, tune('ui.panelY'), [back, this.heading, this.body, this.warning]).setDepth(depth);
+    this.root = scene.add.container(scene.scale.width / 2, tune('ui.panelY'), [this.back, this.heading, this.body, this.warning]).setDepth(depth);
   }
 
   show({ heading = '', lines = [], warning = '', buttons = [] }) {
     this.heading.setText(heading);
     this.body.setText(lines.filter(Boolean).join('\n'));
     for (const button of this.buttons) button.destroy();
+    // The box fits what it holds: the words, then the warning if it needs its own line, then the buttons.
+    const widths = buttons.map((button) => Math.max(96, button.label.length * 9 + 40));
+    const room = this.w - 48 - widths.reduce((n, w) => n + w + 12, 0);
+    const beside = room >= 300;
+    this.warning.setWordWrapWidth(beside ? room : this.w - 48).setText(warning ?? '');
+    const textEnd = this.body.text ? 44 + this.body.height : 40;
+    const ownLine = warning && !(beside && buttons.length);
+    const warningEnd = ownLine ? textEnd + 8 + this.warning.height : textEnd;
+    const rowY = warningEnd + 12 + 18;
+    this.h = buttons.length ? rowY + 18 + 14 : warningEnd + 14;
+    this.warning.setY(ownLine ? textEnd + 8 + this.warning.height / 2 : rowY);
+    drawPanel(this.back.clear(), -this.w / 2, 0, this.w, this.h);
     let right = this.w / 2 - 24;
     this.buttons = [...buttons].reverse().map((button) => {
       const w = Math.max(96, button.label.length * 9 + 40);
-      const made = makeButton(this.scene, right - w / 2, this.h - 32, w, 36, button.label, button.onPress, { gold: button.gold }).setEnabled(button.enabled ?? true);
+      const made = makeButton(this.scene, right - w / 2, rowY, w, 36, button.label, button.onPress, { gold: button.gold }).setEnabled(button.enabled ?? true);
       if (button.onHover) {
         made.on('pointerover', (pointer) => button.onHover(pointer));
         made.on('pointerout', () => button.onHover(null));
@@ -243,9 +255,6 @@ export class DecisionPanel {
       this.root.add(made);
       return made;
     });
-    // Beside the buttons when they leave room for it, otherwise on its own line above them.
-    const beside = right - this.left >= 300;
-    this.warning.setWordWrapWidth(beside ? right - this.left : this.w - 48).setY(beside ? this.h - 32 : this.h - 66).setText(warning ?? '');
   }
 
   slideIn(delay = 0) {

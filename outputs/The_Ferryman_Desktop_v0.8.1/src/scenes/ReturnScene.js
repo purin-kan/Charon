@@ -11,8 +11,8 @@ import { soulDetail } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { actionSound, returnLightSteps, returnView } from './return-layout.js';
-import { RiverBoat } from './river-boat.js';
-import { addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { PIER_ART, RiverBoat, addPier } from './river-boat.js';
+import { addBoardingSoul, setBoardingBadge } from './soul-token.js';
 
 // Return to the Starting Shore (T-21): phase 'window' or 'review' with window.kind 'return'.
 // The empty boat comes back to the shore where the souls wait. Prepare: the memory hand (T-16) and what
@@ -43,7 +43,7 @@ export class ReturnScene extends Phaser.Scene {
   get router() { return this.game.router; }
 
   preload() {
-    queueAssets(this, { art: [...soulArtIds(), 'sprite-boat-horizontal', ...MemoryHand.artIds(), ...WRAITH_FRAMES], backgrounds: ['bg-starting-shore'] });
+    queueAssets(this, { art: [...soulArtIds(), 'sprite-boat-horizontal', PIER_ART, ...MemoryHand.artIds(), ...WRAITH_FRAMES], backgrounds: ['bg-starting-shore'] });
   }
 
   create() {
@@ -57,6 +57,7 @@ export class ReturnScene extends Phaser.Scene {
     this.confirmed = null; // the state and view before a confirmed return, which plays out on exit
 
     this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'));
+    addPier(this)?.setDepth(DEPTH.seated - 1);
     const deckWidth = tune('art.boat.width') * tune('art.boat.deck');
     this.boat = new RiverBoat(this, tune('boarding.deckX'), tune('boarding.deckY'), deckWidth);
     this.boat.root.setDepth(DEPTH.boat).setX(tune('boarding.deckX') + tune('return.boatFrom'));
@@ -90,7 +91,6 @@ export class ReturnScene extends Phaser.Scene {
     this.night.update(time, delta);
     this.boat.update(seconds);
     this.bar.update(seconds);
-    for (const token of this.tokens.values()) swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
   }
 
   render(state) {
@@ -107,7 +107,6 @@ export class ReturnScene extends Phaser.Scene {
     const token = addBoardingSoul(this, entry, tune('boarding.soulHeight'));
     token.setDepth(DEPTH.shore);
     token.parts.shadow.setAlpha(tune('boarding.shadowAlpha'));
-    startBreathing(this, token);
     token.on('pointerdown', () => { if (this.targets?.includes(entry.id)) this.hand.pickTarget(entry.id); });
     token.on('pointerover', (pointer) => {
       const state = this.registry.get('state');

@@ -84,7 +84,7 @@ export function heroPrompt(state, Ferry) {
 // neither Phaser nor tuning.js. Text comes in as t: src/text.js imports JSON, which plain Node refuses.
 
 /** Default sizes and positions in game coordinates. y values are the ground under a soul, not its centre. */
-export const STAGE = { soulHeight: 190, seatHeight: 150, groundY: 538, shoreLeft: 70, shoreStep: 104, deckX: 880, deckY: 484, seatStep: 80 };
+export const STAGE = { soulHeight: 190, seatHeight: 150, groundY: 650, shoreLeft: 70, shoreStep: 104, deckX: 900, deckY: 683, seatStep: 78, deckSpan: 380 };
 
 // Presentation only: the rules data gives destinations no colour.
 export const DESTINATION_COLORS = {
@@ -103,7 +103,11 @@ const NO_DESTINATION_COLOR = 0xb9c3bd;
  */
 export function layoutStage(state, Ferry, view = STAGE) {
   const capacity = Ferry.capacity(state);
-  const seatX = (i) => view.deckX + (i - (capacity - 1) / 2) * view.seatStep;
+  // Everyone aboard stays on the deck: when the riders need more places than the seats, the row tightens to fit.
+  const aboard = [...state.boat, ...state.selected.map((id) => state.shore.find((x) => x.id === id))];
+  const places = Math.max(capacity, aboard.reduce((n, actor) => n + Math.max(1, Ferry.actorSeats(actor)), 0));
+  const step = Math.min(view.seatStep, view.deckSpan / Math.max(1, places - 1));
+  const seatX = (i) => view.deckX + (i - (places - 1) / 2) * step;
   const entries = [];
   let seat = 0;
   const sit = (actor, locked) => {

@@ -115,7 +115,7 @@
     "wishChanged": "{name} now wishes for {wish}.",
     "pickBranch": "Choose a branch of the river. Hover a sign for its fog.",
     "approachDetail": "Sail on to the fork, then choose a branch.",
-    "detailGives": "Gives {memory}: {text}",
+    "detailGives": "Gives {memory}.",
     "detailNoMemory": "Gives no memory.",
     "detailLevel": "Level {level}",
     "detailQuest": "{name}: {description}",

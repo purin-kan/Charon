@@ -7,13 +7,14 @@ import { defineTuning, onTune, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
 import { soulTitle, typeDetail } from './crossing-layout.js';
-import { DEPTH, NightStage } from './night-fx.js';
+import { DEPTH, NightStage, seatedDepth } from './night-fx.js';
+import { PIER_ART, addPier } from './river-boat.js';
 import { HoverTip } from './hover-tip.js';
 import {
   STAGE, aboardChips, arcPoint, boatSway, clearActions, heroPrompt, lastBoarded, layoutStage, panelButtons,
   ridePoint, seatBar, soulBadge, soulFacts, springStep,
 } from './boarding-layout.js';
-import { addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, setBoardingBadge, swayTail } from './soul-token.js';
 
 defineTuning({
   'boarding.walkMs': { type: 'number', default: 680, min: 100, max: 1500, step: 10, help: 'Soul travels between shore and boat' },
@@ -21,8 +22,6 @@ defineTuning({
   'boarding.arcPx': { type: 'number', default: 34, min: 0, max: 120, step: 1, help: 'Height of the arc over the gunwale' },
   'boarding.leanDeg': { type: 'number', default: 7, min: 0, max: 25, step: 0.5, help: 'Soul leans as it travels' },
   'boarding.selectLift': { type: 'number', default: 6, min: 0, max: 30, step: 1, help: 'Selected soul rises in its seat' },
-  'boarding.bobPx': { type: 'number', default: 4, min: 0, max: 16, step: 1, help: 'Breathing bob height (new souls)' },
-  'boarding.bobMs': { type: 'number', default: 2600, min: 500, max: 6000, step: 100, help: 'Breathing bob, one way (new souls)' },
   'boarding.tailPx': { type: 'number', default: 9, min: 0, max: 30, step: 0.5, help: 'Tail sway at the tip' },
   'boarding.tailSpeed': { type: 'number', default: 1.5, min: 0, max: 6, step: 0.1, help: 'Tail sway speed' },
   'boarding.shakePx': { type: 'number', default: 6, min: 0, max: 24, step: 1, help: 'Refused soul shake' },
@@ -50,14 +49,15 @@ defineTuning({
   'boarding.dipDamping': { type: 'number', default: 3.4, min: 0.5, max: 20, step: 0.1 },
   'boarding.reflectionAlpha': { type: 'number', default: 0.34, min: 0, max: 1, step: 0.02, help: 'Boat on the water (on reload)' },
   'boarding.reflectionWobble': { type: 'number', default: 3, min: 0, max: 16, step: 0.5, help: 'Water bends the reflection' },
-  'boarding.panelY': { type: 'number', default: 545, min: 400, max: 560, step: 1, help: 'Top of the bottom panel' },
+  'boarding.panelY': { type: 'number', default: 20, min: 0, max: 560, step: 1, help: 'Top of the text panel' },
   'boarding.soulHeight': { type: 'number', default: STAGE.soulHeight, min: 100, max: 300, step: 2, help: 'Soul on the shore' },
   'boarding.seatHeight': { type: 'number', default: STAGE.seatHeight, min: 80, max: 260, step: 2, help: 'Soul in the boat' },
   'boarding.groundY': { type: 'number', default: STAGE.groundY, min: 300, max: 720, step: 1, help: 'Ground line of the shore' },
   'boarding.shoreLeft': { type: 'number', default: STAGE.shoreLeft, min: 0, max: 400, step: 1, help: 'First shore spot' },
   'boarding.shoreStep': { type: 'number', default: STAGE.shoreStep, min: 40, max: 200, step: 1, help: 'Between shore spots' },
   'boarding.deckX': { type: 'number', default: STAGE.deckX, min: 500, max: 1100, step: 1, help: 'Middle of the deck' },
-  'boarding.deckY': { type: 'number', default: STAGE.deckY, min: 300, max: 600, step: 1, help: 'Deck floor under the souls' },
+  'boarding.deckY': { type: 'number', default: STAGE.deckY, min: 300, max: 720, step: 1, help: 'Deck floor under the souls' },
+  'boarding.deckSpan': { type: 'number', default: STAGE.deckSpan, min: 100, max: 600, step: 1, help: 'Deck length a full boat fits inside' },
   'boarding.seatStep': { type: 'number', default: STAGE.seatStep, min: 40, max: 160, step: 1, help: 'Between seats' },
 });
 
@@ -79,7 +79,7 @@ export class BoardingScene extends Phaser.Scene {
 
   preload() {
     queueAssets(this, {
-      art: [...soulArtIds(), 'sprite-boat-horizontal', ...MemoryHand.artIds()],
+      art: [...soulArtIds(), 'sprite-boat-horizontal', PIER_ART, ...MemoryHand.artIds()],
       backgrounds: ['bg-starting-shore'],
       audio: ['sfx-board', 'sfx-unboard'],
     });
@@ -138,6 +138,7 @@ export class BoardingScene extends Phaser.Scene {
   drawStage() {
     this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'));
     this.fx = this.night.fx;
+    addPier(this)?.setDepth(DEPTH.seated - 1); // the same pier as every stop, for the souls waiting on the shore
     this.boatKey = this.textures.exists('sprite-boat-horizontal') ? 'sprite-boat-horizontal' : 'board-hull';
     this.boat = this.add.image(0, 0, this.boatKey).setDepth(DEPTH.boat);
     this.reflection = this.addReflection();
@@ -247,7 +248,7 @@ export class BoardingScene extends Phaser.Scene {
       const amount = token.riding.amount;
       ride.setPosition((carried.x - token.x) * amount, (carried.y - token.y) * amount + token.appear.left * rise);
       ride.setRotation(angle * amount);
-      swayTail(token, seconds, tailPx, tailSpeed * (token.walking ? 2 : 1));
+      swayTail(token, seconds, token.walking ? tailPx : 0, tailSpeed * 2); // still at rest, moves only on a walk
       if (!token.walking) continue;
       token.puff = (token.puff ?? 0) + delta;
       if (token.puff < 45) continue;
@@ -307,7 +308,7 @@ export class BoardingScene extends Phaser.Scene {
       if (hero && !this.tollMode) this.showTip(pointer, soulTitle(hero.type, Ferry), typeDetail(hero.type, Ferry, t));
     });
     hover.on('pointerout', () => this.tip.hide());
-    this.heroBox = this.add.container(640, 170, [
+    this.heroBox = this.add.container(760, 260, [
       back, hover, this.heroTitle, this.heroLine, this.acceptBtn, this.declineBtn, this.cancelBtn,
     ]).setDepth(DEPTH.hero).setVisible(false).setAlpha(0);
   }
@@ -459,7 +460,7 @@ export class BoardingScene extends Phaser.Scene {
       const token = this.tokens.get(entry.id);
       token.walkTween?.remove();
       token.walking = false;
-      token.setPosition(entry.x, entry.y).setDepth(DEPTH.seated);
+      token.setPosition(entry.x, entry.y).setDepth(seatedDepth(entry.x));
       this.tweens.killTweensOf(token.riding);
       token.riding.amount = 1;
     }
@@ -568,7 +569,6 @@ export class BoardingScene extends Phaser.Scene {
     });
     token.on('pointerdown', () => this.onSoulClick(entry.id));
     token.once('destroy', () => this.tip?.hide());
-    startBreathing(this, token);
     token.goal = { x: entry.x, y: entry.y };
     token.riding = { amount: entry.area === 'seat' ? 1 : 0 };
     token.seated = entry.area === 'seat';
@@ -618,10 +618,10 @@ export class BoardingScene extends Phaser.Scene {
     this.fade(token.parts.rim, entry.selected ? tune('boarding.rimAlpha') : 0);
     this.fade(token.parts.shadow, seated ? 0 : tune('boarding.shadowAlpha'));
     const height = tune(seated ? 'boarding.seatHeight' : 'boarding.soulHeight');
-    token.input.hitArea.setTo(-36, -height, 72, height);
+    token.input.hitArea.setTo(-36, -height * token.headRoom, 72, height * token.headRoom);
     this.pose(token, height, entry.selected ? tune('boarding.selectLift') : 0);
     this.walkTo(token, entry.x, entry.y, seated);
-    if (!token.walking) token.setDepth(seated ? DEPTH.seated : DEPTH.shore); // seated souls sit behind the hull, which hides their tails
+    if (!token.walking) token.setDepth(seated ? seatedDepth(entry.x) : DEPTH.shore); // seated souls sit behind the hull, which hides their tails
   }
 
   /** Red pips pulse only while one more return would make a Wraith. */
@@ -647,12 +647,12 @@ export class BoardingScene extends Phaser.Scene {
     const scale = height / STAGE.soulHeight;
     if (first) {
       body.setScale(scale).setY(-lift);
-      labels.setY(-height - 2);
+      labels.setY(-height * token.headRoom - 2);
       return;
     }
     const motion = { duration: tune('boarding.walkMs'), ease: tune('boarding.walkEase') };
     this.tweens.add({ targets: body, y: -lift, scaleX: scale, scaleY: scale, ...motion });
-    this.tweens.add({ targets: labels, y: -height - 2, ...motion });
+    this.tweens.add({ targets: labels, y: -height * token.headRoom - 2, ...motion });
   }
 
   /**
@@ -688,7 +688,7 @@ export class BoardingScene extends Phaser.Scene {
       onUpdate: () => {
         const at = arcPoint(start, end, progress.p, arc);
         token.setPosition(at.x, at.y);
-        if (seated && progress.p > 0.72) token.setDepth(DEPTH.seated); // past the gunwale: settle behind the hull
+        if (seated && progress.p > 0.72) token.setDepth(seatedDepth(x)); // past the gunwale: settle behind the hull
       },
       onComplete: () => {
         token.walking = false;

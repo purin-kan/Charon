@@ -17,6 +17,9 @@ defineTuning({
   'night.trailAlpha': { type: 'number', default: 0.2, min: 0, max: 1, step: 0.02, help: 'Mist left behind a moving soul' },
 });
 
+/** A seated soul's depth: souls overlap on a crowded deck, each one a layer in front of the soul to its left, all behind the hull. */
+export const seatedDepth = (x) => DEPTH.seated + x / 10000;
+
 export const DEPTH = { sky: -20, backdrop: -10, veil: -8, floor: -7, vignette: -6, glints: -5, rays: -4, fogBack: -3, reflection: -2, seated: 4, boat: 5, lantern: 6, shore: 7, motes: 8, fogFront: 9, ui: 12, hero: 13 };
 
 const MOON = 0xc8d4ea;

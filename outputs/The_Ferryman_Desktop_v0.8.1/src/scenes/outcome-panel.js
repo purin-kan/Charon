@@ -58,7 +58,7 @@ export function showOutcome(scene, outcome, done) {
     }
     cards.forEach((card, i) => scene.tweens.add({
       targets: card,
-      x: tune('hud.handRight') - 40 - i * 20,
+      x: tune('hud.handLeft') + 40 + i * 20,
       y: tune('hud.handY') + 40,
       scale: 0.25,
       alpha: 0.2,

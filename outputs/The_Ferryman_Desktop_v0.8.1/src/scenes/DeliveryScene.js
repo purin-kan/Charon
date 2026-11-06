@@ -12,10 +12,10 @@ import {
   arrivalOutcome, confirmLabel, deliverAction, exitWarning, headingText, introText, keepValidMarks, layoutDelivery, toggleMark,
 } from './delivery-layout.js';
 import { HoverTip } from './hover-tip.js';
-import { DEPTH, NightStage } from './night-fx.js';
+import { DEPTH, NightStage, seatedDepth } from './night-fx.js';
 import { showOutcome } from './outcome-panel.js';
 import { PIER_ART, RiverBoat, addPier } from './river-boat.js';
-import { LABEL_TIER_PX, addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { LABEL_TIER_PX, addBoardingSoul, setBoardingBadge, swayTail } from './soul-token.js';
 
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 
@@ -93,7 +93,7 @@ export class DeliveryScene extends Phaser.Scene {
     const pivot = { x: this.boat.x, y: this.boat.y };
     const settle = Math.min(1, (delta / 1000) * tune('delivery.rideEase'));
     for (const token of this.tokens.values()) {
-      swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
+      swayTail(token, seconds, token.walking ? tune('boarding.tailPx') : 0, tune('boarding.tailSpeed'));
       token.riding += ((token.onBoat ? 1 : 0) - token.riding) * settle;
       const at = ridePoint(token, pivot, root.rotation, { x: 0, y: root.y - pivot.y });
       token.parts.ride.setPosition((at.x - token.x) * token.riding, (at.y - token.y) * token.riding).setRotation(root.rotation * token.riding);
@@ -225,7 +225,6 @@ export class DeliveryScene extends Phaser.Scene {
   addToken(entry) {
     const token = addBoardingSoul(this, { ...entry, y: entry.y + FEET }, STAGE.soulHeight);
     token.parts.shadow.setAlpha(0);
-    startBreathing(this, token);
     token.goal = { x: entry.x, y: entry.y };
     token.onBoat = entry.area === 'seat';
     token.riding = token.onBoat ? 1 : 0;
@@ -272,8 +271,8 @@ export class DeliveryScene extends Phaser.Scene {
     token.poseKey = key;
     const { body, labels } = token.parts;
     const scale = height / STAGE.soulHeight;
-    const nameY = -height - 2 - tier * LABEL_TIER_PX;
-    token.input.hitArea.setTo(-36, -height, 72, height);
+    const nameY = -height * token.headRoom - 2 - tier * LABEL_TIER_PX;
+    token.input.hitArea.setTo(-36, -height * token.headRoom, 72, height * token.headRoom);
     this.tweens.killTweensOf(body);
     this.tweens.killTweensOf(labels);
     if (first) {
@@ -289,7 +288,7 @@ export class DeliveryScene extends Phaser.Scene {
   /** On the boat a soul sits behind the hull. It steps over the side in an arc and stands on the shore in front. */
   walkTo(token, entry) {
     const onBoat = entry.area === 'seat';
-    const restDepth = onBoat ? DEPTH.seated : DEPTH.shore;
+    const restDepth = onBoat ? seatedDepth(entry.x) : DEPTH.shore;
     if (token.goal.x === entry.x && token.goal.y === entry.y) {
       if (!token.walking) token.setDepth(restDepth);
       return;

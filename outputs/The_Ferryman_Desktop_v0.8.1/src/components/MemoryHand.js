@@ -5,11 +5,11 @@ import { defineTuning, tune } from '../tuning.js';
 import { TEXT, memoryHand, playAction } from './memory-layout.js';
 
 defineTuning({
-  'hud.handRight': { type: 'number', default: 1256, min: 900, max: 1280, step: 1, help: 'Right edge of the memory hand' },
-  'hud.handY': { type: 'number', default: 20, min: 0, max: 200, step: 1, help: 'Top edge of the memory hand' },
-  'hud.miniW': { type: 'number', default: 64, min: 40, max: 120, step: 1, help: 'Small memory card' },
-  'hud.miniH': { type: 'number', default: 84, min: 50, max: 160, step: 1 },
-  'hud.miniArt': { type: 'number', default: 58, min: 16, max: 100, step: 1, help: 'Memory art on a small card' },
+  'hud.handLeft': { type: 'number', default: 24, min: 0, max: 400, step: 1, help: 'Left edge of the memory list' },
+  'hud.handY': { type: 'number', default: 122, min: 0, max: 300, step: 1, help: 'Top edge of the memory list' },
+  'hud.miniW': { type: 'number', default: 58, min: 40, max: 120, step: 1, help: 'Small memory card' },
+  'hud.miniH': { type: 'number', default: 78, min: 50, max: 160, step: 1 },
+  'hud.miniArt': { type: 'number', default: 54, min: 16, max: 100, step: 1, help: 'Memory art on a small card' },
 });
 
 // Memory hand (T-16): a component, not a scene. BoardingScene, CrossingScene and ReturnScene each
@@ -148,22 +148,18 @@ export class MemoryHand {
 
   /** The HUD hand: a plate at the top right that grows to the left with the cards. */
   renderCompact(view) {
-    const right = tune('hud.handRight');
+    const left = tune('hud.handLeft');
     const top = tune('hud.handY');
     const w = tune('hud.miniW');
     const h = tune('hud.miniH');
-    const pad = 12;
     const gap = 8;
     const n = view.cards.length;
-    const plateW = Math.max(150, pad * 2 + n * w + Math.max(0, n - 1) * gap);
-    const plateH = n ? 40 + h + pad : 40;
     this.plate.clear();
-    drawPanel(this.plate, right - plateW, top, plateW, plateH);
-    this.counter.setOrigin(1, 0.5).setPosition(right - pad - 4, top + 20);
+    this.counter.setText('');
     this.cardObjects = view.cards.map((card, i) => {
       const picked = this.picked?.id === card.id;
-      const cx = right - pad - w / 2 - (n - 1 - i) * (w + gap);
-      const box = drawMiniCard(this.scene, cx, top + 40 + h / 2 - (picked ? 3 : 0), card, { picked, dim: !card.playable });
+      const cx = left + w / 2 + i * (w + gap);
+      const box = drawMiniCard(this.scene, cx, top + h / 2 - (picked ? 3 : 0), card, { picked, dim: !card.playable });
       box.setInteractive({ useHandCursor: card.playable });
       box.on('pointerdown', () => this.press(card));
       box.on('pointerover', () => this.onHover(card));
@@ -171,9 +167,9 @@ export class MemoryHand {
       this.root.add(box);
       return box;
     });
-    const below = top + plateH + 8;
-    this.message.setOrigin(1, 0).setPosition(right, below);
-    this.cancelBtn.setOrigin(1, 0).setPosition(right, below + 26).setVisible(!!this.picked);
+    const below = top + h + 8;
+    this.message.setOrigin(0, 0).setPosition(left, below).setStyle({ align: 'left' });
+    this.cancelBtn.setOrigin(0, 0).setPosition(left, below + 26).setVisible(!!this.picked);
     if (this.picked) this.say(TEXT.chooseTarget(this.picked.name), false);
     else this.say(n > view.limit ? view.note : '', false); // a card says why it can't be played when clicked or hovered
   }
