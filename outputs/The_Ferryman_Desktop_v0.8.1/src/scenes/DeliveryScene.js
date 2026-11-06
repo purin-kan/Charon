@@ -15,7 +15,7 @@ import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { showOutcome } from './outcome-panel.js';
 import { RiverBoat, addDock } from './river-boat.js';
-import { addBoardingSoul, setBackSeat, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
 
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 
@@ -237,6 +237,7 @@ export class DeliveryScene extends Phaser.Scene {
 
   updateToken(token, entry) {
     setBoardingBadge(token, shipBadge(entry.actor, Ferry));
+    setLabelTier(token, entry.tier);
     // A beam is at its wish (its memory, quest step or fare), plain can leave without it, dimmed cannot leave.
     const beam = entry.canLeave && entry.wishMatches;
     const target = !!this.targets?.includes(entry.id);
@@ -245,14 +246,12 @@ export class DeliveryScene extends Phaser.Scene {
     parts.rim?.setTint(target ? COLOR.calm : COLOR.gold);
     this.fade(parts.rim, beam || target ? tune('boarding.rimAlpha') : 0);
     parts.body.setAlpha(entry.canLeave ? 1 : tune('delivery.dimAlpha'));
-    setBackSeat(token, entry.rear && entry.area === 'seat');
     this.walkTo(token, entry);
   }
 
-  /** On the boat a soul stands behind the hull, the back row behind the seats; on its way and on the dock, in front. */
+  /** On the boat a soul sits behind the hull; on its way and on the dock it stands in front. */
   walkTo(token, entry) {
-    const onBoat = entry.area === 'seat';
-    const restDepth = !onBoat ? DEPTH.shore : DEPTH.seated - (entry.rear ? 0.5 : 0);
+    const restDepth = entry.area === 'seat' ? DEPTH.seated : DEPTH.shore;
     if (token.goal.x === entry.x && token.goal.y === entry.y) {
       if (!token.walking) token.setDepth(restDepth);
       return;

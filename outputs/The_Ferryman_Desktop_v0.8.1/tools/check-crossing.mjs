@@ -48,7 +48,7 @@ check('every passenger has one spot', entries.length === prep.boat.length && new
 check('labels use the ship Anger limit', entries[0].labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit}`));
 const withLong = Ferry.transition(prep, { type: 'START_CROSSING' });
 const rider = boatEntries(withLong, Ferry).entries.find((e) => e.span === 0);
-check('a Long with no seat rides on a back seat, never under the hull', rider && rider.rear && rider.y <= entries[0].y);
+check('a Long with no seat rides level with the souls, on their left', rider && rider.y === entries[0].y && boatEntries(withLong, Ferry).entries.every((e) => e.span === 0 || e.x > rider.x));
 
 // Where the boat is.
 check('the first crossing of a cycle starts at the Starting Shore', placeName(windowState, Ferry, t) === t('common.startingShore'));

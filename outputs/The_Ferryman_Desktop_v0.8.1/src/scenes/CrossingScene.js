@@ -16,7 +16,7 @@ import {
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage, roundThumb } from './night-fx.js';
 import { RiverBoat, WOOD, addDock } from './river-boat.js';
-import { addBoardingSoul, setBackSeat, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
 // One river world that the view pans and zooms over (a container, so clicks stay exact), with the HUD
@@ -227,7 +227,7 @@ export class CrossingScene extends Phaser.Scene {
     }
   }
 
-  /** One soul per passenger, on the deck behind the hull. The back seats go behind the ordinary seats. */
+  /** One soul per passenger, on the deck behind the hull. */
   drawBoat(state) {
     const { entries } = boatEntries(state, Ferry);
     const ids = new Set(entries.map((e) => e.id));
@@ -240,12 +240,11 @@ export class CrossingScene extends Phaser.Scene {
     for (const entry of entries) {
       const token = this.tokens.get(entry.id) ?? this.addToken(entry);
       setBoardingBadge(token, shipBadge(entry.actor, Ferry));
+      setLabelTier(token, entry.tier);
       const target = this.targetMode?.ids.includes(entry.id);
       token.parts.rim?.setAlpha(target ? tune('boarding.rimAlpha') : 0);
       token.parts.glow.setAlpha(target ? tune('boarding.hoverGlow') : 0);
       this.moveToken(token, entry);
-      setBackSeat(token, entry.rear);
-      if (entry.rear) this.deck.root.sendToBack(token);
     }
   }
 

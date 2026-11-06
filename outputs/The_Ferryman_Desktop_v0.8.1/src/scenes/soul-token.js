@@ -4,10 +4,8 @@ import { addArt, soulArtId } from '../preloader.js';
 import { BODY_FONT, COLOR, angerPips } from '../theme.js';
 import { tune } from '../tuning.js';
 import { tailOffset } from './boarding-layout.js';
-import { REAR_LIFT } from './delivery-layout.js';
-import { WOOD } from './river-boat.js';
 
-const BACK_SEAT = { w: 78, lid: 7, plank: 18, top: -14 }; // top: a soul's art ends a little above its feet
+const LABEL_TIER_PX = 34;
 
 // The full-figure soul every scene draws. The frame is the soul's height on screen; art.*.fill and art.*.foot (theme.js) fit
 // whatever image is there into it, so nothing here knows a file's pixel size or padding.
@@ -98,19 +96,11 @@ export function swayTail(token, t, amp, speed) {
   rope.updateVertices();
 }
 
-/** Shows or hides the wooden seat at the back of the deck, under a soul the rules give no seat. */
-export function setBackSeat(token, on) {
-  if (on && !token.parts.backSeat) {
-    const { w, lid, plank, top } = BACK_SEAT;
-    const seat = token.scene.add.graphics();
-    seat.fillStyle(WOOD.plank, 1).fillRect(-w / 2 + 5, top, w - 10, REAR_LIFT - top);
-    seat.lineStyle(1, WOOD.post, 1);
-    for (let y = top + plank; y < REAR_LIFT; y += plank) seat.lineBetween(-w / 2 + 5, y, w / 2 - 5, y);
-    seat.fillStyle(WOOD.edge, 1).fillRoundedRect(-w / 2, top - 2, w, lid, 2);
-    token.parts.ride.addAt(seat, 0);
-    token.parts.backSeat = seat;
-  }
-  token.parts.backSeat?.setVisible(on);
+/** Lifts a soul's name one step above its neighbours in a tight row (tier 1), or puts it back (tier 0). */
+export function setLabelTier(token, tier) {
+  const { labels } = token.parts;
+  labels.restY ??= labels.y;
+  labels.y = labels.restY - tier * LABEL_TIER_PX;
 }
 
 /** Name, destination diamond, Anger pips or a lock, centred in a row under the name. */

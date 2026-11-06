@@ -64,29 +64,32 @@ riders.boat.push({ ...riders.boat[1], id: 'ACTOR-99' });
 const riderSpots = layoutDelivery(riders, [], Ferry).entries;
 check('no two souls share a spot', new Set(riderSpots.map((e) => `${e.x},${e.y}`)).size === riderSpots.length);
 const hull = boatZone(open.slots);
-const onDeck = (e) => e.y <= open.slots[0].y && e.x > hull.x - hull.w / 2 && e.x < hull.x + hull.w / 2;
-check('a soul with no seat rides on a back seat', riderSpots.filter((e) => e.span === 0).every((e) => e.rear && onDeck(e)));
+const onDeck = (e) => e.y === open.slots[0].y && e.x >= hull.x - hull.w / 2 && e.x <= hull.x + hull.w / 2;
+const longsOnLeft = (spots) => {
+  const longs = spots.filter((e) => e.span === 0).map((e) => e.x);
+  return spots.filter((e) => e.span > 0).every((e) => longs.every((x) => x < e.x));
+};
+check('Longs ride level with the souls', riderSpots.every(onDeck));
+check('Longs ride on the left', longsOnLeft(riderSpots));
 
-// A Long keeps a back seat whether the ordinary seats are free or full, between them and clear of them.
+// A full boat with Longs stays in one row, apart and aboard, however many board.
 const seated = (s) => s.boat.filter((a) => Ferry.actorSeats(a) > 0);
-const roomy = structuredClone(riders);
-roomy.boat = [roomy.boat[0], roomy.boat[1]];
-const roomySpots = layoutDelivery(roomy, [], Ferry).entries;
-check('a Long keeps its back seat when seats are free', roomySpots.filter((e) => e.span === 0).every((e) => e.rear) && roomySpots.filter((e) => e.span > 0).every((e) => e.y === open.slots[0].y && !e.rear));
 const crowded = structuredClone(riders);
 const others = seated(crowded);
 while (seated(crowded).length < open.slots.length) crowded.boat.push({ ...others[0], id: `ACTOR-${90 + crowded.boat.length}` });
-crowded.boat.push({ ...riders.boat[1], id: 'ACTOR-98' });
 const crowdedSpots = layoutDelivery(crowded, [], Ferry).entries;
-const back = crowdedSpots.filter((e) => e.rear);
-const front = crowdedSpots.filter((e) => !e.rear);
-check('on a full boat every Long has a back seat', back.length === crowdedSpots.filter((e) => e.span === 0).length && back.length > 0);
-check('back seats sit between the ordinary seats', back.every((b) => front.every((f) => Math.abs(b.x - f.x) >= 40)));
-check('every soul on a full boat stays on the deck', crowdedSpots.every(onDeck));
+check('a full boat keeps every soul aboard', crowdedSpots.every(onDeck));
+check('a full boat keeps Longs on the left', longsOnLeft(crowdedSpots));
+const row = crowdedSpots.map((e) => e.x).sort((a, b) => a - b);
+check('a full boat leaves room between souls', row.every((x, i) => i === 0 || x - row[i - 1] >= 70));
+check('a tight row lifts every other name', crowdedSpots.some((e) => e.tier === 1) && crowdedSpots.some((e) => e.tier === 0));
+check('a roomy row keeps its names level', layoutDelivery(none, [], Ferry).entries.every((e) => e.tier === 0));
 const manyLongs = structuredClone(crowded);
 for (let i = 0; i < 6; i++) manyLongs.boat.push({ ...riders.boat[1], id: `ACTOR-${70 + i}` });
 const manySpots = layoutDelivery(manyLongs, [], Ferry).entries;
-check('a boat crowded with Longs keeps them apart and aboard', new Set(manySpots.map((e) => `${e.x},${e.y}`)).size === manySpots.length && manySpots.every(onDeck));
+check('a boat crowded with Longs keeps them apart and aboard', new Set(manySpots.map((e) => e.x)).size === manySpots.length && manySpots.every(onDeck));
+const plain = structuredClone(none);
+check('with no Long the seats stay where they were', layoutDelivery(plain, [], Ferry).entries.every((e, i) => e.span !== 1 || e.x === open.slots[i].x || e.area !== 'seat'));
 
 // A two-seat soul spans its seats and an overfull boat still lays out.
 const wide = structuredClone(none);
