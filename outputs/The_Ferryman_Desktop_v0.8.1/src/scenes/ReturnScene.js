@@ -12,7 +12,7 @@ import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { actionSound, returnLightSteps, returnView } from './return-layout.js';
 import { RiverBoat } from './river-boat.js';
-import { addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, fadeAway, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
 
 // Return to the Starting Shore (T-21): phase 'window' or 'review' with window.kind 'return'.
 // The empty boat comes back to the shore where the souls wait. Prepare: the memory hand (T-16) and what
@@ -128,7 +128,7 @@ export class ReturnScene extends Phaser.Scene {
     for (const [id, token] of this.tokens) {
       if (ids.has(id)) continue;
       this.tip.hide();
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {
@@ -239,7 +239,7 @@ export class ReturnScene extends Phaser.Scene {
     for (const part of this.logParts) part.destroy();
     this.logParts = [];
     this.panel.slideOut();
-    this.hand.root.setVisible(false);
+    this.hand.hide();
     const { state, view } = this.confirmed;
     const turning = view.souls.filter((x) => x.wraith);
     const max = Ferry.maxLight(state);
@@ -277,7 +277,7 @@ export class ReturnScene extends Phaser.Scene {
     const ids = new Set(entries.map((e) => e.id));
     for (const [id, token] of this.tokens) {
       if (ids.has(id)) continue;
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {

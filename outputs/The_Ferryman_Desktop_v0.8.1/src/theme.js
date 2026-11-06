@@ -33,6 +33,7 @@ defineTuning({
   'ui.buttonPress': { type: 'number', default: 0.97, min: 0.8, max: 1, step: 0.01 },
   'ui.disabledAlpha': { type: 'number', default: 0.45, min: 0.1, max: 1, step: 0.05 },
   'ui.auraMs': { type: 'number', default: 1500, min: 200, max: 5000, step: 50, help: 'Slow light behind a gold button' },
+  'ui.tipDelayMs': { type: 'number', default: 120, min: 0, max: 600, step: 10, help: 'Wait before a tooltip appears' },
   'ui.toastMs': { type: 'number', default: 2600, min: 500, max: 8000, step: 100, help: 'Status line under the HUD' },
   'ui.panelY': { type: 'number', default: 545, min: 400, max: 560, step: 1, help: 'Top of the bottom panel' },
   'ui.shadeAlpha': { type: 'number', default: 0.72, min: 0, max: 1, step: 0.02, help: 'Dimming behind a modal' },
@@ -79,6 +80,48 @@ export const EASE = {
   get exit() { return tune('motion.exitEase'); },
   get move() { return tune('motion.moveEase'); },
 };
+
+/** Fades parts in from nothing to the alpha each already has. */
+export function fadeInParts(scene, parts, ms = MS.fast) {
+  for (const part of parts) {
+    const { alpha } = part;
+    part.setAlpha(0);
+    scene.tweens.add({ targets: part, alpha, duration: ms, ease: EASE.enter });
+  }
+}
+
+/** Fades parts out, destroys them, then calls done. They stop taking clicks at once. */
+export function fadeOutParts(scene, parts, done = () => {}, ms = MS.fast) {
+  for (const part of parts) if (part.input) part.disableInteractive();
+  scene.tweens.add({
+    targets: parts,
+    alpha: 0,
+    duration: ms,
+    ease: EASE.exit,
+    onComplete: () => {
+      for (const part of parts) part.destroy();
+      done();
+    },
+  });
+}
+
+/** Sets a number or short line, with a small swell when it really changes. */
+export function pulseText(scene, text, value) {
+  if (text.text === value) return;
+  const first = !text.text;
+  text.setText(value);
+  if (first || reducedMotion()) return;
+  scene.tweens.killTweensOf(text);
+  text.setScale(1);
+  scene.tweens.add({ targets: text, scale: 1.12, duration: MS.fast / 2, ease: EASE.move, yoyo: true });
+}
+
+/** Shows or hides a part, fading it in when it appears. */
+export function showIf(scene, part, on) {
+  if (on === part.visible) return;
+  part.setVisible(on);
+  if (on) fadeInParts(scene, [part]);
+}
 
 export const bodyText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: BODY_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
 export const headText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: HEAD_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
@@ -127,8 +170,9 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
     if (!btn.enabled) return;
     scene.tweens.killTweensOf(btn);
     scene.tweens.add({ targets: btn, scale: tune('ui.buttonPress'), duration: MS.fast / 2, ease: EASE.enter, yoyo: true });
-    onPress();
+    btn.press();
   });
+  btn.press = onPress; // a panel swaps this when only the state behind a button has changed
   btn.setEnabled = (on) => {
     if (btn.styled && btn.enabled === on) return btn;
     const first = !btn.styled;
@@ -200,8 +244,14 @@ export class LightFlames {
     lit.forEach((on, i) => {
       const flame = this.marks[i];
       if (flame.lit === on) return;
+      const first = flame.lit === null;
       flame.lit = on;
       flame.mark.clear().setScale(1);
+      if (!first) {
+        this.scene.tweens.killTweensOf(flame.mark);
+        flame.mark.setAlpha(0.2);
+        this.scene.tweens.add({ targets: flame.mark, alpha: 1, duration: MS.base, ease: EASE.enter });
+      }
       if (on) {
         flame.mark.fillStyle(COLOR.gold, 1).fillPoints(flameShape(10, 13), true);
         flame.mark.fillStyle(COLOR.bone, 0.9).fillPoints(flameShape(5, 7), true);
@@ -253,6 +303,17 @@ export class DecisionPanel {
   }
 
   show({ heading = '', lines = [], warning = '', buttons = [] }) {
+    const look = JSON.stringify([heading, lines, warning, buttons.map((b) => [b.label, b.gold, b.enabled])]);
+    if (look === this.look) {
+      // The same panel: keep its buttons, so a hover is not lost, and take the newest handlers.
+      [...buttons].reverse().forEach((button, i) => {
+        this.buttons[i].press = button.onPress;
+        this.buttons[i].hover = button.onHover;
+      });
+      return;
+    }
+    const changed = this.look !== undefined;
+    this.look = look;
     this.heading.setText(heading);
     this.body.setText(lines.filter(Boolean).join('\n'));
     for (const button of this.buttons) button.destroy();
@@ -260,10 +321,9 @@ export class DecisionPanel {
     this.buttons = [...buttons].reverse().map((button) => {
       const w = Math.max(96, button.label.length * 9 + 40);
       const made = makeButton(this.scene, right - w / 2, this.h - 32, w, 36, button.label, button.onPress, { gold: button.gold }).setEnabled(button.enabled ?? true);
-      if (button.onHover) {
-        made.on('pointerover', (pointer) => button.onHover(pointer));
-        made.on('pointerout', () => button.onHover(null));
-      }
+      made.hover = button.onHover;
+      made.on('pointerover', (pointer) => made.hover?.(pointer));
+      made.on('pointerout', () => made.hover?.(null));
       right -= w + 12;
       this.root.add(made);
       return made;
@@ -271,6 +331,7 @@ export class DecisionPanel {
     // Beside the buttons when they leave room for it, otherwise on its own line above them.
     const beside = right - this.left >= 300;
     this.warning.setWordWrapWidth(beside ? right - this.left : this.w - 48).setY(beside ? this.h - 32 : this.h - 66).setText(warning ?? '');
+    if (changed) fadeInParts(this.scene, [this.heading, this.body, this.warning, ...this.buttons]);
   }
 
   slideIn(delay = 0) {

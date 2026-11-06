@@ -6,7 +6,7 @@
 //   this.hud.update(seconds);                 // in update(), for the flames
 //   this.hud.toast(text);                     // a short status line that fades
 import { Ferry } from '../ferry.js';
-import { bodyText, CSS, drawPanel, EASE, LightFlames, MS } from '../theme.js';
+import { bodyText, CSS, drawPanel, EASE, LightFlames, MS, pulseText } from '../theme.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { flames, nextLongName } from '../scenes/boarding-layout.js';
@@ -33,9 +33,9 @@ export class Hud {
 
   render(state) {
     this.flames.set(flames(state, Ferry));
-    this.cycle.setText(t('boarding.cycleLine', { cycle: state.cycle }));
+    pulseText(this.scene, this.cycle, t('boarding.cycleLine', { cycle: state.cycle }));
     const long = nextLongName(state, Ferry);
-    this.nextLong.setText(long ? t('boarding.nextLong', { name: long }) : '');
+    pulseText(this.scene, this.nextLong, long ? t('boarding.nextLong', { name: long }) : '');
   }
 
   update(seconds) {

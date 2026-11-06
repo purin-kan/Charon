@@ -16,7 +16,7 @@ import {
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage, roundThumb } from './night-fx.js';
 import { PIER_ART, RiverBoat, WOOD, addPier } from './river-boat.js';
-import { addBoardingSoul, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, fadeAway, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
 // One river world that the view pans and zooms over (a container, so clicks stay exact), with the HUD
@@ -234,7 +234,7 @@ export class CrossingScene extends Phaser.Scene {
     for (const [id, token] of this.tokens) {
       if (ids.has(id)) continue;
       this.hideTip();
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {
@@ -496,7 +496,7 @@ export class CrossingScene extends Phaser.Scene {
     if (previewOption(state, Ferry, state.pending.option)?.fog >= 1) playSound(this, FOG);
     console.log(`[ferry] CrossingScene: crossing to ${outcome.to}, ${outcome.paid} Light${outcome.ended ? ', the lantern goes out' : ''}`);
     this.busy = true;
-    this.hand.root.setVisible(false); // no memory once the boat sails: the state must not change after the crossing was computed
+    this.hand.hide(); // no memory once the boat sails: the state must not change after the crossing was computed
     this.hideTip();
     this.hand.cancel();
     this.targetMode = null;

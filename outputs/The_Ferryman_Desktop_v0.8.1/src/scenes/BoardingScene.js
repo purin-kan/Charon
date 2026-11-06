@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, headText, leaveScene, makeButton, makeChip, MS, whenFontsReady } from '../theme.js';
+import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, headText, leaveScene, makeButton, makeChip, MS, showIf, whenFontsReady } from '../theme.js';
 import { defineTuning, onTune, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -413,9 +413,9 @@ export class BoardingScene extends Phaser.Scene {
     if (hero) {
       this.heroTitle.setText(this.tollMode ? t('boarding.chooseToll') : t('boarding.heroAsks', { name: hero.name }));
       this.heroLine.setText(this.tollMode ? t('boarding.tollPrompt') : t(hero.needsToll ? 'boarding.heroHeracles' : 'boarding.heroOdysseus'));
-      this.acceptBtn.setVisible(!this.tollMode);
-      this.declineBtn.setVisible(!this.tollMode);
-      this.cancelBtn.setVisible(this.tollMode);
+      showIf(this, this.acceptBtn, !this.tollMode);
+      showIf(this, this.declineBtn, !this.tollMode);
+      showIf(this, this.cancelBtn, this.tollMode);
     }
     if (!!hero === this.heroShown) return;
     this.heroShown = !!hero;

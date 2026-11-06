@@ -15,7 +15,7 @@ import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { showOutcome } from './outcome-panel.js';
 import { PIER_ART, RiverBoat, addPier } from './river-boat.js';
-import { LABEL_TIER_PX, addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, fadeAway, LABEL_TIER_PX, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
 
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 
@@ -155,7 +155,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.leaving = true;
     this.tip.hide();
     this.hand.cancel();
-    this.hand.root.setVisible(false); // no memory once the delivery is on its way
+    this.hand.hide(); // no memory once the delivery is on its way
     this.panel.slideOut();
     const outcome = arrivalOutcome(state, next, action, Ferry);
     if (outcome.departed.some((id) => Ferry.wish(state.boat.find((x) => x.id === id)) === state.destination)) playSound(this, 'sfx-delivery-success'); // someone reached their wish
@@ -206,7 +206,7 @@ export class DeliveryScene extends Phaser.Scene {
     for (const [id, token] of this.tokens) {
       if (this.entries.has(id)) continue;
       this.tip.hide(); // its hover box would stay with no token under it
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {

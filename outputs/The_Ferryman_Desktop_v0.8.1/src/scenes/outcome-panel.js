@@ -1,6 +1,6 @@
 import { Ferry } from '../ferry.js';
 import { t } from '../text.js';
-import { bodyText, COLOR, CSS, EASE, headText, MS } from '../theme.js';
+import { bodyText, COLOR, CSS, EASE, fadeInParts, fadeOutParts, headText, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { REWARD, lossLines, rewardSpots } from './delivery-layout.js';
 import { DEPTH } from './night-fx.js';
@@ -42,16 +42,12 @@ export function showOutcome(scene, outcome, done) {
     parts.push(scene.add.text(640, lossTop + i * 28, line, bodyText(21, CSS.danger)).setOrigin(0.5).setDepth(SHADE_DEPTH + 1));
   });
   const cards = rewards.map((memory, i) => rewardCard(scene, spots[i].x, spots[i].y, memory));
-  for (const part of [...parts, ...cards]) {
-    const alpha = part.alpha;
-    part.setAlpha(0);
-    scene.tweens.add({ targets: part, alpha, duration: MS.fast, ease: EASE.enter });
-  }
+  fadeInParts(scene, [...parts, ...cards]);
   let finished = false;
   const finish = () => {
     if (finished) return;
     finished = true;
-    for (const part of parts) part.destroy();
+    fadeOutParts(scene, parts);
     if (!cards.length) {
       done();
       return;

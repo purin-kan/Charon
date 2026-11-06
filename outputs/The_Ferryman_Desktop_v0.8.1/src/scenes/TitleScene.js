@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { queueAssets, playSound } from '../preloader.js';
 import { t } from '../text.js';
-import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, headText, leaveScene, makeButton, makeChip, MS, whenFontsReady } from '../theme.js';
+import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, fadeInParts, fadeOutParts, headText, leaveScene, makeButton, makeChip, MS, whenFontsReady } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { readSave, writeSave, deleteSave, startAutosave, qaName } from '../save.js';
 import { DEPTH, NightStage } from './night-fx.js';
@@ -197,11 +197,12 @@ export class TitleScene extends Phaser.Scene {
     const yes = makeButton(this, width / 2 - 110, height / 2 + 72, 220, 46, t('title.replaceYes'), () => { this.closeDialog(); this.newGame(); }, { gold: true, size: 16 });
     const no = makeButton(this, width / 2 + 120, height / 2 + 72, 160, 46, t('common.cancel'), () => this.closeDialog(), { size: 16 });
     this.dialog = [shade, back, title, body, yes, no];
+    fadeInParts(this, this.dialog);
     for (const part of this.dialog) part.setDepth(DEPTH.hero + 1);
   }
 
   closeDialog() {
-    for (const part of this.dialog ?? []) part.destroy();
+    fadeOutParts(this, this.dialog ?? []);
     this.dialog = null;
   }
 }

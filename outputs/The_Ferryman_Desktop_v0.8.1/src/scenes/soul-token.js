@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { addArt, soulArtId } from '../preloader.js';
-import { angerPips, BODY_FONT, COLOR, EASE } from '../theme.js';
+import { angerPips, BODY_FONT, COLOR, EASE, MS, reducedMotion } from '../theme.js';
 import { tune } from '../tuning.js';
 import { tailOffset } from './boarding-layout.js';
 
@@ -103,6 +103,13 @@ export function setLabelTier(token, tier) {
   labels.y = labels.restY - tier * LABEL_TIER_PX;
 }
 
+/** A soul taken off the boat at once (Moly, Sword, a fare): it fades as it lifts away, then is gone. */
+export function fadeAway(token) {
+  const { scene } = token;
+  if (token.input) token.disableInteractive();
+  scene.tweens.add({ targets: token, alpha: 0, y: token.y - 24, duration: MS.base, ease: EASE.exit, onComplete: () => token.destroy() });
+}
+
 /** Name, destination diamond, Anger pips or a lock, centred in a row under the name. */
 export function setBoardingBadge(token, badge) {
   const { name, marks, pips } = token.parts;
@@ -119,4 +126,11 @@ export function setBoardingBadge(token, badge) {
   }
   pips.clear();
   if (badge.pips) angerPips(pips, left + 22, badge.pips);
+  const filled = badge.pips?.filled;
+  if (filled !== undefined && token.pipsFilled !== undefined && filled !== token.pipsFilled && !reducedMotion()) {
+    token.scene.tweens.killTweensOf(pips);
+    pips.setScale(1);
+    token.scene.tweens.add({ targets: pips, scale: 1.18, duration: MS.fast, ease: EASE.move, yoyo: true });
+  }
+  token.pipsFilled = filled;
 }

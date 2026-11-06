@@ -1,6 +1,6 @@
 import { Ferry } from '../ferry.js';
 import { addArt } from '../preloader.js';
-import { COLOR as THEME, CSS, bodyText, drawPanel, headText } from '../theme.js';
+import { bodyText, COLOR as THEME, CSS, drawPanel, EASE, fadeInParts, fadeOutParts, headText, MS, pulseText } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { TEXT, memoryHand, playAction } from './memory-layout.js';
 
@@ -111,7 +111,7 @@ export class MemoryHand {
   render(state) {
     const view = memoryHand(state, Ferry);
     this.cards = view.cards;
-    this.counter.setText(view.counter);
+    pulseText(this.scene, this.counter, view.counter);
     if (this.picked) {
       const before = this.picked.targets.join();
       const still = view.cards.find((c) => c.id === this.picked.id && c.playable && c.needsTarget);
@@ -119,12 +119,12 @@ export class MemoryHand {
       // Only a real change: a host that renders in onTargets calls render again, so telling it every time never ends.
       if (this.picked?.targets.join() !== before) this.onTargets(this.picked ? this.picked.targets : null);
     }
-    if (this.cardObjects?.length) this.onHover(null); // a destroyed card never gets its pointerout
-    for (const obj of this.cardObjects ?? []) obj.destroy();
     if (this.compact) {
       this.renderCompact(view);
       return;
     }
+    if (this.cardObjects?.length) this.onHover(null); // a destroyed card never gets its pointerout
+    for (const obj of this.cardObjects ?? []) obj.destroy();
     this.cardObjects = view.cards.map((card, i) => {
       const picked = this.picked?.id === card.id;
       const cx = this.x + CARD.w / 2 + i * (CARD.w + CARD.gap);
@@ -160,22 +160,45 @@ export class MemoryHand {
     this.plate.clear();
     drawPanel(this.plate, right - plateW, top, plateW, plateH);
     this.counter.setOrigin(1, 0.5).setPosition(right - pad - 4, top + 20);
+    // A card that has not changed stays, sliding if it must. Only the ones really arriving or leaving fade.
+    const kept = new Map((this.cardObjects ?? []).map((box) => [box.look, box]));
     this.cardObjects = view.cards.map((card, i) => {
       const picked = this.picked?.id === card.id;
       const cx = right - pad - w / 2 - (n - 1 - i) * (w + gap);
+      const look = `${card.id}/${picked}/${card.playable}`;
+      const held = kept.get(look);
+      if (held) {
+        kept.delete(look);
+        held.card = card;
+        if (held.x !== cx) this.scene.tweens.add({ targets: held, x: cx, duration: MS.fast, ease: EASE.move });
+        return held;
+      }
       const box = drawMiniCard(this.scene, cx, top + 40 + h / 2 - (picked ? 3 : 0), card, { picked, dim: !card.playable });
+      box.look = look;
+      box.card = card;
       box.setInteractive({ useHandCursor: card.playable });
-      box.on('pointerdown', () => this.press(card));
-      box.on('pointerover', () => this.onHover(card));
+      box.on('pointerdown', () => this.press(box.card));
+      box.on('pointerover', () => this.onHover(box.card));
       box.on('pointerout', () => this.onHover(null));
       this.root.add(box);
+      fadeInParts(this.scene, [box]);
       return box;
     });
+    if (kept.size) {
+      this.onHover(null); // a destroyed card never gets its pointerout
+      fadeOutParts(this.scene, [...kept.values()]);
+    }
     const below = top + plateH + 8;
     this.message.setOrigin(1, 0).setPosition(right, below);
     this.cancelBtn.setOrigin(1, 0).setPosition(right, below + 26).setVisible(!!this.picked);
     if (this.picked) this.say(TEXT.chooseTarget(this.picked.name), false);
     else this.say(n > view.limit ? view.note : '', false); // a card says why it can't be played when clicked or hovered
+  }
+
+  /** Fades the hand away for good, for when the boat sails or a delivery is on its way. */
+  hide() {
+    this.cancel();
+    this.scene.tweens.add({ targets: this.root, alpha: 0, duration: MS.fast, ease: EASE.exit, onComplete: () => this.root?.setVisible(false) });
   }
 
   press(card) {

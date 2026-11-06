@@ -1,6 +1,7 @@
 // The hover box the scenes show over souls, signs, buttons and memories (T-19): a title and a few lines next to the
-// pointer, kept on screen. It fades in when it first appears.
+// pointer, kept on screen. It waits a moment, then fades in, so passing over things does not flash it.
 import { BODY_FONT, COLOR, CSS, EASE, MS, PANEL } from '../theme.js';
+import { tune } from '../tuning.js';
 
 const W = 360;
 
@@ -15,18 +16,32 @@ export class HoverTip {
 
   /** Shows title and lines (empty lines are skipped) below and right of the pointer, or above it near the bottom. */
   show(pointer, title, lines = []) {
-    const fresh = !this.root.visible;
     this.title.setText(title ?? '');
     this.body.setText(lines.filter(Boolean).join('\n')).setY(this.title.text ? 36 : 10);
     const h = this.body.y + this.body.height + 12;
     this.bg.setSize(W, h);
     const x = Math.min(pointer.x + 16, 1280 - W - 8);
     const y = pointer.y + 16 + h > 712 ? pointer.y - h - 12 : pointer.y + 16;
-    this.root.setPosition(x, Math.max(8, y)).setVisible(true);
-    if (!fresh) return;
-    this.root.setAlpha(0);
-    this.scene.tweens.add({ targets: this.root, alpha: 1, duration: MS.fast, ease: EASE.enter });
+    this.root.setPosition(x, Math.max(8, y));
+    this.wanted = true;
+    if (this.root.visible) {
+      this.scene.tweens.killTweensOf(this.root); // a tip fading out comes straight back, so moving between items never flickers
+      this.root.setAlpha(1);
+      return;
+    }
+    if (this.waiting) return;
+    this.waiting = this.scene.time.delayedCall(tune('ui.tipDelayMs'), () => {
+      this.waiting = null;
+      if (!this.wanted) return;
+      this.root.setAlpha(0).setVisible(true);
+      this.scene.tweens.add({ targets: this.root, alpha: 1, duration: MS.fast, ease: EASE.enter });
+    });
   }
 
-  hide() { this.root.setVisible(false); }
+  hide() {
+    this.wanted = false;
+    if (!this.root.visible) return;
+    this.scene.tweens.killTweensOf(this.root);
+    this.scene.tweens.add({ targets: this.root, alpha: 0, duration: MS.fast, ease: EASE.exit, onComplete: () => this.root.setVisible(false) });
+  }
 }
