@@ -146,7 +146,6 @@
     "deliver": "Deliver {name}",
     "keepAboard": "Keep aboard: {name}",
     "finishRound": "Finish round",
-    "dock": "Dock",
     "received": "Received",
     "wraith": "{name} became a Wraith.",
     "lightLost": "Lost {amount} Light.",

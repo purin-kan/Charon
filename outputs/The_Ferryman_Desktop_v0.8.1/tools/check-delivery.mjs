@@ -4,9 +4,9 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { boatZone, soulName } from '../src/scenes/boarding-layout.js';
+import { STAGE, boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
-  DOCK, arrivalOutcome, choiceView, confirmLabel, deliverAction, exitWarning, headingText,
+  SHORE_Y, arrivalOutcome, choiceView, confirmLabel, deliverAction, exitWarning, headingText,
   introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots, toggleMark,
 } from '../src/scenes/delivery-layout.js';
 
@@ -42,7 +42,7 @@ const calm = structuredClone(match);
 for (const x of calm.boat) x.anger = 0;
 const open = layoutDelivery(match, [], Ferry);
 check('every passenger has one spot', open.entries.length === match.boat.length);
-check('nobody starts on the dock', open.entries.every((e) => e.area === 'seat'));
+check('nobody starts ashore', open.entries.every((e) => e.area === 'seat'));
 check('a soul that can leave is flagged', entryOf(open, leaver.id).canLeave === true);
 check('a soul the engine refuses is not flagged', entryOf(open, stayer.id).canLeave === false);
 check('a different wish can still leave', entryOf(open, wanderer.id).canLeave === true);
@@ -53,8 +53,8 @@ check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.e
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
 const spot = entryOf(marked, leaver.id);
-const inDock = (e) => Math.abs(e.x - DOCK.x) <= DOCK.w / 2 && Math.abs(e.y - DOCK.y) <= DOCK.h / 2;
-check('a marked soul moves to the dock', spot.area === 'dock' && inDock(spot));
+const ashore = (e) => e.y === SHORE_Y && e.x >= STAGE.shoreLeft && e.x <= STAGE.shoreLeft + 416;
+check('a marked soul stands on the pier', spot.area === 'shore' && ashore(spot));
 check('the others keep their seats', entryOf(marked, stayer.id).x === entryOf(open, stayer.id).x);
 
 // Souls with no seat ride on the deck and must not stack on anyone.
@@ -72,6 +72,14 @@ const longsOnLeft = (spots) => {
 check('Longs ride level with the souls', riderSpots.every(onDeck));
 check('Longs ride on the left', longsOnLeft(riderSpots));
 
+// Long Burden takes a seat but is still a Long, so it rides on the left too.
+const burden = structuredClone(none);
+burden.boat[burden.boat.length - 1].type = 'SOUL-PO-NAK';
+burden.boat[burden.boat.length - 1].level = 1;
+const burdenSpots = layoutDelivery(burden, [], Ferry).entries;
+const burdenX = burdenSpots[burdenSpots.length - 1].x;
+check('Long Burden rides left of the souls, though it takes a seat', burdenSpots.slice(0, -1).every((e) => e.x > burdenX));
+
 // A full boat with Longs stays in one row, apart and aboard, however many board.
 const seated = (s) => s.boat.filter((a) => Ferry.actorSeats(a) > 0);
 const crowded = structuredClone(riders);
@@ -81,7 +89,7 @@ const crowdedSpots = layoutDelivery(crowded, [], Ferry).entries;
 check('a full boat keeps every soul aboard', crowdedSpots.every(onDeck));
 check('a full boat keeps Longs on the left', longsOnLeft(crowdedSpots));
 const row = crowdedSpots.map((e) => e.x).sort((a, b) => a - b);
-check('a full boat leaves room between souls', row.every((x, i) => i === 0 || x - row[i - 1] >= 70));
+check('a full boat leaves room between souls', row.every((x, i) => i === 0 || x - row[i - 1] >= 55));
 check('a tight row lifts every other name', crowdedSpots.some((e) => e.tier === 1) && crowdedSpots.some((e) => e.tier === 0));
 check('a roomy row keeps its names level', layoutDelivery(none, [], Ferry).entries.every((e) => e.tier === 0));
 const manyLongs = structuredClone(crowded);

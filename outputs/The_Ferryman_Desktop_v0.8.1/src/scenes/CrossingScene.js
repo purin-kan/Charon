@@ -8,14 +8,14 @@ import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
 import { previewOption, routeModel } from '../components/route-layout.js';
 import { shipBadge, TOKEN } from './boarding-layout.js';
-import { DOCK, RIVER } from './delivery-layout.js';
+import { RIVER } from './delivery-layout.js';
 import {
   abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath,
   crossingStep, homeView, placeName, purifyAction, soulDetail, worldLayout,
 } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage, roundThumb } from './night-fx.js';
-import { RiverBoat, WOOD, addDock } from './river-boat.js';
+import { PIER_ART, RiverBoat, WOOD, addPier } from './river-boat.js';
 import { addBoardingSoul, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
@@ -38,6 +38,7 @@ const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long a
 const RIVER_LAYERS = [1, 0.9, 0.8, 0.7, 0.6, 0.5];
 const SIGN = { w: 740, h: 270, thumb: 190 }; // world size; about 355 x 130 on screen at the fork view
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
+const PLACE_LABEL = { x: 56, y: 174 }; // the name of the stop the boat is leaving
 const FORESIGHT = { x: 1256, y: 190, w: 300 };
 
 defineTuning({
@@ -53,7 +54,7 @@ defineTuning({
   'crossing.arrivalHoldMs': { type: 'number', default: 1400, min: 0, max: 6000, step: 100, help: 'Pause on the arrival before the delivery' },
   'crossing.titleMs': { type: 'number', default: 600, min: 0, max: 3000, step: 50, help: 'The destination title fades in and out' },
   'crossing.riverAlpha': { type: 'number', default: 0.42, min: 0, max: 1, step: 0.02, help: 'The river drawn over the painting (next scene)' },
-  'crossing.soulHeight': { type: 'number', default: 130, min: 80, max: 220, step: 2, help: 'Soul on the boat (next scene)' },
+  'crossing.soulHeight': { type: 'number', default: 150, min: 80, max: 220, step: 2, help: 'Soul on the boat (next scene)' },
 });
 
 const lerp = (a, b, k) => a + (b - a) * k;
@@ -67,7 +68,7 @@ export class CrossingScene extends Phaser.Scene {
 
   preload() {
     queueAssets(this, {
-      art: [...soulArtIds(), 'sprite-boat-horizontal', ...MemoryHand.artIds()],
+      art: [...soulArtIds(), 'sprite-boat-horizontal', PIER_ART, ...MemoryHand.artIds()],
       backgrounds: ['bg-starting-shore', ...Ferry.data.destinations.map((d) => d.id)],
       audio: [FOG], // sfx-fog is not in BootScene's list
     });
@@ -90,9 +91,7 @@ export class CrossingScene extends Phaser.Scene {
     this.drawRiver(state);
     this.boat = this.add.container(this.layout.home.x, this.layout.home.y);
     this.world.add(this.boat);
-    const { slots } = boatEntries(state, Ferry);
-    const deckWidth = slots[slots.length - 1].x - slots[0].x + slots[0].w + 32;
-    this.deck = new RiverBoat(this, 0, FEET, deckWidth);
+    this.deck = new RiverBoat(this, 0, FEET, tune('art.boat.width') * tune('art.boat.deck'));
     this.boat.add(this.deck.root);
 
     this.fog = this.add.rectangle(640, 360, 1280, 720, COLOR.muted, 0).setDepth(DEPTH.fogFront + 1);
@@ -167,7 +166,7 @@ export class CrossingScene extends Phaser.Scene {
 
   // ---- the world -----------------------------------------------------------------------------
 
-  /** The river from the stop to the fork, both branches, and the stop itself (a dock, or the shore). */
+  /** The river from the stop to the fork, both branches, the pier of the stop and its name. */
   drawRiver(state) {
     const { home, fork, branches } = this.layout;
     const g = this.add.graphics();
@@ -184,8 +183,9 @@ export class CrossingScene extends Phaser.Scene {
         g.lineBetween(b.end.x + 900, b.end.y, b.end.x + 2400, b.end.y);
       }
     }
-    if (state.destination) this.world.add(addDock(this, DOCK.x, DOCK.y));
-    this.world.add(this.add.text(DOCK.x - DOCK.w / 2 + 16, DOCK.y - DOCK.h / 2 + 44, placeName(state, Ferry, t), bodyText(22, CSS.muted)));
+    const pier = state.destination ? addPier(this) : null;
+    if (pier) this.world.add(pier);
+    this.world.add(this.add.text(PLACE_LABEL.x, PLACE_LABEL.y, placeName(state, Ferry, t), bodyText(22, CSS.muted)));
   }
 
   /** A signpost at the fork: the destination's painting in a round frame, its name, fog cost and who wishes for it. */
@@ -547,22 +547,23 @@ export class CrossingScene extends Phaser.Scene {
       return hold(done);
     }
     const eventMs = tune('crossing.eventMs');
-    // The view settles on exactly what DeliveryScene draws: the destination's painting, the dock, the boat.
+    // The view settles on exactly what DeliveryScene draws: the destination's painting, the pier and the boat.
     this.tweens.add({ targets: this.river, alpha: 0, duration: eventMs });
     if (this.textures.exists(next.destination)) {
       const painting = this.add.image(640, 360, next.destination).setDepth(DEPTH.backdrop + 0.5).setAlpha(0);
       painting.setScale(Math.max(1280 / painting.width, 720 / painting.height) * (1 + (2 * tune('night.parallaxPx')) / 1280));
       this.tweens.add({ targets: painting, alpha: 1, duration: eventMs, ease: 'Sine.InOut' });
     }
-    const dock = addDock(this, branch.dock.x, branch.dock.y);
-    for (const part of dock) part.setAlpha(0);
-    this.world.add(dock);
-    this.tweens.add({ targets: dock, alpha: 1, duration: eventMs });
 
     const leaving = outcome.departed.map((id) => this.tokens.get(id)).filter(Boolean);
     const { entries } = boatEntries(next, Ferry);
     const arriving = entries.filter((e) => outcome.boarded.includes(e.id)).map((e) => this.addToken(e).setAlpha(0));
     for (const e of entries) setBoardingBadge(this.tokens.get(e.id), shipBadge(e.actor, Ferry)); // a wish can change on arrival
+    const pier = addPier(this, branch.view.x - 640, branch.view.y - 360);
+    if (pier) {
+      this.world.addAt(pier.setAlpha(0), this.world.getIndex(this.boat)); // behind the boat
+      this.tweens.add({ targets: pier, alpha: 1, duration: eventMs });
+    }
     if (leaving.length) this.tweens.add({ targets: leaving, alpha: 0, y: '-=40', duration: eventMs });
     // The boat settles into DeliveryScene's seat order, so the scene change shows no jump.
     const settle = () => {

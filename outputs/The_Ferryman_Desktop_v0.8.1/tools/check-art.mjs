@@ -42,7 +42,7 @@ const HANDOFF = {
     'sprite-blacksmith', 'sprite-priest', 'sprite-priest-exhausted', 'sprite-soldier', 'sprite-traveler',
     'sprite-long-mist', 'sprite-long-hollow', 'sprite-long-burden', 'sprite-long-veil', 'sprite-long-grasp',
     'sprite-heracles', 'sprite-odysseus', 'sprite-cerberus', 'sprite-tiresias', 'sprite-scylla', 'sprite-wraith',
-    'sprite-apprentice', 'sprite-old-master', 'sprite-boat-horizontal',
+    'sprite-apprentice', 'sprite-old-master', 'sprite-boat-horizontal', 'sprite-dock',
     'memory-last-masterwork', 'memory-last-prayer', 'memory-boat-space', 'memory-shared-harvest', 'memory-golden-apple',
     'memory-nobody', 'memory-all-fog', 'memory-moly', 'memory-soldier-peace'],
   backgrounds: ['bg-haven', 'bg-styx', 'bg-acheron', 'bg-asphodel', 'bg-elysium', 'bg-tartarus', 'bg-starting-shore'],

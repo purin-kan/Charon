@@ -3,7 +3,7 @@
 // engine (Ferry.transition on the state), and outcomes are the difference between two engine states.
 // Text comes in as t: src/text.js imports JSON, which plain Node refuses.
 import { boatZone, destinationName, soulName, tokenLabels } from './boarding-layout.js';
-import { DOCK, boatSpots } from './delivery-layout.js';
+import { boatSpots } from './delivery-layout.js';
 import { memoryHand } from '../components/memory-layout.js';
 import { previewOption, routeModel, routeText } from '../components/route-layout.js';
 
@@ -56,7 +56,6 @@ export function worldLayout(state, Ferry) {
       // fork, two bends, the level end, and the river running on past it
       points: [fork, { x: fork.x + 350, y: home.y + dir * 250 }, { x: fork.x + 700, y: home.y + dir * (WORLD.branchRise - 10) }, end, { x: end.x + 900, y: end.y }],
       sign: { x: fork.x + WORLD.signAhead, y: home.y + dir * WORLD.signRise }, // on the land between the branches
-      dock: { x: end.x - home.x + DOCK.x, y: end.y - home.y + DOCK.y },
       view: { x: end.x - home.x + 640, y: end.y - home.y + 360, zoom: 1 },
     };
   });

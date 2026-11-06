@@ -5,7 +5,7 @@ import { BODY_FONT, COLOR, angerPips } from '../theme.js';
 import { tune } from '../tuning.js';
 import { tailOffset } from './boarding-layout.js';
 
-const LABEL_TIER_PX = 34;
+export const LABEL_TIER_PX = 34;
 
 // The full-figure soul every scene draws. The frame is the soul's height on screen; art.*.fill and art.*.foot (theme.js) fit
 // whatever image is there into it, so nothing here knows a file's pixel size or padding.

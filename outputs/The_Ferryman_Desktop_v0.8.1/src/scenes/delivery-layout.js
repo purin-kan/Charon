@@ -2,57 +2,53 @@
 // DELIVER takes every chosen soul at once and each is checked after the one before, so eligibility
 // comes from test-running the whole list, not from deliveryReason on the current state.
 // Text comes in as t: src/text.js imports JSON, so a Node tool could not load this file otherwise.
-import { SLOT, destinationName, layoutBoarding, soulName, tokenLabels } from './boarding-layout.js';
+import { SLOT, STAGE, TOKEN, destinationName, layoutStage, soulName, tokenLabels } from './boarding-layout.js';
 
-export const DOCK = { x: 300, y: 345, w: 520, h: 430 };
-// A stop: land on the left with the dock at its edge, the river from there to the right. CrossingScene
-// draws the same scenery (stopScenery), so arriving at a stop and opening DeliveryScene look like one place.
+// The river band CrossingScene draws under the boat.
 export const RIVER = { y: 300, h: 250, color: 0x15303c };
-export const BANK = { right: DOCK.x + DOCK.w / 2, color: 0x2a2418 };
-
-/** The bank and the river band of a stop as rectangles {x, y, w, h} (centres), for a frame whose top left is origin. */
-export function stopScenery(origin = { x: 0, y: 0 }) {
-  return {
-    bank: { x: origin.x + BANK.right / 2, y: origin.y + 360, w: BANK.right, h: 720, color: BANK.color },
-    river: { x: origin.x + (BANK.right + 1280) / 2, y: origin.y + RIVER.y, w: 1280 - BANK.right, h: RIVER.h, color: RIVER.color },
-  };
-}
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
-const DOCK_SPOT = { x: 130, y: 258, cellW: 130, cellH: 150, cols: 3 }; // the first row's names clear the Dock sign
-const TIGHT_STEP = 96; // below this the names in the row would touch, so every other one sits higher
-const ROW_EDGE = 0.3; // how far past the last seat the row may reach with Longs aboard, in seat widths: clear of the ferryman
+const SHORE_WIDTH = 416; // the row of souls ashore stops here, clear of the boat
+const SHORE_FEET = 500; // they stand on the pier's boards, above the panel
+export const SHORE_Y = SHORE_FEET - TOKEN.h / 2;
+const TIGHT_STEP = 78; // below this the names in the row would touch, so every other one sits higher
+const ROW_EDGE = { left: 0.2, right: 0.6 }; // how far past the end seats the row reaches with Longs aboard, in seat steps: between the lantern and the ferryman
 const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, gap: 10, perCol: 5 };
 
-const dockSpot = (i) => ({
-  x: DOCK_SPOT.x + (i % DOCK_SPOT.cols) * DOCK_SPOT.cellW,
-  y: DOCK_SPOT.y + Math.floor(i / DOCK_SPOT.cols) * DOCK_SPOT.cellH,
+/** A soul on the pier, spaced like BoardingScene's shore row, tighter if more leave than the row holds. */
+const shoreSpot = (i, count) => ({
+  x: STAGE.shoreLeft + i * Math.min(STAGE.shoreStep, SHORE_WIDTH / Math.max(1, count - 1)),
+  y: SHORE_Y,
 });
 
+/** BoardingScene's seats, as the slots the row below and CrossingScene's world are measured from. */
+const deckSlots = (state, Ferry) => layoutStage(state, Ferry).seats.map((seat) => ({ x: seat.x, y: seat.y - TOKEN.h / 2, w: SLOT.w, h: SLOT.h }));
+
 /**
- * Where each passenger rides. Every soul shares one row on the deck: the Longs from the left, then the seats in order.
- * Longs take no seat, so with Longs aboard the row tightens to fit between the lantern and the ferryman.
+ * Where each passenger rides. Every soul shares one row on the deck: all the Longs from the left, then the others.
+ * Most Longs take no seat, so with one aboard the row tightens to fit between the lantern and the ferryman.
  * Shared with CrossingScene.
  */
 export function boatSpots(state, Ferry) {
-  const { slots } = layoutBoarding(state, Ferry);
-  const seatStep = SLOT.w + SLOT.gap;
+  const slots = deckSlots(state, Ferry);
+  const seatStep = STAGE.seatStep;
   const riders = state.boat.filter((actor) => Ferry.actorSeats(actor) === 0);
   const seats = state.boat.reduce((n, actor) => n + Ferry.actorSeats(actor), 0);
-  const first = slots[0].x; // the lantern stands just left of this, so nobody sits behind it
-  const last = slots[slots.length - 1].x + ROW_EDGE * seatStep;
+  const first = slots[0].x - (riders.length ? ROW_EDGE.left * seatStep : 0);
+  const last = slots[slots.length - 1].x + ROW_EDGE.right * seatStep;
   const places = riders.length + seats;
   const step = riders.length ? Math.min(seatStep, (last - first) / Math.max(1, places - 1)) : seatStep;
   const placeX = (i) => first + i * step;
   const tierOf = (place) => (step < TIGHT_STEP ? place % 2 : 0);
-  let seat = riders.length;
-  const spots = state.boat.map((actor) => {
-    const span = Ferry.actorSeats(actor);
-    const place = span ? seat : riders.indexOf(actor);
-    const x = span ? (placeX(seat) + placeX(seat + span - 1)) / 2 : placeX(place);
-    seat += span;
-    return { id: actor.id, actor, span, x, y: slots[0].y, tier: tierOf(place) };
-  });
+  const isLong = (actor) => Ferry.isTainted(actor);
+  const widthOf = (actor) => Math.max(1, Ferry.actorSeats(actor));
+  let place = 0;
+  const placed = new Map([...state.boat.filter(isLong), ...state.boat.filter((actor) => !isLong(actor))].map((actor) => {
+    const spot = { x: (placeX(place) + placeX(place + widthOf(actor) - 1)) / 2, tier: tierOf(place) };
+    place += widthOf(actor);
+    return [actor.id, spot];
+  }));
+  const spots = state.boat.map((actor) => ({ id: actor.id, actor, span: Ferry.actorSeats(actor), y: slots[0].y, ...placed.get(actor.id) }));
   return { spots, slots };
 }
 
@@ -68,8 +64,8 @@ export function layoutDelivery(state, marked, Ferry) {
     return {
       id,
       actor,
-      area: i >= 0 ? 'dock' : 'seat',
-      ...(i >= 0 ? dockSpot(i) : { x, y }),
+      area: i >= 0 ? 'shore' : 'seat',
+      ...(i >= 0 ? shoreSpot(i, marked.length) : { x, y }),
       span,
       tier: i >= 0 ? 0 : tier,
       canLeave: i >= 0 || testRun(state, [...marked, id], Ferry).ok,

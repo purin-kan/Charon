@@ -1,6 +1,6 @@
 // Pure layout for BoardingScene: state in, positions and labels out. No Phaser.
 // The engine has no seat numbers, so seats fill in order: state.boat, then state.selected.
-// layoutBoarding, boatZone, SLOT and TOKEN also place the boat for CrossingScene and DeliveryScene.
+// boatZone, SLOT and TOKEN also measure the boat for CrossingScene and DeliveryScene, which take their seats from layoutStage.
 // BoardingScene itself draws from layoutStage and the panel helpers at the end of this file.
 export const TOKEN = { w: 100, h: 140 };
 export const SLOT = { w: 104, h: 150, gap: 8 };

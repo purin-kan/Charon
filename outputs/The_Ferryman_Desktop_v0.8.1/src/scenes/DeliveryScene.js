@@ -6,25 +6,27 @@ import { COLOR, DecisionPanel, edgeFlash, fadeOut, lossShake } from '../theme.js
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
-import { TOKEN, boatZone, shipBadge } from './boarding-layout.js';
+import { STAGE, TOKEN, arcPoint, boatZone, ridePoint, shipBadge } from './boarding-layout.js';
 import { soulDetail } from './crossing-layout.js';
 import {
-  DOCK, arrivalOutcome, confirmLabel, deliverAction, exitWarning, headingText, introText, keepValidMarks, layoutDelivery, toggleMark,
+  arrivalOutcome, confirmLabel, deliverAction, exitWarning, headingText, introText, keepValidMarks, layoutDelivery, toggleMark,
 } from './delivery-layout.js';
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { showOutcome } from './outcome-panel.js';
-import { RiverBoat, addDock } from './river-boat.js';
-import { addBoardingSoul, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
+import { PIER_ART, RiverBoat, addPier } from './river-boat.js';
+import { LABEL_TIER_PX, addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
 
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 
 defineTuning({
-  'delivery.departDistance': { type: 'number', default: 120, min: 0, max: 400, step: 10, help: 'How far a soul walks along the dock' },
+  'delivery.departDistance': { type: 'number', default: 120, min: 0, max: 400, step: 10, help: 'How far a soul walks along the shore' },
   'delivery.riseDistance': { type: 'number', default: 150, min: 0, max: 400, step: 10, help: 'A soul at its wish rises in the light' },
   'delivery.beamAlpha': { type: 'number', default: 0.34, min: 0, max: 1, step: 0.02, help: 'Gold beam on a soul at its wish' },
   'delivery.dimAlpha': { type: 'number', default: 0.62, min: 0.2, max: 1, step: 0.02, help: 'A soul that cannot leave here' },
-  'delivery.walkMs': { type: 'number', default: 560, min: 100, max: 1500, step: 10, help: 'A soul goes to the dock and back' },
+  'delivery.walkMs': { type: 'number', default: 760, min: 100, max: 1500, step: 10, help: 'A soul goes ashore and back' },
+  'delivery.rideEase': { type: 'number', default: 6, min: 1, max: 20, step: 1, help: 'How fast a soul picks up or drops the boat rocking' },
+  'delivery.arcPx': { type: 'number', default: 46, min: 0, max: 160, step: 2, help: 'Height of the step between boat and shore' },
 });
 
 export class DeliveryScene extends Phaser.Scene {
@@ -36,7 +38,7 @@ export class DeliveryScene extends Phaser.Scene {
 
   preload() {
     const { destination } = this.registry.get('state');
-    queueAssets(this, { art: [...soulArtIds(), 'sprite-boat-horizontal', ...MemoryHand.artIds()], backgrounds: destination ? [destination] : [] });
+    queueAssets(this, { art: [...soulArtIds(), 'sprite-boat-horizontal', PIER_ART, ...MemoryHand.artIds()], backgrounds: destination ? [destination] : [] });
   }
 
   create() {
@@ -48,12 +50,12 @@ export class DeliveryScene extends Phaser.Scene {
     this.leaving = false;
     this.targets = null; // soul ids the picked memory can target
 
-    this.night = new NightStage(this, state.destination);
+    this.night = new NightStage(this, state.destination, () => tune('boarding.backdropShift')); // the same stage as the start
     this.slots = layoutDelivery(state, [], Ferry).slots;
     const hull = boatZone(this.slots);
-    this.boat = new RiverBoat(this, hull.x, hull.y + FEET, hull.w);
+    this.boat = new RiverBoat(this, hull.x, hull.y + FEET, tune('art.boat.width') * tune('art.boat.deck'));
     this.boat.root.setDepth(DEPTH.boat);
-    for (const part of addDock(this, DOCK.x, DOCK.y)) part.setDepth(DEPTH.seated - 1);
+    addPier(this)?.setDepth(DEPTH.seated - 1);
 
     this.bar = new Hud(this);
     this.panel = new DecisionPanel(this);
@@ -87,14 +89,22 @@ export class DeliveryScene extends Phaser.Scene {
     this.night.update(time, delta);
     this.boat.update(seconds);
     this.bar.update(seconds);
-    for (const token of this.tokens.values()) swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
+    const { root } = this.boat;
+    const pivot = { x: this.boat.x, y: this.boat.y };
+    const settle = Math.min(1, (delta / 1000) * tune('delivery.rideEase'));
+    for (const token of this.tokens.values()) {
+      swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
+      token.riding += ((token.onBoat ? 1 : 0) - token.riding) * settle;
+      const at = ridePoint(token, pivot, root.rotation, { x: 0, y: root.y - pivot.y });
+      token.parts.ride.setPosition((at.x - token.x) * token.riding, (at.y - token.y) * token.riding).setRotation(root.rotation * token.riding);
+    }
   }
 
   say(text) {
     this.bar.toast(text);
   }
 
-  /** A click marks a seated soul or sends one back from the dock. Nothing reaches the engine until confirm. */
+  /** A click marks a seated soul or calls one back from the shore. Nothing reaches the engine until confirm. */
   pick(id) {
     if (this.leaving) return;
     if (this.targets) {
@@ -165,7 +175,8 @@ export class DeliveryScene extends Phaser.Scene {
       return;
     }
     const tokens = ids.map((id) => this.tokens.get(id));
-    // A soul can still be walking to the dock, and that tween would fight this one.
+    // A soul can still be walking ashore, and that tween would fight this one.
+    for (const token of tokens) token.walk?.remove();
     this.tweens.killTweensOf(tokens);
     ids.forEach((id, i) => {
       const entry = this.entries.get(id);
@@ -212,10 +223,12 @@ export class DeliveryScene extends Phaser.Scene {
   }
 
   addToken(entry) {
-    const token = addBoardingSoul(this, { ...entry, y: entry.y + FEET }, tune('crossing.soulHeight'));
+    const token = addBoardingSoul(this, { ...entry, y: entry.y + FEET }, STAGE.soulHeight);
     token.parts.shadow.setAlpha(0);
     startBreathing(this, token);
     token.goal = { x: entry.x, y: entry.y };
+    token.onBoat = entry.area === 'seat';
+    token.riding = token.onBoat ? 1 : 0;
     token.on('pointerdown', () => this.pick(entry.id));
     token.on('pointerover', (pointer) => {
       const state = this.registry.get('state');
@@ -237,7 +250,6 @@ export class DeliveryScene extends Phaser.Scene {
 
   updateToken(token, entry) {
     setBoardingBadge(token, shipBadge(entry.actor, Ferry));
-    setLabelTier(token, entry.tier);
     // A beam is at its wish (its memory, quest step or fare), plain can leave without it, dimmed cannot leave.
     const beam = entry.canLeave && entry.wishMatches;
     const target = !!this.targets?.includes(entry.id);
@@ -246,26 +258,59 @@ export class DeliveryScene extends Phaser.Scene {
     parts.rim?.setTint(target ? COLOR.calm : COLOR.gold);
     this.fade(parts.rim, beam || target ? tune('boarding.rimAlpha') : 0);
     parts.body.setAlpha(entry.canLeave ? 1 : tune('delivery.dimAlpha'));
+    const onBoat = entry.area === 'seat';
+    this.fade(parts.shadow, onBoat ? 0 : tune('boarding.shadowAlpha'));
+    this.pose(token, tune(onBoat ? 'boarding.seatHeight' : 'boarding.soulHeight'), entry.tier);
     this.walkTo(token, entry);
   }
 
-  /** On the boat a soul sits behind the hull; on its way and on the dock it stands in front. */
+  /** A soul grows as it comes ashore, like the walk in BoardingScene. Its name follows, one step higher in a tight row. */
+  pose(token, height, tier) {
+    const key = `${height}/${tier}`;
+    if (token.poseKey === key) return;
+    const first = token.poseKey === undefined;
+    token.poseKey = key;
+    const { body, labels } = token.parts;
+    const scale = height / STAGE.soulHeight;
+    const nameY = -height - 2 - tier * LABEL_TIER_PX;
+    token.input.hitArea.setTo(-36, -height, 72, height);
+    this.tweens.killTweensOf(body);
+    this.tweens.killTweensOf(labels);
+    if (first) {
+      body.setScale(scale);
+      labels.setY(nameY);
+      return;
+    }
+    const motion = { duration: tune('delivery.walkMs'), ease: 'Sine.InOut' };
+    this.tweens.add({ targets: body, scaleX: scale, scaleY: scale, ...motion });
+    this.tweens.add({ targets: labels, y: nameY, ...motion });
+  }
+
+  /** On the boat a soul sits behind the hull. It steps over the side in an arc and stands on the shore in front. */
   walkTo(token, entry) {
-    const restDepth = entry.area === 'seat' ? DEPTH.seated : DEPTH.shore;
+    const onBoat = entry.area === 'seat';
+    const restDepth = onBoat ? DEPTH.seated : DEPTH.shore;
     if (token.goal.x === entry.x && token.goal.y === entry.y) {
       if (!token.walking) token.setDepth(restDepth);
       return;
     }
+    const arc = token.onBoat !== onBoat ? tune('delivery.arcPx') : 0;
+    const from = { x: token.x, y: token.y };
+    const to = { x: entry.x, y: entry.y + FEET };
     token.goal = { x: entry.x, y: entry.y };
+    token.onBoat = onBoat;
     token.walking = true;
     token.setDepth(DEPTH.shore);
-    this.tweens.killTweensOf(token);
-    this.tweens.add({
-      targets: token,
-      x: entry.x,
-      y: entry.y + FEET,
+    token.walk?.remove();
+    token.walk = this.tweens.addCounter({
+      from: 0,
+      to: 1,
       duration: tune('delivery.walkMs'),
       ease: 'Sine.InOut',
+      onUpdate: (tween) => {
+        const at = arcPoint(from, to, tween.getValue(), arc);
+        token.setPosition(at.x, at.y);
+      },
       onComplete: () => {
         token.walking = false;
         token.setDepth(restDepth);
