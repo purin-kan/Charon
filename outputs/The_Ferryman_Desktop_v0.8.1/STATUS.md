@@ -50,6 +50,35 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 | T-35 balance: Light and route tolls (branch `t-35-balance`, Nov 6, Windows 11, Node 24.11.0, PM decision on #45) | `node tools/build-content.js` and `node tests/quest-check.js` from `rules/`, `npm run fixtures`, `npm run check` | Values changed, each with its reason. **Start and maximum Light 6 to 7** and **return healing 1 to 2**: a trip takes about 3 to 4 forks, so 6 Light with +1 per return ran out in cycle 2 or 3 (T-30 runs on #38, VarisPah's runs Nov 6). **Route tolls -1** (Styx and Acheron 1 to 0, Asphodel 2 to 1, Elysium and Tartarus 3 to 2; Haven 0; the +1 from cycle 6 and +2 from cycle 12 unchanged): a fork offering two expensive routes forced 2 or 3 Light whatever the choice (Jaoguya, #45). A bot simulation (1,000 seeded runs per option, real engine, heroes declined; not a playtest) gave a median of 5 cycles and 41% of runs reaching cycle 6, against 2 cycles and 0% before. Save version `0.8-t45b` to `0.8-t45c`, since `validate` refuses a save whose maximum Light is below the new 7. Text: the engine's return line reads `config.returnLight` instead of a fixed "+1", and `return.cost` in `scene-text.json` says +2. Tests: quest-check's Po Long fare reads the Tartarus toll from data, and its fatal crossing and its Fog-Shield-with-Wraith check use Asphodel (now the only 1-toll route) instead of Styx (now 0); `check-boarding` reads Light from the state; `make-fixtures` always builds `trim` with the fixed 4-card hand (random play now reaches the hand limit on its own), and `delivery-match` needs an early leaver that gives a memory and fails no quest, as `check-delivery` assumes. content `6ecbf969...`; quest-check 33 passed, 0 failed; fixtures regenerated; 11 of 11 checks OK. The hero toll (#45 part 2) is not in this change. NOT_RUN: `npm start`, human playtest (T-33), the `.exe` |
 | T-35 balance: route increase from cycle 9 (branch `t-35-balance`, Nov 6, Windows 11, Node 24.11.0, PM exception to the freeze on #45) | `node tools/build-content.js` and `node tests/quest-check.js` from `rules/`, `npm run fixtures`, `npm run check` | **Route fog +1 from cycle 9 and +2 from cycle 15**, instead of cycle 6 and 12 (Haven still none): one line in `engine.js` `fog()`, and the routes rule text in `content.json`. Reason: purin-kan's bot study on #45 (best of 36 strategies, 5,000 seeds; not a playtest) found cycle 6 a wall for good players; with this change good players reach a median of cycle 8 (35% reach cycle 9, against 0.5%), while random-play novices are unchanged (median cycle 2). Engine change after the T-29 freeze, as a PM exception (VarisPah). New quest test: route fog at cycles 1, 8, 9, 14 and 15 for Styx and Tartarus, and Haven always 0; it failed with the cycle 6 / 12 rule put back. content `e8fc2cfe...`; quest-check 34 passed, 0 failed; fixtures regenerated; 11 of 11 checks OK. NOT_RUN: `npm start`, human playtest, the `.exe` |
 
+## T-33 balance playtests (VarisPah, Nov 6, Windows 11)
+
+Played by hand with `npm start` (separate saves), plus two bot simulations. These are one person's runs, not a team playtest.
+
+**Runs**
+
+| Build | Rules | What happened |
+|---|---|---|
+| `main` | old: 6 Light, tolls 0/1/1/2/3/3, return +1, increase from cycle 6 | First crossing cost 2 of 6 Light (stopped early) |
+| #46 + #47 local merge | old | Run 1: one trip of 5 crossings (Styx 1, Asphodel 2, Haven 0, Acheron 1, Tartarus 2): lantern out in cycle 1. Run 2: cycle 1 cost 5 of 6 Light; in cycle 2, four free Haven crossings in a row let Anger rise until the Mother became a Wraith: game over in cycle 2 |
+| `t-35-balance` (#50, first commit) | 7 Light, tolls -1, return +2, increase still from cycle 6 | Reached **cycle 5** (4 returns): Light fell slowly, 7 → 6 → 5 → 4 → 4. Fog Shield cut Tartarus from 2 to 1. Trim and the Long Hollow choice came up. Game over when the Farmer became a Wraith. "A lot easier than before while being challenging" |
+| `boarding-heracles` test state, cycle 9 | as above | Heracles works. The lantern went out after 3 crossings: 1 to take the hero, Asphodel 2, Styx 2 (cycle increase plus a Long's fog) |
+| `t-35-balance` (#50, with the cycle 9 increase) | 7 Light, tolls -1, return +2, increase from cycle 9 | Reached **cycle 5** again (4 returns). Light stayed high: full at two returns (the +2 was wasted once) and never below 3 at a return. Trim came up 4 times. Cycle 5's trip took 9 crossings and the Merchant's wish (Styx) never came up, so his Anger reached the limit: Wraith, lantern out. The cycle 9 increase was not reached, so it is not tested by hand |
+
+**Observations**
+* **Light:** under the old rules, a trip needs 3 to 5 forks at about 1 Light each, and a return gives back 1, so the lantern goes out in cycle 1 to 3. With the new values it runs down over about 5 cycles, and in the last run it was no longer the limit.
+* **Fog:** a fork offering two expensive routes forced 2 or 3 Light whatever the choice (old rules). Fog Shield matters on expensive routes. From cycle 9, Longs add fog on top of the cycle increase, which made the late game a wall.
+* **Anger:** once routes are cheap, Anger becomes the main pressure. Stalling on free Haven routes doesn't work, because waiting souls keep getting angrier until they become Wraiths. Both runs on the new values ended in cycle 5 from Anger: a soul whose wish route is not offered during a long trip reaches the Anger limit.
+* **Simulations (bots, not playtests):** my bot (1,000 seeds) went from a median of 2 cycles to 5 with the new values. purin-kan's study on #45 (best of 36 strategies, 5,000 seeds): good players go from a median of cycle 2 to cycle 6, and to cycle 8 with the increase moved to cycle 9, while novices stay at cycle 2.
+
+**Changes proposed to the group:** on #45 (Jaoguya, purin-kan) and in #50: 7 Light, tolls -1, return +2, route increase from cycle 9 and 15.
+
+**Open for T-35:**
+* the cycle 9 change has not been played by hand past cycle 5
+* runs ending from Anger after long trips: whether to ease it (an earlier drop-off costs 1 Light today; Calm; the boat Anger limit, which did not help purin-kan's bot)
+* return +3 or 8 Light, only if still too hard
+* the hero no-toll idea (#45 part 2)
+* a full boat being a trap (purin-kan's finding)
+
 ## Verified: T-16 memory UI and T-17 GameOverScene (Jaoguya, Nov 1, 2026)
 
 Machine: Windows 10 Pro, Node v24.22.1, npm 11.19.1.
