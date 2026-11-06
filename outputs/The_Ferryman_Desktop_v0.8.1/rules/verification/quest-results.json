@@ -1,11 +1,11 @@
 {
   "version": "0.8-t45b",
-  "passed": 32,
+  "passed": 33,
   "failed": 0,
   "hashes": {
     "engine.js": "b9d6431854b49f670eb0616f65b6f04aab2288cfdecfae6ce9bb9f12605c5a2d",
-    "content.json": "cdef337abc6faa461d9d4d7c776aeea5f5e65c91c9933efa09b41caf13e04f70",
-    "tests/quest-check.js": "854f260af0a3af4ab69d6b765dd00682fb01ff87769d2f81e1464f52e08e7c42"
+    "content.json": "0aa50a2d9ea8824305a9f93502048fadfbd5c0e8114c3c55aaca0e60582c157f",
+    "tests/quest-check.js": "fa75a1d41048c03c7777b3fcc6995ae6ddffa6c2f51ecd17799a52767db29602"
   },
   "records": [
     {
@@ -18,6 +18,10 @@
     },
     {
       "name": "Fresh returned character instances start a new quest without reusing rewards",
+      "status": "PASS"
+    },
+    {
+      "name": "Soul data (Jaoguya on #6, Nov 4): Soldiers, Messenger and Blacksmith wishes and memories",
       "status": "PASS"
     },
     {
@@ -53,7 +57,7 @@
       "status": "PASS"
     },
     {
-      "name": "Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop",
+      "name": "Fog Shield and Guard protect a crossing, so they are refused at the dock and playable at the next stop",
       "status": "PASS"
     },
     {
@@ -77,7 +81,7 @@
       "status": "PASS"
     },
     {
-      "name": "One memory per stop, overflow cannot be spent, full fog does not block Wraiths",
+      "name": "One memory per stop, overflow cannot be spent, fog protection does not block Wraiths",
       "status": "PASS"
     },
     {
@@ -136,7 +140,7 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 3214,
+      "transitions": 3197,
       "choices": 0,
       "humanPlaytest": false
     }
