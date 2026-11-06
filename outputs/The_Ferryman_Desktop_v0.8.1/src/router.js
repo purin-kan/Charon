@@ -5,10 +5,13 @@
 // Scenes never call each other. They read state and call router.dispatch(action).
 import { Ferry } from './ferry.js';
 import { sceneFor, OVERLAYS } from './phase-map.js';
+import { playLoop, pauseLoop } from './preloader.js';
 
 export { sceneFor, OVERLAYS };
 
 const EXIT_TIMEOUT_MS = 5000; // safety net: a scene that forgets exitDone() cannot freeze the game
+// The run's background loop: starts with the run, keeps playing across every scene, pauses on GameOver.
+export const RUN_AMBIENCE = 'amb-crossing';
 
 export class Router {
   constructor(game) {
@@ -26,6 +29,7 @@ export class Router {
     this.state = state;
     this.game.registry.set('state', state);
     this.target = null;
+    playLoop(this.game, RUN_AMBIENCE, undefined, { fromStart: true }); // New game or Continue
     this._enter(sceneFor(state));
     this.game.events.emit('ferry-state', state);
   }
@@ -89,6 +93,8 @@ export class Router {
     if (this.overlay) this._closeOverlay();
     if (this.base) sm.stop(this.base);
     this.base = key;
+    if (key === 'GameOverScene') pauseLoop(this.game.sound.get(RUN_AMBIENCE));
+    else playLoop(this.game, RUN_AMBIENCE); // keeps playing; resumes only if something paused it
     sm.start(key);
   }
 

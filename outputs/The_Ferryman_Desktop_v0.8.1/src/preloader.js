@@ -90,6 +90,31 @@ export function playSound(scene, id, config) {
 }
 
 /**
+ * Plays a looping track that carries on where it left off: the sound manager is shared by every scene, so a
+ * scene that comes back (CrossingScene every round, TitleScene after a run) resumes the same sound instead of
+ * starting it again. Pair with pauseLoop on shutdown. `owner` is a scene or the game (both have cache and
+ * sound). fromStart plays it again from 0, for the start of a new run. Returns the sound, or null if missing.
+ */
+export function playLoop(owner, id, config, { fromStart = false } = {}) {
+  if (!owner.cache.audio.exists(id)) return null;
+  let s = owner.sound.get(id);
+  if (!s) {
+    s = owner.sound.add(id, { ...config, loop: true });
+    s.play();
+  } else if (fromStart) {
+    s.stop();
+    s.play();
+  } else if (s.isPaused) s.resume();
+  else if (!s.isPlaying) s.play();
+  return s;
+}
+
+/** Pauses a track from playLoop so the next playLoop of the same id resumes it. */
+export function pauseLoop(sound) {
+  if (sound?.isPlaying) sound.pause();
+}
+
+/**
  * Draws a background id (bg-starting-shore, DEST-STYX) to cover the 1280 x 720 view, with a dark veil so
  * text stays readable. Draws nothing if the file is missing. Returns the image or null.
  */

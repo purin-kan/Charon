@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { queueAssets, playSound } from '../preloader.js';
+import { queueAssets, playLoop, pauseLoop } from '../preloader.js';
 import { t } from '../text.js';
 import { COLOR, CSS, bodyText, drawPanel, fadeIn, fadeOut, headText, makeButton, makeChip, whenFontsReady } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
@@ -52,13 +52,14 @@ export class TitleScene extends Phaser.Scene {
     // Keyboard listeners outlive a scene restart, so remove this one on shutdown.
     const onKey = (e) => this.onKey(e);
     this.input.keyboard.on('keydown', onKey);
-    this.music = MENU_MUSIC.map((id) => playSound(this, id, { loop: true, volume: 0.5 })).find(Boolean) ?? null;
+    pauseLoop(this.sound.get('amb-crossing')); // the run's loop (router.js RUN_AMBIENCE) waits for the next run
+    this.music = MENU_MUSIC.map((id) => playLoop(this, id, { volume: 0.5 })).find(Boolean) ?? null; // resumes, never restarts
     const run = (this.run = {}); // a scene stopped while the fonts load must not build
     this.events.once('shutdown', () => {
       this.run = null;
       this.night = null;
       this.input.keyboard.off('keydown', onKey);
-      this.music?.stop();
+      pauseLoop(this.music);
     });
     whenFontsReady().then(() => {
       if (this.run !== run) return;
