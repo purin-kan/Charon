@@ -1,13 +1,13 @@
 # T-26 pitch script draft (November 4, 2026)
 
-Owner: bosthanapatw. Support: purin-kan. Draft for the team to review. It follows the slide numbers in `notes/T-18_Presentation_Outline.md` and the rules in `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` at rules version `0.8-t45`. **Every rule line is provisional until the November 6 freeze**, #26 (boat Wraith at Anger 5) is merged, and slides 6 and 15 change when #27 (memory rules) merges. Slides 7 and 12 change if #28 drops Long levels or spread, or if Long arrivals become per cycle.
+Owner: bosthanapatw. Support: purin-kan. Draft for the team to review. It follows the slide numbers in `notes/T-18_Presentation_Outline.md` and the rules in `outputs/The_Ferryman_Desktop_v0.8.1/rules/RULES.md` at rules version `0.8-t45c` (`main` at `a06c0a4`, after #50). **Still open:** return healing may change in T-35 (November 7), and no route toll with a hero aboard (#45) is not decided. Slide 15 waits for a new seed.
 
 How to read this script:
 
 * Lines under each slide are spoken, at about 130 words per minute. The time per slide is an estimate from the word count.
 * `[Action]` lines are stage directions, not spoken.
 * Speakers are not assigned yet. Suggested split: one speaker for Part 1, one for Part 2, one driver and one narrator for Part 3.
-* The course limit is 15 minutes. This draft is about 8 to 9 minutes of speech before Q&A, plus the time to drive the demo. If time is short, cut slide 9 first.
+* The course limit is 15 minutes. This draft is about 9 to 10 minutes of speech before Q&A, plus the time to drive the demo. If time is short, cut slide 9 first.
 
 ## Part 1: Description (about 4 minutes)
 
@@ -23,33 +23,33 @@ You play the apprentice of Charon, the ferryman of the dead. Souls wait on the s
 
 You are the apprentice of Charon, the old master of the river. Each soul you carry has a name, a story and a wish. But the river is not safe. The Longs are lost souls from another land who believe they belong here. The Light of your lantern keeps them away, and as it dims, they sneak in. Souls that wait too long become Wraiths.
 
-**Slide 4. The core loop** (35 s)
+**Slide 4. The core loop** (40 s)
 
 [Action: point at each step of the loop diagram.]
 
-Each cycle has four steps. First, board: choose souls from the shore, up to four seats. Second, cross: at each fork, pick one of two routes. Each route shows its fog cost. Third, deliver: when the boat reaches a soul's wish, that soul gets off. Fourth, return: with an empty boat, go back to the shore and recover one Light. While you are away, the souls on the shore grow angry.
+Each cycle has four steps. First, board: choose souls from the shore, up to four seats. Second, cross: at each fork, pick one of two routes. Each route shows its fog cost. Third, deliver: when the boat reaches a soul's wish, that soul gets off. A soul can also leave early at any stop, but that costs one Light. Fourth, return: with an empty boat, go back to the shore and recover two Light. While you are away, the souls on the shore grow angry.
 
 **Slide 5. Resources and pressure** (30 s)
 
-Two numbers drive the game. Light is your life: you start with six, fog takes it, and the return gives one back. Anger is the souls' patience. A soul left waiting on the shore, or sailing too long, turns into a Wraith, and Wraiths cost Light. The fog also gets thicker as the run goes on, from cycle 6 and again from cycle 12, except at Haven.
+Two numbers drive the game. Light is your life: you start with seven, fog takes it, and the return gives two back. Anger is the souls' patience. A soul left waiting on the shore, or sailing too long, turns into a Wraith, and Wraiths cost Light. The fog also gets thicker as the run goes on, from cycle 9 and again from cycle 15, except at Haven.
 
 **Slide 6. Memories** (25 s)
 
-When a soul is delivered, it often leaves a memory card. Twelve of the fifteen ordinary souls do. You can hold three. Memories are your tools. For example, Light restores one Light, and Calm lowers the Anger of every soul on the boat. Some stories end with a special memory, like the Sword or the Golden Apple.
+When a soul reaches its wish, it often leaves a memory card. Thirteen of the fifteen ordinary souls do. You can hold three, and play one at each stop. Memories are your tools. For example, Light restores one Light, and Calm lowers the Anger of every soul on the boat. Some stories end with a special memory, like the Sword or the Golden Apple.
 
 **Slide 7. Longs** (20 s)
 
-Then there are the Longs: lost souls from another land. One boards on every third outward round, and each Long breaks one rule. For example, Long Mist adds fog, and Long Hollow steals memories. They get stronger with each encounter.
+Then there are the Longs: lost souls from another land. From cycle 3, one boards each cycle, and later two or three. Each Long breaks one rule. For example, Long Mist adds fog, and Long Hollow steals memories. They get stronger with each encounter.
 
 **Slide 8. Stories** (20 s)
 
 The souls are not only cargo. Pairs of souls share a story, and the order of delivery matters. Penelope the Mother and Theo the Child. The two Soldiers. The Bard and the Listener. For example, the Merchant must be delivered before the Blacksmith, or there is no Sword.
 
-**Slide 9. Heroes** (15 s)
+**Slide 9. Heroes** (20 s)
 
-Sometimes a hero asks for a ride. Heracles must face Cerberus, and both travel to the same destination; the reward is the Golden Apple. Odysseus meets Tiresias and must choose between Charybdis and Scylla.
+Later in a run, a hero may ask for a ride: Odysseus from cycle 6, Heracles from cycle 9. Heracles must face Cerberus, and both travel to the same destination; the reward is the Golden Apple. Odysseus meets Tiresias and must choose between Charybdis and Scylla.
 
-## Part 2: Algorithmic Implementation (about 3 minutes)
+## Part 2: Algorithmic Implementation (about 3.5 minutes)
 
 **Slide 10. One seeded random generator** (50 s)
 
@@ -61,25 +61,25 @@ The river is generated, not designed by hand. At each fork, `deal` draws two dif
 
 **Slide 12. Random systems that create pressure** (45 s)
 
-Randomness also creates pressure. The type of each Long is a tiered random pick: Long Veil and Long Grasp can only appear from the third encounter. A random hero may be offered at each return. Cerberus frightens up to two random passengers off the boat. The Restless River can give most Longs extra Anger, and the chance rises over the run. Other targets are random too: the memory Charybdis takes, Scylla's victim, which soul a Long spreads to, which route Long Veil hides, and, from level 3, which memory Long Hollow takes. Below level 3 the player chooses.
+Randomness also creates pressure. The type of each Long is a tiered random pick: Long Veil and Long Grasp can only appear from the third encounter. From cycle 6, a hero may be offered, with a 25 percent chance. Cerberus frightens up to two random passengers off the boat. The Restless River can give most Longs extra Anger, and the chance rises over the run. Other targets are random too: the memory Charybdis takes, Scylla's victim, which soul a Long spreads to, which route Long Veil hides, and, from level 3, which memory Long Hollow takes. Below level 3 the player chooses.
 
 **Slide 13. Deterministic rules** (30 s)
 
 Not everything is random. The fog cost is a fixed calculation: the route's base fog, plus the cycle increase, plus Long fog and overload, minus any shields. The player sees this cost before confirming a route, unless Long Veil hides it. All rules live in one engine and one data file, and every scene reads from them, so the rules are never written twice.
 
-**Slide 14. Luck and skill** (30 s)
+**Slide 14. Luck and skill** (45 s)
 
-Some of the game is luck, and some is skill. Chance decides the routes, the arrivals and which Longs appear. The player decides who boards, which fork to take and when to play a memory. With one seeded generator, the same seed and the same choices replay the same run, so a good or bad result can be studied again.
+Some of the game is luck, and some is skill. Chance decides the routes, the arrivals and which Longs appear. The player decides who boards, which fork to take and when to play a memory. With one seeded generator, the same seed and the same choices replay the same run, so a good or bad result can be studied again. In a bot test of 5,000 seeded runs per player type, the median run ended at cycle 8 for a good strategy and cycle 2 for random play. These are bots, not people, but they show that decisions matter.
 
 ## Part 3: Demo play (about 2 minutes)
 
 **Slide 15. Demo** (about 2 min: 75 s of speech plus play time, not measured)
 
-[Action: open the built `.exe`. Start a new game with the demo seed, typed on the title screen. If the live demo fails, play the recorded video (T-41).]
+[Action: Jaoguya opens the built `.exe` and starts a new game with the demo seed, typed on the title screen. After the first boarding and crossing, show the clips: a Long boarding, a delivery and a quest. If the live part fails, play the recorded video (T-41).]
 
 Let's play. This is a fixed seed, so if we make the same choices, the run matches our rehearsal.
 
-[Action: the driver plays the path below. The narrator speaks at each step. This is **candidate seed 116**, the first cycle only. It was replayed through `rules/engine.js` on `main` at `e599583`, with #26 merged, not in the game window. Run it again after the freeze: see "Demo seed" below.]
+[**Out of date, do not rehearse.** The path below is old seed 116, from before #50. It stays here only as a pattern until the new seed replaces it: see "Demo seed" below.]
 
 1. Boarding (Light 6). Board Mother, Child, Merchant and Cook. Leave the Odysseus offer. "Here is the shore. Four seats, four souls. Mother and Child board together, so their story starts."
 2. Fork 1: Acheron (fog 1) or Haven (fog 0). Take Haven and deliver Child. "Haven costs no fog, and the Child's wish is Haven. The Child must arrive before the Mother."
@@ -109,18 +109,16 @@ Thank you. We are happy to take questions.
 
 ## Demo seed
 
-Candidate only. The outline chooses the final seed after the November 6 freeze (to-do 3).
+Not chosen yet (T-41).
 
-* Seed 116 was picked from a search of seeds 1 to 5000 with one fixed boarding (Mother, Child, Merchant, Cook) and a simple route rule. The search kept seeds where a memory comes before the first Long and the first cycle ends.
-* After #26, the Cook no longer becomes a Wraith at fork 4, so the path has a fifth fork. It finishes a story, plays a memory and delivers all four souls.
-* Replayed twice through `rules/engine.js` on `main` at `e599583`: both runs gave the same final state.
-* #27 may change the memories. Replay the path after the freeze.
-* NOT_RUN: this path in the real game. CrossingScene (T-19) is still a stub on `main` and nothing mounts RouteUI yet, so the fog display on slide 13 and in this path is also unconfirmed in the game window.
+* Seed 116 no longer fits. The Light, tolls and Long timing all changed after it was picked, so the path on slide 15 is out of date.
+* Pick a new seed after #46 and #47 merge, then replay it through the engine and in the game window.
+* A Long cannot board before cycle 3, so the first live crossing will not show one. The clips cover it.
 
 ## Not done for T-26
 
 * **Early gameplay footage** (in the T-26 done-when line) is not captured. purin-kan agreed on #22 that it can be added after #34 (CrossingScene) merges, so T-26 stays In progress until then.
 * Speakers and timing per person are not assigned.
-* The demo steps on slide 15 use a candidate seed; the final seed waits for the freeze (T-41).
+* The demo steps on slide 15 are out of date; the final seed waits for #46 and #47 (T-41).
 * VarisPah chose the name Heracles (#21), so this script uses it. The game still shows "Hercules the traveler" (`content.json`) until that rename lands.
 * The script was not read aloud or timed; the times above are word-count estimates.
