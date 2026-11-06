@@ -1,47 +1,23 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.8-t45b",
+  "version": "0.8-t45c",
   "schemaVersion": 3,
-  "seed": 6,
-  "rng": 922079314,
+  "seed": 1,
+  "rng": 4222990331,
   "phase": "review",
   "paused": false,
-  "light": 1,
-  "maxLight": 6,
-  "round": "3",
+  "light": 2,
+  "maxLight": 7,
+  "round": "5",
   "cycle": "1",
   "completed": "0",
   "deliveries": "1",
   "nextActor": "6",
   "nextBoarding": "2",
   "nextMemory": "2",
-  "nextQuest": "1",
+  "nextQuest": "2",
   "encounters": "0",
   "shore": [
-    {
-      "id": "ACTOR-1",
-      "type": "SOUL-MOTHER",
-      "origin": "SOUL-MOTHER",
-      "wish": "DEST-TARTARUS",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
-    {
-      "id": "ACTOR-2",
-      "type": "SOUL-CHILD",
-      "origin": "SOUL-CHILD",
-      "wish": "DEST-HAVEN",
-      "anger": 0,
-      "boardingId": null,
-      "bornRound": "0",
-      "level": 0,
-      "spread": false,
-      "exhausted": false
-    },
     {
       "id": "ACTOR-3",
       "type": "SOUL-MERCHANT",
@@ -69,33 +45,55 @@
   ],
   "boat": [],
   "arrivals": [
-    "SOUL-MUSICIAN",
-    "SOUL-KEEPER",
-    "SOUL-MESSENGER",
-    "SOUL-BLUE-SOLDIER",
-    "SOUL-POET",
     "SOUL-PRIEST",
+    "SOUL-MUSICIAN",
     "SOUL-LISTENER",
     "SOUL-BLACKSMITH",
+    "SOUL-KEEPER",
+    "SOUL-POET",
     "SOUL-FARMER",
+    "SOUL-MESSENGER",
+    "SOUL-BLUE-SOLDIER",
     "SOUL-RED-SOLDIER"
   ],
   "discard": [
+    "SOUL-MOTHER",
+    "SOUL-CHILD",
     "SOUL-MASON"
   ],
   "selected": [],
   "hand": [
     {
       "id": "MEMORY-1",
-      "type": "MEM-FOG",
+      "type": "MEM-LIGHT",
       "sourceRef": {
         "kind": "character",
-        "definitionId": "SOUL-MASON",
-        "instanceId": "ACTOR-4"
+        "definitionId": "SOUL-MOTHER",
+        "instanceId": "ACTOR-1"
       }
     }
   ],
-  "quests": [],
+  "quests": [
+    {
+      "id": "QUEST-1",
+      "definitionId": "QUEST-FAMILY",
+      "participants": [
+        "ACTOR-1",
+        "ACTOR-2"
+      ],
+      "status": "failed",
+      "stage": "active",
+      "sharedRoutes": 1,
+      "delivered": [
+        "ACTOR-1"
+      ],
+      "rewardClaimed": false,
+      "rewardType": null,
+      "reason": "Mother delivered before Child",
+      "cycle": "1",
+      "data": {}
+    }
+  ],
   "effects": {
     "capacity": false,
     "moly": false,
@@ -112,49 +110,63 @@
   "routes": {
     "offers": [
       [
-        "DEST-TARTARUS",
-        "DEST-ASPHODEL"
+        "DEST-ELYSIUM",
+        "DEST-ACHERON"
       ],
       [
-        "DEST-ACHERON",
+        "DEST-STYX",
         "DEST-ELYSIUM"
       ],
       [
-        "DEST-TARTARUS",
+        "DEST-STYX",
         "DEST-ACHERON"
       ]
     ],
     "masks": [
+      0,
       1,
-      1,
-      0
+      1
     ],
     "foresight": 0,
     "history": [
       {
         "offer": [
-          "DEST-ASPHODEL",
-          "DEST-TARTARUS"
+          "DEST-STYX",
+          "DEST-ASPHODEL"
         ],
         "chosen": "DEST-ASPHODEL"
+      },
+      {
+        "offer": [
+          "DEST-TARTARUS",
+          "DEST-STYX"
+        ],
+        "chosen": "DEST-TARTARUS"
+      },
+      {
+        "offer": [
+          "DEST-TARTARUS",
+          "DEST-STYX"
+        ],
+        "chosen": "DEST-STYX"
       },
       {
         "offer": [
           "DEST-ASPHODEL",
           "DEST-STYX"
         ],
-        "chosen": "DEST-ASPHODEL"
+        "chosen": "DEST-STYX"
       },
       {
         "offer": [
-          "DEST-ASPHODEL",
+          "DEST-HAVEN",
           "DEST-ACHERON"
         ],
         "chosen": "DEST-ACHERON"
       }
     ]
   },
-  "nextPolong": "SOUL-PO-NAK",
+  "nextPolong": "SOUL-PO-LUEM",
   "heroOffer": null,
   "destination": "DEST-ACHERON",
   "pending": {
@@ -171,34 +183,74 @@
       "text": "All-quest trial begins."
     },
     {
+      "round": "0",
+      "cycle": "1",
+      "text": "Mother and Child: started."
+    },
+    {
       "round": "1",
       "cycle": "1",
-      "text": "crossing to Asphodel: 2 Light lost."
+      "text": "crossing to Asphodel: 1 Light lost."
     },
     {
       "round": "2",
       "cycle": "1",
-      "text": "crossing to Asphodel: 2 Light lost."
+      "text": "crossing to Tartarus: 2 Light lost."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother and Child: failed (Mother delivered before Child)."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Received Light."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother leaves: delivery."
+    },
+    {
+      "round": "2",
+      "cycle": "1",
+      "text": "Mother reached Tartarus."
     },
     {
       "round": "3",
       "cycle": "1",
-      "text": "crossing to Acheron: 1 Light lost."
+      "text": "crossing to River Styx: 0 Light lost."
     },
     {
-      "round": "3",
+      "round": "4",
       "cycle": "1",
-      "text": "Received Fog Shield."
+      "text": "crossing to River Styx: 0 Light lost."
     },
     {
-      "round": "3",
+      "round": "5",
       "cycle": "1",
-      "text": "Mason leaves: delivery."
+      "text": "crossing to Acheron: 0 Light lost."
     },
     {
-      "round": "3",
+      "round": "5",
       "cycle": "1",
-      "text": "Mason reached Acheron."
+      "text": "Child becomes a Wraith: 1 Light lost."
+    },
+    {
+      "round": "5",
+      "cycle": "1",
+      "text": "Child leaves: expiry."
+    },
+    {
+      "round": "5",
+      "cycle": "1",
+      "text": "Mason becomes a Wraith: 1 Light lost."
+    },
+    {
+      "round": "5",
+      "cycle": "1",
+      "text": "Mason leaves: expiry."
     }
   ],
   "longForks": []

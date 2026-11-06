@@ -146,7 +146,7 @@
     "prepHeading": "Before you return",
     "reviewReturn": "Review return",
     "heading": "Return to the Starting Shore",
-    "cost": "{loss} Light from waiting souls expiring, then +1 Light if alive.",
+    "cost": "{loss} Light from waiting souls expiring, then +2 Light if alive.",
     "expire": "Boat Space, Moly and Nobody expire on this return.",
     "lethal": "The lantern goes out before healing."
   },

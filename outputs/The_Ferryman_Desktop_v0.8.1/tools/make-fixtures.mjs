@@ -42,7 +42,7 @@ function mixedDelivery(s) {
   const memory = (x) => Ferry.data.souls.find((d) => d.id === x.type).memory;
   const clean = (x) => !Ferry.transition(s, { type: 'DELIVER', ids: [x.id] }).quests.some((q, i) => q.status === 'failed' && s.quests[i]?.status !== 'failed'); // fails no quest
   return s.boat.some((x) => leaves(x) && Ferry.wish(x) === s.destination && memory(x) && clean(x))
-    && s.boat.some((x) => leaves(x) && Ferry.wish(x) !== s.destination);
+    && s.boat.some((x) => leaves(x) && Ferry.wish(x) !== s.destination && memory(x) && clean(x)); // its lost memory is named on the Delivery screen
 }
 
 function lcg(seed) {
@@ -109,9 +109,10 @@ for (let seed = 1; seed <= 400 && Object.keys(found).length < names.length; seed
   if (!found.ended && WANTED.ended(s)) found.ended = { seed, step: -1, state: s };
 }
 
-// Random play rarely reaches the hand limit, so "trim" is the window fixture with an
-// overfull hand (4 memories with valid character provenance). validate() still passes.
-if (!found.trim && found.window) {
+// "trim" is always the window fixture with an overfull hand (4 memories with valid character
+// provenance), so check-memory sees the same 4-card hand whatever random play reaches.
+// validate() still passes.
+if (found.window) {
   const s = structuredClone(found.window.state);
   const n0 = Number(s.nextMemory);
   const src = { 'MEM-LIGHT': 'SOUL-MOTHER', 'MEM-FOG': 'SOUL-MASON', 'MEM-CALM': 'SOUL-COOK', 'MEM-FORESIGHT': 'SOUL-POET' };
