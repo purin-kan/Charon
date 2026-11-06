@@ -1,5 +1,22 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Motion polish (branch `polish-transitions`, Nov 6, 2026, not pushed)
+
+Presentation only, on top of `full-game-restyle`; `rules/`, `package.json`, the lockfile, `src/scenes/index.js` and `src/router.js` are unchanged. Scene changes crossfade from the last frame, with a teal fade as fallback; Crossing and Delivery stay seamless. The interface uses one rhythm (`motion.*`: 180, 350, 700 ms); journeys keep their own lengths. All assets load at boot. Reduced motion is `motion.reduced` in F2 and follows the Windows setting.
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated | `npm run check`, `quest-check` | 11 of 11 after each group; rules unchanged from `3168a38`, last run 33 passed |
+| Fixtures (agent, not a playtest) | every fixture in `src/dev/fixtures/`, on the dev server | 18 of 18 opened, 0 console problems, worst frame 15 ms at 240 fps |
+| Full run, seed 7 (agent, real mouse input) | title to GameOver | 4 cycles, 5 deliveries, 0 console problems, 0 scene loads, 0 frames over 80 ms, slowest exit 2,905 ms, snapshot about 25 ms |
+| Same run, reduced motion emulated | `prefers-reduced-motion: reduce` | Same ending, 0 console problems, no crossfade frames |
+| Memory cards (agent, real clicks) | 14 cards, every legal place | 69 of 69 used with their effect, 0 console problems |
+| Visual feel of every transition | human | NOT_RUN |
+| Sound fades heard | human | NOT_RUN |
+| Reduced motion with the real Windows setting | human | NOT_RUN (emulated only) |
+| Hero, quest and choice paths in a full run; F2 with the new keys | agent or human | NOT_RUN (the seed 7 run reaches none of them) |
+| Packaged `.exe`, slower PC | human | NOT_RUN; all numbers above are from the dev server on one PC |
+
 Machine: Windows 11, Node v25.1.0, npm 11.6.2.
 
 ## Pinned versions (package.json, exact)

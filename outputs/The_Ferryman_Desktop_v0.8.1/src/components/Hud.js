@@ -6,7 +6,7 @@
 //   this.hud.update(seconds);                 // in update(), for the flames
 //   this.hud.toast(text);                     // a short status line that fades
 import { Ferry } from '../ferry.js';
-import { bodyText, CSS, drawPanel, EASE, LightFlames, MS, pulseText } from '../theme.js';
+import { bodyText, COLOR, CSS, drawPanel, EASE, edgeFlash, LightFlames, MS, pulseText } from '../theme.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { flames, nextLongName } from '../scenes/boarding-layout.js';
@@ -32,6 +32,8 @@ export class Hud {
   }
 
   render(state) {
+    if (this.light !== undefined && state.light > this.light) edgeFlash(this.scene, COLOR.lantern); // healing is warm
+    this.light = state.light;
     this.flames.set(flames(state, Ferry));
     pulseText(this.scene, this.cycle, t('boarding.cycleLine', { cycle: state.cycle }));
     const long = nextLongName(state, Ferry);
@@ -46,6 +48,7 @@ export class Hud {
   stepLight(from, to, max) {
     const step = tune('hud.flameMs');
     const count = Math.abs(to - from);
+    this.light = to; // the scene plays its own flash for these
     const dir = Math.sign(to - from);
     for (let i = 1; i <= count; i++) {
       const light = from + dir * i;

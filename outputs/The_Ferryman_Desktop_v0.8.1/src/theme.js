@@ -30,6 +30,7 @@ defineTuning({
   'art.background.veil': { type: 'number', default: 0.6, min: 0, max: 1, step: 0.02, help: 'Dark teal veil over a background' },
   'art.background.vignette': { type: 'number', default: 0.85, min: 0, max: 1, step: 0.02 },
   'ui.buttonHover': { type: 'number', default: 1.03, min: 1, max: 1.15, step: 0.01 },
+  'ui.buttonGlow': { type: 'number', default: 0.22, min: 0, max: 1, step: 0.02, help: 'Soft glow behind a button under the pointer' },
   'ui.buttonPress': { type: 'number', default: 0.97, min: 0.8, max: 1, step: 0.01 },
   'ui.disabledAlpha': { type: 'number', default: 0.45, min: 0.1, max: 1, step: 0.05 },
   'ui.auraMs': { type: 'number', default: 1500, min: 200, max: 5000, step: 50, help: 'Slow light behind a gold button' },
@@ -156,6 +157,12 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
     parts.unshift(aura);
     scene.tweens.add({ targets: aura, alpha: 0.42, duration: tune('ui.auraMs'), ease: EASE.move, yoyo: true, repeat: -1 });
   }
+  const halo = scene.add.image(0, 0, 'board-soft').setDisplaySize(w * 1.35, h * 2.6).setTint(COLOR.gold).setAlpha(0);
+  parts.unshift(halo);
+  const glow = (on) => {
+    scene.tweens.killTweensOf(halo);
+    scene.tweens.add({ targets: halo, alpha: on ? tune('ui.buttonGlow') : 0, duration: MS.fast, ease: EASE.enter });
+  };
   const btn = scene.add.container(x, y, parts);
   btn.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
   const scaleTo = (scale) => {
@@ -164,8 +171,8 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
   };
   btn.enabled = true;
   btn.styled = false;
-  btn.on('pointerover', () => { if (btn.enabled) { paint(true); scaleTo(tune('ui.buttonHover')); } });
-  btn.on('pointerout', () => { paint(false); scaleTo(1); });
+  btn.on('pointerover', () => { if (btn.enabled) { paint(true); glow(true); scaleTo(tune('ui.buttonHover')); } });
+  btn.on('pointerout', () => { paint(false); glow(false); scaleTo(1); });
   btn.on('pointerdown', () => {
     if (!btn.enabled) return;
     scene.tweens.killTweensOf(btn);
@@ -359,7 +366,7 @@ export function modalShade(scene) {
 export function edgeFlash(scene, color = COLOR.danger, depth = 11) {
   const { width, height } = scene.scale;
   const edge = scene.add.image(width / 2, height / 2, 'board-edge').setDisplaySize(width, height).setTint(color).setAlpha(0).setDepth(depth);
-  scene.tweens.add({ targets: edge, alpha: tune('ui.flashAlpha'), duration: MS.base, ease: EASE.enter, yoyo: true, onComplete: () => edge.destroy() });
+  scene.tweens.add({ targets: edge, alpha: tune('ui.flashAlpha') * (reducedMotion() ? 0.4 : 1), duration: MS.base, ease: EASE.enter, yoyo: true, onComplete: () => edge.destroy() });
 }
 
 /** A small shake of the view, for Light lost. */
