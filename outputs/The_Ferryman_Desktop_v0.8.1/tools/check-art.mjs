@@ -3,7 +3,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fileIdFor, patternName, ALIASES } from '../src/asset-names.js';
+import { figureIdFor, fileIdFor, patternName, ALIASES } from '../src/asset-names.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const data = JSON.parse(readFileSync(join(root, 'rules/content.json'), 'utf8'));
@@ -24,6 +24,10 @@ ALIASES.art['SOUL-TEST-ALIAS'] = 'sprite-long-mist';
 report(fileIdFor('art', 'SOUL-TEST-ALIAS', ['sprite-long-mist', 'sprite-test-alias']) === 'sprite-long-mist', 'an alias wins over the pattern');
 delete ALIASES.art['SOUL-TEST-ALIAS'];
 
+report(figureIdFor('SOUL-MOTHER') === 'figure-mother', 'SOUL-MOTHER -> figure-mother');
+report(figureIdFor('CHAR-CERBERUS') === 'figure-cerberus', 'CHAR-CERBERUS -> figure-cerberus');
+report(figureIdFor('SOUL-RED-SOLDIER') === 'figure-soldier' && figureIdFor('SOUL-BLUE-SOLDIER') === 'figure-soldier', 'both soldiers share one figure');
+
 // 2. Every alias points at a pattern-style name (no typos like a missing "sprite-").
 for (const [kind, table] of Object.entries(ALIASES)) {
   for (const [id, file] of Object.entries(table)) {
@@ -38,7 +42,7 @@ const HANDOFF = {
     'sprite-blacksmith', 'sprite-priest', 'sprite-priest-exhausted', 'sprite-soldier', 'sprite-traveler',
     'sprite-long-mist', 'sprite-long-hollow', 'sprite-long-burden', 'sprite-long-veil', 'sprite-long-grasp',
     'sprite-heracles', 'sprite-odysseus', 'sprite-cerberus', 'sprite-tiresias', 'sprite-scylla', 'sprite-wraith',
-    'sprite-apprentice', 'sprite-old-master', 'sprite-boat-horizontal',
+    'sprite-apprentice', 'sprite-old-master', 'sprite-boat-horizontal', 'sprite-dock',
     'memory-last-masterwork', 'memory-last-prayer', 'memory-boat-space', 'memory-shared-harvest', 'memory-golden-apple',
     'memory-nobody', 'memory-all-fog', 'memory-moly', 'memory-soldier-peace'],
   backgrounds: ['bg-haven', 'bg-styx', 'bg-acheron', 'bg-asphodel', 'bg-elysium', 'bg-tartarus', 'bg-starting-shore'],

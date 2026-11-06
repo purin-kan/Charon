@@ -2,10 +2,13 @@
 //   assets/art/<id>.png          character sprites, icons
 //   assets/backgrounds/<id>.png  destination and shore backgrounds
 //   assets/audio/<id>.ogg        BGM and SFX
-// and ask for the id. A missing image becomes a drawn letter emblem, a missing sound is silence.
+// and ask for the id. A missing image becomes a dark name plate (theme.js), a missing sound is silence.
 // Engine ids find art-pipeline file names (SOUL-MOTHER -> sprite-mother.png, DEST-STYX -> bg-styx.png,
 // MEM-MOLY -> memory-moly.png); see src/asset-names.js for the rules and the alias table.
-import { fileIdFor } from './asset-names.js';
+import { figureIdFor, fileIdFor } from './asset-names.js';
+import { Ferry } from './ferry.js';
+import { COLOR, soulPlate } from './theme.js';
+import { tune } from './tuning.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
 // Art may sit in subfolders (art/souls/, art/memories/, ...): the file name alone is the id,
@@ -29,9 +32,22 @@ function urlFor(kind, id) {
   return fileId ? files[kind].get(fileId) : null;
 }
 
-/** Letter shown on an emblem: first letter of the id, ignoring a leading "SOUL-" style prefix. */
-export function emblemLetter(id) {
-  return (id.replace(/^[A-Za-z]+-(?=.)/, '')[0] ?? '?').toUpperCase();
+/** The name on a missing image's plate: the data name of a soul, memory or destination, otherwise the id without its prefix. */
+function plateName(id) {
+  const { souls, memories, destinations } = Ferry.data;
+  const known = [...souls, ...memories, ...destinations].find((x) => x.id === id);
+  return known?.name ?? id.replace(/^[A-Za-z]+-(?=.)/, '').replace(/-/g, ' ');
+}
+
+/** The id to draw for a soul type: its 2D sprite, or its painted figure when art.useFigures is on and the file is loaded. */
+export function soulArtId(scene, type) {
+  const figure = figureIdFor(type);
+  return tune('art.useFigures') && scene.textures.exists(figure) ? figure : type;
+}
+
+/** Every id a scene that draws souls should queue: each soul's sprite and any figure for it. */
+export function soulArtIds() {
+  return Ferry.data.souls.flatMap((s) => [s.id, figureIdFor(s.id)]);
 }
 
 /**
@@ -52,22 +68,17 @@ export function queueAssets(scene, ids = {}) {
 }
 
 /**
- * Adds the image for an id at (x, y), scaled to fit size x size. If no such texture was loaded,
- * adds a drawn letter emblem instead (a Container with the same footprint), so layout never changes.
+ * Adds the image for an id at (x, y), fitted inside a size x size square ("contain"). If no such texture was loaded,
+ * adds a name plate instead (a Container), so a layout never shifts. plate gives that plate its own size and centre
+ * ({ w, h, y }) where a figure's frame differs from the square its image is fitted to.
  */
-export function addArt(scene, x, y, id, size = 128) {
+export function addArt(scene, x, y, id, size = 128, plate = {}) {
   if (scene.textures.exists(id)) {
     const img = scene.add.image(x, y, id);
     img.setScale(size / Math.max(img.width, img.height));
     return img;
   }
-  const box = scene.add.graphics();
-  box.fillStyle(0x24323f, 1).fillRoundedRect(-size / 2, -size / 2, size, size, size * 0.12);
-  box.lineStyle(3, 0x7fa6c0, 1).strokeRoundedRect(-size / 2, -size / 2, size, size, size * 0.12);
-  const letter = scene.add
-    .text(0, 0, emblemLetter(id), { fontFamily: "sans-serif", fontSize: Math.round(size * 0.6) + "px", color: "#cfe3f0" })
-    .setOrigin(0.5);
-  return scene.add.container(x, y, [box, letter]);
+  return soulPlate(scene, x, plate.y ?? y, plate.w ?? size, plate.h ?? size, plateName(id));
 }
 
 /** Plays a sound if loaded; silently does nothing otherwise. Returns the sound or null. */
@@ -87,7 +98,7 @@ export function addBackdrop(scene, id, veil = 0.55) {
   const { width, height } = scene.scale;
   const img = scene.add.image(width / 2, height / 2, id).setDepth(-10);
   img.setScale(Math.max(width / img.width, height / img.height));
-  scene.add.rectangle(width / 2, height / 2, width, height, 0x0b1117, veil).setDepth(-9);
+  scene.add.rectangle(width / 2, height / 2, width, height, COLOR.veil, veil).setDepth(-9);
   return img;
 }
 

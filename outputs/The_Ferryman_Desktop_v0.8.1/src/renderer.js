@@ -10,7 +10,7 @@ const game = new Phaser.Game({
   parent: 'game',
   width: 1280,
   height: 720,
-  backgroundColor: '#0b1117',
+  backgroundColor: '#020607',
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
   scene: SCENES, // BootScene is first, so it is the only one that starts automatically
 });

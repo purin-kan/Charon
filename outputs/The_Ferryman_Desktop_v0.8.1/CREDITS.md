@@ -32,11 +32,15 @@ Source: `assets/source-art/ARTWORK_NOTES.md` and the v0.6 rights record (`output
 * Farmer v7, Blacksmith v4 and Priest (normal v2, exhausted v3) were copied from the October 30 catalog's local images.
 * `assets/art/sprite-mother-test.png`: a temporary test cut-out for the art pipeline, not final Mother art (`notes/T-03_ART_PIPELINE.md`).
 * Sprite cut-outs and new art for the desktop build: Kanyakorn-goya (to fill in as files land in `assets/art/` and `assets/backgrounds/`).
+* `assets/art/boat/sprite-dock.png`: the pier from `assets/backgrounds/bg-starting-shore.png`, traced out by hand on Nov 6, 2026 and flipped. No new painting; the background is unchanged.
+* `assets/art/figures/figure-*.png`: transparent cut-outs of the portraits in `assets/source-art/` (the same paintings as `Game_Materials_v0.6.pdf`), made on Nov 6, 2026 with rembg (isnet-general-use model) and faded at the hem. Not shown by default: Tinpatpun chose the 2D sprites (Nov 6), and `art.useFigures` in the F2 panel turns the figures on. The originals are unchanged.
 * Final art approval by the team is pending.
 
 ## Fonts
 
 * Bitstream Vera, under the Bitstream Vera licence (`assets/fonts/bitstream-vera-license.txt`). Bundled, not yet loaded by any scene.
+* Cinzel Decorative by Natanael Gama, SIL Open Font License 1.1 (`assets/fonts/cinzel-decorative-OFL.txt`). Regular and Bold from https://github.com/google/fonts (`ofl/cinzeldecorative`), unmodified. Headings and buttons in BoardingScene.
+* Cormorant Garamond by the Cormorant Project Authors (https://github.com/CatharsisFonts/Cormorant), SIL Open Font License 1.1 (`assets/fonts/cormorant-garamond-OFL.txt`). Variable roman and italic from https://github.com/google/fonts (`ofl/cormorantgaramond`), unmodified. Body text in BoardingScene.
 
 ## Software
 

@@ -1,15 +1,18 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { queueAssets } from '../preloader.js';
+import { t } from '../text.js';
+import { CSS, bodyText, drawPanel, headText, makeButton, modalShade } from '../theme.js';
 import { CARD, drawCard } from '../components/MemoryHand.js';
-import { TEXT, trimView } from '../components/memory-layout.js';
+import { trimView } from '../components/memory-layout.js';
+import { HoverTip } from './hover-tip.js';
 
-// Trim prompt (T-16, discard part): opens over the current scene when the hand is over
-// config.handLimit (phase 'trim'). Each click dispatches DISCARD_MEMORY; the router closes this
-// overlay once the engine leaves 'trim'. Panel style matches TitleScene's replace-save dialog.
+// Trim prompt (T-16, discard part): a modal over the current scene when the hand is over config.handLimit
+// (phase 'trim'). A click marks a card to discard; the confirm button works once exactly the excess is
+// marked, then DISCARD_MEMORY goes to the engine once per card. The router closes this overlay once the
+// engine leaves 'trim'.
 
-const FONT = 'sans-serif';
-const GOLD = '#edc47f';
+const PANEL_H = 480;
 
 export class TrimOverlay extends Phaser.Scene {
   constructor() {
@@ -25,13 +28,14 @@ export class TrimOverlay extends Phaser.Scene {
   create() {
     const state = this.registry.get('state');
     console.log(`[ferry] ${this.scene.key} shown (phase ${state?.phase ?? 'none'}, hand ${state?.hand?.length ?? 0})`);
-    const { width, height } = this.scale;
-    // The shade takes every click so the scene underneath cannot be used while trimming.
-    this.add.rectangle(width / 2, height / 2, width, height, 0x000000, 0.6).setInteractive();
+    modalShade(this);
     this.parts = [];
+    this.marked = new Set();
+    this.confirming = false;
     this.render(state);
+    this.tip = new HoverTip(this);
 
-    this.onState = (s) => { if (s.phase === 'trim') this.render(s); };
+    this.onState = (s) => { if (s.phase === 'trim' && !this.confirming) this.render(s); };
     this.game.events.on('ferry-state', this.onState);
     this.events.once('shutdown', () => this.game.events.off('ferry-state', this.onState));
   }
@@ -40,36 +44,53 @@ export class TrimOverlay extends Phaser.Scene {
     for (const p of this.parts) p.destroy();
     const { width, height } = this.scale;
     const view = trimView(state, Ferry);
+    this.marked = new Set([...this.marked].filter((id) => view.cards.some((card) => card.id === id)));
     const n = view.cards.length;
     const rowW = n * CARD.w + (n - 1) * CARD.gap;
-    const panelW = Math.min(width - 80, Math.max(620, rowW + 80));
-    const panelH = 470;
-    const top = height / 2 - panelH / 2;
+    const scale = Math.min(1, (width - 120) / rowW); // an overfull hand shrinks to fit; hovering a card shows its full text
+    const panelW = Math.min(width - 60, Math.max(620, rowW * scale + 80));
+    const top = height / 2 - PANEL_H / 2;
 
-    const panel = this.add.rectangle(width / 2, height / 2, panelW, panelH, 0x10202c).setStrokeStyle(2, 0xedc47f);
-    const title = this.add.text(width / 2, top + 40, view.heading, { fontFamily: FONT, fontSize: '30px', color: GOLD }).setOrigin(0.5);
-    const intro = this.add.text(width / 2, top + 80, view.intro, { fontFamily: FONT, fontSize: '18px', color: '#e2ded1' }).setOrigin(0.5);
-    const counter = this.add.text(width / 2, top + 110, view.counter, { fontFamily: FONT, fontSize: '16px', color: '#9fb6c6' }).setOrigin(0.5);
-    this.message = this.add.text(width / 2, top + panelH - 22, '', { fontFamily: FONT, fontSize: '18px', color: '#ff9f8a' }).setOrigin(0.5);
-    this.parts = [panel, title, intro, counter, this.message];
+    const back = drawPanel(this.add.graphics(), width / 2 - panelW / 2, top, panelW, PANEL_H);
+    const title = this.add.text(width / 2, top + 36, view.heading, headText(27, CSS.gold)).setOrigin(0.5);
+    const intro = this.add.text(width / 2, top + 74, view.intro, bodyText(20)).setOrigin(0.5);
+    const counter = this.add.text(width / 2, top + 102, view.counter, bodyText(18, CSS.muted)).setOrigin(0.5);
+    this.message = this.add.text(width / 2 - panelW / 2 + 28, top + PANEL_H - 42, '', bodyText(18, CSS.danger)).setOrigin(0, 0.5);
+    this.parts = [back, title, intro, counter, this.message];
 
-    const left = width / 2 - rowW / 2;
+    const step = (CARD.w + CARD.gap) * scale;
+    const left = width / 2 - (rowW * scale) / 2 + (CARD.w * scale) / 2;
+    const cy = top + 124 + (CARD.h * scale) / 2;
     view.cards.forEach((card, i) => {
-      const cx = left + CARD.w / 2 + i * (CARD.w + CARD.gap);
-      const cy = top + 140 + CARD.h / 2;
-      const box = drawCard(this, cx, cy, card);
-      const btn = this.add.text(cx, cy + CARD.h / 2 + 30, TEXT.discard(card.name), {
-        fontFamily: FONT, fontSize: '20px', color: '#0b1117', backgroundColor: '#7fa6c0', padding: { x: 12, y: 6 },
-      }).setOrigin(0.5).setInteractive({ useHandCursor: true });
-      btn.on('pointerdown', () => this.discard(card.id));
-      this.parts.push(box, btn);
+      const marked = this.marked.has(card.id);
+      const box = drawCard(this, left + i * step, cy, card, { picked: marked, dim: marked, footer: marked ? t('trim.marked') : undefined }).setScale(scale);
+      box.setInteractive({ useHandCursor: true });
+      box.on('pointerdown', () => this.toggle(card.id));
+      box.on('pointerover', (pointer) => this.tip?.show(pointer, card.name, [card.text, t('memory.from', { source: card.source })]));
+      box.on('pointerout', () => this.tip?.hide());
+      this.parts.push(box);
     });
+    const keep = makeButton(this, width / 2 + panelW / 2 - 130, top + PANEL_H - 42, 210, 42, t('trim.confirm', { limit: view.limit }), () => this.confirm(), { gold: true })
+      .setEnabled(view.excess > 0 && this.marked.size === view.excess);
+    this.parts.push(keep);
   }
 
-  discard(id) {
+  toggle(id) {
+    if (this.confirming) return;
+    if (this.marked.has(id)) this.marked.delete(id);
+    else this.marked.add(id);
+    this.tip?.hide();
+    this.render(this.registry.get('state'));
+  }
+
+  /** Each card goes through the engine. The router closes this overlay after the last one. */
+  confirm() {
+    if (this.confirming) return;
+    this.confirming = true;
     try {
-      this.router.dispatch({ type: 'DISCARD_MEMORY', id });
+      for (const id of this.marked) this.router.dispatch({ type: 'DISCARD_MEMORY', id });
     } catch (err) {
+      this.confirming = false;
       this.message.setText(err.message);
     }
   }

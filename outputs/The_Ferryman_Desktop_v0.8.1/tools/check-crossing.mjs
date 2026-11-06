@@ -5,7 +5,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { boatZone } from '../src/scenes/boarding-layout.js';
-import { BANK, DOCK, boatSpots, stopScenery } from '../src/scenes/delivery-layout.js';
+import { boatSpots } from '../src/scenes/delivery-layout.js';
 import {
   abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath, crossingStep,
   homeView, onScreen, placeName, purifyAction, soulDetail, typeDetail, worldLayout,
@@ -48,7 +48,7 @@ check('every passenger has one spot', entries.length === prep.boat.length && new
 check('labels use the ship Anger limit', entries[0].labels.anger.endsWith(`/${Ferry.data.config.shipAngerLimit}`));
 const withLong = Ferry.transition(prep, { type: 'START_CROSSING' });
 const rider = boatEntries(withLong, Ferry).entries.find((e) => e.span === 0);
-check('a Long with no seat rides on the deck row', rider && rider.y > entries[0].y);
+check('a Long with no seat rides level with the souls, on their left', rider && rider.y === entries[0].y && boatEntries(withLong, Ferry).entries.every((e) => e.span === 0 || e.x > rider.x));
 
 // Where the boat is.
 check('the first crossing of a cycle starts at the Starting Shore', placeName(windowState, Ferry, t) === t('common.startingShore'));
@@ -133,16 +133,9 @@ check('home is the hull centre BoardingScene and DeliveryScene use', world.home.
 check('at home the view puts the boat where DeliveryScene draws it', ['x', 'y'].every((k) => onScreen(world.home, homeView())[k] === world.home[k]));
 for (const b of world.branches) {
   const boat = onScreen(b.end, b.view);
-  const dock = onScreen(b.dock, b.view);
   check(`branch ${b.option + 1} ends with the boat where DeliveryScene draws it`, boat.x === world.home.x && boat.y === world.home.y);
-  check(`branch ${b.option + 1} puts its dock where DeliveryScene draws the dock`, dock.x === DOCK.x && dock.y === DOCK.y);
   check(`branch ${b.option + 1} ends level`, b.points[3].y === b.points[4].y);
 }
-const stop = stopScenery();
-check('the dock stands on the bank, at the river edge', DOCK.x + DOCK.w / 2 === BANK.right && stop.bank.x + stop.bank.w / 2 === BANK.right && stop.river.x - stop.river.w / 2 === BANK.right);
-check('the river runs from the bank to the screen edge, behind the boat', stop.river.x + stop.river.w / 2 === 1280 && hull.x - hull.w / 2 > BANK.right);
-const moved = stopScenery({ x: 100, y: -50 });
-check('a stop drawn elsewhere keeps the same shape', moved.river.x - stop.river.x === 100 && moved.bank.y - stop.bank.y === -50);
 check('the two branches part', world.branches[0].end.y < world.home.y && world.branches[1].end.y > world.home.y);
 const fv = world.forkView;
 const visible = (p) => { const s = onScreen(p, fv); return s.x >= 0 && s.x <= 1280 && s.y >= 0 && s.y <= 720; };

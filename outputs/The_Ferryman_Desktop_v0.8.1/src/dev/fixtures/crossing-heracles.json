@@ -1,13 +1,13 @@
 {
   "format": "the-ferryman-save",
-  "version": "0.8-t45b",
+  "version": "0.8-t45c",
   "schemaVersion": 3,
   "seed": 1,
   "rng": 1369582169,
   "phase": "window",
   "paused": false,
-  "light": 5,
-  "maxLight": 6,
+  "light": 6,
+  "maxLight": 7,
   "round": "1",
   "cycle": "9",
   "completed": "8",
@@ -206,12 +206,12 @@
     {
       "round": "0",
       "cycle": "9",
-      "text": "Hercules the traveler and Cerberus: started."
+      "text": "Heracles the traveler and Cerberus: started."
     },
     {
       "round": "0",
       "cycle": "9",
-      "text": "Hercules the traveler wishes for Asphodel."
+      "text": "Heracles the traveler wishes for Asphodel."
     },
     {
       "round": "1",

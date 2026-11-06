@@ -4,10 +4,10 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { boatZone, soulName } from '../src/scenes/boarding-layout.js';
+import { STAGE, boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
-  DOCK, applyDrop, arrivalOutcome, choiceView, confirmLabel, deliverAction, dropArea, exitWarning, headingText,
-  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots,
+  SHORE_Y, arrivalOutcome, choiceView, confirmLabel, deliverAction, exitWarning, headingText,
+  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots, toggleMark,
 } from '../src/scenes/delivery-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -31,7 +31,7 @@ const match = fixture('delivery-match');
 // A clean delivery fails no quest (the Mason at his wish still fails his quest while the Merchant is aboard).
 const failsQuest = (x) => Ferry.transition(match, { type: 'DELIVER', ids: [x.id] }).quests.some((q, i) => q.status === 'failed' && match.quests[i]?.status !== 'failed');
 const leaver = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) === match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory && !failsQuest(x));
-const wanderer = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) !== match.destination);
+const wanderer = match.boat.find((x) => !Ferry.deliveryReason(match, x) && Ferry.wish(x) !== match.destination && Ferry.data.souls.find((d) => d.id === x.type).memory && !failsQuest(x));
 const stayer = match.boat.find((x) => Ferry.deliveryReason(match, x));
 if (!leaver || !wanderer || !stayer) {
   console.log('FAIL delivery-match needs a soul at its wish with a memory, one that can leave elsewhere and one the engine refuses; run npm run fixtures');
@@ -42,7 +42,7 @@ const calm = structuredClone(match);
 for (const x of calm.boat) x.anger = 0;
 const open = layoutDelivery(match, [], Ferry);
 check('every passenger has one spot', open.entries.length === match.boat.length);
-check('nobody starts on the dock', open.entries.every((e) => e.area === 'seat'));
+check('nobody starts ashore', open.entries.every((e) => e.area === 'seat'));
 check('a soul that can leave is flagged', entryOf(open, leaver.id).canLeave === true);
 check('a soul the engine refuses is not flagged', entryOf(open, stayer.id).canLeave === false);
 check('a different wish can still leave', entryOf(open, wanderer.id).canLeave === true);
@@ -53,8 +53,8 @@ check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.e
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
 const spot = entryOf(marked, leaver.id);
-const inDock = (e) => Math.abs(e.x - DOCK.x) <= DOCK.w / 2 && Math.abs(e.y - DOCK.y) <= DOCK.h / 2;
-check('a marked soul moves to the dock', spot.area === 'dock' && inDock(spot));
+const ashore = (e) => e.y === SHORE_Y && e.x >= STAGE.shoreLeft && e.x <= STAGE.shoreLeft + 416;
+check('a marked soul stands on the pier', spot.area === 'shore' && ashore(spot));
 check('the others keep their seats', entryOf(marked, stayer.id).x === entryOf(open, stayer.id).x);
 
 // Souls with no seat ride on the deck and must not stack on anyone.
@@ -64,7 +64,40 @@ riders.boat.push({ ...riders.boat[1], id: 'ACTOR-99' });
 const riderSpots = layoutDelivery(riders, [], Ferry).entries;
 check('no two souls share a spot', new Set(riderSpots.map((e) => `${e.x},${e.y}`)).size === riderSpots.length);
 const hull = boatZone(open.slots);
-check('deck riders sit below the hull', riderSpots.filter((e) => e.span === 0).every((e) => e.y > hull.y + hull.h / 2));
+const onDeck = (e) => e.y === open.slots[0].y && e.x >= hull.x - hull.w / 2 && e.x <= hull.x + hull.w / 2;
+const longsOnLeft = (spots) => {
+  const longs = spots.filter((e) => e.span === 0).map((e) => e.x);
+  return spots.filter((e) => e.span > 0).every((e) => longs.every((x) => x < e.x));
+};
+check('Longs ride level with the souls', riderSpots.every(onDeck));
+check('Longs ride on the left', longsOnLeft(riderSpots));
+
+// Long Burden takes a seat but is still a Long, so it rides on the left too.
+const burden = structuredClone(none);
+burden.boat[burden.boat.length - 1].type = 'SOUL-PO-NAK';
+burden.boat[burden.boat.length - 1].level = 1;
+const burdenSpots = layoutDelivery(burden, [], Ferry).entries;
+const burdenX = burdenSpots[burdenSpots.length - 1].x;
+check('Long Burden rides left of the souls, though it takes a seat', burdenSpots.slice(0, -1).every((e) => e.x > burdenX));
+
+// A full boat with Longs stays in one row, apart and aboard, however many board.
+const seated = (s) => s.boat.filter((a) => Ferry.actorSeats(a) > 0);
+const crowded = structuredClone(riders);
+const others = seated(crowded);
+while (seated(crowded).length < open.slots.length) crowded.boat.push({ ...others[0], id: `ACTOR-${90 + crowded.boat.length}` });
+const crowdedSpots = layoutDelivery(crowded, [], Ferry).entries;
+check('a full boat keeps every soul aboard', crowdedSpots.every(onDeck));
+check('a full boat keeps Longs on the left', longsOnLeft(crowdedSpots));
+const row = crowdedSpots.map((e) => e.x).sort((a, b) => a - b);
+check('a full boat leaves room between souls', row.every((x, i) => i === 0 || x - row[i - 1] >= 55));
+check('a tight row lifts every other name', crowdedSpots.some((e) => e.tier === 1) && crowdedSpots.some((e) => e.tier === 0));
+check('a roomy row keeps its names level', layoutDelivery(none, [], Ferry).entries.every((e) => e.tier === 0));
+const manyLongs = structuredClone(crowded);
+for (let i = 0; i < 6; i++) manyLongs.boat.push({ ...riders.boat[1], id: `ACTOR-${70 + i}` });
+const manySpots = layoutDelivery(manyLongs, [], Ferry).entries;
+check('a boat crowded with Longs keeps them apart and aboard', new Set(manySpots.map((e) => e.x)).size === manySpots.length && manySpots.every(onDeck));
+const plain = structuredClone(none);
+check('with no Long the seats stay where they were', layoutDelivery(plain, [], Ferry).entries.every((e, i) => e.span !== 1 || e.x === open.slots[i].x || e.area !== 'seat'));
 
 // A two-seat soul spans its seats and an overfull boat still lays out.
 const wide = structuredClone(none);
@@ -73,33 +106,16 @@ const wideEntries = layoutDelivery(wide, [], Ferry).entries;
 check('a two-seat soul centres on its seats', wideEntries[0].x === (open.slots[0].x + open.slots[1].x) / 2);
 check('the next soul takes the third seat', wideEntries[1].x === open.slots[2].x);
 
-// Drop areas.
-const { slots } = open;
-check('the dock centre is the dock', dropArea(DOCK.x, DOCK.y, slots) === 'dock');
-check('a seat is the boat', dropArea(slots[0].x, slots[0].y, slots) === 'boat');
-check('open water is nothing', dropArea(600, 650, slots) === null);
-const deckSpot = riderSpots.find((e) => e.span === 0);
-check('a deck spot is the boat', dropArea(deckSpot.x, deckSpot.y, slots) === 'boat');
-check('the gap between hull and deck is the boat', dropArea(slots[0].x, hull.y + hull.h / 2 + 4, slots) === 'boat');
-check('water past the deck is nothing', dropArea(slots[0].x, 620, slots) === null);
-const crowd = structuredClone(none);
-crowd.boat = Array.from({ length: 6 }, (_, i) => ({ ...none.boat[0], id: `ACTOR-${90 + i}`, type: 'SOUL-POLONG' }));
-check('every deck soul can drop back on its own spot', layoutDelivery(crowd, [], Ferry).entries.every((e) => dropArea(e.x, e.y, slots) === 'boat'));
-
 // Marking.
 const before = JSON.stringify(match);
 const seatEntry = entryOf(open, leaver.id);
-const accepted = applyDrop(match, [], seatEntry, 'dock', Ferry, t);
+const accepted = toggleMark(match, [], seatEntry, Ferry, t);
 check('an eligible soul is marked', accepted.marked.includes(leaver.id) && accepted.reason === null);
-check('a soul at the wrong stop is marked', applyDrop(match, [], entryOf(open, wanderer.id), 'dock', Ferry, t).marked.includes(wanderer.id));
-const refused = applyDrop(match, [], entryOf(open, stayer.id), 'dock', Ferry, t);
+check('a soul at the wrong stop is marked', toggleMark(match, [], entryOf(open, wanderer.id), Ferry, t).marked.includes(wanderer.id));
+const refused = toggleMark(match, [], entryOf(open, stayer.id), Ferry, t);
 check('an ineligible soul is refused with the engine reason', refused.marked.length === 0 && refused.reason === Ferry.deliveryReason(match, stayer));
-check('a seat soul dropped on the boat changes nothing', applyDrop(match, [], seatEntry, 'boat', Ferry, t).marked.length === 0);
-check('a seat soul dropped on water changes nothing', applyDrop(match, [], seatEntry, null, Ferry, t).marked.length === 0);
 const dockEntry = entryOf(marked, leaver.id);
-check('a dock soul dragged to the boat is unmarked', applyDrop(match, [leaver.id], dockEntry, 'boat', Ferry, t).marked.length === 0);
-check('a dock soul dropped on water stays marked', applyDrop(match, [leaver.id], dockEntry, null, Ferry, t).marked.length === 1);
-check('a dock soul dropped on the dock stays marked', applyDrop(match, [leaver.id], dockEntry, 'dock', Ferry, t).marked.length === 1);
+check('a click on a soul on the dock unmarks it', toggleMark(match, [leaver.id], dockEntry, Ferry, t).marked.length === 0);
 check('test-runs leave the state alone', JSON.stringify(match) === before);
 
 // Order matters: Mason may leave at any time, but his quest completes only when he is the last passenger.
@@ -128,7 +144,7 @@ check('Mason leaving ahead of a passenger fails the quest, with the engine reaso
 check('Mason behind the other soul is accepted', refusal(boatQuest, [other.id, mason.id], Ferry, t) === null);
 check('and completes the quest', Ferry.transition(boatQuest, deliverAction([other.id, mason.id])).quests.find((q) => q.definitionId === 'QUEST-BOAT').status === 'completed');
 const quest = layoutDelivery(boatQuest, [other.id, mason.id], Ferry);
-const afterUndo = applyDrop(boatQuest, [other.id, mason.id], entryOf(quest, other.id), 'boat', Ferry, t);
+const afterUndo = toggleMark(boatQuest, [other.id, mason.id], entryOf(quest, other.id), Ferry, t);
 check('undoing the soul ahead keeps Mason marked', afterUndo.marked.join() === mason.id);
 
 // Button and heading.
@@ -166,7 +182,7 @@ const elsewhere = Ferry.data.destinations.find((d) => d.id !== match.destination
 const misty = polongFor(match, { type: 'SOUL-POLONG', level: 1, anger: 0, wish: elsewhere });
 const mist = misty.boat.find((x) => x.id === leaver.id);
 const mistOpen = layoutDelivery(misty, [], Ferry);
-check('a Long at the wrong stop may be marked', applyDrop(misty, [], entryOf(mistOpen, mist.id), 'dock', Ferry, t).marked.join() === mist.id);
+check('a Long at the wrong stop may be marked', toggleMark(misty, [], entryOf(mistOpen, mist.id), Ferry, t).marked.join() === mist.id);
 check('and is not dimmed', entryOf(mistOpen, mist.id).canLeave === true && entryOf(mistOpen, mist.id).wishMatches === false);
 const held = [{ id: 'MEMORY-1', type: 'MEM-LIGHT' }, { id: 'MEMORY-2', type: 'MEM-FOG' }];
 const robbed = arrivalOutcome({ boat: [], light: 1, hand: held, nextMemory: '3' }, { boat: [], light: 1, hand: [held[0], { id: 'MEMORY-3', type: 'MEM-CALM' }], nextMemory: '4' }, deliverAction([]), Ferry);

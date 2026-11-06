@@ -1,10 +1,10 @@
 globalThis.FerryData = {
   "schemaVersion": 3,
-  "version": "0.8-t45b",
+  "version": "0.8-t45c",
   "title": "The Ferryman",
   "config": {
-    "startLight": 6,
-    "maxLight": 6,
+    "startLight": 7,
+    "maxLight": 7,
     "seats": 4,
     "shoreTarget": 5,
     "shoreAngerLimit": 2,
@@ -27,7 +27,7 @@ globalThis.FerryData = {
     "longForkChoices": 3,
     "polongFogThreshold": 2,
     "polongFog": 1,
-    "returnLight": 1,
+    "returnLight": 2,
     "wraithDamage": 1,
     "foresightForks": 3,
     "heroArrival": {
@@ -265,7 +265,7 @@ globalThis.FerryData = {
     },
     {
       "id": "SOUL-HERACLES",
-      "name": "Hercules the traveler",
+      "name": "Heracles the traveler",
       "seats": 1,
       "wish": "DEST-HAVEN",
       "memory": null,
@@ -303,27 +303,27 @@ globalThis.FerryData = {
     {
       "id": "DEST-STYX",
       "name": "River Styx",
-      "fog": 1
+      "fog": 0
     },
     {
       "id": "DEST-ACHERON",
       "name": "Acheron",
-      "fog": 1
+      "fog": 0
     },
     {
       "id": "DEST-ASPHODEL",
       "name": "Asphodel",
-      "fog": 2
+      "fog": 1
     },
     {
       "id": "DEST-ELYSIUM",
       "name": "Elysium",
-      "fog": 3
+      "fog": 2
     },
     {
       "id": "DEST-TARTARUS",
       "name": "Tartarus",
-      "fog": 3
+      "fog": 2
     }
   ],
   "memories": [
@@ -438,7 +438,7 @@ globalThis.FerryData = {
   "returnSteps": [
     "With an empty boat, one held memory may be played.",
     "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
-    "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
+    "If alive, recover 2 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ],
   "rules": {
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
@@ -446,7 +446,7 @@ globalThis.FerryData = {
     "boarding": "Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.",
     "memories": "One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop (away from its wish it costs 1 Light, which Guard cannot prevent, and the last Light ends the run), except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger (Longs are not passengers), his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.",
     "quest": "All eight quests are active. Pair attempts bind to characters that depart together and can repeat only with fresh returned character instances. Loss/transformation fails an unfinished attempt. A quest passenger that leaves at a stop other than its wish fails its quest. The journal shows stages and restrictions.",
-    "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.",
+    "routes": "All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 9 and by 2 from cycle 15, except Haven.",
     "polongs": "Longs arrive from cycle 3: one per cycle from cycle 3, two from cycle 9, three from cycle 18. When the boat departs, each is given one of the first three forks of the trip; a trip that ends before that fork skips it. Moly suppresses them. Encounters escalate independently from the round counter. See the accepted trial-rules document for all five Longs, concealment, Restless River, memory theft, overload, refusal and spread.",
     "effects": "Capacity, Moly and Nobody expire at the next return. Capacity and effect duration do not stack. Golden Apple permanently increases maximum Light by 1 per use during this run. Priest purification is once per boarding and forfeits his memory for that boarding.",
     "recycling": "Resolved ordinary characters return to the arrival pool when it empties, using their origin identity. A transformed Listener returns as Listener; a corrupted ordinary soul returns as its original character. Hero offers are separate.",
@@ -532,12 +532,12 @@ globalThis.FerryData = {
     },
     {
       "id": "QUEST-HERACLES",
-      "name": "Hercules the traveler and Cerberus",
+      "name": "Heracles the traveler and Cerberus",
       "roles": [
         "SOUL-HERACLES"
       ],
       "reward": "MEM-GOLDEN-APPLE",
-      "description": "Pay Hades’ toll, reach Hercules’ first wish, then deliver both Hercules and Cerberus."
+      "description": "Pay Hades’ toll, reach Heracles’ first wish, then deliver both Heracles and Cerberus."
     },
     {
       "id": "QUEST-ODYSSEUS",
@@ -578,6 +578,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "0aa50a2d9ea8824305a9f93502048fadfbd5c0e8114c3c55aaca0e60582c157f"
+  "contentSha256": "af20b41f8929c184ca9659804a167836522adb9cbf561484341e06fdc5da88fb"
 }
 ;
