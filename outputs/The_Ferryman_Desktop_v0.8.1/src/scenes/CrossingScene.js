@@ -86,7 +86,7 @@ export class CrossingScene extends Phaser.Scene {
     this.signParts = [];
     this.layout = worldLayout(state, Ferry);
 
-    this.night = new NightStage(this, state.destination ?? 'bg-starting-shore');
+    this.night = new NightStage(this, state.destination ?? 'bg-starting-shore', () => tune('boarding.backdropShift'));
     this.world = this.add.container(0, 0);
     this.drawRiver(state);
     this.boat = this.add.container(this.layout.home.x, this.layout.home.y);
@@ -550,7 +550,7 @@ export class CrossingScene extends Phaser.Scene {
     // The view settles on exactly what DeliveryScene draws: the destination's painting, the pier and the boat.
     this.tweens.add({ targets: this.river, alpha: 0, duration: eventMs });
     if (this.textures.exists(next.destination)) {
-      const painting = this.add.image(640, 360, next.destination).setDepth(DEPTH.backdrop + 0.5).setAlpha(0);
+      const painting = this.add.image(640, 360 - tune('boarding.backdropShift'), next.destination).setDepth(DEPTH.backdrop + 0.5).setAlpha(0);
       painting.setScale(Math.max(1280 / painting.width, 720 / painting.height) * (1 + (2 * tune('night.parallaxPx')) / 1280));
       this.tweens.add({ targets: painting, alpha: 1, duration: eventMs, ease: 'Sine.InOut' });
     }
