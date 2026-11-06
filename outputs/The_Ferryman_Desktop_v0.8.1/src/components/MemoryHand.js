@@ -195,13 +195,20 @@ export class MemoryHand {
     else this.say(n > view.limit ? view.note : '', false); // a card says why it can't be played when clicked or hovered
   }
 
+  /** While locked, a click on a card does nothing: the state must not change under an animation. */
+  lock(on) {
+    this.locked = on;
+  }
+
   /** Fades the hand away for good, for when the boat sails or a delivery is on its way. */
   hide() {
     this.cancel();
+    this.lock(true);
     this.scene.tweens.add({ targets: this.root, alpha: 0, duration: MS.fast, ease: EASE.exit, onComplete: () => this.root?.setVisible(false) });
   }
 
   press(card) {
+    if (this.locked) return;
     if (!card.playable) return this.say(card.reason);
     if (this.picked?.id === card.id) return this.cancel();
     if (!card.needsTarget) return this.play(playAction(card));

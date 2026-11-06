@@ -85,8 +85,36 @@ export function addArt(scene, x, y, id, size = 128, plate = {}) {
 export function playSound(scene, id, config) {
   if (!scene.cache.audio.exists(id)) return null;
   const s = scene.sound.add(id, config);
+  if (!config?.loop) s.once('complete', () => s.destroy()); // or every click would keep its own sound object for ever
   s.play();
   return s;
+}
+
+/** Moves a sound to a volume over ms, then calls done. A plain timer, so a fade can outlive the scene that started it. */
+export function fadeSound(sound, volume, ms, done = () => {}) {
+  if (!sound) return;
+  clearInterval(sound.fading);
+  const from = sound.volume;
+  const start = performance.now();
+  sound.fading = setInterval(() => {
+    const p = ms > 0 ? Math.min(1, (performance.now() - start) / ms) : 1;
+    if (!sound.manager) {
+      clearInterval(sound.fading);
+      return;
+    }
+    sound.setVolume(from + (volume - from) * p);
+    if (p < 1) return;
+    clearInterval(sound.fading);
+    done();
+  }, 30);
+}
+
+/** Fades a looping sound out, then stops and frees it. */
+export function fadeOutSound(sound, ms) {
+  fadeSound(sound, 0, ms, () => {
+    sound.stop();
+    sound.destroy();
+  });
 }
 
 /**

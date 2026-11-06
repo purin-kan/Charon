@@ -44,9 +44,12 @@ export function showOutcome(scene, outcome, done) {
   const cards = rewards.map((memory, i) => rewardCard(scene, spots[i].x, spots[i].y, memory));
   fadeInParts(scene, [...parts, ...cards]);
   let finished = false;
+  let timer = null;
   const finish = () => {
     if (finished) return;
     finished = true;
+    timer?.remove();
+    scene.input.off('pointerdown', finish); // or the next click anywhere would be used up here
     fadeOutParts(scene, parts);
     if (!cards.length) {
       done();
@@ -67,7 +70,7 @@ export function showOutcome(scene, outcome, done) {
       },
     }));
   };
-  scene.time.delayedCall(tune('delivery.rewardMs'), finish);
+  timer = scene.time.delayedCall(tune('delivery.rewardMs'), finish);
   // Armed a frame later: this can run inside the click that confirmed, which would skip it.
   scene.time.delayedCall(0, () => scene.input.once('pointerdown', finish));
 }

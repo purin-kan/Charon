@@ -403,13 +403,16 @@ export function leaveScene(scene, done) {
 /** Brings a scene in: the last frame dissolves over it, or the camera fades up from teal. Clicks wait until it is done. */
 export function enterScene(scene, ms = MS.slow) {
   const { textures } = scene;
+  scene.input.enabled = false;
+  const unlock = () => { if (!scene.leaving) scene.input.enabled = true; };
   if (!textures.exists(CARRY)) {
-    fadeIn(scene, Math.min(ms, MS.base));
+    const fade = Math.min(ms, MS.base);
+    fadeIn(scene, fade);
+    scene.time.delayedCall(fade, unlock);
     return;
   }
   const { width, height } = scene.scale;
   const last = scene.add.image(width / 2, height / 2, CARRY).setDisplaySize(width, height).setDepth(1000).setScrollFactor(0);
-  scene.input.enabled = false;
   scene.tweens.add({
     targets: last,
     alpha: 0,
@@ -418,7 +421,7 @@ export function enterScene(scene, ms = MS.slow) {
     onComplete: () => {
       last.destroy();
       if (textures.exists(CARRY)) textures.remove(CARRY);
-      scene.input.enabled = true;
+      unlock();
     },
   });
 }

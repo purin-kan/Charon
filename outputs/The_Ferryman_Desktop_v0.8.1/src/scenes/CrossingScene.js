@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { playSound, queueAssets, soulArtIds } from '../preloader.js';
+import { fadeOutSound, fadeSound, playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
 import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
@@ -110,10 +110,11 @@ export class CrossingScene extends Phaser.Scene {
       this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
-    this.ambience = playSound(this, AMBIENCE, { loop: true });
+    this.ambience = playSound(this, AMBIENCE, { loop: true, volume: 0 });
+    fadeSound(this.ambience, 1, MS.slow);
     this.events.once('shutdown', () => {
       this.game.events.off('ferry-state', this.onState);
-      this.ambience?.stop();
+      fadeOutSound(this.ambience, MS.slow);
       this.rippleTimer?.remove();
       this.deck = null; // update() can fire once more, after the boat has gone
     });
@@ -433,6 +434,7 @@ export class CrossingScene extends Phaser.Scene {
     if (!next) return this.dispatch(action); // shows the engine's reason
     const outcome = approachOutcome(state, next, Ferry, t);
     this.busy = true;
+    this.hand.lock(true);
     this.hideTip();
     this.hand.cancel();
     this.targetMode = null;
@@ -446,6 +448,7 @@ export class CrossingScene extends Phaser.Scene {
       this.sail(this.layout.home, this.layout.approach, this.layout.forkView, tune('crossing.approachMs'), () => {
         this.stopRipples();
         this.busy = false;
+        this.hand.lock(false);
         this.panel.slideIn();
         this.dispatch(action);
       });
