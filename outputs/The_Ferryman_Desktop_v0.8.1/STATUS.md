@@ -49,6 +49,10 @@ advisories GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249. `npm audit`: 0 vulnerabi
 
 ## Full game restyle, all scenes (branch `full-game-restyle`, Nov 6, 2026, not pushed)
 
+Update, Nov 6 (agent, not a playtest): `origin/main` (`1507394`, with #36) merged into this branch with no code conflicts, and the player text now says Hercules (ids and file names keep `HERACLES`). On that code: `npm run check` 11 of 11, `quest-check` 32 passed 0 failed, `vite build` passes. Moly played by real click with temporary fixtures (since deleted) in CrossingScene (two Longs) and DeliveryScene (one Long): the Longs leave, Memories drops to 0/3, signs and fog update, no console problems. Longs vanish at once, with no leaving animation. The rest of the full run was not repeated after the merge.
+
+Correction to the art list below: `check-art` proves a file exists, not that the art is finished. Nine memory cards are v4 placeholder images with PLACEHOLDER printed on them: `last-prayer`, `moly`, `nobody`, `shared-harvest`, `last-masterwork`, `all-fog`, `golden-apple`, `boat-space`, `soldier-peace`.
+
 Every scene now uses the shared theme, HUD, hand, night stage and bottom panel. Rules, `package.json`, the lockfile, `src/scenes/index.js`, `assets/source-art/` and the sprites are unchanged (`git diff origin/main HEAD` on those paths is empty).
 
 | Check | Command | Result |
