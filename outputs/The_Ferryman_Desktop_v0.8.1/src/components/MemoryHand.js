@@ -113,9 +113,11 @@ export class MemoryHand {
     this.cards = view.cards;
     this.counter.setText(view.counter);
     if (this.picked) {
+      const before = this.picked.targets.join();
       const still = view.cards.find((c) => c.id === this.picked.id && c.playable && c.needsTarget);
       this.picked = still ?? null;
-      this.onTargets(this.picked ? this.picked.targets : null);
+      // Only a real change: a host that renders in onTargets calls render again, so telling it every time never ends.
+      if (this.picked?.targets.join() !== before) this.onTargets(this.picked ? this.picked.targets : null);
     }
     if (this.cardObjects?.length) this.onHover(null); // a destroyed card never gets its pointerout
     for (const obj of this.cardObjects ?? []) obj.destroy();
