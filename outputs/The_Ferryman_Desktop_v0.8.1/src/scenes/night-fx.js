@@ -128,7 +128,7 @@ const breathe = (key) => ({ onUpdate: (_particle, _key, t) => Math.sin(Math.PI *
 export class Atmosphere {
   constructor(scene) {
     this.scene = scene;
-    this.wind = 1; // fog goes by faster while the boat sails
+    this.wind = 1; // fog drifts right; while the boat sails it runs left, past the boat
     const fog = (spec, depth) => spec.map(([x, y, scaleX, scaleY, speed, follow]) => ({
       image: scene.add.image(x, y, 'board-soft').setScale(scaleX, scaleY).setTint(FOG_TINT).setDepth(depth),
       x,
@@ -189,6 +189,23 @@ export class Atmosphere {
   }
 
   /** Drifts the fog, and shifts it against the pointer so the nearer fog moves more. */
+  /** Thickens the drifting fog banks to k times their alpha over ms: the fog rolling in around the boat. */
+  rollFog(k, ms) {
+    const banks = { k: this.fogBanks ?? 1 };
+    this.scene.tweens.add({
+      targets: banks,
+      k,
+      duration: ms,
+      ease: EASE.move,
+      onUpdate: () => {
+        this.fogBanks = banks.k;
+        const alpha = tune('night.fogAlpha') * banks.k;
+        for (const bank of this.fogBack) bank.image.setAlpha(alpha);
+        for (const bank of this.fogFront) bank.image.setAlpha(alpha * 0.7);
+      },
+    });
+  }
+
   update(t, dt, lean) {
     const drift = tune('night.fogSpeed') * this.wind * dt;
     const width = this.scene.scale.width;
@@ -196,6 +213,7 @@ export class Atmosphere {
       bank.x += drift * bank.speed;
       const half = bank.image.displayWidth / 2;
       if (bank.x - half > width) bank.x = -half;
+      else if (bank.x + half < 0) bank.x = width + half; // fog runs left while the boat sails
       bank.image.x = bank.x - lean * bank.follow;
     }
     const peak = tune('night.rayAlpha');
@@ -284,7 +302,7 @@ export class NightStage {
     this.seconds += dt;
     if (this.backdrop) {
       const px = tune('night.roamPx') * this.roam.k;
-      this.backdrop.x = scene.scale.width / 2 - this.lean + px;
+      this.backdrop.x = scene.scale.width / 2 - this.lean - px; // the boat goes right, so the view slides left
       const breath = this.push ? tune('motion.pushIn') * (1 - Math.cos((this.seconds * Math.PI * 2) / tune('motion.pushInSeconds'))) * 0.5 : 0;
       this.backdrop.setScale(this.fullScale * this.settled.zoom * (1 + breath) * (1 + (2 * px) / scene.scale.width));
     }

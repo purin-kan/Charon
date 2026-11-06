@@ -132,11 +132,12 @@ const hull = boatZone(boatSpots(prep, Ferry).slots);
 check('home is the hull centre BoardingScene and DeliveryScene use', world.home.x === hull.x && world.home.y === hull.y);
 const signW = 740 * SIGNS.scale;
 const signH = 270 * SIGNS.scale;
-const left = hull.x - hull.w / 2;
-check('the signs stand ahead of the boat, on its left', world.signs.every((s) => s.x + signW / 2 < left));
+const boatEnd = world.fork.x + 768 / 2;
+check('at the fork the signs stand ahead of the boat, on its right', world.signs.every((s) => s.x - signW / 2 >= boatEnd));
+check('the boat rows in from off the left of the screen', world.back + 768 / 2 < 0);
 check('the signs clear the status line and stop above the panel', world.signs.every((s) => s.y - signH / 2 > 120 && s.y + signH / 2 < 545));
 check('the signs do not overlap', world.signs[1].y - world.signs[0].y > signH);
-check('the signs stay on screen', world.signs.every((s) => s.x - signW / 2 >= 0));
+check('the signs stay on screen', world.signs.every((s) => s.x + signW / 2 <= 1280));
 
 // Branch signs come from the route model.
 const forkSigns = branchSigns(fork, Ferry, t);

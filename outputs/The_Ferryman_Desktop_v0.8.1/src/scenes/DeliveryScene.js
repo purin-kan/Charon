@@ -88,7 +88,7 @@ export class DeliveryScene extends Phaser.Scene {
     if (!this.boat) return;
     const seconds = time / 1000;
     this.night.update(time, delta);
-    this.water.update(delta / 1000);
+    this.water.update(delta / 1000, seconds);
     this.boat.update(seconds);
     this.bar.update(seconds);
     const { root } = this.boat;

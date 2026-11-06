@@ -34,14 +34,18 @@ export function placeName(state, Ferry, t) {
 }
 
 // ---- the stage -----------------------------------------------------------------------------
-// The boat stays where BoardingScene and DeliveryScene draw it, and the water goes past it. Its bow points left, so the
-// way ahead is the left of the screen: the two signs stand there, in the water.
-export const SIGNS = { scale: 0.52, spots: [{ x: 268, y: 214 }, { x: 268, y: 376 }] };
+// At a stop the boat sits where BoardingScene and DeliveryScene draw it. Rowing, it hardly moves: the world slides left past
+// it, so it goes right. On the way to the fork the view runs ahead of it, so it drifts to the left of the screen, with the
+// two signs standing in the water ahead of it. Under way to the stop it catches up again.
+export const SIGNS = { scale: 0.52, spots: [{ x: 1040, y: 236 }, { x: 1040, y: 396 }] };
+const FORK_SHIFT = 480; // how far left of home the boat waits at the fork
+const BACK = 1500; // from home, far enough left that all of the boat starts out of view
 
-/** home is the hull centre, the same at a stop and under way. */
+/** home is the hull centre at a stop, fork is where the boat waits, back is off the left of the screen. */
 export function worldLayout(state, Ferry) {
   const hull = boatZone(boatSpots(state, Ferry).slots);
-  return { home: { x: hull.x, y: hull.y }, signs: SIGNS.spots };
+  const home = { x: hull.x, y: hull.y };
+  return { home, fork: { x: home.x - FORK_SHIFT, y: home.y }, back: home.x - BACK, signs: SIGNS.spots };
 }
 
 /**
