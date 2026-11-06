@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#020607">
+  <title>The Ferryman | 2D Concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap">
+  <link rel="stylesheet" href="game2d.css">
+  <script defer src="content.js"></script>
+  <script defer src="asset-map.js"></script>
+  <script defer src="engine.js"></script>
+  <script defer src="game2d.js"></script>
+</head>
+<body>
+  <div id="frame">
+    <div id="stage" data-scene="shore">
+      <div class="layer backdrop"><img id="bg-a" alt=""><img id="bg-b" alt=""></div>
+      <div class="layer moon" aria-hidden="true"></div>
+      <div class="layer fog-far" aria-hidden="true"><div class="fog"></div></div>
+      <div class="layer water" id="water" aria-hidden="true"></div>
+      <div class="layer boat-layer boat-reflect" aria-hidden="true"><div class="bob" id="boat-reflect"></div></div>
+      <div class="layer land" id="land" aria-hidden="true">
+        <div class="signpost"><span id="sign-name">The Starting Shore</span><small id="sign-fog">Souls wait here</small></div>
+      </div>
+      <div class="layer" id="route"></div>
+      <div class="layer boat-layer boat-back"><div class="bob" id="boat-back"></div></div>
+      <div class="layer" id="walkers"></div>
+      <div class="layer boat-layer" id="boat-souls"><div class="bob"></div></div>
+      <div class="layer boat-layer boat-front"><div class="bob" id="boat-front"></div></div>
+      <div class="layer water-front" id="water-front" aria-hidden="true"></div>
+      <div class="layer fog-near" aria-hidden="true"><div class="fog"></div></div>
+      <canvas class="layer" id="particles" width="1600" height="900" aria-hidden="true"></canvas>
+      <div class="layer" id="fx" aria-hidden="true"></div>
+      <div id="dest-card" aria-hidden="true"></div>
+      <div class="letterbox top" aria-hidden="true"></div>
+      <div class="letterbox bottom" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div id="hud">
+    <div id="light" aria-label="Light"></div>
+    <div id="info"></div>
+    <div id="hand" aria-label="Memories"></div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <section id="panel" hidden></section>
+    <div id="corner">
+      <button type="button" id="guide-button" class="ghost-btn">Guide</button>
+      <button type="button" id="new-button" class="ghost-btn">New night</button>
+      <button type="button" id="sound-button" class="ghost-btn">Sound on</button>
+    </div>
+    <div id="tip" hidden></div>
+  </div>
+
+  <div id="title">
+    <div class="title-card">
+      <p class="eyebrow">2D concept of the final game</p>
+      <h1>The Ferryman</h1>
+      <p class="pitch">You are Charon's apprentice. Walk the souls aboard, choose each fork of the river, and carry them where they wish to rest before your lantern goes out.</p>
+      <div class="title-actions" id="title-actions"></div>
+      <p class="fine">Best with sound on and the window in landscape.</p>
+      <p class="fine">Rules: the v0.6 engine, unchanged. Souls are placeholder 2D figures drawn for this concept; backdrops and portraits are the existing v0.6 paintings.</p>
+    </div>
+  </div>
+
+  <dialog id="popup" class="popup"></dialog>
+  <noscript>This local game needs JavaScript enabled in your browser.</noscript>
+</body>
+</html>
