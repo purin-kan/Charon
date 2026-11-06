@@ -3,8 +3,8 @@
   "passed": 32,
   "failed": 0,
   "hashes": {
-    "engine.js": "b9d6431854b49f670eb0616f65b6f04aab2288cfdecfae6ce9bb9f12605c5a2d",
-    "content.json": "cdef337abc6faa461d9d4d7c776aeea5f5e65c91c9933efa09b41caf13e04f70",
+    "engine.js": "58dce118a26fd584dbea575612fbe03fdc3e5382d9c3fd27526d9b83f75bb90b",
+    "content.json": "15ef66b09147924291cee8a207e2b9614a4badc1dfb8a55f0558b27569c7ce8b",
     "tests/quest-check.js": "854f260af0a3af4ab69d6b765dd00682fb01ff87769d2f81e1464f52e08e7c42"
   },
   "records": [

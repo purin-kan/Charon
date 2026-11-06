@@ -54,7 +54,7 @@ Versions from `package.json`; licences from each package's own `package.json`.
 
 ## Story sources
 
-* Greek myth: Charon, Styx, Acheron, Asphodel, Elysium, Tartarus, Heracles and Cerberus, Odysseus, Tiresias, Charybdis and Scylla, Hermes.
+* Greek myth: Charon, Styx, Acheron, Asphodel, Elysium, Tartarus, Hercules and Cerberus, Odysseus, Tiresias, Charybdis and Scylla, Hermes.
 * Long (tainted soul) inspirations: see the entity catalog, `notes/Charon_Entity_Catalog_Public_2026-10-31.xlsx`.
 
 ## Development
