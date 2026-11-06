@@ -7,7 +7,7 @@
 
 export const TEXT = {
   heading: 'Where next?', // crossing.routeHeading
-  intro: 'The round has begun and any scheduled Polong is aboard. Confirm one route to cross.', // crossing.routeIntro
+  intro: 'The round has begun and any scheduled Long is aboard. Confirm one route to cross.', // crossing.routeIntro
   currentFork: 'The current fork', // crossing.currentFork
   firstFork: 'The first fork', // crossing.firstFork
   foresightFork: (n) => `Foresight: fork ${n}`, // crossing.foresightFork

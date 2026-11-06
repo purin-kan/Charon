@@ -70,7 +70,7 @@ export function tokenLabels(entry, Ferry) {
 
 export function statusLine(state, Ferry) {
   const next = state.nextPolong ? soulName(state.nextPolong, Ferry) : 'none';
-  return `Light ${state.light}/${Ferry.maxLight(state)}   Cycle ${state.cycle}   Seats ${Ferry.seats(state)}/${Ferry.capacity(state)}   Next Polong: ${next}`;
+  return `Light ${state.light}/${Ferry.maxLight(state)}   Cycle ${state.cycle}   Seats ${Ferry.seats(state)}/${Ferry.capacity(state)}   Next Long: ${next}`;
 }
 
 /** The unresolved hero offer in display form, or null. needsToll mirrors the engine, which has no data field for it. */

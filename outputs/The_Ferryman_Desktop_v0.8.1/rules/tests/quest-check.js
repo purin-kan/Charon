@@ -182,6 +182,14 @@ check('Moly suppresses scheduled arrivals without increasing level; Nobody block
  let s=boat(['SOUL-COOK']);s.effects.moly=false;dueNow(s);const m=memory(s,'MEM-MOLY');s=act(s,'PLAY_MEMORY',{id:m});s=act(s,'START_CROSSING');assert.equal(s.encounters,'0');assert.equal(s.boat.length,1);
  s=act(route(s,'DEST-HAVEN'),'CROSS',{option:0});s=act(s,'DELIVER',{ids:[]});const n=memory(s,'MEM-NOBODY');s=act(later(s),'PLAY_MEMORY',{id:n});s=act(s,'START_CROSSING');assert.equal(g.preview(route(s,'DEST-TARTARUS'),0).payment,0);
 });
+check('Moly removes every Long on the boat, spread souls included, then still blocks arrivals',()=>{
+ let s=boat(['SOUL-MOTHER','SOUL-COOK']);s.effects.moly=false;polong(s,'SOUL-PO-NAK',3);polong(s,'SOUL-PO-DUE',1,1);
+ const cook=find(s,'SOUL-COOK');cook.type='SOUL-POLONG';cook.wish='DEST-TARTARUS';cook.level=1;cook.spread=true;g.validate(s);
+ const light=s.light,hand=s.hand.length,m=memory(s,'MEM-MOLY');s=act(s,'PLAY_MEMORY',{id:m});
+ assert.deepEqual(s.boat.map(x=>x.type),['SOUL-MOTHER']);assert.ok(s.discard.includes('SOUL-COOK'));assert.equal(s.light,light);assert.equal(s.hand.length,hand);assert.equal(s.effects.moly,true);rt(s);
+ dueNow(s);const enc=s.encounters;s=act(s,'START_CROSSING');assert.equal(s.encounters,enc);assert.ok(s.log.some(l=>/Moly prevents/.test(l.text)));assert.deepEqual(s.boat.map(x=>x.type),['SOUL-MOTHER']);
+ let none=boat(['SOUL-COOK']);none.effects.moly=false;none=act(none,'PLAY_MEMORY',{id:memory(none,'MEM-MOLY')});assert.equal(none.boat.length,1);assert.ok(none.log.some(l=>/No Long is on the boat/.test(l.text)));
+});
 check('Polong encounter levels, next variant and forced Po Nak overload',()=>{
  let s=boat(['SOUL-MOTHER','SOUL-CHILD','SOUL-MERCHANT','SOUL-COOK']);s.effects.moly=false;dueNow(s);s.encounters='2';s.nextPolong='SOUL-PO-NAK';s=act(s,'START_CROSSING');const p=find(s,'SOUL-PO-NAK');assert.equal(p.level,3);assert.equal(p.anger,1);assert.equal(g.actorSeats(p),2);assert.equal(g.seats(s),6);assert.equal(g.preview(route(s,'DEST-HAVEN'),0).overload,1);rt(s);
 });

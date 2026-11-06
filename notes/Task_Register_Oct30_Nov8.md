@@ -31,13 +31,13 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
 | T-08 | Scaffold B: packaged build | 2026-11-02 (morning) | purin-kan | | T-05 | .exe | Must | Done | A test `.exe` runs and loads assets from the `.asar` package |
-| T-09 | Soul sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | In progress | Cut-outs for Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted) committed; the other five ordinary souls stay letter placeholders unless art is approved |
-| T-10 | Polong, boat and shore sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | In progress | Cut-outs for Polong, boat and shore committed |
+| T-09 | Soul sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | Done | Cut-outs for Mother, Child, Merchant, Mason, Cook, Poet, Keeper, Farmer, Blacksmith, Priest (normal and exhausted) committed; the other five ordinary souls stay letter placeholders unless art is approved |
+| T-10 | Polong, boat and shore sprites | 2026-11-02 | Kanyakorn-goya | | T-03 | Game | Must | Done | Cut-outs for Polong, boat and shore committed |
 | T-11 | TitleScene, single save and optional seed | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Must | Done | Continue and New game work over one save slot; New game accepts an optional seed; saves use the desktop namespace only |
 | T-12 | BoardingScene | 2026-11-02 | SupaOhm | | T-05 | Game | Must | Done | Drag-and-drop dispatches `BOARD` and `DEPART`; hero offer, Light and seat counters shown |
 | T-13 | Developer tuning panel | 2026-11-02 | Tinpatpun | SupaOhm | T-05 | Game | Should | Done | Panel adjusts timings, easing, snap radii and paths in the dev build and saves `tuning.json` |
-| T-14 | Early `.exe` and SmartScreen test | 2026-11-02 (afternoon) | VarisPah | purin-kan | T-08 | .exe | Must | In progress | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
-| T-15 | Base BGM and SFX | 2026-11-02 | VarisPah | bosthanapatw | T-07 | Game | Should | In progress | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
+| T-14 | Early `.exe` and SmartScreen test | 2026-11-02 (afternoon) | VarisPah | purin-kan | T-08 | .exe | Must | Done | Test `.exe` run on a second PC; SmartScreen behavior and asset pathing noted |
+| T-15 | Base BGM and SFX | 2026-11-02 | VarisPah | bosthanapatw | T-07 | Game | Should | Done | Menu loop, one crossing ambient track and board and unboard click SFX committed with sources recorded |
 | T-16 | Memory UI overlay | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Done | Hand display, play-before-crossing flow and discard prompt work against fixture states |
 | T-17 | GameOverScene | 2026-11-02 | Jaoguya | | T-05 | Game | Must | Done | Run summary shown from state; restart works |
 | T-18 | Presentation outline | 2026-11-02 | bosthanapatw | | | Presentation | Must | Done | Slide structure for Description, Algorithmic Implementation and Demo play; Description drafted from the generated `RULES.md`; README and credits note started |
@@ -46,13 +46,13 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-19 | CrossingScene | 2026-11-05 | SupaOhm | Jaoguya | T-05; integrates T-16 and T-22 | Game | Must | In progress | Memory window, route choice, review and boat animation work; fog and Light loss shown |
+| T-19 | CrossingScene | 2026-11-05 | SupaOhm | Jaoguya | T-05; integrates T-16 and T-22 | Game | Must | Done | Memory window, route choice, review and boat animation work; fog and Light loss shown |
 | T-20 | DeliveryScene | 2026-11-05 | SupaOhm | | T-05 | Game | Must | Done | Matching-wish feedback, delivery, soul departure, memory reward and choice overlay work |
 | T-21 | ReturnScene | 2026-11-05 | Jaoguya | | T-05 | Game | Must | Done | Return resolves anger, wraith conversion and Light restoration, then starts the next cycle |
 | T-22 | Route UI | 2026-11-04 | Jaoguya | | T-05 | Game | Must | Done | Fork display, review and Foresight preview work as a component for CrossingScene |
 | T-23 | Tuning and pacing calibration | 2026-11-06 (midday) | Tinpatpun | VarisPah, Kanyakorn-goya | T-13, T-19 | Game | Should | Not started | Crossing speed, snap feel and wraith pacing tuned; `tuning.json` committed by one person |
-| T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | In progress | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
-| T-25 | Wraith transformation frames | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | In progress | Animation frames committed with naming convention |
+| T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Done | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
+| T-25 | Wraith transformation frames | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Done | Animation frames committed with naming convention |
 | T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | In progress | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
 | T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Done | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | VarisPah | bosthanapatw | T-15 | Game | Should | In progress | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
