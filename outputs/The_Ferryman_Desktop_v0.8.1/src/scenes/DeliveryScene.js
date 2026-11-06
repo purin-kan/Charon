@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, DecisionPanel, edgeFlash, fadeOut, lossShake } from '../theme.js';
+import { COLOR, DecisionPanel, edgeFlash, leaveScene, lossShake } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -321,6 +321,6 @@ export class DeliveryScene extends Phaser.Scene {
   /** The next stop of this trip follows with no cut; anything else (the return, the end) fades out first. */
   startExit(state) {
     if (state.phase === 'window' && state.window.kind === 'outward') return this.router.exitDone();
-    fadeOut(this, () => this.router.exitDone());
+    leaveScene(this, () => this.router.exitDone());
   }
 }

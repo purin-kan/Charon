@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, DecisionPanel, bodyText, drawPanel, edgeFlash, fadeIn, fadeOut, headText, lossShake } from '../theme.js';
+import { COLOR, CSS, DecisionPanel, MS, bodyText, drawPanel, edgeFlash, enterScene, headText, leaveScene, lossShake } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -123,7 +123,7 @@ export class CrossingScene extends Phaser.Scene {
     this.render(state);
     // From the Starting Shore the boat comes in from the left, after BoardingScene sailed it out.
     if (step === 'prepare' && !state.destination) {
-      fadeIn(this);
+      enterScene(this, MS.base);
       this.boat.x -= 900;
       this.tweens.add({ targets: this.boat, x: this.layout.home.x, duration: tune('crossing.enterMs'), ease: 'Cubic.Out' });
     }
@@ -580,6 +580,6 @@ export class CrossingScene extends Phaser.Scene {
     this.leaving = true;
     this.input.enabled = false;
     if (state.phase === 'delivery') return this.router.exitDone();
-    fadeOut(this, () => this.router.exitDone());
+    leaveScene(this, () => this.router.exitDone());
   }
 }

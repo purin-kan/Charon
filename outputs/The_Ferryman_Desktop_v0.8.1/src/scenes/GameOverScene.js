@@ -3,7 +3,7 @@ import { Ferry } from '../ferry.js';
 import { queueAssets } from '../preloader.js';
 import { deleteSave, readSave, startAutosave, writeSave } from '../save.js';
 import { t } from '../text.js';
-import { COLOR, CSS, LightFlames, bodyText, drawPanel, fadeOut, headText, makeButton } from '../theme.js';
+import { COLOR, CSS, LightFlames, bodyText, drawPanel, enterScene, headText, leaveScene, makeButton } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { TEXT, gameOverView } from './gameover-layout.js';
 import { DEPTH, NightStage } from './night-fx.js';
@@ -39,8 +39,9 @@ export class GameOverScene extends Phaser.Scene {
     this.leaving = false;
     this.seconds = 0;
 
-    this.night = new NightStage(this, 'bg-starting-shore');
+    this.night = new NightStage(this, 'bg-starting-shore', () => 0, { settle: true, push: true });
     const dark = this.add.rectangle(width / 2, height / 2, width, height, COLOR.deep, 1).setDepth(UI - 1);
+    enterScene(this);
     this.playLantern(() => {
       this.tweens.add({ targets: dark, fillAlpha: tune('gameover.veil'), duration: tune('gameover.revealMs'), ease: 'Sine.InOut' });
       this.drawSummary(view);
@@ -145,7 +146,7 @@ export class GameOverScene extends Phaser.Scene {
     deleteSave();
     startAutosave(this.game, () => console.warn('[ferry] ' + t('title.storageFailed')));
     if (!writeSave(state)) console.warn('[ferry] ' + t('title.storageFailed'));
-    fadeOut(this, () => this.router.start(state));
+    leaveScene(this, () => this.router.start(state));
   }
 
   /** Fades out, then hands over to TitleScene, which starts the next run through the router. */
@@ -153,6 +154,6 @@ export class GameOverScene extends Phaser.Scene {
     if (this.leaving) return;
     this.leaving = true;
     console.log('[ferry] GameOverScene: back to title for a new run');
-    fadeOut(this, () => this.scene.start('TitleScene'));
+    leaveScene(this, () => this.scene.start('TitleScene'));
   }
 }

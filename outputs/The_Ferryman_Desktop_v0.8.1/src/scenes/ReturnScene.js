@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { WRAITH_FRAMES, playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, DecisionPanel, bodyText, drawPanel, edgeFlash, fadeIn, fadeOut, lossShake } from '../theme.js';
+import { COLOR, CSS, DecisionPanel, bodyText, drawPanel, edgeFlash, enterScene, leaveScene, lossShake } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -56,7 +56,7 @@ export class ReturnScene extends Phaser.Scene {
     this.logParts = [];
     this.confirmed = null; // the state and view before a confirmed return, which plays out on exit
 
-    this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'));
+    this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'), { settle: true, push: true });
     const deckWidth = tune('art.boat.width') * tune('art.boat.deck');
     this.boat = new RiverBoat(this, tune('boarding.deckX'), tune('boarding.deckY'), deckWidth);
     this.boat.root.setDepth(DEPTH.boat).setX(tune('boarding.deckX') + tune('return.boatFrom'));
@@ -81,7 +81,7 @@ export class ReturnScene extends Phaser.Scene {
       this.game.events.off('ferry-state', this.onState);
       this.boat = null; // update() can fire once more, after the scene has gone
     });
-    fadeIn(this);
+    enterScene(this);
   }
 
   update(time, delta) {
@@ -234,7 +234,7 @@ export class ReturnScene extends Phaser.Scene {
     this.input.enabled = false;
     this.tip.hide();
     console.log('[ferry] ReturnScene: rowing back to the Starting Shore');
-    const leave = () => fadeOut(this, () => this.router.exitDone());
+    const leave = () => leaveScene(this, () => this.router.exitDone());
     if (!this.confirmed) return leave();
     for (const part of this.logParts) part.destroy();
     this.logParts = [];

@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { addArt, queueAssets } from '../preloader.js';
 import { t } from '../text.js';
-import { CSS, COLOR, bodyText, drawPanel, headText, makeButton, modalShade } from '../theme.js';
+import { CSS, COLOR, bodyText, drawPanel, headText, makeButton, modalShade, overlayIn, overlayOut } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { CHOICE_ART, arrivalOutcome, choiceView, memoryRowSpots } from './delivery-layout.js';
 import { showOutcome } from './outcome-panel.js';
@@ -33,6 +33,7 @@ export class ChoiceOverlay extends Phaser.Scene {
     const state = this.registry.get('state');
     console.log(`[ferry] ${this.scene.key} shown (phase ${state?.phase ?? 'none'}, choice ${state?.choice?.kind ?? 'none'})`);
     modalShade(this);
+    overlayIn(this);
     this.parts = [];
     this.render(state);
 
@@ -93,6 +94,14 @@ export class ChoiceOverlay extends Phaser.Scene {
     });
   }
 
+  /** The overlay fades, then the choice goes to the engine. Another choice can follow in the same overlay. */
+  closeThen(action) {
+    overlayOut(this, () => {
+      this.router.dispatch(action);
+      if (this.router.state.phase === 'choice') overlayIn(this);
+    });
+  }
+
   /** A choice can't be undone, so a click from the screen before it must not land here. Shows what it cost, then dispatches. */
   choose(action) {
     if (this.choosing || this.game.loop.time < this.readyAt) return;
@@ -106,6 +115,6 @@ export class ChoiceOverlay extends Phaser.Scene {
     }
     this.choosing = true;
     // Outside the try: dispatch emits ferry-state, and a render bug must not look like a rule error.
-    showOutcome(this, arrivalOutcome(state, next, action, Ferry), () => this.router.dispatch(action));
+    showOutcome(this, arrivalOutcome(state, next, action, Ferry), () => this.closeThen(action));
   }
 }

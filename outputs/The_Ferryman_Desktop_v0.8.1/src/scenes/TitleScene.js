@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { queueAssets, playSound } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, bodyText, drawPanel, fadeIn, fadeOut, headText, makeButton, makeChip, whenFontsReady } from '../theme.js';
+import { COLOR, CSS, bodyText, drawPanel, enterScene, headText, leaveScene, makeButton, makeChip, whenFontsReady } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { readSave, writeSave, deleteSave, startAutosave, qaName } from '../save.js';
 import { DEPTH, NightStage } from './night-fx.js';
@@ -46,8 +46,8 @@ export class TitleScene extends Phaser.Scene {
     this.handledKeys = new WeakSet();
     console.log(`[ferry] TitleScene shown (save: ${this.save.state ? 'found' : this.save.broken ? 'unreadable' : 'none'})`);
 
-    this.night = new NightStage(this, 'bg-starting-shore');
-    fadeIn(this);
+    this.night = new NightStage(this, 'bg-starting-shore', () => 0, { settle: true, push: true });
+    enterScene(this);
 
     // Keyboard listeners outlive a scene restart, so remove this one on shutdown.
     const onKey = (e) => this.onKey(e);
@@ -181,7 +181,7 @@ export class TitleScene extends Phaser.Scene {
     this.leaving = true;
     startAutosave(this.game, () => console.warn('[ferry] ' + t('title.storageFailed')));
     if (!writeSave(state)) console.warn('[ferry] ' + t('title.storageFailed'));
-    fadeOut(this, () => {
+    leaveScene(this, () => {
       this.scene.stop();
       this.router.start(state);
     });

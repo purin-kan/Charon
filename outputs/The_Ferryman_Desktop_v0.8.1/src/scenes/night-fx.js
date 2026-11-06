@@ -2,7 +2,7 @@
 // and the mist souls leave behind. Nothing here reads the game state; the scene says where things happen.
 import Phaser from 'phaser';
 import { addBackdrop } from '../preloader.js';
-import { COLOR } from '../theme.js';
+import { COLOR, EASE, reducedMotion } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 
 defineTuning({
@@ -227,10 +227,14 @@ export class Atmosphere {
  * by that many pixels and fades the gap below it to black, which leaves room for a bottom panel.
  */
 export class NightStage {
-  constructor(scene, id, shift = () => 0) {
+  /** settle: the painting eases down to size on entering. push: it breathes very slowly while the scene is open. */
+  constructor(scene, id, shift = () => 0, { settle = false, push = false } = {}) {
     this.scene = scene;
     this.shift = shift;
     this.lean = 0;
+    this.push = push && !reducedMotion();
+    this.seconds = 0;
+    this.settled = { zoom: settle && !reducedMotion() ? tune('motion.settleZoom') : 1 };
     const { width, height } = scene.scale;
     makeTextures(scene);
     scene.add.rectangle(width / 2, height / 2, width, height, COLOR.deep).setDepth(DEPTH.sky);
@@ -242,13 +246,15 @@ export class NightStage {
     this.vignette = scene.add.image(width / 2, height / 2, 'board-vignette').setDepth(DEPTH.vignette);
     this.fx = new Atmosphere(scene);
     this.place();
+    if (this.settled.zoom > 1) scene.tweens.add({ targets: this.settled, zoom: 1, duration: tune('motion.slowMs') * 2, ease: EASE.enter });
   }
 
   place() {
     const { width, height } = this.scene.scale;
     const shift = this.shift();
     if (this.backdrop) {
-      this.backdrop.setScale(this.baseScale * (1 + (2 * tune('night.parallaxPx')) / width)).setY(height / 2 - shift);
+      this.fullScale = this.baseScale * (1 + (2 * tune('night.parallaxPx')) / width);
+      this.backdrop.setScale(this.fullScale * this.settled.zoom).setY(height / 2 - shift);
       this.floorFade.setY(height - shift - FLOOR_FADE).setVisible(shift > 0);
       this.floorFill.setY(height - shift).setVisible(shift > 0);
     } else {
@@ -265,7 +271,12 @@ export class NightStage {
     const dt = delta / 1000;
     const target = (scene.input.activePointer.x / scene.scale.width - 0.5) * 2 * tune('night.parallaxPx');
     this.lean += (target - this.lean) * Math.min(1, dt * 2.5); // eased, so the view drifts instead of tracking the mouse
-    if (this.backdrop) this.backdrop.x = scene.scale.width / 2 - this.lean;
+    this.seconds += dt;
+    if (this.backdrop) {
+      this.backdrop.x = scene.scale.width / 2 - this.lean;
+      const breath = this.push ? tune('motion.pushIn') * (1 - Math.cos((this.seconds * Math.PI * 2) / tune('motion.pushInSeconds'))) * 0.5 : 0;
+      this.backdrop.setScale(this.fullScale * this.settled.zoom * (1 + breath));
+    }
     this.fx.update(time / 1000, dt, this.lean);
   }
 }

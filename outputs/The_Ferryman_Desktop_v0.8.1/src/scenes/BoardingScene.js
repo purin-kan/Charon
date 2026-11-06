@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, FADE_RGB, bodyText, drawPanel, fadeIn, headText, makeButton, makeChip, whenFontsReady } from '../theme.js';
+import { COLOR, CSS, bodyText, drawPanel, enterScene, headText, leaveScene, makeButton, makeChip, whenFontsReady } from '../theme.js';
 import { defineTuning, onTune, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -100,7 +100,7 @@ export class BoardingScene extends Phaser.Scene {
     this.boatMotion = { shift: tune('boarding.introBoat'), dip: { value: 0, velocity: 0 }, roll: { value: 0, velocity: 0 }, pivot: { x: 0, y: 0 }, angle: 0, offset: { x: 0, y: 0 } };
 
     this.drawStage();
-    fadeIn(this, tune('boarding.introMs'));
+    enterScene(this, tune('boarding.introMs'));
     this.tweens.add({ targets: this.boatMotion, shift: 0, duration: tune('boarding.introMs') * 1.5, ease: 'Cubic.Out' });
 
     const run = (this.run = {}); // a scene restarted while the fonts load must not build twice
@@ -136,7 +136,7 @@ export class BoardingScene extends Phaser.Scene {
 
   /** The night scene: everything here has no text, so it can show before the fonts arrive. */
   drawStage() {
-    this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'));
+    this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'), { settle: true, push: true });
     this.fx = this.night.fx;
     this.boatKey = this.textures.exists('sprite-boat-horizontal') ? 'sprite-boat-horizontal' : 'board-hull';
     this.boat = this.add.image(0, 0, this.boatKey).setDepth(DEPTH.boat);
@@ -450,7 +450,7 @@ export class BoardingScene extends Phaser.Scene {
     this.input.enabled = false;
     this.tip.hide();
     if (state.phase !== 'window') {
-      this.router.exitDone();
+      leaveScene(this, () => this.router.exitDone());
       return;
     }
     // Seated souls ride the boat: they are carried by boatMotion, so a soul still walking is set down in its seat.
@@ -475,9 +475,8 @@ export class BoardingScene extends Phaser.Scene {
       shift: tune('boarding.exitDistance'),
       duration,
       ease: tune('boarding.exitEase'),
-      onComplete: () => this.router.exitDone(),
+      onComplete: () => leaveScene(this, () => this.router.exitDone()),
     });
-    this.time.delayedCall(duration * 0.68, () => this.cameras.main.fadeOut(duration * 0.32, ...FADE_RGB));
   }
 
   /** Brings the screen in line with the state. Tokens are keyed by actor id, so they travel rather than jump. */

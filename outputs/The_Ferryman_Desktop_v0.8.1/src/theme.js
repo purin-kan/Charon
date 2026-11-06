@@ -42,6 +42,19 @@ defineTuning({
   'ui.flashAlpha': { type: 'number', default: 0.55, min: 0, max: 1, step: 0.05, help: 'Glow at the screen edge' },
   'ui.flashMs': { type: 'number', default: 320, min: 50, max: 1500, step: 10 },
   'art.boat.deck': { type: 'number', default: 0.55, min: 0.2, max: 1, step: 0.01, help: 'Share of the boat image that is deck' },
+  // One rhythm for the interface. Journeys (the boat, a soul walking) keep their own, longer lengths.
+  'motion.fastMs': { type: 'number', default: 180, min: 0, max: 1000, step: 10, help: 'Small things: hover, tooltip, a line of text' },
+  'motion.baseMs': { type: 'number', default: 350, min: 0, max: 1500, step: 10, help: 'Panels, overlays, cards' },
+  'motion.slowMs': { type: 'number', default: 700, min: 0, max: 2500, step: 10, help: 'Scene changes' },
+  'motion.enterEase': { type: 'ease', default: 'Cubic.Out', help: 'Things arriving' },
+  'motion.exitEase': { type: 'ease', default: 'Cubic.In', help: 'Things leaving' },
+  'motion.moveEase': { type: 'ease', default: 'Sine.InOut', help: 'Things moving' },
+  'motion.settleZoom': { type: 'number', default: 1.03, min: 1, max: 1.1, step: 0.005, help: 'Painting settles from this size on entering a scene' },
+  'motion.pushIn': { type: 'number', default: 0.018, min: 0, max: 0.06, step: 0.002, help: 'Slow breath of the painting' },
+  'motion.pushInSeconds': { type: 'number', default: 44, min: 10, max: 120, step: 1, help: 'One breath of the painting' },
+  'motion.snapshotWaitMs': { type: 'number', default: 300, min: 50, max: 1000, step: 10, help: 'Longest wait for the last frame before fading instead' },
+  'motion.reduced': { type: 'bool', default: false, help: 'Reduced motion: no shake or zoom, quick fades. Also follows the Windows setting' },
+  'motion.reducedMs': { type: 'number', default: 90, min: 0, max: 300, step: 10, help: 'Longest animation with reduced motion' },
 });
 
 export const COLOR = {
@@ -51,9 +64,25 @@ export const COLOR = {
 export const CSS = {
   deep: '#020607', ink: '#08161b', bone: '#f5efdf', muted: '#b9c3bd', gold: '#edc47f', danger: '#ff9f8a', calm: '#a9dcff',
 };
-/** Camera fades go to this colour, as (r, g, b). */
-export const FADE_RGB = [2, 6, 7];
+/** Camera fades go to this colour, as (r, g, b): the dark teal of the panels, never pure black. */
+export const FADE_RGB = [12, 29, 36];
 export const PANEL = { alpha: 0.94, borderAlpha: 0.25, radius: 18 };
+
+/** True when the player or the system asks for less motion. */
+export function reducedMotion() {
+  return tune('motion.reduced') || !!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+}
+const timing = (name) => {
+  const ms = tune(`motion.${name}Ms`);
+  return reducedMotion() ? Math.min(ms, tune('motion.reducedMs')) : ms;
+};
+/** The shared rhythm. Read when used, so the F2 panel and reduced motion apply at once. */
+export const MS = { get fast() { return timing('fast'); }, get base() { return timing('base'); }, get slow() { return timing('slow'); } };
+export const EASE = {
+  get enter() { return tune('motion.enterEase'); },
+  get exit() { return tune('motion.exitEase'); },
+  get move() { return tune('motion.moveEase'); },
+};
 
 export const bodyText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: BODY_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
 export const headText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: HEAD_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
@@ -277,12 +306,73 @@ export function edgeFlash(scene, color = COLOR.danger, depth = 11) {
 }
 
 /** A small shake of the view, for Light lost. */
-export const lossShake = (scene) => scene.cameras.main.shake(tune('wraith.shakeMs'), tune('wraith.shakeIntensity'));
+export const lossShake = (scene) => { if (!reducedMotion()) scene.cameras.main.shake(tune('wraith.shakeMs'), tune('wraith.shakeIntensity')); };
 
 /** Fades the scene out, then calls done. The one way a scene leaves unless a boat carries it off. */
-export function fadeOut(scene, done, ms = tune('ui.fadeMs')) {
+export function fadeOut(scene, done, ms = MS.base) {
   scene.cameras.main.fadeOut(ms, ...FADE_RGB);
   scene.cameras.main.once('camerafadeoutcomplete', done);
 }
 
-export const fadeIn = (scene, ms = tune('ui.fadeMs')) => scene.cameras.main.fadeIn(ms, ...FADE_RGB);
+export const fadeIn = (scene, ms = MS.base) => scene.cameras.main.fadeIn(ms, ...FADE_RGB);
+
+const CARRY = 'scene-carry'; // the last frame of the scene before, while the next one fades in over it
+
+/**
+ * Leaves a scene with no dark gap: keeps its last frame for enterScene, then calls done. If the frame does not come in
+ * time, or with reduced motion, the scene fades to teal instead. Either way done runs once.
+ */
+export function leaveScene(scene, done) {
+  const { renderer, textures } = scene.game;
+  if (reducedMotion() || !renderer.snapshot) return fadeOut(scene, done);
+  let settled = false;
+  const timer = setTimeout(() => {
+    settled = true;
+    fadeOut(scene, done);
+  }, tune('motion.snapshotWaitMs'));
+  renderer.snapshot((image) => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(timer);
+    if (image instanceof HTMLImageElement) {
+      if (textures.exists(CARRY)) textures.remove(CARRY);
+      textures.addImage(CARRY, image);
+    }
+    done();
+  }, 'image/jpeg', 0.92);
+  return undefined;
+}
+
+/** Brings a scene in: the last frame dissolves over it, or the camera fades up from teal. Clicks wait until it is done. */
+export function enterScene(scene, ms = MS.slow) {
+  const { textures } = scene;
+  if (!textures.exists(CARRY)) {
+    fadeIn(scene, Math.min(ms, MS.base));
+    return;
+  }
+  const { width, height } = scene.scale;
+  const last = scene.add.image(width / 2, height / 2, CARRY).setDisplaySize(width, height).setDepth(1000).setScrollFactor(0);
+  scene.input.enabled = false;
+  scene.tweens.add({
+    targets: last,
+    alpha: 0,
+    duration: ms,
+    ease: EASE.move,
+    onComplete: () => {
+      last.destroy();
+      if (textures.exists(CARRY)) textures.remove(CARRY);
+      scene.input.enabled = true;
+    },
+  });
+}
+
+/** Fades a whole overlay scene in, the shade behind it with it. */
+export function overlayIn(scene) {
+  const camera = scene.cameras.main.setAlpha(0);
+  scene.tweens.add({ targets: camera, alpha: 1, duration: MS.base, ease: EASE.enter });
+}
+
+/** Fades a whole overlay scene out, then calls done. */
+export function overlayOut(scene, done) {
+  scene.tweens.add({ targets: scene.cameras.main, alpha: 0, duration: MS.fast, ease: EASE.exit, onComplete: done });
+}
