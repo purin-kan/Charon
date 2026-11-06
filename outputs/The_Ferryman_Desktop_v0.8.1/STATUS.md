@@ -125,6 +125,35 @@ NOT_RUN: all hand checks by a person (board 4, try a 5th, remove one, Undo, Clea
 
 Notes: the grey line's "gain 1 anger" is fixed text, since the engine has no config value for it (`returnShore` does `x.anger++`); `{limit}` comes from config. The painting moves up 110 px to clear the panel, which crops the moon; `boarding.backdropShift` changes that. `boarding.dropPadding` was removed with the drag code. Bob size and speed in the F2 panel apply to new souls only.
 
+## T-33 balance playtests (VarisPah, Nov 6, Windows 11)
+
+Played by hand with `npm start` (separate saves), plus two bot simulations. These are one person's runs, not a team playtest.
+
+**Runs**
+
+| Build | Rules | What happened |
+|---|---|---|
+| `main` | old: 6 Light, tolls 0/1/1/2/3/3, return +1, increase from cycle 6 | First crossing cost 2 of 6 Light (stopped early) |
+| #46 + #47 local merge | old | Run 1: one trip of 5 crossings (Styx 1, Asphodel 2, Haven 0, Acheron 1, Tartarus 2): lantern out in cycle 1. Run 2: cycle 1 cost 5 of 6 Light; in cycle 2, four free Haven crossings in a row let Anger rise until the Mother became a Wraith: game over in cycle 2 |
+| `t-35-balance` (#50, first commit) | 7 Light, tolls -1, return +2, increase still from cycle 6 | Reached **cycle 5** (4 returns): Light fell slowly, 7 → 6 → 5 → 4 → 4. Fog Shield cut Tartarus from 2 to 1. Trim and the Long Hollow choice came up. Game over when the Farmer became a Wraith. "A lot easier than before while being challenging" |
+| `boarding-heracles` test state, cycle 9 | as above | Heracles works. The lantern went out after 3 crossings: 1 to take the hero, Asphodel 2, Styx 2 (cycle increase plus a Long's fog) |
+| `t-35-balance` (#50, with the cycle 9 increase) | 7 Light, tolls -1, return +2, increase from cycle 9 | Reached **cycle 5** again (4 returns). Light stayed high: full at two returns (the +2 was wasted once) and never below 3 at a return. Trim came up 4 times. Cycle 5's trip took 9 crossings and the Merchant's wish (Styx) never came up, so his Anger reached the limit: Wraith, lantern out. The cycle 9 increase was not reached, so it is not tested by hand |
+
+**Observations**
+* **Light:** under the old rules, a trip needs 3 to 5 forks at about 1 Light each, and a return gives back 1, so the lantern goes out in cycle 1 to 3. With the new values it runs down over about 5 cycles, and in the last run it was no longer the limit.
+* **Fog:** a fork offering two expensive routes forced 2 or 3 Light whatever the choice (old rules). Fog Shield matters on expensive routes. From cycle 9, Longs add fog on top of the cycle increase, which made the late game a wall.
+* **Anger:** once routes are cheap, Anger becomes the main pressure. Stalling on free Haven routes doesn't work, because waiting souls keep getting angrier until they become Wraiths. Both runs on the new values ended in cycle 5 from Anger: a soul whose wish route is not offered during a long trip reaches the Anger limit.
+* **Simulations (bots, not playtests):** my bot (1,000 seeds) went from a median of 2 cycles to 5 with the new values. purin-kan's study on #45 (best of 36 strategies, 5,000 seeds): good players go from a median of cycle 2 to cycle 6, and to cycle 8 with the increase moved to cycle 9, while novices stay at cycle 2.
+
+**Changes proposed to the group:** on #45 (Jaoguya, purin-kan) and in #50: 7 Light, tolls -1, return +2, route increase from cycle 9 and 15.
+
+**Open for T-35:**
+* the cycle 9 change has not been played by hand past cycle 5
+* runs ending from Anger after long trips: whether to ease it (an earlier drop-off costs 1 Light today; Calm; the boat Anger limit, which did not help purin-kan's bot)
+* return +3 or 8 Light, only if still too hard
+* the hero no-toll idea (#45 part 2)
+* a full boat being a trap (purin-kan's finding)
+
 ## Verified: T-16 memory UI and T-17 GameOverScene (Jaoguya, Nov 1, 2026)
 
 Machine: Windows 10 Pro, Node v24.22.1, npm 11.19.1.
