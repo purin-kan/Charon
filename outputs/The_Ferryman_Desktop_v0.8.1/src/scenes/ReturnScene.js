@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { WRAITH_FRAMES, playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, DecisionPanel, bodyText, drawPanel, edgeFlash, enterScene, leaveScene, lossShake } from '../theme.js';
+import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, leaveScene, lossShake } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -60,7 +60,7 @@ export class ReturnScene extends Phaser.Scene {
     const deckWidth = tune('art.boat.width') * tune('art.boat.deck');
     this.boat = new RiverBoat(this, tune('boarding.deckX'), tune('boarding.deckY'), deckWidth);
     this.boat.root.setDepth(DEPTH.boat).setX(tune('boarding.deckX') + tune('return.boatFrom'));
-    this.tweens.add({ targets: this.boat.root, x: tune('boarding.deckX'), duration: tune('return.boatMs'), ease: 'Cubic.Out' });
+    this.tweens.add({ targets: this.boat.root, x: tune('boarding.deckX'), duration: tune('return.boatMs'), ease: EASE.enter });
 
     this.bar = new Hud(this);
     this.panel = new DecisionPanel(this);
@@ -147,7 +147,7 @@ export class ReturnScene extends Phaser.Scene {
   syncPulse(token, danger) {
     const { pips } = token.parts;
     if (danger && !token.pulse) {
-      token.pulse = this.tweens.add({ targets: pips, alpha: 0.35, duration: tune('boarding.pulseMs'), ease: 'Sine.InOut', yoyo: true, repeat: -1 });
+      token.pulse = this.tweens.add({ targets: pips, alpha: 0.35, duration: tune('boarding.pulseMs'), ease: EASE.move, yoyo: true, repeat: -1 });
     } else if (!danger && token.pulse) {
       token.pulse.remove();
       token.pulse = null;
@@ -224,7 +224,7 @@ export class ReturnScene extends Phaser.Scene {
     token.parts.glow.setTint(COLOR.danger);
     token.parts.glow.setAlpha(0.7);
     this.night.fx.trail(token.x, token.y - 90, 12);
-    this.tweens.add({ targets: token.parts.ride, alpha: 0, duration: tune('return.fadeMs'), ease: 'Sine.In' });
+    this.tweens.add({ targets: token.parts.ride, alpha: 0, duration: tune('return.fadeMs'), ease: EASE.exit });
   }
 
   /** The return plays out, then the scene fades and the router switches. Without a confirmed return it just fades. */
@@ -284,7 +284,7 @@ export class ReturnScene extends Phaser.Scene {
       const fresh = !this.tokens.has(entry.id);
       const token = this.tokens.get(entry.id) ?? this.addToken({ ...entry, x: -80 });
       if (fresh) setBoardingBadge(token, soulBadge(entry, Ferry));
-      this.tweens.add({ targets: token, x: entry.x, duration: tune('return.arrivalMs'), ease: 'Sine.InOut' });
+      this.tweens.add({ targets: token, x: entry.x, duration: tune('return.arrivalMs'), ease: EASE.move });
     }
   }
 }

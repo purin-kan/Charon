@@ -1,6 +1,6 @@
 // The hover box the scenes show over souls, signs, buttons and memories (T-19): a title and a few lines next to the
 // pointer, kept on screen. It fades in when it first appears.
-import { BODY_FONT, COLOR, CSS, PANEL } from '../theme.js';
+import { BODY_FONT, COLOR, CSS, EASE, MS, PANEL } from '../theme.js';
 
 const W = 360;
 
@@ -25,7 +25,7 @@ export class HoverTip {
     this.root.setPosition(x, Math.max(8, y)).setVisible(true);
     if (!fresh) return;
     this.root.setAlpha(0);
-    this.scene.tweens.add({ targets: this.root, alpha: 1, duration: 140, ease: 'Sine.Out' });
+    this.scene.tweens.add({ targets: this.root, alpha: 1, duration: MS.fast, ease: EASE.enter });
   }
 
   hide() { this.root.setVisible(false); }

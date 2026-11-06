@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, DecisionPanel, edgeFlash, leaveScene, lossShake } from '../theme.js';
+import { COLOR, DecisionPanel, EASE, edgeFlash, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -133,7 +133,7 @@ export class DeliveryScene extends Phaser.Scene {
       targets: figure,
       x: { from: -tune('boarding.shakePx'), to: tune('boarding.shakePx') },
       duration: tune('boarding.shakeMs'),
-      ease: 'Sine.InOut',
+      ease: EASE.move,
       yoyo: true,
       repeat: 2,
       onComplete: () => { figure.x = 0; },
@@ -183,7 +183,7 @@ export class DeliveryScene extends Phaser.Scene {
       const token = tokens[i].setPosition(entry.x, entry.y + FEET).setDepth(DEPTH.shore);
       const home = Ferry.wish(entry.actor) === state.destination;
       token.disableInteractive();
-      if (home) this.tweens.add({ targets: token.parts.beam, alpha: 1, scaleY: 3, duration: tune('delivery.departMs'), ease: 'Sine.Out' });
+      if (home) this.tweens.add({ targets: token.parts.beam, alpha: 1, scaleY: 3, duration: tune('delivery.departMs'), ease: EASE.enter });
       this.tweens.add({
         targets: token,
         x: token.x - tune('delivery.departDistance'),
@@ -245,7 +245,7 @@ export class DeliveryScene extends Phaser.Scene {
   fade(target, alpha) {
     if (!target) return;
     this.tweens.killTweensOf(target);
-    this.tweens.add({ targets: target, alpha, duration: tune('boarding.glowMs'), ease: 'Sine.Out' });
+    this.tweens.add({ targets: target, alpha, duration: MS.fast, ease: EASE.enter });
   }
 
   updateToken(token, entry) {
@@ -281,7 +281,7 @@ export class DeliveryScene extends Phaser.Scene {
       labels.setY(nameY);
       return;
     }
-    const motion = { duration: tune('delivery.walkMs'), ease: 'Sine.InOut' };
+    const motion = { duration: tune('delivery.walkMs'), ease: EASE.move };
     this.tweens.add({ targets: body, scaleX: scale, scaleY: scale, ...motion });
     this.tweens.add({ targets: labels, y: nameY, ...motion });
   }
@@ -306,7 +306,7 @@ export class DeliveryScene extends Phaser.Scene {
       from: 0,
       to: 1,
       duration: tune('delivery.walkMs'),
-      ease: 'Sine.InOut',
+      ease: EASE.move,
       onUpdate: (tween) => {
         const at = arcPoint(from, to, tween.getValue(), arc);
         token.setPosition(at.x, at.y);

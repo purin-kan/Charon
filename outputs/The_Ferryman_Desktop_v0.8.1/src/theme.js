@@ -29,18 +29,14 @@ defineTuning({
   'art.memory.size': { type: 'number', default: 56, min: 16, max: 160, step: 1, help: 'Memory art inside a full card' },
   'art.background.veil': { type: 'number', default: 0.6, min: 0, max: 1, step: 0.02, help: 'Dark teal veil over a background' },
   'art.background.vignette': { type: 'number', default: 0.85, min: 0, max: 1, step: 0.02 },
-  'ui.buttonMs': { type: 'number', default: 140, min: 0, max: 500, step: 10, help: 'Button hover' },
   'ui.buttonHover': { type: 'number', default: 1.03, min: 1, max: 1.15, step: 0.01 },
-  'ui.buttonPress': { type: 'number', default: 0.96, min: 0.8, max: 1, step: 0.01 },
+  'ui.buttonPress': { type: 'number', default: 0.97, min: 0.8, max: 1, step: 0.01 },
   'ui.disabledAlpha': { type: 'number', default: 0.45, min: 0.1, max: 1, step: 0.05 },
   'ui.auraMs': { type: 'number', default: 1500, min: 200, max: 5000, step: 50, help: 'Slow light behind a gold button' },
   'ui.toastMs': { type: 'number', default: 2600, min: 500, max: 8000, step: 100, help: 'Status line under the HUD' },
-  'ui.fadeMs': { type: 'number', default: 500, min: 100, max: 2000, step: 10, help: 'Fade between scenes' },
   'ui.panelY': { type: 'number', default: 545, min: 400, max: 560, step: 1, help: 'Top of the bottom panel' },
-  'ui.panelMs': { type: 'number', default: 420, min: 0, max: 1500, step: 10, help: 'Bottom panel slides in and out' },
   'ui.shadeAlpha': { type: 'number', default: 0.72, min: 0, max: 1, step: 0.02, help: 'Dimming behind a modal' },
   'ui.flashAlpha': { type: 'number', default: 0.55, min: 0, max: 1, step: 0.05, help: 'Glow at the screen edge' },
-  'ui.flashMs': { type: 'number', default: 320, min: 50, max: 1500, step: 10 },
   'art.boat.deck': { type: 'number', default: 0.55, min: 0.2, max: 1, step: 0.01, help: 'Share of the boat image that is deck' },
   // One rhythm for the interface. Journeys (the boat, a soul walking) keep their own, longer lengths.
   'motion.fastMs': { type: 'number', default: 180, min: 0, max: 1000, step: 10, help: 'Small things: hover, tooltip, a line of text' },
@@ -115,13 +111,13 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
   if (gold) {
     aura = scene.add.image(0, 0, 'board-soft').setDisplaySize(w * 1.7, h * 3).setTint(COLOR.gold).setAlpha(0);
     parts.unshift(aura);
-    scene.tweens.add({ targets: aura, alpha: 0.42, duration: tune('ui.auraMs'), ease: 'Sine.InOut', yoyo: true, repeat: -1 });
+    scene.tweens.add({ targets: aura, alpha: 0.42, duration: tune('ui.auraMs'), ease: EASE.move, yoyo: true, repeat: -1 });
   }
   const btn = scene.add.container(x, y, parts);
   btn.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
   const scaleTo = (scale) => {
     scene.tweens.killTweensOf(btn);
-    scene.tweens.add({ targets: btn, scale, duration: tune('ui.buttonMs'), ease: 'Sine.Out' });
+    scene.tweens.add({ targets: btn, scale, duration: MS.fast, ease: EASE.enter });
   };
   btn.enabled = true;
   btn.styled = false;
@@ -130,7 +126,7 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
   btn.on('pointerdown', () => {
     if (!btn.enabled) return;
     scene.tweens.killTweensOf(btn);
-    scene.tweens.add({ targets: btn, scale: tune('ui.buttonPress'), duration: 70, ease: 'Sine.Out', yoyo: true });
+    scene.tweens.add({ targets: btn, scale: tune('ui.buttonPress'), duration: MS.fast / 2, ease: EASE.enter, yoyo: true });
     onPress();
   });
   btn.setEnabled = (on) => {
@@ -143,7 +139,7 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
     if (!on) paint(false);
     const alpha = on ? 1 : tune('ui.disabledAlpha');
     if (first) btn.setAlpha(alpha);
-    else scene.tweens.add({ targets: btn, alpha, duration: 200, ease: 'Sine.Out' });
+    else scene.tweens.add({ targets: btn, alpha, duration: MS.fast, ease: EASE.enter });
     return btn;
   };
   btn.setLabel = (value) => { text.setText(value); return btn; };
@@ -282,13 +278,13 @@ export class DecisionPanel {
     const { root, scene } = this;
     scene.tweens.killTweensOf(root);
     root.setAlpha(0).setY(y + 44);
-    scene.tweens.add({ targets: root, y, alpha: 1, duration: tune('ui.panelMs'), delay, ease: 'Cubic.Out' });
+    scene.tweens.add({ targets: root, y, alpha: 1, duration: MS.base, delay, ease: EASE.enter });
   }
 
   slideOut() {
     const { root, scene } = this;
     scene.tweens.killTweensOf(root);
-    scene.tweens.add({ targets: root, y: tune('ui.panelY') + 44, alpha: 0, duration: tune('ui.panelMs'), ease: 'Sine.In' });
+    scene.tweens.add({ targets: root, y: tune('ui.panelY') + 44, alpha: 0, duration: MS.base, ease: EASE.exit });
   }
 }
 
@@ -302,7 +298,7 @@ export function modalShade(scene) {
 export function edgeFlash(scene, color = COLOR.danger, depth = 11) {
   const { width, height } = scene.scale;
   const edge = scene.add.image(width / 2, height / 2, 'board-edge').setDisplaySize(width, height).setTint(color).setAlpha(0).setDepth(depth);
-  scene.tweens.add({ targets: edge, alpha: tune('ui.flashAlpha'), duration: tune('ui.flashMs'), ease: 'Sine.Out', yoyo: true, onComplete: () => edge.destroy() });
+  scene.tweens.add({ targets: edge, alpha: tune('ui.flashAlpha'), duration: MS.base, ease: EASE.enter, yoyo: true, onComplete: () => edge.destroy() });
 }
 
 /** A small shake of the view, for Light lost. */

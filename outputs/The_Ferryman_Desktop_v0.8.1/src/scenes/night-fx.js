@@ -210,7 +210,7 @@ export class Atmosphere {
       scaleY: 0.2 * size,
       alpha: 0,
       duration: tune('night.rippleMs'),
-      ease: 'Sine.Out',
+      ease: EASE.enter,
       onComplete: () => ring.destroy(),
     });
   }

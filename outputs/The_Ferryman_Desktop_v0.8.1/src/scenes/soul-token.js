@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { addArt, soulArtId } from '../preloader.js';
-import { BODY_FONT, COLOR, angerPips } from '../theme.js';
+import { angerPips, BODY_FONT, COLOR, EASE } from '../theme.js';
 import { tune } from '../tuning.js';
 import { tailOffset } from './boarding-layout.js';
 
@@ -81,7 +81,7 @@ export function startBreathing(scene, token) {
     y: -tune('boarding.bobPx'),
     duration: tune('boarding.bobMs'),
     delay: Math.random() * 1200, // so a row of souls does not breathe in step
-    ease: 'Sine.InOut',
+    ease: EASE.move,
     yoyo: true,
     repeat: -1,
   });

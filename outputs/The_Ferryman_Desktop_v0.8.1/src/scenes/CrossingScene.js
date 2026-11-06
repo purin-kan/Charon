@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, DecisionPanel, MS, bodyText, drawPanel, edgeFlash, enterScene, headText, leaveScene, lossShake } from '../theme.js';
+import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -125,7 +125,7 @@ export class CrossingScene extends Phaser.Scene {
     if (step === 'prepare' && !state.destination) {
       enterScene(this, MS.base);
       this.boat.x -= 900;
-      this.tweens.add({ targets: this.boat, x: this.layout.home.x, duration: tune('crossing.enterMs'), ease: 'Cubic.Out' });
+      this.tweens.add({ targets: this.boat, x: this.layout.home.x, duration: tune('crossing.enterMs'), ease: EASE.enter });
     }
   }
 
@@ -503,12 +503,12 @@ export class CrossingScene extends Phaser.Scene {
     this.clearOverlay();
     this.panel.slideOut();
     this.caption = this.add.text(640, 60, `${outcome.from}  ·  ${outcome.concealed ? '?' : outcome.to}`, headText(20, CSS.muted)).setOrigin(0.5).setDepth(DEPTH.ui);
-    this.tweens.add({ targets: this.signParts, alpha: 0, duration: 300 });
+    this.tweens.add({ targets: this.signParts, alpha: 0, duration: MS.base });
 
     const travelMs = tune('crossing.travelMs');
     const fogMs = tune('crossing.fogFadeMs');
     const thickness = Math.min(0.6, tune('crossing.fogAlphaBase') + outcome.paid * tune('crossing.fogAlphaPerLight'));
-    this.tweens.add({ targets: this.fog, fillAlpha: thickness, duration: fogMs, ease: 'Sine.InOut', yoyo: true, hold: Math.max(0, travelMs - 2 * fogMs) });
+    this.tweens.add({ targets: this.fog, fillAlpha: thickness, duration: fogMs, ease: EASE.move, yoyo: true, hold: Math.max(0, travelMs - 2 * fogMs) });
     this.time.delayedCall(travelMs / 2, () => this.loseLight(state, outcome));
     this.startRipples();
     this.sail(this.layout.approach, crossingPath(this.layout, branch.option), branch.view, travelMs, () => {
@@ -521,7 +521,7 @@ export class CrossingScene extends Phaser.Scene {
   loseLight(state, outcome) {
     this.bar.stepLight(outcome.lightBefore, outcome.lightAfter, Ferry.maxLight(state));
     const line = this.add.text(32, 118, outcome.lightLine, headText(22, outcome.paid ? CSS.danger : CSS.calm)).setDepth(DEPTH.ui);
-    this.tweens.add({ targets: line, y: 104, alpha: 0, delay: tune('crossing.lightLossMs'), duration: 1200, ease: 'Sine.In', onComplete: () => line.destroy() });
+    this.tweens.add({ targets: line, y: 104, alpha: 0, delay: tune('crossing.lightLossMs'), duration: MS.slow, ease: EASE.exit, onComplete: () => line.destroy() });
     if (!outcome.paid) return;
     edgeFlash(this);
     lossShake(this);
@@ -537,9 +537,9 @@ export class CrossingScene extends Phaser.Scene {
     ];
     const lines = outcome.ended ? [] : outcome.lines;
     if (lines.length) card.push(this.add.text(640, 142, lines.join('\n'), bodyText(21, CSS.bone, { align: 'center', stroke: CSS.deep, strokeThickness: 4, wordWrap: { width: 900 } })).setOrigin(0.5, 0).setDepth(DEPTH.ui).setAlpha(0));
-    this.tweens.add({ targets: card, alpha: 1, duration: titleMs, ease: 'Sine.Out' });
+    this.tweens.add({ targets: card, alpha: 1, duration: titleMs, ease: EASE.enter });
     const hold = (after) => this.time.delayedCall(tune('crossing.arrivalHoldMs'), () => {
-      this.tweens.add({ targets: card, alpha: 0, duration: titleMs, ease: 'Sine.In', onComplete: () => { this.busy = false; after(); } });
+      this.tweens.add({ targets: card, alpha: 0, duration: titleMs, ease: EASE.exit, onComplete: () => { this.busy = false; after(); } });
     });
     if (outcome.ended) {
       const dark = this.add.rectangle(640, 360, 1280, 720, COLOR.deep, 0).setDepth(DEPTH.fogFront + 2);
@@ -552,7 +552,7 @@ export class CrossingScene extends Phaser.Scene {
     if (this.textures.exists(next.destination)) {
       const painting = this.add.image(640, 360 - tune('boarding.backdropShift'), next.destination).setDepth(DEPTH.backdrop + 0.5).setAlpha(0);
       painting.setScale(Math.max(1280 / painting.width, 720 / painting.height) * (1 + (2 * tune('night.parallaxPx')) / 1280));
-      this.tweens.add({ targets: painting, alpha: 1, duration: eventMs, ease: 'Sine.InOut' });
+      this.tweens.add({ targets: painting, alpha: 1, duration: eventMs, ease: EASE.move });
     }
 
     const leaving = outcome.departed.map((id) => this.tokens.get(id)).filter(Boolean);

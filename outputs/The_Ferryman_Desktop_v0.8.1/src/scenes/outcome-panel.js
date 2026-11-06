@@ -1,6 +1,6 @@
 import { Ferry } from '../ferry.js';
 import { t } from '../text.js';
-import { COLOR, CSS, bodyText, headText } from '../theme.js';
+import { bodyText, COLOR, CSS, EASE, headText, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { REWARD, lossLines, rewardSpots } from './delivery-layout.js';
 import { DEPTH } from './night-fx.js';
@@ -45,7 +45,7 @@ export function showOutcome(scene, outcome, done) {
   for (const part of [...parts, ...cards]) {
     const alpha = part.alpha;
     part.setAlpha(0);
-    scene.tweens.add({ targets: part, alpha, duration: 220, ease: 'Sine.Out' });
+    scene.tweens.add({ targets: part, alpha, duration: MS.fast, ease: EASE.enter });
   }
   let finished = false;
   const finish = () => {
@@ -63,7 +63,7 @@ export function showOutcome(scene, outcome, done) {
       scale: 0.25,
       alpha: 0.2,
       duration: tune('delivery.flyMs'),
-      ease: 'Cubic.InOut',
+      ease: EASE.move,
       delay: i * 80,
       onComplete: () => {
         card.destroy();

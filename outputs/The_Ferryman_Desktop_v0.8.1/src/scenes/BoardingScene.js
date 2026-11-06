@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, bodyText, drawPanel, enterScene, headText, leaveScene, makeButton, makeChip, whenFontsReady } from '../theme.js';
+import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, headText, leaveScene, makeButton, makeChip, MS, whenFontsReady } from '../theme.js';
 import { defineTuning, onTune, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -27,7 +27,6 @@ defineTuning({
   'boarding.tailSpeed': { type: 'number', default: 1.5, min: 0, max: 6, step: 0.1, help: 'Tail sway speed' },
   'boarding.shakePx': { type: 'number', default: 6, min: 0, max: 24, step: 1, help: 'Refused soul shake' },
   'boarding.shakeMs': { type: 'number', default: 60, min: 20, max: 200, step: 5, help: 'One swing of the shake' },
-  'boarding.glowMs': { type: 'number', default: 220, min: 0, max: 1000, step: 10, help: 'Hover and rim fade' },
   'boarding.hoverGlow': { type: 'number', default: 0.42, min: 0, max: 1, step: 0.02 },
   'boarding.hoverScale': { type: 'number', default: 1.04, min: 1, max: 1.2, step: 0.01, help: 'Soul grows under the pointer' },
   'boarding.rimAlpha': { type: 'number', default: 0.85, min: 0, max: 1, step: 0.05, help: 'Gold rim on selected souls' },
@@ -39,7 +38,6 @@ defineTuning({
   'boarding.introStagger': { type: 'number', default: 130, min: 0, max: 500, step: 10, help: 'Between each soul appearing' },
   'boarding.appearMs': { type: 'number', default: 800, min: 0, max: 2500, step: 50, help: 'A soul rises out of the mist' },
   'boarding.appearRise': { type: 'number', default: 18, min: 0, max: 60, step: 1 },
-  'boarding.uiMs': { type: 'number', default: 520, min: 0, max: 1500, step: 10, help: 'Panels slide in and out' },
   'boarding.backdropShift': { type: 'number', default: 110, min: 0, max: 200, step: 2, help: 'Painting moved up, clear of the panel' },
   'boarding.lanternGlow': { type: 'number', default: 0.2, min: 0, max: 1, step: 0.02, help: 'Warm light on the boat' },
   'boarding.lanternFlicker': { type: 'number', default: 0.22, min: 0, max: 0.6, step: 0.02 },
@@ -101,7 +99,7 @@ export class BoardingScene extends Phaser.Scene {
 
     this.drawStage();
     enterScene(this, tune('boarding.introMs'));
-    this.tweens.add({ targets: this.boatMotion, shift: 0, duration: tune('boarding.introMs') * 1.5, ease: 'Cubic.Out' });
+    this.tweens.add({ targets: this.boatMotion, shift: 0, duration: tune('boarding.introMs') * 1.5, ease: EASE.enter });
 
     const run = (this.run = {}); // a scene restarted while the fonts load must not build twice
     this.onState = (s) => {
@@ -314,14 +312,14 @@ export class BoardingScene extends Phaser.Scene {
 
   /** The panels arrive after the scene has started to show. */
   slideUiIn() {
-    const duration = tune('boarding.uiMs');
+    const duration = MS.base;
     const delay = tune('boarding.introMs') * 0.45;
     const panelY = tune('boarding.panelY');
     this.panel.setAlpha(0).setY(panelY + 44);
-    this.tweens.add({ targets: this.panel, y: panelY, alpha: 1, duration, delay, ease: 'Cubic.Out' });
+    this.tweens.add({ targets: this.panel, y: panelY, alpha: 1, duration, delay, ease: EASE.enter });
     this.hud.slideIn(delay + 120);
     this.hand.root.setAlpha(0);
-    this.tweens.add({ targets: this.hand.root, alpha: 1, duration, delay: delay + 200, ease: 'Sine.Out' });
+    this.tweens.add({ targets: this.hand.root, alpha: 1, duration, delay: delay + 200, ease: EASE.enter });
   }
 
   /** Applies an action. A rejected one changes nothing: the engine's reason shows and the soul refuses. */
@@ -373,11 +371,11 @@ export class BoardingScene extends Phaser.Scene {
     this.messageTimer?.remove();
     this.tweens.killTweensOf(message);
     if (!text) {
-      if (message.text) this.tweens.add({ targets: message, alpha: 0, duration: 180, ease: 'Sine.Out', onComplete: () => message.setText('') });
+      if (message.text) this.tweens.add({ targets: message, alpha: 0, duration: MS.fast, ease: EASE.enter, onComplete: () => message.setText('') });
       return;
     }
     message.setText(text).setAlpha(0).setX(PANEL.left - 8);
-    this.tweens.add({ targets: message, alpha: 1, x: PANEL.left, duration: 200, ease: 'Sine.Out' });
+    this.tweens.add({ targets: message, alpha: 1, x: PANEL.left, duration: MS.fast, ease: EASE.enter });
     this.messageTimer = this.time.delayedCall(tune('boarding.messageMs'), () => this.say(''));
   }
 
@@ -402,7 +400,7 @@ export class BoardingScene extends Phaser.Scene {
       targets: figure,
       x: { from: -tune('boarding.shakePx'), to: tune('boarding.shakePx') },
       duration: tune('boarding.shakeMs'),
-      ease: 'Sine.InOut',
+      ease: EASE.move,
       yoyo: true,
       repeat: 2,
       onComplete: () => { figure.x = 0; },
@@ -423,12 +421,12 @@ export class BoardingScene extends Phaser.Scene {
     this.heroShown = !!hero;
     const { heroBox } = this;
     this.tweens.killTweensOf(heroBox);
-    const duration = tune('boarding.uiMs');
+    const duration = MS.base;
     if (hero) {
       heroBox.setVisible(true).setScale(0.97);
-      this.tweens.add({ targets: heroBox, alpha: 1, scale: 1, duration, delay: tune('boarding.introMs') * 0.6, ease: 'Cubic.Out' });
+      this.tweens.add({ targets: heroBox, alpha: 1, scale: 1, duration, delay: tune('boarding.introMs') * 0.6, ease: EASE.enter });
     } else {
-      this.tweens.add({ targets: heroBox, alpha: 0, scale: 0.97, duration: duration / 2, ease: 'Sine.In', onComplete: () => heroBox.setVisible(false) });
+      this.tweens.add({ targets: heroBox, alpha: 0, scale: 0.97, duration: duration / 2, ease: EASE.exit, onComplete: () => heroBox.setVisible(false) });
     }
   }
 
@@ -464,11 +462,11 @@ export class BoardingScene extends Phaser.Scene {
       token.riding.amount = 1;
     }
     const duration = tune('boarding.exitMs');
-    const ui = tune('boarding.uiMs');
-    this.tweens.add({ targets: this.panel, y: this.panel.y + 44, alpha: 0, duration: ui, ease: 'Sine.In' });
+    const ui = MS.base;
+    this.tweens.add({ targets: this.panel, y: this.panel.y + 44, alpha: 0, duration: ui, ease: EASE.exit });
     this.hud.slideOut();
-    this.tweens.add({ targets: this.hand.root, alpha: 0, duration: ui, ease: 'Sine.In' });
-    if (this.heroShown) this.tweens.add({ targets: this.heroBox, alpha: 0, duration: ui, ease: 'Sine.In' });
+    this.tweens.add({ targets: this.hand.root, alpha: 0, duration: ui, ease: EASE.exit });
+    if (this.heroShown) this.tweens.add({ targets: this.heroBox, alpha: 0, duration: ui, ease: EASE.exit });
     this.kickBoat(tune('boarding.deckX'), 0.5);
     this.tweens.add({
       targets: this.boatMotion,
@@ -529,7 +527,7 @@ export class BoardingScene extends Phaser.Scene {
       if (cell.on === on) return;
       cell.on = on;
       this.tweens.killTweensOf(cell.fill);
-      this.tweens.add({ targets: cell.fill, scaleX: on ? 1 : 0, duration: 240, ease: 'Sine.InOut' });
+      this.tweens.add({ targets: cell.fill, scaleX: on ? 1 : 0, duration: MS.fast, ease: EASE.move });
     });
   }
 
@@ -539,7 +537,7 @@ export class BoardingScene extends Phaser.Scene {
       this.chipBoxes.delete(id);
       box.disableInteractive();
       this.tweens.killTweensOf(box);
-      this.tweens.add({ targets: box, alpha: 0, y: 66, duration: 180, ease: 'Sine.In', onComplete: () => box.destroy() });
+      this.tweens.add({ targets: box, alpha: 0, y: 66, duration: MS.fast, ease: EASE.exit, onComplete: () => box.destroy() });
     }
     for (const chip of chips) {
       let box = this.chipBoxes.get(chip.id);
@@ -549,7 +547,7 @@ export class BoardingScene extends Phaser.Scene {
         this.panel.add(box);
       }
       this.tweens.killTweensOf(box);
-      this.tweens.add({ targets: box, x: chip.x, y: 60, alpha: 1, duration: 240, ease: 'Sine.Out' });
+      this.tweens.add({ targets: box, x: chip.x, y: 60, alpha: 1, duration: MS.fast, ease: EASE.enter });
     }
   }
 
@@ -578,7 +576,7 @@ export class BoardingScene extends Phaser.Scene {
       left: 0,
       duration: tune('boarding.appearMs'),
       delay,
-      ease: 'Sine.Out',
+      ease: EASE.enter,
       onUpdate: () => token.parts.ride.setAlpha(1 - token.appear.left),
     });
     this.tokens.set(entry.id, token);
@@ -591,20 +589,20 @@ export class BoardingScene extends Phaser.Scene {
     token.walkTween?.remove();
     const { ride } = token.parts;
     this.fx.trail(token.x, token.y - 90, 14);
-    this.tweens.add({ targets: ride, alpha: 0, y: ride.y - 26, duration: tune('boarding.appearMs'), ease: 'Sine.In', onComplete: () => token.destroy() });
+    this.tweens.add({ targets: ride, alpha: 0, y: ride.y - 26, duration: tune('boarding.appearMs'), ease: EASE.exit, onComplete: () => token.destroy() });
   }
 
   setHover(token, on) {
     if (!token) return;
     this.fade(token.parts.glow, on ? tune('boarding.hoverGlow') : 0);
     token.hoverTween?.remove();
-    token.hoverTween = this.tweens.add({ targets: token.parts.figure, scale: on ? tune('boarding.hoverScale') : 1, duration: tune('boarding.glowMs'), ease: 'Sine.Out' });
+    token.hoverTween = this.tweens.add({ targets: token.parts.figure, scale: on ? tune('boarding.hoverScale') : 1, duration: MS.fast, ease: EASE.enter });
   }
 
   fade(target, alpha) {
     if (!target) return;
     this.tweens.killTweensOf(target);
-    this.tweens.add({ targets: target, alpha, duration: tune('boarding.glowMs'), ease: 'Sine.Out' });
+    this.tweens.add({ targets: target, alpha, duration: MS.fast, ease: EASE.enter });
   }
 
   updateToken(token, entry) {
@@ -627,7 +625,7 @@ export class BoardingScene extends Phaser.Scene {
   syncPulse(token, danger) {
     const { pips } = token.parts;
     if (danger && !token.pulse) {
-      token.pulse = this.tweens.add({ targets: pips, alpha: 0.35, duration: tune('boarding.pulseMs'), ease: 'Sine.InOut', yoyo: true, repeat: -1 });
+      token.pulse = this.tweens.add({ targets: pips, alpha: 0.35, duration: tune('boarding.pulseMs'), ease: EASE.move, yoyo: true, repeat: -1 });
     } else if (!danger && token.pulse) {
       token.pulse.remove();
       token.pulse = null;
@@ -706,7 +704,7 @@ export class BoardingScene extends Phaser.Scene {
       targets: figure,
       rotation: Phaser.Math.DegToRad(tune('boarding.leanDeg')) * direction,
       duration: duration / 2,
-      ease: 'Sine.InOut',
+      ease: EASE.move,
       yoyo: true,
     });
   }

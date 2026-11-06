@@ -6,7 +6,7 @@
 //   this.hud.update(seconds);                 // in update(), for the flames
 //   this.hud.toast(text);                     // a short status line that fades
 import { Ferry } from '../ferry.js';
-import { CSS, LightFlames, bodyText, drawPanel } from '../theme.js';
+import { bodyText, CSS, drawPanel, EASE, LightFlames, MS } from '../theme.js';
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { flames, nextLongName } from '../scenes/boarding-layout.js';
@@ -14,7 +14,6 @@ import { flames, nextLongName } from '../scenes/boarding-layout.js';
 defineTuning({
   'hud.x': { type: 'number', default: 24, min: 0, max: 200, step: 1, help: 'Left edge of the HUD' },
   'hud.y': { type: 'number', default: 20, min: 0, max: 200, step: 1, help: 'Top edge of the HUD' },
-  'hud.slideMs': { type: 'number', default: 520, min: 0, max: 1500, step: 10, help: 'HUD slides in and out' },
   'hud.flameMs': { type: 'number', default: 260, min: 0, max: 1000, step: 10, help: 'One flame going out or lighting' },
 });
 
@@ -61,21 +60,21 @@ export class Hud {
     this.toastTimer?.remove();
     scene.tweens.killTweensOf(line);
     if (!text) {
-      scene.tweens.add({ targets: line, alpha: 0, duration: 180, ease: 'Sine.Out' });
+      scene.tweens.add({ targets: line, alpha: 0, duration: MS.fast, ease: EASE.enter });
       return;
     }
     line.setText(text).setColor(color).setX(-4).setAlpha(0);
-    scene.tweens.add({ targets: line, alpha: 1, x: 4, duration: 200, ease: 'Sine.Out' });
+    scene.tweens.add({ targets: line, alpha: 1, x: 4, duration: MS.fast, ease: EASE.enter });
     this.toastTimer = scene.time.delayedCall(tune('ui.toastMs'), () => this.toast(''));
   }
 
   slideIn(delay = 0) {
     const y = tune('hud.y');
     this.root.setAlpha(0).setY(y - 22);
-    this.scene.tweens.add({ targets: this.root, y, alpha: 1, duration: tune('hud.slideMs'), delay, ease: 'Cubic.Out' });
+    this.scene.tweens.add({ targets: this.root, y, alpha: 1, duration: MS.base, delay, ease: EASE.enter });
   }
 
   slideOut() {
-    this.scene.tweens.add({ targets: this.root, y: tune('hud.y') - 22, alpha: 0, duration: tune('hud.slideMs'), ease: 'Sine.In' });
+    this.scene.tweens.add({ targets: this.root, y: tune('hud.y') - 22, alpha: 0, duration: MS.base, ease: EASE.exit });
   }
 }
