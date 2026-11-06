@@ -45,12 +45,6 @@ export class RiverBoat {
     return token;
   }
 
-  /** Puts a soul in front of the hull: one with no seat, riding on the side. */
-  rail(token) {
-    this.root.add(token);
-    return token;
-  }
-
   /** Rocks the boat and flickers its lantern. Call from the scene's update. */
   update(seconds) {
     const sway = boatSway(seconds, tune('boarding.heavePx'), Phaser.Math.DegToRad(tune('boarding.rollDeg')));

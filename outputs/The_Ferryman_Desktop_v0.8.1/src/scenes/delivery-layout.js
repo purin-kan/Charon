@@ -20,7 +20,7 @@ export function stopScenery(origin = { x: 0, y: 0 }) {
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
 const DOCK_SPOT = { x: 130, y: 240, cellW: 130, cellH: 150, cols: 3 }; // the first row clears the Dock label
-const DECK = { y: 470, width: 336 }; // souls with no seat ride here, inside the width of a four-seat hull
+export const REAR_LIFT = 72; // a back seat's height: tall enough to show over the rail and lift a name over the row in front
 const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, gap: 10, perCol: 5 };
 
 const dockSpot = (i) => ({
@@ -28,18 +28,32 @@ const dockSpot = (i) => ({
   y: DOCK_SPOT.y + Math.floor(i / DOCK_SPOT.cols) * DOCK_SPOT.cellH,
 });
 
-/** Where each passenger sits. Seats fill in order; souls with no seat ride on the deck row. Shared with CrossingScene. */
+/**
+ * The back seats, between the ordinary seats: the gaps from the middle out, then evenly along the deck if there are
+ * more souls than gaps. In seat widths from the first seat.
+ */
+function rearPlaces(count, seats) {
+  const middle = (seats - 1) / 2;
+  const gaps = Array.from({ length: seats - 1 }, (_, i) => i + 0.5).sort((a, b) => Math.abs(a - middle) - Math.abs(b - middle));
+  if (count <= gaps.length) return gaps.slice(0, count);
+  return Array.from({ length: count }, (_, i) => -0.5 + (i * seats) / (count - 1));
+}
+
+/**
+ * Where each passenger sits. Seats fill in order. A soul the rules give no seat (a Long) rides on a back seat, which
+ * never counts against the boat's capacity. Shared with CrossingScene.
+ */
 export function boatSpots(state, Ferry) {
   const { slots } = layoutBoarding(state, Ferry);
   const seatX = (i) => slots[0].x + i * (SLOT.w + SLOT.gap);
   const riders = state.boat.filter((actor) => Ferry.actorSeats(actor) === 0);
-  const riderStep = Math.min(SLOT.w + SLOT.gap, DECK.width / Math.max(1, riders.length - 1));
+  const rear = rearPlaces(riders.length, slots.length);
   let seat = 0;
   const spots = state.boat.map((actor) => {
     const span = Ferry.actorSeats(actor);
     const at = span
-      ? { x: (seatX(seat) + seatX(seat + span - 1)) / 2, y: slots[0].y }
-      : { x: seatX(0) + riders.indexOf(actor) * riderStep, y: DECK.y };
+      ? { x: (seatX(seat) + seatX(seat + span - 1)) / 2, y: slots[0].y, rear: false }
+      : { x: seatX(rear[riders.indexOf(actor)]), y: slots[0].y - REAR_LIFT, rear: true };
     seat += span;
     return { id: actor.id, actor, span, ...at };
   });
@@ -53,7 +67,7 @@ export function boatSpots(state, Ferry) {
  */
 export function layoutDelivery(state, marked, Ferry) {
   const { spots, slots } = boatSpots(state, Ferry);
-  const entries = spots.map(({ id, actor, span, x, y }) => {
+  const entries = spots.map(({ id, actor, span, rear, x, y }) => {
     const i = marked.indexOf(id);
     return {
       id,
@@ -61,6 +75,7 @@ export function layoutDelivery(state, marked, Ferry) {
       area: i >= 0 ? 'dock' : 'seat',
       ...(i >= 0 ? dockSpot(i) : { x, y }),
       span,
+      rear,
       canLeave: i >= 0 || testRun(state, [...marked, id], Ferry).ok,
       wishMatches: Ferry.wish(actor) === state.destination,
       labels: tokenLabels({ actor, draggable: false }, Ferry), // draggable false picks the ship limit
