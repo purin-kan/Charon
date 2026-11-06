@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { queueAssets, playSound } from '../preloader.js';
+import { queueAssets, playLoop, pauseLoop } from '../preloader.js';
 import { t } from '../text.js';
 import { readSave, writeSave, deleteSave, startAutosave, qaName } from '../save.js';
 
@@ -59,10 +59,11 @@ export class TitleScene extends Phaser.Scene {
     // Keyboard listeners outlive a scene restart, so remove this one on shutdown.
     const onKey = (e) => this.onKey(e);
     this.input.keyboard.on('keydown', onKey);
-    this.music = MENU_MUSIC.map((id) => playSound(this, id, { loop: true, volume: 0.5 })).find(Boolean) ?? null;
+    pauseLoop(this.sound.get('amb-crossing')); // the run's loop (router.js RUN_AMBIENCE) waits for the next run
+    this.music = MENU_MUSIC.map((id) => playLoop(this, id, { volume: 0.5 })).find(Boolean) ?? null; // resumes, never restarts
     this.events.once('shutdown', () => {
       this.input.keyboard.off('keydown', onKey);
-      this.music?.stop();
+      pauseLoop(this.music);
     });
     this.cameras.main.fadeIn(FADE_MS, 11, 17, 23);
   }

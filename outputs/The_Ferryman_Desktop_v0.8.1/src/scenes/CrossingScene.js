@@ -106,10 +106,9 @@ export class CrossingScene extends Phaser.Scene {
       this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
-    this.ambience = playSound(this, AMBIENCE, { loop: true });
+    // The ambience (AMBIENCE) is the run's background loop now: the router starts it with the run.
     this.events.once('shutdown', () => {
       this.game.events.off('ferry-state', this.onState);
-      this.ambience?.stop();
       this.rippleTimer?.remove();
     });
 
