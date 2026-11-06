@@ -2,6 +2,8 @@
 
 ## Motion polish (branch `polish-transitions`, Nov 6, 2026, not pushed)
 
+Update, Nov 6 (agent, not a playtest): Tinpatpun asked for the boat to be on the water. CrossingScene no longer zooms out over a drawn river. The boat stays full size where DeliveryScene draws it, and water, fog and the painting go past it (`Water` in `river-boat.js`, `water.*` and `night.roamPx` tuning). The signs stand in the water ahead of the bow, and the pier slides in on arrival. `crossing.bobPx`, `crossing.bobMs`, `crossing.riverAlpha`, `crossing.travelEase` and the unread `crossing.riverPath` are gone; `crossing.travelMs` is 3400. On this code: `npm run check` 11 of 11, build passes, 14 memory cards in 69 cases all worked, full run seed 7 ended at GameOver with 0 console problems, 0 scene loads and 0 frames over 80 ms. Screenshots read for prepare, sailing, review, crossing and arrival. NOT_RUN: how it feels to a person, and a hidden destination or Foresight shown on the new signs.
+
 Presentation only, on top of `full-game-restyle`; `rules/`, `package.json`, the lockfile, `src/scenes/index.js` and `src/router.js` are unchanged. Scene changes crossfade from the last frame, with a teal fade as fallback; Crossing and Delivery stay seamless. The interface uses one rhythm (`motion.*`: 180, 350, 700 ms); journeys keep their own lengths. All assets load at boot. Reduced motion is `motion.reduced` in F2 and follows the Windows setting.
 
 | Check | Command or method | Result |

@@ -33,44 +33,15 @@ export function placeName(state, Ferry, t) {
   return state.destination ? destinationName(state.destination, Ferry) : t('common.startingShore');
 }
 
-// ---- the river world ------------------------------------------------------------------------
-// One world the scene pans and zooms over. "home" is where the boat sits at a stop: the hull centre
-// that BoardingScene and DeliveryScene use, so a stop looks the same in all three scenes. The river
-// runs right to a fork; option 0 branches up, option 1 down. Each branch ends level, at a spot where the
-// boat sits exactly as DeliveryScene draws it once the view is back at zoom 1 (see arrivalView).
-export const WORLD = { forkAhead: 1000, approachBack: 400, branchRun: 900, branchRise: 420, signAhead: 760, signRise: 155, viewAhead: 550, forkZoom: 0.48 };
+// ---- the stage -----------------------------------------------------------------------------
+// The boat stays where BoardingScene and DeliveryScene draw it, and the water goes past it. Its bow points left, so the
+// way ahead is the left of the screen: the two signs stand there, in the water.
+export const SIGNS = { scale: 0.52, spots: [{ x: 268, y: 214 }, { x: 268, y: 376 }] };
 
-/** A view is the world point at the centre of the screen and a zoom. */
-export const homeView = () => ({ x: 640, y: 360, zoom: 1 });
-
+/** home is the hull centre, the same at a stop and under way. */
 export function worldLayout(state, Ferry) {
   const hull = boatZone(boatSpots(state, Ferry).slots);
-  const home = { x: hull.x, y: hull.y };
-  const fork = { x: home.x + WORLD.forkAhead, y: home.y };
-  const approach = { x: fork.x - WORLD.approachBack, y: home.y };
-  const branches = [-1, 1].map((dir, option) => {
-    const end = { x: fork.x + WORLD.branchRun, y: home.y + dir * WORLD.branchRise };
-    return {
-      option,
-      end,
-      // fork, two bends, the level end, and the river running on past it
-      points: [fork, { x: fork.x + 350, y: home.y + dir * 250 }, { x: fork.x + 700, y: home.y + dir * (WORLD.branchRise - 10) }, end, { x: end.x + 900, y: end.y }],
-      sign: { x: fork.x + WORLD.signAhead, y: home.y + dir * WORLD.signRise }, // on the land between the branches
-      view: { x: end.x - home.x + 640, y: end.y - home.y + 360, zoom: 1 },
-    };
-  });
-  // The fork view leaves the right of the screen free for the review panel.
-  return { home, fork, approach, branches, forkView: { x: fork.x + WORLD.viewAhead, y: home.y, zoom: WORLD.forkZoom } };
-}
-
-/** Where a world point lands on the 1280x720 screen for a view. */
-export function onScreen(point, view) {
-  return { x: 640 + (point.x - view.x) * view.zoom, y: 360 + (point.y - view.y) * view.zoom };
-}
-
-/** The boat's path for a crossing: from the approach point down the chosen branch to its end. */
-export function crossingPath(layout, option) {
-  return [layout.approach, ...layout.branches[option].points.slice(0, 4)];
+  return { home: { x: hull.x, y: hull.y }, signs: SIGNS.spots };
 }
 
 /**

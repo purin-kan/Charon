@@ -14,7 +14,7 @@ import {
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { showOutcome } from './outcome-panel.js';
-import { PIER_ART, RiverBoat, addPier } from './river-boat.js';
+import { PIER_ART, RiverBoat, Water, addPier } from './river-boat.js';
 import { addBoardingSoul, fadeAway, LABEL_TIER_PX, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
 
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
@@ -51,6 +51,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.targets = null; // soul ids the picked memory can target
 
     this.night = new NightStage(this, state.destination, () => tune('boarding.backdropShift')); // the same stage as the start
+    this.water = new Water(this);
     this.slots = layoutDelivery(state, [], Ferry).slots;
     const hull = boatZone(this.slots);
     this.boat = new RiverBoat(this, hull.x, hull.y + FEET, tune('art.boat.width') * tune('art.boat.deck'));
@@ -87,6 +88,7 @@ export class DeliveryScene extends Phaser.Scene {
     if (!this.boat) return;
     const seconds = time / 1000;
     this.night.update(time, delta);
+    this.water.update(delta / 1000);
     this.boat.update(seconds);
     this.bar.update(seconds);
     const { root } = this.boat;
