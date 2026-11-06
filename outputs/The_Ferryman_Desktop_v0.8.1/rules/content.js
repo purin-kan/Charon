@@ -1,10 +1,10 @@
 globalThis.FerryData = {
   "schemaVersion": 3,
-  "version": "0.8-t45b",
+  "version": "0.8-t45c",
   "title": "The Ferryman",
   "config": {
-    "startLight": 6,
-    "maxLight": 6,
+    "startLight": 7,
+    "maxLight": 7,
     "seats": 4,
     "shoreTarget": 5,
     "shoreAngerLimit": 2,
@@ -27,7 +27,7 @@ globalThis.FerryData = {
     "longForkChoices": 3,
     "polongFogThreshold": 2,
     "polongFog": 1,
-    "returnLight": 1,
+    "returnLight": 2,
     "wraithDamage": 1,
     "foresightForks": 3,
     "heroArrival": {
@@ -303,27 +303,27 @@ globalThis.FerryData = {
     {
       "id": "DEST-STYX",
       "name": "River Styx",
-      "fog": 1
+      "fog": 0
     },
     {
       "id": "DEST-ACHERON",
       "name": "Acheron",
-      "fog": 1
+      "fog": 0
     },
     {
       "id": "DEST-ASPHODEL",
       "name": "Asphodel",
-      "fog": 2
+      "fog": 1
     },
     {
       "id": "DEST-ELYSIUM",
       "name": "Elysium",
-      "fog": 3
+      "fog": 2
     },
     {
       "id": "DEST-TARTARUS",
       "name": "Tartarus",
-      "fog": 3
+      "fog": 2
     }
   ],
   "memories": [
@@ -438,7 +438,7 @@ globalThis.FerryData = {
   "returnSteps": [
     "With an empty boat, one held memory may be played.",
     "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
-    "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
+    "If alive, recover 2 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ],
   "rules": {
     "scope": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
@@ -578,6 +578,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "0aa50a2d9ea8824305a9f93502048fadfbd5c0e8114c3c55aaca0e60582c157f"
+  "contentSha256": "6ecbf9696310658fa3209ec88e7d42e80d018d36ed702b4df178641903d74c6d"
 }
 ;

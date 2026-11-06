@@ -1,14 +1,14 @@
-# The Ferryman 0.8-t45b
+# The Ferryman 0.8-t45c
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `0aa50a2d9ea8824305a9f93502048fadfbd5c0e8114c3c55aaca0e60582c157f`.
+Generated from content.json. SHA-256: `6ecbf9696310658fa3209ec88e7d42e80d018d36ed702b4df178641903d74c6d`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
 ## Setup
 
-Start with 6 Light; maximum 6. Boat capacity 4. Return healing 1.
+Start with 7 Light; maximum 7. Boat capacity 4. Return healing 2.
 
 Initial shore: Mother, Child, Merchant, Mason, Cook.
 
@@ -113,7 +113,7 @@ Fog protection does not prevent Wraith or toll damage. Long Mist delivered norma
 
 1. With an empty boat, one held memory may be played.
 2. Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.
-3. If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
+3. If alive, recover 2 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer.
 
 ## Included roster entries awaiting playable rules
 

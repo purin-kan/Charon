@@ -181,7 +181,7 @@ check('One memory per stop, overflow cannot be spent, fog protection does not bl
  let s=boat(['SOUL-MOTHER','SOUL-COOK']);s.light=5;const a=memory(s,'MEM-LIGHT','SOUL-MOTHER'),b=memory(s,'MEM-LIGHT','SOUL-MOTHER');
  s=act(s,'PLAY_MEMORY',{id:a});assert.throws(()=>act(s,'PLAY_MEMORY',{id:b}),/One memory per stop/);assert.equal(s.window.uses,1);assert.equal(s.light,6);s=act(later(s),'PLAY_MEMORY',{id:b});assert.equal(s.light,7);
  for(let i=0;i<4;i++)memory(s,'MEM-LIGHT','SOUL-MOTHER');assert.throws(()=>act(s,'PLAY_MEMORY',{id:s.hand[0].id}),/Excess/);rt(s);
- /* Full Fog Protection has no source since the soul data change (#6), so Fog Shield on a fog-1 route stands in */let fog=boat(['SOUL-KEEPER']);const id=memory(fog,'MEM-FOG','SOUL-KEEPER');find(fog,'SOUL-KEEPER').anger=g.data.config.shipAngerLimit-1;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-STYX');assert.equal(fog.light,before-1);
+ /* Full Fog Protection has no source since the soul data change (#6), so Fog Shield on a fog-1 route stands in */let fog=boat(['SOUL-KEEPER']);const id=memory(fog,'MEM-FOG','SOUL-KEEPER');find(fog,'SOUL-KEEPER').anger=g.data.config.shipAngerLimit-1;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-ASPHODEL');assert.equal(fog.light,before-1);
 });
 check('Moly suppresses scheduled arrivals without increasing level; Nobody blocks fog only',()=>{
  let s=boat(['SOUL-COOK']);s.effects.moly=false;dueNow(s);const m=memory(s,'MEM-MOLY');s=act(s,'PLAY_MEMORY',{id:m});s=act(s,'START_CROSSING');assert.equal(s.encounters,'0');assert.equal(s.boat.length,1);
@@ -224,8 +224,8 @@ check('Boat Wraith when Anger reaches 5; shore limit 2 and departure reset uncha
  const before=s.light;s=step(s,'DEST-HAVEN');assert.ok(!s.boat.some(x=>x.type==='SOUL-MOTHER'));assert.equal(s.light,before-1);
 });
 check('Only original normally delivered Po Long pays Light; fatal damage stops rewards',()=>{
- let s=boat(['SOUL-COOK']);polong(s,'SOUL-POLONG',1);const before=s.light;s=step(s,'DEST-TARTARUS',['SOUL-POLONG']);assert.equal(s.light,before-2);
- let fatal=boat(['SOUL-MERCHANT']);fatal.light=1;fatal=cross(fatal,'DEST-STYX');assert.equal(fatal.phase,'ended');assert.equal(fatal.hand.length,0);rt(fatal);
+ let s=boat(['SOUL-COOK']);polong(s,'SOUL-POLONG',1);const before=s.light;s=step(s,'DEST-TARTARUS',['SOUL-POLONG']);assert.equal(s.light,before-g.data.destinations.find(d=>d.id==='DEST-TARTARUS').fog+1);
+ let fatal=boat(['SOUL-MERCHANT']);fatal.light=1;fatal=cross(fatal,'DEST-ASPHODEL');assert.equal(fatal.phase,'ended');assert.equal(fatal.hand.length,0);rt(fatal);
 });
 check('Calm and Soldiers Peace lower every soul on the boat, not the shore, with no target',()=>{
  let s=shore(['SOUL-MOTHER','SOUL-MUSICIAN','SOUL-COOK']);for(const t of ['SOUL-MOTHER','SOUL-MUSICIAN'])s=act(s,'BOARD',{id:find(s,t).id});s=act(s,'DEPART');s.effects.moly=true;polong(s,'SOUL-PO-DUE',1,2);const cook=find(s,'SOUL-COOK');for(const x of s.boat)x.anger=2;cook.anger=1;

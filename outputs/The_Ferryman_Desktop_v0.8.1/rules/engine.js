@@ -321,7 +321,7 @@
     s.effects={capacity:false,moly:false,nobody:false};
     while(s.shore.length<C.shoreTarget){if(!s.arrivals.length){s.arrivals=shuffle(s,s.discard);s.discard=[];}if(!s.arrivals.length)break;s.shore.push(fresh(s,s.arrivals.shift()));}
     for(const q of activeQuests(s))fail(s,q,'trip ended before completion');
-    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.longForks=[];s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +1 Light. Cycle '+s.cycle+'.');
+    s.routes={offers:[],masks:[],foresight:0,history:[]};s.destination=null;s.longForks=[];s.window=windowState('outward');s.travelPrepared=false;s.phase='boarding';deal(s);offerHero(s);record(s,'Return survived: +'+C.returnLight+' Light. Cycle '+s.cycle+'.');
   }
   function transition(input,a) {
     validate(input);need(a&&typeof a.type==='string','Choose an action.');const s=clone(input);

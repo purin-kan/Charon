@@ -1,11 +1,11 @@
 {
-  "version": "0.8-t45b",
+  "version": "0.8-t45c",
   "passed": 33,
   "failed": 0,
   "hashes": {
-    "engine.js": "b9d6431854b49f670eb0616f65b6f04aab2288cfdecfae6ce9bb9f12605c5a2d",
-    "content.json": "0aa50a2d9ea8824305a9f93502048fadfbd5c0e8114c3c55aaca0e60582c157f",
-    "tests/quest-check.js": "fa75a1d41048c03c7777b3fcc6995ae6ddffa6c2f51ecd17799a52767db29602"
+    "engine.js": "7a98357254dcb27359c3fc0a313093c11c8526d18ec3d21f88fb6a2771d01d6f",
+    "content.json": "6ecbf9696310658fa3209ec88e7d42e80d018d36ed702b4df178641903d74c6d",
+    "tests/quest-check.js": "f73983a5c80800250e5d3210c7523153d6fd536a914a08d444be550a3994bacd"
   },
   "records": [
     {
@@ -140,8 +140,8 @@
       "name": "128 seeded all-system runs: deterministic replay, immutable transitions and every-state save round trips",
       "status": "PASS",
       "runs": 128,
-      "transitions": 3197,
-      "choices": 0,
+      "transitions": 9022,
+      "choices": 9,
       "humanPlaytest": false
     }
   ],

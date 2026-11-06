@@ -1,6 +1,6 @@
 {
-  "version": "0.8-t45b",
-  "contentSha256": "0aa50a2d9ea8824305a9f93502048fadfbd5c0e8114c3c55aaca0e60582c157f",
+  "version": "0.8-t45c",
+  "contentSha256": "6ecbf9696310658fa3209ec88e7d42e80d018d36ed702b4df178641903d74c6d",
   "trial": {
     "stage": "All-quest local trial",
     "notice": "Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.",
@@ -15,8 +15,8 @@
     "rosterSynced": "2026-10-30"
   },
   "config": {
-    "startLight": 6,
-    "maxLight": 6,
+    "startLight": 7,
+    "maxLight": 7,
     "seats": 4,
     "shoreTarget": 5,
     "shoreAngerLimit": 2,
@@ -39,7 +39,7 @@
     "longForkChoices": 3,
     "polongFogThreshold": 2,
     "polongFog": 1,
-    "returnLight": 1,
+    "returnLight": 2,
     "wraithDamage": 1,
     "foresightForks": 3,
     "heroArrival": {
@@ -98,6 +98,6 @@
   "returnSteps": [
     "With an empty boat, one held memory may be played.",
     "Waiting souls gain one Anger; at two, resolve Wraith damage/removal. Zero Light ends the run before healing.",
-    "If alive, recover 1 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
+    "If alive, recover 2 Light up to the current maximum. Expire trip effects, refill shore and prepare the next hero offer."
   ]
 }
