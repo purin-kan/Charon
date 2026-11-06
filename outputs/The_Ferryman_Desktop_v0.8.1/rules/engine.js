@@ -52,7 +52,7 @@
   function scheduleLongs(s) {s.longForks=[];for(let i=0;i<longsThisCycle(s);i++)s.longForks.push(1+draw(s,C.longForkChoices));s.longForks.sort((a,b)=>a-b);}
   function drawPolong(s) { const types=BigInt(s.encounters)>=2n?tier2:tier1; return types[draw(s,types.length)]; }
   // At each boarding, a hero can be offered once the run reaches its cycle (config.heroArrival: Odysseus from
-  // cycle 6, Hercules from cycle 9), and then only on a chance roll (25%). At most one hero is offered at a time.
+  // cycle 6, Heracles from cycle 9), and then only on a chance roll (25%). At most one hero is offered at a time.
   function offerHero(s) {
     const arrives=type=>BigInt(s.cycle)>=BigInt(C.heroArrival[type].fromCycle)&&draw(s,100)<C.heroArrival[type].chance;
     const choices=heroes.filter(type=>!s.boat.some(x=>x.type===type) && (type!=='SOUL-HERACLES'||s.shore.length>3) && arrives(type));
@@ -148,7 +148,7 @@
     need(s.phase==='boarding'&&s.heroOffer&&!s.heroOffer.resolved,'No hero offer is available.');
     const type=s.heroOffer.type;
     const toll=type==='SOUL-HERACLES'?s.shore.find(x=>x.id===target):null;
-    if(type==='SOUL-HERACLES')need(s.shore.length>3&&toll,'Hercules needs more than three shore souls and a selected shore toll.');
+    if(type==='SOUL-HERACLES')need(s.shore.length>3&&toll,'Heracles needs more than three shore souls and a selected shore toll.');
     need(seats(s)-(toll&&s.selected.includes(toll.id)?actorSeats(toll):0)+1<=capacity(s),'Leave a seat for the hero.');
     s.heroOffer.resolved=true;
     if(toll){damage(s,1,'Hades’ toll');remove(s,toll,'sacrifice');if(s.phase==='ended')return;}
@@ -163,7 +163,7 @@
         const frightened=shuffle(s,s.boat.filter(x=>x.origin&&!isTainted(x))).slice(0,2);
         for(const x of frightened)remove(s,x,'frightened by Cerberus');
         hero.wish=randomWish(s);cerberus.wish=hero.wish;q.stage='cerberus';q.data.battleRound=s.round;
-        record(s,'Cerberus boards. Hercules and Cerberus now wish for '+DEST[hero.wish].name+'.');
+        record(s,'Cerberus boards. Heracles and Cerberus now wish for '+DEST[hero.wish].name+'.');
       }
       if(q.definitionId==='QUEST-ODYSSEUS'&&q.stage==='active'){
         const hero=participant(s,q,'SOUL-ODYSSEUS');if(!hero||hero.wish!==s.destination)continue;
@@ -183,7 +183,7 @@
     for(const q of activeQuests(s).filter(q=>q.participants.includes(x.id))){
       if(q.definitionId==='QUEST-HERACLES'){
         if(q.stage!=='cerberus'||q.data.battleRound===s.round)return 'Complete the Cerberus encounter, then deliver on a later arrival.';
-        if(via==='normal'&&x.wish!==s.destination)return 'Hercules and Cerberus leave only at their own destination.'; // PM: heroes leave only at their wish
+        if(via==='normal'&&x.wish!==s.destination)return 'Heracles and Cerberus leave only at their own destination.'; // PM: heroes leave only at their wish
       }
       if(q.definitionId==='QUEST-ODYSSEUS')return 'Odysseus disembarks through his Tiresias encounter.';
     }

@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `15ef66b09147924291cee8a207e2b9614a4badc1dfb8a55f0558b27569c7ce8b`.
+Generated from content.json. SHA-256: `79f8f126bc74f16aca0f2054669b4c6ea80be857a39067fc77373dd2edaf8e2f`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -38,7 +38,7 @@ Arrival pool: Poet, Keeper, Red Soldier, Blue Soldier, Messenger, Bard, Listener
 | SOUL-PO-NAK | Long Burden |  | 0 | Acheron | None |
 | SOUL-PO-MUED | Long Veil |  | 0 | River Styx | None |
 | SOUL-PO-DUE | Long Grasp |  | 0 | Haven | None |
-| SOUL-HERACLES | Hercules the traveler |  | 1 | Haven | None |
+| SOUL-HERACLES | Heracles the traveler |  | 1 | Haven | None |
 | SOUL-ODYSSEUS | Odysseus the traveler |  | 1 | Haven | None |
 | CHAR-CERBERUS | Cerberus |  | 1 | Haven | None |
 
@@ -52,11 +52,11 @@ Keep the lantern burning through repeated trips. Zero Light ends the run. This t
 
 ## boarding
 
-Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Hercules), each with a 25% chance; Hercules also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
+Select ordinary passengers within capacity. Heroes need a seat. A hero can be offered at boarding only from cycle 6 (Odysseus) or cycle 9 (Heracles), each with a 25% chance; Heracles also needs more than three shore souls, and at most one hero is offered at a time. Merchant, Blacksmith and Mason cannot depart together. Souls reset Anger on departure. The next Long is shown before departure.
 
 ## memories
 
-One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop (away from its wish it costs 1 Light, which Guard cannot prevent, and the last Light ends the run), except that Long Grasp will not leave below Anger 2 and Hercules and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger (Longs are not passengers), his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
+One memory per stop (before the fork, at the fork or review, or at delivery), one at boarding (Boat Space only, which is played only then) and one on the return trip. Each use consumes one held copy. Fog Shield, Full Fog Protection and Guard protect a crossing, so they are not played at delivery. Any passenger, Longs included, may leave at any stop (away from its wish it costs 1 Light, which Guard cannot prevent, and the last Light ends the run), except that Long Grasp will not leave below Anger 2 and Heracles and Odysseus keep their own exits. If Mason leaves before the Merchant or before the last passenger (Longs are not passengers), his quest fails. Only a passenger delivered to its wish gives its memory; quest rewards are separate. End-round hand limit is three. Overflow cannot be spent before trimming. Sword removes a tainted passenger without expiry consequences.
 
 ## quest
 
@@ -64,7 +64,7 @@ All eight quests are active. Pair attempts bind to characters that depart togeth
 
 ## routes
 
-All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Hercules’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
+All six destinations are open for this trial. Heaven is merged into Haven. Hero wishes draw from the six destinations, and Cerberus shares Heracles’ second wish. Routes and random losses use saved randomness. Base route fog rises by 1 from cycle 6 and by 2 from cycle 12, except Haven.
 
 ## polongs
 
