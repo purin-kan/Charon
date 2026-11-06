@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `79f8f126bc74f16aca0f2054669b4c6ea80be857a39067fc77373dd2edaf8e2f`.
+Generated from content.json. SHA-256: `ccc76bfe12c55644dda3b3ae6f995cf18631cfaca75236b5809c58af9a726e75`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -26,13 +26,13 @@ Arrival pool: Poet, Keeper, Red Soldier, Blue Soldier, Messenger, Bard, Listener
 | SOUL-MASON | Mason | Petros | 1 | Acheron | Fog Shield |
 | SOUL-KEEPER | Keeper | Hero | 1 | Asphodel | Fog Shield |
 | SOUL-POLONG | Long Mist |  | 0 | Tartarus | None |
-| SOUL-RED-SOLDIER | Red Soldier | Phoenix | 1 | River Styx | Full Fog Protection |
-| SOUL-BLUE-SOLDIER | Blue Soldier | Glaukos | 1 | River Styx | Full Fog Protection |
-| SOUL-MESSENGER | Messenger | Nikos | 1 | River Styx | Foresight |
+| SOUL-RED-SOLDIER | Red Soldier | Phoenix | 1 | Tartarus | Guard |
+| SOUL-BLUE-SOLDIER | Blue Soldier | Glaukos | 1 | Asphodel | Guard |
+| SOUL-MESSENGER | Messenger | Nikos | 1 | Asphodel | Foresight |
 | SOUL-MUSICIAN | Bard | Homer | 1 | Elysium | Calm |
 | SOUL-LISTENER | Listener | Echo | 1 | Elysium | None |
 | SOUL-FARMER | Farmer | Georgios | 1 | Asphodel | Calm |
-| SOUL-BLACKSMITH | Blacksmith | Chalkon | 1 | Acheron | None |
+| SOUL-BLACKSMITH | Blacksmith | Chalkon | 1 | Acheron | Fog Shield |
 | SOUL-PRIEST | Priest | Elias | 1 | Haven | Last Prayer |
 | SOUL-PO-LUEM | Long Hollow |  | 0 | Asphodel | None |
 | SOUL-PO-NAK | Long Burden |  | 0 | Acheron | None |

@@ -57,11 +57,16 @@ check('Fresh returned character instances start a new quest without reusing rewa
  for(const type of ['SOUL-MOTHER','SOUL-CHILD'])s=act(s,'BOARD',{id:find(s,type).id});s=act(s,'DEPART');
  const fresh=s.quests.find(q=>q.definitionId==='QUEST-FAMILY'&&q.status==='active');assert.notEqual(fresh.id,old.id);assert.ok(fresh.participants.every(id=>!old.participants.includes(id)));assert.equal(old.rewardClaimed,true);rt(s);
 });
+check('Soul data (Jaoguya on #6, Nov 4): Soldiers, Messenger and Blacksmith wishes and memories',()=>{
+ const want={'SOUL-RED-SOLDIER':['DEST-TARTARUS','MEM-GUARD'],'SOUL-BLUE-SOLDIER':['DEST-ASPHODEL','MEM-GUARD'],'SOUL-MESSENGER':['DEST-ASPHODEL','MEM-FORESIGHT'],'SOUL-BLACKSMITH':['DEST-ACHERON','MEM-FOG']};
+ for(const [id,[wish,mem]] of Object.entries(want)){assert.equal(def(id).wish,wish,id);assert.equal(def(id).memory,mem,id);}
+ let b=boat(['SOUL-BLACKSMITH']);b=step(b,'DEST-ACHERON',['SOUL-BLACKSMITH']);assert.ok(b.hand.some(m=>m.type==='MEM-FOG'&&m.sourceRef.definitionId==='SOUL-BLACKSMITH'));
+});
 check('Soldier penalty every second retained shared crossing, separate pair reward',()=>{
  let s=boat(['SOUL-RED-SOLDIER','SOUL-BLUE-SOLDIER','SOUL-COOK']);
  s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-COOK').anger,1);
  s=step(s,'DEST-HAVEN');assert.equal(find(s,'SOUL-COOK').anger,3);assert.equal(find(s,'SOUL-RED-SOLDIER').anger,2);
- s=step(s,'DEST-STYX',['SOUL-RED-SOLDIER','SOUL-BLUE-SOLDIER']);assert.equal(quest(s,'QUEST-SOLDIERS').status,'completed');assert.equal(s.hand.filter(m=>m.type==='MEM-ALL-FOG').length,2);assert.ok(s.hand.some(m=>m.type==='MEM-SOLDIER-PEACE'));
+ s=step(s,'DEST-TARTARUS',['SOUL-RED-SOLDIER']);assert.equal(quest(s,'QUEST-SOLDIERS').status,'active');s=step(s,'DEST-ASPHODEL',['SOUL-BLUE-SOLDIER']);assert.equal(quest(s,'QUEST-SOLDIERS').status,'completed');assert.equal(s.hand.filter(m=>m.type==='MEM-GUARD').length,2);assert.ok(s.hand.some(m=>m.type==='MEM-SOLDIER-PEACE'));
 });
 check('Listener transforms on third shared crossing, keeps origin and coexists with Poet',()=>{
  let s=boat(['SOUL-MUSICIAN','SOUL-LISTENER','SOUL-POET']);const listener=find(s,'SOUL-LISTENER').id;
@@ -125,8 +130,8 @@ check('Guard cannot prevent the Light an off-wish exit costs, and the last Light
  const after=act(e,'DELIVER',{ids:[farmer]});assert.equal(after.light,4); // Guard would have left it at 5
  e.light=1;const over=act(e,'DELIVER',{ids:[farmer]});assert.equal(over.phase,'ended');assert.equal(over.light,0);assert.match(over.ending,/left away from its wish/);
 });
-check('Fog and All Fog protect a crossing, so they are refused at the dock and playable at the next stop',()=>{
- let s=boat(['SOUL-MASON','SOUL-RED-SOLDIER','SOUL-MOTHER']);const fog=memory(s,'MEM-FOG','SOUL-MASON'),all=memory(s,'MEM-ALL-FOG','SOUL-RED-SOLDIER'),light=memory(s,'MEM-LIGHT','SOUL-MOTHER');
+check('Fog Shield and Guard protect a crossing, so they are refused at the dock and playable at the next stop',()=>{
+ /* the Red Soldier gives Guard since the soul data change (#6); Full Fog Protection has no source */let s=boat(['SOUL-MASON','SOUL-RED-SOLDIER','SOUL-MOTHER']);const fog=memory(s,'MEM-FOG','SOUL-MASON'),all=memory(s,'MEM-GUARD','SOUL-RED-SOLDIER'),light=memory(s,'MEM-LIGHT','SOUL-MOTHER');
  s=cross(s,'DEST-HAVEN');assert.equal(s.phase,'delivery');
  for(const id of [fog,all])assert.throws(()=>act(s,'PLAY_MEMORY',{id}),/before you travel/);
  const played=act(s,'PLAY_MEMORY',{id:light});assert.ok(!played.hand.some(m=>m.id===light)); // a card that is not window-only is fine at the dock (played on a copy: one memory per stop)
@@ -172,11 +177,11 @@ check('Sword removal has no expiry damage, spread, memory or fare reward',()=>{
  let s=boat(['SOUL-COOK']);const p=polong(s,'SOUL-POLONG',5,3);const id=memory(s,'MEM-LAST-MASTERWORK');const before=s.light;
  s=act(s,'PLAY_MEMORY',{id,target:p.id});assert.equal(s.light,before);assert.equal(s.boat.length,1);assert.equal(s.hand.length,0);assert.equal(s.boat[0].type,'SOUL-COOK');
 });
-check('One memory per stop, overflow cannot be spent, full fog does not block Wraiths',()=>{
+check('One memory per stop, overflow cannot be spent, fog protection does not block Wraiths',()=>{
  let s=boat(['SOUL-MOTHER','SOUL-COOK']);s.light=5;const a=memory(s,'MEM-LIGHT','SOUL-MOTHER'),b=memory(s,'MEM-LIGHT','SOUL-MOTHER');
  s=act(s,'PLAY_MEMORY',{id:a});assert.throws(()=>act(s,'PLAY_MEMORY',{id:b}),/One memory per stop/);assert.equal(s.window.uses,1);assert.equal(s.light,6);s=act(later(s),'PLAY_MEMORY',{id:b});assert.equal(s.light,7);
  for(let i=0;i<4;i++)memory(s,'MEM-LIGHT','SOUL-MOTHER');assert.throws(()=>act(s,'PLAY_MEMORY',{id:s.hand[0].id}),/Excess/);rt(s);
- let fog=boat(['SOUL-RED-SOLDIER']);const id=memory(fog,'MEM-ALL-FOG','SOUL-RED-SOLDIER');find(fog,'SOUL-RED-SOLDIER').anger=g.data.config.shipAngerLimit-1;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-TARTARUS');assert.equal(fog.light,before-1);
+ /* Full Fog Protection has no source since the soul data change (#6), so Fog Shield on a fog-1 route stands in */let fog=boat(['SOUL-KEEPER']);const id=memory(fog,'MEM-FOG','SOUL-KEEPER');find(fog,'SOUL-KEEPER').anger=g.data.config.shipAngerLimit-1;fog=act(fog,'PLAY_MEMORY',{id});const before=fog.light;fog=step(fog,'DEST-STYX');assert.equal(fog.light,before-1);
 });
 check('Moly suppresses scheduled arrivals without increasing level; Nobody blocks fog only',()=>{
  let s=boat(['SOUL-COOK']);s.effects.moly=false;dueNow(s);const m=memory(s,'MEM-MOLY');s=act(s,'PLAY_MEMORY',{id:m});s=act(s,'START_CROSSING');assert.equal(s.encounters,'0');assert.equal(s.boat.length,1);
