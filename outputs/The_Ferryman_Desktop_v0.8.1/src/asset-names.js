@@ -37,6 +37,15 @@ const PATTERNS = {
   audio: [],
 };
 
+// Painted figures: optional cut-outs in art/figures/ that a scene prefers over a soul's sprite. Delete or replace one and
+// nothing else changes: the sprite takes over again. The one soldier painting stands for both soldiers.
+const SHARED_FIGURES = { 'SOUL-RED-SOLDIER': 'figure-soldier', 'SOUL-BLUE-SOLDIER': 'figure-soldier' };
+
+/** The figure file id for a soul type: SOUL-MOTHER -> figure-mother. */
+export function figureIdFor(type) {
+  return SHARED_FIGURES[type] ?? `figure-${type.replace(/^(?:SOUL|CHAR)-/, '').toLowerCase()}`;
+}
+
 /** The art-pipeline file id for an engine id, or null if no pattern applies. */
 export function patternName(kind, id) {
   for (const [re, prefix] of PATTERNS[kind] ?? []) {

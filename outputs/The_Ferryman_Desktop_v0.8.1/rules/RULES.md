@@ -2,7 +2,7 @@
 
 Quest prototype: eight quests and five Longs. Scale progression is pending team direction; roster entries with unspecified rules are listed as TBA.
 
-Generated from content.json. SHA-256: `e8fc2cfe11c63a8821e4d933aee74700151c9cd21c4906a66eea6cfe9446596f`.
+Generated from content.json. SHA-256: `af20b41f8929c184ca9659804a167836522adb9cbf561484341e06fdc5da88fb`.
 
 These rules describe this HTML quest prototype. The old paper kit is historical and has not been updated for this version.
 
@@ -38,7 +38,7 @@ Arrival pool: Poet, Keeper, Red Soldier, Blue Soldier, Messenger, Bard, Listener
 | SOUL-PO-NAK | Long Burden |  | 0 | Acheron | None |
 | SOUL-PO-MUED | Long Veil |  | 0 | River Styx | None |
 | SOUL-PO-DUE | Long Grasp |  | 0 | Haven | None |
-| SOUL-HERACLES | Hercules the traveler |  | 1 | Haven | None |
+| SOUL-HERACLES | Heracles the traveler |  | 1 | Haven | None |
 | SOUL-ODYSSEUS | Odysseus the traveler |  | 1 | Haven | None |
 | CHAR-CERBERUS | Cerberus |  | 1 | Haven | None |
 

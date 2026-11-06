@@ -250,7 +250,7 @@
     },
     {
       "id": "SOUL-HERACLES",
-      "name": "Hercules the traveler",
+      "name": "Heracles the traveler",
       "seats": 1,
       "wish": "DEST-HAVEN",
       "memory": null,
@@ -517,12 +517,12 @@
     },
     {
       "id": "QUEST-HERACLES",
-      "name": "Hercules the traveler and Cerberus",
+      "name": "Heracles the traveler and Cerberus",
       "roles": [
         "SOUL-HERACLES"
       ],
       "reward": "MEM-GOLDEN-APPLE",
-      "description": "Pay Hades’ toll, reach Hercules’ first wish, then deliver both Hercules and Cerberus."
+      "description": "Pay Hades’ toll, reach Heracles’ first wish, then deliver both Heracles and Cerberus."
     },
     {
       "id": "QUEST-ODYSSEUS",

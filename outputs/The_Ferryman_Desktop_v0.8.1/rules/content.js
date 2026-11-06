@@ -265,7 +265,7 @@ globalThis.FerryData = {
     },
     {
       "id": "SOUL-HERACLES",
-      "name": "Hercules the traveler",
+      "name": "Heracles the traveler",
       "seats": 1,
       "wish": "DEST-HAVEN",
       "memory": null,
@@ -532,12 +532,12 @@ globalThis.FerryData = {
     },
     {
       "id": "QUEST-HERACLES",
-      "name": "Hercules the traveler and Cerberus",
+      "name": "Heracles the traveler and Cerberus",
       "roles": [
         "SOUL-HERACLES"
       ],
       "reward": "MEM-GOLDEN-APPLE",
-      "description": "Pay Hades’ toll, reach Hercules’ first wish, then deliver both Hercules and Cerberus."
+      "description": "Pay Hades’ toll, reach Heracles’ first wish, then deliver both Heracles and Cerberus."
     },
     {
       "id": "QUEST-ODYSSEUS",
@@ -578,6 +578,6 @@ globalThis.FerryData = {
       "description": "Included roster entry. Wish, memory and ability have not been specified."
     }
   ],
-  "contentSha256": "e8fc2cfe11c63a8821e4d933aee74700151c9cd21c4906a66eea6cfe9446596f"
+  "contentSha256": "af20b41f8929c184ca9659804a167836522adb9cbf561484341e06fdc5da88fb"
 }
 ;

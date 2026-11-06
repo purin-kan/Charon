@@ -4,7 +4,7 @@ import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { returnView, newLogLines, actionSound } from '../src/scenes/return-layout.js';
+import { returnLightSteps, returnView, newLogLines, actionSound } from '../src/scenes/return-layout.js';
 import { sceneFor } from '../src/phase-map.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -72,4 +72,23 @@ const fuller = { log: [...full.log.slice(2), { round: '1', cycle: '1', text: 'ne
 check(JSON.stringify(newLogLines(full, fuller)) === '["new1","new2"]', 'log diff with a full log');
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nAll return checks passed');
+// The flames through a return. The engine gives only the end value, so these use real end states.
+const stepsFor = (light, anger) => {
+  const s = structuredClone(fixture('return'));
+  s.light = light;
+  for (const x of s.shore) x.anger = 0;
+  s.shore[0].anger = anger;
+  return s;
+};
+const lit = stepsFor(3, 0);
+const litAfter = Ferry.transition(lit, { type: 'RETURN' });
+check(JSON.stringify(returnLightSteps(lit, litAfter, 0, Ferry)) === JSON.stringify({ low: 3, high: litAfter.light }) && litAfter.light === 3 + Ferry.data.config.returnLight, 'a quiet return only feeds the lantern');
+const turned = stepsFor(3, Ferry.data.config.shoreAngerLimit - 1);
+const turnedAfter = Ferry.transition(turned, { type: 'RETURN' });
+check(JSON.stringify(returnLightSteps(turned, turnedAfter, 1, Ferry)) === JSON.stringify({ low: 2, high: 2 + Ferry.data.config.returnLight }), 'a Wraith takes Light before the lantern is fed');
+const brimming = stepsFor(Ferry.data.config.maxLight, 0);
+const fullSteps = returnLightSteps(brimming, Ferry.transition(brimming, { type: 'RETURN' }), 0, Ferry);
+check(fullSteps.low === fullSteps.high, 'a full lantern shows no change');
+check(returnLightSteps(turned, { ...turnedAfter, phase: 'ended' }, 1, Ferry).low === 0, 'a run that ends goes dark');
+
 process.exit(bad ? 1 : 0);

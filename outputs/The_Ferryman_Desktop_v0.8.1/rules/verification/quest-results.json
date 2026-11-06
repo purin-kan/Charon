@@ -4,7 +4,7 @@
   "failed": 0,
   "hashes": {
     "engine.js": "218dd2068bb2951f5f8d0aa634d5b2dae9552518689ec5b839f7f1eabdfe807a",
-    "content.json": "e8fc2cfe11c63a8821e4d933aee74700151c9cd21c4906a66eea6cfe9446596f",
+    "content.json": "af20b41f8929c184ca9659804a167836522adb9cbf561484341e06fdc5da88fb",
     "tests/quest-check.js": "21cd751c1218e9303a61928d359249551e97407da49ecf36ca3946b8056e407b"
   },
   "records": [
