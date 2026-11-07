@@ -1,20 +1,21 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
+import { fileIdFor } from '../asset-names.js';
 import { t } from '../text.js';
-import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
+import { bodyText, COLOR, CSS, DecisionPanel, makeButton, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
 import { previewOption, routeModel } from '../components/route-layout.js';
 import { shipBadge, TOKEN } from './boarding-layout.js';
 import {
-  SIGNS, abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome,
+  abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome,
   crossingStep, placeName, purifyAction, soulDetail, worldLayout,
 } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
-import { DEPTH, NightStage, roundThumb } from './night-fx.js';
-import { PIER_ART, RiverBoat, WOOD, Water, addPier } from './river-boat.js';
+import { DEPTH, NightStage } from './night-fx.js';
+import { PIER_ART, RiverBoat, Water, addPier } from './river-boat.js';
 import { addBoardingSoul, fadeAway, setBoardingBadge, setLabelTier } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
@@ -33,8 +34,67 @@ import { addBoardingSoul, fadeAway, setBoardingBadge, setLabelTier } from './sou
 const CLICK = 'sfx-ui-click';
 const FOG = 'sfx-fog'; // once on confirming a route with fog 1 or more, before the Light loss shows
 const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long as the crossing screen is open (queued by BootScene)
-const SIGN = { w: 740, h: 270, thumb: 190 }; // drawn at this size, then scaled by SIGNS.scale
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
+const BOW_ART = 'sprite-boat-bow'; // Kanyakorn-goya's front view of the gold boat, transparent above it (1546 x 720)
+const BOW_SIZE = { w: 1546, h: 720 };
+const SUBTITLE = { y: 680, size: 24 }; // the line under the left and right choice: words only, nothing to click
+// The view from the bow at a fork.
+const FORK = { signX: 230, signY: 330, w: 320, h: 110, bobPx: 6, bobMs: 1600, hoverScale: 1.05, overscan: 1.12, fadeMs: 500, drift: 22, lean: 34, rock: 3, roll: 0.0035, turnPx: 170, pushIn: 1.45, turnRoll: 0.03 };
+
+
+/** The picture a destination is painted in, drawn to cover a canvas of width w and height h, centred on x. */
+function paintDestination(scene, context, id, w, h, x) {
+  if (!id || !scene.textures.exists(fileIdFor('backgrounds', id, scene.textures.getTextureKeys()))) {
+    const mist = context.createLinearGradient(0, 0, 0, h); // a route the player can't see: only fog
+    mist.addColorStop(0, '#1c2530');
+    mist.addColorStop(0.6, '#4a5866');
+    mist.addColorStop(1, '#141b22');
+    context.fillStyle = mist;
+    context.fillRect(0, 0, w, h);
+    return;
+  }
+  const source = scene.textures.get(fileIdFor('backgrounds', id, scene.textures.getTextureKeys())).getSourceImage();
+  const scale = Math.max((w * 1.15) / source.width, h / source.height);
+  const dw = source.width * scale;
+  const dh = source.height * scale;
+  context.drawImage(source, x - dw / 2, (h - dh) / 2, dw, dh);
+}
+
+/** The view from the bow at this fork: the left route's place on the left, the right route's on the right, the boat in front. */
+function forkTexture(scene, leftId, rightId) {
+  const key = `fork-${leftId ?? 'fog'}-${rightId ?? 'fog'}`;
+  if (scene.textures.exists(key)) return key;
+  const bow = scene.textures.exists(BOW_ART) ? scene.textures.get(BOW_ART).getSourceImage() : null;
+  const w = bow?.width ?? BOW_SIZE.w;
+  const h = bow?.height ?? BOW_SIZE.h;
+  const layer = () => { const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h; return canvas; };
+  const texture = scene.textures.createCanvas(key, w, h);
+  const context = texture.getContext();
+  paintDestination(scene, context, leftId, w, h, w * 0.3);
+
+  // The right place fades in across the middle, so the two meet behind the bow in mist.
+  const right = layer();
+  const rightContext = right.getContext('2d');
+  paintDestination(scene, rightContext, rightId, w, h, w * 0.7);
+  const fade = rightContext.createLinearGradient(w * 0.4, 0, w * 0.6, 0);
+  fade.addColorStop(0, 'rgba(0,0,0,0)');
+  fade.addColorStop(1, 'rgba(0,0,0,1)');
+  rightContext.globalCompositeOperation = 'destination-in';
+  rightContext.fillStyle = fade;
+  rightContext.fillRect(0, 0, w, h);
+  context.drawImage(right, 0, 0);
+  const mist = context.createLinearGradient(w * 0.36, 0, w * 0.64, 0);
+  mist.addColorStop(0, 'rgba(150,165,180,0)');
+  mist.addColorStop(0.5, 'rgba(150,165,180,0.8)');
+  mist.addColorStop(1, 'rgba(150,165,180,0)');
+  context.fillStyle = mist;
+  context.fillRect(0, 0, w, h);
+
+  if (bow) context.drawImage(bow, 0, 0, w, h); // the boat in front; without the art, only the two places
+  texture.refresh();
+  return key;
+}
+
 const PLACE_LABEL = { x: 56, y: 174 }; // the name of the stop the boat is leaving
 const FORESIGHT = { x: 760, y: 130, w: 300 }; // above the boat at the fork, clear of the signs
 
@@ -62,7 +122,7 @@ export class CrossingScene extends Phaser.Scene {
 
   preload() {
     queueAssets(this, {
-      art: [...soulArtIds(), 'sprite-boat-horizontal', PIER_ART, ...MemoryHand.artIds()],
+      art: [...soulArtIds(), 'sprite-boat-horizontal', BOW_ART, PIER_ART, ...MemoryHand.artIds()],
       backgrounds: ['bg-starting-shore', ...Ferry.data.destinations.map((d) => d.id)],
       audio: [FOG], // sfx-fog is not in BootScene's list
     });
@@ -78,12 +138,13 @@ export class CrossingScene extends Phaser.Scene {
     this.tokens = new Map();
     this.overlayParts = [];
     this.signParts = [];
+    this.forkView = null; // the view from the bow at the fork
+    this.forkSailing = false;
     this.layout = worldLayout(state, Ferry);
 
     this.night = new NightStage(this, state.destination ?? 'bg-starting-shore', () => tune('boarding.backdropShift'));
     this.water = new Water(this);
     this.world = this.add.container(0, 0);
-    this.signRoot = this.add.container(0, 0).setScale(SIGNS.scale).setDepth(DEPTH.seated - 1);
     this.drawStop(state, step);
     const atStop = state.destination && step === 'prepare'; // moored at a stop's pier, which is on the right
     this.boat = this.add.container(atStop ? this.layout.stop.x : this.layout.home.x, this.layout.home.y);
@@ -95,6 +156,10 @@ export class CrossingScene extends Phaser.Scene {
     this.bar = new Hud(this);
     this.tip = new HoverTip(this, DEPTH.hero + 1);
     this.panel = new DecisionPanel(this);
+    // At the fork only a subtitle, so the view from the bow shows whole.
+    this.subtitle = this.add.text(640, SUBTITLE.y, '', bodyText(SUBTITLE.size, CSS.bone, {
+      align: 'center', stroke: '#05080c', strokeThickness: 4, shadow: { offsetX: 0, offsetY: 2, color: '#000', blur: 8, fill: true, stroke: true },
+    })).setOrigin(0.5).setDepth(DEPTH.ui).setVisible(false);
     this.hand = new MemoryHand(this, {
       compact: true,
       onTargets: (ids) => { this.targetMode = ids ? { kind: 'memory', ids } : null; this.render(this.registry.get('state')); },
@@ -116,7 +181,7 @@ export class CrossingScene extends Phaser.Scene {
 
     if (step === 'fork' || step === 'review') {
       this.night.roamTo(0.5);
-      this.boat.x = this.layout.fork.x;
+      this.boat.x = this.offRight(); // it rowed off to the right; the bow view is the fork
     }
     this.render(state);
     // From the Starting Shore the boat comes in from the left: BoardingScene sailed it off to the right.
@@ -134,6 +199,7 @@ export class CrossingScene extends Phaser.Scene {
     this.water.update(delta / 1000, seconds);
     this.deck.update(seconds);
     this.bar.update(seconds);
+    this.updateForkView(seconds);
   }
 
   // ---- the stop ------------------------------------------------------------------------------
@@ -148,51 +214,93 @@ export class CrossingScene extends Phaser.Scene {
     this.world.add(this.stopParts);
   }
 
-  /** A signpost in the water: the destination's painting in a round frame, its name, fog cost and who wishes for it. */
+  /** The route choice is only the view from the bow, at the fork; before it there are no signs. */
   drawSigns(state, step) {
     for (const p of this.signParts) p.destroy();
     this.signParts = [];
-    if (step !== 'fork' && step !== 'review') return;
-    for (const sign of branchSigns(state, Ferry, t)) {
-      const spot = this.layout.signs[sign.option];
-      const at = { x: spot.x / SIGNS.scale, y: spot.y / SIGNS.scale };
-      const edge = sign.picked ? COLOR.gold : sign.lethal ? COLOR.danger : WOOD.edge;
-      const board = this.add.graphics();
-      board.fillStyle(WOOD.post, 1).fillRect(at.x + SIGN.w / 2 - 80, at.y - SIGN.h / 2 - 30, 26, SIGN.h + 90);
-      board.fillStyle(sign.picked ? 0x3a2a1a : WOOD.plank, 0.97).fillRoundedRect(at.x - SIGN.w / 2, at.y - SIGN.h / 2, SIGN.w, SIGN.h, 14);
-      board.lineStyle(sign.picked ? 6 : 4, edge, 1).strokeRoundedRect(at.x - SIGN.w / 2, at.y - SIGN.h / 2, SIGN.w, SIGN.h, 14);
-      const cx = at.x - SIGN.w / 2 + SIGN.thumb / 2 + 26;
-      const key = sign.hidden || !sign.destination ? null : roundThumb(this, sign.destination);
-      const thumb = key
-        ? this.add.image(cx, at.y, key).setDisplaySize(SIGN.thumb, SIGN.thumb)
-        : this.add.circle(cx, at.y, SIGN.thumb / 2, COLOR.panel).setStrokeStyle(4, COLOR.gold, 0.6);
-      const left = cx + SIGN.thumb / 2 + 26;
-      const top = at.y - SIGN.h / 2;
-      const room = SIGN.w - (left - (at.x - SIGN.w / 2)) - 24;
+    if (step === 'fork' || step === 'review') this.drawForkChoice(state);
+    else this.hideForkView();
+  }
+
+  /** The choice from the bow: the painting fills the screen, option 1 is the left branch and option 2 the right. */
+  drawForkChoice(state) {
+    const signs = branchSigns(state, Ferry, t);
+    const shown = (option) => { const sign = signs.find((s) => s.option === option); return sign?.hidden ? null : sign?.destination ?? null; };
+    this.showForkView(forkTexture(this, shown(0), shown(1)));
+    for (const sign of signs) {
+      const left = sign.option === 0;
+      const x = left ? FORK.signX : 1280 - FORK.signX;
+      const y = FORK.signY;
+      const color = sign.picked ? CSS.gold : sign.lethal ? CSS.danger : CSS.bone;
+      // Floating text over its side, no box: the place, its Light cost and who wishes for it. Shadowed to read on any painting.
+      const ink = (style) => ({ ...style, align: 'center', stroke: '#05080c', strokeThickness: 4, shadow: { offsetX: 0, offsetY: 2, color: '#000', blur: 8, fill: true, stroke: true } });
       const parts = [
-        board,
-        thumb,
-        this.add.text(left, top + 22, t('crossing.signOption', { number: sign.number }), bodyText(32, sign.picked ? CSS.gold : CSS.muted)),
-        this.add.text(left, top + 62, sign.name, headText(46, sign.lethal ? CSS.danger : CSS.bone, { wordWrap: { width: room } })),
-        this.add.text(left, top + 132, sign.fog, bodyText(40, sign.lethal ? CSS.danger : CSS.bone)),
+        this.add.text(0, -24, sign.name, headText(28, color, ink({ wordWrap: { width: FORK.w } }))).setOrigin(0.5),
+        this.add.text(0, 10, sign.cost, bodyText(22, color, ink({}))).setOrigin(0.5),
       ];
-      if (!key) parts.push(this.add.text(cx, at.y, '?', headText(80, CSS.gold)).setOrigin(0.5));
-      if (sign.wishes) parts.push(this.add.text(left, top + 190, sign.wishes, bodyText(34, CSS.gold, { wordWrap: { width: room }, lineSpacing: -8 })));
-      this.signRoot.add(parts);
-      this.signParts.push(...parts);
-      const hit = this.add.zone(at.x, at.y, SIGN.w, SIGN.h).setInteractive({ useHandCursor: !!sign.action });
-      this.signRoot.add(hit);
-      this.signParts.push(hit);
-      hit.on('pointerover', (pointer) => this.showTip(pointer, sign.name, sign.detail));
-      hit.on('pointerout', () => this.hideTip());
-      if (sign.action) hit.on('pointerdown', () => this.pickBranch(state, sign));
+      if (sign.wishes) parts.push(this.add.text(0, 36, sign.wishes, bodyText(16, CSS.gold, ink({ wordWrap: { width: FORK.w }, lineSpacing: -4 }))).setOrigin(0.5, 0));
+      const review = sign.picked ? routeModel(state, Ferry, t).review : null;
+      if (review) { // Confirm floats under the picked route, not in the panel
+        const below = sign.wishes ? 82 : 56;
+        parts.push(makeButton(this, 0, below, 120, 30, review.confirm.label, () => this.guarded(() => this.cross()), { gold: true, size: 14 }));
+      }
+      const button = this.add.container(x, y, parts).setDepth(DEPTH.fogFront + 0.6).setSize(FORK.w, FORK.h);
+      this.tweens.add({ targets: button, y: y - FORK.bobPx, duration: FORK.bobMs, yoyo: true, repeat: -1, ease: 'Sine.InOut', delay: left ? 0 : FORK.bobMs / 2 });
+      if (sign.action && !review) {
+        button.setInteractive({ useHandCursor: true }); // only the button itself, not its half of the screen
+        button.on('pointerover', () => { this.forkLean = left ? -1 : 1; button.setScale(FORK.hoverScale); });
+        button.on('pointerout', () => { this.forkLean = sign.picked ? (left ? -1 : 1) : 0; button.setScale(1); });
+        button.on('pointerdown', () => this.pickBranch(state, sign));
+      }
+      this.signParts.push(button);
+      if (sign.picked) this.forkLean = left ? -1 : 1;
     }
-    if (!this.signsUp) {
-      this.signsUp = true; // they rise out of the water once, not on every redraw
-      const y = this.signRoot.y;
-      this.signRoot.setAlpha(0).setY(y + 26);
-      this.tweens.add({ targets: this.signRoot, alpha: 1, y, duration: MS.base, ease: EASE.enter });
+  }
+
+  showForkView(key) {
+    if (this.forkView && this.forkView.texture.key !== key) this.forkView.setTexture(key);
+    if (!this.forkView) {
+      this.forkView = this.add.image(640, 360, key).setDepth(DEPTH.fogFront + 0.5);
+      this.forkCover = Math.max(1280 / this.forkView.width, 720 / this.forkView.height) * FORK.overscan;
+      this.forkView.setScale(this.forkCover).setAlpha(0);
+      this.forkPan = 0;
+      this.forkLean = 0;
     }
+    if (this.forkView.visible && this.forkView.alpha > 0) return;
+    this.forkView.setVisible(true);
+    this.tweens.add({ targets: this.forkView, alpha: 1, duration: FORK.fadeMs, ease: 'Sine.Out' });
+  }
+
+  hideForkView() {
+    this.forkView?.setVisible(false).setAlpha(0);
+  }
+
+  /** The look from the bow: the view drifts with the pointer and rocks gently, as if the boat rode the water. */
+  updateForkView(seconds) {
+    const view = this.forkView;
+    if (!view?.visible || this.forkSailing) return;
+    const pointer = this.input.activePointer;
+    const target = ((pointer.x - 640) / 640) * FORK.drift + this.forkLean * FORK.lean;
+    this.forkPan += (target - this.forkPan) * 0.05;
+    view.setPosition(640 - this.forkPan, 360 + Math.sin(seconds * 0.8) * FORK.rock);
+    view.setRotation(Math.sin(seconds * 0.55) * FORK.roll);
+  }
+
+  /** The bow turns to the chosen branch and pushes in, then the view lets go to the river. */
+  sailForkView(option, travelMs) {
+    const view = this.forkView;
+    if (!view?.visible) return;
+    this.forkSailing = true;
+    const side = option === 0 ? 1 : -1;
+    this.tweens.add({
+      targets: view,
+      x: 640 + side * FORK.turnPx,
+      scale: this.forkCover * FORK.pushIn,
+      rotation: side * FORK.turnRoll,
+      duration: travelMs * 0.6,
+      ease: 'Sine.InOut',
+    });
+    this.tweens.add({ targets: view, alpha: 0, duration: travelMs * 0.25, delay: travelMs * 0.55, ease: 'Sine.In' });
   }
 
   /** One soul per passenger, on the deck behind the hull. */
@@ -260,6 +368,8 @@ export class CrossingScene extends Phaser.Scene {
     this.drawSigns(state, step);
     this.clearOverlay();
     this.drawForesight(state);
+    this.panel.root.setVisible(step === 'prepare');
+    this.subtitle.setVisible(step !== 'prepare');
     if (step === 'prepare') this.showPrepare(state);
     else if (step === 'review') this.showReview(state);
     else this.showFork();
@@ -288,22 +398,15 @@ export class CrossingScene extends Phaser.Scene {
   }
 
   showFork() {
-    this.panel.show({ heading: t('crossing.routeHeading'), lines: [t('crossing.pickBranch')] });
+    this.subtitle.setText(t('crossing.pickBranch')).setColor(CSS.bone);
   }
 
-  /** The review panel: the engine's fog numbers for the picked branch, then Back and Confirm. */
+  /** Review: the picked route waits for its floating Confirm; the subtitle asks, or warns. Picking the other side switches. */
   showReview(state) {
     const r = routeModel(state, Ferry, t).review;
     if (!r) return;
-    this.panel.show({
-      heading: `${r.heading}: ${r.name}`,
-      lines: [[r.breakdown, r.modifiers].filter(Boolean).join(' · '), r.cost],
-      warning: r.warning,
-      buttons: [
-        { label: r.back.label, onPress: () => this.guarded(() => this.routeAction(r.back.action)) },
-        { label: r.confirm.label, gold: true, onPress: () => this.guarded(() => this.cross()) },
-      ],
-    });
+    // A warning (a crossing that would put the lantern out) takes the line, in red.
+    this.subtitle.setText(r.warning || t('crossing.crossTo', { name: r.name })).setColor(r.warning ? CSS.danger : CSS.bone);
   }
 
   guarded(fn) {
@@ -419,16 +522,21 @@ export class CrossingScene extends Phaser.Scene {
       // The stop is left behind: it slides off the way the water goes.
       if (this.stopParts.length) this.tweens.add({ targets: this.stopParts, x: '-=760', alpha: 0, duration: ms * 0.8, ease: EASE.move });
       this.night.roamTo(0.5, ms);
-      this.tweens.add({ targets: this.boat, x: this.layout.fork.x, duration: ms, ease: EASE.move });
+      this.tweens.add({ targets: this.boat, x: this.offRight(), duration: ms, ease: 'Sine.In' }); // floats off to the right, then the bow view
       this.row(ms, () => {
         this.busy = false;
         this.hand.lock(false);
-        this.panel.slideIn();
+        this.subtitle.setAlpha(1);
         this.dispatch(action);
       });
     };
     if (!arriving.length) return sail();
     this.tweens.add({ targets: arriving, alpha: 1, duration: tune('crossing.boardMs'), onComplete: () => this.time.delayedCall(tune('crossing.eventMs'), sail) });
+  }
+
+  /** Just past the right edge of the screen, all of the boat out of view. */
+  offRight() {
+    return this.scale.width + tune('art.boat.width') / 2 + 60;
   }
 
   /** The ferryman rows for ms: the water, fog and foam go by. */
@@ -471,9 +579,10 @@ export class CrossingScene extends Phaser.Scene {
     this.hand.cancel();
     this.targetMode = null;
     this.clearOverlay();
-    this.panel.slideOut();
+    this.tweens.add({ targets: this.subtitle, alpha: 0, duration: MS.base, ease: EASE.exit });
     this.caption = this.add.text(640, 60, `${outcome.from}  ·  ${outcome.concealed ? '?' : outcome.to}`, headText(20, CSS.muted)).setOrigin(0.5).setDepth(DEPTH.ui);
-    this.tweens.add({ targets: this.signRoot, x: '-=420', alpha: 0, duration: MS.slow * 2, ease: EASE.move }); // passed by, on the way
+    this.tweens.add({ targets: this.signParts, alpha: 0, duration: MS.base, ease: EASE.exit }); // the bow view's boards
+    this.sailForkView(state.pending.option, tune('crossing.travelMs'));
 
     const travelMs = tune('crossing.travelMs');
     const fogMs = tune('crossing.fogFadeMs');
@@ -485,7 +594,10 @@ export class CrossingScene extends Phaser.Scene {
     this.night.roamTo(1, travelMs);
     if (!outcome.ended) {
       this.time.delayedCall(travelMs * 0.52, () => this.showPlace(next)); // in the thick of the fog
+      this.boat.x = this.layout.back; // behind the bow view: it comes back in from the left, still going right
       this.tweens.add({ targets: this.boat, x: this.layout.stop.x, delay: travelMs * 0.5, duration: travelMs * 0.5, ease: EASE.move });
+    } else {
+      this.boat.x = this.layout.fork.x; // the lantern goes out on the water, in view once the bow view lets go
     }
     this.row(travelMs, () => this.arrive(next, outcome, () => this.dispatch(action)));
   }

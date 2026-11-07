@@ -62,7 +62,7 @@ export function branchSigns(state, Ferry, t) {
       const detail = card.hidden
         ? [TEXT.concealedDetail]
         : [TEXT.breakdown(p), TEXT.modifiers(p), TEXT.routeCost(p.payment, p.remaining), card.wishes, card.lethal ? TEXT.lethal : ''].filter(Boolean);
-      return { option: card.option, number: card.number, destination: card.destination, name: card.name, fog: card.hidden ? '?' : TEXT.routeCost(p.payment, p.remaining), wishes: card.wishes, hidden: card.hidden, lethal: card.lethal, picked: card.picked, action: card.action, detail };
+      return { option: card.option, number: card.number, destination: card.destination, name: card.name, fog: card.hidden ? '?' : TEXT.routeCost(p.payment, p.remaining), cost: card.hidden ? '?' : t('crossing.signCost', { payment: p.payment }), wishes: card.wishes, hidden: card.hidden, lethal: card.lethal, picked: card.picked, action: card.action, detail };
     });
   }
   const first = model.mode === 'foresight' ? model.upcoming[0] : null;
