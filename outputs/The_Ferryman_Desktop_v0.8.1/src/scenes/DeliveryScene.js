@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, DecisionPanel, edgeFlash, fadeOut, lossShake } from '../theme.js';
+import { COLOR, DecisionPanel, EASE, edgeFlash, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -14,8 +14,8 @@ import {
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { showOutcome } from './outcome-panel.js';
-import { PIER_ART, RiverBoat, addPier } from './river-boat.js';
-import { LABEL_TIER_PX, addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { PIER_ART, RiverBoat, Water, addPier } from './river-boat.js';
+import { addBoardingSoul, fadeAway, LABEL_TIER_PX, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
 
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 
@@ -51,6 +51,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.targets = null; // soul ids the picked memory can target
 
     this.night = new NightStage(this, state.destination, () => tune('boarding.backdropShift')); // the same stage as the start
+    this.water = new Water(this);
     this.slots = layoutDelivery(state, [], Ferry).slots;
     const hull = boatZone(this.slots);
     this.boat = new RiverBoat(this, hull.x, hull.y + FEET, tune('art.boat.width') * tune('art.boat.deck'));
@@ -87,6 +88,7 @@ export class DeliveryScene extends Phaser.Scene {
     if (!this.boat) return;
     const seconds = time / 1000;
     this.night.update(time, delta);
+    this.water.update(delta / 1000, seconds);
     this.boat.update(seconds);
     this.bar.update(seconds);
     const { root } = this.boat;
@@ -133,7 +135,7 @@ export class DeliveryScene extends Phaser.Scene {
       targets: figure,
       x: { from: -tune('boarding.shakePx'), to: tune('boarding.shakePx') },
       duration: tune('boarding.shakeMs'),
-      ease: 'Sine.InOut',
+      ease: EASE.move,
       yoyo: true,
       repeat: 2,
       onComplete: () => { figure.x = 0; },
@@ -155,7 +157,7 @@ export class DeliveryScene extends Phaser.Scene {
     this.leaving = true;
     this.tip.hide();
     this.hand.cancel();
-    this.hand.root.setVisible(false); // no memory once the delivery is on its way
+    this.hand.hide(); // no memory once the delivery is on its way
     this.panel.slideOut();
     const outcome = arrivalOutcome(state, next, action, Ferry);
     if (outcome.departed.some((id) => Ferry.wish(state.boat.find((x) => x.id === id)) === state.destination)) playSound(this, 'sfx-delivery-success'); // someone reached their wish
@@ -183,7 +185,7 @@ export class DeliveryScene extends Phaser.Scene {
       const token = tokens[i].setPosition(entry.x, entry.y + FEET).setDepth(DEPTH.shore);
       const home = Ferry.wish(entry.actor) === state.destination;
       token.disableInteractive();
-      if (home) this.tweens.add({ targets: token.parts.beam, alpha: 1, scaleY: 3, duration: tune('delivery.departMs'), ease: 'Sine.Out' });
+      if (home) this.tweens.add({ targets: token.parts.beam, alpha: 1, scaleY: 3, duration: tune('delivery.departMs'), ease: EASE.enter });
       this.tweens.add({
         targets: token,
         x: token.x - tune('delivery.departDistance'),
@@ -206,7 +208,7 @@ export class DeliveryScene extends Phaser.Scene {
     for (const [id, token] of this.tokens) {
       if (this.entries.has(id)) continue;
       this.tip.hide(); // its hover box would stay with no token under it
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {
@@ -245,7 +247,7 @@ export class DeliveryScene extends Phaser.Scene {
   fade(target, alpha) {
     if (!target) return;
     this.tweens.killTweensOf(target);
-    this.tweens.add({ targets: target, alpha, duration: tune('boarding.glowMs'), ease: 'Sine.Out' });
+    this.tweens.add({ targets: target, alpha, duration: MS.fast, ease: EASE.enter });
   }
 
   updateToken(token, entry) {
@@ -281,7 +283,7 @@ export class DeliveryScene extends Phaser.Scene {
       labels.setY(nameY);
       return;
     }
-    const motion = { duration: tune('delivery.walkMs'), ease: 'Sine.InOut' };
+    const motion = { duration: tune('delivery.walkMs'), ease: EASE.move };
     this.tweens.add({ targets: body, scaleX: scale, scaleY: scale, ...motion });
     this.tweens.add({ targets: labels, y: nameY, ...motion });
   }
@@ -306,7 +308,7 @@ export class DeliveryScene extends Phaser.Scene {
       from: 0,
       to: 1,
       duration: tune('delivery.walkMs'),
-      ease: 'Sine.InOut',
+      ease: EASE.move,
       onUpdate: (tween) => {
         const at = arcPoint(from, to, tween.getValue(), arc);
         token.setPosition(at.x, at.y);
@@ -321,6 +323,6 @@ export class DeliveryScene extends Phaser.Scene {
   /** The next stop of this trip follows with no cut; anything else (the return, the end) fades out first. */
   startExit(state) {
     if (state.phase === 'window' && state.window.kind === 'outward') return this.router.exitDone();
-    fadeOut(this, () => this.router.exitDone());
+    leaveScene(this, () => this.router.exitDone());
   }
 }

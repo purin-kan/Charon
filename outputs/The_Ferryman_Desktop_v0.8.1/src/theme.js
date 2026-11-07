@@ -29,19 +29,30 @@ defineTuning({
   'art.memory.size': { type: 'number', default: 56, min: 16, max: 160, step: 1, help: 'Memory art inside a full card' },
   'art.background.veil': { type: 'number', default: 0.6, min: 0, max: 1, step: 0.02, help: 'Dark teal veil over a background' },
   'art.background.vignette': { type: 'number', default: 0.85, min: 0, max: 1, step: 0.02 },
-  'ui.buttonMs': { type: 'number', default: 140, min: 0, max: 500, step: 10, help: 'Button hover' },
   'ui.buttonHover': { type: 'number', default: 1.03, min: 1, max: 1.15, step: 0.01 },
-  'ui.buttonPress': { type: 'number', default: 0.96, min: 0.8, max: 1, step: 0.01 },
+  'ui.buttonGlow': { type: 'number', default: 0.22, min: 0, max: 1, step: 0.02, help: 'Soft glow behind a button under the pointer' },
+  'ui.buttonPress': { type: 'number', default: 0.97, min: 0.8, max: 1, step: 0.01 },
   'ui.disabledAlpha': { type: 'number', default: 0.45, min: 0.1, max: 1, step: 0.05 },
   'ui.auraMs': { type: 'number', default: 1500, min: 200, max: 5000, step: 50, help: 'Slow light behind a gold button' },
+  'ui.tipDelayMs': { type: 'number', default: 120, min: 0, max: 600, step: 10, help: 'Wait before a tooltip appears' },
   'ui.toastMs': { type: 'number', default: 2600, min: 500, max: 8000, step: 100, help: 'Status line under the HUD' },
-  'ui.fadeMs': { type: 'number', default: 500, min: 100, max: 2000, step: 10, help: 'Fade between scenes' },
   'ui.panelY': { type: 'number', default: 545, min: 400, max: 560, step: 1, help: 'Top of the bottom panel' },
-  'ui.panelMs': { type: 'number', default: 420, min: 0, max: 1500, step: 10, help: 'Bottom panel slides in and out' },
   'ui.shadeAlpha': { type: 'number', default: 0.72, min: 0, max: 1, step: 0.02, help: 'Dimming behind a modal' },
   'ui.flashAlpha': { type: 'number', default: 0.55, min: 0, max: 1, step: 0.05, help: 'Glow at the screen edge' },
-  'ui.flashMs': { type: 'number', default: 320, min: 50, max: 1500, step: 10 },
   'art.boat.deck': { type: 'number', default: 0.55, min: 0.2, max: 1, step: 0.01, help: 'Share of the boat image that is deck' },
+  // One rhythm for the interface. Journeys (the boat, a soul walking) keep their own, longer lengths.
+  'motion.fastMs': { type: 'number', default: 180, min: 0, max: 1000, step: 10, help: 'Small things: hover, tooltip, a line of text' },
+  'motion.baseMs': { type: 'number', default: 350, min: 0, max: 1500, step: 10, help: 'Panels, overlays, cards' },
+  'motion.slowMs': { type: 'number', default: 700, min: 0, max: 2500, step: 10, help: 'Scene changes' },
+  'motion.enterEase': { type: 'ease', default: 'Cubic.Out', help: 'Things arriving' },
+  'motion.exitEase': { type: 'ease', default: 'Cubic.In', help: 'Things leaving' },
+  'motion.moveEase': { type: 'ease', default: 'Sine.InOut', help: 'Things moving' },
+  'motion.settleZoom': { type: 'number', default: 1.03, min: 1, max: 1.1, step: 0.005, help: 'Painting settles from this size on entering a scene' },
+  'motion.pushIn': { type: 'number', default: 0.018, min: 0, max: 0.06, step: 0.002, help: 'Slow breath of the painting' },
+  'motion.pushInSeconds': { type: 'number', default: 44, min: 10, max: 120, step: 1, help: 'One breath of the painting' },
+  'motion.snapshotWaitMs': { type: 'number', default: 300, min: 50, max: 1000, step: 10, help: 'Longest wait for the last frame before fading instead' },
+  'motion.reduced': { type: 'bool', default: false, help: 'Reduced motion: no shake or zoom, quick fades. Also follows the Windows setting' },
+  'motion.reducedMs': { type: 'number', default: 90, min: 0, max: 300, step: 10, help: 'Longest animation with reduced motion' },
 });
 
 export const COLOR = {
@@ -51,9 +62,67 @@ export const COLOR = {
 export const CSS = {
   deep: '#020607', ink: '#08161b', bone: '#f5efdf', muted: '#b9c3bd', gold: '#edc47f', danger: '#ff9f8a', calm: '#a9dcff',
 };
-/** Camera fades go to this colour, as (r, g, b). */
-export const FADE_RGB = [2, 6, 7];
+/** Camera fades go to this colour, as (r, g, b): the dark teal of the panels, never pure black. */
+export const FADE_RGB = [12, 29, 36];
 export const PANEL = { alpha: 0.94, borderAlpha: 0.25, radius: 18 };
+
+/** True when the player or the system asks for less motion. */
+export function reducedMotion() {
+  return tune('motion.reduced') || !!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+}
+const timing = (name) => {
+  const ms = tune(`motion.${name}Ms`);
+  return reducedMotion() ? Math.min(ms, tune('motion.reducedMs')) : ms;
+};
+/** The shared rhythm. Read when used, so the F2 panel and reduced motion apply at once. */
+export const MS = { get fast() { return timing('fast'); }, get base() { return timing('base'); }, get slow() { return timing('slow'); } };
+export const EASE = {
+  get enter() { return tune('motion.enterEase'); },
+  get exit() { return tune('motion.exitEase'); },
+  get move() { return tune('motion.moveEase'); },
+};
+
+/** Fades parts in from nothing to the alpha each already has. */
+export function fadeInParts(scene, parts, ms = MS.fast) {
+  for (const part of parts) {
+    const { alpha } = part;
+    part.setAlpha(0);
+    scene.tweens.add({ targets: part, alpha, duration: ms, ease: EASE.enter });
+  }
+}
+
+/** Fades parts out, destroys them, then calls done. They stop taking clicks at once. */
+export function fadeOutParts(scene, parts, done = () => {}, ms = MS.fast) {
+  for (const part of parts) if (part.input) part.disableInteractive();
+  scene.tweens.add({
+    targets: parts,
+    alpha: 0,
+    duration: ms,
+    ease: EASE.exit,
+    onComplete: () => {
+      for (const part of parts) part.destroy();
+      done();
+    },
+  });
+}
+
+/** Sets a number or short line, with a small swell when it really changes. */
+export function pulseText(scene, text, value) {
+  if (text.text === value) return;
+  const first = !text.text;
+  text.setText(value);
+  if (first || reducedMotion()) return;
+  scene.tweens.killTweensOf(text);
+  text.setScale(1);
+  scene.tweens.add({ targets: text, scale: 1.12, duration: MS.fast / 2, ease: EASE.move, yoyo: true });
+}
+
+/** Shows or hides a part, fading it in when it appears. */
+export function showIf(scene, part, on) {
+  if (on === part.visible) return;
+  part.setVisible(on);
+  if (on) fadeInParts(scene, [part]);
+}
 
 export const bodyText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: BODY_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
 export const headText = (size, color = CSS.bone, extra = {}) => ({ fontFamily: HEAD_FONT, fontSize: `${size}px`, color, resolution: 2, ...extra });
@@ -86,24 +155,31 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
   if (gold) {
     aura = scene.add.image(0, 0, 'board-soft').setDisplaySize(w * 1.7, h * 3).setTint(COLOR.gold).setAlpha(0);
     parts.unshift(aura);
-    scene.tweens.add({ targets: aura, alpha: 0.42, duration: tune('ui.auraMs'), ease: 'Sine.InOut', yoyo: true, repeat: -1 });
+    scene.tweens.add({ targets: aura, alpha: 0.42, duration: tune('ui.auraMs'), ease: EASE.move, yoyo: true, repeat: -1 });
   }
+  const halo = scene.add.image(0, 0, 'board-soft').setDisplaySize(w * 1.35, h * 2.6).setTint(COLOR.gold).setAlpha(0);
+  parts.unshift(halo);
+  const glow = (on) => {
+    scene.tweens.killTweensOf(halo);
+    scene.tweens.add({ targets: halo, alpha: on ? tune('ui.buttonGlow') : 0, duration: MS.fast, ease: EASE.enter });
+  };
   const btn = scene.add.container(x, y, parts);
   btn.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
   const scaleTo = (scale) => {
     scene.tweens.killTweensOf(btn);
-    scene.tweens.add({ targets: btn, scale, duration: tune('ui.buttonMs'), ease: 'Sine.Out' });
+    scene.tweens.add({ targets: btn, scale, duration: MS.fast, ease: EASE.enter });
   };
   btn.enabled = true;
   btn.styled = false;
-  btn.on('pointerover', () => { if (btn.enabled) { paint(true); scaleTo(tune('ui.buttonHover')); } });
-  btn.on('pointerout', () => { paint(false); scaleTo(1); });
+  btn.on('pointerover', () => { if (btn.enabled) { paint(true); glow(true); scaleTo(tune('ui.buttonHover')); } });
+  btn.on('pointerout', () => { paint(false); glow(false); scaleTo(1); });
   btn.on('pointerdown', () => {
     if (!btn.enabled) return;
     scene.tweens.killTweensOf(btn);
-    scene.tweens.add({ targets: btn, scale: tune('ui.buttonPress'), duration: 70, ease: 'Sine.Out', yoyo: true });
-    onPress();
+    scene.tweens.add({ targets: btn, scale: tune('ui.buttonPress'), duration: MS.fast / 2, ease: EASE.enter, yoyo: true });
+    btn.press();
   });
+  btn.press = onPress; // a panel swaps this when only the state behind a button has changed
   btn.setEnabled = (on) => {
     if (btn.styled && btn.enabled === on) return btn;
     const first = !btn.styled;
@@ -114,7 +190,7 @@ export function makeButton(scene, x, y, w, h, label, onPress, { gold = false, de
     if (!on) paint(false);
     const alpha = on ? 1 : tune('ui.disabledAlpha');
     if (first) btn.setAlpha(alpha);
-    else scene.tweens.add({ targets: btn, alpha, duration: 200, ease: 'Sine.Out' });
+    else scene.tweens.add({ targets: btn, alpha, duration: MS.fast, ease: EASE.enter });
     return btn;
   };
   btn.setLabel = (value) => { text.setText(value); return btn; };
@@ -175,8 +251,14 @@ export class LightFlames {
     lit.forEach((on, i) => {
       const flame = this.marks[i];
       if (flame.lit === on) return;
+      const first = flame.lit === null;
       flame.lit = on;
       flame.mark.clear().setScale(1);
+      if (!first) {
+        this.scene.tweens.killTweensOf(flame.mark);
+        flame.mark.setAlpha(0.2);
+        this.scene.tweens.add({ targets: flame.mark, alpha: 1, duration: MS.base, ease: EASE.enter });
+      }
       if (on) {
         flame.mark.fillStyle(COLOR.gold, 1).fillPoints(flameShape(10, 13), true);
         flame.mark.fillStyle(COLOR.bone, 0.9).fillPoints(flameShape(5, 7), true);
@@ -228,6 +310,17 @@ export class DecisionPanel {
   }
 
   show({ heading = '', lines = [], warning = '', buttons = [] }) {
+    const look = JSON.stringify([heading, lines, warning, buttons.map((b) => [b.label, b.gold, b.enabled])]);
+    if (look === this.look) {
+      // The same panel: keep its buttons, so a hover is not lost, and take the newest handlers.
+      [...buttons].reverse().forEach((button, i) => {
+        this.buttons[i].press = button.onPress;
+        this.buttons[i].hover = button.onHover;
+      });
+      return;
+    }
+    const changed = this.look !== undefined;
+    this.look = look;
     this.heading.setText(heading);
     this.body.setText(lines.filter(Boolean).join('\n'));
     for (const button of this.buttons) button.destroy();
@@ -235,10 +328,9 @@ export class DecisionPanel {
     this.buttons = [...buttons].reverse().map((button) => {
       const w = Math.max(96, button.label.length * 9 + 40);
       const made = makeButton(this.scene, right - w / 2, this.h - 32, w, 36, button.label, button.onPress, { gold: button.gold }).setEnabled(button.enabled ?? true);
-      if (button.onHover) {
-        made.on('pointerover', (pointer) => button.onHover(pointer));
-        made.on('pointerout', () => button.onHover(null));
-      }
+      made.hover = button.onHover;
+      made.on('pointerover', (pointer) => made.hover?.(pointer));
+      made.on('pointerout', () => made.hover?.(null));
       right -= w + 12;
       this.root.add(made);
       return made;
@@ -246,6 +338,7 @@ export class DecisionPanel {
     // Beside the buttons when they leave room for it, otherwise on its own line above them.
     const beside = right - this.left >= 300;
     this.warning.setWordWrapWidth(beside ? right - this.left : this.w - 48).setY(beside ? this.h - 32 : this.h - 66).setText(warning ?? '');
+    if (changed) fadeInParts(this.scene, [this.heading, this.body, this.warning, ...this.buttons]);
   }
 
   slideIn(delay = 0) {
@@ -253,13 +346,13 @@ export class DecisionPanel {
     const { root, scene } = this;
     scene.tweens.killTweensOf(root);
     root.setAlpha(0).setY(y + 44);
-    scene.tweens.add({ targets: root, y, alpha: 1, duration: tune('ui.panelMs'), delay, ease: 'Cubic.Out' });
+    scene.tweens.add({ targets: root, y, alpha: 1, duration: MS.base, delay, ease: EASE.enter });
   }
 
   slideOut() {
     const { root, scene } = this;
     scene.tweens.killTweensOf(root);
-    scene.tweens.add({ targets: root, y: tune('ui.panelY') + 44, alpha: 0, duration: tune('ui.panelMs'), ease: 'Sine.In' });
+    scene.tweens.add({ targets: root, y: tune('ui.panelY') + 44, alpha: 0, duration: MS.base, ease: EASE.exit });
   }
 }
 
@@ -273,16 +366,80 @@ export function modalShade(scene) {
 export function edgeFlash(scene, color = COLOR.danger, depth = 11) {
   const { width, height } = scene.scale;
   const edge = scene.add.image(width / 2, height / 2, 'board-edge').setDisplaySize(width, height).setTint(color).setAlpha(0).setDepth(depth);
-  scene.tweens.add({ targets: edge, alpha: tune('ui.flashAlpha'), duration: tune('ui.flashMs'), ease: 'Sine.Out', yoyo: true, onComplete: () => edge.destroy() });
+  scene.tweens.add({ targets: edge, alpha: tune('ui.flashAlpha') * (reducedMotion() ? 0.4 : 1), duration: MS.base, ease: EASE.enter, yoyo: true, onComplete: () => edge.destroy() });
 }
 
 /** A small shake of the view, for Light lost. */
-export const lossShake = (scene) => scene.cameras.main.shake(tune('wraith.shakeMs'), tune('wraith.shakeIntensity'));
+export const lossShake = (scene) => { if (!reducedMotion()) scene.cameras.main.shake(tune('wraith.shakeMs'), tune('wraith.shakeIntensity')); };
 
 /** Fades the scene out, then calls done. The one way a scene leaves unless a boat carries it off. */
-export function fadeOut(scene, done, ms = tune('ui.fadeMs')) {
+export function fadeOut(scene, done, ms = MS.base) {
   scene.cameras.main.fadeOut(ms, ...FADE_RGB);
   scene.cameras.main.once('camerafadeoutcomplete', done);
 }
 
-export const fadeIn = (scene, ms = tune('ui.fadeMs')) => scene.cameras.main.fadeIn(ms, ...FADE_RGB);
+export const fadeIn = (scene, ms = MS.base) => scene.cameras.main.fadeIn(ms, ...FADE_RGB);
+
+const CARRY = 'scene-carry'; // the last frame of the scene before, while the next one fades in over it
+
+/**
+ * Leaves a scene with no dark gap: keeps its last frame for enterScene, then calls done. If the frame does not come in
+ * time, or with reduced motion, the scene fades to teal instead. Either way done runs once.
+ */
+export function leaveScene(scene, done) {
+  const { renderer, textures } = scene.game;
+  if (reducedMotion() || !renderer.snapshot) return fadeOut(scene, done);
+  let settled = false;
+  const timer = setTimeout(() => {
+    settled = true;
+    fadeOut(scene, done);
+  }, tune('motion.snapshotWaitMs'));
+  renderer.snapshot((image) => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(timer);
+    if (image instanceof HTMLImageElement) {
+      if (textures.exists(CARRY)) textures.remove(CARRY);
+      textures.addImage(CARRY, image);
+    }
+    done();
+  }, 'image/jpeg', 0.92);
+  return undefined;
+}
+
+/** Brings a scene in: the last frame dissolves over it, or the camera fades up from teal. Clicks wait until it is done. */
+export function enterScene(scene, ms = MS.slow) {
+  const { textures } = scene;
+  scene.input.enabled = false;
+  const unlock = () => { if (!scene.leaving) scene.input.enabled = true; };
+  if (!textures.exists(CARRY)) {
+    const fade = Math.min(ms, MS.base);
+    fadeIn(scene, fade);
+    scene.time.delayedCall(fade, unlock);
+    return;
+  }
+  const { width, height } = scene.scale;
+  const last = scene.add.image(width / 2, height / 2, CARRY).setDisplaySize(width, height).setDepth(1000).setScrollFactor(0);
+  scene.tweens.add({
+    targets: last,
+    alpha: 0,
+    duration: ms,
+    ease: EASE.move,
+    onComplete: () => {
+      last.destroy();
+      if (textures.exists(CARRY)) textures.remove(CARRY);
+      unlock();
+    },
+  });
+}
+
+/** Fades a whole overlay scene in, the shade behind it with it. */
+export function overlayIn(scene) {
+  const camera = scene.cameras.main.setAlpha(0);
+  scene.tweens.add({ targets: camera, alpha: 1, duration: MS.base, ease: EASE.enter });
+}
+
+/** Fades a whole overlay scene out, then calls done. */
+export function overlayOut(scene, done) {
+  scene.tweens.add({ targets: scene.cameras.main, alpha: 0, duration: MS.fast, ease: EASE.exit, onComplete: done });
+}

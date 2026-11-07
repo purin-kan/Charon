@@ -7,8 +7,8 @@ import path from 'node:path';
 import { boatZone } from '../src/scenes/boarding-layout.js';
 import { boatSpots } from '../src/scenes/delivery-layout.js';
 import {
-  abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath, crossingStep,
-  homeView, onScreen, placeName, purifyAction, soulDetail, typeDetail, worldLayout,
+  abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingStep,
+  SIGNS, placeName, purifyAction, soulDetail, typeDetail, worldLayout,
 } from '../src/scenes/crossing-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -130,21 +130,14 @@ check('Heracles now wishes elsewhere', herOut.lines.includes(`${name('SOUL-HERAC
 const world = worldLayout(prep, Ferry);
 const hull = boatZone(boatSpots(prep, Ferry).slots);
 check('home is the hull centre BoardingScene and DeliveryScene use', world.home.x === hull.x && world.home.y === hull.y);
-check('at home the view puts the boat where DeliveryScene draws it', ['x', 'y'].every((k) => onScreen(world.home, homeView())[k] === world.home[k]));
-for (const b of world.branches) {
-  const boat = onScreen(b.end, b.view);
-  check(`branch ${b.option + 1} ends with the boat where DeliveryScene draws it`, boat.x === world.home.x && boat.y === world.home.y);
-  check(`branch ${b.option + 1} ends level`, b.points[3].y === b.points[4].y);
-}
-check('the two branches part', world.branches[0].end.y < world.home.y && world.branches[1].end.y > world.home.y);
-const fv = world.forkView;
-const visible = (p) => { const s = onScreen(p, fv); return s.x >= 0 && s.x <= 1280 && s.y >= 0 && s.y <= 720; };
-check('the fork view shows the boat, the fork, both branch ends and both signs', [world.approach, world.fork, ...world.branches.flatMap((b) => [b.end, b.sign])].every(visible));
-const signsOnScreen = world.branches.map((b) => onScreen(b.sign, fv));
-check('the signs sit left of the review panel and clear of the status line', signsOnScreen.every((p) => p.x + 0.48 * 250 < 880 && p.y - 0.48 * 95 > 120));
-check('the signs do not overlap', signsOnScreen[1].y - signsOnScreen[0].y > 0.48 * 190);
-const route = crossingPath(world, 1);
-check('a crossing runs from the approach point to the branch end', route[0] === world.approach && route[route.length - 1] === world.branches[1].end);
+const signW = 740 * SIGNS.scale;
+const signH = 270 * SIGNS.scale;
+const boatEnd = world.fork.x + 768 / 2;
+check('at the fork the signs stand ahead of the boat, on its right', world.signs.every((s) => s.x - signW / 2 >= boatEnd));
+check('the boat rows in from off the left of the screen', world.back + 768 / 2 < 0);
+check('the signs clear the status line and stop above the panel', world.signs.every((s) => s.y - signH / 2 > 120 && s.y + signH / 2 < 545));
+check('the signs do not overlap', world.signs[1].y - world.signs[0].y > signH);
+check('the signs stay on screen', world.signs.every((s) => s.x + signW / 2 <= 1280));
 
 // Branch signs come from the route model.
 const forkSigns = branchSigns(fork, Ferry, t);

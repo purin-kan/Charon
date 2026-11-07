@@ -2,11 +2,12 @@
 // and the mist souls leave behind. Nothing here reads the game state; the scene says where things happen.
 import Phaser from 'phaser';
 import { addBackdrop } from '../preloader.js';
-import { COLOR } from '../theme.js';
+import { COLOR, EASE, reducedMotion } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 
 defineTuning({
   'night.parallaxPx': { type: 'number', default: 9, min: 0, max: 30, step: 1, help: 'Painting shifts with the pointer' },
+  'night.roamPx': { type: 'number', default: 70, min: 0, max: 160, step: 2, help: 'How far the painting slides while the boat sails' },
   'night.fogSpeed': { type: 'number', default: 7, min: 0, max: 60, step: 1, help: 'Fog drift, pixels per second' },
   'night.fogAlpha': { type: 'number', default: 0.1, min: 0, max: 0.5, step: 0.01 },
   'night.rayAlpha': { type: 'number', default: 0.08, min: 0, max: 0.4, step: 0.01, help: 'Moonlight rays' },
@@ -127,6 +128,7 @@ const breathe = (key) => ({ onUpdate: (_particle, _key, t) => Math.sin(Math.PI *
 export class Atmosphere {
   constructor(scene) {
     this.scene = scene;
+    this.wind = 1; // fog drifts right; while the boat sails it runs left, past the boat
     const fog = (spec, depth) => spec.map(([x, y, scaleX, scaleY, speed, follow]) => ({
       image: scene.add.image(x, y, 'board-soft').setScale(scaleX, scaleY).setTint(FOG_TINT).setDepth(depth),
       x,
@@ -187,13 +189,31 @@ export class Atmosphere {
   }
 
   /** Drifts the fog, and shifts it against the pointer so the nearer fog moves more. */
+  /** Thickens the drifting fog banks to k times their alpha over ms: the fog rolling in around the boat. */
+  rollFog(k, ms) {
+    const banks = { k: this.fogBanks ?? 1 };
+    this.scene.tweens.add({
+      targets: banks,
+      k,
+      duration: ms,
+      ease: EASE.move,
+      onUpdate: () => {
+        this.fogBanks = banks.k;
+        const alpha = tune('night.fogAlpha') * banks.k;
+        for (const bank of this.fogBack) bank.image.setAlpha(alpha);
+        for (const bank of this.fogFront) bank.image.setAlpha(alpha * 0.7);
+      },
+    });
+  }
+
   update(t, dt, lean) {
-    const drift = tune('night.fogSpeed') * dt;
+    const drift = tune('night.fogSpeed') * this.wind * dt;
     const width = this.scene.scale.width;
     for (const bank of [...this.fogBack, ...this.fogFront]) {
       bank.x += drift * bank.speed;
       const half = bank.image.displayWidth / 2;
       if (bank.x - half > width) bank.x = -half;
+      else if (bank.x + half < 0) bank.x = width + half; // fog runs left while the boat sails
       bank.image.x = bank.x - lean * bank.follow;
     }
     const peak = tune('night.rayAlpha');
@@ -210,7 +230,7 @@ export class Atmosphere {
       scaleY: 0.2 * size,
       alpha: 0,
       duration: tune('night.rippleMs'),
-      ease: 'Sine.Out',
+      ease: EASE.enter,
       onComplete: () => ring.destroy(),
     });
   }
@@ -227,10 +247,15 @@ export class Atmosphere {
  * by that many pixels and fades the gap below it to black, which leaves room for a bottom panel.
  */
 export class NightStage {
-  constructor(scene, id, shift = () => 0) {
+  /** settle: the painting eases down to size on entering. push: it breathes very slowly while the scene is open. */
+  constructor(scene, id, shift = () => 0, { settle = false, push = false } = {}) {
     this.scene = scene;
     this.shift = shift;
     this.lean = 0;
+    this.push = push && !reducedMotion();
+    this.seconds = 0;
+    this.settled = { zoom: settle && !reducedMotion() ? tune('motion.settleZoom') : 1 };
+    this.roam = { k: 0 };
     const { width, height } = scene.scale;
     makeTextures(scene);
     scene.add.rectangle(width / 2, height / 2, width, height, COLOR.deep).setDepth(DEPTH.sky);
@@ -242,13 +267,22 @@ export class NightStage {
     this.vignette = scene.add.image(width / 2, height / 2, 'board-vignette').setDepth(DEPTH.vignette);
     this.fx = new Atmosphere(scene);
     this.place();
+    if (this.settled.zoom > 1) scene.tweens.add({ targets: this.settled, zoom: 1, duration: tune('motion.slowMs') * 2, ease: EASE.enter });
+  }
+
+  /** Slides the painting on as the boat sails: k is how far along, 0 to 1. It grows as it slides, so no edge ever shows. */
+  roamTo(k, ms = 0) {
+    this.scene.tweens.killTweensOf(this.roam);
+    if (ms) this.scene.tweens.add({ targets: this.roam, k, duration: ms, ease: EASE.move });
+    else this.roam.k = k;
   }
 
   place() {
     const { width, height } = this.scene.scale;
     const shift = this.shift();
     if (this.backdrop) {
-      this.backdrop.setScale(this.baseScale * (1 + (2 * tune('night.parallaxPx')) / width)).setY(height / 2 - shift);
+      this.fullScale = this.baseScale * (1 + (2 * tune('night.parallaxPx')) / width);
+      this.backdrop.setScale(this.fullScale * this.settled.zoom).setY(height / 2 - shift);
       this.floorFade.setY(height - shift - FLOOR_FADE).setVisible(shift > 0);
       this.floorFill.setY(height - shift).setVisible(shift > 0);
     } else {
@@ -265,7 +299,13 @@ export class NightStage {
     const dt = delta / 1000;
     const target = (scene.input.activePointer.x / scene.scale.width - 0.5) * 2 * tune('night.parallaxPx');
     this.lean += (target - this.lean) * Math.min(1, dt * 2.5); // eased, so the view drifts instead of tracking the mouse
-    if (this.backdrop) this.backdrop.x = scene.scale.width / 2 - this.lean;
+    this.seconds += dt;
+    if (this.backdrop) {
+      const px = tune('night.roamPx') * this.roam.k;
+      this.backdrop.x = scene.scale.width / 2 - this.lean - px; // the boat goes right, so the view slides left
+      const breath = this.push ? tune('motion.pushIn') * (1 - Math.cos((this.seconds * Math.PI * 2) / tune('motion.pushInSeconds'))) * 0.5 : 0;
+      this.backdrop.setScale(this.fullScale * this.settled.zoom * (1 + breath) * (1 + (2 * px) / scene.scale.width));
+    }
     this.fx.update(time / 1000, dt, this.lean);
   }
 }

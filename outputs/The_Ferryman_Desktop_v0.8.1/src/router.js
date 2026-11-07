@@ -5,7 +5,7 @@
 // Scenes never call each other. They read state and call router.dispatch(action).
 import { Ferry } from './ferry.js';
 import { sceneFor, OVERLAYS } from './phase-map.js';
-import { playLoop, pauseLoop } from './preloader.js';
+import { fadeInLoop, fadeOutLoop } from './preloader.js';
 
 export { sceneFor, OVERLAYS };
 
@@ -29,7 +29,7 @@ export class Router {
     this.state = state;
     this.game.registry.set('state', state);
     this.target = null;
-    playLoop(this.game, RUN_AMBIENCE, undefined, { fromStart: true }); // New game or Continue
+    fadeInLoop(this.game, RUN_AMBIENCE, 1, { fromStart: true }); // New game or Continue
     this._enter(sceneFor(state));
     this.game.events.emit('ferry-state', state);
   }
@@ -93,8 +93,8 @@ export class Router {
     if (this.overlay) this._closeOverlay();
     if (this.base) sm.stop(this.base);
     this.base = key;
-    if (key === 'GameOverScene') pauseLoop(this.game.sound.get(RUN_AMBIENCE));
-    else playLoop(this.game, RUN_AMBIENCE); // keeps playing; resumes only if something paused it
+    if (key === 'GameOverScene') fadeOutLoop(this.game.sound.get(RUN_AMBIENCE));
+    else fadeInLoop(this.game, RUN_AMBIENCE); // keeps playing; resumes only if something paused it
     sm.start(key);
   }
 

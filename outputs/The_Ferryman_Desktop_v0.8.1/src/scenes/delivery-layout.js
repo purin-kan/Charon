@@ -4,8 +4,6 @@
 // Text comes in as t: src/text.js imports JSON, so a Node tool could not load this file otherwise.
 import { SLOT, STAGE, TOKEN, destinationName, layoutStage, soulName, tokenLabels } from './boarding-layout.js';
 
-// The river band CrossingScene draws under the boat.
-export const RIVER = { y: 300, h: 250, color: 0x15303c };
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
 const SHORE_WIDTH = 416; // the row of souls ashore stops here, clear of the boat

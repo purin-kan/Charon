@@ -1,0 +1,246 @@
+/* The Ferryman 2D concept. The stage is a fixed 1600x900 world scaled to fit; the HUD lives in screen space. */
+:root{color-scheme:dark;--gold:#edc47f;--paper:#f5efdf;--muted:#b9c3bd;--panel:#08161bf0;--line:#cfdfca33;--danger:#ff9f8a;--calm:#a9dcff}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;background:#020607;color:var(--paper);font:18px/1.4 "Cormorant Garamond",Georgia,serif;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+/* ---------- Stage and world layers ---------- */
+#frame{position:fixed;inset:0;overflow:hidden;background:radial-gradient(circle at 50% 40%,#0b1a1f,#020607 70%)}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;overflow:hidden;transform-origin:center;--lx:0px;--bx:0px;--tint:#edc47f;background:linear-gradient(#0c1d24,#0a1820 55%,#04090c)}
+.layer{position:absolute;left:0;top:0;width:1600px;height:900px;pointer-events:none}
+.layer svg{position:absolute;left:0;top:0;overflow:visible}
+.backdrop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0;transition:opacity 1.4s ease;filter:brightness(.62) saturate(.85)}
+.backdrop img.on{opacity:1}
+.backdrop::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#02080a99 0%,transparent 26%,transparent 50%,#05121777 66%,#02080af2 100%)}
+.moon{background:radial-gradient(circle at 74% 16%,#f3ecd2 0 26px,#f3ecd255 30px,#f3ecd211 90px,transparent 180px);opacity:0;transition:opacity 1.4s}
+[data-scene=river] .moon{opacity:.9}
+.fog{position:absolute;left:0;top:0;width:3200px;height:900px;background:radial-gradient(ellipse 340px 60px at 200px 610px,#cfdcd924,transparent 70%),radial-gradient(ellipse 460px 80px at 880px 570px,#cfdcd91e,transparent 70%),radial-gradient(ellipse 380px 56px at 1380px 640px,#cfdcd926,transparent 70%);background-size:1600px 900px;background-repeat:repeat-x;animation:drift 70s linear infinite}
+.fog-near .fog{background:radial-gradient(ellipse 520px 70px at 300px 800px,#cfdcd91c,transparent 70%),radial-gradient(ellipse 420px 50px at 1200px 760px,#cfdcd918,transparent 70%);background-size:1600px 900px;animation-duration:44s}
+.sailing .fog{animation-duration:14s}.sailing .fog-near .fog{animation-duration:8s}
+@keyframes drift{to{transform:translateX(-1600px)}}
+.ripples{animation:ripple 7s linear infinite}.water-front .ripples{animation-duration:5s}
+.sailing .ripples{animation-duration:1.1s}.sailing .water-front .ripples{animation-duration:.8s}
+@keyframes ripple{to{transform:translateX(-160px)}}
+
+.land,#walkers{transform:translateX(var(--lx))}
+.land .tint{opacity:0;transition:opacity 1.2s}
+[data-scene=dest] .land .tint{opacity:1}
+.signpost{position:absolute;left:478px;top:552px;width:190px;padding:7px 10px 8px;text-align:center;background:linear-gradient(#4b3524,#2b1d12);border:2px solid #7d5a3a;border-radius:6px;box-shadow:0 8px 20px #000c;transform:rotate(-2deg)}
+.signpost span{display:block;font:700 18px/1.15 "Cinzel Decorative",serif;color:#f4e2bb}
+.signpost small{display:block;font-size:15px;color:color-mix(in srgb,var(--tint) 75%,white)}
+.signpost::after{content:"";position:absolute;left:88px;top:100%;width:10px;height:48px;background:linear-gradient(90deg,#24180e,#4b3524,#24180e)}
+
+.boat-layer{width:560px;height:240px;transform:translate(calc(var(--bx) + 860px),calc(500px + var(--dip,0px)))}
+.boat-layer.boat-reflect{transform:translate(calc(var(--bx) + 860px),calc(500px - var(--dip,0px))) scaleY(-1);transform-origin:0 200px;opacity:.3;filter:url(#wave) blur(.6px);-webkit-mask-image:linear-gradient(transparent 22%,#000 88%);mask-image:linear-gradient(transparent 22%,#000 88%)}
+
+/* Camera: slow push-in on the painting, pointer parallax, film bars during crossings */
+.backdrop{animation:kenburns 60s ease-in-out infinite alternate}
+@keyframes kenburns{to{transform:scale(1.06) translate(-1%,-.6%)}}
+.backdrop img{transform:translate(calc(var(--px,0) * -16px),calc(var(--py,0) * -10px)) scale(1.05)}
+.moon{transform:translate(calc(var(--px,0) * -6px),calc(var(--py,0) * -4px))}
+.fog-far{transform:translateX(calc(var(--px,0) * -28px))}
+.fog-near{transform:translateX(calc(var(--px,0) * -54px))}
+.letterbox{position:absolute;left:0;right:0;height:0;background:#000;pointer-events:none;transition:height .9s cubic-bezier(.6,0,.2,1)}
+.letterbox.top{top:0}.letterbox.bottom{bottom:0}
+.cine .letterbox{height:84px}
+body.cine #info,body.cine #hand,body.cine #corner,body.cine #light{opacity:.2;transition:opacity .6s}
+#info,#hand,#corner,#light{transition:opacity .6s}
+#dest-card{position:absolute;left:0;right:0;top:290px;text-align:center;pointer-events:none;opacity:0}
+#dest-card b{display:block;font:900 96px/1 "Cinzel Decorative",Georgia,serif;color:#f6ead0;letter-spacing:.12em;text-shadow:0 0 48px var(--tint),0 4px 22px #000}
+#dest-card span{display:block;margin-top:16px;font:italic 500 32px/1.3 "Cormorant Garamond",Georgia,serif;color:#eadfc4;text-shadow:0 2px 12px #000}
+#dest-card.show{animation:card 3.6s ease-in-out forwards}
+#dest-card.show b{animation:spread 3.6s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes card{0%{opacity:0}16%{opacity:1}74%{opacity:1}100%{opacity:0}}
+@keyframes spread{from{letter-spacing:.5em;filter:blur(10px)}40%{filter:blur(0)}to{letter-spacing:.12em}}
+.flash{position:absolute;inset:0;pointer-events:none;animation:flashout .8s ease-out forwards}
+.flash.hurt{background:radial-gradient(ellipse at center,transparent 35%,rgba(190,20,10,.6))}
+.flash.heal{background:radial-gradient(ellipse at center,transparent 25%,rgba(255,205,120,.42))}
+@keyframes flashout{from{opacity:1}to{opacity:0}}
+#frame.shake{animation:shake2 .45s linear}
+@keyframes shake2{20%{transform:translate(-9px,5px)}40%{transform:translate(8px,-5px)}60%{transform:translate(-5px,3px)}80%{transform:translate(3px,-2px)}}
+#light.low .flame:not(.out) svg{animation:throb .9s ease-in-out infinite;fill:#ff9a6a}
+#title h1{animation:titlein 2.6s cubic-bezier(.2,.7,.2,1) both}
+#title .pitch,#title .title-actions{animation:rise 1.2s 1s ease-out both}
+#title .fine{animation:rise 1.2s 1.4s ease-out both}
+@keyframes titlein{from{opacity:0;letter-spacing:.45em;filter:blur(12px)}}
+.bob{position:absolute;inset:0;transform-origin:280px 170px;animation:bob 4.4s ease-in-out infinite}
+.sailing .bob{animation-duration:2.2s}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(5px) rotate(.5deg)}}
+.lantern-glow{animation:glow 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes glow{50%{opacity:.75;transform:scale(.93)}}
+.charon{transform-box:view-box;transform-origin:488px 200px;transition:transform .6s}
+.sailing .charon{animation:pole 2.2s ease-in-out infinite}
+.castoff .charon{transform:rotate(-4deg)}
+@keyframes pole{50%{transform:rotate(-5deg) translateX(-6px)}}
+.ward{opacity:0;transition:opacity .6s}
+.guarded .ward.guard,.shielded .ward.shield{opacity:1;animation:ward 2.4s ease-in-out infinite}
+@keyframes ward{50%{opacity:.55}}
+
+/* ---------- Souls ---------- */
+.soul{position:absolute;left:0;top:0;width:100px;height:170px;padding:0;margin:0;border:0;background:none;min-height:0;pointer-events:auto;cursor:default;will-change:transform;-webkit-tap-highlight-color:transparent}
+.soul.clickable{cursor:pointer}
+.soul svg{display:block;width:100px;height:170px;overflow:visible;filter:drop-shadow(0 0 6px #9fd8ff50);transition:filter .25s}
+.soul.clickable:hover svg{filter:drop-shadow(0 0 4px #fff4d0) drop-shadow(0 0 14px #edc47fcc)}
+.soul:focus-visible{outline:none}.soul:focus-visible svg{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 12px var(--gold))}
+.soul .lift,.soul .flip,.soul .pose{display:block;transition:transform .25s}
+.soul .lift{position:absolute;left:0;top:0;width:100px;height:170px}
+.soul.left .flip{transform:scaleX(-1)}
+.soul .pose{animation:breathe 3.6s ease-in-out infinite}
+.soul .aura{fill:url(#soul-aura)}
+.soul .shadow{fill:#000;opacity:.4}
+.soul .leg,.soul .arm{transform-box:view-box}
+.soul .leg-b{transform-origin:46px 112px}.soul .leg-f{transform-origin:54px 112px}
+.soul .arm-b{transform-origin:58px 63px}.soul .arm-f{transform-origin:42px 63px}
+.soul.walking .pose{animation:step .26s ease-in-out infinite alternate}
+.soul.walking .leg-f,.soul.walking .arm-b{animation:swingA .52s ease-in-out infinite}
+.soul.walking .leg-b,.soul.walking .arm-f{animation:swingB .52s ease-in-out infinite}
+.soul.ghost .pose,.soul.ghost.walking .pose{animation:float 3s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(-1.5px)}}
+@keyframes step{to{transform:translateY(-4px)}}
+@keyframes swingA{0%,100%{transform:rotate(26deg)}50%{transform:rotate(-26deg)}}
+@keyframes swingB{0%,100%{transform:rotate(-26deg)}50%{transform:rotate(26deg)}}
+@keyframes float{50%{transform:translateY(-8px)}}
+.soul .over{position:absolute;left:50%;bottom:calc(174px - var(--top));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px;pointer-events:none;white-space:nowrap}
+.soul .name{display:flex;align-items:center;gap:5px;font:700 16px/1 "Cormorant Garamond",serif;color:#f4ead2;text-shadow:0 1px 3px #000,0 0 8px #000}
+.soul .wish{width:8px;height:8px;transform:rotate(45deg);display:inline-block;box-shadow:0 0 6px #0008}
+.pips{display:flex;gap:3px;min-height:8px}
+.pips i{width:8px;height:8px;border-radius:50%;border:1px solid #f0c9a088;background:#000a}
+.pips i.on{background:#e0573e;border-color:#ffab8f}
+.pips.near i.on{box-shadow:0 0 7px #ff5a3a;animation:throb 1s ease-in-out infinite}
+@keyframes throb{50%{opacity:.55}}
+.soul.pulse .pips{animation:pop .7s ease-out}
+@keyframes pop{30%{transform:scale(1.6)}}
+.soul.match::before{content:"";position:absolute;left:14px;right:14px;top:calc(var(--top) - 60px);bottom:0;border-radius:50px 50px 10px 10px;background:linear-gradient(#edc47f00,#edc47f44 45%,#ffe2a066);filter:blur(7px);animation:beacon 1.8s ease-in-out infinite;pointer-events:none}
+@keyframes beacon{50%{opacity:.45}}
+.soul.chosen .lift{transform:translateY(-24px)}
+.soul.chosen .name::after{content:"leaving here";margin-left:4px;padding:2px 6px;border-radius:8px;background:var(--gold);color:#1a1408;font-size:12px;text-shadow:none}
+.soul.wraith svg{filter:brightness(.5) sepia(1) hue-rotate(-45deg) saturate(6) drop-shadow(0 0 18px #ff3a22)}
+.soul.wraith .pose{animation:shake .08s linear infinite}
+@keyframes shake{25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+.soul.ascend svg{filter:brightness(1.9) drop-shadow(0 0 20px #fff1c2)}
+.soul.calmed svg{animation:calmed 1.2s ease-out}
+@keyframes calmed{30%{filter:brightness(1.5) drop-shadow(0 0 20px var(--calm))}}
+.soul.refuse .pose{animation:shake .1s linear 4}
+.soul.rising svg{filter:drop-shadow(0 0 16px #8dffbf)}
+.soul.ghost svg{filter:drop-shadow(0 0 10px #7dffb070)}
+
+/* ---------- Route signs ---------- */
+.fork-label{position:absolute;left:1180px;top:186px;font:700 20px "Cinzel Decorative",serif;color:#f4e2bb;text-shadow:0 2px 6px #000;animation:rise .6s ease-out both}
+.sign{position:absolute;width:244px;padding:0;border:0;background:none;pointer-events:auto;text-align:left;animation:rise .6s ease-out both}
+.sign .board{position:relative;z-index:1;display:flex;gap:10px;align-items:center;padding:10px 12px;background:linear-gradient(#4b3524,#2b1d12);border:2px solid #7d5a3a;border-radius:9px;box-shadow:0 10px 26px #000b;transition:transform .2s,border-color .2s,box-shadow .2s}
+.sign img{width:66px;height:66px;flex:none;object-fit:cover;border-radius:50%;border:3px solid var(--c)}
+.sign b{display:block;font:700 19px/1.1 "Cinzel Decorative",serif;color:#f5e3bd}
+.sign small{display:block;font-size:17px;line-height:1.2;color:#ead9b4}
+.sign .wants{color:color-mix(in srgb,var(--c) 70%,white)}
+.sign .post{position:absolute;left:50%;top:100%;width:12px;margin-left:-6px;height:var(--post);background:linear-gradient(90deg,#24180e,#4b3524,#24180e)}
+.sign:hover .board,.sign:focus-visible .board{border-color:var(--gold);transform:translateY(-4px)}
+.sign:focus-visible{outline:none}
+.sign.picked .board{border-color:var(--gold);box-shadow:0 0 0 3px #edc47f66,0 0 34px #edc47f66}
+.sign.lethal .fogv{color:var(--danger)}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}}
+
+/* ---------- Effects ---------- */
+.fogwall{position:absolute;inset:0;opacity:0;transition:opacity .9s;background:radial-gradient(ellipse 60% 40% at 64% 62%,#dfe8e6,#9fb0ad 45%,#3a4847 80%);mix-blend-mode:screen}
+.fogwall.in{opacity:calc(var(--d) * .85)}
+.floaty{position:absolute;transform:translate(-50%,-50%);font:700 30px "Cinzel Decorative",serif;color:#ffd9a0;text-shadow:0 2px 10px #000,0 0 4px #000;white-space:nowrap;animation:floatup 2s ease-out forwards}
+.floaty.hurt{color:#ff8f78}.floaty.calm{color:var(--calm)}.floaty.good{color:#ffe7a8}
+@keyframes floatup{0%{opacity:0;margin-top:20px}15%{opacity:1}75%{opacity:1}100%{opacity:0;margin-top:-70px}}
+.beam{position:absolute;width:110px;height:520px;transform:translate(-50%,-100%);background:linear-gradient(#fff6d800,#fff1c266 55%,#fff1c2cc);filter:blur(10px);animation:beam 1.8s ease-out forwards}
+@keyframes beam{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+.smoke{position:absolute;width:160px;height:160px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(#ff5a3a88,#3a0a0855 50%,transparent 70%);animation:smoke 1.4s ease-out forwards}
+@keyframes smoke{from{opacity:1;scale:.4}to{opacity:0;scale:2.4}}
+.cardburst{position:absolute;left:800px;top:380px;width:380px;transform:translate(-50%,-50%);border:3px solid var(--gold);border-radius:16px;overflow:hidden;box-shadow:0 0 60px #edc47f88;animation:cardburst 1.2s ease-out forwards}
+.cardburst img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.cardburst b{position:absolute;left:0;right:0;bottom:0;padding:8px;text-align:center;font:700 26px "Cinzel Decorative",serif;background:linear-gradient(transparent,#000c)}
+@keyframes cardburst{0%{opacity:0;scale:.6}25%{opacity:1;scale:1}70%{opacity:1;scale:1.02}100%{opacity:0;scale:1.3}}
+.orb{position:fixed;left:-10px;top:-10px;width:20px;height:20px;border-radius:50%;background:radial-gradient(#fffbe8,#edc47f 50%,#edc47f00 72%);box-shadow:0 0 22px #edc47f;pointer-events:none;z-index:30}
+
+/* ---------- HUD ---------- */
+#hud{position:fixed;inset:0;pointer-events:none;z-index:5}
+#hud>*{pointer-events:auto}
+#light{position:absolute;left:14px;top:12px;display:flex;align-items:center;gap:3px;padding:7px 14px;background:var(--panel);border:1px solid var(--line);border-radius:30px}
+#light .label{font:700 13px "Cinzel Decorative",serif;letter-spacing:.06em;color:var(--gold);margin-right:6px}
+.flame{display:block;width:18px;height:25px}
+.flame svg{width:18px;height:25px;fill:#ffcf6e;filter:drop-shadow(0 0 6px #ffb347);transition:fill .3s}
+.flame.out svg{fill:#33352f;filter:none}
+.flame.flash{animation:flash .7s ease-out}
+@keyframes flash{30%{transform:scale(1.7)}}
+#info{position:absolute;left:50%;top:12px;transform:translateX(-50%);display:flex;gap:7px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100vw - 640px)}
+#info span{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:3px 12px;font-size:16px;white-space:nowrap}
+#info .hot{color:var(--danger);border-color:#ff9f8a66}#info .good{color:var(--calm);border-color:#a9dcff55}
+#hand{position:absolute;right:12px;top:10px;display:flex;gap:7px;align-items:flex-start}
+#hand .label{align-self:center;font:700 13px "Cinzel Decorative",serif;color:var(--gold);writing-mode:vertical-rl;transform:rotate(180deg)}
+#hand .card{position:relative;width:86px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);display:flex;flex-direction:column;font-size:15px;line-height:1.1;text-align:center;transition:transform .2s,box-shadow .2s;animation:rise .5s ease-out both}
+#hand .card img{width:100%;height:56px;object-fit:cover;display:block}
+#hand .card span{padding:4px 3px 6px}
+#hand .card.empty{height:82px;border-style:dashed;opacity:.45;animation:none}
+#hand .card.playable{border-color:var(--gold);box-shadow:0 0 14px #edc47f55}
+#hand .card.playable:hover{transform:translateY(4px)}
+#hand .card.over{border-color:var(--danger);box-shadow:0 0 14px #ff9f8a55}
+#toast{position:absolute;left:50%;top:58px;transform:translate(-50%,-8px);opacity:0;transition:opacity .4s,transform .4s;max-width:min(680px,calc(100vw - 30px));padding:7px 18px;border-radius:24px;background:#08161bcc;border:1px solid #edc47f44;text-align:center;font-size:19px;font-style:italic;pointer-events:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#panel{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);width:min(740px,calc(100vw - 24px));background:var(--panel);border:1px solid #edc47f40;border-radius:18px;padding:12px 22px 14px;text-align:center;box-shadow:0 10px 40px #000c}
+#panel[hidden]{display:none}
+#panel h2{margin:0;font:700 23px/1.2 "Cinzel Decorative",serif;color:var(--gold)}
+#panel p{margin:5px 0 0;font-size:18px;color:#e6e3d6}
+#panel p.warn{color:var(--danger)}#panel p.small{font-size:16px;color:var(--muted)}
+#panel .actions{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.seatbar{display:inline-flex;gap:5px;vertical-align:middle;margin-left:6px}.seatbar i{width:16px;height:16px;border:2px solid #edc47f88;border-radius:4px}.seatbar i.on{background:var(--gold)}
+.primary,.secondary,.ghost-btn{border-radius:30px;padding:9px 24px;min-height:44px;border:1px solid var(--line);background:#1d363c;font-size:19px}
+.primary{background:var(--gold);color:#18140a;border-color:var(--gold);font-weight:700;box-shadow:0 6px 20px #edc47f33}
+.primary:hover{background:#f7d99f}.secondary:hover,.ghost-btn:hover{background:#2c4a51}
+.aboard{display:flex;gap:6px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:16px;color:var(--muted)}
+.aboard .secondary{min-height:32px;padding:3px 13px;font-size:16px}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.ghost-btn{background:#08161bcc;font-size:16px;padding:6px 16px;min-height:38px}
+#corner{position:absolute;left:14px;bottom:14px;display:flex;gap:8px}
+#tip{position:fixed;left:14px;top:66px;width:240px;max-height:calc(100vh - 140px);animation:tipin .25s ease-out;pointer-events:none;background:#08161bf5;border:1px solid #edc47f55;border-radius:14px;overflow:hidden;box-shadow:0 14px 40px #000d;font-size:16px;line-height:1.3;z-index:10}
+#tip[hidden]{display:none}
+@keyframes tipin{from{opacity:0;transform:translateX(-18px)}}
+#tip img{display:block;width:100%;height:130px;object-fit:cover;object-position:center 18%}
+.drawn-portrait{display:block;width:100%;height:150px;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#1f3a33,#081512 75%)}
+.drawn-portrait svg{display:block;width:100%;height:100%;transform:scale(2.1);transform-origin:50% 12%;filter:drop-shadow(0 0 6px #7dffb070)}
+.target .drawn-portrait{height:96px}#tip .drawn-portrait{height:130px}
+#tip .body{padding:9px 13px 12px}
+#tip h3{margin:0 0 4px;font:700 20px "Cinzel Decorative",serif;color:var(--gold)}
+#tip p{margin:2px 0;color:#e2ded1}#tip .muted{color:var(--muted);font-size:15px;margin-top:6px}
+
+/* ---------- Title and popups ---------- */
+#title{position:fixed;inset:0;display:grid;place-items:center;z-index:8;background:radial-gradient(ellipse at 50% 45%,#02080a33,#02080ab0 75%)}
+#title[hidden]{display:none}
+.title-card{max-width:620px;padding:24px;text-align:center}
+.eyebrow{margin:0;font-size:15px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+#title h1{margin:6px 0 10px;font:900 clamp(44px,8vw,86px)/1 "Cinzel Decorative",serif;color:#f6ead0;text-shadow:0 4px 30px #000,0 0 40px #edc47f40}
+.pitch{font-size:21px;color:#e6e3d6;margin:0 auto 22px}
+.title-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.fine{margin-top:22px;font-size:15px;color:var(--muted)}
+dialog.popup{max-width:540px;width:calc(100% - 30px);max-height:88vh;padding:0;overflow:auto;text-align:center;background:#0b1c22;color:var(--paper);border:1px solid #edc47f66;border-radius:20px;box-shadow:0 24px 70px #000c}
+dialog.popup.wide{max-width:720px}
+dialog.popup[open]{animation:popin .3s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes popin{from{opacity:0;transform:translateY(14px) scale(.94)}}
+dialog.popup::backdrop{background:#02080abb;backdrop-filter:blur(2px)}
+.popup .art{display:block;width:100%;height:190px;object-fit:cover}
+.popup h2{margin:14px 22px 6px;font:700 30px/1.15 "Cinzel Decorative",serif;color:var(--gold)}
+.popup .eyebrow{margin:16px 22px 0}
+.popup p{margin:6px 26px;color:#e6e3d6}
+.popup ul{text-align:left;margin:8px 22px;padding-left:22px}.popup li{margin:5px 0}
+.popup .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 22px 22px}
+.targets{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:12px 18px 0}
+.target{width:118px;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#11272e;font-size:16px;line-height:1.2}
+.target:hover{border-color:var(--gold)}
+.target img{display:block;width:100%;height:96px;object-fit:cover;object-position:center 18%}
+.target span{display:block;padding:5px 4px 7px}
+.target small{display:block;color:var(--muted)}
+
+@media (max-width:820px){
+  #info{top:56px;max-width:calc(100vw - 20px)}#info span{font-size:14px}
+  #hand{top:auto;bottom:auto;right:8px;top:8px}#hand .card{width:62px;font-size:12px}#hand .card img{height:40px}#hand .card.empty{height:60px}#hand .label{display:none}
+  #light{padding:5px 10px}.flame,.flame svg{width:13px;height:19px}#light .label{display:none}
+  #toast{top:96px;font-size:16px}
+  #panel{padding:9px 14px 11px}#panel h2{font-size:19px}#panel p{font-size:16px}
+  #tip{top:52px;left:8px;width:200px}#tip img{height:96px}
+  #corner{bottom:auto;top:96px;left:8px;display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

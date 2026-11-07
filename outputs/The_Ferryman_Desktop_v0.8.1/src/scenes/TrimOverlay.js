@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { queueAssets } from '../preloader.js';
 import { t } from '../text.js';
-import { CSS, bodyText, drawPanel, headText, makeButton, modalShade } from '../theme.js';
+import { CSS, bodyText, drawPanel, headText, makeButton, modalShade, overlayIn, overlayOut } from '../theme.js';
 import { CARD, drawCard } from '../components/MemoryHand.js';
 import { trimView } from '../components/memory-layout.js';
 import { HoverTip } from './hover-tip.js';
@@ -29,6 +29,7 @@ export class TrimOverlay extends Phaser.Scene {
     const state = this.registry.get('state');
     console.log(`[ferry] ${this.scene.key} shown (phase ${state?.phase ?? 'none'}, hand ${state?.hand?.length ?? 0})`);
     modalShade(this);
+    overlayIn(this);
     this.parts = [];
     this.marked = new Set();
     this.confirming = false;
@@ -87,11 +88,14 @@ export class TrimOverlay extends Phaser.Scene {
   confirm() {
     if (this.confirming) return;
     this.confirming = true;
-    try {
-      for (const id of this.marked) this.router.dispatch({ type: 'DISCARD_MEMORY', id });
-    } catch (err) {
-      this.confirming = false;
-      this.message.setText(err.message);
-    }
+    overlayOut(this, () => {
+      try {
+        for (const id of this.marked) this.router.dispatch({ type: 'DISCARD_MEMORY', id });
+      } catch (err) {
+        this.confirming = false;
+        this.message.setText(err.message);
+        overlayIn(this);
+      }
+    });
   }
 }

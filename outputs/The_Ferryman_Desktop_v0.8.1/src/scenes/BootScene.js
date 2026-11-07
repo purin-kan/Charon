@@ -1,9 +1,11 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { queueAssets } from '../preloader.js';
+import { WRAITH_FRAMES, queueAssets, soulArtIds } from '../preloader.js';
 import { openFromQuery } from '../dev/launcher.js';
 import { whenFontsReady } from '../theme.js';
+import { CHOICE_ART } from './delivery-layout.js';
 import { makeTextures } from './night-fx.js';
+import { PIER_ART } from './river-boat.js';
 
 /** Loads whatever assets exist (the rest falls back to emblems/silence), proves the engine works, then leaves. */
 export class BootScene extends Phaser.Scene {
@@ -14,10 +16,11 @@ export class BootScene extends Phaser.Scene {
   preload() {
     // Ids come from the engine data; files are optional. Convention: assets/art/<id>.png, etc.
     queueAssets(this, {
-      art: [...Ferry.data.souls.map((s) => s.id), ...Ferry.data.memories.map((m) => m.id)],
-      backgrounds: Ferry.data.destinations.map((d) => d.id),
+      // Everything, once: scenes still queue what they use, but a scene change then has nothing left to load.
+      art: [...soulArtIds(), ...Ferry.data.memories.map((m) => m.id), ...Object.values(CHOICE_ART), ...WRAITH_FRAMES, 'sprite-boat-horizontal', PIER_ART],
+      backgrounds: ['bg-starting-shore', ...Ferry.data.destinations.map((d) => d.id)],
       // Audio ids follow notes/T-07_AUDIO_PLAN.md (bgm-, amb-, sfx- prefixes).
-      audio: ['bgm-menu', 'amb-crossing', 'sfx-board', 'sfx-unboard', 'sfx-ui-click', 'sfx-delivery-success', 'sfx-wraith'],
+      audio: ['bgm-menu', 'amb-crossing', 'sfx-board', 'sfx-unboard', 'sfx-ui-click', 'sfx-delivery-success', 'sfx-wraith', 'sfx-fog'],
     });
   }
 

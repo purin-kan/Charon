@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { WRAITH_FRAMES, playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, DecisionPanel, bodyText, drawPanel, edgeFlash, fadeIn, fadeOut, lossShake } from '../theme.js';
+import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, leaveScene, lossShake } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -12,7 +12,7 @@ import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { actionSound, returnLightSteps, returnView } from './return-layout.js';
 import { RiverBoat } from './river-boat.js';
-import { addBoardingSoul, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, fadeAway, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
 
 // Return to the Starting Shore (T-21): phase 'window' or 'review' with window.kind 'return'.
 // The empty boat comes back to the shore where the souls wait. Prepare: the memory hand (T-16) and what
@@ -56,11 +56,11 @@ export class ReturnScene extends Phaser.Scene {
     this.logParts = [];
     this.confirmed = null; // the state and view before a confirmed return, which plays out on exit
 
-    this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'));
+    this.night = new NightStage(this, 'bg-starting-shore', () => tune('boarding.backdropShift'), { settle: true, push: true });
     const deckWidth = tune('art.boat.width') * tune('art.boat.deck');
     this.boat = new RiverBoat(this, tune('boarding.deckX'), tune('boarding.deckY'), deckWidth);
     this.boat.root.setDepth(DEPTH.boat).setX(tune('boarding.deckX') + tune('return.boatFrom'));
-    this.tweens.add({ targets: this.boat.root, x: tune('boarding.deckX'), duration: tune('return.boatMs'), ease: 'Cubic.Out' });
+    this.tweens.add({ targets: this.boat.root, x: tune('boarding.deckX'), duration: tune('return.boatMs'), ease: EASE.enter });
 
     this.bar = new Hud(this);
     this.panel = new DecisionPanel(this);
@@ -81,7 +81,7 @@ export class ReturnScene extends Phaser.Scene {
       this.game.events.off('ferry-state', this.onState);
       this.boat = null; // update() can fire once more, after the scene has gone
     });
-    fadeIn(this);
+    enterScene(this);
   }
 
   update(time, delta) {
@@ -128,7 +128,7 @@ export class ReturnScene extends Phaser.Scene {
     for (const [id, token] of this.tokens) {
       if (ids.has(id)) continue;
       this.tip.hide();
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {
@@ -147,7 +147,7 @@ export class ReturnScene extends Phaser.Scene {
   syncPulse(token, danger) {
     const { pips } = token.parts;
     if (danger && !token.pulse) {
-      token.pulse = this.tweens.add({ targets: pips, alpha: 0.35, duration: tune('boarding.pulseMs'), ease: 'Sine.InOut', yoyo: true, repeat: -1 });
+      token.pulse = this.tweens.add({ targets: pips, alpha: 0.35, duration: tune('boarding.pulseMs'), ease: EASE.move, yoyo: true, repeat: -1 });
     } else if (!danger && token.pulse) {
       token.pulse.remove();
       token.pulse = null;
@@ -224,7 +224,7 @@ export class ReturnScene extends Phaser.Scene {
     token.parts.glow.setTint(COLOR.danger);
     token.parts.glow.setAlpha(0.7);
     this.night.fx.trail(token.x, token.y - 90, 12);
-    this.tweens.add({ targets: token.parts.ride, alpha: 0, duration: tune('return.fadeMs'), ease: 'Sine.In' });
+    this.tweens.add({ targets: token.parts.ride, alpha: 0, duration: tune('return.fadeMs'), ease: EASE.exit });
   }
 
   /** The return plays out, then the scene fades and the router switches. Without a confirmed return it just fades. */
@@ -234,12 +234,12 @@ export class ReturnScene extends Phaser.Scene {
     this.input.enabled = false;
     this.tip.hide();
     console.log('[ferry] ReturnScene: rowing back to the Starting Shore');
-    const leave = () => fadeOut(this, () => this.router.exitDone());
+    const leave = () => leaveScene(this, () => this.router.exitDone());
     if (!this.confirmed) return leave();
     for (const part of this.logParts) part.destroy();
     this.logParts = [];
     this.panel.slideOut();
-    this.hand.root.setVisible(false);
+    this.hand.hide();
     const { state, view } = this.confirmed;
     const turning = view.souls.filter((x) => x.wraith);
     const max = Ferry.maxLight(state);
@@ -277,14 +277,14 @@ export class ReturnScene extends Phaser.Scene {
     const ids = new Set(entries.map((e) => e.id));
     for (const [id, token] of this.tokens) {
       if (ids.has(id)) continue;
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {
       const fresh = !this.tokens.has(entry.id);
       const token = this.tokens.get(entry.id) ?? this.addToken({ ...entry, x: -80 });
       if (fresh) setBoardingBadge(token, soulBadge(entry, Ferry));
-      this.tweens.add({ targets: token, x: entry.x, duration: tune('return.arrivalMs'), ease: 'Sine.InOut' });
+      this.tweens.add({ targets: token, x: entry.x, duration: tune('return.arrivalMs'), ease: EASE.move });
     }
   }
 }

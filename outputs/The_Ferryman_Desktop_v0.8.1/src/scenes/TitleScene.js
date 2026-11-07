@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { queueAssets, playLoop, pauseLoop } from '../preloader.js';
+import { fadeInLoop, fadeOutLoop, queueAssets } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, bodyText, drawPanel, fadeIn, fadeOut, headText, makeButton, makeChip, whenFontsReady } from '../theme.js';
+import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, fadeInParts, fadeOutParts, headText, leaveScene, makeButton, makeChip, MS, whenFontsReady } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { readSave, writeSave, deleteSave, startAutosave, qaName } from '../save.js';
 import { DEPTH, NightStage } from './night-fx.js';
@@ -16,10 +16,10 @@ defineTuning({
   'title.fontSize': { type: 'number', default: 76, min: 30, max: 120, step: 1 },
   'title.taglineDelay': { type: 'number', default: 900, min: 0, max: 4000, step: 50, help: 'Then the one-line pitch' },
   'title.buttonsDelay': { type: 'number', default: 1400, min: 0, max: 5000, step: 50, help: 'Then the buttons' },
-  'title.fadeMs': { type: 'number', default: 700, min: 0, max: 2000, step: 10, help: 'Each late part fades in' },
 });
 
 const MAX_SEED = 4294967295;
+const MUSIC_VOLUME = 0.5;
 const MENU_MUSIC = ['bgm-menu']; // the T-07 id; BootScene queues the same one
 const UI_DEPTH = DEPTH.ui;
 
@@ -46,20 +46,20 @@ export class TitleScene extends Phaser.Scene {
     this.handledKeys = new WeakSet();
     console.log(`[ferry] TitleScene shown (save: ${this.save.state ? 'found' : this.save.broken ? 'unreadable' : 'none'})`);
 
-    this.night = new NightStage(this, 'bg-starting-shore');
-    fadeIn(this);
+    this.night = new NightStage(this, 'bg-starting-shore', () => 0, { settle: true, push: true });
+    enterScene(this);
 
     // Keyboard listeners outlive a scene restart, so remove this one on shutdown.
     const onKey = (e) => this.onKey(e);
     this.input.keyboard.on('keydown', onKey);
-    pauseLoop(this.sound.get('amb-crossing')); // the run's loop (router.js RUN_AMBIENCE) waits for the next run
-    this.music = MENU_MUSIC.map((id) => playLoop(this, id, { volume: 0.5 })).find(Boolean) ?? null; // resumes, never restarts
+    fadeOutLoop(this.sound.get('amb-crossing')); // the run's loop (router.js RUN_AMBIENCE) waits for the next run
+    this.music = MENU_MUSIC.map((id) => fadeInLoop(this, id, MUSIC_VOLUME)).find(Boolean) ?? null; // resumes, never restarts
     const run = (this.run = {}); // a scene stopped while the fonts load must not build
     this.events.once('shutdown', () => {
       this.run = null;
       this.night = null;
       this.input.keyboard.off('keydown', onKey);
-      pauseLoop(this.music);
+      fadeOutLoop(this.music);
     });
     whenFontsReady().then(() => {
       if (this.run !== run) return;
@@ -81,10 +81,10 @@ export class TitleScene extends Phaser.Scene {
       targets: reveal,
       spacing: tune('title.endSpacing'),
       duration: tune('title.revealMs'),
-      ease: 'Cubic.Out',
+      ease: EASE.enter,
       onUpdate: () => title.setLetterSpacing(reveal.spacing),
     });
-    this.tweens.add({ targets: title, alpha: 1, duration: tune('title.revealMs'), ease: 'Sine.InOut' });
+    this.tweens.add({ targets: title, alpha: 1, duration: tune('title.revealMs'), ease: EASE.move });
 
     const tagline = this.add.text(width / 2, 246, t('title.tagline'), bodyText(24, CSS.bone, { align: 'center', wordWrap: { width: 900 } })).setOrigin(0.5).setDepth(UI_DEPTH);
 
@@ -108,12 +108,12 @@ export class TitleScene extends Phaser.Scene {
 
     const delay = tune('title.buttonsDelay');
     tagline.setAlpha(0);
-    this.tweens.add({ targets: tagline, alpha: 1, duration: tune('title.fadeMs'), delay: tune('title.taglineDelay'), ease: 'Sine.Out' });
+    this.tweens.add({ targets: tagline, alpha: 1, duration: MS.slow, delay: tune('title.taglineDelay'), ease: EASE.enter });
     // The buttons keep their enabled look, so the fade only brings them up to the alpha they already have.
     for (const part of [this.continueBtn, this.newBtn, this.seedLabel, hint, this.note]) {
       const alpha = part.alpha;
       part.setAlpha(0);
-      this.tweens.add({ targets: part, alpha, duration: tune('title.fadeMs'), delay, ease: 'Sine.Out' });
+      this.tweens.add({ targets: part, alpha, duration: MS.slow, delay, ease: EASE.enter });
     }
   }
 
@@ -182,7 +182,7 @@ export class TitleScene extends Phaser.Scene {
     this.leaving = true;
     startAutosave(this.game, () => console.warn('[ferry] ' + t('title.storageFailed')));
     if (!writeSave(state)) console.warn('[ferry] ' + t('title.storageFailed'));
-    fadeOut(this, () => {
+    leaveScene(this, () => {
       this.scene.stop();
       this.router.start(state);
     });
@@ -199,11 +199,12 @@ export class TitleScene extends Phaser.Scene {
     const yes = makeButton(this, width / 2 - 110, height / 2 + 72, 220, 46, t('title.replaceYes'), () => { this.closeDialog(); this.newGame(); }, { gold: true, size: 16 });
     const no = makeButton(this, width / 2 + 120, height / 2 + 72, 160, 46, t('common.cancel'), () => this.closeDialog(), { size: 16 });
     this.dialog = [shade, back, title, body, yes, no];
+    fadeInParts(this, this.dialog);
     for (const part of this.dialog) part.setDepth(DEPTH.hero + 1);
   }
 
   closeDialog() {
-    for (const part of this.dialog ?? []) part.destroy();
+    fadeOutParts(this, this.dialog ?? []);
     this.dialog = null;
   }
 }

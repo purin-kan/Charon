@@ -7,7 +7,7 @@
 // MEM-MOLY -> memory-moly.png); see src/asset-names.js for the rules and the alias table.
 import { figureIdFor, fileIdFor } from './asset-names.js';
 import { Ferry } from './ferry.js';
-import { COLOR, soulPlate } from './theme.js';
+import { COLOR, MS, soulPlate } from './theme.js';
 import { tune } from './tuning.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
@@ -85,14 +85,34 @@ export function addArt(scene, x, y, id, size = 128, plate = {}) {
 export function playSound(scene, id, config) {
   if (!scene.cache.audio.exists(id)) return null;
   const s = scene.sound.add(id, config);
+  if (!config?.loop) s.once('complete', () => s.destroy()); // or every click would keep its own sound object for ever
   s.play();
   return s;
+}
+
+/** Moves a sound to a volume over ms, then calls done. A plain timer, so a fade can outlive the scene that started it. */
+export function fadeSound(sound, volume, ms, done = () => {}) {
+  if (!sound) return;
+  clearInterval(sound.fading);
+  const from = sound.volume;
+  const start = performance.now();
+  sound.fading = setInterval(() => {
+    const p = ms > 0 ? Math.min(1, (performance.now() - start) / ms) : 1;
+    if (!sound.manager) {
+      clearInterval(sound.fading);
+      return;
+    }
+    sound.setVolume(from + (volume - from) * p);
+    if (p < 1) return;
+    clearInterval(sound.fading);
+    done();
+  }, 30);
 }
 
 /**
  * Plays a looping track that carries on where it left off: the sound manager is shared by every scene, so a
  * scene that comes back (CrossingScene every round, TitleScene after a run) resumes the same sound instead of
- * starting it again. Pair with pauseLoop on shutdown. `owner` is a scene or the game (both have cache and
+ * starting it again. Pair with fadeOutLoop on shutdown. `owner` is a scene or the game (both have cache and
  * sound). fromStart plays it again from 0, for the start of a new run. Returns the sound, or null if missing.
  */
 export function playLoop(owner, id, config, { fromStart = false } = {}) {
@@ -109,9 +129,21 @@ export function playLoop(owner, id, config, { fromStart = false } = {}) {
   return s;
 }
 
-/** Pauses a track from playLoop so the next playLoop of the same id resumes it. */
-export function pauseLoop(sound) {
-  if (sound?.isPlaying) sound.pause();
+/**
+ * playLoop that fades up to volume, from silence for a new or paused track. Cancels a fade-out still running,
+ * so a track that comes back mid-fade keeps playing instead of being paused by the old fade.
+ */
+export function fadeInLoop(owner, id, volume = 1, options) {
+  const s = playLoop(owner, id, { volume: 0 }, options);
+  fadeSound(s, volume, MS.slow);
+  return s;
+}
+
+/** Fades a track from playLoop out, then pauses it so the next fadeInLoop of the same id resumes it. */
+export function fadeOutLoop(sound) {
+  fadeSound(sound, 0, MS.slow, () => {
+    if (sound.isPlaying) sound.pause();
+  });
 }
 
 /**

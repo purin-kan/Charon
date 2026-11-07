@@ -1,5 +1,26 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Motion polish (branch `polish-transitions`, Nov 6, 2026, not pushed)
+
+Update, Nov 7: merged `main` (with #48's run-wide loops) into this branch. Menu music and the run ambience are now shared loops that fade: `fadeInLoop` and `fadeOutLoop` in `src/preloader.js`, called by `TitleScene.js` and `src/router.js`, so `router.js` is no longer unchanged. `npm run check` 11 of 11; fades, including a new run during a fade-out, checked only with simulated sounds. Sound fades heard: NOT_RUN.
+
+Update, Nov 6 (agent, not a playtest): Tinpatpun asked for the boat to be on the water, going right, rowing slowly through fog as in `outputs/The_Ferryman_2D_Concept`. CrossingScene no longer zooms out over a drawn river. The boat is full size, the water, fog and painting slide left past it, and each 2.4 s stroke pushes it forward with a ring at the oar (`Water` in `river-boat.js`, `water.*`, `night.roamPx`, `crossing.fogBanks`). At the fork the boat waits on the left with the signs ahead of it. Fog takes the boat mid-crossing, the place and pier change inside it, and the boat pulls up to its stop. To the fork takes 4.2 s and a crossing 7 s. `crossing.bobPx`, `crossing.bobMs`, `crossing.riverAlpha`, `crossing.travelEase`, `crossing.enterFrom` and the unread `crossing.riverPath` are gone. On this code: `npm run check` 11 of 11, build passes, 14 memory cards in 69 cases all worked, full run seed 7 ended at GameOver at 241 fps with 0 console problems, 0 scene loads, 0 frames over 80 ms, slowest exit 2,909 ms. A hidden sign and the Foresight panel were seen on the new fork. A run in a hidden window drops to about 1 fps and stalls: that is Windows throttling, not the game. NOT_RUN: how it feels to a person.
+
+Presentation only, on top of `full-game-restyle`; `rules/`, `package.json`, the lockfile, `src/scenes/index.js` and `src/router.js` are unchanged. Scene changes crossfade from the last frame, with a teal fade as fallback; Crossing and Delivery stay seamless. The interface uses one rhythm (`motion.*`: 180, 350, 700 ms); journeys keep their own lengths. All assets load at boot. Reduced motion is `motion.reduced` in F2 and follows the Windows setting.
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated | `npm run check`, `quest-check` | 11 of 11 after each group; rules unchanged from `3168a38`, last run 33 passed |
+| Fixtures (agent, not a playtest) | every fixture in `src/dev/fixtures/`, on the dev server | 18 of 18 opened, 0 console problems, worst frame 15 ms at 240 fps |
+| Full run, seed 7 (agent, real mouse input) | title to GameOver | 4 cycles, 5 deliveries, 0 console problems, 0 scene loads, 0 frames over 80 ms, slowest exit 2,905 ms, snapshot about 25 ms |
+| Same run, reduced motion emulated | `prefers-reduced-motion: reduce` | Same ending, 0 console problems, no crossfade frames |
+| Memory cards (agent, real clicks) | 14 cards, every legal place | 69 of 69 used with their effect, 0 console problems |
+| Visual feel of every transition | human | NOT_RUN |
+| Sound fades heard | human | NOT_RUN |
+| Reduced motion with the real Windows setting | human | NOT_RUN (emulated only) |
+| Hero, quest and choice paths in a full run; F2 with the new keys | agent or human | NOT_RUN (the seed 7 run reaches none of them) |
+| Packaged `.exe`, slower PC | human | NOT_RUN; all numbers above are from the dev server on one PC |
+
 Machine: Windows 11, Node v25.1.0, npm 11.6.2.
 
 ## Pinned versions (package.json, exact)

@@ -3,7 +3,7 @@ import { Ferry } from '../ferry.js';
 import { queueAssets } from '../preloader.js';
 import { deleteSave, readSave, startAutosave, writeSave } from '../save.js';
 import { t } from '../text.js';
-import { COLOR, CSS, LightFlames, bodyText, drawPanel, fadeOut, headText, makeButton } from '../theme.js';
+import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, headText, leaveScene, LightFlames, makeButton } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { TEXT, gameOverView } from './gameover-layout.js';
 import { DEPTH, NightStage } from './night-fx.js';
@@ -39,10 +39,11 @@ export class GameOverScene extends Phaser.Scene {
     this.leaving = false;
     this.seconds = 0;
 
-    this.night = new NightStage(this, 'bg-starting-shore');
+    this.night = new NightStage(this, 'bg-starting-shore', () => 0, { settle: true, push: true });
     const dark = this.add.rectangle(width / 2, height / 2, width, height, COLOR.deep, 1).setDepth(UI - 1);
+    enterScene(this);
     this.playLantern(() => {
-      this.tweens.add({ targets: dark, fillAlpha: tune('gameover.veil'), duration: tune('gameover.revealMs'), ease: 'Sine.InOut' });
+      this.tweens.add({ targets: dark, fillAlpha: tune('gameover.veil'), duration: tune('gameover.revealMs'), ease: EASE.move });
       this.drawSummary(view);
     });
     this.input.keyboard.once('keydown-ENTER', () => this.toTitle());
@@ -63,14 +64,14 @@ export class GameOverScene extends Phaser.Scene {
     this.flame.set([true]);
     this.flame.root.setPosition(width / 2, height / 2 + 14).setScale(2).setDepth(UI);
     const ms = tune('gameover.lanternMs');
-    this.tweens.add({ targets: glow, alpha: { from: 0.5, to: 0.18 }, duration: ms / 7, ease: 'Sine.InOut', yoyo: true, repeat: 2 });
+    this.tweens.add({ targets: glow, alpha: { from: 0.5, to: 0.18 }, duration: ms / 7, ease: EASE.move, yoyo: true, repeat: 2 });
     this.tweens.add({
       targets: [glow, this.flame.root],
       alpha: 0,
       scale: 0.5,
       delay: ms * 0.6,
       duration: ms * 0.4,
-      ease: 'Sine.In',
+      ease: EASE.exit,
       onComplete: () => {
         glow.destroy();
         this.flame.root.destroy();
@@ -92,7 +93,7 @@ export class GameOverScene extends Phaser.Scene {
       makeButton(this, width / 2 + 130, 620, 240, 54, t('gameOver.toTitle'), () => this.toTitle(), { size: 19 }).setEnabled(true),
     ];
     for (const part of parts) part.setDepth(UI).setAlpha(0);
-    this.tweens.add({ targets: parts, alpha: 1, duration: tune('gameover.revealMs'), ease: 'Sine.Out' });
+    this.tweens.add({ targets: parts, alpha: 1, duration: tune('gameover.revealMs'), ease: EASE.enter });
   }
 
   drawQuests(width, view) {
@@ -145,7 +146,7 @@ export class GameOverScene extends Phaser.Scene {
     deleteSave();
     startAutosave(this.game, () => console.warn('[ferry] ' + t('title.storageFailed')));
     if (!writeSave(state)) console.warn('[ferry] ' + t('title.storageFailed'));
-    fadeOut(this, () => this.router.start(state));
+    leaveScene(this, () => this.router.start(state));
   }
 
   /** Fades out, then hands over to TitleScene, which starts the next run through the router. */
@@ -153,6 +154,6 @@ export class GameOverScene extends Phaser.Scene {
     if (this.leaving) return;
     this.leaving = true;
     console.log('[ferry] GameOverScene: back to title for a new run');
-    fadeOut(this, () => this.scene.start('TitleScene'));
+    leaveScene(this, () => this.scene.start('TitleScene'));
   }
 }

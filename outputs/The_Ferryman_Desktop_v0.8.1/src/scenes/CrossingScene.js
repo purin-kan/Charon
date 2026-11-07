@@ -2,62 +2,55 @@ import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
-import { COLOR, CSS, DecisionPanel, bodyText, drawPanel, edgeFlash, fadeIn, fadeOut, headText, lossShake } from '../theme.js';
+import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
 import { previewOption, routeModel } from '../components/route-layout.js';
 import { shipBadge, TOKEN } from './boarding-layout.js';
-import { RIVER } from './delivery-layout.js';
 import {
-  abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingPath,
-  crossingStep, homeView, placeName, purifyAction, soulDetail, worldLayout,
+  SIGNS, abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome,
+  crossingStep, placeName, purifyAction, soulDetail, worldLayout,
 } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage, roundThumb } from './night-fx.js';
-import { PIER_ART, RiverBoat, WOOD, addPier } from './river-boat.js';
-import { addBoardingSoul, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
+import { PIER_ART, RiverBoat, WOOD, Water, addPier } from './river-boat.js';
+import { addBoardingSoul, fadeAway, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
-// One river world that the view pans and zooms over (a container, so clicks stay exact), with the HUD
-// on top. The boat is the same boat throughout:
-//   prepare: the boat at its stop, exactly where DeliveryScene draws it. Memory hand, the shared meal
-//            and the Priest's purify, then "Approach the fork".
-//   approach: a Long due at the fork fades in, the boat sails to the fork and the view pulls back to
-//            show both branches with their signposts; then START_CROSSING is dispatched.
-//   fork / review: click a branch's signpost (PLAN), then Back or Confirm in the bottom panel.
-//   cross:   the next state is computed first, because the router opens Odysseus's choice or GameOver
-//            at once. The boat sails down the branch through thickening fog, the flames go out one by
-//            one, the view comes back to zoom 1 so the boat ends where DeliveryScene draws it, the title
-//            card and arrival events play, and only then CONFIRM is dispatched. DeliveryScene opens with no cut.
+// The boat is full size and on the water. The ferryman rows slowly: the boat hardly moves, and the water, fog and painting
+// slide left past it in strokes, so it goes right. Fog rolls in and takes it in the middle of a crossing.
+//   prepare: the boat at its stop. Memory hand, the shared meal and the Priest's purify, then "Approach the fork".
+//   approach: a Long due at the fork fades in, the stop slides away and the boat rows to the fork, where the signs stand
+//            in the water ahead of it; then START_CROSSING is dispatched.
+//   fork / review: click a signpost in the water (PLAN), then Back or Confirm in the bottom panel.
+//   cross:   the next state is computed first, because the router opens Odysseus's choice or GameOver at once. The boat
+//            rows into thickening fog and the flames go out one by one. The new place and its pier come up inside the
+//            fog, it thins, the boat pulls up to its stop, the title card and arrival events play, and only then CONFIRM
+//            is dispatched. DeliveryScene opens with no cut.
 // Everything shows its details on hover. The hand shows only what the engine allows.
 
 const CLICK = 'sfx-ui-click';
 const FOG = 'sfx-fog'; // once on confirming a route with fog 1 or more, before the Light loss shows
 const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long as the crossing screen is open (queued by BootScene)
-const RIVER_LAYERS = [1, 0.9, 0.8, 0.7, 0.6, 0.5];
-const SIGN = { w: 740, h: 270, thumb: 190 }; // world size; about 355 x 130 on screen at the fork view
+const SIGN = { w: 740, h: 270, thumb: 190 }; // drawn at this size, then scaled by SIGNS.scale
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 const PLACE_LABEL = { x: 56, y: 174 }; // the name of the stop the boat is leaving
-const FORESIGHT = { x: 1256, y: 190, w: 300 };
+const FORESIGHT = { x: 760, y: 130, w: 300 }; // above the boat at the fork, clear of the signs
 
 defineTuning({
-  'crossing.enterMs': { type: 'number', default: 700, min: 0, max: 3000, step: 50, help: 'The boat comes in from the Starting Shore' },
-  'crossing.approachMs': { type: 'number', default: 1600, min: 200, max: 6000, step: 50, help: 'The boat sails to the fork' },
+  'crossing.enterMs': { type: 'number', default: 2600, min: 0, max: 6000, step: 50, help: 'The boat rows in from the Starting Shore' },
+  'crossing.approachMs': { type: 'number', default: 4200, min: 200, max: 10000, step: 50, help: 'The boat rows to the fork' },
   'crossing.boardMs': { type: 'number', default: 500, min: 0, max: 3000, step: 50, help: 'A Long fades onto the boat at the fork' },
-  'crossing.bobPx': { type: 'number', default: 5, min: 0, max: 20, step: 1, help: 'How far the boat bobs while sailing' },
-  'crossing.bobMs': { type: 'number', default: 1400, min: 200, max: 5000, step: 50, help: 'One bob, up and down' },
-  'crossing.rippleMs': { type: 'number', default: 220, min: 60, max: 2000, step: 10, help: 'Time between ripples behind the boat' },
-  'crossing.fogAlphaPerLight': { type: 'number', default: 0.12, min: 0, max: 0.5, step: 0.01, help: 'Fog thickness for each Light paid' },
-  'crossing.fogAlphaBase': { type: 'number', default: 0.1, min: 0, max: 0.5, step: 0.01, help: 'Fog on any crossing, even a free one' },
+  'crossing.rippleMs': { type: 'number', default: 340, min: 60, max: 2000, step: 10, help: 'Time between streaks of foam behind the boat' },
+  'crossing.fogAlphaPerLight': { type: 'number', default: 0.2, min: 0, max: 0.5, step: 0.01, help: 'Fog thickness for each Light paid' },
+  'crossing.fogBanks': { type: 'number', default: 5, min: 1, max: 10, step: 0.5, help: 'How much the drifting fog thickens on a crossing' },
+  'crossing.fogAlphaBase': { type: 'number', default: 0.3, min: 0, max: 0.5, step: 0.01, help: 'Fog on any crossing, even a free one' },
   'crossing.eventMs': { type: 'number', default: 600, min: 0, max: 3000, step: 50, help: 'A soul leaves or boards on arrival' },
   'crossing.arrivalHoldMs': { type: 'number', default: 1400, min: 0, max: 6000, step: 100, help: 'Pause on the arrival before the delivery' },
   'crossing.titleMs': { type: 'number', default: 600, min: 0, max: 3000, step: 50, help: 'The destination title fades in and out' },
-  'crossing.riverAlpha': { type: 'number', default: 0.42, min: 0, max: 1, step: 0.02, help: 'The river drawn over the painting (next scene)' },
   'crossing.soulHeight': { type: 'number', default: 150, min: 80, max: 220, step: 2, help: 'Soul on the boat (next scene)' },
 });
-
-const lerp = (a, b, k) => a + (b - a) * k;
 
 export class CrossingScene extends Phaser.Scene {
   constructor() {
@@ -86,15 +79,17 @@ export class CrossingScene extends Phaser.Scene {
     this.signParts = [];
     this.layout = worldLayout(state, Ferry);
 
-    this.night = new NightStage(this, state.destination ?? 'bg-starting-shore');
+    this.night = new NightStage(this, state.destination ?? 'bg-starting-shore', () => tune('boarding.backdropShift'));
+    this.water = new Water(this);
     this.world = this.add.container(0, 0);
-    this.drawRiver(state);
+    this.signRoot = this.add.container(0, 0).setScale(SIGNS.scale).setDepth(DEPTH.seated - 1);
+    this.drawStop(state, step);
     this.boat = this.add.container(this.layout.home.x, this.layout.home.y);
     this.world.add(this.boat);
     this.deck = new RiverBoat(this, 0, FEET, tune('art.boat.width') * tune('art.boat.deck'));
     this.boat.add(this.deck.root);
 
-    this.fog = this.add.rectangle(640, 360, 1280, 720, COLOR.muted, 0).setDepth(DEPTH.fogFront + 1);
+    this.fog = this.add.rectangle(640, 360, 1400, 840, COLOR.muted, 0).setDepth(DEPTH.fogFront + 1); // wider than the screen, for a shake
     this.bar = new Hud(this);
     this.tip = new HoverTip(this, DEPTH.hero + 1);
     this.panel = new DecisionPanel(this);
@@ -117,14 +112,16 @@ export class CrossingScene extends Phaser.Scene {
       this.deck = null; // update() can fire once more, after the boat has gone
     });
 
-    this.setView(step === 'fork' || step === 'review' ? this.layout.forkView : homeView());
-    this.placeBoat(step);
+    if (step === 'fork' || step === 'review') {
+      this.night.roamTo(0.5);
+      this.boat.x = this.layout.fork.x;
+    }
     this.render(state);
-    // From the Starting Shore the boat comes in from the left, after BoardingScene sailed it out.
+    // From the Starting Shore the boat comes in from the left: BoardingScene sailed it off to the right.
     if (step === 'prepare' && !state.destination) {
-      fadeIn(this);
-      this.boat.x -= 900;
-      this.tweens.add({ targets: this.boat, x: this.layout.home.x, duration: tune('crossing.enterMs'), ease: 'Cubic.Out' });
+      enterScene(this, MS.base);
+      this.boat.x = this.layout.back;
+      this.tweens.add({ targets: this.boat, x: this.layout.home.x, duration: tune('crossing.enterMs'), ease: 'Sine.Out' });
     }
   }
 
@@ -132,67 +129,32 @@ export class CrossingScene extends Phaser.Scene {
     if (!this.deck) return;
     const seconds = time / 1000;
     this.night.update(time, delta);
+    this.water.update(delta / 1000, seconds);
     this.deck.update(seconds);
     this.bar.update(seconds);
     for (const token of this.tokens.values()) swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
   }
 
-  // ---- the view ------------------------------------------------------------------------------
+  // ---- the stop ------------------------------------------------------------------------------
 
-  setView(v) {
-    this.view = { ...v };
-    this.world.setScale(v.zoom).setPosition(640 - v.x * v.zoom, 360 - v.y * v.zoom);
-  }
-
-  /** Moves the view to `to` over ms; onUpdate(k) runs each frame with k from 0 to 1 (eased). */
-  moveView(to, ms, ease, onUpdate, onComplete) {
-    const from = { ...this.view };
-    const p = { k: 0 };
-    this.tweens.add({
-      targets: p, k: 1, duration: ms, ease,
-      onUpdate: () => {
-        this.setView({ x: lerp(from.x, to.x, p.k), y: lerp(from.y, to.y, p.k), zoom: lerp(from.zoom, to.zoom, p.k) });
-        onUpdate?.(p.k);
-      },
-      onComplete,
-    });
-  }
-
-  placeBoat(step) {
-    const at = step === 'fork' || step === 'review' ? this.layout.approach : this.layout.home;
-    this.boat.setPosition(at.x, at.y);
-  }
-
-  // ---- the world -----------------------------------------------------------------------------
-
-  /** The river from the stop to the fork, both branches, the pier of the stop and its name. */
-  drawRiver(state) {
-    const { home, fork, branches } = this.layout;
-    const g = this.add.graphics();
-    this.world.add(g);
-    this.river = [g];
-    // Layers of narrowing water, so the river has soft banks over the painting instead of a hard edge.
-    const alpha = tune('crossing.riverAlpha') / RIVER_LAYERS.length;
-    for (const width of RIVER_LAYERS) {
-      g.lineStyle(RIVER.h * width, COLOR.deep, alpha);
-      g.lineBetween(home.x - 1400, home.y, fork.x, fork.y);
-      for (const b of branches) {
-        new Phaser.Curves.Spline(b.points.map((p) => new Phaser.Math.Vector2(p.x, p.y))).draw(g, 80);
-        // Level water past the branch end, where the curve has levelled off.
-        g.lineBetween(b.end.x + 900, b.end.y, b.end.x + 2400, b.end.y);
-      }
-    }
+  /** The pier and the name of the stop the boat is leaving. Under way there is only water. */
+  drawStop(state, step) {
+    this.stopParts = [];
+    if (step !== 'prepare') return;
     const pier = state.destination ? addPier(this) : null;
-    if (pier) this.world.add(pier);
-    this.world.add(this.add.text(PLACE_LABEL.x, PLACE_LABEL.y, placeName(state, Ferry, t), bodyText(22, CSS.muted)));
+    if (pier) this.stopParts.push(pier);
+    this.stopParts.push(this.add.text(PLACE_LABEL.x, PLACE_LABEL.y, placeName(state, Ferry, t), bodyText(22, CSS.muted)));
+    this.world.add(this.stopParts);
   }
 
-  /** A signpost at the fork: the destination's painting in a round frame, its name, fog cost and who wishes for it. */
+  /** A signpost in the water: the destination's painting in a round frame, its name, fog cost and who wishes for it. */
   drawSigns(state, step) {
     for (const p of this.signParts) p.destroy();
     this.signParts = [];
+    if (step !== 'fork' && step !== 'review') return;
     for (const sign of branchSigns(state, Ferry, t)) {
-      const at = this.layout.branches[sign.option].sign;
+      const spot = this.layout.signs[sign.option];
+      const at = { x: spot.x / SIGNS.scale, y: spot.y / SIGNS.scale };
       const edge = sign.picked ? COLOR.gold : sign.lethal ? COLOR.danger : WOOD.edge;
       const board = this.add.graphics();
       board.fillStyle(WOOD.post, 1).fillRect(at.x + SIGN.w / 2 - 80, at.y - SIGN.h / 2 - 30, 26, SIGN.h + 90);
@@ -215,14 +177,20 @@ export class CrossingScene extends Phaser.Scene {
       ];
       if (!key) parts.push(this.add.text(cx, at.y, '?', headText(80, CSS.gold)).setOrigin(0.5));
       if (sign.wishes) parts.push(this.add.text(left, top + 190, sign.wishes, bodyText(34, CSS.gold, { wordWrap: { width: room }, lineSpacing: -8 })));
-      this.world.add(parts);
+      this.signRoot.add(parts);
       this.signParts.push(...parts);
       const hit = this.add.zone(at.x, at.y, SIGN.w, SIGN.h).setInteractive({ useHandCursor: !!sign.action });
-      this.world.add(hit);
+      this.signRoot.add(hit);
       this.signParts.push(hit);
       hit.on('pointerover', (pointer) => this.showTip(pointer, sign.name, sign.detail));
       hit.on('pointerout', () => this.hideTip());
-      if (sign.action && (step === 'fork' || step === 'review')) hit.on('pointerdown', () => this.pickBranch(state, sign));
+      if (sign.action) hit.on('pointerdown', () => this.pickBranch(state, sign));
+    }
+    if (!this.signsUp) {
+      this.signsUp = true; // they rise out of the water once, not on every redraw
+      const y = this.signRoot.y;
+      this.signRoot.setAlpha(0).setY(y + 26);
+      this.tweens.add({ targets: this.signRoot, alpha: 1, y, duration: MS.base, ease: EASE.enter });
     }
   }
 
@@ -233,7 +201,7 @@ export class CrossingScene extends Phaser.Scene {
     for (const [id, token] of this.tokens) {
       if (ids.has(id)) continue;
       this.hideTip();
-      token.destroy();
+      fadeAway(token);
       this.tokens.delete(id);
     }
     for (const entry of entries) {
@@ -432,6 +400,7 @@ export class CrossingScene extends Phaser.Scene {
     if (!next) return this.dispatch(action); // shows the engine's reason
     const outcome = approachOutcome(state, next, Ferry, t);
     this.busy = true;
+    this.hand.lock(true);
     this.hideTip();
     this.hand.cancel();
     this.targetMode = null;
@@ -440,11 +409,20 @@ export class CrossingScene extends Phaser.Scene {
     if (outcome.lines.length) this.bar.toast(outcome.lines.join(' '), CSS.gold);
     const { entries } = boatEntries(next, Ferry);
     const arriving = entries.filter((e) => outcome.boarded.includes(e.id)).map((e) => this.addToken(e).setAlpha(0));
+    for (const e of entries) { // the others make room as the Long comes aboard
+      const token = this.tokens.get(e.id);
+      setLabelTier(token, e.tier);
+      this.moveToken(token, e);
+    }
     const sail = () => {
-      this.startRipples();
-      this.sail(this.layout.home, this.layout.approach, this.layout.forkView, tune('crossing.approachMs'), () => {
-        this.stopRipples();
+      const ms = tune('crossing.approachMs');
+      // The stop is left behind: it slides off the way the water goes.
+      if (this.stopParts.length) this.tweens.add({ targets: this.stopParts, x: '-=760', alpha: 0, duration: ms * 0.8, ease: EASE.move });
+      this.night.roamTo(0.5, ms);
+      this.tweens.add({ targets: this.boat, x: this.layout.fork.x, duration: ms, ease: EASE.move });
+      this.row(ms, () => {
         this.busy = false;
+        this.hand.lock(false);
         this.panel.slideIn();
         this.dispatch(action);
       });
@@ -453,34 +431,28 @@ export class CrossingScene extends Phaser.Scene {
     this.tweens.add({ targets: arriving, alpha: 1, duration: tune('crossing.boardMs'), onComplete: () => this.time.delayedCall(tune('crossing.eventMs'), sail) });
   }
 
-  /** The boat goes from `from` to `to` (a point or a path) while the view moves to `view`. */
-  sail(from, to, view, ms, done) {
-    const path = Array.isArray(to)
-      ? new Phaser.Curves.Spline(to.map((p) => new Phaser.Math.Vector2(p.x, p.y)))
-      : new Phaser.Curves.Line(new Phaser.Math.Vector2(from.x, from.y), new Phaser.Math.Vector2(to.x, to.y));
-    const bobPx = tune('crossing.bobPx');
-    const bobMs = tune('crossing.bobMs');
-    const startedAt = this.time.now;
-    this.moveView(view, ms, tune('crossing.travelEase'), (k) => {
-      const p = path.getPoint(k);
-      const bob = k < 1 ? bobPx * Math.sin(((this.time.now - startedAt) / bobMs) * Math.PI * 2) : 0;
-      this.boat.setPosition(p.x, p.y + bob);
-    }, done);
+  /** The ferryman rows for ms: the water, fog and foam go by. */
+  row(ms, done) {
+    const fx = this.night.fx;
+    this.tweens.add({ targets: fx, wind: -4, duration: ms * 0.3, hold: ms * 0.4, yoyo: true, ease: EASE.move });
+    this.foam = this.time.addEvent({ delay: tune('crossing.rippleMs'), loop: true, callback: () => this.leaveFoam() });
+    this.water.row(this.deck, ms, () => this.oarRing(), () => {
+      this.foam.remove();
+      done();
+    });
   }
 
-  startRipples() {
-    this.rippleTimer?.remove();
-    this.rippleTimer = this.time.addEvent({ delay: tune('crossing.rippleMs'), loop: true, callback: () => this.ripple() });
+  /** A ring where the oar bites, at the back of the boat, as each pull begins. */
+  oarRing() {
+    this.night.fx.ripple(this.boat.x + tune('art.boat.width') * 0.34, this.boat.y + FEET + this.deck.keel + 4, 1.5);
   }
 
-  stopRipples() { this.rippleTimer?.remove(); }
-
-  /** A ring on the water behind the boat, in screen space so it stays the right size at any zoom. */
-  ripple() {
-    const { zoom } = this.view;
-    const x = this.world.x + (this.boat.x - 250) * zoom;
-    const y = this.world.y + (this.boat.y + FEET + 30) * zoom;
-    this.night.fx.ripple(x, y, 1.4 * zoom);
+  /** Foam along the waterline, thicker behind the boat, on its left. */
+  leaveFoam() {
+    const half = tune('art.boat.width') / 2;
+    const y = this.boat.y + FEET + this.deck.keel;
+    this.water.wake(this.boat.x - half * 0.72, y + Phaser.Math.Between(-3, 7), 1.1);
+    if (Math.random() < 0.5) this.water.wake(this.boat.x + half * 0.72, y + 4, 0.6);
   }
 
   /** Confirm: compute the crossing, play it, then dispatch CONFIRM (see the note at the top). */
@@ -491,43 +463,60 @@ export class CrossingScene extends Phaser.Scene {
     const next = attempt(state, action, Ferry);
     if (!next) return this.dispatch(action);
     const outcome = crossingOutcome(state, next, Ferry, t);
-    const branch = this.layout.branches[state.pending.option];
     if (previewOption(state, Ferry, state.pending.option)?.fog >= 1) playSound(this, FOG);
     console.log(`[ferry] CrossingScene: crossing to ${outcome.to}, ${outcome.paid} Light${outcome.ended ? ', the lantern goes out' : ''}`);
     this.busy = true;
-    this.hand.root.setVisible(false); // no memory once the boat sails: the state must not change after the crossing was computed
+    this.hand.hide(); // no memory once the boat sails: the state must not change after the crossing was computed
     this.hideTip();
     this.hand.cancel();
     this.targetMode = null;
     this.clearOverlay();
     this.panel.slideOut();
     this.caption = this.add.text(640, 60, `${outcome.from}  ·  ${outcome.concealed ? '?' : outcome.to}`, headText(20, CSS.muted)).setOrigin(0.5).setDepth(DEPTH.ui);
-    this.tweens.add({ targets: this.signParts, alpha: 0, duration: 300 });
+    this.tweens.add({ targets: this.signRoot, x: '-=420', alpha: 0, duration: MS.slow * 2, ease: EASE.move }); // passed by, on the way
 
     const travelMs = tune('crossing.travelMs');
     const fogMs = tune('crossing.fogFadeMs');
-    const thickness = Math.min(0.6, tune('crossing.fogAlphaBase') + outcome.paid * tune('crossing.fogAlphaPerLight'));
-    this.tweens.add({ targets: this.fog, fillAlpha: thickness, duration: fogMs, ease: 'Sine.InOut', yoyo: true, hold: Math.max(0, travelMs - 2 * fogMs) });
+    const thickness = Math.min(0.82, tune('crossing.fogAlphaBase') + outcome.paid * tune('crossing.fogAlphaPerLight'));
+    this.tweens.add({ targets: this.fog, fillAlpha: thickness, duration: fogMs, ease: EASE.move, yoyo: true, hold: Math.max(0, travelMs * 0.72 - 2 * fogMs) });
+    this.night.fx.rollFog(tune('crossing.fogBanks'), fogMs);
+    this.time.delayedCall(travelMs * 0.72 - fogMs * 0.4, () => this.night.fx.rollFog(1, fogMs));
     this.time.delayedCall(travelMs / 2, () => this.loseLight(state, outcome));
-    this.startRipples();
-    this.sail(this.layout.approach, crossingPath(this.layout, branch.option), branch.view, travelMs, () => {
-      this.stopRipples();
-      this.arrive(next, outcome, branch, () => this.dispatch(action));
-    });
+    this.night.roamTo(1, travelMs);
+    if (!outcome.ended) {
+      this.time.delayedCall(travelMs * 0.52, () => this.showPlace(next)); // in the thick of the fog
+      this.tweens.add({ targets: this.boat, x: this.layout.home.x, delay: travelMs * 0.5, duration: travelMs * 0.5, ease: EASE.move });
+    }
+    this.row(travelMs, () => this.arrive(next, outcome, () => this.dispatch(action)));
   }
 
   /** The flames go out one by one, with a red edge and a small shake, and a "-N Light" line that floats up and fades. */
   loseLight(state, outcome) {
     this.bar.stepLight(outcome.lightBefore, outcome.lightAfter, Ferry.maxLight(state));
     const line = this.add.text(32, 118, outcome.lightLine, headText(22, outcome.paid ? CSS.danger : CSS.calm)).setDepth(DEPTH.ui);
-    this.tweens.add({ targets: line, y: 104, alpha: 0, delay: tune('crossing.lightLossMs'), duration: 1200, ease: 'Sine.In', onComplete: () => line.destroy() });
+    this.tweens.add({ targets: line, y: 104, alpha: 0, delay: tune('crossing.lightLossMs'), duration: MS.slow, ease: EASE.exit, onComplete: () => line.destroy() });
     if (!outcome.paid) return;
     edgeFlash(this);
     lossShake(this);
   }
 
+  /** In the thick of the fog the view becomes exactly what DeliveryScene draws, the painting and the pier. */
+  showPlace(next) {
+    const ms = tune('crossing.fogFadeMs');
+    if (this.textures.exists(next.destination)) {
+      const painting = this.add.image(640, 360 - tune('boarding.backdropShift'), next.destination).setDepth(DEPTH.backdrop + 0.5).setAlpha(0);
+      painting.setScale(Math.max(1280 / painting.width, 720 / painting.height) * (1 + (2 * tune('night.parallaxPx')) / 1280));
+      this.tweens.add({ targets: painting, alpha: 1, duration: ms, ease: EASE.move });
+    }
+    const pier = addPier(this);
+    if (pier) {
+      this.world.addAt(pier.setAlpha(0), this.world.getIndex(this.boat)); // behind the boat, which pulls up alongside it
+      this.tweens.add({ targets: pier, alpha: 1, duration: ms, ease: EASE.enter });
+    }
+  }
+
   /** The title card, who leaves and who boards; then the boat settles where DeliveryScene draws it and we dispatch. */
-  arrive(next, outcome, branch, done) {
+  arrive(next, outcome, done) {
     this.bar.render(next);
     this.caption.destroy();
     const titleMs = tune('crossing.titleMs');
@@ -536,33 +525,20 @@ export class CrossingScene extends Phaser.Scene {
     ];
     const lines = outcome.ended ? [] : outcome.lines;
     if (lines.length) card.push(this.add.text(640, 142, lines.join('\n'), bodyText(21, CSS.bone, { align: 'center', stroke: CSS.deep, strokeThickness: 4, wordWrap: { width: 900 } })).setOrigin(0.5, 0).setDepth(DEPTH.ui).setAlpha(0));
-    this.tweens.add({ targets: card, alpha: 1, duration: titleMs, ease: 'Sine.Out' });
+    this.tweens.add({ targets: card, alpha: 1, duration: titleMs, ease: EASE.enter });
     const hold = (after) => this.time.delayedCall(tune('crossing.arrivalHoldMs'), () => {
-      this.tweens.add({ targets: card, alpha: 0, duration: titleMs, ease: 'Sine.In', onComplete: () => { this.busy = false; after(); } });
+      this.tweens.add({ targets: card, alpha: 0, duration: titleMs, ease: EASE.exit, onComplete: () => { this.busy = false; after(); } });
     });
     if (outcome.ended) {
-      const dark = this.add.rectangle(640, 360, 1280, 720, COLOR.deep, 0).setDepth(DEPTH.fogFront + 2);
+      const dark = this.add.rectangle(640, 360, 1400, 840, COLOR.deep, 0).setDepth(DEPTH.fogFront + 2);
       this.tweens.add({ targets: dark, fillAlpha: 0.7, duration: tune('crossing.eventMs') });
       return hold(done);
     }
     const eventMs = tune('crossing.eventMs');
-    // The view settles on exactly what DeliveryScene draws: the destination's painting, the pier and the boat.
-    this.tweens.add({ targets: this.river, alpha: 0, duration: eventMs });
-    if (this.textures.exists(next.destination)) {
-      const painting = this.add.image(640, 360, next.destination).setDepth(DEPTH.backdrop + 0.5).setAlpha(0);
-      painting.setScale(Math.max(1280 / painting.width, 720 / painting.height) * (1 + (2 * tune('night.parallaxPx')) / 1280));
-      this.tweens.add({ targets: painting, alpha: 1, duration: eventMs, ease: 'Sine.InOut' });
-    }
-
     const leaving = outcome.departed.map((id) => this.tokens.get(id)).filter(Boolean);
     const { entries } = boatEntries(next, Ferry);
     const arriving = entries.filter((e) => outcome.boarded.includes(e.id)).map((e) => this.addToken(e).setAlpha(0));
     for (const e of entries) setBoardingBadge(this.tokens.get(e.id), shipBadge(e.actor, Ferry)); // a wish can change on arrival
-    const pier = addPier(this, branch.view.x - 640, branch.view.y - 360);
-    if (pier) {
-      this.world.addAt(pier.setAlpha(0), this.world.getIndex(this.boat)); // behind the boat
-      this.tweens.add({ targets: pier, alpha: 1, duration: eventMs });
-    }
     if (leaving.length) this.tweens.add({ targets: leaving, alpha: 0, y: '-=40', duration: eventMs });
     // The boat settles into DeliveryScene's seat order, so the scene change shows no jump.
     const settle = () => {
@@ -579,6 +555,6 @@ export class CrossingScene extends Phaser.Scene {
     this.leaving = true;
     this.input.enabled = false;
     if (state.phase === 'delivery') return this.router.exitDone();
-    fadeOut(this, () => this.router.exitDone());
+    leaveScene(this, () => this.router.exitDone());
   }
 }
