@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { Ferry } from '../ferry.js';
-import { fadeOutSound, fadeSound, playSound, queueAssets, soulArtIds } from '../preloader.js';
+import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { t } from '../text.js';
 import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
@@ -105,11 +105,9 @@ export class CrossingScene extends Phaser.Scene {
       this.render(s);
     };
     this.game.events.on('ferry-state', this.onState);
-    this.ambience = playSound(this, AMBIENCE, { loop: true, volume: 0 });
-    fadeSound(this.ambience, 1, MS.slow);
+    // The ambience (AMBIENCE) is the run's background loop now: the router starts it with the run.
     this.events.once('shutdown', () => {
       this.game.events.off('ferry-state', this.onState);
-      fadeOutSound(this.ambience, MS.slow);
       this.rippleTimer?.remove();
       this.deck = null; // update() can fire once more, after the boat has gone
     });

@@ -7,7 +7,7 @@
 // MEM-MOLY -> memory-moly.png); see src/asset-names.js for the rules and the alias table.
 import { figureIdFor, fileIdFor } from './asset-names.js';
 import { Ferry } from './ferry.js';
-import { COLOR, soulPlate } from './theme.js';
+import { COLOR, MS, soulPlate } from './theme.js';
 import { tune } from './tuning.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
@@ -109,11 +109,40 @@ export function fadeSound(sound, volume, ms, done = () => {}) {
   }, 30);
 }
 
-/** Fades a looping sound out, then stops and frees it. */
-export function fadeOutSound(sound, ms) {
-  fadeSound(sound, 0, ms, () => {
-    sound.stop();
-    sound.destroy();
+/**
+ * Plays a looping track that carries on where it left off: the sound manager is shared by every scene, so a
+ * scene that comes back (CrossingScene every round, TitleScene after a run) resumes the same sound instead of
+ * starting it again. Pair with fadeOutLoop on shutdown. `owner` is a scene or the game (both have cache and
+ * sound). fromStart plays it again from 0, for the start of a new run. Returns the sound, or null if missing.
+ */
+export function playLoop(owner, id, config, { fromStart = false } = {}) {
+  if (!owner.cache.audio.exists(id)) return null;
+  let s = owner.sound.get(id);
+  if (!s) {
+    s = owner.sound.add(id, { ...config, loop: true });
+    s.play();
+  } else if (fromStart) {
+    s.stop();
+    s.play();
+  } else if (s.isPaused) s.resume();
+  else if (!s.isPlaying) s.play();
+  return s;
+}
+
+/**
+ * playLoop that fades up to volume, from silence for a new or paused track. Cancels a fade-out still running,
+ * so a track that comes back mid-fade keeps playing instead of being paused by the old fade.
+ */
+export function fadeInLoop(owner, id, volume = 1, options) {
+  const s = playLoop(owner, id, { volume: 0 }, options);
+  fadeSound(s, volume, MS.slow);
+  return s;
+}
+
+/** Fades a track from playLoop out, then pauses it so the next fadeInLoop of the same id resumes it. */
+export function fadeOutLoop(sound) {
+  fadeSound(sound, 0, MS.slow, () => {
+    if (sound.isPlaying) sound.pause();
   });
 }
 
