@@ -57,7 +57,7 @@ defineTuning({
   'boarding.seatStep': { type: 'number', default: STAGE.seatStep, min: 40, max: 160, step: 1, help: 'Between seats' },
 });
 
-const PANEL = { w: 760, h: 164, left: -356, chipX: -282, chipStep: 108, chipW: 100, chipH: 26, seatX: 190, seatStep: 32, seatW: 26, seatH: 14 };
+const PANEL = { w: 760, h: 190, messageY: 92, buttonY: 128, noteY: 169, left: -356, chipX: -282, chipStep: 108, chipW: 100, chipH: 26, seatX: 190, seatStep: 32, seatW: 26, seatH: 14 };
 const REFLECTION_POINTS = 16;
 const REFLECTION_SQUASH = 0.5; // looked at from above the water, a reflection is shorter than the boat
 const REFLECTION_REACH = 0.58; // how far up the boat the reflection shows, as a share of the height to the waterline
@@ -274,12 +274,13 @@ export class BoardingScene extends Phaser.Scene {
     const heading = this.add.text(left, 24, t('boarding.heading'), headText(21)).setOrigin(0, 0.5);
     this.seatsLine = this.add.text(176, 24, '', bodyText(19)).setOrigin(1, 0.5);
     const aboard = this.add.text(left, 60, t('boarding.aboard'), bodyText(18, CSS.muted)).setOrigin(0, 0.5);
-    this.message = this.add.text(left, 102, '', bodyText(18, CSS.danger, { wordWrap: { width: 290 }, lineSpacing: -2 })).setOrigin(0, 0.5);
-    this.undoBtn = makeButton(this, 0, 102, 96, 36, t('boarding.undo'), () => this.undo());
-    this.clearBtn = makeButton(this, 128, 102, 136, 36, t('boarding.clearBoat'), () => this.clearBoat());
-    this.castBtn = makeButton(this, 282, 102, 148, 36, t('boarding.castOff'), () => this.act({ type: 'DEPART' }), { gold: true });
+    // The red message has its own line, centred over the buttons, which sit centred in a row.
+    this.message = this.add.text(0, PANEL.messageY, '', bodyText(18, CSS.danger, { align: 'center', wordWrap: { width: w - 48 }, lineSpacing: -2 })).setOrigin(0.5);
+    this.undoBtn = makeButton(this, -158, PANEL.buttonY, 96, 36, t('boarding.undo'), () => this.undo());
+    this.clearBtn = makeButton(this, -26, PANEL.buttonY, 136, 36, t('boarding.clearBoat'), () => this.clearBoat());
+    this.castBtn = makeButton(this, 136, PANEL.buttonY, 148, 36, t('boarding.castOff'), () => this.act({ type: 'DEPART' }), { gold: true });
     const note = t('boarding.shoreNote', { limit: Ferry.data.config.shoreAngerLimit });
-    const noteText = this.add.text(0, 143, note, bodyText(16, CSS.muted)).setOrigin(0.5);
+    const noteText = this.add.text(0, PANEL.noteY, note, bodyText(16, CSS.muted)).setOrigin(0.5);
     this.panel = this.add.container(tune('boarding.panelX'), tune('boarding.panelY'), [
       back, heading, this.seatsLine, aboard, this.message, this.undoBtn, this.clearBtn, this.castBtn, noteText,
     ]).setDepth(DEPTH.ui);
@@ -301,7 +302,7 @@ export class BoardingScene extends Phaser.Scene {
       if (hero && !this.tollMode) this.showTip(pointer, soulTitle(hero.type, Ferry), typeDetail(hero.type, Ferry, t));
     });
     hover.on('pointerout', () => this.tip.hide());
-    this.heroBox = this.add.container(640, 258, [
+    this.heroBox = this.add.container(640, 284, [ // just under the taller boarding panel
       back, hover, this.heroTitle, this.heroLine, this.acceptBtn, this.declineBtn, this.cancelBtn,
     ]).setDepth(DEPTH.hero).setVisible(false).setAlpha(0);
   }
@@ -370,8 +371,8 @@ export class BoardingScene extends Phaser.Scene {
       if (message.text) this.tweens.add({ targets: message, alpha: 0, duration: MS.fast, ease: EASE.enter, onComplete: () => message.setText('') });
       return;
     }
-    message.setText(text).setAlpha(0).setX(PANEL.left - 8);
-    this.tweens.add({ targets: message, alpha: 1, x: PANEL.left, duration: MS.fast, ease: EASE.enter });
+    message.setText(text).setAlpha(0).setX(-8);
+    this.tweens.add({ targets: message, alpha: 1, x: 0, duration: MS.fast, ease: EASE.enter });
     this.messageTimer = this.time.delayedCall(tune('boarding.messageMs'), () => this.say(''));
   }
 

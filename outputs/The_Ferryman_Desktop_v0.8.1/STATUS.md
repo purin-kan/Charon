@@ -1,5 +1,15 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Route choice from the bow (branch `v1.2-fork-view`, PR #54, Nov 7, 2026)
+
+Presentation only; `rules/` unchanged. After a stop: disembark, Approach the fork, the boat rows off to the right, then the view from the bow shows one route on each side as floating text (name, Light cost, who wishes for it; no "remaining"). Only the text is clickable; the picked route shows a small Confirm under it, and clicking the other side switches. Under it only a subtitle, nothing to click. The old river signs and the fork panel are gone. Buttons in the bottom panels and the boarding panel are centred, with the warning or message on its own line.
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated | `npm run check` | 11 of 11 |
+| Scenes (screenshots, real clicks in a hidden browser, not a playtest) | delivery to approach, fork, pick, switch, Confirm, arrival; boarding, hero offer, return, prepare | as intended, 0 console errors |
+| Played by a person | human | NOT_RUN |
+
 ## Memory hand and rewards (Nov 7, 2026)
 
 Presentation only; `rules/` unchanged. The memory hand moved from the top right to the left, under the Light plate (`hud.handX` 24, `hud.handY` 112), and grows to the right; the red status line sits below it. A memory earned at a stop shows as its art alone (`delivery.rewardArt` 200 px), no name, text or heading, then flies to the hand. A delivered soul now moves right, toward the pier, as it fades. After the Starting Shore the boat rows in to the centre (`crossing.prepareX` 640) for memories and passenger abilities; at a later stop it stays at the pier.

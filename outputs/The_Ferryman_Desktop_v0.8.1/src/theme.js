@@ -322,20 +322,21 @@ export class DecisionPanel {
     this.heading.setText(heading);
     this.body.setText(lines.filter(Boolean).join('\n'));
     for (const button of this.buttons) button.destroy();
-    let right = this.w / 2 - 24;
-    this.buttons = [...buttons].reverse().map((button) => {
-      const w = Math.max(96, button.label.length * 9 + 40);
+    // The buttons sit in a row centred under the text; the warning gets its own line above them.
+    const widths = buttons.map((button) => Math.max(96, button.label.length * 9 + 40));
+    const gap = 12;
+    let right = (widths.reduce((sum, w) => sum + w, 0) + gap * Math.max(0, widths.length - 1)) / 2;
+    this.buttons = [...buttons].reverse().map((button, i) => {
+      const w = widths[widths.length - 1 - i];
       const made = makeButton(this.scene, right - w / 2, this.h - 32, w, 36, button.label, button.onPress, { gold: button.gold }).setEnabled(button.enabled ?? true);
       made.hover = button.onHover;
       made.on('pointerover', (pointer) => made.hover?.(pointer));
       made.on('pointerout', () => made.hover?.(null));
-      right -= w + 12;
+      right -= w + gap;
       this.root.add(made);
       return made;
     });
-    // Beside the buttons when they leave room for it, otherwise on its own line above them.
-    const beside = right - this.left >= 300;
-    this.warning.setWordWrapWidth(beside ? right - this.left : this.w - 48).setY(beside ? this.h - 32 : this.h - 66).setText(warning ?? '');
+    this.warning.setWordWrapWidth(this.w - 48).setY(this.h - 66).setText(warning ?? '');
     if (changed) fadeInParts(this.scene, [this.heading, this.body, this.warning, ...this.buttons]);
   }
 

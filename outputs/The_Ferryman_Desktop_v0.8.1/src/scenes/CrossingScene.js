@@ -3,7 +3,7 @@ import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { fileIdFor } from '../asset-names.js';
 import { t } from '../text.js';
-import { bodyText, COLOR, CSS, DecisionPanel, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
+import { bodyText, COLOR, CSS, DecisionPanel, makeButton, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -14,8 +14,8 @@ import {
   crossingStep, placeName, purifyAction, soulDetail, worldLayout,
 } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
-import { DEPTH, NightStage, roundThumb } from './night-fx.js';
-import { PIER_ART, RiverBoat, WOOD, Water, addPier } from './river-boat.js';
+import { DEPTH, NightStage } from './night-fx.js';
+import { PIER_ART, RiverBoat, Water, addPier } from './river-boat.js';
 import { addBoardingSoul, fadeAway, setBoardingBadge, setLabelTier } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
@@ -36,8 +36,9 @@ const FOG = 'sfx-fog'; // once on confirming a route with fog 1 or more, before 
 const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long as the crossing screen is open (queued by BootScene)
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 const FORK_ART = 'bg-fork-choice';
+const SUBTITLE = { y: 680, size: 24 }; // the line under the left and right choice: words only, nothing to click
 // The view from the bow at a fork.
-const FORK = { signX: 200, signY: 330, w: 330, h: 124, thumb: 88, overscan: 1.12, fadeMs: 500, drift: 22, lean: 34, rock: 3, roll: 0.0035, turnPx: 170, pushIn: 1.45, turnRoll: 0.03 };
+const FORK = { signX: 230, signY: 330, w: 320, h: 110, bobPx: 6, bobMs: 1600, hoverScale: 1.05, overscan: 1.12, fadeMs: 500, drift: 22, lean: 34, rock: 3, roll: 0.0035, turnPx: 170, pushIn: 1.45, turnRoll: 0.03 };
 // The bow in FORK_ART, as a share of the image: the two gunwales run from the stem post down to the bottom edge.
 const BOW_OUTLINE = [[0.493, 0.47], [0.497, 0.465], [0.5, 0.468], [0.512, 0.468], [0.518, 0.56], [0.925, 1], [0.09, 1], [0.49, 0.56]];
 
@@ -221,6 +222,10 @@ export class CrossingScene extends Phaser.Scene {
     this.bar = new Hud(this);
     this.tip = new HoverTip(this, DEPTH.hero + 1);
     this.panel = new DecisionPanel(this);
+    // At the fork only a subtitle, so the view from the bow shows whole.
+    this.subtitle = this.add.text(640, SUBTITLE.y, '', bodyText(SUBTITLE.size, CSS.bone, {
+      align: 'center', stroke: '#05080c', strokeThickness: 4, shadow: { offsetX: 0, offsetY: 2, color: '#000', blur: 8, fill: true, stroke: true },
+    })).setOrigin(0.5).setDepth(DEPTH.ui).setVisible(false);
     this.hand = new MemoryHand(this, {
       compact: true,
       onTargets: (ids) => { this.targetMode = ids ? { kind: 'memory', ids } : null; this.render(this.registry.get('state')); },
@@ -292,31 +297,28 @@ export class CrossingScene extends Phaser.Scene {
       const left = sign.option === 0;
       const x = left ? FORK.signX : 1280 - FORK.signX;
       const y = FORK.signY;
-      const edge = sign.picked ? COLOR.gold : sign.lethal ? COLOR.danger : WOOD.edge;
-      const board = this.add.graphics();
-      board.fillStyle(sign.picked ? 0x3a2a1a : WOOD.plank, 0.94).fillRoundedRect(x - FORK.w / 2, y - FORK.h / 2, FORK.w, FORK.h, 12);
-      board.lineStyle(sign.picked ? 4 : 2, edge, 1).strokeRoundedRect(x - FORK.w / 2, y - FORK.h / 2, FORK.w, FORK.h, 12);
-      const cx = x - FORK.w / 2 + 16 + FORK.thumb / 2;
-      const key = sign.hidden || !sign.destination ? null : roundThumb(this, sign.destination);
-      const thumb = key
-        ? this.add.image(cx, y, key).setDisplaySize(FORK.thumb, FORK.thumb)
-        : this.add.circle(cx, y, FORK.thumb / 2, COLOR.panel).setStrokeStyle(2, COLOR.gold, 0.6);
-      const textX = cx + FORK.thumb / 2 + 14;
-      const room = x + FORK.w / 2 - textX - 12;
+      const color = sign.picked ? CSS.gold : sign.lethal ? CSS.danger : CSS.bone;
+      // Floating text over its side, no box: the place, its Light cost and who wishes for it. Shadowed to read on any painting.
+      const ink = (style) => ({ ...style, align: 'center', stroke: '#05080c', strokeThickness: 4, shadow: { offsetX: 0, offsetY: 2, color: '#000', blur: 8, fill: true, stroke: true } });
       const parts = [
-        board,
-        thumb,
-        this.add.text(textX, y - 46, sign.name, headText(20, sign.lethal ? CSS.danger : CSS.bone, { wordWrap: { width: room } })),
-        this.add.text(textX, y - 2, sign.fog, bodyText(18, sign.lethal ? CSS.danger : CSS.bone)),
+        this.add.text(0, -24, sign.name, headText(28, color, ink({ wordWrap: { width: FORK.w } }))).setOrigin(0.5),
+        this.add.text(0, 10, sign.cost, bodyText(22, color, ink({}))).setOrigin(0.5),
       ];
-      if (!key) parts.push(this.add.text(cx, y, '?', headText(36, CSS.gold)).setOrigin(0.5));
-      if (sign.wishes) parts.push(this.add.text(textX, y + 22, sign.wishes, bodyText(15, CSS.gold, { wordWrap: { width: room }, lineSpacing: -4 })));
-      const hit = this.add.zone(left ? 320 : 960, 460, 640, 520).setInteractive({ useHandCursor: !!sign.action });
-      hit.on('pointerover', (pointer) => { this.forkLean = left ? -1 : 1; this.showTip(pointer, sign.name, sign.detail); });
-      hit.on('pointerout', () => { this.forkLean = 0; this.hideTip(); });
-      if (sign.action) hit.on('pointerdown', () => this.pickBranch(state, sign));
-      for (const part of [...parts, hit]) part.setDepth(DEPTH.fogFront + 0.6);
-      this.signParts.push(...parts, hit);
+      if (sign.wishes) parts.push(this.add.text(0, 36, sign.wishes, bodyText(16, CSS.gold, ink({ wordWrap: { width: FORK.w }, lineSpacing: -4 }))).setOrigin(0.5, 0));
+      const review = sign.picked ? routeModel(state, Ferry, t).review : null;
+      if (review) { // Confirm floats under the picked route, not in the panel
+        const below = sign.wishes ? 82 : 56;
+        parts.push(makeButton(this, 0, below, 120, 30, review.confirm.label, () => this.guarded(() => this.cross()), { gold: true, size: 14 }));
+      }
+      const button = this.add.container(x, y, parts).setDepth(DEPTH.fogFront + 0.6).setSize(FORK.w, FORK.h);
+      this.tweens.add({ targets: button, y: y - FORK.bobPx, duration: FORK.bobMs, yoyo: true, repeat: -1, ease: 'Sine.InOut', delay: left ? 0 : FORK.bobMs / 2 });
+      if (sign.action && !review) {
+        button.setInteractive({ useHandCursor: true }); // only the button itself, not its half of the screen
+        button.on('pointerover', () => { this.forkLean = left ? -1 : 1; button.setScale(FORK.hoverScale); });
+        button.on('pointerout', () => { this.forkLean = sign.picked ? (left ? -1 : 1) : 0; button.setScale(1); });
+        button.on('pointerdown', () => this.pickBranch(state, sign));
+      }
+      this.signParts.push(button);
       if (sign.picked) this.forkLean = left ? -1 : 1;
     }
   }
@@ -432,6 +434,8 @@ export class CrossingScene extends Phaser.Scene {
     this.drawSigns(state, step);
     this.clearOverlay();
     this.drawForesight(state);
+    this.panel.root.setVisible(step === 'prepare');
+    this.subtitle.setVisible(step !== 'prepare');
     if (step === 'prepare') this.showPrepare(state);
     else if (step === 'review') this.showReview(state);
     else this.showFork();
@@ -460,22 +464,15 @@ export class CrossingScene extends Phaser.Scene {
   }
 
   showFork() {
-    this.panel.show({ heading: t('crossing.routeHeading'), lines: [t('crossing.pickBranch')] });
+    this.subtitle.setText(t('crossing.pickBranch')).setColor(CSS.bone);
   }
 
-  /** The review panel: the engine's fog numbers for the picked branch, then Back and Confirm. */
+  /** Review: the picked route waits for its floating Confirm; the subtitle asks, or warns. Picking the other side switches. */
   showReview(state) {
     const r = routeModel(state, Ferry, t).review;
     if (!r) return;
-    this.panel.show({
-      heading: `${r.heading}: ${r.name}`,
-      lines: [[r.breakdown, r.modifiers].filter(Boolean).join(' · '), r.cost],
-      warning: r.warning,
-      buttons: [
-        { label: r.back.label, onPress: () => this.guarded(() => this.routeAction(r.back.action)) },
-        { label: r.confirm.label, gold: true, onPress: () => this.guarded(() => this.cross()) },
-      ],
-    });
+    // A warning (a crossing that would put the lantern out) takes the line, in red.
+    this.subtitle.setText(r.warning || t('crossing.crossTo', { name: r.name })).setColor(r.warning ? CSS.danger : CSS.bone);
   }
 
   guarded(fn) {
@@ -595,7 +592,7 @@ export class CrossingScene extends Phaser.Scene {
       this.row(ms, () => {
         this.busy = false;
         this.hand.lock(false);
-        this.panel.slideIn();
+        this.subtitle.setAlpha(1);
         this.dispatch(action);
       });
     };
@@ -648,7 +645,7 @@ export class CrossingScene extends Phaser.Scene {
     this.hand.cancel();
     this.targetMode = null;
     this.clearOverlay();
-    this.panel.slideOut();
+    this.tweens.add({ targets: this.subtitle, alpha: 0, duration: MS.base, ease: EASE.exit });
     this.caption = this.add.text(640, 60, `${outcome.from}  ·  ${outcome.concealed ? '?' : outcome.to}`, headText(20, CSS.muted)).setOrigin(0.5).setDepth(DEPTH.ui);
     this.tweens.add({ targets: this.signParts, alpha: 0, duration: MS.base, ease: EASE.exit }); // the bow view's boards
     this.sailForkView(state.pending.option, tune('crossing.travelMs'));
