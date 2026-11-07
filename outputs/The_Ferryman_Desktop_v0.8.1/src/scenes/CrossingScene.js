@@ -3,7 +3,7 @@ import { Ferry } from '../ferry.js';
 import { playSound, queueAssets, soulArtIds } from '../preloader.js';
 import { fileIdFor } from '../asset-names.js';
 import { t } from '../text.js';
-import { bodyText, COLOR, CSS, DecisionPanel, makeButton, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
+import { bodyText, COLOR, CSS, DecisionPanel, fadeInParts, makeButton, drawPanel, EASE, edgeFlash, enterScene, headText, leaveScene, lossShake, MS } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { Hud } from '../components/Hud.js';
 import { MemoryHand } from '../components/MemoryHand.js';
@@ -37,7 +37,8 @@ const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long a
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 const BOW_ART = 'sprite-boat-bow'; // Kanyakorn-goya's front view of the gold boat, transparent above it (1546 x 720)
 const BOW_SIZE = { w: 1546, h: 720 };
-const SUBTITLE = { y: 680, size: 24 }; // the line under the left and right choice: words only, nothing to click
+const CREW = { feetY: 712, step: 92 }; // the souls aboard, standing on the deck at the bottom centre of the bow view
+const SUBTITLE = { y: 44, size: 24 }; // the line under the left and right choice: words only, nothing to click
 // The view from the bow at a fork.
 const FORK = { signX: 230, signY: 330, w: 320, h: 110, bobPx: 6, bobMs: 1600, hoverScale: 1.05, overscan: 1.12, fadeMs: 500, drift: 22, lean: 34, rock: 3, roll: 0.0035, turnPx: 170, pushIn: 1.45, turnRoll: 0.03 };
 
@@ -227,6 +228,7 @@ export class CrossingScene extends Phaser.Scene {
     const signs = branchSigns(state, Ferry, t);
     const shown = (option) => { const sign = signs.find((s) => s.option === option); return sign?.hidden ? null : sign?.destination ?? null; };
     this.showForkView(forkTexture(this, shown(0), shown(1)));
+    this.drawCrew(state);
     for (const sign of signs) {
       const left = sign.option === 0;
       const x = left ? FORK.signX : 1280 - FORK.signX;
@@ -273,6 +275,42 @@ export class CrossingScene extends Phaser.Scene {
 
   hideForkView() {
     this.forkView?.setVisible(false).setAlpha(0);
+    this.clearCrew();
+  }
+
+  /** Who is aboard, standing on the deck in the bow view: names, wish marks and Anger, with the full detail on hover. */
+  drawCrew(state) {
+    const { entries } = boatEntries(state, Ferry);
+    const ids = entries.map((e) => e.id).join();
+    this.crew ??= [];
+    if (this.crewIds === ids) {
+      for (const token of this.crew) setBoardingBadge(token, shipBadge(token.entry.actor, Ferry));
+      return;
+    }
+    this.clearCrew();
+    this.crewIds = ids;
+    const left = 640 - ((entries.length - 1) * CREW.step) / 2;
+    this.crew = entries.map((entry, i) => {
+      const token = addBoardingSoul(this, { ...entry, x: left + i * CREW.step, y: CREW.feetY }, tune('crossing.soulHeight'));
+      token.entry = entry;
+      token.setDepth(DEPTH.fogFront + 0.55); // over the bow, under the route text
+      setBoardingBadge(token, shipBadge(entry.actor, Ferry));
+      token.on('pointerover', (pointer) => {
+        const now = this.registry.get('state');
+        const actor = now.boat.find((x) => x.id === entry.id) ?? entry.actor;
+        const d = soulDetail(now, actor, Ferry, t);
+        this.showTip(pointer, d.title, d.lines);
+      });
+      token.on('pointerout', () => this.hideTip());
+      fadeInParts(this, [token], MS.base);
+      return token;
+    });
+  }
+
+  clearCrew() {
+    for (const token of this.crew ?? []) token.destroy();
+    this.crew = [];
+    this.crewIds = null;
   }
 
   /** The look from the bow: the view drifts with the pointer and rocks gently, as if the boat rode the water. */
@@ -583,6 +621,7 @@ export class CrossingScene extends Phaser.Scene {
     this.caption = this.add.text(640, 60, `${outcome.from}  ·  ${outcome.concealed ? '?' : outcome.to}`, headText(20, CSS.muted)).setOrigin(0.5).setDepth(DEPTH.ui);
     this.tweens.add({ targets: this.signParts, alpha: 0, duration: MS.base, ease: EASE.exit }); // the bow view's boards
     this.sailForkView(state.pending.option, tune('crossing.travelMs'));
+    this.tweens.add({ targets: this.crew, alpha: 0, duration: MS.base, ease: EASE.exit }); // back to the boat under way
 
     const travelMs = tune('crossing.travelMs');
     const fogMs = tune('crossing.fogFadeMs');

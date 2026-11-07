@@ -91,11 +91,11 @@ export function soulTitle(type, Ferry) {
 export function typeDetail(type, Ferry, t, skipQuests = []) {
   const def = Ferry.data.souls.find((s) => s.id === type) ?? {};
   const memory = Ferry.data.memories.find((m) => m.id === def.memory);
-  const lines = [];
+  // The memory first, with the other short facts; then what the soul does, then its quests.
+  const lines = [memory ? t('crossing.detailGives', { memory: memory.name }) : t('crossing.detailNoMemory')];
   if (def.text) lines.push(def.text);
   if (type === 'SOUL-PRIEST') lines.push(t('crossing.detailPurify'));
   if (TRIO.includes(type)) lines.push(t('crossing.detailTrio'));
-  lines.push(memory ? t('crossing.detailGives', { memory: memory.name, text: memory.text }) : t('crossing.detailNoMemory'));
   for (const quest of Ferry.data.quests.filter((q) => q.roles.includes(type) && !skipQuests.includes(q.id))) {
     const partners = quest.roles.filter((r) => r !== type).map((r) => soulName(r, Ferry));
     lines.push(partners.length
@@ -109,7 +109,7 @@ export function typeDetail(type, Ferry, t, skipQuests = []) {
 export function soulDetail(state, actor, Ferry, t) {
   const lines = [
     `${t('common.wish')}: ${destinationName(Ferry.wish(actor), Ferry)}`,
-    `${t('common.anger')} ${actor.anger}/${Ferry.data.config.shipAngerLimit}`,
+    `${t('common.anger')}: ${actor.anger}/${Ferry.data.config.shipAngerLimit}`,
   ];
   if (Ferry.isTainted(actor) && !actor.origin) lines.push(t('crossing.detailLevel', { level: actor.level }));
   const active = state.quests.filter((x) => x.status === 'active' && x.participants.includes(actor.id));

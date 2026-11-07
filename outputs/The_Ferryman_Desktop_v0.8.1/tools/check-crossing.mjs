@@ -152,9 +152,9 @@ check('a concealed branch says so', veiledSigns.some((s) => s.hidden && s.name =
 const cook = prep.boat.find((x) => x.type === 'SOUL-COOK');
 const cookDetail = soulDetail(prep, cook, Ferry, t);
 check('a soul hover names it with its personal name', cookDetail.title.startsWith('Cook ('));
-check('a soul hover shows its wish, Anger, memory and quest', ['Wish:', 'Anger', 'Gives', 'A shared meal:'].every((k) => cookDetail.lines.some((l) => l.startsWith(k))));
+check('a soul hover shows its wish, Anger, memory and quest', ['Wish:', 'Anger:', 'Memory:', 'A shared meal:'].every((k) => cookDetail.lines.some((l) => l.startsWith(k))));
 const longDetail = soulDetail(withLong, longAboard, Ferry, t);
-check('a Long hover shows its level and its text', longDetail.lines.includes(`Level ${longAboard.level}`) && longDetail.lines.includes(Ferry.data.souls.find((s) => s.id === longAboard.type).text));
+check('a Long hover shows its level and its text', longDetail.lines.includes(`Level: ${longAboard.level}`) && longDetail.lines.includes(Ferry.data.souls.find((s) => s.id === longAboard.type).text));
 // Shore hovers (BoardingScene): what each kind of soul does, before it boards.
 const questLine = (id) => Ferry.data.quests.find((q) => q.id === id);
 const motherLines = typeDetail('SOUL-MOTHER', Ferry, t);

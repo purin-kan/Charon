@@ -1,5 +1,15 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Crew in the bow view and clearer soul info (Nov 7, 2026)
+
+Presentation only; `rules/` unchanged. At the left and right choice the souls aboard stand at the bottom centre of the bow view, with their names, wish marks and Anger, and hover detail; the subtitle moved to the top centre. The hover box now lays out Wish, Anger (coloured by how close to the limit) and Memory as labelled rows, the memory as its name only ("Memory: Fog Shield"), then rules and quests with the quest name in gold. `check-crossing.mjs` now expects "Anger:" and "Memory:".
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated | `npm run check` | 11 of 11 |
+| Scenes (screenshots, hidden browser, not a playtest) | fork with three souls, hovering Child and Mason | as intended, 0 console errors |
+| Played by a person | human | NOT_RUN |
+
 ## Route choice from the bow (branch `v1.2-fork-view`, PR #54, Nov 7, 2026)
 
 Presentation only; `rules/` unchanged. After a stop: disembark, Approach the fork, the boat rows off to the right, then the view from the bow shows one route on each side as floating text (name, Light cost, who wishes for it; no "remaining"). Only the text is clickable; the picked route shows a small Confirm under it, and clicking the other side switches. Under it only a subtitle, nothing to click. The old river signs and the fork panel are gone. Buttons in the bottom panels and the boarding panel are centred, with the warning or message on its own line.
