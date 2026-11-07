@@ -66,14 +66,14 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-30 | Integration check | 2026-11-06 (morning) | purin-kan | VarisPah | T-08, T-11, T-12, T-16, T-17, T-19, T-20, T-21, T-22, T-45 | .exe | Must | Done | From Nov 3, scene pull requests merged as they land and breaks reported to their owners; on Nov 6, a full playthrough boot to game over across multiple cycles; save and load confirmed |
 | T-31 | Scope-cut triage | 2026-11-06 (midday) | Jaoguya | VarisPah, purin-kan | T-30 | Game | Should | Not started | Cut candidates flagged by Nov 5 from the rolling integration; unstable hero encounters or Polong variants cut or kept, with VarisPah agreeing to any cut; any `engine.js` change (and any test it breaks) followed by `build-content.js` and `quest-check.js` reruns, both passing |
 | T-32 | Release candidate build | 2026-11-06 (end of day) | purin-kan | | T-29 | .exe | Must | Not started | Release candidate `.exe` built and handed to VarisPah and bosthanapatw |
-| T-33 | Balance playtests | 2026-11-06 (end of day) | VarisPah | | T-30 | Game | Should | Not started | Observations of Light, anger and fog logged in the status file; proposed `content.json` changes sent to the group |
+| T-33 | Balance playtests | 2026-11-06 (end of day) | VarisPah | | T-30 | Game | Should | Done | Observations of Light, anger and fog logged in the status file; proposed `content.json` changes sent to the group |
 
 ## Phase 5: QA, Balance & Polish
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
 | T-34 | `.exe` testing | 2026-11-07 (morning) | Tinpatpun | VarisPah | T-32 | .exe | Must | Not started | Release candidate tested on a second Windows machine; SmartScreen, asset pathing, memory stability and save persistence recorded; untested items marked `NOT_RUN` |
-| T-35 | Balance tuning | 2026-11-07 (midday) | VarisPah | | T-33 | Game | Should | Not started | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun |
+| T-35 | Balance tuning | 2026-11-07 (midday) | VarisPah | | T-33 | Game | Should | Done | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun |
 | T-36 | Bug fixes | 2026-11-07 (midday) | Jaoguya | SupaOhm | T-30, T-34 | Game | Must | Not started | Starts Nov 6 from the integration check findings; issues from the Nov 7 test log added; each owner fixes their own scenes |
 | T-37 | Visual polish | 2026-11-07 (midday) | Tinpatpun | SupaOhm | T-29 | Game | Nice | Not started | Scene transitions and screen shake in; particle effects only once the bug list is empty; anything not merged before the T-44 build is Cut |
 | T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | In progress | Final slides cover all three required parts |
