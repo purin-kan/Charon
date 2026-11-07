@@ -125,7 +125,7 @@ NOT_RUN: all hand checks by a person (board 4, try a 5th, remove one, Undo, Clea
 
 Notes: the grey line's "gain 1 anger" is fixed text, since the engine has no config value for it (`returnShore` does `x.anger++`); `{limit}` comes from config. The painting moves up 110 px to clear the panel, which crops the moon; `boarding.backdropShift` changes that. `boarding.dropPadding` was removed with the drag code. Bob size and speed in the F2 panel apply to new souls only.
 
-## T-33 balance playtests (VarisPah, Nov 6, Windows 11)
+## T-33 balance playtests and T-35 result (VarisPah, Nov 6 and 7, Windows 11)
 
 Played by hand with `npm start` (separate saves), plus two bot simulations. These are one person's runs, not a team playtest.
 
@@ -138,21 +138,23 @@ Played by hand with `npm start` (separate saves), plus two bot simulations. Thes
 | `t-35-balance` (#50, first commit) | 7 Light, tolls -1, return +2, increase still from cycle 6 | Reached **cycle 5** (4 returns): Light fell slowly, 7 → 6 → 5 → 4 → 4. Fog Shield cut Tartarus from 2 to 1. Trim and the Long Hollow choice came up. Game over when the Farmer became a Wraith. "A lot easier than before while being challenging" |
 | `boarding-heracles` test state, cycle 9 | as above | Heracles works. The lantern went out after 3 crossings: 1 to take the hero, Asphodel 2, Styx 2 (cycle increase plus a Long's fog) |
 | `t-35-balance` (#50, with the cycle 9 increase) | 7 Light, tolls -1, return +2, increase from cycle 9 | Reached **cycle 5** again (4 returns). Light stayed high: full at two returns (the +2 was wasted once) and never below 3 at a return. Trim came up 4 times. Cycle 5's trip took 9 crossings and the Merchant's wish (Styx) never came up, so his Anger reached the limit: Wraith, lantern out. The cycle 9 increase was not reached, so it is not tested by hand |
+| #49 local merge with `main` (Nov 6) | as `main` after #50 | Reached **cycle 5**; game over when a Long Burden became a Wraith. No errors |
+| `main` after #46 (Nov 6) | as above | Reached **cycle 4**. From cycle 3 a Long aboard made Styx and Acheron cost 1 each. The last stop lost 3 Light at once (Wraiths or early drops), and the Bard became a Wraith |
+| `main` at `33bf7ef`, Boat Space test (Nov 7) | as above, from a temporary boarding state with Boat Space in hand (removed afterwards) | Boat Space played from the Boarding memory hand: seats went from 4 to 5. No errors |
+| `main` at `33bf7ef` (Nov 7) | as above | Reached **cycle 3**: Elysium and Tartarus (2 each) in cycles 1 and 3, plus Wraiths, put the lantern out |
+| `main` at `33bf7ef` (Nov 7) | as above | Reached **cycle 6**. Odysseus was offered and his quest (Tiresias's choice) worked; the lantern went out at Asphodel. No errors |
 
 **Observations**
 * **Light:** under the old rules, a trip needs 3 to 5 forks at about 1 Light each, and a return gives back 1, so the lantern goes out in cycle 1 to 3. With the new values it runs down over about 5 cycles, and in the last run it was no longer the limit.
 * **Fog:** a fork offering two expensive routes forced 2 or 3 Light whatever the choice (old rules). Fog Shield matters on expensive routes. From cycle 9, Longs add fog on top of the cycle increase, which made the late game a wall.
-* **Anger:** once routes are cheap, Anger becomes the main pressure. Stalling on free Haven routes doesn't work, because waiting souls keep getting angrier until they become Wraiths. Both runs on the new values ended in cycle 5 from Anger: a soul whose wish route is not offered during a long trip reaches the Anger limit.
+* **Anger:** once routes are cheap, Anger becomes the main pressure. Stalling on free Haven routes doesn't work, because waiting souls keep getting angrier until they become Wraiths. Most runs on the new values ended from Anger or Wraiths (one ended from Light): a soul whose wish route is not offered during a long trip reaches the Anger limit.
 * **Simulations (bots, not playtests):** my bot (1,000 seeds) went from a median of 2 cycles to 5 with the new values. purin-kan's study on #45 (best of 36 strategies, 5,000 seeds): good players go from a median of cycle 2 to cycle 6, and to cycle 8 with the increase moved to cycle 9, while novices stay at cycle 2.
 
 **Changes proposed to the group:** on #45 (Jaoguya, purin-kan) and in #50: 7 Light, tolls -1, return +2, route increase from cycle 9 and 15.
 
-**Open for T-35:**
-* the cycle 9 change has not been played by hand past cycle 5
-* runs ending from Anger after long trips: whether to ease it (an earlier drop-off costs 1 Light today; Calm; the boat Anger limit, which did not help purin-kan's bot)
-* return +3 or 8 Light, only if still too hard
-* the hero no-toll idea (#45 part 2)
-* a full boat being a trap (purin-kan's finding)
+**T-35 result (Nov 7):** the #50 values are final for submission (decision on #38). Six hand runs on them ended in cycles 3, 4, 5, 5, 5 and 6; Tartarus and Elysium at 2 Light can hurt when wishes stack up, but it is doable with planning, and a careful run reaches the heroes. Elysium 2 to 1 was simulated (my bot, 2,000 seeds: 64% of runs reach cycle 6 instead of 43%, median cycle 6 instead of 5) and not taken.
+
+**After submission:** the hero no-toll idea (#45 part 2), a full boat being a trap (purin-kan's finding), easing runs that end from Anger after long trips.
 
 ## Verified: T-16 memory UI and T-17 GameOverScene (Jaoguya, Nov 1, 2026)
 
