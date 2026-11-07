@@ -15,7 +15,7 @@ defineTuning({
   'art.soul.fill': { type: 'number', default: 1.24, min: 0.5, max: 2, step: 0.01, help: 'Soul image against its frame height' },
   'art.shoreDock.x': { type: 'number', default: 295, min: 0, max: 640, step: 1, help: 'Middle of the long dock on the starting shore' },
   'art.shoreDock.width': { type: 'number', default: 530, min: 200, max: 1000, step: 2, help: 'Long dock width on the starting shore' },
-  'art.pier.x': { type: 'number', default: 0, min: 0, max: 400, step: 1, help: 'Gap between the pier at a stop and the right screen edge' },
+  'art.pier.x': { type: 'number', default: -50, min: -400, max: 400, step: 1, help: 'Gap between the pier at a stop and the right screen edge; below 0 it runs past the edge' },
   'art.pier.y': { type: 'number', default: 500, min: 300, max: 720, step: 1, help: 'Where souls stand on the pier at a stop' },
   'art.pier.width': { type: 'number', default: 440, min: 200, max: 1000, step: 2, help: 'Pier image width on screen' },
   'art.boat.width': { type: 'number', default: 768, min: 200, max: 1280, step: 2, help: 'Boat image width on screen' },
