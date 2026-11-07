@@ -7,11 +7,8 @@ export const TEXT = {
   newRun: 'Start a new run', // gameOver.newRun
   questsHeading: 'Quests',
   noQuests: 'No quests were started on this run.',
-  more: (n) => `+${n} more`,
   status: { completed: 'Done', failed: 'Failed', active: 'Unfinished' },
 };
-
-export const MAX_QUEST_ROWS = 8;
 
 function questName(Ferry, definitionId) {
   return Ferry.data.quests.find((q) => q.id === definitionId)?.name ?? definitionId;
@@ -19,23 +16,27 @@ function questName(Ferry, definitionId) {
 
 /** Everything GameOverScene shows. Counters are decimal strings in the engine, shown as they are. */
 export function gameOverView(state, Ferry) {
-  const quests = state.quests.map((q) => ({
-    id: q.id,
-    name: questName(Ferry, q.definitionId),
-    status: q.status,
-    label: TEXT.status[q.status] ?? q.status,
-    reason: q.status === 'failed' && q.reason ? q.reason : '',
-    cycle: q.cycle,
-  }));
-  const completedQuests = quests.filter((q) => q.status === 'completed').length;
-  const shown = quests.slice(0, MAX_QUEST_ROWS);
+  // Every quest is listed. A quest done (or failed) more than once is one row with a count, so the list stays short.
+  const quests = [];
+  for (const q of state.quests) {
+    const name = questName(Ferry, q.definitionId);
+    const same = quests.find((x) => x.name === name && x.status === q.status);
+    const reason = q.status === 'failed' && q.reason ? q.reason : '';
+    if (same) {
+      same.count += 1;
+      same.label = `${TEXT.status[q.status] ?? q.status} ×${same.count}`;
+      if (reason) same.reason = reason;
+      continue;
+    }
+    quests.push({ id: q.id, name, status: q.status, count: 1, label: TEXT.status[q.status] ?? q.status, reason, cycle: q.cycle });
+  }
+  const completedQuests = state.quests.filter((q) => q.status === 'completed').length;
   return {
     heading: TEXT.heading,
     summary: TEXT.summary({ cycles: state.completed, deliveries: state.deliveries, quests: completedQuests }),
     ending: state.ending ?? '',
     reached: `Reached cycle ${state.cycle}, round ${state.round}`,
-    quests: shown,
-    more: quests.length > shown.length ? TEXT.more(quests.length - shown.length) : '',
+    quests,
     questNote: quests.length ? '' : TEXT.noQuests,
   };
 }

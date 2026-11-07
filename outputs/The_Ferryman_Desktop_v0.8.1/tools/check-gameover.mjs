@@ -4,7 +4,7 @@ import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { gameOverView, MAX_QUEST_ROWS } from '../src/scenes/gameover-layout.js';
+import { gameOverView } from '../src/scenes/gameover-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
 const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'src', 'dev', 'fixtures');
@@ -32,12 +32,14 @@ check(v.quests.length === 3 && v.quests[0].name === Ferry.data.quests[0].name, '
 check(v.quests.map((q) => q.label).join(',') === 'Done,Failed,Unfinished', 'status labels', v.quests.map((q) => q.label).join(','));
 check(v.quests[1].reason === 'trip ended before completion' && v.quests[0].reason === '', 'failure reason only on failed quests');
 check(/· 1 quests completed$/.test(v.summary), 'completed quests counted', v.summary);
-check(v.questNote === '' && v.more === '', 'no note or overflow with 3 quests');
+check(v.questNote === '', 'no note with 3 quests');
 
-// 3. Many quests: rows capped, the rest summarised.
-const many = { ...ended, quests: Array.from({ length: MAX_QUEST_ROWS + 3 }, (_, i) => quest(i, 'failed', 'x')) };
+// 3. Many quests: every one is shown, and repeats of the same quest and result share a row with a count.
+const many = { ...ended, quests: Array.from({ length: ids.length + 3 }, (_, i) => quest(i % ids.length, 'failed', 'x')) };
 v = gameOverView(many, Ferry);
-check(v.quests.length === MAX_QUEST_ROWS && v.more === '+3 more', `rows capped at ${MAX_QUEST_ROWS}`, v.more);
+const listed = v.quests.reduce((n, q) => n + q.count, 0);
+check(listed === many.quests.length && v.quests.length === ids.length, 'every quest listed, repeats grouped', `${v.quests.length} rows for ${listed}`);
+check(v.quests.filter((q) => q.count === 2).every((q) => q.label === 'Failed ×2') && v.quests.some((q) => q.count === 2), 'a repeat shows its count', v.quests.map((q) => q.label).join(','));
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nAll game-over checks passed');
 process.exit(bad ? 1 : 0);

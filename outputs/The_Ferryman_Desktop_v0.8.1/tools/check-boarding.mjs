@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import {
   DESTINATION_COLORS, STAGE, aboardChips, arcPoint, boatSway, boatZone, clearActions, flames, heroPrompt, lastBoarded, layoutBoarding,
-  layoutStage, nextLongName, panelButtons, ridePoint, seatBar, shipBadge, soulBadge, soulFacts, soulName, springStep, statusLine, tailOffset, tokenLabels,
+  layoutStage, nextLongName, panelButtons, ridePoint, seatBar, shipBadge, soulBadge, soulFacts, soulName, springStep, statusLine, tokenLabels,
 } from '../src/scenes/boarding-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -229,9 +229,5 @@ for (let i = 0; i < 600; i++) spring = springStep(spring, 1 / 60, 40, 5);
 check('the boat settles after a dip', near(spring.value, 0, 0.01) && near(spring.velocity, 0, 0.05));
 let hitch = springStep({ value: 8, velocity: 0 }, 5, 40, 5);
 check('a long frame does not throw the boat', Math.abs(hitch.value) <= 8);
-check('the head and chest of a soul hold still', tailOffset(0, 3, 1, 10, 2) === 0 && tailOffset(0.45, 3, 1, 10, 2) === 0);
-let reach = 0;
-for (let t = 0; t < 20; t += 0.05) reach = Math.max(reach, Math.abs(tailOffset(1, t, 1, 10, 2)));
-check('the tail tip sways up to its tuned size', reach <= 10 && reach > 9);
 
 process.exit(bad ? 1 : 0);

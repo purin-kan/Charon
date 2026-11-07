@@ -53,8 +53,9 @@ check('labels use the ship Anger limit', entryOf(open, leaver.id).labels.anger.e
 
 const marked = layoutDelivery(match, [leaver.id], Ferry);
 const spot = entryOf(marked, leaver.id);
-const ashore = (e) => e.y === SHORE_Y && e.x >= STAGE.shoreLeft && e.x <= STAGE.shoreLeft + 416;
-check('a marked soul stands on the pier', spot.area === 'shore' && ashore(spot));
+// The pier is on the right, at the screen edge: a soul ashore stands right of everyone still aboard, inside the view.
+const ashore = (e) => e.y === SHORE_Y && e.x <= 1280 && marked.entries.every((x) => x.area === 'shore' || x.x < e.x);
+check('a marked soul stands on the pier, right of the boat', spot.area === 'shore' && ashore(spot));
 check('the others keep their seats', entryOf(marked, stayer.id).x === entryOf(open, stayer.id).x);
 
 // Souls with no seat ride on the deck and must not stack on anyone.

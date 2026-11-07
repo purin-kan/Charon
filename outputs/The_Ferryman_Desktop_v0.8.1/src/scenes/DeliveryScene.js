@@ -15,7 +15,7 @@ import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { showOutcome } from './outcome-panel.js';
 import { PIER_ART, RiverBoat, Water, addPier } from './river-boat.js';
-import { addBoardingSoul, fadeAway, LABEL_TIER_PX, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, fadeAway, LABEL_TIER_PX, setBoardingBadge } from './soul-token.js';
 
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 
@@ -95,7 +95,6 @@ export class DeliveryScene extends Phaser.Scene {
     const pivot = { x: this.boat.x, y: this.boat.y };
     const settle = Math.min(1, (delta / 1000) * tune('delivery.rideEase'));
     for (const token of this.tokens.values()) {
-      swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
       token.riding += ((token.onBoat ? 1 : 0) - token.riding) * settle;
       const at = ridePoint(token, pivot, root.rotation, { x: 0, y: root.y - pivot.y });
       token.parts.ride.setPosition((at.x - token.x) * token.riding, (at.y - token.y) * token.riding).setRotation(root.rotation * token.riding);
@@ -227,7 +226,6 @@ export class DeliveryScene extends Phaser.Scene {
   addToken(entry) {
     const token = addBoardingSoul(this, { ...entry, y: entry.y + FEET }, STAGE.soulHeight);
     token.parts.shadow.setAlpha(0);
-    startBreathing(this, token);
     token.goal = { x: entry.x, y: entry.y };
     token.onBoat = entry.area === 'seat';
     token.riding = token.onBoat ? 1 : 0;

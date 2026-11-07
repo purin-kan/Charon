@@ -84,7 +84,7 @@ export function heroPrompt(state, Ferry) {
 // neither Phaser nor tuning.js. Text comes in as t: src/text.js imports JSON, which plain Node refuses.
 
 /** Default sizes and positions in game coordinates. y values are the ground under a soul, not its centre. */
-export const STAGE = { soulHeight: 190, seatHeight: 150, groundY: 538, shoreLeft: 70, shoreStep: 104, deckX: 880, deckY: 484, seatStep: 80 };
+export const STAGE = { soulHeight: 190, seatHeight: 150, groundY: 546, shoreLeft: 70, shoreStep: 104, deckX: 880, deckY: 484, seatStep: 80 };
 
 // Presentation only: the rules data gives destinations no colour.
 export const DESTINATION_COLORS = {
@@ -217,10 +217,4 @@ export function springStep(spring, dt, stiffness, damping) {
   const step = Math.min(dt, 1 / 20); // a slow frame must not throw the boat
   const velocity = spring.velocity + (-stiffness * spring.value - damping * spring.velocity) * step;
   return { value: spring.value + velocity * step, velocity };
-}
-
-/** Sideways bend of a soul at height k (0 head, 1 tail tip). The upper body holds still; the tail takes the sway. */
-export function tailOffset(k, t, seed, amp, speed) {
-  const bend = Math.max(0, (k - 0.45) / 0.55) ** 2;
-  return amp * bend * Math.sin(t * speed + seed + k * 4.5);
 }

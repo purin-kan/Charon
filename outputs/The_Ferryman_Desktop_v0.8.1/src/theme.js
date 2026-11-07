@@ -13,14 +13,11 @@ export { BODY_FONT, HEAD_FONT, whenFontsReady };
 defineTuning({
   'art.useFigures': { type: 'bool', default: false, help: 'Painted figures in place of the 2D sprites (next scene)' },
   'art.soul.fill': { type: 'number', default: 1.24, min: 0.5, max: 2, step: 0.01, help: 'Soul image against its frame height' },
-  'art.soul.foot': { type: 'number', default: 0.885, min: 0.5, max: 1, step: 0.005, help: 'Where the base of a soul sits in its image' },
-  'art.long.fill': { type: 'number', default: 1.24, min: 0.5, max: 2, step: 0.01, help: 'Long image against its frame height' },
-  'art.long.foot': { type: 'number', default: 0.885, min: 0.5, max: 1, step: 0.005 },
-  'art.hero.fill': { type: 'number', default: 1.24, min: 0.5, max: 2, step: 0.01, help: 'Hero image against its frame height' },
-  'art.hero.foot': { type: 'number', default: 0.885, min: 0.5, max: 1, step: 0.005 },
-  'art.pier.x': { type: 'number', default: 245, min: 0, max: 640, step: 1, help: 'Middle of the pier at a stop' },
-  'art.pier.y': { type: 'number', default: 511, min: 300, max: 720, step: 1, help: 'Height of the pier at a stop' },
-  'art.pier.width': { type: 'number', default: 600, min: 200, max: 1000, step: 2, help: 'Pier image width on screen' },
+  'art.shoreDock.x': { type: 'number', default: 295, min: 0, max: 640, step: 1, help: 'Middle of the long dock on the starting shore' },
+  'art.shoreDock.width': { type: 'number', default: 530, min: 200, max: 1000, step: 2, help: 'Long dock width on the starting shore' },
+  'art.pier.x': { type: 'number', default: 0, min: 0, max: 400, step: 1, help: 'Gap between the pier at a stop and the right screen edge' },
+  'art.pier.y': { type: 'number', default: 500, min: 300, max: 720, step: 1, help: 'Where souls stand on the pier at a stop' },
+  'art.pier.width': { type: 'number', default: 440, min: 200, max: 1000, step: 2, help: 'Pier image width on screen' },
   'art.boat.width': { type: 'number', default: 768, min: 200, max: 1280, step: 2, help: 'Boat image width on screen' },
   'art.boat.floor': { type: 'number', default: 0.689, min: 0, max: 1, step: 0.005, help: 'Deck floor, fraction of the image height' },
   'art.boat.keel': { type: 'number', default: 0.822, min: 0, max: 1, step: 0.005, help: 'Waterline, fraction of the image height' },
@@ -294,19 +291,20 @@ export function soulPlate(scene, x, y, w, h, name) {
 }
 
 /**
- * The bottom decision panel every scene shares: a heading, a line or two of explanation, then buttons, gold for the main
- * action. show() redraws it; slideIn and slideOut move it. A button is { label, onPress, gold, enabled, onHover }.
+ * The decision panel every scene shares: a heading, a line or two of explanation, then buttons, gold for the main action.
+ * It sits at the bottom unless x and y place it. show() redraws it; slideIn and slideOut move it. A button is
+ * { label, onPress, gold, enabled, onHover }.
  */
 export class DecisionPanel {
-  constructor(scene, { w = 820, h = 164, depth = 12 } = {}) {
-    Object.assign(this, { scene, w, h, buttons: [] });
+  constructor(scene, { w = 820, h = 164, depth = 12, x = scene.scale.width / 2, y = null } = {}) {
+    Object.assign(this, { scene, w, h, fixedY: y, buttons: [] });
     const left = -w / 2 + 24;
     this.left = left;
     const back = drawPanel(scene.add.graphics(), -w / 2, 0, w, h);
     this.heading = scene.add.text(left, 24, '', headText(21)).setOrigin(0, 0.5);
     this.body = scene.add.text(left, 44, '', bodyText(18, CSS.bone, { wordWrap: { width: w - 48 }, lineSpacing: -2 }));
     this.warning = scene.add.text(left, h - 32, '', bodyText(17, CSS.danger, { wordWrap: { width: w / 2 - 40 }, lineSpacing: -2 })).setOrigin(0, 0.5);
-    this.root = scene.add.container(scene.scale.width / 2, tune('ui.panelY'), [back, this.heading, this.body, this.warning]).setDepth(depth);
+    this.root = scene.add.container(x, y ?? tune('ui.panelY'), [back, this.heading, this.body, this.warning]).setDepth(depth);
   }
 
   show({ heading = '', lines = [], warning = '', buttons = [] }) {
@@ -342,7 +340,7 @@ export class DecisionPanel {
   }
 
   slideIn(delay = 0) {
-    const y = tune('ui.panelY');
+    const y = this.fixedY ?? tune('ui.panelY');
     const { root, scene } = this;
     scene.tweens.killTweensOf(root);
     root.setAlpha(0).setY(y + 44);
@@ -352,7 +350,7 @@ export class DecisionPanel {
   slideOut() {
     const { root, scene } = this;
     scene.tweens.killTweensOf(root);
-    scene.tweens.add({ targets: root, y: tune('ui.panelY') + 44, alpha: 0, duration: MS.base, ease: EASE.exit });
+    scene.tweens.add({ targets: root, y: (this.fixedY ?? tune('ui.panelY')) + 44, alpha: 0, duration: MS.base, ease: EASE.exit });
   }
 }
 

@@ -1,5 +1,18 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Shore, souls and stops (Nov 7, 2026)
+
+Presentation only; `rules/` unchanged. Soul heights from `src/data/soul-heights.json` (every Long 140 cm), souls stand still (no bob, no tail sway), one long dock under the starting shore row, the boarding and return panel at the top, the pier at a stop on the right screen edge with the boat parked beside it, and the game over screen lists every quest (repeats as one row with a count).
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated | `npm run check` | 11 of 11 |
+| Scenes (screenshots, not a playtest) | boarding, return, crossing, delivery, game over, on the dev server | as intended, 0 console errors |
+| Planned run, seed 33, real mouse input in the dev window | title to the start of cycle 20, 212 moves | 0 console errors (run planned by a search with the seed known, not normal play) |
+| Quest run, seed 27, real mouse input in the dev window | title to game over at cycle 15 | 9 quests completed, 7 of 8 kinds (not A poet awakens), 0 console errors |
+| Arrival at a stop below about 10 frames per second | hidden browser, software rendering | painting and pier appear late or not at all (timers run on game time, the arrival on real time); fine at 30 frames per second |
+| Played by a person | human | NOT_RUN |
+
 ## Motion polish (branch `polish-transitions`, Nov 6, 2026, not pushed)
 
 Update, Nov 7: merged `main` (with #48's run-wide loops) into this branch. Menu music and the run ambience are now shared loops that fade: `fadeInLoop` and `fadeOutLoop` in `src/preloader.js`, called by `TitleScene.js` and `src/router.js`, so `router.js` is no longer unchanged. `npm run check` 11 of 11; fades, including a new run during a fade-out, checked only with simulated sounds. Sound fades heard: NOT_RUN.

@@ -3,7 +3,7 @@
 // engine (Ferry.transition on the state), and outcomes are the difference between two engine states.
 // Text comes in as t: src/text.js imports JSON, which plain Node refuses.
 import { boatZone, destinationName, soulName, tokenLabels } from './boarding-layout.js';
-import { boatSpots } from './delivery-layout.js';
+import { STOP_SHIFT, boatSpots } from './delivery-layout.js';
 import { memoryHand } from '../components/memory-layout.js';
 import { previewOption, routeModel, routeText } from '../components/route-layout.js';
 
@@ -41,11 +41,11 @@ export const SIGNS = { scale: 0.52, spots: [{ x: 1040, y: 236 }, { x: 1040, y: 3
 const FORK_SHIFT = 480; // how far left of home the boat waits at the fork
 const BACK = 1500; // from home, far enough left that all of the boat starts out of view
 
-/** home is the hull centre at a stop, fork is where the boat waits, back is off the left of the screen. */
+/** home is the hull centre at the starting shore, stop is beside a stop's pier, fork is where the boat waits, back is off the left of the screen. */
 export function worldLayout(state, Ferry) {
   const hull = boatZone(boatSpots(state, Ferry).slots);
   const home = { x: hull.x, y: hull.y };
-  return { home, fork: { x: home.x - FORK_SHIFT, y: home.y }, back: home.x - BACK, signs: SIGNS.spots };
+  return { home, stop: { x: home.x - STOP_SHIFT, y: home.y }, fork: { x: home.x - FORK_SHIFT, y: home.y }, back: home.x - BACK, signs: SIGNS.spots };
 }
 
 /**

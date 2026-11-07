@@ -1,22 +1,44 @@
 import Phaser from 'phaser';
-import { Ferry } from '../ferry.js';
 import { addArt, soulArtId } from '../preloader.js';
 import { angerPips, BODY_FONT, COLOR, EASE, MS, reducedMotion } from '../theme.js';
-import { tune } from '../tuning.js';
-import { tailOffset } from './boarding-layout.js';
+import HEIGHTS from '../data/soul-heights.json';
 
 export const LABEL_TIER_PX = 34;
 
-// The full-figure soul every scene draws. The frame is the soul's height on screen; art.*.fill and art.*.foot (theme.js) fit
-// whatever image is there into it, so nothing here knows a file's pixel size or padding.
+// The full-figure soul every scene draws. The frame is the height on screen of a person ADULT_CM tall. Each soul's own height
+// (src/data/soul-heights.json) sets its figure against that frame, measured from the painted pixels of its image, so the
+// padding in a file does not change how tall a soul looks.
+const ADULT_CM = 170;
 const GOLD = COLOR.gold;
 const SHADOW = COLOR.deep;
 const TAIL_POINTS = 14;
 
-/** Which art frame a soul type uses: soul, long or hero. */
-function artKind(type, Ferry) {
-  if (type.startsWith('CHAR-') || type === 'SOUL-HERACLES' || type === 'SOUL-ODYSSEUS') return 'hero';
-  return Ferry.data.souls.find((s) => s.id === type)?.tainted ? 'long' : 'soul';
+const painted = new Map();
+
+/** The painted part of an image, as fractions of its height. Measured once per image. */
+function paintedRows(scene, key) {
+  if (painted.has(key)) return painted.get(key);
+  const source = scene.textures.get(key).getSourceImage();
+  const w = 64;
+  const h = Math.max(1, Math.round((source.height / source.width) * w));
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const context = canvas.getContext('2d', { willReadFrequently: true });
+  context.drawImage(source, 0, 0, w, h);
+  const { data } = context.getImageData(0, 0, w, h);
+  let top = h;
+  let bottom = 0;
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      if (data[(y * w + x) * 4 + 3] < 96) continue;
+      top = Math.min(top, y);
+      bottom = Math.max(bottom, y + 1);
+    }
+  }
+  const rows = bottom > top ? { top: top / h, bottom: bottom / h } : { top: 0, bottom: 1 };
+  painted.set(key, rows);
+  return rows;
 }
 
 function diamond(x, y, r) {
@@ -34,16 +56,18 @@ function bendableArt(scene, art, y) {
 
 /**
  * One soul standing at (entry.x, entry.y), which is the ground under it. Layers, so motions never fight: the container
- * walks; ride follows the boat rocking; body takes the lift and size; figure takes the bob, shake and lean; labels stay
+ * walks; ride follows the boat rocking; body takes the lift and size; figure takes the shake and lean; labels stay
  * still over the head.
  */
 export function addBoardingSoul(scene, entry, height) {
-  const kind = artKind(entry.actor.type, Ferry);
-  const size = height * tune(`art.${kind}.fill`);
-  const centreY = -(tune(`art.${kind}.foot`) - 0.5) * size; // the image's middle, with its base on the ground
+  const artId = soulArtId(scene, entry.actor.type);
+  const tall = (HEIGHTS[entry.actor.type] ?? ADULT_CM) / ADULT_CM;
+  const rows = scene.textures.exists(artId) ? paintedRows(scene, artId) : { top: 0, bottom: 1 };
+  const size = (height * tall) / (rows.bottom - rows.top);
+  const centreY = -(rows.bottom - 0.5) * size; // the image's middle, with its painted base on the ground
   const glow = scene.add.image(0, -height / 2, 'board-soft').setScale((height * 1.5) / 256).setTint(GOLD).setAlpha(0);
   const shadow = scene.add.image(0, -2, 'board-soft').setScale(0.62, 0.11).setTint(SHADOW);
-  const art = addArt(scene, 0, centreY, soulArtId(scene, entry.actor.type), size, { w: height * 0.5, h: height * 0.92, y: -height * 0.46 });
+  const art = addArt(scene, 0, centreY, artId, size, { w: height * 0.5, h: height * 0.92, y: -height * 0.46 });
   const figureParts = [];
   let rim = null;
   let rope = null;
@@ -62,38 +86,15 @@ export function addBoardingSoul(scene, entry, height) {
   const name = scene.add.text(0, -12, '', style).setOrigin(0.5, 1);
   const marks = scene.add.graphics();
   const pips = scene.add.graphics();
-  const labels = scene.add.container(0, -height - 2, [name, marks, pips]);
+  const labels = scene.add.container(0, -height * tall - 2, [name, marks, pips]);
 
   // A soft shaft of gold, for a soul at its wish (DeliveryScene).
   const beam = scene.add.image(0, -height * 0.9, 'board-soft').setScale(0.42, 2.1).setTint(GOLD).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0);
   const ride = scene.add.container(0, 0, [shadow, beam, body, labels]);
   const token = scene.add.container(entry.x, entry.y, [ride]);
-  token.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-36, -height, 72, height), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
+  token.setInteractive({ hitArea: new Phaser.Geom.Rectangle(-36, -height * tall, 72, height * tall), hitAreaCallback: Phaser.Geom.Rectangle.Contains, useHandCursor: true });
   token.parts = { ride, shadow, beam, body, figure, glow, rim, rope, name, marks, pips, labels };
-  token.seed = Math.random() * Math.PI * 2; // so a row of souls does not sway in step
   return token;
-}
-
-/** The slow bob every soul has at rest. */
-export function startBreathing(scene, token) {
-  scene.tweens.add({
-    targets: token.parts.figure,
-    y: -tune('boarding.bobPx'),
-    duration: tune('boarding.bobMs'),
-    delay: Math.random() * 1200, // so a row of souls does not breathe in step
-    ease: EASE.move,
-    yoyo: true,
-    repeat: -1,
-  });
-}
-
-/** Bends the tail for this frame. amp is in game pixels at the tail tip, whatever the sprite's size. */
-export function swayTail(token, t, amp, speed) {
-  const { rope } = token.parts;
-  if (!rope) return;
-  const textureAmp = amp / rope.scaleX;
-  rope.points.forEach((point, i) => { point.x = tailOffset(i / (TAIL_POINTS - 1), t, token.seed, textureAmp, speed); });
-  rope.updateVertices();
 }
 
 /** Lifts a soul's name one step above its neighbours in a tight row (tier 1), or puts it back (tier 0). */

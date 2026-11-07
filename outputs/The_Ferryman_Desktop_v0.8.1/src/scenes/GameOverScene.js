@@ -98,8 +98,11 @@ export class GameOverScene extends Phaser.Scene {
 
   drawQuests(width, view) {
     const panelW = 800;
-    const rows = Math.max(1, Math.ceil(view.quests.length / 2)) + (view.more ? 1 : 0);
-    const panelH = 64 + rows * 30;
+    // Every quest is shown: rows get shorter and the text smaller when there are many, so the panel ends above the buttons.
+    const rows = Math.max(1, Math.ceil(view.quests.length / 2));
+    const rowH = Math.min(30, Math.floor(226 / rows));
+    const size = Math.min(19, rowH - 5);
+    const panelH = 64 + rows * rowH;
     const left = width / 2 - panelW / 2;
     const top = 266;
     const parts = [
@@ -115,10 +118,10 @@ export class GameOverScene extends Phaser.Scene {
     const colW = (panelW - 44 - 32) / 2;
     view.quests.forEach((q, i) => {
       const x = left + 22 + (i % 2) * (colW + 32);
-      const y = top + 48 + Math.floor(i / 2) * 30;
+      const y = top + 48 + Math.floor(i / 2) * rowH;
       const color = q.status === 'completed' ? CSS.gold : q.status === 'failed' ? CSS.danger : CSS.muted;
-      parts.push(this.add.text(x, y, q.name, bodyText(19)));
-      const status = this.add.text(x + colW, y, q.label, bodyText(19, color)).setOrigin(1, 0);
+      parts.push(this.add.text(x, y, q.name, bodyText(size)));
+      const status = this.add.text(x + colW, y, q.label, bodyText(size, color)).setOrigin(1, 0);
       parts.push(status);
       // The failure reason is long, so it sits behind a hover on the status word.
       if (q.reason) {
@@ -127,7 +130,6 @@ export class GameOverScene extends Phaser.Scene {
         status.on('pointerout', () => this.hint.setText(''));
       }
     });
-    if (view.more) parts.push(this.add.text(left + 22, top + panelH - 34, view.more, bodyText(18, CSS.muted)));
     return parts;
   }
 

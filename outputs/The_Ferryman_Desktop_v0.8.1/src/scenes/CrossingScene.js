@@ -15,7 +15,7 @@ import {
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage, roundThumb } from './night-fx.js';
 import { PIER_ART, RiverBoat, WOOD, Water, addPier } from './river-boat.js';
-import { addBoardingSoul, fadeAway, setBoardingBadge, setLabelTier, startBreathing, swayTail } from './soul-token.js';
+import { addBoardingSoul, fadeAway, setBoardingBadge, setLabelTier } from './soul-token.js';
 
 // CrossingScene (T-19): the outward window, phase 'window' or 'review' with window.kind 'outward'.
 // The boat is full size and on the water. The ferryman rows slowly: the boat hardly moves, and the water, fog and painting
@@ -84,7 +84,8 @@ export class CrossingScene extends Phaser.Scene {
     this.world = this.add.container(0, 0);
     this.signRoot = this.add.container(0, 0).setScale(SIGNS.scale).setDepth(DEPTH.seated - 1);
     this.drawStop(state, step);
-    this.boat = this.add.container(this.layout.home.x, this.layout.home.y);
+    const atStop = state.destination && step === 'prepare'; // moored at a stop's pier, which is on the right
+    this.boat = this.add.container(atStop ? this.layout.stop.x : this.layout.home.x, this.layout.home.y);
     this.world.add(this.boat);
     this.deck = new RiverBoat(this, 0, FEET, tune('art.boat.width') * tune('art.boat.deck'));
     this.boat.add(this.deck.root);
@@ -132,7 +133,6 @@ export class CrossingScene extends Phaser.Scene {
     this.water.update(delta / 1000, seconds);
     this.deck.update(seconds);
     this.bar.update(seconds);
-    for (const token of this.tokens.values()) swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
   }
 
   // ---- the stop ------------------------------------------------------------------------------
@@ -232,7 +232,6 @@ export class CrossingScene extends Phaser.Scene {
     const at = this.seatOf(entry);
     const token = addBoardingSoul(this, { ...entry, ...at }, tune('crossing.soulHeight'));
     token.parts.shadow.setAlpha(0);
-    startBreathing(this, token);
     this.deck.seat(token);
     setBoardingBadge(token, shipBadge(entry.actor, Ferry));
     token.on('pointerdown', () => this.pickSoul(entry.id));
@@ -485,7 +484,7 @@ export class CrossingScene extends Phaser.Scene {
     this.night.roamTo(1, travelMs);
     if (!outcome.ended) {
       this.time.delayedCall(travelMs * 0.52, () => this.showPlace(next)); // in the thick of the fog
-      this.tweens.add({ targets: this.boat, x: this.layout.home.x, delay: travelMs * 0.5, duration: travelMs * 0.5, ease: EASE.move });
+      this.tweens.add({ targets: this.boat, x: this.layout.stop.x, delay: travelMs * 0.5, duration: travelMs * 0.5, ease: EASE.move });
     }
     this.row(travelMs, () => this.arrive(next, outcome, () => this.dispatch(action)));
   }

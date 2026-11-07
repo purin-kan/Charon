@@ -6,7 +6,11 @@ import { SLOT, STAGE, TOKEN, destinationName, layoutStage, soulName, tokenLabels
 
 export const REWARD = { w: 220, h: 150, gap: 20, y: 360 };
 
-const SHORE_WIDTH = 416; // the row of souls ashore stops here, clear of the boat
+// At a stop the pier is on the right, at the screen edge, and the boat pulls up to it: the whole boat sits STOP_SHIFT left of
+// where it sits at the starting shore. CrossingScene parks there too, so the change of scene shows no jump.
+export const STOP_SHIFT = 400;
+const SHORE_LEFT = 890; // the row of souls ashore starts here, on the pier, clear of the boat
+const SHORE_WIDTH = 300; // and stops here, before the lantern post
 const SHORE_FEET = 500; // they stand on the pier's boards, above the panel
 export const SHORE_Y = SHORE_FEET - TOKEN.h / 2;
 const TIGHT_STEP = 78; // below this the names in the row would touch, so every other one sits higher
@@ -15,7 +19,7 @@ const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, gap: 10, perCol: 5 };
 
 /** A soul on the pier, spaced like BoardingScene's shore row, tighter if more leave than the row holds. */
 const shoreSpot = (i, count) => ({
-  x: STAGE.shoreLeft + i * Math.min(STAGE.shoreStep, SHORE_WIDTH / Math.max(1, count - 1)),
+  x: SHORE_LEFT + i * Math.min(STAGE.shoreStep, SHORE_WIDTH / Math.max(1, count - 1)),
   y: SHORE_Y,
 });
 
@@ -56,7 +60,9 @@ export function boatSpots(state, Ferry) {
  * its memory, quest step or fare.
  */
 export function layoutDelivery(state, marked, Ferry) {
-  const { spots, slots } = boatSpots(state, Ferry);
+  const parked = boatSpots(state, Ferry);
+  const spots = parked.spots.map((s) => ({ ...s, x: s.x - STOP_SHIFT }));
+  const slots = parked.slots.map((s) => ({ ...s, x: s.x - STOP_SHIFT }));
   const entries = spots.map(({ id, actor, span, tier, x, y }) => {
     const i = marked.indexOf(id);
     return {

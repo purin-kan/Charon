@@ -11,8 +11,8 @@ import { soulDetail } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { actionSound, returnLightSteps, returnView } from './return-layout.js';
-import { RiverBoat } from './river-boat.js';
-import { addBoardingSoul, fadeAway, setBoardingBadge, startBreathing, swayTail } from './soul-token.js';
+import { PIER_ART, RiverBoat, addShoreDock } from './river-boat.js';
+import { addBoardingSoul, fadeAway, setBoardingBadge } from './soul-token.js';
 
 // Return to the Starting Shore (T-21): phase 'window' or 'review' with window.kind 'return'.
 // The empty boat comes back to the shore where the souls wait. Prepare: the memory hand (T-16) and what
@@ -31,7 +31,7 @@ defineTuning({
   'return.arrivalMs': { type: 'number', default: 680, min: 0, max: 1500, step: 10, help: 'New souls walk in' },
 });
 
-const LOG_PLATE = { right: 1256, y: 172, w: 400, maxLines: 6 };
+const LOG_PLATE = { right: 1256, y: 192, w: 400, maxLines: 6 };
 
 const stageView = () => Object.fromEntries(Object.keys(STAGE).map((key) => [key, tune(`boarding.${key}`)]));
 
@@ -43,7 +43,7 @@ export class ReturnScene extends Phaser.Scene {
   get router() { return this.game.router; }
 
   preload() {
-    queueAssets(this, { art: [...soulArtIds(), 'sprite-boat-horizontal', ...MemoryHand.artIds(), ...WRAITH_FRAMES], backgrounds: ['bg-starting-shore'] });
+    queueAssets(this, { art: [...soulArtIds(), 'sprite-boat-horizontal', PIER_ART, ...MemoryHand.artIds(), ...WRAITH_FRAMES], backgrounds: ['bg-starting-shore'] });
   }
 
   create() {
@@ -53,6 +53,7 @@ export class ReturnScene extends Phaser.Scene {
     this.leaving = false;
     this.targets = null; // soul ids a picked memory can target
     this.tokens = new Map();
+    this.dock = null;
     this.logParts = [];
     this.confirmed = null; // the state and view before a confirmed return, which plays out on exit
 
@@ -63,7 +64,7 @@ export class ReturnScene extends Phaser.Scene {
     this.tweens.add({ targets: this.boat.root, x: tune('boarding.deckX'), duration: tune('return.boatMs'), ease: EASE.enter });
 
     this.bar = new Hud(this);
-    this.panel = new DecisionPanel(this);
+    this.panel = new DecisionPanel(this, { w: 760, x: tune('boarding.panelX'), y: tune('boarding.panelY') }); // on top, clear of the docks
     this.tip = new HoverTip(this, DEPTH.hero + 1);
     this.hand = new MemoryHand(this, {
       compact: true,
@@ -90,7 +91,6 @@ export class ReturnScene extends Phaser.Scene {
     this.night.update(time, delta);
     this.boat.update(seconds);
     this.bar.update(seconds);
-    for (const token of this.tokens.values()) swayTail(token, seconds, tune('boarding.tailPx'), tune('boarding.tailSpeed'));
   }
 
   render(state) {
@@ -107,7 +107,6 @@ export class ReturnScene extends Phaser.Scene {
     const token = addBoardingSoul(this, entry, tune('boarding.soulHeight'));
     token.setDepth(DEPTH.shore);
     token.parts.shadow.setAlpha(tune('boarding.shadowAlpha'));
-    startBreathing(this, token);
     token.on('pointerdown', () => { if (this.targets?.includes(entry.id)) this.hand.pickTarget(entry.id); });
     token.on('pointerover', (pointer) => {
       const state = this.registry.get('state');
@@ -124,6 +123,7 @@ export class ReturnScene extends Phaser.Scene {
   /** The waiting souls in the spots they hold at boarding. A soul about to turn has red pips; a memory's target has the rim. */
   drawShore(state) {
     const { entries } = layoutStage(state, Ferry, stageView());
+    this.dock ??= addShoreDock(this, tune('boarding.groundY'));
     const ids = new Set(entries.map((e) => e.id));
     for (const [id, token] of this.tokens) {
       if (ids.has(id)) continue;

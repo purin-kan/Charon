@@ -121,13 +121,24 @@ export const PIER_ART = 'sprite-dock';
 export const WOOD = { plank: 0x2b1e14, edge: 0x6b5233, post: 0x1f1610 };
 
 /**
- * The pier at a stop, for the souls who leave. (x, y) is the view's top left in the scene's space. Without its image
+ * The pier at a stop, for the souls who leave: on the right, flush with the screen edge, its lantern post outward.
+ * (x, y) is the view's top left in the scene's space. Without its image
  * there is no pier: they stand on the painting, and the caller gets null.
  */
 export function addPier(scene, x = 0, y = 0) {
   if (!scene.textures.exists(PIER_ART)) return null;
-  const pier = scene.add.image(x + tune('art.pier.x'), y + tune('art.pier.y'), PIER_ART);
-  return pier.setScale(tune('art.pier.width') / pier.width);
+  const w = tune('art.pier.width');
+  const pier = scene.add.image(x + scene.scale.width - w / 2 - tune('art.pier.x'), y + tune('art.pier.y'), PIER_ART).setOrigin(0.5, DOCK_FEET);
+  return pier.setScale(w / pier.width).setFlipX(true);
+}
+
+const DOCK_FEET = 0.6; // where a soul's feet meet the boards, down the image's height
+
+/** The one long dock on the starting shore, under the whole row of souls. feetY is the ground. Without its image, no dock. */
+export function addShoreDock(scene, feetY) {
+  if (!scene.textures.exists(PIER_ART)) return null;
+  const dock = scene.add.image(tune('art.shoreDock.x'), feetY, PIER_ART).setOrigin(0.5, DOCK_FEET);
+  return dock.setScale(tune('art.shoreDock.width') / dock.width).setDepth(DEPTH.seated - 1);
 }
 
 export class RiverBoat {
