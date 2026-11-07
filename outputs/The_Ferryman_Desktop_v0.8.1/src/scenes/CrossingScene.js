@@ -36,6 +36,7 @@ const FOG = 'sfx-fog'; // once on confirming a route with fog 1 or more, before 
 const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long as the crossing screen is open (queued by BootScene)
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 const FORK_ART = 'bg-fork-choice';
+const BOW_ART = 'sprite-boat-bow'; // Kanyakorn-goya's front view of the gold boat, the same size as FORK_ART
 const SUBTITLE = { y: 680, size: 24 }; // the line under the left and right choice: words only, nothing to click
 // The view from the bow at a fork.
 const FORK = { signX: 230, signY: 330, w: 320, h: 110, bobPx: 6, bobMs: 1600, hoverScale: 1.05, overscan: 1.12, fadeMs: 500, drift: 22, lean: 34, rock: 3, roll: 0.0035, turnPx: 170, pushIn: 1.45, turnRoll: 0.03 };
@@ -139,6 +140,13 @@ function forkTexture(scene, leftId, rightId) {
   context.fillStyle = mist;
   context.fillRect(0, 0, w, h);
 
+  if (scene.textures.exists(BOW_ART)) { // the drawn bow, transparent above the boat
+    context.drawImage(scene.textures.get(BOW_ART).getSourceImage(), 0, 0, w, h);
+    texture.refresh();
+    return key;
+  }
+  // Without it: a stand-in cut from FORK_ART and dressed with pieces of the side-view boat.
+
   // The inside of the boat, cut from the painting with a soft edge and warmed to the gold boat's wood.
   const boat = layer();
   const boatContext = boat.getContext('2d');
@@ -188,7 +196,7 @@ export class CrossingScene extends Phaser.Scene {
 
   preload() {
     queueAssets(this, {
-      art: [...soulArtIds(), 'sprite-boat-horizontal', PIER_ART, ...MemoryHand.artIds()],
+      art: [...soulArtIds(), 'sprite-boat-horizontal', BOW_ART, PIER_ART, ...MemoryHand.artIds()],
       backgrounds: ['bg-starting-shore', FORK_ART, ...Ferry.data.destinations.map((d) => d.id)],
       audio: [FOG], // sfx-fog is not in BootScene's list
     });
