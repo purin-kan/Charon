@@ -17,7 +17,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-01 | Blockers | 2026-10-31 | bosthanapatw | All | | Process | Must | In progress | Open blockers resolved and recorded |
+| T-01 | Blockers | 2026-10-31 | bosthanapatw | All | | Process | Must | Done | Open blockers resolved and recorded |
 | T-02 | Repo setup | 2026-10-31 | purin-kan | bosthanapatw | | Process | Must | Done | `.gitattributes` `-text` rule for the new folder and v0.7 folder, and `.gitignore` entries for `out/`, `dist/`, `.vite/`, committed |
 | T-03 | Lock art pipeline | 2026-10-31 | Kanyakorn-goya | | | Game | Must | Done | Sprite resolution and naming convention written; one test character cut out and committed |
 | T-04 | Confirm test sprite loads in Phaser | 2026-11-01 | Kanyakorn-goya | purin-kan | T-03, T-05 | Game | Must | Done | The test sprite renders in the dev window through the preloader |
