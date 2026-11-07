@@ -20,7 +20,7 @@ import { addBoardingSoul, fadeAway, LABEL_TIER_PX, setBoardingBadge } from './so
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 
 defineTuning({
-  'delivery.departDistance': { type: 'number', default: 120, min: 0, max: 400, step: 10, help: 'How far a soul walks along the shore' },
+  'delivery.departDistance': { type: 'number', default: 120, min: 0, max: 400, step: 10, help: 'How far a soul walks right along the shore' },
   'delivery.riseDistance': { type: 'number', default: 150, min: 0, max: 400, step: 10, help: 'A soul at its wish rises in the light' },
   'delivery.beamAlpha': { type: 'number', default: 0.34, min: 0, max: 1, step: 0.02, help: 'Gold beam on a soul at its wish' },
   'delivery.dimAlpha': { type: 'number', default: 0.62, min: 0.2, max: 1, step: 0.02, help: 'A soul that cannot leave here' },
@@ -187,7 +187,7 @@ export class DeliveryScene extends Phaser.Scene {
       if (home) this.tweens.add({ targets: token.parts.beam, alpha: 1, scaleY: 3, duration: tune('delivery.departMs'), ease: EASE.enter });
       this.tweens.add({
         targets: token,
-        x: token.x - tune('delivery.departDistance'),
+        x: token.x + tune('delivery.departDistance'),
         y: token.y - (home ? tune('delivery.riseDistance') : 0),
         alpha: 0,
         duration: tune('delivery.departMs'),

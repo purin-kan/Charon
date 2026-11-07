@@ -1,5 +1,16 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Memory hand and rewards (Nov 7, 2026)
+
+Presentation only; `rules/` unchanged. The memory hand moved from the top right to the left, under the Light plate (`hud.handX` 24, `hud.handY` 112), and grows to the right; the red status line sits below it. A memory earned at a stop shows as its art alone (`delivery.rewardArt` 200 px), no name, text or heading, then flies to the hand. A delivered soul now moves right, toward the pier, as it fades.
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated | `npm run check` | 11 of 11 |
+| Scenes (screenshots, not a playtest) | crossing, boarding, delivery fixtures on the dev server | hand under the Light plate, no overlap, 0 console errors |
+| Reward art and soul exit seen on screen | agent or human | NOT_RUN |
+| Played by a person | human | NOT_RUN |
+
 ## Shore, souls and stops (Nov 7, 2026)
 
 Presentation only; `rules/` unchanged. Soul heights from `src/data/soul-heights.json` (every Long 140 cm), souls stand still (no bob, no tail sway), one long dock under the starting shore row, the boarding and return panel at the top, the pier at a stop on the right screen edge with the boat parked beside it, and the game over screen lists every quest (repeats as one row with a count).

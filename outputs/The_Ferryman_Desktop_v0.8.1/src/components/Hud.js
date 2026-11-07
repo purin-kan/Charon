@@ -1,5 +1,5 @@
 // The HUD every scene shares, in the same place: Light flames, the cycle and the next Long top left, the status line
-// under them. The memory hand sits top right and is the host scene's own MemoryHand. Style comes from src/theme.js.
+// under the memory hand, which sits under the Light plate and is the host scene's own MemoryHand. Style comes from src/theme.js.
 //
 //   this.hud = new Hud(this);                 // after fonts are ready
 //   this.hud.render(state);                   // in create() and on every 'ferry-state'
@@ -10,6 +10,7 @@ import { bodyText, COLOR, CSS, drawPanel, EASE, edgeFlash, LightFlames, MS, puls
 import { t } from '../text.js';
 import { defineTuning, tune } from '../tuning.js';
 import { flames, nextLongName } from '../scenes/boarding-layout.js';
+import './MemoryHand.js'; // registers hud.handY and hud.miniH, which place the status line
 
 defineTuning({
   'hud.x': { type: 'number', default: 24, min: 0, max: 200, step: 1, help: 'Left edge of the HUD' },
@@ -27,7 +28,9 @@ export class Hud {
     this.flames = new LightFlames(scene, 28, 36);
     this.cycle = scene.add.text(SIZE.w - 20, 24, '', bodyText(20, CSS.gold)).setOrigin(1, 0.5); // Cinzel's 1 reads as a Roman I
     this.nextLong = scene.add.text(18, 56, '', bodyText(17, CSS.muted)).setOrigin(0, 0.5);
-    this.line = scene.add.text(4, SIZE.h + 16, '', bodyText(18, CSS.danger, { wordWrap: { width: SIZE.w + 60 } })).setOrigin(0, 0.5).setAlpha(0);
+    // Below the memory hand at its fullest and the hand's own note and Cancel button, which sit under the Light plate.
+    const lineY = tune('hud.handY') - tune('hud.y') + 40 + tune('hud.miniH') + 12 + 66;
+    this.line = scene.add.text(4, lineY, '', bodyText(18, CSS.danger, { wordWrap: { width: SIZE.w + 60 } })).setOrigin(0, 0.5).setAlpha(0);
     this.root = scene.add.container(tune('hud.x'), tune('hud.y'), [plate, this.flames.root, this.cycle, this.nextLong, this.line]).setDepth(DEPTH);
   }
 

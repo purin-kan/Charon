@@ -5,8 +5,8 @@ import { defineTuning, tune } from '../tuning.js';
 import { TEXT, memoryHand, playAction } from './memory-layout.js';
 
 defineTuning({
-  'hud.handRight': { type: 'number', default: 1256, min: 900, max: 1280, step: 1, help: 'Right edge of the memory hand' },
-  'hud.handY': { type: 'number', default: 20, min: 0, max: 200, step: 1, help: 'Top edge of the memory hand' },
+  'hud.handX': { type: 'number', default: 24, min: 0, max: 400, step: 1, help: 'Left edge of the memory hand' },
+  'hud.handY': { type: 'number', default: 112, min: 0, max: 400, step: 1, help: 'Top edge of the memory hand, under the Light plate' },
   'hud.miniW': { type: 'number', default: 64, min: 40, max: 120, step: 1, help: 'Small memory card' },
   'hud.miniH': { type: 'number', default: 84, min: 50, max: 160, step: 1 },
   'hud.miniArt': { type: 'number', default: 58, min: 16, max: 100, step: 1, help: 'Memory art on a small card' },
@@ -83,7 +83,7 @@ export class MemoryHand {
    * @param {{x?:number, y?:number, onTargets?:(ids:string[]|null)=>void, onHover?:(card:object|null)=>void}} opts
    *   x, y: top-left of the hand. onTargets: called with the legal target ids when a card that needs a
    *   target is picked, and with null when the pick ends (played or cancelled).
-   *   compact: the HUD hand, small cards in a plate at the top right of the screen; x and y are ignored.
+   *   compact: the HUD hand, small cards in a plate on the left, under the Light plate; x and y are ignored.
    */
   constructor(scene, { x = 40, y = 400, onTargets = () => {}, onHover = () => {}, compact = false } = {}) {
     this.scene = scene;
@@ -97,7 +97,7 @@ export class MemoryHand {
     this.root = scene.add.container(0, 0).setDepth(compact ? 12 : 5);
     this.plate = scene.add.graphics();
     this.counter = scene.add.text(x, y, '', bodyText(18, CSS.muted));
-    this.message = scene.add.text(x, y + 34 + CARD.h + 12, '', bodyText(17, CSS.gold, compact ? { align: 'right', wordWrap: { width: 340 } } : {}));
+    this.message = scene.add.text(x, y + 34 + CARD.h + 12, '', bodyText(17, CSS.gold, compact ? { align: 'left', wordWrap: { width: 340 } } : {}));
     this.cancelBtn = scene.add.text(0, 0, TEXT.cancel, bodyText(18, CSS.gold, { backgroundColor: CSS.ink, padding: { x: 12, y: 4 } }))
       .setInteractive({ useHandCursor: true }).setVisible(false);
     this.cancelBtn.on('pointerdown', () => this.cancel());
@@ -146,9 +146,9 @@ export class MemoryHand {
     if (!this.picked) this.say(view.note, false);
   }
 
-  /** The HUD hand: a plate at the top right that grows to the left with the cards. */
+  /** The HUD hand: a plate on the left under the Light plate that grows to the right with the cards. */
   renderCompact(view) {
-    const right = tune('hud.handRight');
+    const left = tune('hud.handX');
     const top = tune('hud.handY');
     const w = tune('hud.miniW');
     const h = tune('hud.miniH');
@@ -158,13 +158,14 @@ export class MemoryHand {
     const plateW = Math.max(150, pad * 2 + n * w + Math.max(0, n - 1) * gap);
     const plateH = n ? 40 + h + pad : 40;
     this.plate.clear();
-    drawPanel(this.plate, right - plateW, top, plateW, plateH);
+    const right = left + plateW;
+    drawPanel(this.plate, left, top, plateW, plateH);
     this.counter.setOrigin(1, 0.5).setPosition(right - pad - 4, top + 20);
     // A card that has not changed stays, sliding if it must. Only the ones really arriving or leaving fade.
     const kept = new Map((this.cardObjects ?? []).map((box) => [box.look, box]));
     this.cardObjects = view.cards.map((card, i) => {
       const picked = this.picked?.id === card.id;
-      const cx = right - pad - w / 2 - (n - 1 - i) * (w + gap);
+      const cx = left + pad + w / 2 + i * (w + gap);
       const look = `${card.id}/${picked}/${card.playable}`;
       const held = kept.get(look);
       if (held) {
@@ -189,8 +190,8 @@ export class MemoryHand {
       fadeOutParts(this.scene, [...kept.values()]);
     }
     const below = top + plateH + 8;
-    this.message.setOrigin(1, 0).setPosition(right, below);
-    this.cancelBtn.setOrigin(1, 0).setPosition(right, below + 26).setVisible(!!this.picked);
+    this.message.setOrigin(0, 0).setPosition(left, below);
+    this.cancelBtn.setOrigin(0, 0).setPosition(left, below + 26).setVisible(!!this.picked);
     if (this.picked) this.say(TEXT.chooseTarget(this.picked.name), false);
     else this.say(n > view.limit ? view.note : '', false); // a card says why it can't be played when clicked or hovered
   }

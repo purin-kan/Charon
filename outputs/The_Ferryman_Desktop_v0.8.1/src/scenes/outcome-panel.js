@@ -1,24 +1,22 @@
 import { Ferry } from '../ferry.js';
+import { addArt } from '../preloader.js';
 import { t } from '../text.js';
-import { bodyText, COLOR, CSS, EASE, fadeInParts, fadeOutParts, headText, MS } from '../theme.js';
+import { bodyText, COLOR, CSS, EASE, fadeInParts, fadeOutParts } from '../theme.js';
 import { defineTuning, tune } from '../tuning.js';
 import { REWARD, lossLines, rewardSpots } from './delivery-layout.js';
 import { DEPTH } from './night-fx.js';
 
 defineTuning({
   'delivery.rewardMs': { type: 'number', default: 1600, min: 200, max: 6000, step: 100, help: 'How long a memory reward stays' },
+  'delivery.rewardArt': { type: 'number', default: 200, min: 60, max: 400, step: 10, help: 'Size of a new memory\'s art' },
   'delivery.flyMs': { type: 'number', default: 520, min: 0, max: 2000, step: 10, help: 'A memory flies into the hand' },
 });
 
 const SHADE_DEPTH = DEPTH.hero + 2;
 
+/** A new memory shows as its art alone, no name or text. */
 function rewardCard(scene, x, y, memory) {
-  const face = scene.add.graphics();
-  face.fillStyle(COLOR.panel, 0.97).fillRoundedRect(-REWARD.w / 2, -REWARD.h / 2, REWARD.w, REWARD.h, 12);
-  face.lineStyle(1, COLOR.gold, 0.8).strokeRoundedRect(-REWARD.w / 2, -REWARD.h / 2, REWARD.w, REWARD.h, 12);
-  const name = scene.add.text(0, -52, memory.name, headText(17, CSS.gold)).setOrigin(0.5);
-  const body = scene.add.text(0, 14, memory.text, bodyText(16, CSS.bone, { align: 'center', lineSpacing: -1, wordWrap: { width: REWARD.w - 24 } })).setOrigin(0.5);
-  return scene.add.container(x, y, [face, name, body]).setDepth(SHADE_DEPTH + 1);
+  return addArt(scene, x, y, memory.type, tune('delivery.rewardArt')).setDepth(SHADE_DEPTH + 1);
 }
 
 /**
@@ -36,7 +34,6 @@ export function showOutcome(scene, outcome, done) {
   const { width, height } = scene.scale;
   const shade = scene.add.rectangle(width / 2, height / 2, width, height, COLOR.deep, tune('ui.shadeAlpha')).setDepth(SHADE_DEPTH);
   const parts = [shade];
-  if (rewards.length) parts.push(scene.add.text(640, REWARD.y - 120, t('delivery.received'), headText(24, CSS.gold)).setOrigin(0.5).setDepth(SHADE_DEPTH + 1));
   const lossTop = rewards.length ? REWARD.y + 110 : REWARD.y - 14 * (losses.length - 1);
   losses.forEach((line, i) => {
     parts.push(scene.add.text(640, lossTop + i * 28, line, bodyText(21, CSS.danger)).setOrigin(0.5).setDepth(SHADE_DEPTH + 1));
@@ -57,9 +54,9 @@ export function showOutcome(scene, outcome, done) {
     }
     cards.forEach((card, i) => scene.tweens.add({
       targets: card,
-      x: tune('hud.handRight') - 40 - i * 20,
+      x: tune('hud.handX') + 40 + i * 20,
       y: tune('hud.handY') + 40,
-      scale: 0.25,
+      scale: card.scale * 0.25, // art is already scaled to fit
       alpha: 0.2,
       duration: tune('delivery.flyMs'),
       ease: EASE.move,
