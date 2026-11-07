@@ -35,15 +35,12 @@ const CLICK = 'sfx-ui-click';
 const FOG = 'sfx-fog'; // once on confirming a route with fog 1 or more, before the Light loss shows
 const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long as the crossing screen is open (queued by BootScene)
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
-const FORK_ART = 'bg-fork-choice';
-const BOW_ART = 'sprite-boat-bow'; // Kanyakorn-goya's front view of the gold boat, the same size as FORK_ART
+const BOW_ART = 'sprite-boat-bow'; // Kanyakorn-goya's front view of the gold boat, transparent above it (1546 x 720)
+const BOW_SIZE = { w: 1546, h: 720 };
 const SUBTITLE = { y: 680, size: 24 }; // the line under the left and right choice: words only, nothing to click
 // The view from the bow at a fork.
 const FORK = { signX: 230, signY: 330, w: 320, h: 110, bobPx: 6, bobMs: 1600, hoverScale: 1.05, overscan: 1.12, fadeMs: 500, drift: 22, lean: 34, rock: 3, roll: 0.0035, turnPx: 170, pushIn: 1.45, turnRoll: 0.03 };
-// The bow in FORK_ART, as a share of the image: the two gunwales run from the stem post down to the bottom edge.
-const BOW_OUTLINE = [[0.493, 0.47], [0.497, 0.465], [0.5, 0.468], [0.512, 0.468], [0.518, 0.56], [0.925, 1], [0.09, 1], [0.49, 0.56]];
 
-const BOW_DRESS = { apexX: 0.505, apexY: 0.53, railEnds: [0.06, 0.95], railPx: 66, bandTop: 0.625, bandH: 0.115, prow: [0.84, 0.14, 0.16, 0.48], prowH: 0.37, postAt: 0.72 };
 
 /** The picture a destination is painted in, drawn to cover a canvas of width w and height h, centred on x. */
 function paintDestination(scene, context, id, w, h, x) {
@@ -63,60 +60,13 @@ function paintDestination(scene, context, id, w, h, x) {
   context.drawImage(source, x - dw / 2, (h - dh) / 2, dw, dh);
 }
 
-/** The same boat as every other scene: its gold and key-pattern rail along both sides. */
-function dressBow(context, boat, w, h) {
-  const apex = { x: w * BOW_DRESS.apexX, y: h * BOW_DRESS.apexY };
-  const bandTop = boat.height * BOW_DRESS.bandTop;
-  const bandH = boat.height * BOW_DRESS.bandH;
-  for (const end of BOW_DRESS.railEnds) {
-    const tip = { x: w * end, y: h * 1.04 };
-    const angle = Math.atan2(tip.y - apex.y, tip.x - apex.x);
-    const length = Math.hypot(tip.x - apex.x, tip.y - apex.y);
-    const steps = 80;
-    for (let i = 0; i < steps; i++) {
-      const k = i / steps;
-      const far = k * k * 0.6 + k * 0.4; // the pattern tightens toward the prow
-      const near = ((i + 1) / steps) ** 2 * 0.6 + ((i + 1) / steps) * 0.4;
-      const thick = 8 + (k ** 1.3) * BOW_DRESS.railPx;
-      context.save();
-      context.translate(apex.x + Math.cos(angle) * length * k, apex.y + Math.sin(angle) * length * k);
-      context.rotate(angle);
-      if (Math.cos(angle) < 0) context.scale(1, -1); // keeps the rail's top edge facing up on the left side
-      const from = boat.width * (0.26 + far * 0.5);
-      context.drawImage(boat, from, bandTop, Math.max(1, boat.width * 0.5 * (near - far)), bandH, 0, -thick / 2, length / steps + 1.5, thick);
-      context.restore();
-    }
-  }
-}
-
-/** The curled prow and its lantern, standing behind the bow so the deck hides where it was cut from the side view. */
-function drawProw(context, boat, w, h) {
-  const [sx, sy, sw, sh] = BOW_DRESS.prow.map((v, i) => v * (i % 2 ? boat.height : boat.width));
-  const prowH = h * BOW_DRESS.prowH;
-  const prowW = prowH * (sw / sh);
-  const left = w * BOW_DRESS.apexX - prowW * BOW_DRESS.postAt;
-  const top = h * (BOW_DRESS.apexY + 0.07) - prowH;
-  context.save();
-  context.beginPath();
-  context.moveTo(left, top);
-  context.lineTo(left + prowW, top);
-  context.lineTo(left + prowW, top + prowH);
-  context.lineTo(left + prowW * 0.56, top + prowH);
-  context.lineTo(left + prowW * 0.44, top + prowH * 0.76);
-  context.lineTo(left, top + prowH * 0.76);
-  context.closePath();
-  context.clip();
-  context.drawImage(boat, sx, sy, sw, sh, left, top, prowW, prowH);
-  context.restore();
-}
-
 /** The view from the bow at this fork: the left route's place on the left, the right route's on the right, the boat in front. */
 function forkTexture(scene, leftId, rightId) {
   const key = `fork-${leftId ?? 'fog'}-${rightId ?? 'fog'}`;
   if (scene.textures.exists(key)) return key;
-  const bow = scene.textures.get(FORK_ART).getSourceImage();
-  const w = bow.width;
-  const h = bow.height;
+  const bow = scene.textures.exists(BOW_ART) ? scene.textures.get(BOW_ART).getSourceImage() : null;
+  const w = bow?.width ?? BOW_SIZE.w;
+  const h = bow?.height ?? BOW_SIZE.h;
   const layer = () => { const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h; return canvas; };
   const texture = scene.textures.createCanvas(key, w, h);
   const context = texture.getContext();
@@ -140,31 +90,7 @@ function forkTexture(scene, leftId, rightId) {
   context.fillStyle = mist;
   context.fillRect(0, 0, w, h);
 
-  if (scene.textures.exists(BOW_ART)) { // the drawn bow, transparent above the boat
-    context.drawImage(scene.textures.get(BOW_ART).getSourceImage(), 0, 0, w, h);
-    texture.refresh();
-    return key;
-  }
-  // Without it: a stand-in cut from FORK_ART and dressed with pieces of the side-view boat.
-
-  // The inside of the boat, cut from the painting with a soft edge and warmed to the gold boat's wood.
-  const boat = layer();
-  const boatContext = boat.getContext('2d');
-  boatContext.filter = 'blur(2px)';
-  boatContext.beginPath();
-  BOW_OUTLINE.forEach(([x, y], i) => (i ? boatContext.lineTo(x * w, y * h) : boatContext.moveTo(x * w, y * h)));
-  boatContext.closePath();
-  boatContext.fill();
-  boatContext.filter = 'none';
-  boatContext.globalCompositeOperation = 'source-in';
-  boatContext.drawImage(bow, 0, 0);
-  boatContext.globalCompositeOperation = 'source-atop';
-  boatContext.fillStyle = 'rgba(150,84,30,0.3)';
-  boatContext.fillRect(0, 0, w, h);
-  const goldBoat = scene.textures.get('sprite-boat-horizontal').getSourceImage();
-  drawProw(context, goldBoat, w, h);
-  context.drawImage(boat, 0, 0);
-  dressBow(context, goldBoat, w, h);
+  if (bow) context.drawImage(bow, 0, 0, w, h); // the boat in front; without the art, only the two places
   texture.refresh();
   return key;
 }
@@ -197,7 +123,7 @@ export class CrossingScene extends Phaser.Scene {
   preload() {
     queueAssets(this, {
       art: [...soulArtIds(), 'sprite-boat-horizontal', BOW_ART, PIER_ART, ...MemoryHand.artIds()],
-      backgrounds: ['bg-starting-shore', FORK_ART, ...Ferry.data.destinations.map((d) => d.id)],
+      backgrounds: ['bg-starting-shore', ...Ferry.data.destinations.map((d) => d.id)],
       audio: [FOG], // sfx-fog is not in BootScene's list
     });
   }
