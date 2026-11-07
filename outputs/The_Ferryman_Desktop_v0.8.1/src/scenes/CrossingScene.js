@@ -39,6 +39,7 @@ const PLACE_LABEL = { x: 56, y: 174 }; // the name of the stop the boat is leavi
 const FORESIGHT = { x: 760, y: 130, w: 300 }; // above the boat at the fork, clear of the signs
 
 defineTuning({
+  'crossing.prepareX': { type: 'number', default: 640, min: 300, max: 1000, step: 10, help: 'Where the boat waits, centred, while memories and passenger abilities are chosen after the Starting Shore' },
   'crossing.enterMs': { type: 'number', default: 2600, min: 0, max: 6000, step: 50, help: 'The boat rows in from the Starting Shore' },
   'crossing.approachMs': { type: 'number', default: 4200, min: 200, max: 10000, step: 50, help: 'The boat rows to the fork' },
   'crossing.boardMs': { type: 'number', default: 500, min: 0, max: 3000, step: 50, help: 'A Long fades onto the boat at the fork' },
@@ -122,7 +123,7 @@ export class CrossingScene extends Phaser.Scene {
     if (step === 'prepare' && !state.destination) {
       enterScene(this, MS.base);
       this.boat.x = this.layout.back;
-      this.tweens.add({ targets: this.boat, x: this.layout.home.x, duration: tune('crossing.enterMs'), ease: 'Sine.Out' });
+      this.tweens.add({ targets: this.boat, x: tune('crossing.prepareX'), duration: tune('crossing.enterMs'), ease: 'Sine.Out' });
     }
   }
 

@@ -2,7 +2,7 @@
 
 ## Memory hand and rewards (Nov 7, 2026)
 
-Presentation only; `rules/` unchanged. The memory hand moved from the top right to the left, under the Light plate (`hud.handX` 24, `hud.handY` 112), and grows to the right; the red status line sits below it. A memory earned at a stop shows as its art alone (`delivery.rewardArt` 200 px), no name, text or heading, then flies to the hand. A delivered soul now moves right, toward the pier, as it fades.
+Presentation only; `rules/` unchanged. The memory hand moved from the top right to the left, under the Light plate (`hud.handX` 24, `hud.handY` 112), and grows to the right; the red status line sits below it. A memory earned at a stop shows as its art alone (`delivery.rewardArt` 200 px), no name, text or heading, then flies to the hand. A delivered soul now moves right, toward the pier, as it fades. After the Starting Shore the boat rows in to the centre (`crossing.prepareX` 640) for memories and passenger abilities; at a later stop it stays at the pier.
 
 | Check | Command or method | Result |
 |---|---|---|
