@@ -36,9 +36,9 @@ export const SOUND_FADE_MS = { in: 3000, out: 3000 };
  */
 export const fadeProgress = (from, to, p) => (to >= from ? Math.sin((p * Math.PI) / 2) : 1 - (1 - p) ** 2);
 
-// The title music keeps playing through a run, quietly under the ambience and the cues: 0.15 is about -33 LUFS
-// (-16.1 LUFS - 16.5 dB), just under the cues at about -30. The title screen brings it back up to 0.5.
-export const RUN_MUSIC = { id: 'bgm-menu', volume: 0.15 };
+// The title music keeps playing through a run, quietly under the ambience and the cues: 0.08 is about -38 LUFS
+// (-16.1 LUFS - 22 dB), well under the cues at about -30 (0.15 was still too loud, Nov 8). The title screen brings it back up to 0.5.
+export const RUN_MUSIC = { id: 'bgm-menu', volume: 0.08 };
 
 /** The volume a sound plays at: its entry above, or full volume for a sound not listed. */
 export const soundVolume = (id) => SOUND_VOLUME[id] ?? 1;
