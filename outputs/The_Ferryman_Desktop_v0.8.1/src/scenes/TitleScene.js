@@ -207,7 +207,7 @@ export class TitleScene extends Phaser.Scene {
 
   /**
    * The lore intro: the menu fades away, then each screen's lines fade in on a dark veil, hold, and
-   * fade out. A click or key moves on, Esc or Skip goes straight to the run. done runs once.
+   * fade out. A click or key moves on, Esc goes straight to the run. done runs once.
    */
   playLore(done) {
     this.leaving = true; // guarded() and the seed label ignore the menu from now on
@@ -217,11 +217,9 @@ export class TitleScene extends Phaser.Scene {
     const depth = DEPTH.hero + 2; // over the menu and the replace dialog
     const veil = this.add.rectangle(width / 2, height / 2, width, height, COLOR.deep, tune('lore.veilAlpha')).setDepth(depth).setInteractive();
     const hint = this.add.text(width / 2, height - 46, t('lore.hint'), bodyText(17, CSS.muted)).setOrigin(0.5).setDepth(depth + 1);
-    const skip = this.add.text(width - 36, height - 46, t('lore.skip'), bodyText(19, CSS.gold)).setOrigin(1, 0.5).setDepth(depth + 1).setInteractive({ useHandCursor: true });
-    const lore = (this.lore = { seq, screens, lines: [], timers: [], frame: [veil, hint, skip], done });
+    const lore = (this.lore = { seq, screens, lines: [], timers: [], frame: [veil, hint], done });
     this.editingSeed = false;
     veil.on('pointerdown', () => this.advanceLore());
-    skip.on('pointerdown', () => this.skipLore());
     fadeInParts(this, lore.frame, MS.base);
     if (this.dialog) this.closeDialog();
     // The title reveal and the menu's delayed fade-ins may still be running; stop them before the

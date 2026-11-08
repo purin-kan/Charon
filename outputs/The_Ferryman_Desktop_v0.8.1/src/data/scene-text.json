@@ -70,8 +70,7 @@
         "The lantern is lit. Take the oar."
       ]
     ],
-    "hint": "Click to continue · Esc to skip",
-    "skip": "Skip"
+    "hint": "Click to continue · Esc to skip"
   },
 
   "boarding": {

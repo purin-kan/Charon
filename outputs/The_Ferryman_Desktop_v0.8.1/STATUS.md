@@ -2,7 +2,7 @@
 
 ## Lore intro after New game (branch `sfx-volume`, Nov 8, 2026)
 
-New game now plays five short lore screens (`lore.screens` in `src/data/scene-text.json`) before the run; Continue does not. Each screen fades in line by line, holds, and fades out; a click or a plain key moves on, Esc or Skip starts the run. Lone modifier keys (Alt+Tab), Ctrl/Alt/Meta chords, F-keys and held-key repeats do not move it on (`advancesLore` in `src/scenes/lore-layout.js`).
+New game now plays five short lore screens (`lore.screens` in `src/data/scene-text.json`) before the run; Continue does not. Each screen fades in line by line, holds, and fades out; a click or a plain key moves on, Esc starts the run (no Skip button; the hint line says "Esc to skip"). Lone modifier keys (Alt+Tab), Ctrl/Alt/Meta chords, F-keys and held-key repeats do not move it on (`advancesLore` in `src/scenes/lore-layout.js`).
 
 | Check | Command or method | Result |
 |---|---|---|
@@ -13,7 +13,7 @@ New game now plays five short lore screens (`lore.screens` in `src/data/scene-te
 
 | Check | Who | Result |
 |---|---|---|
-| Watch the intro in the game window (fades, text fits, Skip) | human | NOT_RUN |
+| Watch the intro in the game window (fades, text fits) | human | NOT_RUN |
 | Double start: New game, then Esc, clicks and waiting for the hold timer in quick mixes; the run must start once | human | NOT_RUN |
 
 ## Sound levels (branch `sfx-volume` at `ac46a8d`, Nov 8, 2026, after the freeze)

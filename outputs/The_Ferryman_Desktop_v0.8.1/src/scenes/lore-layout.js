@@ -64,7 +64,7 @@ export function loreTimeline(lineCount, { fadeMs, lineGapMs, holdMs, reduced = f
  *   start()       after the menu has faded: { show: 0 } (or { finish } when there are no screens)
  *   advance(i)    a click, a key or the hold timer of screen i: { leave: i, next: i + 1 } or { leave: i, finish: true }
  *   arrive()      after the screen being left has faded out: { show: next }
- *   skip()        Esc or the Skip control: { finish: true }
+ *   skip()        Esc: { finish: true }
  *
  * advance only acts on the screen that is fully showing, so a timer from an earlier screen, or a second
  * click while a screen fades out, does nothing.

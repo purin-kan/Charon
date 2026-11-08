@@ -24,8 +24,8 @@ check(screens.length >= 3 && screens.length <= 6, 'three to six lore screens', `
 const lines = screens.flat();
 check(screens.every((s, i) => s.length === raw[i].length), 'no blank lore line is dropped', `${lines.length} lines`);
 check(lines.every((l) => typeof l === 'string' && l.trim() !== '' && l.length <= 80), 'each lore line is non-empty and fits one row (80 characters)');
-for (const key of ['hint', 'skip']) check(typeof text.lore?.[key] === 'string' && text.lore[key].trim() !== '', `lore.${key} is text`);
-const allText = [...lines, text.lore?.hint ?? '', text.lore?.skip ?? ''];
+for (const key of ['hint']) check(typeof text.lore?.[key] === 'string' && text.lore[key].trim() !== '', `lore.${key} is text`);
+const allText = [...lines, text.lore?.hint ?? ''];
 check(!allText.some((l) => l.includes(EM_DASH)), 'no em dash in the lore text');
 for (const file of ['src/scenes/lore-layout.js', 'tools/check-lore.mjs', 'src/scenes/TitleScene.js']) {
   check(!read(file).includes(EM_DASH), `no em dash in ${file}`);
