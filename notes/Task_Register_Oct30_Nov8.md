@@ -53,7 +53,7 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 | T-23 | Tuning and pacing calibration | 2026-11-06 (midday) | Tinpatpun | VarisPah, Kanyakorn-goya | T-13, T-19 | Game | Should | Not started | Crossing speed, snap feel and wraith pacing tuned; `tuning.json` committed by one person |
 | T-24 | Destination backgrounds and memory placeholders | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Done | Six existing destinations cut or placed; Heaven and the nine memory types without art have placeholders |
 | T-25 | Wraith transformation frames | 2026-11-05 | Kanyakorn-goya | | T-03 | Game | Should | Done | Animation frames committed with naming convention |
-| T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | In progress | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
+| T-26 | Pitch script draft | 2026-11-05 | bosthanapatw | purin-kan | T-18 | Presentation | Must | Done | Script covers Description, Algorithmic Implementation and Demo play; early gameplay footage captured |
 | T-27 | Scene text | 2026-11-05 | Tinpatpun | bosthanapatw | T-05 | Game | Should | Done | Button, help and ending text collected into a data file the scenes read |
 | T-28 | Crossing and delivery audio | 2026-11-05 | VarisPah | bosthanapatw | T-15 | Game | Should | In progress | Crossing variants, delivery jingle, wraith SFX and fog ambiance committed with sources recorded |
 | T-45 | Apply decided rules to the game data | 2026-11-04 (end of day) | purin-kan | bosthanapatw, Jaoguya, VarisPah, SupaOhm | Decisions on issue 6 (VarisPah and Jaoguya; items 1 to 3 needed by Nov 2) | Game | Must | Done | The decisions are entered in `content.json`, and in `engine.js` only where a rule needs it (Jaoguya reviews engine edits); `build-content.js` and `quest-check.js` rerun and passing; a short change note lists each rule changed; Drug Dealer, Fool and Killer stay out of play |
@@ -62,10 +62,10 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-29 | Hard freeze | 2026-11-06 (afternoon) | VarisPah | All | T-31 | Process | Must | Not started | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play |
+| T-29 | Hard freeze | 2026-11-06 (afternoon) | VarisPah | All | T-31 | Process | Must | Done | All scenes merged; no new mechanics, quest types or major art after this point; Drug Dealer, Fool and Killer stay out of play |
 | T-30 | Integration check | 2026-11-06 (morning) | purin-kan | VarisPah | T-08, T-11, T-12, T-16, T-17, T-19, T-20, T-21, T-22, T-45 | .exe | Must | Done | From Nov 3, scene pull requests merged as they land and breaks reported to their owners; on Nov 6, a full playthrough boot to game over across multiple cycles; save and load confirmed |
 | T-31 | Scope-cut triage | 2026-11-06 (midday) | Jaoguya | VarisPah, purin-kan | T-30 | Game | Should | Done | Cut candidates flagged by Nov 5 from the rolling integration; unstable hero encounters or Polong variants cut or kept, with VarisPah agreeing to any cut; any `engine.js` change (and any test it breaks) followed by `build-content.js` and `quest-check.js` reruns, both passing |
-| T-32 | Release candidate build | 2026-11-06 (end of day) | purin-kan | | T-29 | .exe | Must | Not started | Release candidate `.exe` built and handed to VarisPah and bosthanapatw |
+| T-32 | Release candidate build | 2026-11-06 (end of day) | purin-kan | | T-29 | .exe | Must | Done | Release candidate `.exe` built and handed to VarisPah and bosthanapatw |
 | T-33 | Balance playtests | 2026-11-06 (end of day) | VarisPah | | T-30 | Game | Should | Done | Observations of Light, anger and fog logged in the status file; proposed `content.json` changes sent to the group |
 
 ## Phase 5: QA, Balance & Polish
@@ -74,16 +74,16 @@ Derived from [Project_Plan_Oct30_Nov8.md](Project_Plan_Oct30_Nov8.md) on October
 |---|---|---|---|---|---|---|---|---|---|
 | T-34 | `.exe` testing | 2026-11-07 (morning) | Tinpatpun | VarisPah | T-32 | .exe | Must | In progress | Release candidate tested on a second Windows machine; SmartScreen, asset pathing, memory stability and save persistence recorded; untested items marked `NOT_RUN` |
 | T-35 | Balance tuning | 2026-11-07 (midday) | VarisPah | | T-33 | Game | Should | Done | Final `content.json` values set, each change logged with its reason, `build-content.js` and `quest-check.js` rerun |
-| T-36 | Bug fixes | 2026-11-07 (midday) | Jaoguya | SupaOhm | T-30, T-34 | Game | Must | In progress | Starts Nov 6 from the integration check findings; issues from the Nov 7 test log added; each owner fixes their own scenes |
+| T-36 | Bug fixes | 2026-11-07 (midday) | Jaoguya | SupaOhm | T-30, T-34 | Game | Must | Done | Starts Nov 6 from the integration check findings; issues from the Nov 7 test log added; each owner fixes their own scenes |
 | T-37 | Visual polish | 2026-11-07 (midday) | Tinpatpun | SupaOhm | T-29 | Game | Nice | Done | Scene transitions and screen shake in; particle effects only once the bug list is empty; anything not merged before the T-44 build is Cut |
-| T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | In progress | Final slides cover all three required parts |
-| T-39 | Art polish | 2026-11-07 (midday) | Kanyakorn-goya | | T-29 | Game | Nice | In progress | Placeholder sprites touched up and UI elements finalized; anything not merged before the T-44 build is Cut |
+| T-38 | Slides finalize | 2026-11-07 | bosthanapatw | purin-kan | T-26 | Presentation | Must | Done | Final slides cover all three required parts |
+| T-39 | Art polish | 2026-11-07 (midday) | Kanyakorn-goya | | T-29 | Game | Nice | Done | Placeholder sprites touched up and UI elements finalized; anything not merged before the T-44 build is Cut |
 | T-44 | Re-test after fixes | 2026-11-07 (end of day) | bosthanapatw | VarisPah, purin-kan | T-35, T-36 (and T-37, T-39 unless Cut) | .exe | Must | Not started | A build made after the Nov 7 bug fixes and balance values is tested on a second Windows machine; results recorded, untested items marked `NOT_RUN`; purin-kan makes the build |
 
 ## Phase 6: Build, Export & Rehearsal
 
 | ID | Task | Due | Owner | Support | Depends on | Deliverable | Priority | Status | Done when |
 |---|---|---|---|---|---|---|---|---|---|
-| T-40 | Final `.exe` compile and project files | 2026-11-08 (morning) | purin-kan | | T-44 | .exe | Must | Not started | Clean rebuild of the commit that passed T-44, with no code changes; no console errors; README written; project files and `.exe` collected for submission |
-| T-41 | Demo video recording | 2026-11-08 (morning) | bosthanapatw | VarisPah | T-44 | Presentation | Must | Not started | Video recorded with a fixed seed from the build that passed T-44 (same source as the final `.exe`), alongside T-40 |
+| T-40 | Final `.exe` compile and project files | 2026-11-08 (morning) | purin-kan | | T-44 | .exe | Must | In progress | Clean rebuild of the commit that passed T-44, with no code changes; no console errors; README written; project files and `.exe` collected for submission |
+| T-41 | Demo video recording | 2026-11-08 (morning) | bosthanapatw | VarisPah | T-44 | Presentation | Must | In progress | Video recorded with a fixed seed from the build that passed T-44 (same source as the final `.exe`), alongside T-40 |
 | T-42 | Presentation rehearsal | 2026-11-08 (afternoon) | bosthanapatw | All | T-38, T-41 | Presentation | Must | Not started | Full run-through of Description, Algorithmic Implementation and Demo play, with live demo and Q&A |
