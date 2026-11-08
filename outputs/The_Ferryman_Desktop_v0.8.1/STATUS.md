@@ -1,5 +1,33 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Windows packaged exe, the #56 Windows part (Nov 8, 2026)
+
+Run by a Claude Code session on SupaOhm's Windows PC (Windows 11 Pro 10.0.26300, Node v24.13.0, 1920x1080 at 144 Hz) on `main` at `942d825`, so the `qa-56-fixes` commits below are **not** in this build. Real mouse input over the exe's debug port (`--remote-debugging-port=9333`), screenshots read. Agent checks, not a human playtest. Evidence (screenshots, exe stdout, scripts) stays outside the repo on that PC and was handed over as a folder.
+
+| Check | Method | Result |
+|---|---|---|
+| Install and package | `npm install`, `npm run package`, `npm run make` | 152 packages, 0 vulnerabilities; package 12.6 s, `out/` 407 MB, `app.asar` 52.9 MB; zip 198.6 MB |
+| Assets in the `.asar` | `npx @electron/asar list` | all 71 PNG and 8 OGG under `.vite/renderer/main_window/assets/`, none loose on disk; 4 of 7 TTF (the ones the CSS uses) |
+| Launch time | exe stdout | title 9.1 s on the first launch (no app data), 1.0 s on the second; no error or warning lines in either |
+| Smoke run, `FERRY_QA=qa` | full run, random seed | 4 cycles, 9 deliveries, returns, a Long taking a memory, two trims, game over at cycle 5 ("Long Grasp delivery"); 0 console errors or warnings |
+| Close mid-run and Continue | closed at cycle 2 boarding (window close), reopened | "Continue, Cycle 2, Light 7/7"; Continue restored Boarding with the two picked souls aboard |
+| Save separation and F2 | `localStorage`, key presses | only `the-ferryman:desktop:qa:qa:save` written; F2 opens no tuning panel in the exe |
+| Art | screens seen | 78 textures, real art everywhere, no name plates; Charybdis (QA-02) never came up |
+| Sound | `sound.play` counted | all 8 sound ids played (menu music, crossing ambience, 48 clicks, 11 board and 2 unboard footsteps, delivery, fog, 4 Wraith); Web Audio `running` |
+| Minimize and restore mid-crossing | window minimized 6 s | crossing paused, resumed on restore, arrived correctly |
+| Alt-tab mid-crossing | another window in front 6 s | game kept running, arrived correctly |
+| Slow PC, simulated | CDP CPU throttle 6x and 20x | 6x 143 to 144 fps; 20x median 43, min 37 fps; crossing timing unchanged, no errors |
+| Reduced motion | emulated `prefers-reduced-motion` reduce and no-preference | both clean, 135 to 144 fps |
+| Downloaded-file warning | zip extracted with the downloaded-file mark; exe `NotSigned` | SupaOhm saw "The publisher could not be verified. Are you sure you want to run this software?" with Run and Cancel, and clicked Run; the game opened about 100 s after launch. This is Windows' Open File security warning, not the SmartScreen "Windows protected your PC" screen |
+| 10 fixtures | dev window (`npm start`) | `boarding`, `window`, `fork`, `review`, `crossing-prep`, `crossing-concealed`, `crossing-heracles`, `crossing-lethal`, `delivery-match`, `ended` each open on the scene the router expects, no errors |
+| Findings | | QA-05 reproduces in the exe (fixed on `qa-56-fixes`); in `delivery-match` the "Long Grasp" and "Merchant" names touch in Delivery (not in #56) |
+| Hearing the sounds | person with speakers | NOT_RUN |
+| No audio device | audio device disabled | NOT_RUN |
+| A real slow PC | | NOT_RUN |
+| SmartScreen on a second PC (T-14 retest) | | NOT_RUN |
+| Charybdis art in play (QA-02) | | NOT_RUN |
+| Played by a person | human | NOT_RUN |
+
 ## QA-01, QA-03, QA-04 and QA-05 from #56 (branch `qa-56-fixes`, Nov 8, 2026)
 
 Presentation only; `rules/` unchanged. One commit per fix, each with its checks.
