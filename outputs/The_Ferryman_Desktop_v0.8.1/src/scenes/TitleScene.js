@@ -20,7 +20,6 @@ defineTuning({
 });
 
 const MAX_SEED = 4294967295;
-const MUSIC_VOLUME = 0.5;
 const MENU_MUSIC = ['bgm-menu']; // the T-07 id; BootScene queues the same one
 const UI_DEPTH = DEPTH.ui;
 
@@ -54,7 +53,7 @@ export class TitleScene extends Phaser.Scene {
     const onKey = (e) => this.onKey(e);
     this.input.keyboard.on('keydown', onKey);
     fadeOutLoop(this.sound.get('amb-crossing')); // the run's loop (router.js RUN_AMBIENCE) waits for the next run
-    this.music = MENU_MUSIC.map((id) => fadeInLoop(this, id, MUSIC_VOLUME)).find(Boolean) ?? null; // resumes, never restarts
+    this.music = MENU_MUSIC.map((id) => fadeInLoop(this, id)).find(Boolean) ?? null; // resumes, never restarts
     const run = (this.run = {}); // a scene stopped while the fonts load must not build
     this.events.once('shutdown', () => {
       this.run = null;

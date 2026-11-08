@@ -7,6 +7,7 @@
 // MEM-MOLY -> memory-moly.png); see src/asset-names.js for the rules and the alias table.
 import { figureIdFor, fileIdFor } from './asset-names.js';
 import { Ferry } from './ferry.js';
+import { soundVolume } from './sound-levels.js';
 import { COLOR, MS, soulPlate } from './theme.js';
 import { tune } from './tuning.js';
 
@@ -81,10 +82,10 @@ export function addArt(scene, x, y, id, size = 128, plate = {}) {
   return soulPlate(scene, x, plate.y ?? y, plate.w ?? size, plate.h ?? size, plateName(id));
 }
 
-/** Plays a sound if loaded; silently does nothing otherwise. Returns the sound or null. */
+/** Plays a sound if loaded, at its level from sound-levels.js; silently does nothing otherwise. Returns the sound or null. */
 export function playSound(scene, id, config) {
   if (!scene.cache.audio.exists(id)) return null;
-  const s = scene.sound.add(id, config);
+  const s = scene.sound.add(id, { volume: soundVolume(id), ...config });
   if (!config?.loop) s.once('complete', () => s.destroy()); // or every click would keep its own sound object for ever
   s.play();
   return s;
@@ -133,7 +134,7 @@ export function playLoop(owner, id, config, { fromStart = false } = {}) {
  * playLoop that fades up to volume, from silence for a new or paused track. Cancels a fade-out still running,
  * so a track that comes back mid-fade keeps playing instead of being paused by the old fade.
  */
-export function fadeInLoop(owner, id, volume = 1, options) {
+export function fadeInLoop(owner, id, volume = soundVolume(id), options) {
   const s = playLoop(owner, id, { volume: 0 }, options);
   fadeSound(s, volume, MS.slow);
   return s;

@@ -6,6 +6,7 @@
 import { Ferry } from './ferry.js';
 import { sceneFor, OVERLAYS } from './phase-map.js';
 import { fadeInLoop, fadeOutLoop } from './preloader.js';
+import { soundVolume } from './sound-levels.js';
 
 export { sceneFor, OVERLAYS };
 
@@ -29,7 +30,7 @@ export class Router {
     this.state = state;
     this.game.registry.set('state', state);
     this.target = null;
-    fadeInLoop(this.game, RUN_AMBIENCE, 1, { fromStart: true }); // New game or Continue
+    fadeInLoop(this.game, RUN_AMBIENCE, soundVolume(RUN_AMBIENCE), { fromStart: true }); // New game or Continue
     this._enter(sceneFor(state));
     this.game.events.emit('ferry-state', state);
   }
