@@ -14,6 +14,10 @@ const SHORE_WIDTH = 280; // and stops here, inside the screen
 const SHORE_FEET = 500; // they stand on the pier's boards, above the panel
 export const SHORE_Y = SHORE_FEET - TOKEN.h / 2;
 const TIGHT_STEP = 78; // below this the names in the row would touch, so every other one sits higher
+// A name label wraps at 96 px (soul-token.js); this guesses its width from its letters, so two wide names side by side
+// (Long Grasp next to Merchant, #56) also lift every other name, while short names keep the row level.
+const NAME = { charPx: 11, maxPx: 96, gapPx: 6 };
+const nameWidth = (actor, Ferry) => Math.min(NAME.maxPx, soulName(actor.type, Ferry).length * NAME.charPx);
 const ROW_EDGE = { left: 0.2, right: 0.6 }; // how far past the end seats the row reaches with Longs aboard, in seat steps: between the lantern and the ferryman
 const ROWS = { left: 60, width: 1160, top: 210, rowH: 84, gap: 10, perCol: 5 };
 
@@ -41,15 +45,19 @@ export function boatSpots(state, Ferry) {
   const places = riders.length + seats;
   const step = riders.length ? Math.min(seatStep, (last - first) / Math.max(1, places - 1)) : seatStep;
   const placeX = (i) => first + i * step;
-  const tierOf = (place) => (step < TIGHT_STEP ? place % 2 : 0);
   const isLong = (actor) => Ferry.isTainted(actor);
   const widthOf = (actor) => Math.max(1, Ferry.actorSeats(actor));
+  const order = [...state.boat.filter(isLong), ...state.boat.filter((actor) => !isLong(actor))];
   let place = 0;
-  const placed = new Map([...state.boat.filter(isLong), ...state.boat.filter((actor) => !isLong(actor))].map((actor) => {
-    const spot = { x: (placeX(place) + placeX(place + widthOf(actor) - 1)) / 2, tier: tierOf(place) };
+  const row = order.map((actor) => {
+    const spot = { actor, x: (placeX(place) + placeX(place + widthOf(actor) - 1)) / 2, place };
     place += widthOf(actor);
-    return [actor.id, spot];
-  }));
+    return spot;
+  });
+  const namesTouch = row.some((s, i) => i > 0
+    && (nameWidth(s.actor, Ferry) + nameWidth(row[i - 1].actor, Ferry)) / 2 + NAME.gapPx > s.x - row[i - 1].x);
+  const tierOf = (place) => (step < TIGHT_STEP || namesTouch ? place % 2 : 0);
+  const placed = new Map(row.map((s) => [s.actor.id, { x: s.x, tier: tierOf(s.place) }]));
   const spots = state.boat.map((actor) => ({ id: actor.id, actor, span: Ferry.actorSeats(actor), y: slots[0].y, ...placed.get(actor.id) }));
   return { spots, slots };
 }

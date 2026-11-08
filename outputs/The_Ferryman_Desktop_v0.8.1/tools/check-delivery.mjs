@@ -93,6 +93,8 @@ const row = crowdedSpots.map((e) => e.x).sort((a, b) => a - b);
 check('a full boat leaves room between souls', row.every((x, i) => i === 0 || x - row[i - 1] >= 55));
 check('a tight row lifts every other name', crowdedSpots.some((e) => e.tier === 1) && crowdedSpots.some((e) => e.tier === 0));
 check('a roomy row keeps its names level', layoutDelivery(none, [], Ferry).entries.every((e) => e.tier === 0));
+const matchTiers = new Map(layoutDelivery(match, [], Ferry).entries.map((e) => [e.actor.type, e.tier]));
+check('Long Grasp and Merchant side by side: their names sit at different heights (#56)', matchTiers.get('SOUL-PO-DUE') !== matchTiers.get('SOUL-MERCHANT'));
 const manyLongs = structuredClone(crowded);
 for (let i = 0; i < 6; i++) manyLongs.boat.push({ ...riders.boat[1], id: `ACTOR-${70 + i}` });
 const manySpots = layoutDelivery(manyLongs, [], Ferry).entries;
