@@ -1,14 +1,24 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
-## QA-04 and QA-05 from #56 (branch `qa-56-small-fixes`, Nov 8, 2026)
+## QA-01, QA-03, QA-04 and QA-05 from #56 (branch `qa-56-fixes`, Nov 8, 2026)
 
-Presentation only; `rules/` unchanged. QA-04: the game over summary says "1 cycle", "1 ordinary soul" and "1 quest" for a count of one (`gameover-layout.js`); the old `check-gameover` case expected the plural and passed only because it copied the bug. QA-05: New game on the title screen no longer asks to replace a run that has already ended; a run in progress or an unreadable save still asks (`asksBeforeNewGame` in the new pure `src/scenes/title-layout.js`, checked by the new `tools/check-title.mjs`). Both new cases fail on the old code. QA-01, QA-02 and QA-03 are not touched.
+Presentation only; `rules/` unchanged. One commit per fix, each with its checks.
+
+- QA-04: the game over summary says "1 cycle", "1 ordinary soul" and "1 quest" for a count of one (`gameover-layout.js`). The old `check-gameover` case expected the plural and passed only because it copied the bug.
+- QA-05: New game on the title screen no longer asks to replace a run that has already ended; a run in progress or an unreadable save still asks (`asksBeforeNewGame` in the new pure `src/scenes/title-layout.js`, new `tools/check-title.mjs`).
+- QA-01 (SupaOhm, Delivery owner, Nov 8): marking a soul away from its wish always shows a plain line, "Leaving away from a wish costs 1 Light each: 1 marked, Light 4 → 3."; the red warning stays for when the lantern goes out, and the two never show together. `exitCost` in `delivery-layout.js` mirrors only the engine's deliver step (Mason last, Long Grasp level 3+ damage that Guard absorbs, 1 Light per stray, Long Mist fare at Tartarus). It leaves out the rest of DELIVER (Anger, Wraiths, thefts), which is not the cost of leaving and would preview random outcomes. `check-delivery` compares it with the engine; breaking any of the four rules fails a check.
+- QA-03: bow view souls stand 128 px apart instead of 92, wider than the 96 px name label (`CREW` and `crewXs` moved to `crossing-layout.js`, checked in `check-crossing`).
+- QA-02 (no Charybdis art) is left open for art.
+- Seen while checking, not fixed: in Delivery with `delivery-match`, the "Long Grasp" and "Merchant" names touch. That was already so before this branch and is not in #56.
 
 | Check | Command or method | Result |
 |---|---|---|
 | Automated | `npm run check` | 12 of 12 (new `check-title.mjs`) |
 | Rules | `node tests/quest-check.js` | 34 passed, 0 failed |
-| Title and game over screens in the running game | dev window or exe | NOT_RUN |
+| Screens (screenshots, real clicks in a hidden headless Chrome on the Vite dev server, not a playtest) | game over (`ended`), title with an ended save then New game, title with a run in progress then New game, Delivery (`delivery-match`) marking the Cook, bow view (`crossing-odysseus`) | as intended: singular summary; no dialog for the ended run (log shows the new game start); the dialog still shows for a run in progress; cost line "Light 4 → 3" in plain text; Odysseus and Long Hollow names apart |
+| Issue repro for QA-01 | seed 7, Mother, Child and Cook to Acheron | NOT_RUN (the `delivery-match` fixture covers the same case) |
+| Red warning in the running game | Delivery with low Light | NOT_RUN (covered by `check-delivery`) |
+| Packaged exe, Windows | `npm run package` | NOT_RUN |
 | Played by a person | human | NOT_RUN |
 
 ## Crew in the bow view and clearer soul info (Nov 7, 2026)

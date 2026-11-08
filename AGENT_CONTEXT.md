@@ -1,5 +1,9 @@
 # The Ferryman / Charon: agent context
 
+## November 8, 2026: QA fixes from #56 (SupaOhm, branch `qa-56-fixes`)
+
+bosthanapatw's QA pass on #56 found five UI bugs on `942d825`. This branch fixes QA-01, QA-03, QA-04 and QA-05, one commit each with checks; results are in the desktop `STATUS.md`. Decided by SupaOhm in a grilling (Nov 8): QA-01 always shows the Light a stray exit costs, as a plain line, decided as the Delivery owner (VarisPah's #34 ruling only said "the Delivery screen warns"; the #56 reply says so, so VarisPah can object before merge). The cost mirrors only the engine's deliver step, never a test run of the whole DELIVER, which would preview Wraiths and random Anger. QA-03 widens the bow view spacing, which is Jaoguya's code from #54, so Jaoguya reviews. QA-02 (Charybdis art) is not ours and stays open. The Windows exe tests on #56 stay with Jaoguya and VarisPah. Plan: SupaOhm approves the PR text, then the branch is pushed and the PR opened with Jaoguya as reviewer, then a #56 reply links it. Commit messages carry no Claude attribution (SupaOhm's rule).
+
 ## November 6, 2026: handoff to Jaoguya
 
 Tinpatpun handed this work to Jaoguya. Read `notes/Handoff_Tinpatpun_to_Jaoguya_2026-11-06.md` first. `full-game-restyle` and `polish-transitions` are pushed, each with a PR; merge the restyle first.
