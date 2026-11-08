@@ -1,5 +1,17 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Sound levels (branch `sfx-volume` at `ac46a8d`, Nov 8, 2026, after the freeze)
+
+purin-kan played the final zip and found the sound effects too loud, the delivery one most. Every sound played at full volume except the title music (0.5). Measured with ffmpeg: delivery -18.8 LUFS, fog -21.0, Wraith -22.9, run ambience -44.2, title music -16.1. `src/sound-levels.js` now sets one volume per sound (delivery 0.28, fog 0.35, Wraith 0.45, click 0.45, board and unboard 0.55, ambience 1, title music 0.5), read by `playSound` and `fadeInLoop`. This changes the build after the hard freeze (#38), so it needs the team's agreement there.
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated checks | `npm run check` (new `tools/check-sound.mjs`) | 13 of 13 passed |
+| Levels reach the packaged exe | `npm run package`, exe over its debug port with Web Audio gain values logged, one soul boarded | the board sound played at gain 0.55; 0 console errors |
+| Zip | `tar -a` of `out/The Ferryman-win32-x64` | `The Ferryman-win32-x64-0.8.1-ac46a8d-sound.zip`, 198.9 MB |
+
+NOT_RUN: hearing the new balance (purin-kan to listen); the delivery, fog and Wraith cues played in the exe (same `playSound` path as the board sound).
+
 ## Final build candidate and re-test (branch `delivery-name-spacing` at `92268c6`, Nov 8, 2026)
 
 `main` at `1681b4f` (#57 and #58 merged) plus one commit: names in a boat row now also sit at two heights when two wide names are side by side (Long Grasp next to Merchant in `delivery-match`, found in #56). Built and tested by a Claude Code session on purin-kan's Windows PC (Windows 11 Pro 10.0.26200, Node v25.1.0). Agent checks over the exe's debug port, screenshots read. Not a human playtest, and not a second Windows machine.
