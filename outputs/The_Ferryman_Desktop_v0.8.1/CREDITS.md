@@ -1,48 +1,31 @@
-# Credits (draft)
+# Credits
 
-Started for T-18 by bosthanapatw on November 2, 2026. Collected from the provenance notes in `assets/`; add a row whenever an art, audio or font file is committed. This draft is not a legal clearance: it lists only what the source records state.
-
-## Team
-
-| Member | Role |
-|---|---|
-| bosthanapatw | Production and presentation |
-| Kanyakorn-goya | Art |
-| Tinpatpun | Gameplay support and UI |
-| Jaoguya | Gameplay and UI; co-PM |
-| SupaOhm | Gameplay |
-| VarisPah | Audio, QA and balance; PM |
-| purin-kan | Scaffold and builds |
-
-Roles are from `notes/Project_Plan_Oct30_Nov8.md`. Each member should check their own line.
+Art, audio, font and software used in The Ferryman. The team and its roles are listed in the README.
 
 ## Music and sound
 
 Source: `assets/audio/AUDIO_NOTES.md`.
 
-* "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop, licensed CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Converted from WAV to OGG. Used as the menu loop (`bgm-menu`). **CC-BY: this credit must appear in the README and the presentation.**
-* "Pirate Pack Vol 1" by JC Sounds, https://opengameart.org/content/jc-sounds-pirate-pack-vol-1, licensed CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). `steps_wood_fast_01.wav` and `steps_sand_dry_04.wav` converted from WAV to OGG; volumes adjusted (wood step lowered, sand step raised). Used as the board and unboard sounds (`sfx-board`, `sfx-unboard`). **CC-BY: this credit must appear in the README and the presentation.**
+* "RPG - Underworld Theme - Loop" by Joseph Collard (jocolloman), https://opengameart.org/content/rpg-underworld-theme-loop, licensed CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Converted from WAV to OGG. Used as the menu loop (`bgm-menu`). The licence requires this credit.
+* "Pirate Pack Vol 1" by JC Sounds, https://opengameart.org/content/jc-sounds-pirate-pack-vol-1, licensed CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/). `steps_wood_fast_01.wav` and `steps_sand_dry_04.wav` converted from WAV to OGG; volumes adjusted (wood step lowered, sand step raised). Used as the board and unboard sounds (`sfx-board`, `sfx-unboard`). The licence requires this credit.
 * "Interface Sounds" by Kenney (kenney.nl), https://opengameart.org/content/interface-sounds, CC0 (credit not required). Volume lowered. Used as the UI click (`sfx-ui-click`).
-* Sound effects generated with ElevenLabs (elevenlabs.io), https://elevenlabs.io/app/sound-effects, by VarisPah from text prompts: the delivery jingle (`sfx-delivery-success`), the Wraith sound (`sfx-wraith`) and the crossing ambience (`amb-crossing`). Trimmed, levelled and converted to OGG. **The ElevenLabs free plan requires this attribution: it must appear in the README and the presentation.**
+* Sound effects generated with ElevenLabs (elevenlabs.io), https://elevenlabs.io/app/sound-effects, by VarisPah from text prompts: the delivery jingle (`sfx-delivery-success`), the Wraith sound (`sfx-wraith`) and the crossing ambience (`amb-crossing`). Trimmed, levelled and converted to OGG. The ElevenLabs free plan requires this attribution.
 * "Dark Ambiences" by Ogrebane, https://opengameart.org/content/dark-ambiences, CC0 (credit not required). `ambience-3.wav`, volume lowered and converted to OGG. Used as the fog sting (`sfx-fog`).
 
 ## Art
 
-Source: `assets/source-art/ARTWORK_NOTES.md` and the v0.6 rights record (`outputs/The_Ferryman_v0.6/art/LICENSES.md`, last present in commit `faf9ea5`).
-
-* The portraits, destinations, memory icons, boat and shore in `assets/source-art/` are project artwork. The v0.6 record says the older raster art and eight v0.6 images were generated with a built-in AI image tool; no stock or downloaded images were added. No third-party licence is recorded for them.
-* Farmer v7, Blacksmith v4 and Priest (normal v2, exhausted v3) were copied from the October 30 catalog's local images.
-* `assets/art/sprite-mother-test.png`: a temporary test cut-out for the art pipeline, not final Mother art (`notes/T-03_ART_PIPELINE.md`).
-* Sprite cut-outs and new art for the desktop build: Kanyakorn-goya (to fill in as files land in `assets/art/` and `assets/backgrounds/`).
-* `assets/art/boat/sprite-dock.png`: a standalone pier painted in the chibi style by Kanyakorn-goya (#49, Nov 6, 2026). It replaces the earlier pier traced from `bg-starting-shore.png` (#46).
-* `assets/art/figures/figure-*.png`: transparent cut-outs of the portraits in `assets/source-art/` (the same paintings as `Game_Materials_v0.6.pdf`), made on Nov 6, 2026 with rembg (isnet-general-use model) and faded at the hem. Not shown by default: Tinpatpun chose the 2D sprites (Nov 6), and `art.useFigures` in the F2 panel turns the figures on. The originals are unchanged.
-* Final art approval by the team is pending.
+* The portraits, destinations, memory icons, boat and shore are project artwork. The project's older raster art and eight images from version 0.6 were generated with a built-in AI image tool; no stock or downloaded images were added. No third-party licence is recorded for them.
+* The Farmer, Blacksmith and Priest portraits come from the team's October 30 character catalog.
+* Sprite cut-outs and new art for the desktop build: Kanyakorn-goya.
+* `assets/art/boat/sprite-dock.png`: a standalone pier painted in the chibi style by Kanyakorn-goya (November 6, 2026).
+* `assets/art/sprite-mother-test.png`: a test cut-out from the art pipeline, not the final Mother art.
+* `assets/art/figures/figure-*.png`: transparent cut-outs of the portrait paintings, made on November 6, 2026 with rembg (isnet-general-use model) and faded at the hem. The game shows the 2D sprites; the figures are off by default.
 
 ## Fonts
 
-* Bitstream Vera, under the Bitstream Vera licence (`assets/fonts/bitstream-vera-license.txt`). Bundled, not yet loaded by any scene.
-* Cinzel Decorative by Natanael Gama, SIL Open Font License 1.1 (`assets/fonts/cinzel-decorative-OFL.txt`). Regular and Bold from https://github.com/google/fonts (`ofl/cinzeldecorative`), unmodified. Headings and buttons in BoardingScene.
-* Cormorant Garamond by the Cormorant Project Authors (https://github.com/CatharsisFonts/Cormorant), SIL Open Font License 1.1 (`assets/fonts/cormorant-garamond-OFL.txt`). Variable roman and italic from https://github.com/google/fonts (`ofl/cormorantgaramond`), unmodified. Body text in BoardingScene.
+* Bitstream Vera, under the Bitstream Vera licence (`assets/fonts/bitstream-vera-license.txt`). Bundled, not shown on screen.
+* Cinzel Decorative by Natanael Gama, SIL Open Font License 1.1 (`assets/fonts/cinzel-decorative-OFL.txt`). Regular and Bold from https://github.com/google/fonts (`ofl/cinzeldecorative`), unmodified. Used for headings and buttons.
+* Cormorant Garamond by the Cormorant Project Authors (https://github.com/CatharsisFonts/Cormorant), SIL Open Font License 1.1 (`assets/fonts/cormorant-garamond-OFL.txt`). Variable roman and italic from https://github.com/google/fonts (`ofl/cormorantgaramond`), unmodified. Used for body text.
 
 ## Software
 
@@ -58,8 +41,8 @@ Versions from `package.json`; licences from each package's own `package.json`.
 ## Story sources
 
 * Greek myth: Charon, Styx, Acheron, Asphodel, Elysium, Tartarus, Heracles and Cerberus, Odysseus, Tiresias, Charybdis and Scylla, Hermes.
-* Long (tainted soul) inspirations: see the entity catalog, `notes/Charon_Entity_Catalog_Public_2026-10-31.xlsx`.
+* The Longs (tainted souls) draw on the team's entity catalog.
 
 ## Development
 
-Most code was written by AI coding assistants from team prompts; the team made the design decisions (`notes/Project_Plan_Oct30_Nov8.md`, section 1).
+The team made the design decisions; most code was written by AI coding assistants from team prompts.
