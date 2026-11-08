@@ -5,10 +5,15 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
+    useContentSize: true, // 1280 x 720 is the game area, not the window with its title bar, so no side bars
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
     },
   });
+  // No File / Edit / View / Window bar over the game. The menu itself stays, so its shortcuts (F11 full screen,
+  // Ctrl+Shift+I developer tools) still work; autoHideMenuBar stays off, so Alt does not bring the bar back.
+  mainWindow.setMenuBarVisibility(false);
+  mainWindow.setContentSize(1280, 720); // the hidden bar's height would otherwise be left over as bars above and below
 
   // Echo renderer console output to this process's stdout (visible in `npm start`).
   mainWindow.webContents.on('console-message', (event, ...legacy) => {

@@ -8,7 +8,7 @@ import { boatZone } from '../src/scenes/boarding-layout.js';
 import { boatSpots } from '../src/scenes/delivery-layout.js';
 import {
   CREW, crewXs, abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingStep,
-  SIGNS, placeName, purifyAction, soulDetail, typeDetail, worldLayout,
+  SIGNS, placeName, purifyAction, soulDetail, soulTitle, typeDetail, worldLayout,
 } from '../src/scenes/crossing-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -151,7 +151,8 @@ check('a concealed branch says so', veiledSigns.some((s) => s.hidden && s.name =
 // Hover details.
 const cook = prep.boat.find((x) => x.type === 'SOUL-COOK');
 const cookDetail = soulDetail(prep, cook, Ferry, t);
-check('a soul hover names it with its personal name', cookDetail.title.startsWith('Cook ('));
+check(`a soul hover names it "personal name the role"  ${cookDetail.title}`, cookDetail.title === 'Sikon the Cook');
+check('every soul with a personal name is titled "Name the Role", with no brackets', Ferry.data.souls.filter((s) => s.personalName).every((s) => soulTitle(s.id, Ferry) === `${s.personalName} the ${s.name}` && !/[()]/.test(soulTitle(s.id, Ferry))));
 check('a soul hover shows its wish, Anger, memory and quest', ['Wish:', 'Anger:', 'Memory:', 'A shared meal:'].every((k) => cookDetail.lines.some((l) => l.startsWith(k))));
 const longDetail = soulDetail(withLong, longAboard, Ferry, t);
 check('a Long hover shows its level and its text', longDetail.lines.includes(`Level: ${longAboard.level}`) && longDetail.lines.includes(Ferry.data.souls.find((s) => s.id === longAboard.type).text));

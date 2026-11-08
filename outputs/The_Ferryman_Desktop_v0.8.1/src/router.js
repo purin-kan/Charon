@@ -6,6 +6,7 @@
 import { Ferry } from './ferry.js';
 import { sceneFor, OVERLAYS } from './phase-map.js';
 import { fadeInLoop, fadeOutLoop } from './preloader.js';
+import { RUN_MUSIC, soundVolume } from './sound-levels.js';
 
 export { sceneFor, OVERLAYS };
 
@@ -29,7 +30,8 @@ export class Router {
     this.state = state;
     this.game.registry.set('state', state);
     this.target = null;
-    fadeInLoop(this.game, RUN_AMBIENCE, 1, { fromStart: true }); // New game or Continue
+    fadeInLoop(this.game, RUN_AMBIENCE, soundVolume(RUN_AMBIENCE), { fromStart: true }); // New game or Continue
+    fadeInLoop(this.game, RUN_MUSIC.id, RUN_MUSIC.volume); // the title music carries on, quietly (sound-levels.js)
     this._enter(sceneFor(state));
     this.game.events.emit('ferry-state', state);
   }
@@ -95,6 +97,7 @@ export class Router {
     this.base = key;
     if (key === 'GameOverScene') fadeOutLoop(this.game.sound.get(RUN_AMBIENCE));
     else fadeInLoop(this.game, RUN_AMBIENCE); // keeps playing; resumes only if something paused it
+    fadeInLoop(this.game, RUN_MUSIC.id, RUN_MUSIC.volume); // in every scene, game over included
     sm.start(key);
   }
 

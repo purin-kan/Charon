@@ -7,7 +7,8 @@
 // MEM-MOLY -> memory-moly.png); see src/asset-names.js for the rules and the alias table.
 import { figureIdFor, fileIdFor } from './asset-names.js';
 import { Ferry } from './ferry.js';
-import { COLOR, MS, soulPlate } from './theme.js';
+import { SOUND_FADE_MS, fadeProgress, soundVolume } from './sound-levels.js';
+import { COLOR, soulPlate } from './theme.js';
 import { tune } from './tuning.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
@@ -81,16 +82,19 @@ export function addArt(scene, x, y, id, size = 128, plate = {}) {
   return soulPlate(scene, x, plate.y ?? y, plate.w ?? size, plate.h ?? size, plateName(id));
 }
 
-/** Plays a sound if loaded; silently does nothing otherwise. Returns the sound or null. */
+/** Plays a sound if loaded, at its level from sound-levels.js; silently does nothing otherwise. Returns the sound or null. */
 export function playSound(scene, id, config) {
   if (!scene.cache.audio.exists(id)) return null;
-  const s = scene.sound.add(id, config);
+  const s = scene.sound.add(id, { volume: soundVolume(id), ...config });
   if (!config?.loop) s.once('complete', () => s.destroy()); // or every click would keep its own sound object for ever
   s.play();
   return s;
 }
 
-/** Moves a sound to a volume over ms, then calls done. A plain timer, so a fade can outlive the scene that started it. */
+/**
+ * Moves a sound to a volume over ms along the curve in sound-levels.js, then calls done. A plain timer,
+ * so a fade can outlive the scene that started it.
+ */
 export function fadeSound(sound, volume, ms, done = () => {}) {
   if (!sound) return;
   clearInterval(sound.fading);
@@ -102,7 +106,7 @@ export function fadeSound(sound, volume, ms, done = () => {}) {
       clearInterval(sound.fading);
       return;
     }
-    sound.setVolume(from + (volume - from) * p);
+    sound.setVolume(from + (volume - from) * fadeProgress(from, volume, p));
     if (p < 1) return;
     clearInterval(sound.fading);
     done();
@@ -133,15 +137,15 @@ export function playLoop(owner, id, config, { fromStart = false } = {}) {
  * playLoop that fades up to volume, from silence for a new or paused track. Cancels a fade-out still running,
  * so a track that comes back mid-fade keeps playing instead of being paused by the old fade.
  */
-export function fadeInLoop(owner, id, volume = 1, options) {
+export function fadeInLoop(owner, id, volume = soundVolume(id), options) {
   const s = playLoop(owner, id, { volume: 0 }, options);
-  fadeSound(s, volume, MS.slow);
+  fadeSound(s, volume, SOUND_FADE_MS.in);
   return s;
 }
 
 /** Fades a track from playLoop out, then pauses it so the next fadeInLoop of the same id resumes it. */
 export function fadeOutLoop(sound) {
-  fadeSound(sound, 0, MS.slow, () => {
+  fadeSound(sound, 0, SOUND_FADE_MS.out, () => {
     if (sound.isPlaying) sound.pause();
   });
 }
