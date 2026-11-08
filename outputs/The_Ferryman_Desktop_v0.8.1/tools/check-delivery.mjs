@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { STAGE, boatZone, soulName } from '../src/scenes/boarding-layout.js';
 import {
-  SHORE_Y, arrivalOutcome, choiceView, confirmLabel, deliverAction, exitWarning, headingText,
-  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots, toggleMark,
+  SHORE_Y, arrivalOutcome, choiceView, confirmLabel, deliverAction, exitCost, exitCostLine, exitWarning, headingText,
+  introText, keepValidMarks, layoutDelivery, lossLines, memoryRowSpots, refusal, rewardSpots, testRun, toggleMark,
 } from '../src/scenes/delivery-layout.js';
 
 const Ferry = createRequire(import.meta.url)('../rules/engine.js');
@@ -169,8 +169,45 @@ check('a run that stops partway only departs who left', arrivalOutcome(match, st
   && arrivalOutcome(match, stopped, deliverAction([stayer.id, leaver.id]), Ferry).departed.length === 1);
 check('an ordinary delivery loses nothing', outcome.lost.length === 0 && outcome.stolenRewards === 0);
 check('an ordinary delivery has no loss lines', lossLines(outcome, t, Ferry).length === 0);
-check('no warning while the Light can pay for the exits', exitWarning(calm, [wanderer.id], Ferry, t) === '' && exitWarning(calm, [], Ferry, t) === '');
+// Leaving away from a wish (QA-01, #56): a plain cost line whenever it costs Light, the red warning only when the lantern goes out.
+check('no cost line or warning with nobody marked', exitCostLine(calm, [], Ferry, t) === '' && exitWarning(calm, [], Ferry, t) === '');
+check('no cost line for a soul at its wish', exitCostLine(calm, [leaver.id], Ferry, t) === '');
+check('a cost line, not a warning, while the Light can pay for the exits', exitWarning(calm, [wanderer.id], Ferry, t) === ''
+  && exitCostLine(calm, [wanderer.id], Ferry, t) === `Leaving away from a wish costs 1 Light each: 1 marked, Light ${calm.light} → ${calm.light - 1}.`);
 check('it warns before confirming when the exits would put the lantern out', exitWarning({ ...calm, light: 1 }, [wanderer.id], Ferry, t).includes('lantern goes out'));
+check('and then shows no cost line beside the warning', exitCostLine({ ...calm, light: 1 }, [wanderer.id], Ferry, t) === '');
+const strayIds = calm.boat.filter((x) => Ferry.wish(x) !== calm.destination && testRun(calm, [x.id], Ferry).ok).map((x) => x.id);
+check('the warning counts every marked soul away from its wish, even past the one that ends the run',
+  strayIds.length >= 2 && exitWarning({ ...calm, light: 1 }, strayIds, Ferry, t).includes(`${strayIds.length} marked`));
+// exitCost mirrors the engine: on the calm boat nothing after the exits touches the Light, so the engine's Light after
+// DELIVER is the cost. Every order of marks the engine accepts is compared, the Mason included.
+const lightAfter = (state, ids) => Ferry.transition(state, deliverAction(ids)).light;
+const subsets = calm.boat.reduce((all, x) => all.concat(all.map((ids) => [...ids, x.id])), [[]]).filter((ids) => testRun(calm, ids, Ferry).ok);
+const drift = subsets.filter((ids) => exitCost(calm, ids, Ferry).after !== lightAfter(calm, ids));
+check(`exitCost matches the engine for every accepted set of marks (${subsets.length})`, subsets.length > 2 && drift.length === 0);
+// A Long Grasp at level 3 or more does 1 damage as it leaves, which Guard absorbs; leaving away from its wish still costs 1.
+const grasp = structuredClone(calm);
+const graspSoul = grasp.boat.find((x) => x.type === 'SOUL-PO-DUE');
+if (graspSoul) {
+  Object.assign(graspSoul, { level: 3, anger: 2 });
+  const away = Ferry.wish(graspSoul) !== grasp.destination ? 1 : 0;
+  const graspOk = testRun(grasp, [graspSoul.id], Ferry).ok;
+  check('a level 3 Long Grasp leaving costs its damage too, as the engine does', graspOk && exitCost(grasp, [graspSoul.id], Ferry).after === grasp.light - 1 - away
+    && exitCost(grasp, [graspSoul.id], Ferry).after === lightAfter(grasp, [graspSoul.id]));
+  const guarded = { ...grasp, window: { ...grasp.window, guard: 1 } };
+  check('Guard absorbs the Long Grasp damage, as the engine does', exitCost(guarded, [graspSoul.id], Ferry).after === grasp.light - away
+    && exitCost(guarded, [graspSoul.id], Ferry).after === lightAfter(guarded, [graspSoul.id]));
+} else check('delivery-match has a Long Grasp for the damage case; run npm run fixtures', false);
+// A Long Mist at its wish, Tartarus, pays 1 Light as it leaves, up to the most the lantern holds.
+const farePaid = polongFor({ ...calm, destination: 'DEST-TARTARUS', light: calm.maxLight - 2 }, { type: 'SOUL-POLONG', level: 1, anger: 0 });
+check('a Long Mist paying its fare is counted, as the engine does', testRun(farePaid, [leaver.id], Ferry).ok && exitCost(farePaid, [leaver.id], Ferry).after === farePaid.light + 1
+  && exitCost(farePaid, [leaver.id], Ferry).after === lightAfter(farePaid, [leaver.id]));
+// The Mason leaves last. At full Light the fare is capped, so the order shows: fare first, then the Mason's 1 Light.
+const masonId = farePaid.boat.find((x) => x.type === 'SOUL-MASON' && Ferry.wish(x) !== 'DEST-TARTARUS')?.id;
+const fullFare = { ...farePaid, light: farePaid.maxLight };
+const masonFirst = masonId ? [masonId, leaver.id] : [];
+check('the Mason leaves last, as the engine does', masonId && testRun(fullFare, masonFirst, Ferry).ok
+  && exitCost(fullFare, masonFirst, Ferry).after === fullFare.maxLight - 1 && exitCost(fullFare, masonFirst, Ferry).after === lightAfter(fullFare, masonFirst));
 check('one invalid mark in the middle does not drop the valid marks after it', keepValidMarks(calm, [leaver.id, 'GONE', wanderer.id], Ferry).join() === [leaver.id, wanderer.id].join());
 const strayAction = deliverAction([wanderer.id]);
 const stray = arrivalOutcome(calm, Ferry.transition(calm, strayAction), strayAction, Ferry);
