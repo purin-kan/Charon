@@ -1,9 +1,12 @@
 // Pure view model for GameOverScene (T-17): ended state in, labels out. No Phaser, no rules.
 // Wording follows src/data/scene-text.json "gameOver" (T-27, PR 15); switch to t() once it is on main.
 
+// Counters are decimal strings in the engine, so a count of one is the string '1'.
+const count = (n, one, many) => `${n} ${String(n) === '1' ? one : many}`;
+
 export const TEXT = {
   heading: 'The river remembers', // gameOver.heading
-  summary: (v) => `${v.cycles} cycles survived · ${v.deliveries} ordinary souls delivered · ${v.quests} quests completed`, // gameOver.summary
+  summary: (v) => `${count(v.cycles, 'cycle', 'cycles')} survived · ${count(v.deliveries, 'ordinary soul', 'ordinary souls')} delivered · ${count(v.quests, 'quest', 'quests')} completed`, // gameOver.summary, singular for a count of one (QA-04)
   newRun: 'Start a new run', // gameOver.newRun
   questsHeading: 'Quests',
   noQuests: 'No quests were started on this run.',
