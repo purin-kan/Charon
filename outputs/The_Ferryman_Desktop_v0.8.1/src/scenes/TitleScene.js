@@ -6,6 +6,7 @@ import { bodyText, COLOR, CSS, drawPanel, EASE, enterScene, fadeInParts, fadeOut
 import { defineTuning, tune } from '../tuning.js';
 import { readSave, writeSave, deleteSave, startAutosave, qaName } from '../save.js';
 import { DEPTH, NightStage } from './night-fx.js';
+import { asksBeforeNewGame } from './title-layout.js';
 
 // Title screen (T-11): Continue and New game over one save slot. New game takes an optional seed,
 // so a demo can replay the same routes and encounters (Ferry.create(seed)).
@@ -165,7 +166,7 @@ export class TitleScene extends Phaser.Scene {
 
   askNewGame() {
     if (this.chosenSeed() === null) return;
-    if (this.save.state || this.save.broken) this.openDialog();
+    if (asksBeforeNewGame(this.save)) this.openDialog();
     else this.newGame();
   }
 

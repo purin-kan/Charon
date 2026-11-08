@@ -7,7 +7,7 @@ import path from 'node:path';
 import { boatZone } from '../src/scenes/boarding-layout.js';
 import { boatSpots } from '../src/scenes/delivery-layout.js';
 import {
-  abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingStep,
+  CREW, crewXs, abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome, crossingStep,
   SIGNS, placeName, purifyAction, soulDetail, typeDetail, worldLayout,
 } from '../src/scenes/crossing-layout.js';
 
@@ -167,5 +167,12 @@ check('every soul type has some detail beyond its memory line', Ferry.data.souls
 check('the meal hover is the quest description from the data', buttonDetail('meal', prep, Ferry, t) === Ferry.data.quests.find((q) => q.id === 'QUEST-MEAL').description);
 check('the approach hover warns while something would be lost', buttonDetail('approach', prep, Ferry, t) === t('crossing.approachWarningAbilities'));
 check('otherwise the approach hover explains it', buttonDetail('approach', windowState, Ferry, t) === t('crossing.approachDetail'));
+
+// QA-03 (#56): in the bow view each soul's name label (wrapped at a width set in soul-token.js) clears its neighbours',
+// and a full boat still fits on the 1280 px screen.
+const nameWrap = Number(readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'src', 'scenes', 'soul-token.js'), 'utf8').match(/wordWrap: \{ width: (\d+) \}/)?.[1]);
+check(`bow view souls stand farther apart than a name is wide (${CREW.step} > ${nameWrap} px)`, nameWrap > 0 && CREW.step >= nameWrap + 16);
+const crewFits = [1, 2, 4, 8].every((n) => { const xs = crewXs(n); return xs.length === n && xs[0] - nameWrap / 2 >= 0 && xs[n - 1] + nameWrap / 2 <= 1280 && Math.abs((xs[0] + xs[n - 1]) / 2 - 640) < 1e-9; });
+check('bow view souls are centred and up to 8 fit on the screen', crewFits);
 
 process.exit(bad ? 1 : 0);

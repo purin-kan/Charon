@@ -151,13 +151,47 @@ export const headingText = (state, Ferry, t) => t('delivery.heading', { place: d
 
 export const introText = (state, t) => t(state.boat.length ? 'delivery.intro' : 'delivery.emptyBoat');
 
-/** The marked souls that leave away from their wish cost 1 Light each, and Guard cannot stop it. A warning, before confirming, when that would put the lantern out. */
+/**
+ * What the marked souls do to the Light as they leave, before the rest of the round runs. It mirrors the engine's
+ * deliver() and resolveDelivery() (rules/engine.js): the Mason leaves last; a Long Grasp at level 3 or more does 1 damage,
+ * which Guard can absorb; a soul away from its wish costs 1 Light, which Guard cannot stop; a Long Mist at its wish,
+ * Tartarus, pays 1 Light. The rest of DELIVER (Anger, Wraiths, thefts) is left out on purpose: it is not the cost of
+ * leaving, and test-running it would show the round's random outcome before the player confirms (QA-01, #56).
+ * The engine stops at the soul that puts the lantern out; strays still counts every marked soul away from its wish,
+ * as the warning always has. check-delivery compares this with the engine.
+ */
+export function exitCost(state, marked, Ferry) {
+  const aboard = marked.map((id) => state.boat.find((x) => x.id === id)).filter(Boolean);
+  const order = [...aboard.filter((x) => x.type !== 'SOUL-MASON'), ...aboard.filter((x) => x.type === 'SOUL-MASON')];
+  let light = state.light;
+  let guard = state.window?.guard ?? 0;
+  let strays = 0;
+  for (const x of order) {
+    const away = Ferry.wish(x) !== state.destination;
+    if (away) strays++;
+    if (!light) continue; // the run has already ended here
+    if (x.type === 'SOUL-PO-DUE' && x.level >= 3) {
+      const prevented = Math.min(1, guard);
+      guard -= prevented;
+      light -= Math.min(light, 1 - prevented);
+      if (!light) continue;
+    }
+    if (away) light -= 1;
+    else if (x.type === 'SOUL-POLONG' && !x.spread && state.destination === 'DEST-TARTARUS') light = Math.min(state.maxLight, light + 1);
+  }
+  return { strays, light: state.light, after: light, ends: light <= 0 };
+}
+
+/** The red warning before confirming: the marked souls leaving away from their wish would put the lantern out. */
 export function exitWarning(state, marked, Ferry, t) {
-  const strays = marked.filter((id) => {
-    const actor = state.boat.find((x) => x.id === id);
-    return actor && Ferry.wish(actor) !== state.destination;
-  }).length;
-  return strays > 0 && strays >= state.light ? t('delivery.exitWarning', { n: strays, light: state.light }) : '';
+  const cost = exitCost(state, marked, Ferry);
+  return cost.strays > 0 && cost.ends ? t('delivery.exitWarning', { n: cost.strays, light: state.light }) : '';
+}
+
+/** A plain line under the intro whenever a marked soul leaves away from its wish and the lantern survives it (QA-01, #56). */
+export function exitCostLine(state, marked, Ferry, t) {
+  const cost = exitCost(state, marked, Ferry);
+  return cost.strays > 0 && !cost.ends && cost.after < cost.light ? t('delivery.exitCost', { n: cost.strays, light: cost.light, after: cost.after }) : '';
 }
 
 export function confirmLabel(state, marked, t) {

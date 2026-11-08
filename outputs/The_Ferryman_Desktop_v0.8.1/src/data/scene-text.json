@@ -152,6 +152,7 @@
     "wraith": "{name} became a Wraith.",
     "lightLost": "Lost {amount} Light.",
 "exitWarning": "Leaving away from a wish costs 1 Light each. {n} marked, {light} Light left: the lantern goes out.",
+    "exitCost": "Leaving away from a wish costs 1 Light each: {n} marked, Light {light} → {after}.",
     "lightGained": "Gained {amount} Light.",
     "lost": "{thief} took {name}.",
     "lostReward": "{thief} took a memory you had just received.",

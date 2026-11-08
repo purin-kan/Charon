@@ -10,7 +10,7 @@ import { MemoryHand } from '../components/MemoryHand.js';
 import { previewOption, routeModel } from '../components/route-layout.js';
 import { shipBadge, TOKEN } from './boarding-layout.js';
 import {
-  abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crossingOutcome,
+  CREW, abilities, approachOutcome, approachWarning, attempt, boatEntries, branchSigns, buttonDetail, crewXs, crossingOutcome,
   crossingStep, placeName, purifyAction, soulDetail, worldLayout,
 } from './crossing-layout.js';
 import { HoverTip } from './hover-tip.js';
@@ -37,7 +37,6 @@ const AMBIENCE = 'amb-crossing'; // a very quiet still-water loop, for as long a
 const FEET = TOKEN.h / 2; // a seat's centre to the deck floor
 const BOW_ART = 'sprite-boat-bow'; // Kanyakorn-goya's front view of the gold boat, transparent above it (1546 x 720)
 const BOW_SIZE = { w: 1546, h: 720 };
-const CREW = { feetY: 712, step: 92 }; // the souls aboard, standing on the deck at the bottom centre of the bow view
 const SUBTITLE = { y: 44, size: 24 }; // the line under the left and right choice: words only, nothing to click
 // The view from the bow at a fork.
 const FORK = { signX: 230, signY: 330, w: 320, h: 110, bobPx: 6, bobMs: 1600, hoverScale: 1.05, overscan: 1.12, fadeMs: 500, drift: 22, lean: 34, rock: 3, roll: 0.0035, turnPx: 170, pushIn: 1.45, turnRoll: 0.03 };
@@ -289,9 +288,9 @@ export class CrossingScene extends Phaser.Scene {
     }
     this.clearCrew();
     this.crewIds = ids;
-    const left = 640 - ((entries.length - 1) * CREW.step) / 2;
+    const xs = crewXs(entries.length);
     this.crew = entries.map((entry, i) => {
-      const token = addBoardingSoul(this, { ...entry, x: left + i * CREW.step, y: CREW.feetY }, tune('crossing.soulHeight'));
+      const token = addBoardingSoul(this, { ...entry, x: xs[i], y: CREW.feetY }, tune('crossing.soulHeight'));
       token.entry = entry;
       token.setDepth(DEPTH.fogFront + 0.55); // over the bow, under the route text
       setBoardingBadge(token, shipBadge(entry.actor, Ferry));

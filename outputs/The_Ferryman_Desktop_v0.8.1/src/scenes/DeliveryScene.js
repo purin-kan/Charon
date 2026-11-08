@@ -9,7 +9,7 @@ import { MemoryHand } from '../components/MemoryHand.js';
 import { STAGE, TOKEN, arcPoint, boatZone, ridePoint, shipBadge } from './boarding-layout.js';
 import { soulDetail } from './crossing-layout.js';
 import {
-  arrivalOutcome, confirmLabel, deliverAction, exitWarning, headingText, introText, keepValidMarks, layoutDelivery, toggleMark,
+  arrivalOutcome, confirmLabel, deliverAction, exitCostLine, exitWarning, headingText, introText, keepValidMarks, layoutDelivery, toggleMark,
 } from './delivery-layout.js';
 import { HoverTip } from './hover-tip.js';
 import { DEPTH, NightStage } from './night-fx.js';
@@ -217,7 +217,7 @@ export class DeliveryScene extends Phaser.Scene {
     if (this.leaving) return;
     this.panel.show({
       heading: headingText(state, Ferry, t),
-      lines: [introText(state, t)],
+      lines: [introText(state, t), exitCostLine(state, this.marked, Ferry, t)].filter(Boolean),
       warning: exitWarning(state, this.marked, Ferry, t),
       buttons: [{ label: confirmLabel(state, this.marked, t), gold: true, onPress: () => this.confirm() }],
     });
