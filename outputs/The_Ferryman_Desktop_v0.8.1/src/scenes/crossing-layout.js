@@ -128,6 +128,13 @@ export function buttonDetail(kind, state, Ferry, t) {
   return approachWarning(state, Ferry, t) || t('crossing.approachDetail');
 }
 
+// The souls aboard, standing on the deck at the bottom centre of the bow view. The step clears a soul's name label
+// (wrapped at 96 px in soul-token.js) with room to spare, so neighbours' names do not overlap (QA-03, #56).
+export const CREW = { feetY: 712, step: 128 };
+
+/** Where each of n souls aboard stands across the bow view, centred on the screen. */
+export const crewXs = (n) => Array.from({ length: n }, (_, i) => 640 - ((n - 1) * CREW.step) / 2 + i * CREW.step);
+
 /** Every passenger with its seat (local to the boat) and labels. */
 export function boatEntries(state, Ferry) {
   const { spots, slots } = boatSpots(state, Ferry);
