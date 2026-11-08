@@ -7,8 +7,8 @@
 // MEM-MOLY -> memory-moly.png); see src/asset-names.js for the rules and the alias table.
 import { figureIdFor, fileIdFor } from './asset-names.js';
 import { Ferry } from './ferry.js';
-import { soundVolume } from './sound-levels.js';
-import { COLOR, MS, soulPlate } from './theme.js';
+import { SOUND_FADE_MS, fadeProgress, soundVolume } from './sound-levels.js';
+import { COLOR, soulPlate } from './theme.js';
 import { tune } from './tuning.js';
 
 // Vite resolves these globs at build/dev time; new files are picked up without code changes.
@@ -91,7 +91,10 @@ export function playSound(scene, id, config) {
   return s;
 }
 
-/** Moves a sound to a volume over ms, then calls done. A plain timer, so a fade can outlive the scene that started it. */
+/**
+ * Moves a sound to a volume over ms along the curve in sound-levels.js, then calls done. A plain timer,
+ * so a fade can outlive the scene that started it.
+ */
 export function fadeSound(sound, volume, ms, done = () => {}) {
   if (!sound) return;
   clearInterval(sound.fading);
@@ -103,7 +106,7 @@ export function fadeSound(sound, volume, ms, done = () => {}) {
       clearInterval(sound.fading);
       return;
     }
-    sound.setVolume(from + (volume - from) * p);
+    sound.setVolume(from + (volume - from) * fadeProgress(from, volume, p));
     if (p < 1) return;
     clearInterval(sound.fading);
     done();
@@ -136,13 +139,13 @@ export function playLoop(owner, id, config, { fromStart = false } = {}) {
  */
 export function fadeInLoop(owner, id, volume = soundVolume(id), options) {
   const s = playLoop(owner, id, { volume: 0 }, options);
-  fadeSound(s, volume, MS.slow);
+  fadeSound(s, volume, SOUND_FADE_MS.in);
   return s;
 }
 
 /** Fades a track from playLoop out, then pauses it so the next fadeInLoop of the same id resumes it. */
 export function fadeOutLoop(sound) {
-  fadeSound(sound, 0, MS.slow, () => {
+  fadeSound(sound, 0, SOUND_FADE_MS.out, () => {
     if (sound.isPlaying) sound.pause();
   });
 }

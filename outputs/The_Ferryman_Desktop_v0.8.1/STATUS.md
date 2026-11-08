@@ -2,12 +2,14 @@
 
 ## Lore intro after New game (branch `sfx-volume`, Nov 8, 2026)
 
-New game now plays five short lore screens (`lore.screens` in `src/data/scene-text.json`) before the run; Continue does not. Each screen fades in line by line, holds, and fades out; a click or a plain key moves on, Esc starts the run (no Skip button; the hint line says "Esc to skip"). Lone modifier keys (Alt+Tab), Ctrl/Alt/Meta chords, F-keys and held-key repeats do not move it on (`advancesLore` in `src/scenes/lore-layout.js`).
+New game now plays five short lore screens (`lore.screens` in `src/data/scene-text.json`) before the run; Continue does not. Each screen fades in line by line, holds, and fades out; a click or a plain key moves on, Esc starts the run (no Skip button; the only hint on screen is "Esc to skip", at the bottom). Lone modifier keys (Alt+Tab), Ctrl/Alt/Meta chords, F-keys and held-key repeats do not move it on (`advancesLore` in `src/scenes/lore-layout.js`).
 
 | Check | Command or method | Result |
 |---|---|---|
 | Automated checks | `npm run check` (new `tools/check-lore.mjs`) | 14 of 14 passed |
 | Renderer build | `vite build --config vite.renderer.config.mjs` | passed |
+| Packaged exe, after the Skip button and "Click to continue" were removed | exe over its debug port, real clicks and keys, screenshots read | New game shows screen 1 with only "Esc to skip" below; Esc starts cycle 1 boarding with the save written; left alone, all five screens play and cycle 1 boarding starts on its own; Continue goes straight to boarding; 0 exceptions. Found and fixed on the way: `finishLore` still disabled the removed Skip button (`lore.frame[2]`), so the intro crashed instead of starting the run; `check-lore` now checks every `lore.frame[i]` exists |
+| Title music into the run | Web Audio gain values logged in the exe while Esc started the run | the title music fell from 0.47 to 0 over about 3 s along the new curve (0.24, 0.12, 0.05, 0.01, 0), no cut |
 
 `check-lore` covers the pure logic only: the screen text, timings, the sequence state machine (the run starts once under random clicks, keys, timers and Esc), which keys move on, and `entryPlan` (New game plays the lore, Continue does not). The TitleScene wiring that also guards against a second start (`this.leaving` in `enterRun`, `this.lore = null` in `finishLore`, the `this.lore !== lore` checks in the fade callbacks) is not tested automatically.
 
@@ -17,6 +19,8 @@ New game now plays five short lore screens (`lore.screens` in `src/data/scene-te
 | Double start: New game, then Esc, clicks and waiting for the hold timer in quick mixes; the run must start once | human | NOT_RUN |
 
 ## Sound levels (branch `sfx-volume` at `ac46a8d`, Nov 8, 2026, after the freeze)
+
+Update, Nov 8 evening: the title music cut off when a run started. Music and ambience fades used the screen-motion timing (`MS.slow`, 700 ms, or 90 ms with reduced motion) and a straight-line fade. They now use `SOUND_FADE_MS` (3000 ms in and out, never shortened by reduced motion) and a curve that settles into silence (`fadeProgress` in `src/sound-levels.js`); `check-sound` covers both.
 
 purin-kan played the final zip and found the sound effects too loud, the delivery one most. Every sound played at full volume except the title music (0.5). Measured with ffmpeg: delivery -18.8 LUFS, fog -21.0, Wraith -22.9, run ambience -44.2, title music -16.1. `src/sound-levels.js` now sets one volume per sound (delivery 0.28, fog 0.35, Wraith 0.45, click 0.45, board and unboard 0.55, ambience 1, title music 0.5), read by `playSound` and `fadeInLoop`. This changes the build after the hard freeze (#38), so it needs the team's agreement there.
 

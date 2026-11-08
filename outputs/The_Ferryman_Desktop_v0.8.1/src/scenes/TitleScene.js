@@ -296,8 +296,7 @@ export class TitleScene extends Phaser.Scene {
     const lore = this.lore;
     if (!lore) return;
     this.clearLoreTimers();
-    lore.frame[0].disableInteractive();
-    lore.frame[2].disableInteractive();
+    lore.frame[0].disableInteractive(); // the veil (click to move on)
     this.lore = null;
     lore.done();
   }

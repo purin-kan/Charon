@@ -23,5 +23,18 @@ export const SOUND_VOLUME = {
   'sfx-unboard': 0.55, // peak -10.9 dB - 5 dB = about -16 dB
 };
 
+// How long the looping tracks fade, in ms. Separate from the screen motion timings (theme.js MS), so reduced motion
+// never turns a music change into a cut. The title music (about -22 LUFS as played) hands over to the much quieter
+// run ambience (-44 LUFS), so both fades are long enough to overlap and settle.
+export const SOUND_FADE_MS = { in: 3000, out: 3000 };
+
+/**
+ * Fade curve: how far (0 to 1) a fade from `from` to `to` has gone at progress p (0 to 1). A fade up follows sin
+ * (rises quickly, lands gently). A fade down follows 1 - (1 - p)^2: the level is (1 - p)^2 of where it started, so
+ * most of the drop happens early and it settles into silence with no drop at the end (a straight line in volume,
+ * as before, sounds like it falls away in the last moment, like a cut).
+ */
+export const fadeProgress = (from, to, p) => (to >= from ? Math.sin((p * Math.PI) / 2) : 1 - (1 - p) ** 2);
+
 /** The volume a sound plays at: its entry above, or full volume for a sound not listed. */
 export const soundVolume = (id) => SOUND_VOLUME[id] ?? 1;

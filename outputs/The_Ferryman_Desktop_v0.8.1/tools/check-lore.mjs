@@ -128,6 +128,10 @@ const enter = body('enterRun');
 check(/if \(entryPlan\(kind\) === 'lore'\) this\.playLore\(/.test(enter) && /else this\.begin\(makeState\(\)\)/.test(enter) && !/!\s*entryPlan|!==\s*'lore'/.test(enter),
   'TitleScene.enterRun plays the lore only when entryPlan says lore, otherwise begins at once');
 check(/lookup\('lore\.screens'\)/.test(title), 'TitleScene reads the screens from lore.screens');
+// Removing the Skip button once left lore.frame[2] in finishLore, so the intro crashed instead of starting the run.
+const frameParts = (title.match(/frame: \[([^\]]*)\]/)?.[1] ?? '').split(',').filter((s) => s.trim()).length;
+const frameUses = [...title.matchAll(/lore\.frame\[(\d+)\]/g)].map((m) => Number(m[1]));
+check(frameParts > 0 && frameUses.every((i) => i < frameParts), `every lore.frame[i] in TitleScene exists  ${frameParts} parts, uses [${frameUses.join(', ')}]`);
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nAll lore checks passed');
 process.exit(bad ? 1 : 0);

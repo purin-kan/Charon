@@ -3,7 +3,7 @@
 import { readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { SOUND_VOLUME, soundVolume } from '../src/sound-levels.js';
+import { SOUND_FADE_MS, SOUND_VOLUME, fadeProgress, soundVolume } from '../src/sound-levels.js';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const files = readdirSync(path.join(root, 'assets', 'audio')).filter((f) => f.endsWith('.ogg')).map((f) => f.slice(0, -4));
@@ -19,6 +19,17 @@ check('every level is a file', Object.keys(SOUND_VOLUME).every((id) => files.inc
 check('every level is between 0 and 1', Object.values(SOUND_VOLUME).every((v) => v > 0 && v <= 1));
 check('the delivery, fog and Wraith cues are turned down (too loud in the Nov 8 play)', ['sfx-delivery-success', 'sfx-fog', 'sfx-wraith'].every((id) => soundVolume(id) < 0.5));
 check('a sound with no entry plays at full volume', soundVolume('no-such-sound') === 1);
+
+// Music changes: the title music fading into the run ambience cut off abruptly (Nov 8 play).
+check(`music fades last long enough to overlap  in ${SOUND_FADE_MS.in} ms, out ${SOUND_FADE_MS.out} ms`, SOUND_FADE_MS.in >= 2000 && SOUND_FADE_MS.out >= 2000);
+const steps = Array.from({ length: 21 }, (_, i) => i / 20);
+for (const [from, to, name] of [[0, 1, 'up'], [0.5, 0, 'down']]) {
+  const levels = steps.map((p) => from + (to - from) * fadeProgress(from, to, p));
+  check(`a fade ${name} starts and ends on its levels`, Math.abs(levels[0] - from) < 1e-9 && Math.abs(levels[20] - to) < 1e-9);
+  check(`a fade ${name} never turns back`, levels.every((v, i) => i === 0 || (to > from ? v >= levels[i - 1] : v <= levels[i - 1])));
+}
+const down = (p) => 0.5 * (1 - fadeProgress(0.5, 0, p));
+check('a fade down settles into silence: the last 5% moves less than 1% of the level, not a drop at the end', down(0.95) - down(1) < 0.5 * 0.01);
 
 if (bad) {
   console.log(`\n${bad} sound check(s) failed`);
