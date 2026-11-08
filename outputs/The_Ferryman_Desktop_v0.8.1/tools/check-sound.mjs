@@ -1,9 +1,9 @@
 // Checks src/sound-levels.js against the sound files: every file has a level, every level is a real volume.
 // Run: node tools/check-sound.mjs
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { SOUND_FADE_MS, SOUND_VOLUME, fadeProgress, soundVolume } from '../src/sound-levels.js';
+import { RUN_MUSIC, SOUND_FADE_MS, SOUND_VOLUME, fadeProgress, soundVolume } from '../src/sound-levels.js';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const files = readdirSync(path.join(root, 'assets', 'audio')).filter((f) => f.endsWith('.ogg')).map((f) => f.slice(0, -4));
@@ -30,6 +30,11 @@ for (const [from, to, name] of [[0, 1, 'up'], [0.5, 0, 'down']]) {
 }
 const down = (p) => 0.5 * (1 - fadeProgress(0.5, 0, p));
 check('a fade down settles into silence: the last 5% moves less than 1% of the level, not a drop at the end', down(0.95) - down(1) < 0.5 * 0.01);
+
+// The title music plays through a run, quieter than on the title screen (Nov 8 request).
+check(`the title music plays in a run, quieter than on the title  run ${RUN_MUSIC.volume}, title ${soundVolume(RUN_MUSIC.id)}`, files.includes(RUN_MUSIC.id) && RUN_MUSIC.volume > 0 && RUN_MUSIC.volume < soundVolume(RUN_MUSIC.id));
+const router = readFileSync(path.join(root, 'src', 'router.js'), 'utf8');
+check('the router keeps the title music going at the start of a run and in every scene', (router.match(/fadeInLoop\(this\.game, RUN_MUSIC\.id, RUN_MUSIC\.volume\)/g) ?? []).length >= 2);
 
 if (bad) {
   console.log(`\n${bad} sound check(s) failed`);

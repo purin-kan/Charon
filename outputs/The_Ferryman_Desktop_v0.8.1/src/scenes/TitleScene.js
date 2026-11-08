@@ -69,7 +69,7 @@ export class TitleScene extends Phaser.Scene {
       this.run = null;
       this.night = null;
       this.input.keyboard.off('keydown', onKey);
-      fadeOutLoop(this.music);
+      // The title music keeps playing into the run; the router turns it down (sound-levels.js RUN_MUSIC).
     });
     whenFontsReady().then(() => {
       if (this.run !== run) return;
