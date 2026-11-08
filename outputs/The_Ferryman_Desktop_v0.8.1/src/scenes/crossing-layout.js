@@ -77,10 +77,10 @@ export function branchSigns(state, Ferry, t) {
 // Blacksmith and Mason. Shown so a player can see it before picking, the engine still decides.
 const TRIO = ['SOUL-MERCHANT', 'SOUL-BLACKSMITH', 'SOUL-MASON'];
 
-/** Title for a soul type: its name, with its personal name when it has one. */
+/** Title for a soul type: "Glaukos the Blue Soldier" when it has a personal name, else just its name. */
 export function soulTitle(type, Ferry) {
   const def = Ferry.data.souls.find((s) => s.id === type) ?? {};
-  return def.personalName ? `${def.name} (${def.personalName})` : def.name ?? type;
+  return def.personalName ? `${def.personalName} the ${def.name}` : def.name ?? type;
 }
 
 /**
