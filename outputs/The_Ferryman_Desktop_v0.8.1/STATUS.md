@@ -1,5 +1,21 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Final build candidate and re-test (branch `delivery-name-spacing` at `92268c6`, Nov 8, 2026)
+
+`main` at `1681b4f` (#57 and #58 merged) plus one commit: names in a boat row now also sit at two heights when two wide names are side by side (Long Grasp next to Merchant in `delivery-match`, found in #56). Built and tested by a Claude Code session on purin-kan's Windows PC (Windows 11 Pro 10.0.26200, Node v25.1.0). Agent checks over the exe's debug port, screenshots read. Not a human playtest, and not a second Windows machine.
+
+| Check | Method | Result |
+|---|---|---|
+| Automated checks | `npm run check`; `node tests/quest-check.js` from `rules/` | 12 of 12 passed (new case: Long Grasp and Merchant names at different heights); quest-check 34 passed, 0 failed |
+| Name fix on screen | Vite dev server, `?scene=DeliveryScene&fixture=delivery-match`, headless Edge screenshot | Merchant and Cook lifted, Long Grasp and Mason level; no names touch. `delivery` fixture (Mother, Child, Mason) stays level |
+| Package | `npm run package` | `out/The Ferryman-win32-x64/The Ferryman.exe` |
+| Zip | `npm run make` fails at the zip step on Node 25 (`cross-zip` calls `fs.rmdir` with `recursive`, removed in newer Node); zipped by hand with `tar -a` | `The Ferryman-win32-x64-0.8.1-92268c6.zip`, 198.9 MB, SHA-256 `1EE9535B...72482`; extracted to a new folder, boots to the title, 0 errors |
+| Smoke run, `FERRY_QA=final-smoke` | packaged exe, random seed, drag to board, real clicks | Title, New game, board 4 (drag), cast off, bow-view fork (names clear, QA-03), Asphodel (Light 7 → 6), Cook delivered with a memory, River Styx with Merchant delivered and Mason dropped early: "Leaving away from a wish costs 1 Light each: 1 marked, Light 6 → 5" (QA-01), Haven with Child, return review "Light 5/7 → 7/7", cycle 2 boarding with 5 souls ashore. 0 console errors |
+| Save persistence | exe closed mid-delivery, reopened | Continue read "Cycle 1 · Light 6/7" and resumed at the Asphodel delivery |
+| Background window | the job had no visible desktop: `visibilityState` was `hidden` and Phaser paused | rerun with `--disable-renderer-backgrounding --disable-backgrounding-occluded-windows` and a visibility override injected over CDP; this does not change the shipped build |
+
+NOT_RUN: a second Windows machine (T-44 asks for one); SmartScreen on a downloaded copy of this zip; hearing the sound; game over, heroes, Longs and quests in this build (covered by SupaOhm's run on `942d825` above and the automated checks, not re-played here); a human playtest.
+
 ## Windows packaged exe, the #56 Windows part (Nov 8, 2026)
 
 Run by a Claude Code session on SupaOhm's Windows PC (Windows 11 Pro 10.0.26300, Node v24.13.0, 1920x1080 at 144 Hz) on `main` at `942d825`, so the `qa-56-fixes` commits below are **not** in this build. Real mouse input over the exe's debug port (`--remote-debugging-port=9333`), screenshots read. Agent checks, not a human playtest. Evidence (screenshots, exe stdout, scripts) stays outside the repo on that PC and was handed over as a folder.
