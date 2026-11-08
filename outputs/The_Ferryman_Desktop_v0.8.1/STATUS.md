@@ -1,5 +1,16 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## QA-04 and QA-05 from #56 (branch `qa-56-small-fixes`, Nov 8, 2026)
+
+Presentation only; `rules/` unchanged. QA-04: the game over summary says "1 cycle", "1 ordinary soul" and "1 quest" for a count of one (`gameover-layout.js`); the old `check-gameover` case expected the plural and passed only because it copied the bug. QA-05: New game on the title screen no longer asks to replace a run that has already ended; a run in progress or an unreadable save still asks (`asksBeforeNewGame` in the new pure `src/scenes/title-layout.js`, checked by the new `tools/check-title.mjs`). Both new cases fail on the old code. QA-01, QA-02 and QA-03 are not touched.
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated | `npm run check` | 12 of 12 (new `check-title.mjs`) |
+| Rules | `node tests/quest-check.js` | 34 passed, 0 failed |
+| Title and game over screens in the running game | dev window or exe | NOT_RUN |
+| Played by a person | human | NOT_RUN |
+
 ## Crew in the bow view and clearer soul info (Nov 7, 2026)
 
 Presentation only; `rules/` unchanged. At the left and right choice the souls aboard stand at the bottom centre of the bow view, with their names, wish marks and Anger, and hover detail; the subtitle moved to the top centre. The hover box now lays out Wish, Anger (coloured by how close to the limit) and Memory as labelled rows, the memory as its name only ("Memory: Fog Shield"), then rules and quests with the quest name in gold. `check-crossing.mjs` now expects "Anger:" and "Memory:".
