@@ -3,7 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { createLoreSequence, loreScreens, loreTimeline, showsLore } from '../src/scenes/lore-layout.js';
+import { advancesLore, createLoreSequence, entryPlan, loreScreens, loreTimeline, showsLore } from '../src/scenes/lore-layout.js';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => readFileSync(path.join(root, p), 'utf8');
@@ -103,8 +103,17 @@ for (let trial = 0; trial < 2000; trial++) {
 }
 check(stuck === 0 && worst === 1, 'random input in 2000 trials: the run starts exactly once each time', `worst ${worst}`);
 
-// 4. Only New game shows the lore; Continue goes straight to the run.
+// 4. Which keys move the lore on: not repeats, lone modifiers, Ctrl/Alt/Meta chords or F-keys.
+const key = (k, extra = {}) => advancesLore({ key: k, ...extra });
+check(['a', ' ', 'Enter', 'ArrowRight'].every((k) => key(k)), 'letters, Space, Enter and arrows move the lore on');
+check(!['Alt', 'Control', 'Shift', 'Meta', 'AltGraph', 'Tab'].some((k) => key(k)), 'a modifier key on its own (Alt+Tab, start of a shortcut) does not move the lore on');
+check(!key('c', { ctrlKey: true }) && !key('Tab', { altKey: true }) && !key('a', { metaKey: true }), 'keys held with Ctrl, Alt or Meta do not move the lore on');
+check(!['F2', 'F11', 'F12'].some((k) => key(k)) && !key('a', { repeat: true }), 'F-keys and held-key repeats do not move the lore on');
+check(/else if \(advancesLore\(e\)\) this\.advanceLore\(\)/.test(read('src/scenes/TitleScene.js')), 'TitleScene.onKey asks advancesLore before moving the lore on');
+
+// 5. Only New game shows the lore; Continue goes straight to the run.
 check(showsLore('new') === true && showsLore('continue') === false, 'showsLore: new game yes, continue no');
+check(entryPlan('new') === 'lore' && entryPlan('continue') === 'direct', 'entryPlan: new game plays the lore, continue starts at once');
 const title = read('src/scenes/TitleScene.js');
 const body = (name) => {
   const start = title.search(new RegExp(`^  ${name}\\(`, 'm'));
@@ -115,7 +124,9 @@ const cont = body('continueRun');
 const fresh = body('newGame');
 check(/enterRun\('continue'/.test(cont) && !/playLore|begin\(/.test(cont), 'TitleScene.continueRun enters as continue, never through the lore');
 check(/enterRun\('new'/.test(fresh) && /Ferry\.create\(seed\)/.test(fresh) && /deleteSave\(\)/.test(fresh), 'TitleScene.newGame enters as new with the chosen seed and replaces the save');
-check(/showsLore\(kind\)/.test(body('enterRun')), 'TitleScene.enterRun asks showsLore');
+const enter = body('enterRun');
+check(/if \(entryPlan\(kind\) === 'lore'\) this\.playLore\(/.test(enter) && /else this\.begin\(makeState\(\)\)/.test(enter) && !/!\s*entryPlan|!==\s*'lore'/.test(enter),
+  'TitleScene.enterRun plays the lore only when entryPlan says lore, otherwise begins at once');
 check(/lookup\('lore\.screens'\)/.test(title), 'TitleScene reads the screens from lore.screens');
 
 console.log(bad ? `\n${bad} check(s) failed` : '\nAll lore checks passed');

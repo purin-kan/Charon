@@ -7,7 +7,7 @@ import { defineTuning, tune } from '../tuning.js';
 import { readSave, writeSave, deleteSave, startAutosave, qaName } from '../save.js';
 import { DEPTH, NightStage } from './night-fx.js';
 import { asksBeforeNewGame } from './title-layout.js';
-import { createLoreSequence, loreScreens, loreTimeline, showsLore } from './lore-layout.js';
+import { advancesLore, createLoreSequence, entryPlan, loreScreens, loreTimeline } from './lore-layout.js';
 
 // Title screen (T-11): Continue and New game over one save slot. New game takes an optional seed,
 // so a demo can replay the same routes and encounters (Ferry.create(seed)).
@@ -147,7 +147,7 @@ export class TitleScene extends Phaser.Scene {
     if (!this.ready) return;
     if (this.lore) {
       if (e.key === 'Escape') this.skipLore();
-      else if (!e.repeat) this.advanceLore();
+      else if (advancesLore(e)) this.advanceLore();
       return;
     }
     if (this.leaving) return; // the menu parts may already be gone
@@ -198,10 +198,10 @@ export class TitleScene extends Phaser.Scene {
     });
   }
 
-  /** New game plays the lore first (showsLore); Continue does not. makeState runs once, as the run starts. */
+  /** New game plays the lore first (entryPlan); Continue does not. makeState runs once, as the run starts. */
   enterRun(kind, makeState) {
     if (this.leaving) return;
-    if (showsLore(kind)) this.playLore(() => this.begin(makeState()));
+    if (entryPlan(kind) === 'lore') this.playLore(() => this.begin(makeState()));
     else this.begin(makeState());
   }
 

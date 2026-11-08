@@ -1,5 +1,21 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Lore intro after New game (branch `sfx-volume`, Nov 8, 2026)
+
+New game now plays five short lore screens (`lore.screens` in `src/data/scene-text.json`) before the run; Continue does not. Each screen fades in line by line, holds, and fades out; a click or a plain key moves on, Esc or Skip starts the run. Lone modifier keys (Alt+Tab), Ctrl/Alt/Meta chords, F-keys and held-key repeats do not move it on (`advancesLore` in `src/scenes/lore-layout.js`).
+
+| Check | Command or method | Result |
+|---|---|---|
+| Automated checks | `npm run check` (new `tools/check-lore.mjs`) | 14 of 14 passed |
+| Renderer build | `vite build --config vite.renderer.config.mjs` | passed |
+
+`check-lore` covers the pure logic only: the screen text, timings, the sequence state machine (the run starts once under random clicks, keys, timers and Esc), which keys move on, and `entryPlan` (New game plays the lore, Continue does not). The TitleScene wiring that also guards against a second start (`this.leaving` in `enterRun`, `this.lore = null` in `finishLore`, the `this.lore !== lore` checks in the fade callbacks) is not tested automatically.
+
+| Check | Who | Result |
+|---|---|---|
+| Watch the intro in the game window (fades, text fits, Skip) | human | NOT_RUN |
+| Double start: New game, then Esc, clicks and waiting for the hold timer in quick mixes; the run must start once | human | NOT_RUN |
+
 ## Sound levels (branch `sfx-volume` at `ac46a8d`, Nov 8, 2026, after the freeze)
 
 purin-kan played the final zip and found the sound effects too loud, the delivery one most. Every sound played at full volume except the title music (0.5). Measured with ffmpeg: delivery -18.8 LUFS, fog -21.0, Wraith -22.9, run ambience -44.2, title music -16.1. `src/sound-levels.js` now sets one volume per sound (delivery 0.28, fog 0.35, Wraith 0.45, click 0.45, board and unboard 0.55, ambience 1, title music 0.5), read by `playSound` and `fadeInLoop`. This changes the build after the hard freeze (#38), so it needs the team's agreement there.

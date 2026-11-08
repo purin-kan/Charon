@@ -6,6 +6,25 @@ export function showsLore(kind) {
   return kind === 'new';
 }
 
+/** How a run is entered: 'lore' plays the intro first (New game), 'direct' starts at once (Continue). */
+export function entryPlan(kind) {
+  return showsLore(kind) ? 'lore' : 'direct';
+}
+
+const QUIET_KEYS = new Set(['Alt', 'AltGraph', 'Control', 'Shift', 'Meta', 'OS', 'CapsLock', 'NumLock', 'ScrollLock', 'Tab']);
+
+/**
+ * Whether a keydown moves the lore to the next screen. Repeats, modifier keys on their own, keys held
+ * with Ctrl, Alt or Meta (Alt+Tab, shortcuts) and the F-keys (F2 dev tools, F11, F12) do not.
+ * @param {{key?:string, repeat?:boolean, ctrlKey?:boolean, altKey?:boolean, metaKey?:boolean}} e
+ */
+export function advancesLore(e) {
+  if (!e || e.repeat || e.ctrlKey || e.altKey || e.metaKey) return false;
+  const key = e.key ?? '';
+  if (QUIET_KEYS.has(key) || /^F\d{1,2}$/.test(key)) return false;
+  return true;
+}
+
 /**
  * The screens from the scene text (lore.screens), as arrays of lines. Blank lines and empty screens
  * are dropped, so a missing or broken table gives no screens and the run starts at once.
