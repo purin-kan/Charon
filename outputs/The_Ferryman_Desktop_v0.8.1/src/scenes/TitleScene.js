@@ -87,7 +87,7 @@ export class TitleScene extends Phaser.Scene {
     const title = this.add.text(width / 2, 170, t('title.heading'), headText(tune('title.fontSize'), CSS.gold)).setOrigin(0.5).setDepth(UI_DEPTH).setAlpha(0);
     title.setLetterSpacing(tune('title.startSpacing'));
     const reveal = { spacing: tune('title.startSpacing') };
-    this.tweens.add({
+    this.revealTween = this.tweens.add({
       targets: reveal,
       spacing: tune('title.endSpacing'),
       duration: tune('title.revealMs'),
@@ -224,6 +224,10 @@ export class TitleScene extends Phaser.Scene {
     skip.on('pointerdown', () => this.skipLore());
     fadeInParts(this, lore.frame, MS.base);
     if (this.dialog) this.closeDialog();
+    // The title reveal and the menu's delayed fade-ins may still be running; stop them before the
+    // parts they touch are destroyed.
+    this.revealTween?.remove();
+    this.tweens.killTweensOf(this.menuParts);
     fadeOutParts(this, this.menuParts, () => {
       if (this.lore === lore) this.runLore(seq.start());
     }, MS.base);
