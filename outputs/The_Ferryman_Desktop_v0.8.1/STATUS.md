@@ -1,5 +1,26 @@
 # STATUS, Scaffold A (Oct 31, 2026)
 
+## Submitted build: v1.1.1 submission zip on Windows (Nov 9, 2026)
+
+The work was submitted on Nov 9 as `The_Ferryman_v1.1.1_Submission.zip` (README, `Playable/`, `Source/`), made by SupaOhm with `tools/make-submission.mjs` from `main` at `58f106f` (version 1.1.1) on macOS and attached to the release `v1.1.1`. purin-kan's Claude Code session downloaded it from that release and tested it on purin-kan's Windows 11 Pro PC (#66).
+
+| Check | Command or method | Result |
+|---|---|---|
+| Zip matches the release | `Get-FileHash` | SHA-256 `C6682612CC65F8ECBA07B0CE9CD99086C26BFF04E78090BAFD19C8A5AD638786`, as in the release notes |
+| Exe version | exe file details | ProductVersion and FileVersion 1.1.1 |
+| `Playable/` complete | file list compared with the Windows-built v1.1.1 zip | same 73 files |
+| `Source/` matches `main` | git blob hashes against `58f106f` | 169 of 172 files identical; `package.json` drops the `check` and `fixtures` scripts, `CREDITS.md` is the final one from `submission-v1.1.1`, `README.md` is `tools/submission/README.md`. Tests, test receipts, `STATUS.md` and `assets/source-art/` are left out on purpose, so the 128-seed test the slides cite is in the repo, not the zip |
+| Title screen | exe over its debug port, `FERRY_QA=subtest`, screenshots read | title, art and fonts at 1280 x 720; 0 errors |
+| New game story, Esc skips | click New game, Esc | story screen with "Esc to skip"; Esc starts cycle 1 boarding with 7 Light |
+| One full cycle | drag boarding, forks, Delivery, return | 3 souls, 4 forks: Tartarus cost 2 Light, Mother and Child gave Passenger and Light, the off-wish drop showed "Light 5 → 4", the return gave +2; cycle 2 boarding at 6/7 Light; 0 errors |
+| Continue after closing | window close, relaunch | title shows "Continue, Cycle 2 · Light 6/7"; Continue restores the shore and both memories without the story |
+
+| Check | Who | Result |
+|---|---|---|
+| Hearing the sound | person with speakers | NOT_RUN |
+| SmartScreen on a downloaded copy | second PC | NOT_RUN |
+| Played by a person | human | NOT_RUN |
+
 ## Lore intro after New game (branch `sfx-volume`, Nov 8, 2026)
 
 New game now plays five short lore screens (`lore.screens` in `src/data/scene-text.json`) before the run; Continue does not. Each screen fades in line by line, holds, and fades out; a click or a plain key moves on, Esc starts the run (no Skip button; the only hint on screen is "Esc to skip", at the bottom). Lone modifier keys (Alt+Tab), Ctrl/Alt/Meta chords, F-keys and held-key repeats do not move it on (`advancesLore` in `src/scenes/lore-layout.js`).
